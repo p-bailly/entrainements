@@ -13,42 +13,12 @@
     2. Généralités sur les suites : cours, capacités 1 à 6, méthode du sens de variation
        et fiche d'exercices.
   Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
-  Fichier autonome : à déposer tel quel sur un hébergement (lien Pronote) ou à ouvrir
-  directement dans un navigateur. Aucune bibliothèque externe (seules les polices
-  Google Fonts sont chargées ; sans réseau, les polices de secours prennent le relais).
-  Publié pour les élèves sur GitHub Pages :
-    https://p-bailly.github.io/entrainements/premiere/02-generalites-suites.html
-  (dépôt public p-bailly/entrainements, distinct du dépôt privé des cours) : après chaque
-  modification, recopier ce fichier sous premiere/02-generalites-suites.html dans ce dépôt.
 
-  Pour modifier les questions : la liste QUIZ.questions, dans le script en bas du fichier.
-  Chaque question est soit
-    { partie, theme, type: "vf",  enonce, bonne: true|false, explication, revoir }
-  soit
-    { partie, theme, type: "qcm", enonce, choix: [ ... ], bonne: indice de la bonne réponse (0 = premier choix), explication, revoir }
-  partie : 0 ou 1, rang de la partie dans QUIZ.parties. theme : le mot affiché après le numéro.
-  revoir (facultatif) : ce qu'il faut reprendre en cas d'erreur (capacité du cours, exercice de la
-  fiche). Les choix d'un QCM sont mélangés à chaque essai, sauf si la question porte fixe: true.
-  explication : un texte, ou une liste de blocs [ phrase, calcul(...), figure, phrase ]. Seulement
-  la solution : ni mise en garde, ni commentaire sur les mauvaises réponses. Une phrase
-  courte par bloc ; les calculs en colonne avec calcul(r`A & = ...`, r`& = ...`), une étape par
-  ligne, alignées sur le signe placé après & ; un seul résultat encadré par question, avec
-  \resultat{...} dans une formule ou <span class="resultat">...</span> dans une phrase.
-  Les textes sont écrits entre r`...` (HTML autorisé) ; les formules entre $...$ avec un petit
-  sous-ensemble de LaTeX : _{...}, ^{...}, \frac{}{} ou \dfrac{}{}, \times, \dots, \ne, \le, \ge,
-  \approx, \in, \R, \mapsto, \mathscr{C}, \text{...}, \sqrt{...}, \, (espace fine), {,} (virgule
-  décimale), \% , \mul{...} (en violet : facteur qui met des fractions au même dénominateur
-  ou qui les simplifie, par exemple \dfrac{3 \mul{\times 4}}{5 \mul{\times 4}}), \op{...} (en rouge :
-  opération faite des deux côtés, par exemple 2x + 9 \op{- 9} = -1 \op{- 9}). Un seul piège : ne jamais écrire le signe dollar suivi d'une accolade ouvrante.
-
-  Figures : repere({xmin, xmax, ymin, ymax, label, courbes, noms, lectures, textes, points,
-  surligne}) trace un repère orthonormé quadrillé (détail des options devant la fonction).
-  Style des graphiques du cours : courbe rouge, lectures en tirets verts, solutions surlignées
-  en orange. Un nuage de points de suite : repere({..., points}) sans courbe. Feuille de
-  calcul : tableur([[A1, B1], [A2, B2], ...], label), la cellule '#sel' étant sélectionnée.
-
-  Vue corrigé (toutes les questions avec leurs réponses) : ouvrir le fichier avec ?corrige
-  à la fin de l'adresse.
+  Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
+  entrainement-02-generalites-suites-questions.js (même dossier) ; moteur et mise en page :
+  Commun aux cours/entrainement/gabarit.html (format des questions en tête).
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/premiere/02-generalites-suites.html
+  (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -303,8 +273,6 @@ function repere(o) {
   });
   return s + '</svg>';
 }
-const cubique = x => x * (x + 3) * (x - 2) / 4;   // courbe de la question sur les antécédents
-
 // Feuille de calcul (question sur le tableur) : lignes = [[A, B], ...] à partir de la ligne 1 ;
 // la cellule '#sel' est la cellule sélectionnée, laissée vide.
 function tableur(lignes, label) {
@@ -325,10 +293,11 @@ function calcul(...lignes) {
   }).join('') + '</div>';
 }
 
-/* ---------- Les questions ---------- */
+/* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
+const cubique = x => x * (x + 3) * (x - 2) / 4;   // courbe de la question sur les antécédents
+
 const QUIZ = {
   id: '1re-02-generalites-suites-entrainement',
-  titre: 'Entraînement Évaluation généralités sur les suites',
   parties: ['Automatismes', 'Généralités sur les suites'],
   questions: [
 
