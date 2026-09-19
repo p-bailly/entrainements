@@ -36,7 +36,8 @@
   sous-ensemble de LaTeX : _{...}, ^{...}, \frac{}{} ou \dfrac{}{}, \times, \dots, \ne, \le, \ge,
   \approx, \in, \R, \mapsto, \mathscr{C}, \text{...}, \sqrt{...}, \, (espace fine), {,} (virgule
   décimale), \% , \mul{...} (en violet : facteur qui met des fractions au même dénominateur
-  ou qui les simplifie, par exemple \dfrac{3 \mul{\times 4}}{5 \mul{\times 4}}). Un seul piège : ne jamais écrire le signe dollar suivi d'une accolade ouvrante.
+  ou qui les simplifie, par exemple \dfrac{3 \mul{\times 4}}{5 \mul{\times 4}}), \op{...} (en rouge :
+  opération faite des deux côtés, par exemple 2x + 9 \op{- 9} = -1 \op{- 9}). Un seul piège : ne jamais écrire le signe dollar suivi d'une accolade ouvrante.
 
   Figures : repere({xmin, xmax, ymin, ymax, label, courbes, noms, lectures, textes, points,
   surligne}) trace un repère orthonormé quadrillé (détail des options devant la fonction).
@@ -70,6 +71,8 @@ body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 v
 
 /* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
 .mul{color:#9C27B0}
+/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
+.op{color:var(--rouge)}
 
 /* En-tête de la copie */
 .entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
@@ -85,6 +88,11 @@ h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
 .grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
 .grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
 .grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
+.grille-reponses td[data-q]{cursor:pointer}
+.grille-reponses td.ici{background:var(--filet-clair)}
+.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
+.grille-reponses button.aller:hover{text-decoration:underline}
+.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
 .grille-reponses td.juste{color:var(--vert)}
 .grille-reponses td.erreur{color:var(--rouge)}
 
@@ -334,7 +342,7 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`Chercher l'antécédent de $-1$, c'est résoudre l'équation $f(x) = -1$.`,
-      calcul(r`f(x) = -1 & \iff 2x + 9 = -1`, r`& \iff 2x = -10`, r`& \iff \resultat{x = -5}`)],
+      calcul(r`f(x) = -1 & \iff 2x + 9 = -1`, r`& \iff 2x + 9 \op{- 9} = -1 \op{- 9}`, r`& \iff 2x = -10`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{-10}{\op{2}}`, r`& \iff \resultat{x = -5}`)],
     revoir: r`gamme 1 des automatismes (manuel p.&nbsp;48)` },
 
   { partie: 0, theme: 'Équation, lecture graphique', type: 'qcm',
@@ -468,7 +476,7 @@ const QUIZ = {
       r`<b>Calcul de $a$.</b>`,
       calcul(r`a & = \dfrac{f(1) - f(-2)}{1 - (-2)}`, r`& = \dfrac{10 - 1}{1 + 2}`, r`& = \dfrac{9}{3}`, r`& = 3`),
       r`<b>Calcul de $b$.</b> On utilise $f(1) = 10$.`,
-      calcul(r`f(1) = 10 & \iff 3 \times 1 + b = 10`, r`& \iff b = 7`),
+      calcul(r`f(1) = 10 & \iff 3 \times 1 + b = 10`, r`& \iff 3 + b \op{- 3} = 10 \op{- 3}`, r`& \iff b = 7`),
       r`Donc <span class="resultat">$f(x) = 3x + 7$</span>. Vérification&nbsp;: $f(-2) = 3 \times (-2) + 7 = 1$.`],
     revoir: r`capacité 3 du cours, exercice 3 de la fiche` },
 
@@ -488,7 +496,7 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`La carte est strictement plus avantageuse quand $f(x) < g(x)$.`,
-      calcul(r`f(x) < g(x) & \iff 5x + 36 < 9x`, r`& \iff 36 < 4x`, r`& \iff x > 9`),
+      calcul(r`f(x) < g(x) & \iff 5x + 36 < 9x`, r`& \iff 5x + 36 \op{- 5x} < 9x \op{- 5x}`, r`& \iff 36 < 4x`, r`& \iff \dfrac{36}{\op{4}} < \dfrac{4x}{\op{4}}`, r`& \iff 9 < x`),
       r`Le nombre de parties est entier&nbsp;: la carte est strictement plus avantageuse <span class="resultat">à partir de $10$ parties</span>.`],
     revoir: r`capacité 4 du cours, exercice 4 de la fiche` }
   ]
@@ -541,6 +549,7 @@ function math(s) {
       if (nom === 'mathscr') return `<i>${raw()}</i>`;
       if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
       if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
+      if (nom === 'op') return `<span class="op">${arg()}</span>`;
       if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
       return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
     }
@@ -618,9 +627,9 @@ function rendreProgression() {
     let nums = '', marques = '';
     rangs.forEach(i => {
       const rep = etat.reponses[i];
-      nums += `<td>${i + 1}</td>`;
-      if (rep) marques += `<td class="${rep.ok ? 'juste' : 'erreur'}"><span class="marque ${rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`;
-      else marques += `<td class="${i === etat.courant ? 'courant' : ''}"></td>`;
+      nums += `<td class="${i === etat.courant ? 'ici' : ''}"><button type="button" class="aller" data-q="${i}" aria-label="Aller à la question ${i + 1}">${i + 1}</button></td>`;
+      if (rep) marques += `<td class="${rep.ok ? 'juste' : 'erreur'}${i === etat.courant ? ' courant' : ''}" data-q="${i}"><span class="marque ${rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`;
+      else marques += `<td class="${i === etat.courant ? 'courant' : ''}" data-q="${i}"></td>`;
     });
     return `<div class="bloc-grille"><p class="nom-partie">${nomPartie(p)}</p>
       <table class="grille-reponses" aria-label="${nomPartie(p)} : ${faites} question${faites > 1 ? 's' : ''} sur ${rangs.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
@@ -708,6 +717,15 @@ function valider() {
   if (suivantBtn) suivantBtn.focus({ preventScroll: true });
   const correction = $('.correction');
   if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
+}
+
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question.
+function aller(i) {
+  etat.courant = i;
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
 }
 
 function suivant() {
@@ -819,6 +837,10 @@ function rendreCorrige() {
 
 /* ---------- Démarrage ---------- */
 $('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+zoneProg.addEventListener('click', e => {
+  const cible = e.target.closest('[data-q]');
+  if (cible) aller(Number(cible.dataset.q));
+});
 rendre();
 })();
 </script>

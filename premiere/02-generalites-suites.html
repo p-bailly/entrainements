@@ -38,7 +38,8 @@
   sous-ensemble de LaTeX : _{...}, ^{...}, \frac{}{} ou \dfrac{}{}, \times, \dots, \ne, \le, \ge,
   \approx, \in, \R, \mapsto, \mathscr{C}, \text{...}, \sqrt{...}, \, (espace fine), {,} (virgule
   décimale), \% , \mul{...} (en violet : facteur qui met des fractions au même dénominateur
-  ou qui les simplifie, par exemple \dfrac{3 \mul{\times 4}}{5 \mul{\times 4}}). Un seul piège : ne jamais écrire le signe dollar suivi d'une accolade ouvrante.
+  ou qui les simplifie, par exemple \dfrac{3 \mul{\times 4}}{5 \mul{\times 4}}), \op{...} (en rouge :
+  opération faite des deux côtés, par exemple 2x + 9 \op{- 9} = -1 \op{- 9}). Un seul piège : ne jamais écrire le signe dollar suivi d'une accolade ouvrante.
 
   Figures : repere({xmin, xmax, ymin, ymax, label, courbes, noms, lectures, textes, points,
   surligne}) trace un repère orthonormé quadrillé (détail des options devant la fonction).
@@ -73,6 +74,8 @@ body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 v
 
 /* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
 .mul{color:#9C27B0}
+/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
+.op{color:var(--rouge)}
 
 /* En-tête de la copie */
 .entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
@@ -88,6 +91,11 @@ h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
 .grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
 .grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
 .grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
+.grille-reponses td[data-q]{cursor:pointer}
+.grille-reponses td.ici{background:var(--filet-clair)}
+.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
+.grille-reponses button.aller:hover{text-decoration:underline}
+.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
 .grille-reponses td.juste{color:var(--vert)}
 .grille-reponses td.erreur{color:var(--rouge)}
 
@@ -349,8 +357,8 @@ const QUIZ = {
     choix: [r`$\dfrac{U^{2}}{P}$`, r`$U^{2}P$`, r`$\dfrac{P}{U^{2}}$`, r`$U^{2} - P$`],
     bonne: 0,
     explication: [
-      r`On multiplie les deux membres par $R$, puis on divise par $P$.`,
-      calcul(r`P = \dfrac{U^{2}}{R} & \iff PR = U^{2}`, r`& \iff \resultat{R = \dfrac{U^{2}}{P}}`)],
+      r`On multiplie les deux membres par $R$, puis on les divise par $P$.`,
+      calcul(r`P = \dfrac{U^{2}}{R} & \iff P \op{\times R} = \dfrac{U^{2}}{R} \op{\times R}`, r`& \iff PR = U^{2}`, r`& \iff \dfrac{PR}{\op{P}} = \dfrac{U^{2}}{\op{P}}`, r`& \iff \resultat{R = \dfrac{U^{2}}{P}}`)],
     revoir: r`gamme 1 des automatismes (manuel p.&nbsp;70)` },
 
   { partie: 0, theme: 'Antécédents, lecture graphique', type: 'qcm',
@@ -412,7 +420,9 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`On cherche l'entier naturel $n$ tel que $v_{n} = 81$.`,
-      calcul(r`(n + 2)^{2} = 81 & \iff n + 2 = 9 \text{ (car } n + 2 > 0\text{)}`, r`& \iff \resultat{n = 7}`)],
+      r`Deux nombres ont pour carré $81$&nbsp;: $\sqrt{81} = 9$ et $-\sqrt{81} = -9$.`,
+      calcul(r`(n + 2)^{2} = 81 & \iff n + 2 = \sqrt{81} \text{ ou } n + 2 = -\sqrt{81}`, r`& \iff n + 2 = 9 \text{ ou } n + 2 = -9`, r`& \iff n = 7 \text{ ou } n = -11`),
+      r`$n$ est un entier naturel, donc $-11$ ne convient pas&nbsp;: <span class="resultat">$n = 7$</span>.`],
     revoir: r`capacité 2 du cours, exercice 1 de la fiche` },
 
   { partie: 1, theme: 'Nuage de points', type: 'qcm',
@@ -433,7 +443,8 @@ const QUIZ = {
     choix: [r`$n = 66$`, r`$n = 65$`, r`$n = 67$`, r`$n = 195$`],
     bonne: 0,
     explication: [
-      calcul(r`5 + 3n > 200 & \iff 3n > 195`, r`& \iff n > 65`),
+      r`On soustrait $5$ de chaque côté, puis on divise chaque côté par $3$, qui est positif.`,
+      calcul(r`5 + 3n > 200 & \iff 5 + 3n \op{- 5} > 200 \op{- 5}`, r`& \iff 3n > 195`, r`& \iff \dfrac{3n}{\op{3}} > \dfrac{195}{\op{3}}`, r`& \iff n > 65`),
       r`$n$ est un entier&nbsp;: c'est vrai <span class="resultat">à partir de $n = 66$</span>.`],
     revoir: r`capacité 3 du cours, exercice 2 de la fiche` },
 
@@ -533,6 +544,7 @@ function math(s) {
       if (nom === 'mathscr') return `<i>${raw()}</i>`;
       if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
       if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
+      if (nom === 'op') return `<span class="op">${arg()}</span>`;
       if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
       return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
     }
@@ -610,9 +622,9 @@ function rendreProgression() {
     let nums = '', marques = '';
     rangs.forEach(i => {
       const rep = etat.reponses[i];
-      nums += `<td>${i + 1}</td>`;
-      if (rep) marques += `<td class="${rep.ok ? 'juste' : 'erreur'}"><span class="marque ${rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`;
-      else marques += `<td class="${i === etat.courant ? 'courant' : ''}"></td>`;
+      nums += `<td class="${i === etat.courant ? 'ici' : ''}"><button type="button" class="aller" data-q="${i}" aria-label="Aller à la question ${i + 1}">${i + 1}</button></td>`;
+      if (rep) marques += `<td class="${rep.ok ? 'juste' : 'erreur'}${i === etat.courant ? ' courant' : ''}" data-q="${i}"><span class="marque ${rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`;
+      else marques += `<td class="${i === etat.courant ? 'courant' : ''}" data-q="${i}"></td>`;
     });
     return `<div class="bloc-grille"><p class="nom-partie">${nomPartie(p)}</p>
       <table class="grille-reponses" aria-label="${nomPartie(p)} : ${faites} question${faites > 1 ? 's' : ''} sur ${rangs.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
@@ -700,6 +712,15 @@ function valider() {
   if (suivantBtn) suivantBtn.focus({ preventScroll: true });
   const correction = $('.correction');
   if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
+}
+
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question.
+function aller(i) {
+  etat.courant = i;
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
 }
 
 function suivant() {
@@ -811,6 +832,10 @@ function rendreCorrige() {
 
 /* ---------- Démarrage ---------- */
 $('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+zoneProg.addEventListener('click', e => {
+  const cible = e.target.closest('[data-q]');
+  if (cible) aller(Number(cible.dataset.q));
+});
 rendre();
 })();
 </script>
