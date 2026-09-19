@@ -1,0 +1,755 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement Évaluation fonction exponentielle</title>
+<!--
+  Entraînement auto-corrigé à l'évaluation du chapitre 3 (Fonction exponentielle, rappels) -
+  Terminale, mathématiques complémentaires. Une seule partie, dix questions, sans
+  automatismes (demande du professeur) : définition, règles de calcul, capacités 1 à 4,
+  méthode d'étude d'une fonction x -> a e^x + bx + c et fiche d'exercices.
+  Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
+  Seulement ce que le chapitre revoit : ni logarithme, ni limite, ni dérivée de e^(kx).
+
+  Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
+  entrainement-03-exponentielle-rappels-questions.js (même dossier) ; moteur et mise en page :
+  Commun aux cours/entrainement/gabarit.html (format des questions en tête).
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/terminale/03-exponentielle-rappels.html
+  (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&display=swap">
+<style>
+:root{
+  --papier:#FCFBF7; --encre:#161616; --gris:#6B6A66; --filet:#C4BFB3; --filet-clair:#E4E0D6; --case:#F0EDE5;
+  --stylo:#1E3D96; --rouge:#CE2029; --vert:#2A7A36; --orange:#E8940A; --violet:#7A3E9D;
+  --serif:"Old Standard TT","Times New Roman",Times,serif;
+  --main:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --mono:ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 var(--serif); min-height:100vh}
+.feuille{max-width:720px; margin:0 auto; padding:34px 40px 60px}
+
+/* Retour à la liste des entraînements */
+.retour{margin:0 0 14px; font-size:.95rem}
+.retour a{color:var(--stylo); text-decoration:none; border-bottom:1px solid var(--filet)}
+.retour a:hover,.retour a:focus-visible{border-bottom-color:var(--stylo)}
+
+/* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
+.mul{color:#9C27B0}
+/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
+.op{color:var(--rouge)}
+
+/* En-tête de la copie */
+.entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
+h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
+.consigne{margin:0 0 12px; font-style:italic}
+.filet{height:4px; border-top:1px solid var(--encre); border-bottom:1px solid var(--encre); margin:8px 0 20px}
+
+/* Grilles de réponses, une par partie */
+.progression{display:flex; flex-wrap:wrap; gap:10px 28px; margin:0 0 24px; scroll-margin-top:12px}
+.bloc-grille{max-width:100%; overflow-x:auto}
+.nom-partie{margin:0 0 3px; font-style:italic; font-size:.9rem; white-space:nowrap}
+.grille-reponses{border-collapse:collapse; font-size:.9rem}
+.grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
+.grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
+.grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
+.grille-reponses td[data-q]{cursor:pointer}
+.grille-reponses td.ici{background:var(--filet-clair)}
+.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
+.grille-reponses button.aller:hover{text-decoration:underline}
+.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
+.grille-reponses td.juste{color:var(--vert)}
+.grille-reponses td.erreur{color:var(--rouge)}
+
+/* Marques au stylo : croix et coche dessinées en CSS */
+.marque{position:relative; display:inline-block; width:18px; height:18px; vertical-align:-4px; color:inherit}
+.marque::before,.marque::after{content:""; position:absolute; width:2px; background:currentColor; border-radius:1px; display:none}
+.marque.croix::before,.marque.croix::after{display:block; left:8px; top:-2px; height:22px}
+.marque.croix::before{transform:rotate(43deg)}
+.marque.croix::after{transform:rotate(-47deg)}
+.marque.coche::before,.marque.coche::after{display:block}
+.marque.coche::before{left:3px; top:8px; height:8px; transform:rotate(-42deg)}
+.marque.coche::after{left:10px; top:-2px; height:20px; transform:rotate(38deg)}
+
+/* Question et réponses */
+.partie{margin:0 0 2px; font-variant:small-caps; letter-spacing:.03em}
+.question{margin:0 0 6px}
+.question i{color:var(--gris)}
+.enonce{margin:0 0 14px}
+.reponses{display:grid; gap:2px; margin:0 0 18px}
+.reponses.vf{display:flex; gap:12px 40px; flex-wrap:wrap}
+.choix{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; padding:5px 4px; border:0; border-radius:0; background:transparent; color:var(--encre); font:inherit; line-height:1.45; cursor:pointer}
+.reponses.vf .choix{width:auto; padding-right:12px}
+.choix:disabled{cursor:default}
+.choix .boite{flex:none; position:relative; width:18px; height:18px; margin-top:5px; border:1px solid var(--encre); background:var(--papier)}
+.choix .boite .marque{position:absolute; left:-1px; top:-1px}
+.choix:hover:not(:disabled) .boite{box-shadow:0 0 0 1px var(--encre)}
+.choix .lettre{flex:none; width:1.3em; color:var(--gris)}
+.choix .texte{flex:1; min-width:0}
+.choix.choisi .marque{color:var(--stylo)}
+.choix.juste .marque{color:var(--vert)}
+.choix.erreur .marque{color:var(--rouge)}
+.choix.terne{color:var(--gris)}
+.actions{display:flex; gap:12px 18px; flex-wrap:wrap; align-items:center}
+.bouton{font:inherit; font-variant:small-caps; letter-spacing:.04em; font-size:1rem; padding:5px 18px; border:1px solid var(--encre); border-radius:0; background:var(--papier); color:var(--encre); cursor:pointer}
+.bouton:hover:not(:disabled){background:var(--encre); color:var(--papier)}
+.bouton:disabled{opacity:.4; cursor:default}
+.bouton.discret{border-color:var(--filet)}
+
+/* Correction du professeur */
+.correction{margin:20px 0 0; padding:2px 0 2px 16px; border-left:2px solid var(--rouge)}
+.correction.juste{border-left-color:var(--vert)}
+.verdict{font:600 1.7rem/1.1 var(--main); color:var(--rouge); margin:0 0 6px}
+.correction.juste .verdict{color:var(--vert)}
+.explication{margin:0; font-size:1rem; line-height:1.55}
+.explication p{margin:0 0 .55em}
+.explication p:last-child{margin-bottom:0}
+.explication .revoir{font-style:italic; color:var(--gris)}
+.explication .fig{margin:8px auto 12px}
+/* Calcul en colonne : une étape par ligne, alignées sur le signe = ou ⇔ (comme dans les PDF) */
+.calcul{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.45em .4em; align-items:baseline; margin:.5em 0 .8em 1.4em; overflow-x:auto}
+.calcul .g{justify-self:end}
+.resultat{display:inline-block; border:1px solid currentColor; padding:.05em .4em; line-height:1.35}
+code{font-family:var(--mono); font-size:.88em}
+
+/* Figures dans les énoncés et les corrections */
+.fig{display:block; width:100%; height:auto; margin:12px auto 4px}
+.fig .grille{stroke:var(--filet); stroke-width:.7; fill:none}
+.fig .axe{stroke:var(--encre); stroke-width:1.1; fill:none}
+.fig .fleche{fill:var(--encre)}
+.fig .tick{font:10.5px var(--serif); fill:var(--encre); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .courbe{stroke:currentColor; stroke-width:2.2; fill:none}
+.fig .lab{font:italic 13px var(--serif); fill:currentColor; paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .pt{fill:currentColor}
+.fig .lecture{stroke:var(--vert); stroke-width:1.5; stroke-dasharray:5 3; fill:none}
+.fig .pointe{fill:var(--vert)}
+.fig .note{font:italic 11.5px var(--serif); fill:var(--vert); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .surligne{stroke:var(--orange); stroke-width:9; opacity:.6; fill:none}
+.fig .c-rouge{color:var(--rouge)}
+.fig .c-bleu{color:var(--stylo)}
+.fig .c-noir{color:var(--encre)}
+.fig .c-violet{color:var(--violet)}
+
+/* Résultat */
+.note{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:6px 0 2px; color:var(--rouge)}
+.note .grand{font:700 3.6rem/1 var(--main)}
+.note .sur{font:400 1.5rem/1 var(--main)}
+.appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
+.bilan-parties{margin:0 0 6px}
+.bilan-parties span{white-space:nowrap}
+.a-revoir{margin:0 0 16px}
+.a-revoir ul{margin:4px 0 0; padding-left:1.3em}
+.titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
+.revue{list-style:none; padding:0; margin:8px 0 0; border-top:1px solid var(--encre)}
+.revue li{padding:14px 0; border-bottom:1px solid var(--filet)}
+.revue .enonce{margin-bottom:10px}
+.revue .bilan{margin:6px 0 8px; font-style:italic}
+.revue li.juste .bilan{color:var(--vert)}
+.revue li.erreur .bilan{color:var(--rouge)}
+.revue .explication{font-size:1rem}
+.liste-choix{margin:0 0 8px; padding-left:1.6em}
+.liste-choix li{border:0; padding:1px 0}
+.liste-choix li.bonne{color:var(--vert)}
+.pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
+.pied p{margin:0 0 4px}
+.pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
+
+/* Formules */
+.m{font-family:var(--serif); white-space:nowrap}
+.m.m-long{white-space:normal}
+.m i{font-style:italic}
+.m .rm{font-style:normal}
+.m sub,.m sup{font-size:.72em; line-height:0}
+.m sub{vertical-align:-.25em}
+.m sup{vertical-align:.55em}
+.frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; font-size:.92em; line-height:1.2; margin:0 .15em}
+.frac .num{border-bottom:1px solid currentColor; padding:0 .25em .04em}
+.frac .den{padding:.04em .25em 0}
+.sqrt .rad{border-top:1px solid currentColor; padding:0 .12em}
+
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important; scroll-behavior:auto !important}}
+@media (max-width:520px){
+  body{font-size:17px}
+  .feuille{padding:22px 16px 48px}
+  .entete{font-size:.9rem}
+  h1{font-size:1.7rem}
+  .reponses.vf{gap:8px 24px}
+}
+@media print{
+  .actions,.pied,.progression{display:none}
+  .revue li{break-inside:avoid}
+}
+/* Feuille de calcul */
+table.tableur{border-collapse:collapse; margin:10px auto 4px; font:400 .88rem "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+table.tableur th{background:var(--case); color:var(--gris); font-weight:400; border:1px solid var(--filet); padding:2px 10px; text-align:center; min-width:2.2em}
+table.tableur td{border:1px solid var(--filet); padding:2px 10px; min-width:5em; height:1.9em; background:#FFFFFF; text-align:center}
+table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
+</style>
+</head>
+<body>
+<main class="feuille">
+  <header>
+    <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
+    <div class="entete"><span>Terminale · Mathématiques complémentaires</span><span>M. Bailly</span><span>Chapitre 3 · Fonction exponentielle, rappels</span></div>
+    <h1>Entraînement Évaluation fonction exponentielle</h1>
+    <p class="consigne">Dix questions sur la fonction exponentielle. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="filet" role="presentation"></div>
+  </header>
+  <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
+  <section id="quiz" aria-live="polite"></section>
+  <footer class="pied">
+    <p><button type="button" id="reinitialiser">Recommencer depuis le début</button></p>
+  </footer>
+</main>
+<script>
+(function () {
+'use strict';
+const r = String.raw;
+
+/* ---------- Figures (SVG généré) ---------- */
+const arrondi = x => Math.round(x * 10) / 10;
+const fr = x => String(x).replace('.', ',');
+const moins = n => String(n).replace('-', '−');
+function fleche(x, y, sens) {
+  return sens === 'droite'
+    ? `<path class="fleche" d="M${x} ${y} l-7 -3.5 v7 z"/>`
+    : `<path class="fleche" d="M${x} ${y} l-3.5 7 h7 z"/>`;
+}
+// Repère orthonormé quadrillé et gradué de 1 en 1. o = {xmin, xmax, ymin, ymax, label, echelle} et, au choix :
+//   courbes  : [{f: x => ..., classe, x1, x2}]        classe = c-rouge (défaut), c-bleu, c-noir, c-violet
+//   noms     : [{x, y, texte, indice, apres, classe, ancre}]   nom d'une courbe, dans sa couleur
+//   lectures : [[[x, y], [x, y], ...], ...]            lignes de lecture en tirets verts, flèche au bout
+//   textes   : [{x, y, texte, ancre}]                  annotations vertes des lectures (+1, +3...)
+//   points   : [{x, y, classe}]
+//   surligne : {x1, x2}                                partie de l'axe des abscisses surlignée en orange (null = bord du repère)
+let numeroFigure = 0;
+function repere(o) {
+  const u = 26, m = 17;
+  const W = (o.xmax - o.xmin) * u + 2 * m, H = (o.ymax - o.ymin) * u + 2 * m;
+  const X = x => arrondi(m + (x - o.xmin) * u), Y = y => arrondi(m + (o.ymax - y) * u);
+  const cadre = 'cadre-' + (++numeroFigure);
+  const xfin = X(o.xmax) + 12, yhaut = Y(o.ymax) - 12;
+  let s = `<svg class="fig" viewBox="0 0 ${W} ${H}" style="max-width:${Math.round(W * (o.echelle || 1.3))}px" role="img" aria-label="${o.label}">`;
+  s += `<defs><clipPath id="${cadre}"><rect x="${X(o.xmin)}" y="${Y(o.ymax)}" width="${(o.xmax - o.xmin) * u}" height="${(o.ymax - o.ymin) * u}"/></clipPath></defs>`;
+  for (let x = o.xmin; x <= o.xmax; x++) s += `<line class="grille" x1="${X(x)}" y1="${Y(o.ymin)}" x2="${X(x)}" y2="${Y(o.ymax)}"/>`;
+  for (let y = o.ymin; y <= o.ymax; y++) s += `<line class="grille" x1="${X(o.xmin)}" y1="${Y(y)}" x2="${X(o.xmax)}" y2="${Y(y)}"/>`;
+  if (o.surligne) {
+    const x1 = o.surligne.x1 === null ? o.xmin : o.surligne.x1, x2 = o.surligne.x2 === null ? o.xmax : o.surligne.x2;
+    s += `<line class="surligne" x1="${X(x1)}" y1="${Y(0)}" x2="${X(x2)}" y2="${Y(0)}"/>`;
+  }
+  s += `<line class="axe" x1="${X(o.xmin)}" y1="${Y(0)}" x2="${xfin}" y2="${Y(0)}"/>${fleche(xfin, Y(0), 'droite')}`;
+  s += `<line class="axe" x1="${X(0)}" y1="${Y(o.ymin)}" x2="${X(0)}" y2="${yhaut}"/>${fleche(X(0), yhaut, 'haut')}`;
+  (o.courbes || []).forEach(c => {
+    const x1 = c.x1 === undefined ? o.xmin : c.x1, x2 = c.x2 === undefined ? o.xmax : c.x2, n = 80;
+    let d = '';
+    for (let k = 0; k <= n; k++) { const x = x1 + (x2 - x1) * k / n; d += (k ? ' L' : 'M') + X(x) + ' ' + Y(c.f(x)); }
+    s += `<path class="courbe ${c.classe || 'c-rouge'}" clip-path="url(#${cadre})" d="${d}"/>`;
+  });
+  (o.lectures || []).forEach(pts => {
+    const P = pts.map(p => [X(p[0]), Y(p[1])]);
+    const a = P[P.length - 2], b = P[P.length - 1];
+    const L = Math.hypot(b[0] - a[0], b[1] - a[1]), ux = (b[0] - a[0]) / L, uy = (b[1] - a[1]) / L;
+    s += `<polyline class="lecture" points="${P.map(p => p.join(',')).join(' ')}"/>`;
+    s += `<path class="pointe" d="M${b[0]} ${b[1]} L${arrondi(b[0] - 7 * ux + 3.2 * uy)} ${arrondi(b[1] - 7 * uy - 3.2 * ux)} L${arrondi(b[0] - 7 * ux - 3.2 * uy)} ${arrondi(b[1] - 7 * uy + 3.2 * ux)} z"/>`;
+  });
+  // Graduations sur fond papier, par-dessus les courbes et les lectures : elles restent lisibles.
+  for (let x = o.xmin; x <= o.xmax; x++) if (x !== 0) s += `<text class="tick" x="${X(x)}" y="${Y(0) + 13}" text-anchor="middle">${moins(x)}</text>`;
+  for (let y = o.ymin; y <= o.ymax; y++) if (y !== 0) s += `<text class="tick" x="${X(0) - 5}" y="${Y(y) + 3.5}" text-anchor="end">${moins(y)}</text>`;
+  s += `<text class="tick" x="${X(0) - 5}" y="${Y(0) + 13}" text-anchor="end">0</text>`;
+  (o.points || []).forEach(p => { s += `<circle class="pt ${p.classe || 'c-rouge'}" cx="${X(p.x)}" cy="${Y(p.y)}" r="3.3"/>`; });
+  (o.textes || []).forEach(t => { s += `<text class="note" x="${X(t.x)}" y="${Y(t.y)}" text-anchor="${t.ancre || 'middle'}">${t.texte}</text>`; });
+  (o.noms || []).forEach(n => {
+    const indice = n.indice ? `<tspan dy="3" font-size="9.5">${n.indice}</tspan>` + (n.apres ? `<tspan dy="-3">${n.apres}</tspan>` : '') : '';
+    s += `<text class="lab ${n.classe || 'c-rouge'}" x="${X(n.x)}" y="${Y(n.y)}" text-anchor="${n.ancre || 'start'}">${n.texte}${indice}</text>`;
+  });
+  return s + '</svg>';
+}
+// Feuille de calcul (question sur le tableur) : lignes = [[A, B], ...] à partir de la ligne 1 ;
+// la cellule '#sel' est la cellule sélectionnée, laissée vide.
+function tableur(lignes, label) {
+  const cellule = c => c === '#sel' ? '<td class="sel"></td>' : `<td>${c}</td>`;
+  return `<table class="tableur" aria-label="${label}"><tr><th></th><th>A</th><th>B</th></tr>`
+    + lignes.map((l, k) => `<tr><th>${k + 1}</th>${cellule(l[0])}${cellule(l[1])}</tr>`).join('')
+    + '</table>';
+}
+
+// Calcul en colonne, comme l'environnement calcul des PDF : une étape par ligne, alignées sur le
+// signe placé après & (formules écrites sans les dollars). Le résultat s'encadre avec \resultat{...}.
+//   calcul(r`A & = x - 4(3x + 2)`, r`& = x - 12x - 8`, r`& = \resultat{-11x - 8}`)
+function calcul(...lignes) {
+  return '<div class="calcul">' + lignes.map(l => {
+    const k = l.indexOf('&');
+    const gauche = k < 0 ? '' : l.slice(0, k).trim(), droite = (k < 0 ? l : l.slice(k + 1)).trim();
+    return '<span class="g">' + (gauche ? '$' + gauche + '$' : '') + '</span><span class="d">$' + droite + '$</span>';
+  }).join('') + '</div>';
+}
+
+/* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
+const QUIZ = {
+  id: 'tle-03-exponentielle-rappels-entrainement',
+  parties: ['Fonction exponentielle'],
+  questions: [
+
+  /* ----- Fonction exponentielle ----- */
+
+  { partie: 0, theme: 'Définition', type: 'qcm',
+    enonce: r`La fonction exponentielle est l'unique fonction $f$ dérivable sur $\R$ telle que&nbsp;:`,
+    choix: [r`$f' = f$ et $f(0) = 1$`, r`$f' = f$ et $f(0) = 0$`, r`$f' = f$ et $f(1) = 1$`, r`$f' = 1$ et $f(0) = 1$`],
+    bonne: 0,
+    explication: [
+      r`La fonction exponentielle est égale à sa dérivée et prend la valeur $1$ en $0$.`,
+      r`Pour tout réel $x$, $\mathrm{exp}'(x) = \mathrm{exp}(x)$ et $\mathrm{exp}(0) = 1$&nbsp;: c'est la condition <span class="resultat">$f' = f$ et $f(0) = 1$</span>.`],
+    revoir: r`définition de la fonction exponentielle (partie 1 du cours)` },
+
+  { partie: 0, theme: 'Règles de calcul', type: 'qcm',
+    enonce: r`Une seule de ces égalités est vraie pour tous réels $a$ et $b$. Laquelle&nbsp;?`,
+    choix: [r`$\mathrm{e}^{a} \times \mathrm{e}^{b} = \mathrm{e}^{a+b}$`, r`$\mathrm{e}^{a} + \mathrm{e}^{b} = \mathrm{e}^{a+b}$`, r`$\mathrm{e}^{a} \times \mathrm{e}^{b} = \mathrm{e}^{ab}$`, r`$\mathrm{e}^{-a} = -\mathrm{e}^{a}$`],
+    bonne: 0,
+    explication: [
+      r`C'est la relation fonctionnelle&nbsp;: pour tous réels $a$ et $b$, <span class="resultat">$\mathrm{e}^{a} \times \mathrm{e}^{b} = \mathrm{e}^{a+b}$</span>.`,
+      r`Par exemple, $\mathrm{e}^{2} \times \mathrm{e}^{3} = \mathrm{e}^{2 + 3} = \mathrm{e}^{5}$.`],
+    revoir: r`relation fonctionnelle et règles de calcul (parties 1 et 2 du cours)` },
+
+  { partie: 0, theme: 'Simplifier', type: 'qcm',
+    enonce: r`Pour tout réel $x$, $\dfrac{\mathrm{e}^{2x+3}}{\mathrm{e}^{x-1}}$ est égal à&nbsp;:`,
+    choix: [r`$\mathrm{e}^{x+4}$`, r`$\mathrm{e}^{x+2}$`, r`$\mathrm{e}^{3x+2}$`, r`$\mathrm{e}^{-x-4}$`],
+    bonne: 0,
+    explication: [
+      r`Pour diviser, on <b>soustrait</b> les exposants&nbsp;: $\dfrac{\mathrm{e}^{a}}{\mathrm{e}^{b}} = \mathrm{e}^{a-b}$.`,
+      r`L'exposant du dénominateur se met entre parenthèses.`,
+      calcul(r`\dfrac{\mathrm{e}^{2x+3}}{\mathrm{e}^{x-1}} & = \mathrm{e}^{2x + 3 - (x - 1)}`, r`& = \mathrm{e}^{2x + 3 - x + 1}`, r`& = \resultat{\mathrm{e}^{x+4}}`)],
+    revoir: r`capacité 1 du cours, exercice 1 de la fiche` },
+
+  { partie: 0, theme: 'Développer', type: 'qcm',
+    enonce: r`Pour tout réel $x$, on pose $B(x) = (\mathrm{e}^{x} - \mathrm{e}^{-x})^{2}$. La forme développée de $B(x)$ est&nbsp;:`,
+    choix: [r`$\mathrm{e}^{2x} - 2 + \mathrm{e}^{-2x}$`, r`$\mathrm{e}^{2x} + \mathrm{e}^{-2x}$`, r`$\mathrm{e}^{2x} - 2 - \mathrm{e}^{-2x}$`, r`$\mathrm{e}^{x^{2}} - 2 + \mathrm{e}^{-x^{2}}$`],
+    bonne: 0,
+    explication: [
+      r`On utilise $(a - b)^{2} = a^{2} - 2ab + b^{2}$, avec $a = \mathrm{e}^{x}$ et $b = \mathrm{e}^{-x}$.`,
+      r`Le double produit se simplifie&nbsp;: $\mathrm{e}^{x} \times \mathrm{e}^{-x} = \mathrm{e}^{x - x} = \mathrm{e}^{0} = 1$.`,
+      calcul(r`B(x) & = (\mathrm{e}^{x})^{2} - 2 \times \mathrm{e}^{x} \times \mathrm{e}^{-x} + (\mathrm{e}^{-x})^{2}`, r`& = \mathrm{e}^{2x} - 2 \times 1 + \mathrm{e}^{-2x}`, r`& = \resultat{\mathrm{e}^{2x} - 2 + \mathrm{e}^{-2x}}`)],
+    revoir: r`capacité 1 du cours, exercice 2 de la fiche` },
+
+  { partie: 0, theme: 'Suite géométrique', type: 'qcm',
+    enonce: r`La suite $(v_{n})$ est définie pour tout entier naturel $n$ par $v_{n} = \dfrac{(\mathrm{e}^{4})^{n}}{\mathrm{e}^{n+2}}$. Cette suite est géométrique de raison&nbsp;:`,
+    choix: [r`$\mathrm{e}^{3}$`, r`$\mathrm{e}^{4}$`, r`$\mathrm{e}^{-2}$`, r`$1$`],
+    bonne: 0,
+    explication: [
+      r`On écrit d'abord $v_{n}$ sous la forme $\mathrm{e}^{\dots}$&nbsp;: $(\mathrm{e}^{4})^{n} = \mathrm{e}^{4n}$.`,
+      calcul(r`v_{n} & = \dfrac{\mathrm{e}^{4n}}{\mathrm{e}^{n+2}}`, r`& = \mathrm{e}^{4n - (n + 2)}`, r`& = \mathrm{e}^{3n - 2}`),
+      r`On exprime ensuite $v_{n+1}$ en fonction de $v_{n}$.`,
+      calcul(r`v_{n+1} & = \mathrm{e}^{3(n + 1) - 2}`, r`& = \mathrm{e}^{(3n - 2) + 3}`, r`& = \mathrm{e}^{3n - 2} \times \mathrm{e}^{3}`, r`& = \mathrm{e}^{3} \times v_{n}`),
+      r`La suite $(v_{n})$ est géométrique de raison <span class="resultat">$\mathrm{e}^{3}$</span> et de premier terme $v_{0} = \mathrm{e}^{-2}$.`],
+    revoir: r`capacité 2 du cours, exercice 3 de la fiche` },
+
+  { partie: 0, theme: 'Sens de variation', type: 'qcm', fixe: true,
+    enonce: r`La suite $(t_{n})$ est définie pour tout entier naturel $n$ par $t_{n} = \dfrac{\mathrm{e}^{5}}{\mathrm{e}^{4n}}$. Cette suite est&nbsp;:`,
+    choix: [r`strictement croissante`, r`strictement décroissante`, r`constante`, r`ni croissante, ni décroissante`],
+    bonne: 1,
+    explication: [
+      r`Pour tout entier naturel $n$, $t_{n} = \mathrm{e}^{5 - 4n}$.`,
+      calcul(r`t_{n+1} & = \mathrm{e}^{5 - 4(n + 1)}`, r`& = \mathrm{e}^{(5 - 4n) - 4}`, r`& = \mathrm{e}^{5 - 4n} \times \mathrm{e}^{-4}`, r`& = \mathrm{e}^{-4} \times t_{n}`),
+      r`$(t_{n})$ est géométrique de raison $q = \mathrm{e}^{-4}$ et de premier terme $t_{0} = \mathrm{e}^{5} > 0$.`,
+      r`$-4 < 0$ et la fonction exponentielle est strictement croissante, donc $0 < \mathrm{e}^{-4} < \mathrm{e}^{0} = 1$.`,
+      r`Premier terme strictement positif et raison comprise entre $0$ et $1$&nbsp;: la suite est <span class="resultat">strictement décroissante</span>.`],
+    revoir: r`capacité 2 du cours, exercice 3 de la fiche` },
+
+  { partie: 0, theme: 'Équation', type: 'qcm',
+    enonce: r`Dans $\R$, l'équation $\mathrm{e}^{3x + 1} = 1$ a pour solution&nbsp;:`,
+    choix: [r`$x = -\dfrac{1}{3}$`, r`$x = 0$`, r`$x = \dfrac{1}{3}$`, r`aucune solution`],
+    bonne: 0,
+    explication: [
+      r`$1 = \mathrm{e}^{0}$. Deux exponentielles sont égales lorsque leurs exposants sont égaux.`,
+      calcul(r`\mathrm{e}^{3x + 1} = 1 & \iff \mathrm{e}^{3x + 1} = \mathrm{e}^{0}`, r`& \iff 3x + 1 = 0`, r`& \iff 3x + 1 \op{- 1} = 0 \op{- 1}`, r`& \iff 3x = -1`, r`& \iff \dfrac{3x}{\op{3}} = \dfrac{-1}{\op{3}}`, r`& \iff \resultat{x = -\dfrac{1}{3}}`)],
+    revoir: r`capacité 3 du cours, exercice 4 de la fiche` },
+
+  { partie: 0, theme: 'Inéquation', type: 'qcm',
+    enonce: r`L'ensemble des solutions dans $\R$ de l'inéquation $\mathrm{e}^{5 - x} > \mathrm{e}^{2x + 2}$ est&nbsp;:`,
+    choix: [r`$]-\infty ; 1[$`, r`$]1 ; +\infty[$`, r`$]-\infty ; -1[$`, r`$]-\infty ; 1]$`],
+    bonne: 0,
+    explication: [
+      r`La fonction exponentielle est strictement croissante&nbsp;: $\mathrm{e}^{a} > \mathrm{e}^{b} \iff a > b$.`,
+      r`À la fin, on divise par $-3$, qui est négatif&nbsp;: le sens de l'inégalité change.`,
+      calcul(r`\mathrm{e}^{5 - x} > \mathrm{e}^{2x + 2} & \iff 5 - x > 2x + 2`, r`& \iff 5 - x \op{- 5} > 2x + 2 \op{- 5}`, r`& \iff -x > 2x - 3`, r`& \iff -x \op{- 2x} > 2x - 3 \op{- 2x}`, r`& \iff -3x > -3`, r`& \iff \dfrac{-3x}{\op{-3}} < \dfrac{-3}{\op{-3}}`, r`& \iff x < 1`),
+      r`L'ensemble des solutions est <span class="resultat">$]-\infty ; 1[$</span>.`],
+    revoir: r`capacité 3 du cours, exercice 4 de la fiche` },
+
+  { partie: 0, theme: 'Étude de fonction', type: 'qcm',
+    enonce: r`La fonction $f$ est définie sur $\R$ par $f(x) = 4x - 4\mathrm{e}^{x} + 3$. La fonction $f$ est&nbsp;:`,
+    choix: [r`croissante sur $]-\infty ; 0]$, puis décroissante sur $[0 ; +\infty[$`, r`décroissante sur $]-\infty ; 0]$, puis croissante sur $[0 ; +\infty[$`,
+            r`croissante sur $]-\infty ; 1]$, puis décroissante sur $[1 ; +\infty[$`, r`décroissante sur $\R$`],
+    bonne: 0,
+    explication: [
+      r`On dérive&nbsp;: pour tout réel $x$, $f'(x) = 4 - 4\mathrm{e}^{x}$.`,
+      r`On étudie le signe de $f'(x)$ en comparant $\mathrm{e}^{x}$ à $1 = \mathrm{e}^{0}$.`,
+      calcul(r`f'(x) \ge 0 & \iff 4 - 4\mathrm{e}^{x} \ge 0`, r`& \iff 4 \ge 4\mathrm{e}^{x}`, r`& \iff 1 \ge \mathrm{e}^{x}`, r`& \iff \mathrm{e}^{0} \ge \mathrm{e}^{x}`, r`& \iff 0 \ge x`),
+      r`Ainsi $f'(x) > 0$ sur $]-\infty ; 0[$, $f'(0) = 0$ et $f'(x) < 0$ sur $]0 ; +\infty[$.`,
+      r`La fonction $f$ est <span class="resultat">croissante sur $]-\infty ; 0]$, puis décroissante sur $[0 ; +\infty[$</span>. Son maximum est $f(0) = 0 - 4 + 3 = -1$.`],
+    revoir: r`méthode et capacité 4 du cours, exercice 6 de la fiche` },
+
+  { partie: 0, theme: 'Étude de fonction', type: 'qcm',
+    enonce: r`La fonction $g$ est définie sur $\R$ par $g(x) = 5\mathrm{e}^{x} - 5x - 8$. Sur $\R$, la fonction $g$ admet&nbsp;:`,
+    choix: [r`un minimum égal à $-3$, atteint en $x = 0$`, r`un minimum égal à $-8$, atteint en $x = 0$`,
+            r`un maximum égal à $-3$, atteint en $x = 0$`, r`un minimum égal à $5\mathrm{e} - 13$, atteint en $x = 1$`],
+    bonne: 0,
+    explication: [
+      r`On dérive&nbsp;: pour tout réel $x$, $g'(x) = 5\mathrm{e}^{x} - 5$.`,
+      calcul(r`g'(x) \ge 0 & \iff 5\mathrm{e}^{x} - 5 \ge 0`, r`& \iff 5\mathrm{e}^{x} \ge 5`, r`& \iff \mathrm{e}^{x} \ge 1`, r`& \iff \mathrm{e}^{x} \ge \mathrm{e}^{0}`, r`& \iff x \ge 0`),
+      r`La fonction $g$ est décroissante sur $]-\infty ; 0]$, puis croissante sur $[0 ; +\infty[$&nbsp;: elle admet un minimum en $0$.`,
+      calcul(r`g(0) & = 5\mathrm{e}^{0} - 5 \times 0 - 8`, r`& = 5 - 8`, r`& = -3`),
+      r`La fonction $g$ admet <span class="resultat">un minimum égal à $-3$, atteint en $x = 0$</span>.`],
+    revoir: r`méthode et capacité 4 du cours, exercice 5 de la fiche` }
+  ]
+};
+
+/* ---------- Conversion des formules ($...$, mini-LaTeX) en HTML ---------- */
+const SYM = {
+  times: '×', cdot: '·', dots: '…', ldots: '…', cdots: '…', ne: '≠', neq: '≠', le: '≤', leq: '≤',
+  ge: '≥', geq: '≥', approx: '≈', infty: '∞', forall: '∀', in: '∈', N: 'ℕ', R: 'ℝ', Z: 'ℤ',
+  pm: '±', Delta: 'Δ', sum: 'Σ', pi: 'π', alpha: 'α', mapsto: '↦', to: '→', iff: '⇔',
+  Longleftrightarrow: '⇔', Leftrightarrow: '⇔', Rightarrow: '⇒', implies: '⇒',
+  quad: ' ', qquad: '  ', displaystyle: '', left: '', right: ''
+};
+const SYM1 = { ',': ' ', ';': ' ', ' ': ' ', '{': '{', '}': '}', '%': '%', '_': '_', '&': '&amp;', '$': '$', '\\': '<br>' };
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function math(s) {
+  let i = 0;
+  const skip = () => { while (i < s.length && s[i] === ' ') i++; };
+  function raw() {            // contenu brut d'un {groupe}, sans mise en italique
+    skip();
+    if (s[i] !== '{') return esc(s[i++] || '');
+    let prof = 0, out = '';
+    for (; i < s.length; i++) {
+      const c = s[i];
+      if (c === '{') { prof++; if (prof === 1) continue; }
+      if (c === '}') { prof--; if (prof === 0) { i++; break; } }
+      out += c;
+    }
+    return esc(out);
+  }
+  function group() { i++; let out = ''; while (i < s.length && s[i] !== '}') out += atom(); i++; return out; }
+  function arg() { skip(); if (s[i] === '{') return group(); return atom(); }
+  const frac = (a, b) => `<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`;
+  function atom() {
+    if (i >= s.length) return '';
+    const c = s[i];
+    if (c === '{') return group();
+    if (c === '}') { i++; return ''; }
+    if (c === '\\') {
+      const n = s[i + 1];
+      if (n === undefined) { i++; return ''; }
+      if (!/[a-zA-Z]/.test(n)) { i += 2; return SYM1[n] !== undefined ? SYM1[n] : esc(n); }
+      let j = i + 1;
+      while (j < s.length && /[a-zA-Z]/.test(s[j])) j++;
+      const nom = s.slice(i + 1, j); i = j;
+      if (nom === 'frac' || nom === 'dfrac' || nom === 'tfrac') { const a = arg(); const b = arg(); return frac(a, b); }
+      if (nom === 'mathrm' || nom === 'text') return `<span class="rm">${raw()}</span>`;
+      if (nom === 'textbf') return `<b class="rm">${raw()}</b>`;
+      if (nom === 'mathscr') return `<i>${raw()}</i>`;
+      if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
+      if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
+      if (nom === 'op') return `<span class="op">${arg()}</span>`;
+      if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
+      return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
+    }
+    if (c === '_' || c === '^') { i++; const a = arg(); return c === '_' ? `<sub>${a}</sub>` : `<sup>${a}</sup>`; }
+    i++;
+    if (/[a-zA-Z]/.test(c)) return `<i>${c}</i>`;
+    if (c === '-') return '−';
+    if (c === '*') return '×';
+    if (c === "'") return '′';
+    return esc(c);
+  }
+  let out = '';
+  while (i < s.length) out += atom();
+  return out;
+}
+function tex(src) {
+  return String(src).split(/(\$[^$]*\$)/).map(p =>
+    (p.length >= 2 && p[0] === '$' && p[p.length - 1] === '$') ? `<span class="m${p.length > 44 ? ' m-long' : ''}">${math(p.slice(1, -1))}</span>` : p
+  ).join('');
+}
+
+/* ---------- État (enregistré sur l'appareil, pour reprendre plus tard) ---------- */
+const N = QUIZ.questions.length;
+const CLE = 'quiz-' + QUIZ.id;
+const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length).join('|');
+const MODE_CORRIGE = /(\?|&|#)corrige/.test(location.search + location.hash);
+
+function melange(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+function nouvelEtat() {
+  return {
+    signature: SIGNATURE,
+    ordre: QUIZ.questions.map(q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k))),
+    reponses: Array(N).fill(null),
+    courant: 0
+  };
+}
+function charger() {
+  try {
+    const s = JSON.parse(localStorage.getItem(CLE));
+    if (s && s.signature === SIGNATURE && Array.isArray(s.reponses) && s.reponses.length === N && Array.isArray(s.ordre)) {
+      s.courant = Math.min(Math.max(0, s.courant | 0), N);
+      return s;
+    }
+  } catch (e) { /* stockage indisponible : on repart de zéro */ }
+  return null;
+}
+function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* sans importance */ } }
+
+let etat = charger() || nouvelEtat();
+let selection = null;
+
+const $ = sel => document.querySelector(sel);
+const zoneProg = $('#progression');
+const zoneQuiz = $('#quiz');
+const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
+const questionsDe = p => QUIZ.questions.map((q, i) => q.partie === p ? i : -1).filter(i => i >= 0);
+
+/* ---------- Affichage ---------- */
+// Explication : un texte, ou une liste de blocs (paragraphes, calculs en colonne, figures).
+function explicationHTML(q) {
+  const blocs = Array.isArray(q.explication) ? q.explication : [q.explication];
+  return blocs.map(b => /^<(div|svg)\b/.test(b) ? tex(b) : '<p>' + tex(b) + '</p>').join('');
+}
+
+function reponseTexte(q, choix) {
+  if (q.type === 'vf') return choix ? 'Vrai' : 'Faux';
+  return '« ' + tex(q.choix[choix]) + ' »';
+}
+
+function rendreProgression() {
+  if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
+  zoneProg.innerHTML = QUIZ.parties.map((nom, p) => {
+    const rangs = questionsDe(p), faites = rangs.filter(i => etat.reponses[i]).length;
+    let nums = '', marques = '';
+    rangs.forEach(i => {
+      const rep = etat.reponses[i];
+      nums += `<td class="${i === etat.courant ? 'ici' : ''}"><button type="button" class="aller" data-q="${i}" aria-label="Aller à la question ${i + 1}">${i + 1}</button></td>`;
+      if (rep) marques += `<td class="${rep.ok ? 'juste' : 'erreur'}${i === etat.courant ? ' courant' : ''}" data-q="${i}"><span class="marque ${rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`;
+      else marques += `<td class="${i === etat.courant ? 'courant' : ''}" data-q="${i}"></td>`;
+    });
+    return `<div class="bloc-grille"><p class="nom-partie">${nomPartie(p)}</p>
+      <table class="grille-reponses" aria-label="${nomPartie(p)} : ${faites} question${faites > 1 ? 's' : ''} sur ${rangs.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+  }).join('');
+}
+
+function rendre() {
+  rendreProgression();
+  if (MODE_CORRIGE) return rendreCorrige();
+  if (etat.courant >= N) rendreResultat(); else rendreQuestion(etat.courant);
+}
+
+function boite(marque) {
+  return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
+}
+
+function rendreQuestion(i) {
+  const q = QUIZ.questions[i], rep = etat.reponses[i], derniere = i === N - 1;
+  const changePartie = !derniere && QUIZ.questions[i + 1].partie !== q.partie;
+  let options;
+  if (q.type === 'vf') {
+    options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (val === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (val === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
+    }).join('');
+  } else {
+    options = etat.ordre[i].map((orig, k) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[k]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
+    }).join('');
+  }
+  const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
+  const correction = rep ? `<div class="correction ${rep.ok ? 'juste' : 'erreur'}" role="status">
+      <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
+      <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
+  const bouton = rep
+    ? `<button type="button" class="bouton" id="suivant">${derniere ? 'Voir ma note' : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante'}</button>`
+    : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
+  zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
+    <p class="partie">${nomPartie(q.partie)}</p>
+    <p class="question" id="titre-q"><b>Question ${i + 1}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
+    <div class="actions">${bouton}</div>
+    ${correction}
+  </article>`;
+  selection = null;
+  if (!rep) {
+    zoneQuiz.querySelectorAll('.choix').forEach(b => b.addEventListener('click', () => choisir(b, q)));
+    $('#valider').addEventListener('click', valider);
+  } else {
+    $('#suivant').addEventListener('click', suivant);
+  }
+}
+
+function choisir(b, q) {
+  zoneQuiz.querySelectorAll('.choix').forEach(o => {
+    const actif = o === b;
+    o.classList.toggle('choisi', actif);
+    o.setAttribute('aria-pressed', actif ? 'true' : 'false');
+    o.querySelector('.marque').className = actif ? 'marque croix' : 'marque';
+  });
+  selection = q.type === 'vf' ? b.dataset.val === 'true' : Number(b.dataset.val);
+  $('#valider').disabled = false;
+}
+
+function valider() {
+  const i = etat.courant, q = QUIZ.questions[i];
+  if (selection === null || etat.reponses[i]) return;
+  etat.reponses[i] = { choix: selection, ok: selection === q.bonne };
+  sauver();
+  rendreProgression();
+  rendreQuestion(i);
+  const suivantBtn = $('#suivant');
+  if (suivantBtn) suivantBtn.focus({ preventScroll: true });
+  const correction = $('.correction');
+  if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
+}
+
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question.
+function aller(i) {
+  etat.courant = i;
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function suivant() {
+  etat.courant = Math.min(etat.courant + 1, N);
+  selection = null;
+  sauver();
+  rendre();
+  // On remonte aux grilles de réponses, pas tout en haut : sur téléphone, l'en-tête occupe un écran.
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function recommencer() {
+  etat = nouvelEtat();
+  selection = null;
+  sauver();
+  rendre();
+  window.scrollTo({ top: 0, behavior: motion() });
+}
+// Deux clics pour tout effacer : le premier transforme le bouton en demande de confirmation.
+function demanderRecommencer(btn) {
+  const entame = etat.courant > 0 || etat.reponses.some(Boolean);
+  if (btn.dataset.minuteur) {
+    clearTimeout(Number(btn.dataset.minuteur));
+    btn.textContent = btn.dataset.texte;
+    delete btn.dataset.minuteur;
+    recommencer();
+  } else if (!entame) {
+    recommencer();
+  } else {
+    btn.dataset.texte = btn.textContent;
+    btn.textContent = 'Confirmer : effacer mes réponses';
+    btn.dataset.minuteur = String(setTimeout(() => { btn.textContent = btn.dataset.texte; delete btn.dataset.minuteur; }, 4000));
+  }
+}
+
+// Questions regroupées par partie : un titre, puis la liste produite par item(q, i).
+function listeParParties(item) {
+  return QUIZ.parties.map((nom, p) =>
+    `<h2 class="titre-partie">${nomPartie(p)}</h2><ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
+  ).join('');
+}
+
+function revueHTML() {
+  return listeParParties((q, i) => {
+    const rep = etat.reponses[i], ok = !!(rep && rep.ok);
+    let bilan;
+    if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+    else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
+    else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+    return `<li class="${ok ? 'juste' : 'erreur'}">
+      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
+      <div class="enonce">${tex(q.enonce)}</div>
+      <p class="bilan">${bilan}</p>
+      <div class="explication">${explicationHTML(q)}</div>
+    </li>`;
+  });
+}
+
+function rendreResultat() {
+  const juste = i => !!(etat.reponses[i] && etat.reponses[i].ok);
+  const score = QUIZ.questions.filter((q, i) => juste(i)).length;
+  const appreciation = score >= 0.75 * N
+    ? 'C\'est solide. Relis quand même les explications des questions manquées.'
+    : score >= 0.5 * N
+      ? 'L\'essentiel est là. Reprends les points listés ci-dessous, puis refais cet entraînement.'
+      : 'À retravailler avant l\'évaluation : reprends le cours et la fiche d\'exercices, puis refais cet entraînement.';
+  const sur20 = N === 20 ? '' : `<span class="sur">soit ${fr(Math.round(score * 20 / N * 2) / 2)} / 20</span>`;
+  const parties = QUIZ.parties.map((nom, p) => {
+    const rangs = questionsDe(p);
+    return `<span>${nomPartie(p)}&nbsp;: <b>${rangs.filter(juste).length} / ${rangs.length}</b></span>`;
+  }).join(' &emsp; ');
+  const aRevoir = [];
+  QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
+  const revoir = aRevoir.length
+    ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
+  zoneQuiz.innerHTML = `<article class="resultat" aria-labelledby="titre-r">
+    <p class="question" id="titre-r"><b>Note.</b></p>
+    <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
+    <p class="appreciation">${appreciation}</p>
+    <p class="bilan-parties">${parties}</p>
+    ${revoir}
+    <div class="actions">
+      <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
+      <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
+    </div>
+    <div id="revue" hidden>${revueHTML()}</div>
+  </article>`;
+  $('#revoir').addEventListener('click', () => {
+    const liste = $('#revue'), btn = $('#revoir');
+    liste.hidden = !liste.hidden;
+    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
+    btn.textContent = liste.hidden ? 'Revoir la copie' : 'Masquer la copie';
+  });
+  $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+}
+
+function rendreCorrige() {
+  zoneQuiz.innerHTML = `<article>
+    <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
+    ${listeParParties((q, i) => `<li class="juste">
+      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
+      <div class="enonce">${tex(q.enonce)}</div>
+      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
+      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
+      <div class="explication">${explicationHTML(q)}</div>
+    </li>`)}
+  </article>`;
+}
+
+/* ---------- Démarrage ---------- */
+$('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+zoneProg.addEventListener('click', e => {
+  const cible = e.target.closest('[data-q]');
+  if (cible) aller(Number(cible.dataset.q));
+});
+rendre();
+})();
+</script>
+</body>
+</html>
