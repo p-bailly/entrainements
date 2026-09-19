@@ -5,6 +5,6 @@
 
 ## Terminale, mathématiques complémentaires
 
-- Chapitre 3 : [Fonction exponentielle, rappels](https://p-bailly.github.io/entrainements/terminale/03-exponentielle-rappels.html)
+- Chapitre 4 : [Fonction exponentielle, rappels](https://p-bailly.github.io/entrainements/terminale/04-exponentielle-rappels.html)
 
 <!-- Liste écrite par tools/entrainement.py (dépôt des cours), comme les pages : ne rien modifier ici. -->
