@@ -354,7 +354,7 @@ const QUIZ = {
     revoir: r`gamme 3 des automatismes (manuel p.&nbsp;48)` },
 
   { partie: 0, theme: 'Factorisation', type: 'qcm',
-    enonce: r`La forme factorisée de $A = (x - 3)^{2} - 5(x - 3)$ est&nbsp;:`,
+    enonce: r`Une forme factorisée de $A = (x - 3)^{2} - 5(x - 3)$ est&nbsp;:`,
     choix: [r`$(x - 3)(x - 8)$`, r`$(x - 3)(x + 2)$`, r`$x^{2} - 11x + 24$`, r`$(x - 3)(x - 5)$`],
     bonne: 0,
     explication: [
@@ -473,13 +473,13 @@ const QUIZ = {
     revoir: r`capacité 4 du cours, exercice 4 de la fiche` },
 
   { partie: 1, theme: 'Modélisation', type: 'qcm',
-    enonce: r`Avec une carte de bowling, la dépense pour $x$ parties est $f(x) = 5x + 36$ euros. Sans carte, elle est $g(x) = 9x$ euros. À partir de combien de parties la carte est-elle avantageuse&nbsp;?`,
+    enonce: r`Avec une carte de bowling, la dépense pour $x$ parties est $f(x) = 5x + 36$ euros. Sans carte, elle est $g(x) = 9x$ euros. À partir de combien de parties la carte est-elle <b>strictement</b> plus avantageuse&nbsp;?`,
     choix: [r`$10$ parties`, r`$9$ parties`, r`$4$ parties`, r`$3$ parties`],
     bonne: 0,
     explication: [
-      r`La carte est avantageuse quand $f(x) < g(x)$.`,
+      r`La carte est strictement plus avantageuse quand $f(x) < g(x)$.`,
       calcul(r`f(x) < g(x) & \iff 5x + 36 < 9x`, r`& \iff 36 < 4x`, r`& \iff x > 9`),
-      r`Le nombre de parties est entier&nbsp;: la carte devient avantageuse <span class="resultat">à partir de $10$ parties</span>.`],
+      r`Le nombre de parties est entier&nbsp;: la carte est strictement plus avantageuse <span class="resultat">à partir de $10$ parties</span>.`],
     revoir: r`capacité 4 du cours, exercice 4 de la fiche` }
   ]
 };
