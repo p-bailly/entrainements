@@ -37,7 +37,8 @@
   Les textes sont écrits entre r`...` (HTML autorisé) ; les formules entre $...$ avec un petit
   sous-ensemble de LaTeX : _{...}, ^{...}, \frac{}{} ou \dfrac{}{}, \times, \dots, \ne, \le, \ge,
   \approx, \in, \R, \mapsto, \mathscr{C}, \text{...}, \sqrt{...}, \, (espace fine), {,} (virgule
-  décimale), \% . Un seul piège : ne jamais écrire le signe dollar suivi d'une accolade ouvrante.
+  décimale), \% , \mul{...} (en violet : facteur qui met des fractions au même dénominateur
+  ou qui les simplifie, par exemple \dfrac{3 \mul{\times 4}}{5 \mul{\times 4}}). Un seul piège : ne jamais écrire le signe dollar suivi d'une accolade ouvrante.
 
   Figures : repere({xmin, xmax, ymin, ymax, label, courbes, noms, lectures, textes, points,
   surligne}) trace un repère orthonormé quadrillé (détail des options devant la fonction).
@@ -69,6 +70,9 @@ body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 v
 .retour{margin:0 0 14px; font-size:.95rem}
 .retour a{color:var(--stylo); text-decoration:none; border-bottom:1px solid var(--filet)}
 .retour a:hover,.retour a:focus-visible{border-bottom-color:var(--stylo)}
+
+/* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
+.mul{color:#9C27B0}
 
 /* En-tête de la copie */
 .entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
@@ -327,8 +331,8 @@ const QUIZ = {
     choix: [r`$\dfrac{58}{21}$`, r`$\dfrac{10}{10}$`, r`$\dfrac{10}{21}$`, r`$\dfrac{58}{42}$`],
     bonne: 0,
     explication: [
-      r`On met les deux fractions au même dénominateur, $21$.`,
-      calcul(r`\dfrac{7}{3} + \dfrac{3}{7} & = \dfrac{49}{21} + \dfrac{9}{21}`, r`& = \resultat{\dfrac{58}{21}}`)],
+      r`On met les deux fractions au même dénominateur, $21$, en multipliant le numérateur et le dénominateur par le même nombre.`,
+      calcul(r`\dfrac{7}{3} + \dfrac{3}{7} & = \dfrac{7 \mul{\times 7}}{3 \mul{\times 7}} + \dfrac{3 \mul{\times 3}}{7 \mul{\times 3}}`, r`& = \dfrac{49}{21} + \dfrac{9}{21}`, r`& = \resultat{\dfrac{58}{21}}`)],
     revoir: r`gamme 1 des automatismes (manuel p.&nbsp;70)` },
 
   { partie: 0, theme: 'Identités remarquables', type: 'qcm',
@@ -528,6 +532,7 @@ function math(s) {
       if (nom === 'textbf') return `<b class="rm">${raw()}</b>`;
       if (nom === 'mathscr') return `<i>${raw()}</i>`;
       if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
+      if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
       if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
       return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
     }
