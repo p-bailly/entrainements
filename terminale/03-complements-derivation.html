@@ -8,10 +8,10 @@
   Entraînement auto-corrigé à l'évaluation du chapitre 3 (Compléments sur la dérivation) -
   Terminale, mathématiques complémentaires. Une seule partie, dix questions, sans
   automatismes (demande du professeur) : nombre dérivé et tangente, fonctions non
-  dérivables, dérivée d'une somme/d'un produit/d'un quotient, dérivée des fonctions
-  composées (capacités 1 à 4), lien entre signe de la dérivée et variations, extremum d'un
-  polynôme, optimisation (capacités 5 et 6). Mêmes types de questions que dans le cours, la
-  fiche et l'évaluation, avec d'autres valeurs.
+  dérivables, dérivée d'un produit et d'un quotient, dérivée des fonctions composées
+  (capacités 1 à 4), lien entre signe de la dérivée et variations, extremum d'un polynôme,
+  extremum local et changement de signe de la dérivée (capacité 5). Mêmes types de questions
+  que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
 
   Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
   entrainement-03-complements-derivation-questions.js (même dossier) ; moteur et mise en page :
@@ -393,16 +393,16 @@ const QUIZ = {
       r`Comme $f(6) = 216 - 108 - 144 + 5 = -31 < 33$, le maximum de $f$ sur $[-4 ; 6]$ est <span class="resultat">$33$</span>, atteint en $x = -2$.`],
     revoir: r`méthode d'étude des variations d'une fonction (partie 3 du cours), exercice 6 de la fiche` },
 
-  { partie: 0, theme: 'Optimisation', type: 'qcm',
-    enonce: r`On dispose d'une plaque carrée de $10$ cm de côté. On découpe à chaque coin un carré de côté $x$ cm (avec $0 \le x \le 5$), puis on relève les bords pour former une boîte sans couvercle. Le volume de la boîte, en cm³, est $V(x) = x(10 - 2x)^{2}$, et on admet que $V'(x) = (10-2x)(10-6x)$. Pour quelle valeur de $x$ le volume est-il maximal&nbsp;?`,
-    choix: [r`$x = \dfrac{5}{3}$`, r`$x = 5$`, r`$x = \dfrac{3}{5}$`, r`$x = \dfrac{10}{3}$`],
+  { partie: 0, theme: 'Extremum', type: 'qcm',
+    enonce: r`Soit $f$ une fonction dérivable sur $\R$ dont la dérivée est donnée, pour tout réel $x$, par $f'(x) = (x + 2)(x - 1)^{2}$. Que peut-on affirmer&nbsp;?`,
+    choix: [r`$f$ admet un minimum local en $-2$ et aucun extremum en $1$`, r`$f$ admet un minimum local en $-2$ et un maximum local en $1$`, r`$f$ admet un minimum local en $-2$ et en $1$`, r`$f$ admet un maximum local en $-2$ et aucun extremum en $1$`],
     bonne: 0,
     explication: [
-      r`On résout $V'(x) = 0$ sur $[0 ; 5]$&nbsp;: les solutions sont $x = 5$ et $x = \dfrac{5}{3}$.`,
-      r`$V'(x)$ est positif sur $[0 ; \dfrac{5}{3}[$ et négatif sur $]\dfrac{5}{3} ; 5]$&nbsp;: $V$ est croissante puis décroissante, donc admet un maximum en $x = \dfrac{5}{3}$.`,
-      r`En $x = 5$, la plaque est entièrement découpée&nbsp;: $V(5) = 0$, ce n'est pas un maximum.`,
-      r`Le volume est maximal pour <span class="resultat">$x = \dfrac{5}{3}$</span> (soit environ $74,1$ cm³).`],
-    revoir: r`capacité 6 du cours, exercice 7 de la fiche` }
+      r`Pour tout réel $x$, $(x - 1)^{2} \ge 0$&nbsp;: le signe de $f'(x)$ est celui de $x + 2$, sauf en $x = 1$ où $f'(x)$ s'annule.`,
+      r`$f'(x)$ est donc négatif sur $]-\infty ; -2[$, positif sur $]-2 ; 1[$ et sur $]1 ; +\infty[$, nul en $-2$ et en $1$.`,
+      r`En $-2$, $f'$ s'annule en passant de négatif à positif&nbsp;: $f$ y admet un minimum local. En $1$, $f'$ s'annule sans changer de signe&nbsp;: $f$ est croissante sur $[-2 ; +\infty[$, donc n'y admet pas d'extremum.`,
+      r`La bonne réponse est&nbsp;: <span class="resultat">$f$ admet un minimum local en $-2$ et aucun extremum en $1$</span>.`],
+    revoir: r`propriété sur les extremums (partie 3 du cours) et capacité 5, exercices 5 et 6 de la fiche` }
   ]
 };
 
