@@ -11,6 +11,10 @@
   partie « moteur » ci-dessous : toute modification de l'un se reporte dans l'autre) ; il
   se retouche au doigt (échanger deux places, épingler un élève) et s'imprime en A4 paysage.
 
+  Les classes et leurs salles sont créées au premier lancement (CLASSES_INITIALES : noms de
+  classes et dessins de salles seulement, aucune donnée personnelle) ; les listes d'élèves
+  s'importent depuis le dépôt privé, par les liens de Plan de classe/liens-import.md
+  (python tools/plan_de_classe.py --liens) : la page lit la partie #import=… de son adresse.
   Les données restent dans le navigateur qui a ouvert la page (localStorage) : rien n'est
   envoyé nulle part, la page publiée ne contient aucun nom. Import des fichiers du PC
   (eleves.csv ou toute liste CSV, salle.txt et autres dessins de salle, contraintes.txt,
@@ -28,13 +32,17 @@
   html { -webkit-text-size-adjust: 100%; }
   body { margin: 0; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 16px;
          color: var(--texte); background: var(--fond); }
-  header { position: sticky; top: 0; z-index: 3; background: var(--accent); color: #fff; padding: 0.55rem 0.8rem;
-           display: flex; align-items: center; gap: 0.6rem; }
+  .haut { position: sticky; top: 0; z-index: 3; }
+  header { background: var(--accent); color: #fff; padding: 0.55rem 0.8rem 0.4rem; display: flex; align-items: center; gap: 0.6rem; }
   header h1 { font-size: 1.1rem; margin: 0; flex: 1; white-space: nowrap; }
-  header select { max-width: 9rem; font-size: 1rem; padding: 0.3rem; border-radius: 6px; border: none; }
   header button { font-size: 1.2rem; line-height: 1; padding: 0.3rem 0.6rem; border-radius: 6px; border: none;
                   background: rgba(255,255,255,0.22); color: #fff; }
-  nav.onglets { position: sticky; top: 3.1rem; z-index: 3; display: flex; background: var(--carte); border-bottom: 1px solid var(--bord); }
+  nav.classes { display: flex; gap: 0.35rem; overflow-x: auto; padding: 0 0.6rem 0.5rem; background: var(--accent); scrollbar-width: none; }
+  nav.classes::-webkit-scrollbar { display: none; }
+  nav.classes button { flex: none; white-space: nowrap; border: none; border-radius: 999px; padding: 0.35rem 0.85rem; font-size: 0.9rem;
+                       background: rgba(255,255,255,0.18); color: #fff; }
+  nav.classes button.actif { background: #fff; color: var(--accent); font-weight: 600; }
+  nav.onglets { display: flex; background: var(--carte); border-bottom: 1px solid var(--bord); }
   nav.onglets button { flex: 1; padding: 0.7rem 0.2rem; border: none; background: none; font-size: 0.95rem; color: var(--gris);
                        border-bottom: 3px solid transparent; }
   nav.onglets button.actif { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
@@ -124,11 +132,12 @@
 </style>
 </head>
 <body>
+<div class="haut">
 <header>
   <h1>Plan de classe</h1>
-  <select id="selClasse" title="Classe"></select>
   <button id="btnNouvelleClasse" title="Nouvelle classe">＋</button>
 </header>
+<nav class="classes" id="barreClasses" aria-label="Classes"></nav>
 <nav class="onglets">
   <button data-onglet="eleves">Élèves</button>
   <button data-onglet="salle">Salle</button>
@@ -136,6 +145,7 @@
   <button data-onglet="plan">Plan</button>
   <button data-onglet="plus">Plus</button>
 </nav>
+</div>
 <main>
   <section id="onglet-eleves" class="onglet"></section>
   <section id="onglet-salle" class="onglet"></section>
@@ -389,6 +399,12 @@ function voisinsDeTable(modele, placeDe, i) {
 // ----------------------------------------------------------------------- état
 const CLE = "plan-de-classe";
 const SALLE_DEFAUT = ["XX   XX   XX", "XX   XX   XX", "XX   XX   XX", "XX   XX   XX", "XX   XX   XX"];
+// Classes de départ, créées au premier lancement (et par « Ajouter les classes de départ ») : nom et salle
+// seulement, d'après les plans du dépôt (trois colonnes de tables de deux, tableau devant). Les élèves
+// s'importent par les liens de Plan de classe/liens-import.md.
+const SALLE_TROIS_COLONNES = n => Array.from({length: n}, () => "XX   XX   XX");
+const CLASSES_INITIALES = [["2de3", 5], ["2de4", 5], ["1re-spe-B", 6], ["1re-spe-CD", 6], ["Tle-maths-comp", 5]];
+const VERSION_ETAT = 2;
 let etat = charger();
 let onglet = "eleves";
 let selection = null;  // place sélectionnée sur le plan (échange au doigt)
@@ -397,10 +413,26 @@ function nouvelleClasse() {
   return {eleves: [], salle: {dessin: SALLE_DEFAUT.slice(), tableauEnHaut: true}, contraintes: [],
           poids: Object.assign({}, POIDS_DEFAUT), effort: "normale", graine: 1, plan: null, verrous: []};
 }
+function ajouterClassesInitiales(e) {
+  let n = 0;
+  for (const [nom, rangees] of CLASSES_INITIALES) if (!e.classes[nom]) {
+    e.classes[nom] = nouvelleClasse();
+    e.classes[nom].salle = {dessin: SALLE_TROIS_COLONNES(rangees), tableauEnHaut: true};
+    n++;
+  }
+  return n;
+}
 function charger() {
   let e = null;
   try { e = JSON.parse(localStorage.getItem(CLE)); } catch (err) { e = null; }
-  if (!e || !e.classes || !Object.keys(e.classes).length) e = {version: 1, classeActive: "Ma classe", classes: {"Ma classe": nouvelleClasse()}};
+  if (!e || !e.classes || typeof e.classes !== "object") e = {version: 0, classeActive: "", classes: {}};
+  if (!(e.version >= VERSION_ETAT)) {  // première ouverture, ou sauvegarde d'avant les classes de départ
+    const vide = e.classes["Ma classe"];
+    if (vide && !vide.eleves.length && !vide.contraintes.length) delete e.classes["Ma classe"];
+    ajouterClassesInitiales(e);
+    e.version = VERSION_ETAT;
+  }
+  if (!Object.keys(e.classes).length) e.classes["Ma classe"] = nouvelleClasse();
   if (!e.classes[e.classeActive]) e.classeActive = Object.keys(e.classes)[0];
   if (!e.salles || typeof e.salles !== "object") e.salles = {};  // bibliothèque des salles, partagée par les classes
   for (const c of Object.values(e.classes)) {  // complète une sauvegarde d'une version antérieure
@@ -456,10 +488,12 @@ function rendre() {
   ({eleves: rendreEleves, salle: rendreSalle, contraintes: rendreContraintes, plan: rendrePlan, plus: rendrePlus})[onglet]();
 }
 function rendreEntete() {
-  const sel = document.getElementById("selClasse");
-  sel.innerHTML = Object.keys(etat.classes).map(n => `<option${n === etat.classeActive ? " selected" : ""}>${echapper(n)}</option>`).join("");
+  const barre = document.getElementById("barreClasses");
+  barre.innerHTML = Object.keys(etat.classes).map(n => `<button class="${n === etat.classeActive ? "actif" : ""}" data-classe="${echapper(n)}">${echapper(n)}</button>`).join("");
+  barre.querySelectorAll("button").forEach(b => { b.onclick = () => { etat.classeActive = b.dataset.classe; selection = null; sauver(); rendre(); }; });
+  const actif = barre.querySelector("button.actif");
+  if (actif && actif.scrollIntoView) actif.scrollIntoView({block: "nearest", inline: "nearest"});
 }
-document.getElementById("selClasse").onchange = ev => { etat.classeActive = ev.target.value; selection = null; sauver(); rendre(); };
 document.getElementById("btnNouvelleClasse").onclick = () => {
   const nom = (prompt("Nom de la nouvelle classe :") || "").trim();
   if (!nom) return;
@@ -925,7 +959,8 @@ function rendrePlus() {
 
     <h2>Classes</h2>
     <div class="carte ligne"><button class="btn" id="btnRenommer">Renommer « ${echapper(etat.classeActive)} »</button>
-      <button class="btn danger" id="btnSupprimerClasse">Supprimer cette classe</button></div>
+      <button class="btn danger" id="btnSupprimerClasse">Supprimer cette classe</button>
+      <button class="btn" id="btnClassesInitiales">Ajouter les classes de départ</button></div>
 
     <h2>Importer mes fichiers</h2>
     <div class="carte">
@@ -945,7 +980,7 @@ function rendrePlus() {
       <div class="ligne"><button class="btn" id="btnExporter">Exporter (fichier)</button>
         <button class="btn" id="btnCopierDonnees">Copier les données</button></div>
       <details style="margin-top:0.5rem"><summary>Coller des données</summary>
-        <textarea id="donneesCollees" rows="4" placeholder="Coller ici ce qu'a donné « Copier les données »"></textarea>
+        <textarea id="donneesCollees" rows="4" placeholder="Coller ici ce qu'a donné « Copier les données », ou un lien de liens-import.md"></textarea>
         <div class="ligne" style="margin-top:0.4rem"><button class="btn" id="btnImporterColle">Importer</button></div></details>
     </div>
 
@@ -972,6 +1007,12 @@ function rendrePlus() {
     etat.classes[nom] = c; delete etat.classes[etat.classeActive]; etat.classeActive = nom;
     sauver(); rendre();
   };
+  document.getElementById("btnClassesInitiales").onclick = () => {
+    const n = ajouterClassesInitiales(etat);
+    sauver();
+    alert(n ? `${n} classe(s) ajoutée(s) : ${CLASSES_INITIALES.map(([nom]) => nom).join(", ")}.` : "Les classes de départ sont déjà toutes là.");
+    rendre();
+  };
   document.getElementById("btnSupprimerClasse").onclick = () => {
     if (!confirm(`Supprimer la classe « ${etat.classeActive} » et ses élèves ?`)) return;
     delete etat.classes[etat.classeActive];
@@ -991,7 +1032,12 @@ function rendrePlus() {
   brancherImport(document.getElementById("fichierDossier"), "eleves");
   if (!("webkitdirectory" in document.createElement("input"))) document.getElementById("labelDossier").style.display = "none";
   document.getElementById("btnCopierDonnees").onclick = ev => copier(exporter(), ev.target);
-  document.getElementById("btnImporterColle").onclick = () => { alert(importerJson(document.getElementById("donneesCollees").value)); sauver(); afficherOnglet("eleves"); };
+  document.getElementById("btnImporterColle").onclick = () => {
+    const texte = document.getElementById("donneesCollees").value;
+    alert(importerDepuisAdresse(texte) || importerJson(texte));
+    sauver();
+    afficherOnglet("eleves");
+  };
   zone.querySelectorAll(".copierFichier").forEach(b => { b.onclick = () => copier(b.closest("details").querySelector("textarea").value, b); });
 }
 function exporter() { return JSON.stringify({application: "plan-de-classe", version: 1, classe: etat.classeActive, donnees: classe()}, null, 1); }
@@ -1000,11 +1046,34 @@ function importerJson(texte) {
   let d;
   try { d = JSON.parse(texte); } catch (err) { return "ce n'est pas une sauvegarde de cette page"; }
   if (!d || d.application !== "plan-de-classe" || !d.donnees || !Array.isArray(d.donnees.eleves)) return "ce n'est pas une sauvegarde de cette page";
-  const nom = d.classe || "Classe importée";
+  const nom = String(d.classe || "Classe importée").trim() || "Classe importée";
   if (etat.classes[nom] && !confirm(`Remplacer la classe « ${nom} » ?`)) return `classe « ${nom} » conservée`;
-  etat.classes[nom] = Object.assign(nouvelleClasse(), d.donnees);
+  const c = Object.assign(nouvelleClasse(), d.donnees);
+  const niveau = v => (v >= 1 && v <= 5 ? Math.round(Number(v)) : 3);
+  const sansId = c.eleves.some(e => !e || !e.id);
+  c.eleves = c.eleves.filter(e => e && String(e.nom || "").trim()).map(e => ({id: e.id || nouvelId(), nom: String(e.nom).trim(),
+    sexe: e.sexe === "F" || e.sexe === "G" ? e.sexe : "", bavardage: niveau(e.bavardage), devant: niveau(e.devant), participation: niveau(e.participation)}));
+  c.contraintes = (Array.isArray(c.contraintes) ? c.contraintes : []).map(g => {
+    if (g && Array.isArray(g.noms)) return {type: g.type, ids: g.noms.map(n => trouverEleve(c, String(n))).filter(Boolean).map(e => e.id)};
+    return g;
+  }).filter(g => g && (g.type === "separer" || g.type === "rapprocher") && Array.isArray(g.ids) && g.ids.length >= 2);
+  if (!c.salle || !Array.isArray(c.salle.dessin)) c.salle = nouvelleClasse().salle;
+  c.salle = {dessin: c.salle.dessin.map(String), tableauEnHaut: c.salle.tableauEnHaut !== false};
+  c.poids = Object.assign({}, POIDS_DEFAUT, c.poids || {});
+  if (sansId || !c.plan || !Array.isArray(c.plan.places)) { c.plan = null; c.verrous = []; }
+  etat.classes[nom] = c;
   etat.classeActive = nom;
-  return `classe « ${nom} » importée (${d.donnees.eleves.length} élèves)`;
+  return `classe « ${nom} » importée (${c.eleves.length} élèves)`;
+}
+function importerDepuisAdresse(texte) {
+  // Un lien de Plan de classe/liens-import.md : la classe est dans la partie #import=… (base64 du JSON).
+  const m = /#import=([A-Za-z0-9_\-=]+)/.exec(texte || "");
+  if (!m) return null;
+  try {
+    const b64 = m[1].replace(/-/g, "+").replace(/_/g, "/");
+    const octets = Uint8Array.from(atob(b64 + "=".repeat((4 - b64.length % 4) % 4)), ch => ch.charCodeAt(0));
+    return importerJson(new TextDecoder().decode(octets));
+  } catch (err) { return "lien d'import illisible"; }
 }
 
 // ----------------------------------------------------------------------- import de fichiers
@@ -1145,7 +1214,18 @@ function texteContraintes(c) {
   return lignes.length ? lignes.join("\n") : "# aucune contrainte";
 }
 
+function traiterAdresse() {
+  // Un lien de liens-import.md ouvre la page avec #import=… : la classe est importée, l'adresse nettoyée.
+  const resultat = importerDepuisAdresse(location.hash);
+  if (!resultat) return;
+  history.replaceState(null, "", location.pathname + location.search);
+  sauver();
+  afficherOnglet("eleves");
+  setTimeout(() => alert(resultat), 50);
+}
+window.addEventListener("hashchange", traiterAdresse);
 afficherOnglet("eleves");
+traiterAdresse();
 </script>
 </body>
 </html>
