@@ -3,19 +3,20 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Entraînement Évaluation fonction exponentielle</title>
+<title>Entraînement Évaluation compléments sur la dérivation</title>
 <!--
-  Entraînement auto-corrigé à l'évaluation du chapitre 4 (Fonction exponentielle, rappels) -
+  Entraînement auto-corrigé à l'évaluation du chapitre 4 (Compléments sur la dérivation) -
   Terminale, mathématiques complémentaires. Une seule partie, dix questions, sans
-  automatismes (demande du professeur) : définition, règles de calcul, capacités 1 à 4,
-  méthode d'étude d'une fonction x -> a e^x + bx + c et fiche d'exercices.
-  Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
-  Seulement ce que le chapitre revoit : ni logarithme, ni limite, ni dérivée de e^(kx).
+  automatismes (demande du professeur) : nombre dérivé et tangente, fonctions non
+  dérivables, dérivée d'un produit et d'un quotient, dérivée des fonctions composées
+  (capacités 1 à 4), lien entre signe de la dérivée et variations, extremum d'un polynôme,
+  extremum local et changement de signe de la dérivée (capacité 5). Mêmes types de questions
+  que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
 
   Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
-  entrainement-04-exponentielle-rappels-questions.js (même dossier) ; moteur et mise en page :
+  entrainement-04-complements-derivation-questions.js (même dossier) ; moteur et mise en page :
   Commun aux cours/entrainement/gabarit.html (format des questions en tête).
-  Publiée pour les élèves : https://p-bailly.github.io/entrainements/terminale/04-exponentielle-rappels.html
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/terminale/04-complements-derivation.html
   (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -203,9 +204,9 @@ table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
 <main class="feuille">
   <header>
     <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
-    <div class="entete"><span>Terminale · Mathématiques complémentaires</span><span>M. Bailly</span><span>Chapitre 4 · Fonction exponentielle, rappels</span></div>
-    <h1>Entraînement Évaluation fonction exponentielle</h1>
-    <p class="consigne">Dix questions sur la fonction exponentielle. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="entete"><span>Terminale · Mathématiques complémentaires</span><span>M. Bailly</span><span>Chapitre 4 · Compléments sur la dérivation</span></div>
+    <h1>Entraînement Évaluation compléments sur la dérivation</h1>
+    <p class="consigne">Dix questions sur les compléments sur la dérivation. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
     <div class="filet" role="presentation"></div>
   </header>
   <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
@@ -299,119 +300,109 @@ function calcul(...lignes) {
 
 /* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
 const QUIZ = {
-  id: 'tle-04-exponentielle-rappels-entrainement',
-  parties: ['Fonction exponentielle'],
+  id: 'tle-04-complements-derivation-entrainement',
+  parties: ['Compléments sur la dérivation'],
   questions: [
 
-  /* ----- Fonction exponentielle ----- */
+  /* ----- Compléments sur la dérivation ----- */
 
-  { partie: 0, theme: 'Définition', type: 'qcm',
-    enonce: r`La fonction exponentielle est l'unique fonction $f$ dérivable sur $\R$ telle que&nbsp;:`,
-    choix: [r`$f' = f$ et $f(0) = 1$`, r`$f' = f$ et $f(0) = 0$`, r`$f' = f$ et $f(1) = 1$`, r`$f' = 1$ et $f(0) = 1$`],
+  { partie: 0, theme: 'Nombre dérivé', type: 'qcm',
+    enonce: r`On sait qu'une fonction $f$ est dérivable en $2$ et que la tangente à sa courbe représentative au point $A(2 ; 5)$ passe par le point $B(5 ; -4)$. Que vaut $f'(2)$&nbsp;?`,
+    choix: [r`$-3$`, r`$3$`, r`$-9$`, r`$-\dfrac{1}{3}$`],
     bonne: 0,
     explication: [
-      r`La fonction exponentielle est égale à sa dérivée et prend la valeur $1$ en $0$.`,
-      r`Pour tout réel $x$, $\mathrm{exp}'(x) = \mathrm{exp}(x)$ et $\mathrm{exp}(0) = 1$&nbsp;: c'est la condition <span class="resultat">$f' = f$ et $f(0) = 1$</span>.`],
-    revoir: r`définition de la fonction exponentielle (partie 1 du cours)` },
-
-  { partie: 0, theme: 'Règles de calcul', type: 'qcm',
-    enonce: r`Une seule de ces égalités est vraie pour tous réels $a$ et $b$. Laquelle&nbsp;?`,
-    choix: [r`$\mathrm{e}^{a} \times \mathrm{e}^{b} = \mathrm{e}^{a+b}$`, r`$\mathrm{e}^{a} + \mathrm{e}^{b} = \mathrm{e}^{a+b}$`, r`$\mathrm{e}^{a} \times \mathrm{e}^{b} = \mathrm{e}^{ab}$`, r`$\mathrm{e}^{-a} = -\mathrm{e}^{a}$`],
-    bonne: 0,
-    explication: [
-      r`C'est la relation fonctionnelle&nbsp;: pour tous réels $a$ et $b$, <span class="resultat">$\mathrm{e}^{a} \times \mathrm{e}^{b} = \mathrm{e}^{a+b}$</span>.`,
-      r`Par exemple, $\mathrm{e}^{2} \times \mathrm{e}^{3} = \mathrm{e}^{2 + 3} = \mathrm{e}^{5}$.`],
-    revoir: r`relation fonctionnelle et règles de calcul (parties 1 et 2 du cours)` },
-
-  { partie: 0, theme: 'Simplifier', type: 'qcm',
-    enonce: r`Pour tout réel $x$, $\dfrac{\mathrm{e}^{2x+3}}{\mathrm{e}^{x-1}}$ est égal à&nbsp;:`,
-    choix: [r`$\mathrm{e}^{x+4}$`, r`$\mathrm{e}^{x+2}$`, r`$\mathrm{e}^{3x+2}$`, r`$\mathrm{e}^{-x-4}$`],
-    bonne: 0,
-    explication: [
-      r`Pour diviser, on <b>soustrait</b> les exposants&nbsp;: $\dfrac{\mathrm{e}^{a}}{\mathrm{e}^{b}} = \mathrm{e}^{a-b}$.`,
-      r`L'exposant du dénominateur se met entre parenthèses.`,
-      calcul(r`\dfrac{\mathrm{e}^{2x+3}}{\mathrm{e}^{x-1}} & = \mathrm{e}^{2x + 3 - (x - 1)}`, r`& = \mathrm{e}^{2x + 3 - x + 1}`, r`& = \resultat{\mathrm{e}^{x+4}}`)],
+      r`Le nombre dérivé $f'(2)$ est le coefficient directeur de la tangente en $A$, calculé avec les coordonnées de deux de ses points.`,
+      calcul(r`f'(2) & = \dfrac{y_{B} - y_{A}}{x_{B} - x_{A}}`, r`& = \dfrac{-4 - 5}{5 - 2}`, r`& = \dfrac{-9}{3}`, r`& = \resultat{-3}`)],
     revoir: r`capacité 1 du cours, exercice 1 de la fiche` },
 
-  { partie: 0, theme: 'Développer', type: 'qcm',
-    enonce: r`Pour tout réel $x$, on pose $B(x) = (\mathrm{e}^{x} - \mathrm{e}^{-x})^{2}$. La forme développée de $B(x)$ est&nbsp;:`,
-    choix: [r`$\mathrm{e}^{2x} - 2 + \mathrm{e}^{-2x}$`, r`$\mathrm{e}^{2x} + \mathrm{e}^{-2x}$`, r`$\mathrm{e}^{2x} - 2 - \mathrm{e}^{-2x}$`, r`$\mathrm{e}^{x^{2}} - 2 + \mathrm{e}^{-x^{2}}$`],
+  { partie: 0, theme: 'Tangente', type: 'qcm',
+    enonce: r`On considère la fonction $f$ définie sur $\R$ par $f(x) = x^{2} + 2x$. Une équation réduite de la tangente à la courbe de $f$ au point d'abscisse $1$ est&nbsp;:`,
+    choix: [r`$y = 4x - 1$`, r`$y = 4x + 3$`, r`$y = 2x + 1$`, r`$y = 4x - 7$`],
     bonne: 0,
     explication: [
-      r`On utilise $(a - b)^{2} = a^{2} - 2ab + b^{2}$, avec $a = \mathrm{e}^{x}$ et $b = \mathrm{e}^{-x}$.`,
-      r`Le double produit se simplifie&nbsp;: $\mathrm{e}^{x} \times \mathrm{e}^{-x} = \mathrm{e}^{x - x} = \mathrm{e}^{0} = 1$.`,
-      calcul(r`B(x) & = (\mathrm{e}^{x})^{2} - 2 \times \mathrm{e}^{x} \times \mathrm{e}^{-x} + (\mathrm{e}^{-x})^{2}`, r`& = \mathrm{e}^{2x} - 2 \times 1 + \mathrm{e}^{-2x}`, r`& = \resultat{\mathrm{e}^{2x} - 2 + \mathrm{e}^{-2x}}`)],
-    revoir: r`capacité 1 du cours, exercice 2 de la fiche` },
+      r`On calcule $f'(x)$, puis $f'(1)$ et $f(1)$, avant d'utiliser $y = f'(1)(x - 1) + f(1)$.`,
+      calcul(r`f'(x) & = 2x + 2`, r`f'(1) & = 2 \times 1 + 2 = 4`, r`f(1) & = 1^{2} + 2 \times 1 = 3`),
+      calcul(r`y & = f'(1)(x - 1) + f(1)`, r`& = 4(x - 1) + 3`, r`& = 4x - 4 + 3`, r`& = \resultat{4x - 1}`)],
+    revoir: r`capacité 2 et la propriété de la tangente (partie 1 du cours), exercice 2 de la fiche` },
 
-  { partie: 0, theme: 'Suite géométrique', type: 'qcm',
-    enonce: r`La suite $(v_{n})$ est définie pour tout entier naturel $n$ par $v_{n} = \dfrac{(\mathrm{e}^{4})^{n}}{\mathrm{e}^{n+2}}$. Cette suite est géométrique de raison&nbsp;:`,
-    choix: [r`$\mathrm{e}^{3}$`, r`$\mathrm{e}^{4}$`, r`$\mathrm{e}^{-2}$`, r`$1$`],
+  { partie: 0, theme: 'Non dérivable', type: 'qcm',
+    enonce: r`Parmi les quatre fonctions suivantes, laquelle n'est pas dérivable en $0$&nbsp;?`,
+    choix: [r`$x \mapsto |x|$`, r`$x \mapsto x^{2}$`, r`$x \mapsto x^{3}$`, r`$x \mapsto 3x - 1$`],
     bonne: 0,
     explication: [
-      r`On écrit d'abord $v_{n}$ sous la forme $\mathrm{e}^{\dots}$&nbsp;: $(\mathrm{e}^{4})^{n} = \mathrm{e}^{4n}$.`,
-      calcul(r`v_{n} & = \dfrac{\mathrm{e}^{4n}}{\mathrm{e}^{n+2}}`, r`& = \mathrm{e}^{4n - (n + 2)}`, r`& = \mathrm{e}^{3n - 2}`),
-      r`On exprime ensuite $v_{n+1}$ en fonction de $v_{n}$.`,
-      calcul(r`v_{n+1} & = \mathrm{e}^{3(n + 1) - 2}`, r`& = \mathrm{e}^{(3n - 2) + 3}`, r`& = \mathrm{e}^{3n - 2} \times \mathrm{e}^{3}`, r`& = \mathrm{e}^{3} \times v_{n}`),
-      r`La suite $(v_{n})$ est géométrique de raison <span class="resultat">$\mathrm{e}^{3}$</span> et de premier terme $v_{0} = \mathrm{e}^{-2}$.`],
-    revoir: r`capacité 2 du cours, exercice 3 de la fiche` },
+      r`Pour $x \mapsto |x|$, le taux d'accroissement entre $0$ et $h$ vaut $\dfrac{|h|}{h}$&nbsp;: il vaut $1$ si $h > 0$ et $-1$ si $h < 0$. Il n'a donc pas de limite unique quand $h$ tend vers $0$.`,
+      r`Les trois autres fonctions sont dérivables sur $\R$, donc en particulier en $0$&nbsp;: $x^{2}$ et $x^{3}$ sont des fonctions usuelles, $3x - 1$ est affine.`,
+      r`La fonction non dérivable en $0$ est <span class="resultat">$x \mapsto |x|$</span>.`],
+    revoir: r`remarque sur les fonctions non dérivables et capacité 2 du cours` },
 
-  { partie: 0, theme: 'Sens de variation', type: 'qcm', fixe: true,
-    enonce: r`La suite $(t_{n})$ est définie pour tout entier naturel $n$ par $t_{n} = \dfrac{\mathrm{e}^{5}}{\mathrm{e}^{4n}}$. Cette suite est&nbsp;:`,
-    choix: [r`strictement croissante`, r`strictement décroissante`, r`constante`, r`ni croissante, ni décroissante`],
-    bonne: 1,
-    explication: [
-      r`Pour tout entier naturel $n$, $t_{n} = \mathrm{e}^{5 - 4n}$.`,
-      calcul(r`t_{n+1} & = \mathrm{e}^{5 - 4(n + 1)}`, r`& = \mathrm{e}^{(5 - 4n) - 4}`, r`& = \mathrm{e}^{5 - 4n} \times \mathrm{e}^{-4}`, r`& = \mathrm{e}^{-4} \times t_{n}`),
-      r`$(t_{n})$ est géométrique de raison $q = \mathrm{e}^{-4}$ et de premier terme $t_{0} = \mathrm{e}^{5} > 0$.`,
-      r`$-4 < 0$ et la fonction exponentielle est strictement croissante, donc $0 < \mathrm{e}^{-4} < \mathrm{e}^{0} = 1$.`,
-      r`Premier terme strictement positif et raison comprise entre $0$ et $1$&nbsp;: la suite est <span class="resultat">strictement décroissante</span>.`],
-    revoir: r`capacité 2 du cours, exercice 3 de la fiche` },
-
-  { partie: 0, theme: 'Équation', type: 'qcm',
-    enonce: r`Dans $\R$, l'équation $\mathrm{e}^{3x + 1} = 1$ a pour solution&nbsp;:`,
-    choix: [r`$x = -\dfrac{1}{3}$`, r`$x = 0$`, r`$x = \dfrac{1}{3}$`, r`aucune solution`],
+  { partie: 0, theme: 'Dérivée d\'un produit', type: 'qcm',
+    enonce: r`Soit $h$ la fonction définie sur $\R$ par $h(x) = (3x + 2)(x^{2} - 1)$. Pour tout réel $x$, $h'(x)$ est égal à&nbsp;:`,
+    choix: [r`$9x^{2} + 4x - 3$`, r`$6x^{2} + 4x$`, r`$3x^{2} - 3$`, r`$9x^{2} + 4x + 3$`],
     bonne: 0,
     explication: [
-      r`$1 = \mathrm{e}^{0}$. Deux exponentielles sont égales lorsque leurs exposants sont égaux.`,
-      calcul(r`\mathrm{e}^{3x + 1} = 1 & \iff \mathrm{e}^{3x + 1} = \mathrm{e}^{0}`, r`& \iff 3x + 1 = 0`, r`& \iff 3x + 1 \op{- 1} = 0 \op{- 1}`, r`& \iff 3x = -1`, r`& \iff \dfrac{3x}{\op{3}} = \dfrac{-1}{\op{3}}`, r`& \iff \resultat{x = -\dfrac{1}{3}}`)],
-    revoir: r`capacité 3 du cours, exercice 4 de la fiche` },
+      r`On pose $u(x) = 3x + 2$ et $v(x) = x^{2} - 1$, avec $u'(x) = 3$ et $v'(x) = 2x$. La dérivée d'un produit est $(uv)' = u'v + uv'$.`,
+      calcul(r`h'(x) & = 3 \times (x^{2} - 1) + (3x + 2) \times 2x`, r`& = 3x^{2} - 3 + 6x^{2} + 4x`, r`& = \resultat{9x^{2} + 4x - 3}`)],
+    revoir: r`capacité 3 du cours, exercice 3 de la fiche` },
 
-  { partie: 0, theme: 'Inéquation', type: 'qcm',
-    enonce: r`L'ensemble des solutions dans $\R$ de l'inéquation $\mathrm{e}^{5 - x} > \mathrm{e}^{2x + 2}$ est&nbsp;:`,
-    choix: [r`$]-\infty ; 1[$`, r`$]1 ; +\infty[$`, r`$]-\infty ; -1[$`, r`$]-\infty ; 1]$`],
+  { partie: 0, theme: 'Dérivée d\'un quotient', type: 'qcm',
+    enonce: r`Soit $m$ la fonction définie sur $]-1 ; +\infty[$ par $m(x) = \dfrac{4x - 3}{x + 1}$. Pour tout $x$ de cet intervalle, $m'(x)$ est égal à&nbsp;:`,
+    choix: [r`$\dfrac{7}{(x+1)^{2}}$`, r`$\dfrac{-7}{(x+1)^{2}}$`, r`$\dfrac{8x + 1}{(x+1)^{2}}$`, r`$\dfrac{7}{x+1}$`],
     bonne: 0,
     explication: [
-      r`La fonction exponentielle est strictement croissante&nbsp;: $\mathrm{e}^{a} > \mathrm{e}^{b} \iff a > b$.`,
-      r`À la fin, on divise par $-3$, qui est négatif&nbsp;: le sens de l'inégalité change.`,
-      calcul(r`\mathrm{e}^{5 - x} > \mathrm{e}^{2x + 2} & \iff 5 - x > 2x + 2`, r`& \iff 5 - x \op{- 5} > 2x + 2 \op{- 5}`, r`& \iff -x > 2x - 3`, r`& \iff -x \op{- 2x} > 2x - 3 \op{- 2x}`, r`& \iff -3x > -3`, r`& \iff \dfrac{-3x}{\op{-3}} < \dfrac{-3}{\op{-3}}`, r`& \iff x < 1`),
-      r`L'ensemble des solutions est <span class="resultat">$]-\infty ; 1[$</span>.`],
-    revoir: r`capacité 3 du cours, exercice 4 de la fiche` },
+      r`On pose $u(x) = 4x - 3$ et $v(x) = x + 1$, avec $u'(x) = 4$ et $v'(x) = 1$. La dérivée d'un quotient est $\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^{2}}$.`,
+      calcul(r`m'(x) & = \dfrac{4 \times (x + 1) - (4x - 3) \times 1}{(x + 1)^{2}}`, r`& = \dfrac{4x + 4 - 4x + 3}{(x + 1)^{2}}`, r`& = \resultat{\dfrac{7}{(x+1)^{2}}}`)],
+    revoir: r`capacité 3 du cours, exercice 3 de la fiche` },
+
+  { partie: 0, theme: 'Fonction composée', type: 'qcm',
+    enonce: r`Soit $n$ la fonction définie sur $\R$ par $n(x) = (2x + 7)^{4}$. Pour tout réel $x$, $n'(x)$ est égal à&nbsp;:`,
+    choix: [r`$8(2x+7)^{3}$`, r`$4(2x+7)^{3}$`, r`$8(2x+7)^{4}$`, r`$4(2x+7)^{4}$`],
+    bonne: 0,
+    explication: [
+      r`On applique la formule $(u^{n})' = n \, u' \, u^{n-1}$ avec $u(x) = 2x + 7$ (donc $u'(x) = 2$) et $n = 4$.`,
+      calcul(r`n'(x) & = 4 \times 2 \times (2x+7)^{3}`, r`& = \resultat{8(2x+7)^{3}}`)],
+    revoir: r`capacité 4 du cours, exercice 4 de la fiche` },
+
+  { partie: 0, theme: 'Fonction composée', type: 'qcm',
+    enonce: r`Soit $r$ la fonction définie sur $]-\dfrac{2}{7} ; +\infty[$ par $r(x) = \sqrt{7x + 2}$. Pour tout $x$ de cet intervalle, $r'(x)$ est égal à&nbsp;:`,
+    choix: [r`$\dfrac{7}{2\sqrt{7x+2}}$`, r`$\dfrac{7}{\sqrt{7x+2}}$`, r`$\dfrac{1}{2\sqrt{7x+2}}$`, r`$\dfrac{2}{\sqrt{7x+2}}$`],
+    bonne: 0,
+    explication: [
+      r`On applique la formule $(\sqrt{u})' = \dfrac{u'}{2\sqrt{u}}$ avec $u(x) = 7x + 2$, donc $u'(x) = 7$.`,
+      calcul(r`r'(x) & = \resultat{\dfrac{7}{2\sqrt{7x+2}}}`)],
+    revoir: r`capacité 4 du cours, exercice 4 de la fiche` },
+
+  { partie: 0, theme: 'Signe et variations', type: 'qcm',
+    enonce: r`On donne le signe de $f'(x)$ sur l'intervalle $[-3 ; 5]$&nbsp;: positif sur $[-3 ; -1[$, nul en $-1$, négatif sur $]-1 ; 2[$, nul en $2$, positif sur $]2 ; 5]$. Que peut-on en déduire pour la fonction $f$&nbsp;?`,
+    choix: [r`$f$ admet un maximum local en $-1$ et un minimum local en $2$`, r`$f$ admet un minimum local en $-1$ et un maximum local en $2$`, r`$f$ admet un maximum local en $-1$ et en $2$`, r`$f$ n'admet aucun extremum local sur $[-3 ; 5]$`],
+    bonne: 0,
+    explication: [
+      r`$f'(x)$ s'annule en changeant de signe en $-1$ et en $2$&nbsp;: ce sont des conditions suffisantes d'extremum local (une simple annulation sans changement de signe, comme pour $x \mapsto x^{3}$ en $0$, ne suffirait pas).`,
+      r`En $-1$, $f'$ passe de positif à négatif&nbsp;: $f$ y admet un maximum local. En $2$, $f'$ passe de négatif à positif&nbsp;: $f$ y admet un minimum local.`,
+      r`La bonne réponse est&nbsp;: <span class="resultat">$f$ admet un maximum local en $-1$ et un minimum local en $2$</span>.`],
+    revoir: r`propriété sur le signe de la dérivée et capacité 5 du cours, exercice 5 de la fiche` },
 
   { partie: 0, theme: 'Étude de fonction', type: 'qcm',
-    enonce: r`La fonction $f$ est définie sur $\R$ par $f(x) = 4x - 4\mathrm{e}^{x} + 3$. La fonction $f$ est&nbsp;:`,
-    choix: [r`croissante sur $]-\infty ; 0]$, puis décroissante sur $[0 ; +\infty[$`, r`décroissante sur $]-\infty ; 0]$, puis croissante sur $[0 ; +\infty[$`,
-            r`croissante sur $]-\infty ; 1]$, puis décroissante sur $[1 ; +\infty[$`, r`décroissante sur $\R$`],
+    enonce: r`Soit $f$ la fonction définie sur $[-4 ; 6]$ par $f(x) = x^{3} - 3x^{2} - 24x + 5$. Quel est le maximum de $f$ sur cet intervalle&nbsp;?`,
+    choix: [r`$33$`, r`$-75$`, r`$-11$`, r`$-31$`],
     bonne: 0,
     explication: [
-      r`On dérive&nbsp;: pour tout réel $x$, $f'(x) = 4 - 4\mathrm{e}^{x}$.`,
-      r`On étudie le signe de $f'(x)$ en comparant $\mathrm{e}^{x}$ à $1 = \mathrm{e}^{0}$.`,
-      calcul(r`f'(x) \ge 0 & \iff 4 - 4\mathrm{e}^{x} \ge 0`, r`& \iff 4 \ge 4\mathrm{e}^{x}`, r`& \iff 1 \ge \mathrm{e}^{x}`, r`& \iff \mathrm{e}^{0} \ge \mathrm{e}^{x}`, r`& \iff 0 \ge x`),
-      r`Ainsi $f'(x) > 0$ sur $]-\infty ; 0[$, $f'(0) = 0$ et $f'(x) < 0$ sur $]0 ; +\infty[$.`,
-      r`La fonction $f$ est <span class="resultat">croissante sur $]-\infty ; 0]$, puis décroissante sur $[0 ; +\infty[$</span>. Son maximum est $f(0) = 0 - 4 + 3 = -1$.`],
-    revoir: r`méthode et capacité 4 du cours, exercice 6 de la fiche` },
+      r`On dérive&nbsp;: pour tout réel $x$, $f'(x) = 3x^{2} - 6x - 24 = 3(x-4)(x+2)$.`,
+      r`$f'(x)$ est positif sur $[-4 ; -2]$, négatif sur $[-2 ; 4]$, positif sur $[4 ; 6]$&nbsp;: $f$ est croissante, puis décroissante, puis croissante sur $[-4 ; 6]$.`,
+      r`Le maximum de $f$ est donc atteint soit en $-2$ (maximum local), soit à l'extrémité $6$&nbsp;: on compare les deux images.`,
+      calcul(r`f(-2) & = (-2)^{3} - 3\times(-2)^{2} - 24\times(-2) + 5`, r`& = -8 - 12 + 48 + 5`, r`& = \resultat{33}`),
+      r`Comme $f(6) = 216 - 108 - 144 + 5 = -31 < 33$, le maximum de $f$ sur $[-4 ; 6]$ est <span class="resultat">$33$</span>, atteint en $x = -2$.`],
+    revoir: r`méthode d'étude des variations d'une fonction (partie 3 du cours), exercice 6 de la fiche` },
 
-  { partie: 0, theme: 'Étude de fonction', type: 'qcm',
-    enonce: r`La fonction $g$ est définie sur $\R$ par $g(x) = 5\mathrm{e}^{x} - 5x - 8$. Sur $\R$, la fonction $g$ admet&nbsp;:`,
-    choix: [r`un minimum égal à $-3$, atteint en $x = 0$`, r`un minimum égal à $-8$, atteint en $x = 0$`,
-            r`un maximum égal à $-3$, atteint en $x = 0$`, r`un minimum égal à $5\mathrm{e} - 13$, atteint en $x = 1$`],
+  { partie: 0, theme: 'Extremum', type: 'qcm',
+    enonce: r`Soit $f$ une fonction dérivable sur $\R$ dont la dérivée est donnée, pour tout réel $x$, par $f'(x) = (x + 2)(x - 1)^{2}$. Que peut-on affirmer&nbsp;?`,
+    choix: [r`$f$ admet un minimum local en $-2$ et aucun extremum en $1$`, r`$f$ admet un minimum local en $-2$ et un maximum local en $1$`, r`$f$ admet un minimum local en $-2$ et en $1$`, r`$f$ admet un maximum local en $-2$ et aucun extremum en $1$`],
     bonne: 0,
     explication: [
-      r`On dérive&nbsp;: pour tout réel $x$, $g'(x) = 5\mathrm{e}^{x} - 5$.`,
-      calcul(r`g'(x) \ge 0 & \iff 5\mathrm{e}^{x} - 5 \ge 0`, r`& \iff 5\mathrm{e}^{x} \ge 5`, r`& \iff \mathrm{e}^{x} \ge 1`, r`& \iff \mathrm{e}^{x} \ge \mathrm{e}^{0}`, r`& \iff x \ge 0`),
-      r`La fonction $g$ est décroissante sur $]-\infty ; 0]$, puis croissante sur $[0 ; +\infty[$&nbsp;: elle admet un minimum en $0$.`,
-      calcul(r`g(0) & = 5\mathrm{e}^{0} - 5 \times 0 - 8`, r`& = 5 - 8`, r`& = -3`),
-      r`La fonction $g$ admet <span class="resultat">un minimum égal à $-3$, atteint en $x = 0$</span>.`],
-    revoir: r`méthode et capacité 4 du cours, exercice 5 de la fiche` }
+      r`Pour tout réel $x$, $(x - 1)^{2} \ge 0$&nbsp;: le signe de $f'(x)$ est celui de $x + 2$, sauf en $x = 1$ où $f'(x)$ s'annule.`,
+      r`$f'(x)$ est donc négatif sur $]-\infty ; -2[$, positif sur $]-2 ; 1[$ et sur $]1 ; +\infty[$, nul en $-2$ et en $1$.`,
+      r`En $-2$, $f'$ s'annule en passant de négatif à positif&nbsp;: $f$ y admet un minimum local. En $1$, $f'$ s'annule sans changer de signe&nbsp;: $f$ est croissante sur $[-2 ; +\infty[$, donc n'y admet pas d'extremum.`,
+      r`La bonne réponse est&nbsp;: <span class="resultat">$f$ admet un minimum local en $-2$ et aucun extremum en $1$</span>.`],
+    revoir: r`propriété sur les extremums (partie 3 du cours) et capacité 5, exercices 5 et 6 de la fiche` }
   ]
 };
 
