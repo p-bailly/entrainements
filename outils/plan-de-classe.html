@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Plan de classe</title>
+<!--
+  Plan de classe : application en une page, sans serveur ni bibliothèque, faite pour le
+  téléphone. Élèves, salle, contraintes et poids se saisissent dans la page ; le plan est
+  calculé dans le navigateur (même modèle et même recuit simulé que tools/plan_de_classe.py,
+  partie « moteur » ci-dessous : toute modification de l'un se reporte dans l'autre) ; il
+  se retouche au doigt (échanger deux places, épingler un élève) et s'imprime en A4 paysage.
+
+  Les données restent dans le navigateur qui a ouvert la page (localStorage) : rien n'est
+  envoyé nulle part, la page publiée ne contient aucun nom. Sauvegarde et transfert par
+  l'onglet « Plus » (fichier ou copier-coller ; formats du script du PC).
+
+  Source : dépôt cours-maths, Plan de classe/plan-de-classe.html. Publiée par
+  python tools/entrainement.py --publier dans le dépôt public p-bailly/entrainements, en
+  outils/plan-de-classe.html : https://p-bailly.github.io/entrainements/outils/plan-de-classe.html
+-->
+<style>
+  :root { --accent: #1f5fa8; --accent-clair: #e4edf8; --fille: #fbe3ea; --garcon: #dfe9f7; --fond: #f3f4f6;
+          --carte: #fff; --bord: #cfd4db; --texte: #1f2328; --gris: #667085; --alerte: #b42318; --alerte-fond: #fef3f2; }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body { margin: 0; font-family: -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 16px;
+         color: var(--texte); background: var(--fond); }
+  header { position: sticky; top: 0; z-index: 3; background: var(--accent); color: #fff; padding: 0.55rem 0.8rem;
+           display: flex; align-items: center; gap: 0.6rem; }
+  header h1 { font-size: 1.1rem; margin: 0; flex: 1; white-space: nowrap; }
+  header select { max-width: 9rem; font-size: 1rem; padding: 0.3rem; border-radius: 6px; border: none; }
+  header button { font-size: 1.2rem; line-height: 1; padding: 0.3rem 0.6rem; border-radius: 6px; border: none;
+                  background: rgba(255,255,255,0.22); color: #fff; }
+  nav.onglets { position: sticky; top: 3.1rem; z-index: 3; display: flex; background: var(--carte); border-bottom: 1px solid var(--bord); }
+  nav.onglets button { flex: 1; padding: 0.7rem 0.2rem; border: none; background: none; font-size: 0.95rem; color: var(--gris);
+                       border-bottom: 3px solid transparent; }
+  nav.onglets button.actif { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  main { max-width: 60rem; margin: 0 auto; padding: 0.8rem 0.8rem 4rem; }
+  .onglet { display: none; }
+  .onglet.actif { display: block; }
+  h2 { font-size: 1.05rem; margin: 1rem 0 0.5rem; }
+  p, li { line-height: 1.4; }
+  .aide { color: var(--gris); font-size: 0.9rem; margin: 0.3rem 0 0.8rem; }
+  .carte { background: var(--carte); border: 1px solid var(--bord); border-radius: 10px; padding: 0.7rem 0.8rem; margin-bottom: 0.7rem; }
+  .ligne { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .btn { font-size: 0.95rem; padding: 0.5rem 0.9rem; border-radius: 8px; border: 1px solid var(--bord); background: var(--carte);
+         color: var(--texte); cursor: pointer; }
+  .btn.principal { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+  .btn.petit { font-size: 0.85rem; padding: 0.3rem 0.6rem; }
+  .btn.danger { color: var(--alerte); }
+  .btn:disabled { opacity: 0.5; }
+  input[type=text], textarea, select { font: inherit; padding: 0.45rem 0.6rem; border: 1px solid var(--bord); border-radius: 8px; background: #fff; color: var(--texte); }
+  input[type=text] { min-width: 0; }
+  textarea { width: 100%; font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.9rem; }
+  .alerte { background: var(--alerte-fond); color: var(--alerte); border: 1px solid #f9c9c5; border-radius: 8px; padding: 0.5rem 0.7rem; margin: 0.5rem 0; }
+  .info { background: var(--accent-clair); border-radius: 8px; padding: 0.5rem 0.7rem; margin: 0.5rem 0; }
+
+  /* Élèves */
+  .eleve { background: var(--carte); border: 1px solid var(--bord); border-radius: 10px; padding: 0.55rem 0.7rem; margin-bottom: 0.55rem; }
+  .eleve .nom { flex: 1; font-weight: 600; }
+  .sexe { display: inline-flex; border: 1px solid var(--bord); border-radius: 8px; overflow: hidden; }
+  .sexe button { border: none; background: #fff; padding: 0.4rem 0.7rem; font-size: 0.95rem; color: var(--gris); }
+  .sexe button.actif.F { background: var(--fille); color: #9b1c3a; font-weight: 700; }
+  .sexe button.actif.G { background: var(--garcon); color: #1d4b8f; font-weight: 700; }
+  .suppr { border: none; background: none; font-size: 1.3rem; color: var(--gris); padding: 0 0.3rem; }
+  .niveau { display: flex; align-items: center; gap: 0.4rem; margin-top: 0.4rem; }
+  .niveau .etiquette { width: 6.2rem; font-size: 0.85rem; color: var(--gris); }
+  .points { display: flex; gap: 0.25rem; }
+  .pt { width: 2rem; height: 2rem; border-radius: 50%; border: 1px solid var(--bord); background: #fff; font-size: 0.85rem; color: var(--gris); padding: 0; }
+  .pt.actif { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700; }
+
+  /* Salle */
+  .grille-salle { display: grid; gap: 3px; overflow-x: auto; padding: 0.3rem 0; justify-content: start; }
+  .cellule { width: 100%; aspect-ratio: 1; border: 1px dashed var(--bord); border-radius: 4px; background: #fff; padding: 0; }
+  .cellule.place { background: var(--accent); border: 1px solid var(--accent); }
+  .tableau-dessin { text-align: center; background: #e2e5ea; border-radius: 6px; padding: 0.25rem; font-variant: small-caps; letter-spacing: 0.1em; margin: 0.3rem 0; }
+  .compteur { display: inline-flex; align-items: center; gap: 0.3rem; }
+  .compteur button { width: 2rem; height: 2rem; border-radius: 50%; border: 1px solid var(--bord); background: #fff; font-size: 1.1rem; }
+  input.court { width: 3.2rem; text-align: center; }
+
+  /* Contraintes */
+  .puce { display: inline-flex; align-items: center; gap: 0.3rem; background: var(--accent-clair); border-radius: 999px; padding: 0.25rem 0.4rem 0.25rem 0.7rem; font-size: 0.9rem; }
+  .puce button { border: none; background: none; font-size: 1rem; color: var(--gris); padding: 0 0.2rem; }
+
+  /* Plan */
+  .zone-impression { overflow-x: auto; }
+  .plan-grille { display: grid; row-gap: 0.5rem; margin: 0.6rem 0; }
+  .siege { border: 1.5px solid #333; border-left: none; min-height: 3rem; padding: 0.25rem 0.1rem; display: flex; align-items: center;
+           justify-content: center; text-align: center; font-size: 0.72rem; line-height: 1.15; overflow-wrap: break-word; cursor: pointer; position: relative; }
+  .siege.debut { border-left: 1.5px solid #333; }
+  .siege.fille { background: var(--fille); }
+  .siege.garcon { background: var(--garcon); }
+  .siege.autre { background: #f0f0f0; }
+  .siege.vide { background: repeating-linear-gradient(45deg, #fff, #fff 5px, #eee 5px, #eee 10px); }
+  .siege.selection { outline: 3px solid var(--accent); outline-offset: -3px; z-index: 1; }
+  .siege.verrou::before { content: "📌"; position: absolute; top: 1px; left: 2px; font-size: 0.7rem; }
+  .plan-tableau { border: 1.5px solid #333; background: #e8e8e8; text-align: center; padding: 0.2rem; margin: 0.3rem 15%; font-variant: small-caps; letter-spacing: 0.1em; }
+  .legende { font-size: 0.85rem; color: var(--gris); }
+  .legende span { display: inline-block; width: 0.8em; height: 0.8em; border: 1px solid #333; vertical-align: -0.1em; margin-right: 0.3em; }
+  .zone-impression h2.impression-seulement { display: none; }
+  .compte-rendu li { margin-bottom: 0.3rem; }
+  table.detail { border-collapse: collapse; width: 100%; font-size: 0.85rem; }
+  table.detail th, table.detail td { border-bottom: 1px solid var(--bord); padding: 0.3rem 0.35rem; text-align: left; }
+  details summary { cursor: pointer; font-weight: 600; margin: 0.6rem 0 0.3rem; }
+  .poids { display: grid; grid-template-columns: 8rem 1fr 2.5rem; align-items: center; gap: 0.4rem 0.6rem; }
+  .poids input[type=range] { width: 100%; }
+
+  @media (min-width: 700px) { .siege { font-size: 0.95rem; min-height: 3.5rem; padding: 0.25rem 0.2rem; } }
+  @media print {
+    @page { size: A4 landscape; margin: 1cm; }
+    body { background: #fff; }
+    body * { visibility: hidden; }
+    .zone-impression, .zone-impression * { visibility: visible; }
+    .zone-impression { position: absolute; left: 0; top: 0; width: 100%; }
+    .zone-impression h2.impression-seulement { display: block; font-size: 15pt; margin: 0 0 0.3cm; }
+    .siege { font-size: 11pt; min-height: 1.6cm; cursor: default; }
+    .siege.selection { outline: none; }
+    .siege.verrou::before { content: none; }
+    .plan-grille { row-gap: 0.6cm; }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Plan de classe</h1>
+  <select id="selClasse" title="Classe"></select>
+  <button id="btnNouvelleClasse" title="Nouvelle classe">＋</button>
+</header>
+<nav class="onglets">
+  <button data-onglet="eleves">Élèves</button>
+  <button data-onglet="salle">Salle</button>
+  <button data-onglet="contraintes">Binômes</button>
+  <button data-onglet="plan">Plan</button>
+  <button data-onglet="plus">Plus</button>
+</nav>
+<main>
+  <section id="onglet-eleves" class="onglet"></section>
+  <section id="onglet-salle" class="onglet"></section>
+  <section id="onglet-contraintes" class="onglet"></section>
+  <section id="onglet-plan" class="onglet"></section>
+  <section id="onglet-plus" class="onglet"></section>
+</main>
+<script>
+"use strict";
+// ====================================================================== moteur
+// Même modèle que tools/plan_de_classe.py (classe Modele, recuit, descente, compte rendu).
+const ECART_RANGEES = 1.5;  // distance entre deux rangées, en largeurs de place (côte à côte = 1)
+const POIDS_DEFAUT = {bavardage: 3, mixte: 1, devant: 1, participation: 1, separer: 4, rapprocher: 2};
+const NOMS_CRITERES = {bavardage: "Bavardage", mixte: "Fille-garçon", devant: "Devant", participation: "Participation",
+                       separer: "Séparer", rapprocher: "Rapprocher"};
+const EFFORTS = {rapide: {essais: 4, iterations: 20000}, normale: {essais: 10, iterations: 50000},
+                 longue: {essais: 30, iterations: 150000}};
+
+function estPlace(c) { return c === "X" || c === "x" || c === "O" || c === "o"; }
+
+function analyserSalle(dessinBrut, tableauEnHaut) {
+  // Réduit le dessin à ses lignes utiles (de la première à la dernière rangée) et numérote les places.
+  const utiles = dessinBrut.map(l => [...l].some(estPlace));
+  const debut = utiles.indexOf(true), fin = utiles.lastIndexOf(true);
+  const dessin = debut < 0 ? [] : dessinBrut.slice(debut, fin + 1).map(l => l.replace(/\s+$/, ""));
+  const places = [];
+  let table = -1;
+  dessin.forEach((texte, li) => {
+    let precedente = false;
+    for (let col = 0; col < texte.length; col++) {
+      if (estPlace(texte[col])) {
+        if (!precedente) table++;
+        places.push({ligne: li, colonne: col, x: col, y: li * ECART_RANGEES, table, debut: !precedente, rang: 0, devant: 0});
+        precedente = true;
+      } else precedente = false;
+    }
+  });
+  const lignes = [...new Set(places.map(p => p.ligne))].sort((a, b) => tableauEnHaut ? a - b : b - a);
+  if (lignes.length) {
+    const yDevant = lignes[0] * ECART_RANGEES, yFond = lignes[lignes.length - 1] * ECART_RANGEES;
+    for (const p of places) {
+      p.rang = lignes.indexOf(p.ligne);
+      p.devant = yFond !== yDevant ? Math.abs(p.y - yDevant) / Math.abs(yFond - yDevant) : 0;
+    }
+  }
+  return {places, nbRangs: lignes.length, dessin, tableauEnHaut, lignesDevantAuFond: lignes};
+}
+
+function construireModele(eleves, salle, contraintes, poids) {
+  // Coût d'un placement : coefficients par paire d'élèves × noyaux par paire de places, plus un terme
+  // par élève (devant). Noyaux : P = 1/d² (proximité), H = 1/d (séparer), D = d (rapprocher), S = côte à côte.
+  const places = salle.places, n = places.length, m = eleves.length;
+  const dist = places.map(a => places.map(b => Math.hypot(a.x - b.x, a.y - b.y)));
+  const P = dist.map(l => Float64Array.from(l, d => d ? 1 / (d * d) : 0));
+  const H = dist.map(l => Float64Array.from(l, d => d ? 1 / d : 0));
+  const D = dist.map(l => Float64Array.from(l));
+  const S = places.map(a => Float64Array.from(places, b => a.ligne === b.ligne && Math.abs(a.colonne - b.colonne) === 1 ? 1 : 0));
+  const matrice = () => Array.from({length: n}, () => new Float64Array(n));
+  const coef = {bavardage: matrice(), participation: matrice(), mixte: matrice(), separer: matrice(), rapprocher: matrice()};
+  for (let i = 0; i < m; i++) for (let j = i + 1; j < m; j++) {
+    const a = eleves[i], b = eleves[j];
+    const ca = (a.bavardage - 1) / 4, cb = (b.bavardage - 1) / 4;                  // 0 silencieux, 1 très bavard
+    const ea = Math.max(0, a.bavardage - 3) / 2, eb = Math.max(0, b.bavardage - 3) / 2;  // excès de bavardage
+    const qa = (5 - a.participation) / 4, qb = (5 - b.participation) / 4;          // 0 participe beaucoup
+    const v = {bavardage: poids.bavardage * ca * cb,
+               participation: poids.participation * (ea * qb + eb * qa),
+               mixte: a.sexe && b.sexe && a.sexe === b.sexe ? poids.mixte : 0};
+    for (const c in v) coef[c][i][j] = coef[c][j][i] = v[c];
+  }
+  for (const {type, indices} of contraintes)
+    for (let k = 0; k < indices.length; k++) for (const j of indices.slice(k + 1)) {
+      const i = indices[k];
+      coef[type][i][j] += poids[type];
+      coef[type][j][i] += poids[type];
+    }
+  const cP = coef.bavardage.map((l, i) => Float64Array.from(l, (v, j) => v + coef.participation[i][j]));
+  const cH = coef.separer, cD = coef.rapprocher, cS = coef.mixte;
+  let constante = 0;  // « rapprocher » coûte poids × (d − 1) : la constante ne change pas l'optimum
+  for (let i = 0; i < m; i++) for (let j = i + 1; j < m; j++) constante -= cD[i][j];
+  const lin = Array.from({length: n}, () => new Float64Array(n));
+  eleves.forEach((e, i) => {
+    const f = (e.devant - 3) / 2;  // −1 peut aller au fond … 1 doit être devant
+    places.forEach((p, s) => { lin[i][s] = poids.devant * (f * (2 * p.devant - 1) + Math.abs(f)); });
+  });
+  return {
+    n, m, eleves, salle, contraintes, poids, dist, P, H, D, S, coef, lin, constante,
+    total(placeDe) {
+      let t = constante;
+      for (let i = 0; i < m; i++) {
+        const si = placeDe[i];
+        t += lin[i][si];
+        for (let j = i + 1; j < m; j++) {
+          const sj = placeDe[j];
+          t += cP[i][j] * P[si][sj] + cH[i][j] * H[si][sj] + cD[i][j] * D[si][sj] + cS[i][j] * S[si][sj];
+        }
+      }
+      return t;
+    },
+    delta(placeDe, i, j) {  // variation du coût si les occupants des places de i et j sont échangés
+      const si = placeDe[i], sj = placeDe[j];
+      let d = lin[i][sj] - lin[i][si] + lin[j][si] - lin[j][sj];
+      const Pi = P[si], Pj = P[sj], Hi = H[si], Hj = H[sj], Di = D[si], Dj = D[sj], Si = S[si], Sj = S[sj];
+      const cPi = cP[i], cPj = cP[j], cHi = cH[i], cHj = cH[j], cDi = cD[i], cDj = cD[j], cSi = cS[i], cSj = cS[j];
+      for (let k = 0; k < m; k++) {
+        if (k === i || k === j) continue;
+        const sk = placeDe[k];
+        let a = cPi[k] - cPj[k];
+        if (a) d += a * (Pj[sk] - Pi[sk]);
+        a = cHi[k] - cHj[k];
+        if (a) d += a * (Hj[sk] - Hi[sk]);
+        a = cDi[k] - cDj[k];
+        if (a) d += a * (Dj[sk] - Di[sk]);
+        a = cSi[k] - cSj[k];
+        if (a) d += a * (Sj[sk] - Si[sk]);
+      }
+      return d;
+    },
+    bilan(placeDe) {  // coût par critère
+      const noyaux = {bavardage: P, participation: P, mixte: S, separer: H, rapprocher: D};
+      const b = {bavardage: 0, participation: 0, mixte: 0, separer: 0, rapprocher: 0, devant: 0};
+      for (let i = 0; i < m; i++) {
+        b.devant += lin[i][placeDe[i]];
+        for (let j = i + 1; j < m; j++)
+          for (const c in noyaux) b[c] += coef[c][i][j] * noyaux[c][placeDe[i]][placeDe[j]];
+      }
+      b.rapprocher += constante;
+      return b;
+    }
+  };
+}
+
+function creerRng(graine) {  // mulberry32 : le même plan pour la même graine
+  let a = (graine >>> 0) + 0x9E3779B9;
+  return () => {
+    a = (a + 0x6D2B79F5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function descente(modele, placeDe, cout, mobilesEleves, mobiles) {
+  let ameliore = true;
+  while (ameliore) {
+    ameliore = false;
+    for (const i of mobilesEleves) for (const j of mobiles) {
+      if (j <= i) continue;
+      const d = modele.delta(placeDe, i, j);
+      if (d < -1e-9) {
+        const tmp = placeDe[i]; placeDe[i] = placeDe[j]; placeDe[j] = tmp;
+        cout += d;
+        ameliore = true;
+      }
+    }
+  }
+  return cout;
+}
+
+function recuit(modele, rng, iterations, essais, initial, fixes) {
+  // initial : place de chaque créneau (élèves puis places vides) ; fixes : créneaux qui ne bougent pas.
+  const {n, m} = modele;
+  const mobiles = [];
+  for (let i = 0; i < n; i++) if (!fixes.has(i)) mobiles.push(i);
+  const mobilesEleves = mobiles.filter(i => i < m);
+  if (!mobilesEleves.length || mobiles.length < 2) return {placeDe: initial.slice(), cout: modele.total(initial)};
+  const tirage = () => {
+    const i = mobilesEleves[Math.floor(rng() * mobilesEleves.length)];
+    let j;
+    do { j = mobiles[Math.floor(rng() * mobiles.length)]; } while (j === i);
+    return [i, j];
+  };
+  let meilleur = initial.slice(), meilleurCout = Infinity;
+  for (let essai = 0; essai < essais; essai++) {
+    const placeDe = initial.slice();
+    for (let k = mobiles.length - 1; k > 0; k--) {  // mélange des places entre créneaux mobiles
+      const r = Math.floor(rng() * (k + 1)), a = mobiles[k], b = mobiles[r];
+      const tmp = placeDe[a]; placeDe[a] = placeDe[b]; placeDe[b] = tmp;
+    }
+    let cout = modele.total(placeDe);
+    let somme = 0;  // température initiale : variation moyenne d'un échange au hasard ; finale : mille fois moins
+    for (let k = 0; k < 300; k++) { const [i, j] = tirage(); somme += Math.abs(modele.delta(placeDe, i, j)); }
+    let t = Math.max(somme / 300, 1e-9);
+    const facteur = Math.pow(1 / 1000, 1 / Math.max(1, iterations));
+    let meilleurEssai = placeDe.slice(), meilleurEssaiCout = cout;
+    for (let it = 0; it < iterations; it++) {
+      const [i, j] = tirage();
+      const d = modele.delta(placeDe, i, j);
+      if (d <= 0 || rng() < Math.exp(-d / t)) {
+        const tmp = placeDe[i]; placeDe[i] = placeDe[j]; placeDe[j] = tmp;
+        cout += d;
+        if (cout < meilleurEssaiCout - 1e-9) { meilleurEssaiCout = cout; meilleurEssai = placeDe.slice(); }
+      }
+      t *= facteur;
+    }
+    cout = descente(modele, meilleurEssai, modele.total(meilleurEssai), mobilesEleves, mobiles);
+    if (cout < meilleurCout - 1e-9) { meilleurCout = cout; meilleur = meilleurEssai.slice(); }
+  }
+  return {placeDe: meilleur, cout: meilleurCout};
+}
+
+function nombre(x) { return x.toFixed(2).replace(".", ","); }
+function nombreCourt(x) { return String(Math.round(x * 100) / 100).replace(".", ","); }
+
+function compteRendu(modele, placeDe) {
+  // Ce que le plan satisfait ou non, critère par critère : une phrase par point.
+  const {eleves, salle, m, n} = modele, places = salle.places;
+  const parPlace = new Array(n).fill(null);
+  eleves.forEach((e, i) => { parPlace[placeDe[i]] = e; });
+  const placeD = i => places[placeDe[i]];
+  const distance = (i, j) => {
+    const sa = placeDe[i], sb = placeDe[j], pa = places[sa], pb = places[sb];
+    if (modele.S[sa][sb]) return "côte à côte";
+    if (pa.table === pb.table) return "même table";
+    const precision = pa.rang === pb.rang ? "même rangée" : `rangées ${pa.rang + 1} et ${pb.rang + 1}`;
+    return `${nombreCourt(modele.dist[sa][sb])} place(s) d'écart (${precision})`;
+  };
+  const nonMixtes = [], bavardsVoisins = [];
+  for (let s = 0; s < n; s++) for (let t = s + 1; t < n; t++) {
+    if (!modele.S[s][t]) continue;
+    const a = parPlace[s], b = parPlace[t];
+    if (!a || !b) continue;
+    if (a.sexe && b.sexe && a.sexe === b.sexe) nonMixtes.push(`${a.nom} et ${b.nom}`);
+    if (a.bavardage >= 4 && b.bavardage >= 4) bavardsVoisins.push(`${a.nom} et ${b.nom}`);
+  }
+  const lignes = [`Tables non mixtes : ${nonMixtes.length || "aucune"}` + (nonMixtes.length ? " — " + nonMixtes.join(" ; ") : ""),
+                  "Bavards (4 ou 5) côte à côte : " + (bavardsVoisins.length ? bavardsVoisins.join(" ; ") : "aucun")];
+  const devant = eleves.map((e, i) => [e, i]).filter(([e]) => e.devant >= 4);
+  if (devant.length) lignes.push("À placer devant : " + devant.map(([e, i]) => `${e.nom} → rangée ${placeD(i).rang + 1}`).join(" ; "));
+  const fond = eleves.map((e, i) => [e, i]).filter(([e]) => e.devant <= 2);
+  if (fond.length) lignes.push("Peuvent aller au fond : " + fond.map(([e, i]) => `${e.nom} → rangée ${placeD(i).rang + 1}`).join(" ; "));
+  for (const [type, titre] of [["separer", "À séparer"], ["rapprocher", "À rapprocher"]])
+    for (const g of modele.contraintes) {
+      if (g.type !== type) continue;
+      const paires = [];
+      for (let k = 0; k < g.indices.length; k++) for (const j of g.indices.slice(k + 1))
+        paires.push(`${eleves[g.indices[k]].nom} – ${eleves[j].nom} : ${distance(g.indices[k], j)}`);
+      lignes.push(`${titre} : ` + paires.join(" ; "));
+    }
+  return lignes;
+}
+
+function voisinsDeTable(modele, placeDe, i) {
+  const places = modele.salle.places, p = places[placeDe[i]];
+  const parPlace = new Map(placeDe.slice(0, modele.m).map((s, k) => [s, k]));
+  const noms = [];
+  places.forEach((q, t) => { if (q.table === p.table && t !== placeDe[i] && parPlace.has(t)) noms.push(modele.eleves[parPlace.get(t)].nom); });
+  return noms.join(", ");
+}
+// ====================================================================== fin du moteur
+
+// ----------------------------------------------------------------------- état
+const CLE = "plan-de-classe";
+const SALLE_DEFAUT = ["XX   XX   XX", "XX   XX   XX", "XX   XX   XX", "XX   XX   XX", "XX   XX   XX"];
+let etat = charger();
+let onglet = "eleves";
+let selection = null;  // place sélectionnée sur le plan (échange au doigt)
+
+function nouvelleClasse() {
+  return {eleves: [], salle: {dessin: SALLE_DEFAUT.slice(), tableauEnHaut: true}, contraintes: [],
+          poids: Object.assign({}, POIDS_DEFAUT), effort: "normale", graine: 1, plan: null, verrous: []};
+}
+function charger() {
+  let e = null;
+  try { e = JSON.parse(localStorage.getItem(CLE)); } catch (err) { e = null; }
+  if (!e || !e.classes || !Object.keys(e.classes).length) e = {version: 1, classeActive: "Ma classe", classes: {"Ma classe": nouvelleClasse()}};
+  if (!e.classes[e.classeActive]) e.classeActive = Object.keys(e.classes)[0];
+  for (const c of Object.values(e.classes)) {  // complète une sauvegarde d'une version antérieure
+    const neuve = nouvelleClasse();
+    for (const k in neuve) if (c[k] === undefined) c[k] = neuve[k];
+    c.poids = Object.assign({}, POIDS_DEFAUT, c.poids);
+  }
+  return e;
+}
+function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (err) { /* navigation privée : rien à faire */ } }
+function classe() { return etat.classes[etat.classeActive]; }
+function nouvelId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+function normalise(t) { return t.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().replace(/[^a-z0-9]/g, ""); }
+function echapper(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+function eleveParId(id) { return classe().eleves.find(e => e.id === id); }
+function salleAnalysee() { return analyserSalle(classe().salle.dessin, classe().salle.tableauEnHaut); }
+function contraintesIndices(c) {
+  // Groupes de contraintes en indices d'élèves (les élèves disparus sont ignorés).
+  const index = new Map(c.eleves.map((e, i) => [e.id, i]));
+  return c.contraintes.map(g => ({type: g.type, indices: g.ids.filter(id => index.has(id)).map(id => index.get(id))}))
+                      .filter(g => g.indices.length >= 2);
+}
+function planCoherent(c, salle) {
+  // Le plan garde une place par place de la salle et chaque élève exactement une fois.
+  if (!c.plan || c.plan.places.length !== salle.places.length) return false;
+  const ids = new Set(c.eleves.map(e => e.id));
+  const vus = new Set();
+  for (const id of c.plan.places) {
+    if (id === null) continue;
+    if (!ids.has(id) || vus.has(id)) return false;
+    vus.add(id);
+  }
+  return vus.size === ids.size;
+}
+function nettoyerPlan(c) {
+  // Après une suppression d'élève : sa place se libère ; les épingles et groupes le perdent.
+  const ids = new Set(c.eleves.map(e => e.id));
+  if (c.plan) c.plan.places = c.plan.places.map(id => ids.has(id) ? id : null);
+  c.verrous = c.verrous.filter(id => ids.has(id));
+  c.contraintes.forEach(g => { g.ids = g.ids.filter(id => ids.has(id)); });
+}
+
+// ----------------------------------------------------------------------- navigation
+function afficherOnglet(nom) {
+  onglet = nom;
+  document.querySelectorAll("nav.onglets button").forEach(b => b.classList.toggle("actif", b.dataset.onglet === nom));
+  document.querySelectorAll(".onglet").forEach(s => s.classList.toggle("actif", s.id === "onglet-" + nom));
+  rendre();
+  window.scrollTo(0, 0);
+}
+function rendre() {
+  rendreEntete();
+  ({eleves: rendreEleves, salle: rendreSalle, contraintes: rendreContraintes, plan: rendrePlan, plus: rendrePlus})[onglet]();
+}
+function rendreEntete() {
+  const sel = document.getElementById("selClasse");
+  sel.innerHTML = Object.keys(etat.classes).map(n => `<option${n === etat.classeActive ? " selected" : ""}>${echapper(n)}</option>`).join("");
+}
+document.getElementById("selClasse").onchange = ev => { etat.classeActive = ev.target.value; selection = null; sauver(); rendre(); };
+document.getElementById("btnNouvelleClasse").onclick = () => {
+  const nom = (prompt("Nom de la nouvelle classe :") || "").trim();
+  if (!nom) return;
+  if (etat.classes[nom]) { alert("Cette classe existe déjà."); return; }
+  etat.classes[nom] = nouvelleClasse();
+  etat.classeActive = nom;
+  sauver();
+  afficherOnglet("eleves");
+};
+document.querySelectorAll("nav.onglets button").forEach(b => { b.onclick = () => afficherOnglet(b.dataset.onglet); });
+
+// ----------------------------------------------------------------------- élèves
+const NIVEAUX = [["bavardage", "Bavardage", "1 silencieux … 5 très bavard"],
+                 ["devant", "Devant", "1 peut aller au fond, 3 indifférent, 5 doit être devant"],
+                 ["participation", "Participation", "1 ne participe jamais … 5 participe beaucoup"]];
+
+function rendreEleves() {
+  const c = classe();
+  const filles = c.eleves.filter(e => e.sexe === "F").length, garcons = c.eleves.filter(e => e.sexe === "G").length;
+  const zone = document.getElementById("onglet-eleves");
+  zone.innerHTML = `
+    <div class="carte">
+      <div class="ligne"><input type="text" id="nouveauNom" placeholder="Nom de l'élève" style="flex:1" autocomplete="off">
+        <button class="btn principal" id="btnAjouter">Ajouter</button></div>
+      <details style="margin-top:0.5rem"><summary>Coller une liste</summary>
+        <p class="aide">Une ligne par élève : <code>nom ; sexe ; bavardage ; devant ; participation</code> (séparateur ; , ou tabulation,
+        comme eleves.csv du PC, avec ou sans ligne d'en-tête). Le nom seul suffit, les cases vides valent 3.</p>
+        <textarea id="liste" rows="5" placeholder="Léa Dupont;F;5;3;4&#10;Paul Martin;G"></textarea>
+        <div class="ligne" style="margin-top:0.4rem"><button class="btn" id="btnColler">Ajouter ces élèves</button></div>
+      </details>
+    </div>
+    <p class="aide">${c.eleves.length} élève(s) : ${filles} fille(s), ${garcons} garçon(s). Niveaux de 1 à 5, 3 = équilibre.<br>
+      ${NIVEAUX.map(([, titre, aide]) => `<b>${titre}</b> : ${aide}`).join("<br>")}</p>
+    <div id="listeEleves">${c.eleves.map(carteEleve).join("")}</div>`;
+  document.getElementById("btnAjouter").onclick = ajouterEleve;
+  document.getElementById("nouveauNom").onkeydown = ev => { if (ev.key === "Enter") ajouterEleve(); };
+  document.getElementById("btnColler").onclick = collerListe;
+  zone.querySelectorAll(".eleve").forEach(brancherCarte);
+}
+function carteEleve(e) {
+  return `<div class="eleve" data-id="${e.id}">
+    <div class="ligne"><input type="text" class="nom" value="${echapper(e.nom)}" placeholder="Nom">
+      <div class="sexe"><button class="F${e.sexe === "F" ? " actif" : ""}">F</button><button class="G${e.sexe === "G" ? " actif" : ""}">G</button></div>
+      <button class="suppr" title="Retirer">×</button></div>
+    ${NIVEAUX.map(([champ, titre]) => `<div class="niveau" data-champ="${champ}"><span class="etiquette">${titre}</span><div class="points">
+      ${[1, 2, 3, 4, 5].map(v => `<button class="pt${e[champ] === v ? " actif" : ""}" data-v="${v}">${v}</button>`).join("")}</div></div>`).join("")}
+  </div>`;
+}
+function brancherCarte(carte) {
+  const e = eleveParId(carte.dataset.id);
+  carte.querySelector(".nom").oninput = ev => { e.nom = ev.target.value; sauver(); };
+  carte.querySelectorAll(".sexe button").forEach(b => { b.onclick = () => {
+    e.sexe = e.sexe === b.textContent ? "" : b.textContent;
+    carte.querySelectorAll(".sexe button").forEach(x => x.classList.toggle("actif", x.textContent === e.sexe));
+    sauver();
+  }; });
+  carte.querySelector(".suppr").onclick = () => {
+    if (!confirm(`Retirer ${e.nom || "cet élève"} ?`)) return;
+    const c = classe();
+    c.eleves = c.eleves.filter(x => x !== e);
+    nettoyerPlan(c);
+    sauver();
+    rendreEleves();
+  };
+  carte.querySelectorAll(".niveau").forEach(n => n.querySelectorAll(".pt").forEach(b => { b.onclick = () => {
+    e[n.dataset.champ] = Number(b.dataset.v);
+    n.querySelectorAll(".pt").forEach(x => x.classList.toggle("actif", x === b));
+    sauver();
+  }; }));
+}
+function creerEleve(nom, sexe, bavardage, devant, participation) {
+  return {id: nouvelId(), nom, sexe: sexe || "", bavardage: bavardage || 3, devant: devant || 3, participation: participation || 3};
+}
+function insererEleve(e) {
+  // Un plan en cours accueille le nouvel élève sur une place libre, s'il y en a une.
+  const c = classe();
+  c.eleves.push(e);
+  if (c.plan) {
+    const libre = c.plan.places.indexOf(null);
+    if (libre >= 0) c.plan.places[libre] = e.id;
+  }
+}
+function ajouterEleve() {
+  const champ = document.getElementById("nouveauNom");
+  const nom = champ.value.trim();
+  if (!nom) return;
+  insererEleve(creerEleve(nom));
+  sauver();
+  rendreEleves();
+  document.getElementById("nouveauNom").focus();
+}
+const ALIAS = {nom: ["nom", "eleve", "nomprenom", "nometprenom", "prenomnom", "prenometnom"], prenom: ["prenom"],
+               sexe: ["sexe", "genre", "fg", "fillegarcon", "filleougarcon"], bavardage: ["bavardage", "bavard", "bavarde", "bruit"],
+               devant: ["devant", "avant", "besoindetredevant", "placement", "rang"],
+               participation: ["participation", "participe", "oral", "participationoral", "participationalorale", "participationorale"]};
+function lireSexe(t) {
+  const n = normalise(t);
+  if (["f", "fille", "femme", "feminin"].includes(n)) return "F";
+  if (["g", "garcon", "m", "masculin", "h", "homme"].includes(n)) return "G";
+  return "";
+}
+function lireNiveau(t) { const v = parseInt(t, 10); return v >= 1 && v <= 5 ? v : 3; }
+function collerListe() {
+  const lignes = document.getElementById("liste").value.split(/\r?\n/).filter(l => l.trim());
+  if (!lignes.length) return;
+  const sep = [";", ",", "\t"].sort((a, b) => lignes[0].split(b).length - lignes[0].split(a).length)[0];
+  const rangees = lignes.map(l => l.split(sep).map(x => x.trim()));
+  let colonnes = {};
+  rangees[0].forEach((cellule, i) => { for (const champ in ALIAS) if (ALIAS[champ].includes(normalise(cellule))) colonnes[champ] = i; });
+  if (colonnes.nom !== undefined || colonnes.prenom !== undefined) rangees.shift();
+  else colonnes = {nom: 0, sexe: 1, bavardage: 2, devant: 3, participation: 4};
+  const cellule = (r, champ) => colonnes[champ] !== undefined && r[colonnes[champ]] !== undefined ? r[colonnes[champ]] : "";
+  const existants = new Set(classe().eleves.map(e => normalise(e.nom)));
+  let ajoutes = 0, doublons = 0;
+  for (const r of rangees) {
+    const nom = [cellule(r, "prenom"), cellule(r, "nom")].filter(Boolean).join(" ");
+    if (!nom) continue;
+    if (existants.has(normalise(nom))) { doublons++; continue; }
+    existants.add(normalise(nom));
+    insererEleve(creerEleve(nom, lireSexe(cellule(r, "sexe")), lireNiveau(cellule(r, "bavardage")), lireNiveau(cellule(r, "devant")), lireNiveau(cellule(r, "participation"))));
+    ajoutes++;
+  }
+  sauver();
+  rendreEleves();
+  if (doublons) alert(`${ajoutes} élève(s) ajouté(s) ; ${doublons} déjà présent(s), ignoré(s).`);
+}
+
+// ----------------------------------------------------------------------- salle
+function rendreSalle() {
+  const c = classe(), s = c.salle;
+  const rangees = s.dessin.length, colonnes = Math.max(1, ...s.dessin.map(l => l.length));
+  const nbPlaces = salleAnalysee().places.length;
+  const cellules = s.dessin.map((l, r) => [...l.padEnd(colonnes)].map((ch, col) =>
+    `<button class="cellule${estPlace(ch) ? " place" : ""}" data-r="${r}" data-c="${col}" title="ligne ${r + 1}, colonne ${col + 1}"></button>`).join("")).join("");
+  const tableau = `<div class="tableau-dessin">Tableau</div>`;
+  document.getElementById("onglet-salle").innerHTML = `
+    <p class="aide">Touchez une case pour y mettre ou enlever une place. Des places qui se touchent forment une table ;
+      une case vide entre deux est une allée ; une ligne vide, un passage. ${nbPlaces} place(s) pour ${c.eleves.length} élève(s).</p>
+    <div class="carte">
+      <div class="ligne" style="justify-content:space-between">
+        <span class="compteur">Rangées <button id="rangMoins">−</button><b>${rangees}</b><button id="rangPlus">+</button></span>
+        <span class="compteur">Colonnes <button id="colMoins">−</button><b>${colonnes}</b><button id="colPlus">+</button></span>
+      </div>
+      ${s.tableauEnHaut ? tableau : ""}
+      <div class="grille-salle" style="grid-template-columns:repeat(${colonnes},minmax(1.1rem,1.7rem))">${cellules}</div>
+      ${s.tableauEnHaut ? "" : tableau}
+      <div class="ligne" style="margin-top:0.5rem">
+        <button class="btn" id="btnTableau">Tableau ${s.tableauEnHaut ? "en bas" : "en haut"}</button>
+        <button class="btn danger" id="btnVider">Vider</button></div>
+    </div>
+    <div class="carte">
+      <b>Dessiner une salle type</b>
+      <div class="ligne" style="margin-top:0.4rem">tables de <input type="text" inputmode="numeric" class="court" id="genTable" value="2">
+        places, <input type="text" inputmode="numeric" class="court" id="genColonnes" value="3"> colonnes,
+        <input type="text" inputmode="numeric" class="court" id="genRangees" value="5"> rangées
+        <button class="btn" id="btnGenerer">Dessiner</button></div>
+    </div>
+    <details class="carte"><summary>Modifier en texte</summary>
+      <p class="aide">Le format de salle.txt du PC : X = place, espace = allée, ligne vide = passage, « tableau » au-dessus ou au-dessous.</p>
+      <textarea id="texteSalle" rows="${rangees + 3}" spellcheck="false">${echapper(texteSalle(s))}</textarea>
+      <div class="ligne" style="margin-top:0.4rem"><button class="btn" id="btnTexteSalle">Appliquer</button></div>
+    </details>`;
+  const zone = document.getElementById("onglet-salle");
+  const modifier = f => { f(); c.plan = null; selection = null; sauver(); rendreSalle(); };
+  zone.querySelectorAll(".cellule").forEach(b => { b.onclick = () => modifier(() => {
+    const r = Number(b.dataset.r), col = Number(b.dataset.c);
+    const l = [...s.dessin[r].padEnd(colonnes)];
+    l[col] = estPlace(l[col]) ? " " : "X";
+    s.dessin[r] = l.join("");
+  }); });
+  document.getElementById("rangPlus").onclick = () => modifier(() => { if (rangees < 15) s.dessin.push(""); });
+  document.getElementById("rangMoins").onclick = () => modifier(() => { if (rangees > 1) s.dessin.pop(); });
+  document.getElementById("colPlus").onclick = () => modifier(() => { if (colonnes < 30) s.dessin = s.dessin.map(l => l.padEnd(colonnes + 1)); });
+  document.getElementById("colMoins").onclick = () => modifier(() => { if (colonnes > 1) s.dessin = s.dessin.map(l => l.padEnd(colonnes).slice(0, colonnes - 1)); });
+  document.getElementById("btnTableau").onclick = () => modifier(() => { s.tableauEnHaut = !s.tableauEnHaut; });
+  document.getElementById("btnVider").onclick = () => modifier(() => { s.dessin = s.dessin.map(l => " ".repeat(l.length)); });
+  document.getElementById("btnGenerer").onclick = () => modifier(() => {
+    const t = Math.min(6, Math.max(1, parseInt(document.getElementById("genTable").value, 10) || 2));
+    const nc = Math.min(8, Math.max(1, parseInt(document.getElementById("genColonnes").value, 10) || 3));
+    const nr = Math.min(15, Math.max(1, parseInt(document.getElementById("genRangees").value, 10) || 5));
+    const ligne = Array.from({length: nc}, () => "X".repeat(t)).join("   ");
+    s.dessin = Array.from({length: nr}, () => ligne);
+  });
+  document.getElementById("btnTexteSalle").onclick = () => modifier(() => lireTexteSalle(document.getElementById("texteSalle").value, s));
+}
+function texteSalle(s) {
+  const dessin = s.dessin.map(l => l.replace(/\s+$/, ""));
+  return s.tableauEnHaut ? ["TABLEAU", "", ...dessin].join("\n") : [...dessin, "", "TABLEAU"].join("\n");
+}
+function lireTexteSalle(texte, s) {
+  // Mêmes règles que lire_salle du script : lignes de places, ligne « tableau », commentaires #.
+  const genres = [];
+  for (let l of texte.split(/\r?\n/)) {
+    l = l.replace(/\s+$/, "");
+    if (l.trim().startsWith("#")) continue;
+    if (!l.trim()) genres.push(["vide", ""]);
+    else if (normalise(l).startsWith("tableau")) genres.push(["tableau", l]);
+    else if ([...l].every(ch => estPlace(ch) || " ._-|".includes(ch)) && [...l].some(estPlace)) genres.push(["places", l]);
+    else genres.push(["autre", l]);
+  }
+  const rangs = genres.map((g, i) => g[0] === "places" ? i : -1).filter(i => i >= 0);
+  if (!rangs.length) { alert("Aucune place : dessiner chaque place par un X."); return; }
+  const debut = rangs[0], fin = rangs[rangs.length - 1];
+  const tableaux = genres.map((g, i) => g[0] === "tableau" ? i : -1).filter(i => i >= 0);
+  s.tableauEnHaut = !tableaux.length || tableaux[0] < debut;
+  const dessin = genres.slice(debut, fin + 1).map(([g, t]) => g === "places" ? t : "");
+  const largeur = Math.max(...dessin.map(l => l.length));
+  s.dessin = dessin.map(l => l.replace(/[^XxOo]/g, " ").padEnd(largeur));
+}
+
+// ----------------------------------------------------------------------- contraintes
+function rendreContraintes() {
+  const c = classe();
+  const options = g => c.eleves.filter(e => !g.ids.includes(e.id)).map(e => `<option value="${e.id}">${echapper(e.nom)}</option>`).join("");
+  document.getElementById("onglet-contraintes").innerHTML = `
+    <p class="aide">Binômes ou trinômes à <b>séparer</b> le plus possible, ou à <b>rapprocher</b> le plus possible.</p>
+    <div class="ligne"><button class="btn principal" id="btnSeparer">＋ À séparer</button><button class="btn" id="btnRapprocher">＋ À rapprocher</button></div>
+    ${c.contraintes.map((g, k) => `<div class="carte" data-k="${k}">
+      <div class="ligne"><select class="type"><option value="separer"${g.type === "separer" ? " selected" : ""}>Séparer</option>
+        <option value="rapprocher"${g.type === "rapprocher" ? " selected" : ""}>Rapprocher</option></select>
+        <span style="flex:1"></span><button class="btn petit danger supprGroupe">Supprimer</button></div>
+      <div class="ligne" style="margin-top:0.5rem">${g.ids.map(id => `<span class="puce">${echapper((eleveParId(id) || {nom: "?"}).nom)}<button data-id="${id}" title="Retirer">×</button></span>`).join("")}
+        <select class="ajout"><option value="">＋ élève…</option>${options(g)}</select></div>
+    </div>`).join("")}
+    ${c.contraintes.length ? "" : `<p class="aide">Aucun binôme pour l'instant.</p>`}`;
+  const zone = document.getElementById("onglet-contraintes");
+  const ajouter = type => { c.contraintes.push({type, ids: []}); sauver(); rendreContraintes(); };
+  document.getElementById("btnSeparer").onclick = () => ajouter("separer");
+  document.getElementById("btnRapprocher").onclick = () => ajouter("rapprocher");
+  zone.querySelectorAll(".carte[data-k]").forEach(carte => {
+    const g = c.contraintes[Number(carte.dataset.k)];
+    carte.querySelector(".type").onchange = ev => { g.type = ev.target.value; sauver(); };
+    carte.querySelector(".supprGroupe").onclick = () => { c.contraintes.splice(Number(carte.dataset.k), 1); sauver(); rendreContraintes(); };
+    carte.querySelectorAll(".puce button").forEach(b => { b.onclick = () => { g.ids = g.ids.filter(id => id !== b.dataset.id); sauver(); rendreContraintes(); }; });
+    carte.querySelector(".ajout").onchange = ev => { if (ev.target.value) { g.ids.push(ev.target.value); sauver(); rendreContraintes(); } };
+  });
+}
+
+// ----------------------------------------------------------------------- plan
+function calculer(nouvelleGraine) {
+  const c = classe(), salle = salleAnalysee();
+  const bouton = document.getElementById("btnCalculer");
+  if (bouton) { bouton.disabled = true; bouton.textContent = "Calcul…"; }
+  setTimeout(() => {
+    const modele = construireModele(c.eleves, salle, contraintesIndices(c), c.poids);
+    const {n, m} = modele;
+    let initial = Array.from({length: n}, (_, i) => i);
+    const fixes = new Set();
+    if (planCoherent(c, salle)) {  // on repart du plan en cours : les élèves épinglés ne bougent pas
+      const placeDe = new Map(c.plan.places.map((id, s) => [id, s]));
+      const libres = c.plan.places.map((id, s) => id === null ? s : -1).filter(s => s >= 0);
+      initial = c.eleves.map(e => placeDe.get(e.id)).concat(libres);
+      c.eleves.forEach((e, i) => { if (c.verrous.includes(e.id)) fixes.add(i); });
+    }
+    if (nouvelleGraine) c.graine = (c.graine || 1) + 1;
+    const effort = EFFORTS[c.effort] || EFFORTS.normale;
+    const {placeDe, cout} = recuit(modele, creerRng(c.graine || 1), effort.iterations, effort.essais, initial, fixes);
+    const places = new Array(n).fill(null);
+    c.eleves.forEach((e, i) => { places[placeDe[i]] = e.id; });
+    c.plan = {places, score: cout};
+    selection = null;
+    sauver();
+    rendrePlan();
+  }, 30);
+}
+function rendrePlan() {
+  const c = classe(), salle = salleAnalysee();
+  const zone = document.getElementById("onglet-plan");
+  const nbPlaces = salle.places.length;
+  let messages = "";
+  if (!c.eleves.length) messages += `<div class="info">Commencez par saisir les élèves (onglet Élèves).</div>`;
+  if (!nbPlaces) messages += `<div class="info">Dessinez la salle (onglet Salle).</div>`;
+  if (c.eleves.length > nbPlaces && nbPlaces) messages += `<div class="alerte">${c.eleves.length} élèves pour ${nbPlaces} places : ajouter des places dans la salle.</div>`;
+  const possible = c.eleves.length > 0 && nbPlaces >= c.eleves.length;
+  const coherent = planCoherent(c, salle);
+  if (c.plan && !coherent && possible) messages += `<div class="alerte">Les élèves ou la salle ont changé depuis ce plan : à recalculer.</div>`;
+  const boutons = `<div class="ligne" style="margin-bottom:0.5rem">
+    <button class="btn principal" id="btnCalculer"${possible ? "" : " disabled"}>${c.plan ? "Recalculer" : "Calculer le plan"}</button>
+    <button class="btn" id="btnAutre"${possible ? "" : " disabled"}>Autre proposition</button>
+    <button class="btn" id="btnImprimer"${coherent ? "" : " disabled"}>Imprimer</button>
+    <button class="btn" id="btnCopier"${coherent ? "" : " disabled"}>Copier en texte</button></div>`;
+  let corps = "";
+  if (c.plan && nbPlaces && c.plan.places.length === nbPlaces) {
+    const parPlace = c.plan.places.map(id => id === null ? null : eleveParId(id) || null);
+    corps += `<p class="aide">Touchez deux places pour échanger leurs occupants. Une place touchée puis « Épingler » garde l'élève là au prochain calcul.</p>`;
+    if (selection !== null) {
+      const e = parPlace[selection];
+      const epingle = e && c.verrous.includes(e.id);
+      corps += `<div class="ligne info"><span style="flex:1">${e ? echapper(e.nom) : "Place vide"} : touchez une autre place pour échanger.</span>
+        ${e ? `<button class="btn petit" id="btnEpingler">${epingle ? "Détacher" : "Épingler"}</button>` : ""}
+        <button class="btn petit" id="btnDeselection">Annuler</button></div>`;
+    }
+    corps += `<div class="zone-impression"><h2 class="impression-seulement">Plan de classe — ${echapper(etat.classeActive)} — ${dateDuJour()}</h2>${grillePlan(salle, parPlace, c)}</div>`;
+    corps += `<p class="legende"><span class="siege fille" style="display:inline-block;min-height:0"></span>fille &nbsp; <span class="siege garcon" style="display:inline-block;min-height:0"></span>garçon &nbsp; <span class="siege vide" style="display:inline-block;min-height:0"></span>place vide &nbsp; 📌 épinglé</p>`;
+    if (coherent) {
+      const modele = construireModele(c.eleves, salle, contraintesIndices(c), c.poids);
+      const index = new Map(c.eleves.map((e, i) => [e.id, i]));
+      const placeDe = new Array(modele.n);
+      c.plan.places.forEach((id, s) => { if (id !== null) placeDe[index.get(id)] = s; });
+      let k = modele.m;
+      c.plan.places.forEach((id, s) => { if (id === null) placeDe[k++] = s; });
+      const cout = modele.total(placeDe), bilan = modele.bilan(placeDe);
+      corps += `<p class="aide">Score ${nombre(cout)} (plus petit = mieux, à ne comparer qu'entre plans de cette classe) :
+        ${Object.entries(bilan).map(([cr, v]) => `${NOMS_CRITERES[cr].toLowerCase()} ${nombre(v)}`).join(", ")}.</p>
+        <h2>Compte rendu</h2><ul class="compte-rendu">${compteRendu(modele, placeDe).map(l => `<li>${echapper(l)}</li>`).join("")}</ul>
+        <details><summary>Détail par élève</summary><table class="detail"><tr><th>Élève</th><th>Rangée</th><th>Sexe</th><th>Bav.</th><th>Dev.</th><th>Part.</th><th>Voisin</th></tr>
+        ${c.eleves.map((e, i) => `<tr><td>${echapper(e.nom)}</td><td>${salle.places[placeDe[i]].rang + 1}</td><td>${e.sexe}</td><td>${e.bavardage}</td><td>${e.devant}</td><td>${e.participation}</td><td>${echapper(voisinsDeTable(modele, placeDe, i) || "—")}</td></tr>`).join("")}
+        </table></details>`;
+    }
+  }
+  zone.innerHTML = messages + boutons + corps;
+  if (possible) {
+    document.getElementById("btnCalculer").onclick = () => calculer(false);
+    document.getElementById("btnAutre").onclick = () => calculer(true);
+  }
+  if (coherent) {
+    document.getElementById("btnImprimer").onclick = () => window.print();
+    document.getElementById("btnCopier").onclick = ev => copier(textePlan(salle, c), ev.target);
+  }
+  zone.querySelectorAll(".siege[data-s]").forEach(el => { el.onclick = () => toucherPlace(Number(el.dataset.s)); });
+  const btnE = document.getElementById("btnEpingler");
+  if (btnE) btnE.onclick = () => {
+    const id = c.plan.places[selection];
+    c.verrous = c.verrous.includes(id) ? c.verrous.filter(x => x !== id) : c.verrous.concat(id);
+    selection = null; sauver(); rendrePlan();
+  };
+  const btnD = document.getElementById("btnDeselection");
+  if (btnD) btnD.onclick = () => { selection = null; rendrePlan(); };
+}
+function grillePlan(salle, parPlace, c) {
+  const nbColonnes = Math.max(1, ...salle.dessin.map(l => l.length));
+  const colonnesPlaces = new Set(salle.places.map(p => p.colonne)), lignesPlaces = new Set(salle.places.map(p => p.ligne));
+  const colonnes = Array.from({length: nbColonnes}, (_, col) => colonnesPlaces.has(col) ? "10fr" : "2fr").join(" ");
+  const rangees = salle.dessin.map((_, li) => lignesPlaces.has(li) ? "auto" : "0.5rem").join(" ");
+  const cases = salle.places.map((p, s) => {
+    const e = parPlace[s];
+    const classes = ["siege", p.debut ? "debut" : "", e ? ({F: "fille", G: "garcon"}[e.sexe] || "autre") : "vide",
+                     s === selection ? "selection" : "", e && c.verrous.includes(e.id) ? "verrou" : ""].filter(Boolean).join(" ");
+    return `<div class="${classes}" data-s="${s}" style="grid-column:${p.colonne + 1};grid-row:${p.ligne + 1}">${e ? echapper(e.nom) : ""}</div>`;
+  }).join("");
+  const tableau = `<div class="plan-tableau">Tableau</div>`;
+  const grille = `<div class="plan-grille" style="grid-template-columns:${colonnes};grid-template-rows:${rangees}">${cases}</div>`;
+  return salle.tableauEnHaut ? tableau + grille : grille + tableau;
+}
+function toucherPlace(s) {
+  const c = classe();
+  if (selection === null) { selection = s; }
+  else if (selection === s) { selection = null; }
+  else {
+    const p = c.plan.places;
+    [p[selection], p[s]] = [p[s], p[selection]];
+    selection = null;
+    sauver();
+  }
+  rendrePlan();
+}
+function textePlan(salle, c) {
+  const parPlace = c.plan.places.map(id => id === null ? null : eleveParId(id));
+  const lignes = [`Plan de classe — ${etat.classeActive} — ${dateDuJour()}`, salle.tableauEnHaut ? "(tableau en haut)" : "(tableau en bas)"];
+  salle.lignesDevantAuFond.forEach((li, rang) => {
+    const tables = [];
+    salle.places.forEach((p, s) => {
+      if (p.ligne !== li) return;
+      if (p.debut) tables.push([]);
+      tables[tables.length - 1].push(parPlace[s] ? parPlace[s].nom : "(vide)");
+    });
+    lignes.push(`Rangée ${rang + 1} : ` + tables.map(t => t.join(" · ")).join(" | "));
+  });
+  return lignes.join("\n");
+}
+function dateDuJour() { return new Date().toLocaleDateString("fr-FR"); }
+async function copier(texte, bouton) {
+  try { await navigator.clipboard.writeText(texte); }
+  catch (err) {
+    const ta = document.createElement("textarea");
+    ta.value = texte; document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e2) { alert(texte); }
+    ta.remove();
+  }
+  if (bouton) { const t = bouton.textContent; bouton.textContent = "Copié ✓"; setTimeout(() => { bouton.textContent = t; }, 1500); }
+}
+
+// ----------------------------------------------------------------------- plus : poids, classes, sauvegarde
+function rendrePlus() {
+  const c = classe();
+  document.getElementById("onglet-plus").innerHTML = `
+    <h2>Importance des critères</h2>
+    <div class="carte"><div class="poids">
+      ${Object.keys(POIDS_DEFAUT).map(k => `<label for="poids-${k}">${NOMS_CRITERES[k]}</label>
+        <input type="range" id="poids-${k}" min="0" max="10" step="0.5" value="${c.poids[k]}"><output id="val-${k}">${nombreCourt(c.poids[k])}</output>`).join("")}
+    </div>
+    <div class="ligne" style="margin-top:0.6rem"><button class="btn petit" id="btnPoidsDefaut">Valeurs par défaut</button>
+      <label style="margin-left:auto">Recherche <select id="effort">${Object.keys(EFFORTS).map(k => `<option value="${k}"${c.effort === k ? " selected" : ""}>${k}</option>`).join("")}</select></label></div>
+    <p class="aide">0 désactive un critère. Le score sert seulement à comparer des plans de la même classe. Une recherche plus longue est utile aux grandes salles.</p></div>
+
+    <h2>Classes</h2>
+    <div class="carte ligne"><button class="btn" id="btnRenommer">Renommer « ${echapper(etat.classeActive)} »</button>
+      <button class="btn danger" id="btnSupprimerClasse">Supprimer cette classe</button></div>
+
+    <h2>Sauvegarde</h2>
+    <div class="carte">
+      <p class="aide" style="margin-top:0">Tout reste dans ce navigateur, rien n'est envoyé. Pour garder une copie, changer d'appareil ou
+        revenir en arrière : exporter, puis importer ailleurs. Une classe importée remplace celle du même nom.</p>
+      <div class="ligne"><button class="btn" id="btnExporter">Exporter (fichier)</button>
+        <label class="btn">Importer (fichier)<input type="file" id="fichierImport" accept=".json,application/json" style="display:none"></label>
+        <button class="btn" id="btnCopierDonnees">Copier les données</button></div>
+      <details style="margin-top:0.5rem"><summary>Coller des données</summary>
+        <textarea id="donneesCollees" rows="4" placeholder="Coller ici ce qu'a donné « Copier les données »"></textarea>
+        <div class="ligne" style="margin-top:0.4rem"><button class="btn" id="btnImporterColle">Importer</button></div></details>
+    </div>
+
+    <h2>Pour le script du PC</h2>
+    <div class="carte">
+      <p class="aide" style="margin-top:0">Les trois fichiers de <code>tools/plan_de_classe.py</code>, à copier dans le dossier de la classe.</p>
+      ${[["eleves.csv", texteEleves(c)], ["salle.txt", texteSalle(c.salle)], ["contraintes.txt", texteContraintes(c)]].map(([nom, texte]) =>
+        `<details><summary>${nom}</summary><textarea rows="${Math.min(12, texte.split("\n").length + 1)}" readonly>${echapper(texte)}</textarea>
+         <div class="ligne" style="margin-top:0.3rem"><button class="btn petit copierFichier">Copier</button></div></details>`).join("")}
+    </div>
+    <p class="aide">Plan de classe : même méthode que tools/plan_de_classe.py du dépôt cours-maths (recuit simulé). Cette page ne contient aucune donnée : les vôtres sont dans ce navigateur.</p>`;
+  const zone = document.getElementById("onglet-plus");
+  for (const k of Object.keys(POIDS_DEFAUT)) document.getElementById("poids-" + k).oninput = ev => {
+    c.poids[k] = Number(ev.target.value);
+    document.getElementById("val-" + k).textContent = nombreCourt(c.poids[k]);
+    sauver();
+  };
+  document.getElementById("btnPoidsDefaut").onclick = () => { c.poids = Object.assign({}, POIDS_DEFAUT); sauver(); rendrePlus(); };
+  document.getElementById("effort").onchange = ev => { c.effort = ev.target.value; sauver(); };
+  document.getElementById("btnRenommer").onclick = () => {
+    const nom = (prompt("Nouveau nom :", etat.classeActive) || "").trim();
+    if (!nom || nom === etat.classeActive) return;
+    if (etat.classes[nom]) { alert("Cette classe existe déjà."); return; }
+    etat.classes[nom] = c; delete etat.classes[etat.classeActive]; etat.classeActive = nom;
+    sauver(); rendre();
+  };
+  document.getElementById("btnSupprimerClasse").onclick = () => {
+    if (!confirm(`Supprimer la classe « ${etat.classeActive} » et ses élèves ?`)) return;
+    delete etat.classes[etat.classeActive];
+    if (!Object.keys(etat.classes).length) etat.classes["Ma classe"] = nouvelleClasse();
+    etat.classeActive = Object.keys(etat.classes)[0];
+    sauver(); afficherOnglet("eleves");
+  };
+  document.getElementById("btnExporter").onclick = () => {
+    const blob = new Blob([exporter()], {type: "application/json"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `plan-de-classe-${etat.classeActive.replace(/[^\w-]+/g, "_")}.json`;
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  };
+  document.getElementById("fichierImport").onchange = ev => {
+    const f = ev.target.files[0];
+    if (!f) return;
+    f.text().then(t => importer(t)).catch(() => alert("Fichier illisible."));
+  };
+  document.getElementById("btnCopierDonnees").onclick = ev => copier(exporter(), ev.target);
+  document.getElementById("btnImporterColle").onclick = () => importer(document.getElementById("donneesCollees").value);
+  zone.querySelectorAll(".copierFichier").forEach(b => { b.onclick = () => copier(b.closest("details").querySelector("textarea").value, b); });
+}
+function exporter() { return JSON.stringify({application: "plan-de-classe", version: 1, classe: etat.classeActive, donnees: classe()}, null, 1); }
+function importer(texte) {
+  let d;
+  try { d = JSON.parse(texte); } catch (err) { alert("Ce n'est pas une sauvegarde de cette page."); return; }
+  if (!d || d.application !== "plan-de-classe" || !d.donnees || !Array.isArray(d.donnees.eleves)) { alert("Ce n'est pas une sauvegarde de cette page."); return; }
+  const nom = d.classe || "Classe importée";
+  if (etat.classes[nom] && !confirm(`Remplacer la classe « ${nom} » ?`)) return;
+  etat.classes[nom] = Object.assign(nouvelleClasse(), d.donnees);
+  etat.classeActive = nom;
+  sauver();
+  afficherOnglet("eleves");
+}
+function texteEleves(c) {
+  return ["nom;sexe;bavardage;devant;participation", ...c.eleves.map(e => [e.nom, e.sexe, e.bavardage, e.devant, e.participation].join(";"))].join("\n");
+}
+function texteContraintes(c) {
+  const lignes = c.contraintes.filter(g => g.ids.length >= 2).map(g =>
+    `${g.type === "separer" ? "séparer" : "rapprocher"} : ` + g.ids.map(id => (eleveParId(id) || {nom: "?"}).nom).join(", "));
+  return lignes.length ? lignes.join("\n") : "# aucune contrainte";
+}
+
+afficherOnglet("eleves");
+</script>
+</body>
+</html>
