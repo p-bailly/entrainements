@@ -12,8 +12,10 @@
   se retouche au doigt (échanger deux places, épingler un élève) et s'imprime en A4 paysage.
 
   Les données restent dans le navigateur qui a ouvert la page (localStorage) : rien n'est
-  envoyé nulle part, la page publiée ne contient aucun nom. Sauvegarde et transfert par
-  l'onglet « Plus » (fichier ou copier-coller ; formats du script du PC).
+  envoyé nulle part, la page publiée ne contient aucun nom. Import des fichiers du PC
+  (eleves.csv ou toute liste CSV, salle.txt et autres dessins de salle, contraintes.txt,
+  un dossier entier Plan de classe/ sur PC), bibliothèque de salles, sauvegarde et
+  transfert par fichier ou copier-coller (onglet « Plus »).
 
   Source : dépôt cours-maths, Plan de classe/plan-de-classe.html. Publiée par
   python tools/entrainement.py --publier dans le dépôt public p-bailly/entrainements, en
@@ -400,6 +402,7 @@ function charger() {
   try { e = JSON.parse(localStorage.getItem(CLE)); } catch (err) { e = null; }
   if (!e || !e.classes || !Object.keys(e.classes).length) e = {version: 1, classeActive: "Ma classe", classes: {"Ma classe": nouvelleClasse()}};
   if (!e.classes[e.classeActive]) e.classeActive = Object.keys(e.classes)[0];
+  if (!e.salles || typeof e.salles !== "object") e.salles = {};  // bibliothèque des salles, partagée par les classes
   for (const c of Object.values(e.classes)) {  // complète une sauvegarde d'une version antérieure
     const neuve = nouvelleClasse();
     for (const k in neuve) if (c[k] === undefined) c[k] = neuve[k];
@@ -481,9 +484,12 @@ function rendreEleves() {
     <div class="carte">
       <div class="ligne"><input type="text" id="nouveauNom" placeholder="Nom de l'élève" style="flex:1" autocomplete="off">
         <button class="btn principal" id="btnAjouter">Ajouter</button></div>
+      <div class="ligne" style="margin-top:0.5rem"><label class="btn">Importer un fichier<input type="file" class="importFichiers" multiple hidden></label>
+        <span class="aide" style="margin:0">eleves.csv du PC, ou une liste CSV d'un tableur ou de Pronote</span></div>
       <details style="margin-top:0.5rem"><summary>Coller une liste</summary>
         <p class="aide">Une ligne par élève : <code>nom ; sexe ; bavardage ; devant ; participation</code> (séparateur ; , ou tabulation,
-        comme eleves.csv du PC, avec ou sans ligne d'en-tête). Le nom seul suffit, les cases vides valent 3.</p>
+        comme eleves.csv du PC, avec ou sans ligne d'en-tête). Le nom seul suffit, les cases vides valent 3. Un élève déjà
+        présent garde sa fiche, mise à jour par ce que la ligne renseigne.</p>
         <textarea id="liste" rows="5" placeholder="Léa Dupont;F;5;3;4&#10;Paul Martin;G"></textarea>
         <div class="ligne" style="margin-top:0.4rem"><button class="btn" id="btnColler">Ajouter ces élèves</button></div>
       </details>
@@ -494,6 +500,7 @@ function rendreEleves() {
   document.getElementById("btnAjouter").onclick = ajouterEleve;
   document.getElementById("nouveauNom").onkeydown = ev => { if (ev.key === "Enter") ajouterEleve(); };
   document.getElementById("btnColler").onclick = collerListe;
+  zone.querySelectorAll(".importFichiers").forEach(i => brancherImport(i, "eleves"));
   zone.querySelectorAll(".eleve").forEach(brancherCarte);
 }
 function carteEleve(e) {
@@ -530,15 +537,15 @@ function brancherCarte(carte) {
 function creerEleve(nom, sexe, bavardage, devant, participation) {
   return {id: nouvelId(), nom, sexe: sexe || "", bavardage: bavardage || 3, devant: devant || 3, participation: participation || 3};
 }
-function insererEleve(e) {
+function insererEleveDans(c, e) {
   // Un plan en cours accueille le nouvel élève sur une place libre, s'il y en a une.
-  const c = classe();
   c.eleves.push(e);
   if (c.plan) {
     const libre = c.plan.places.indexOf(null);
     if (libre >= 0) c.plan.places[libre] = e.id;
   }
 }
+function insererEleve(e) { insererEleveDans(classe(), e); }
 function ajouterEleve() {
   const champ = document.getElementById("nouveauNom");
   const nom = champ.value.trim();
@@ -548,45 +555,78 @@ function ajouterEleve() {
   rendreEleves();
   document.getElementById("nouveauNom").focus();
 }
-const ALIAS = {nom: ["nom", "eleve", "nomprenom", "nometprenom", "prenomnom", "prenometnom"], prenom: ["prenom"],
-               sexe: ["sexe", "genre", "fg", "fillegarcon", "filleougarcon"], bavardage: ["bavardage", "bavard", "bavarde", "bruit"],
+const ALIAS = {nom: ["nom", "eleve", "eleves", "nomprenom", "nometprenom", "prenomnom", "prenometnom", "nomdefamille", "nomeleve", "nomdeleleve"],
+               prenom: ["prenom", "prenoms", "prenomeleve"],
+               sexe: ["sexe", "genre", "fg", "fillegarcon", "filleougarcon", "civilite", "civ"], bavardage: ["bavardage", "bavard", "bavarde", "bruit"],
                devant: ["devant", "avant", "besoindetredevant", "placement", "rang"],
                participation: ["participation", "participe", "oral", "participationoral", "participationalorale", "participationorale"]};
 function lireSexe(t) {
   const n = normalise(t);
-  if (["f", "fille", "femme", "feminin"].includes(n)) return "F";
-  if (["g", "garcon", "m", "masculin", "h", "homme"].includes(n)) return "G";
+  if (["f", "fille", "femme", "feminin", "mme", "mlle", "madame", "mademoiselle"].includes(n)) return "F";
+  if (["g", "garcon", "m", "masculin", "h", "homme", "monsieur", "mr"].includes(n)) return "G";
   return "";
 }
-function lireNiveau(t) { const v = parseInt(t, 10); return v >= 1 && v <= 5 ? v : 3; }
-function collerListe() {
-  const lignes = document.getElementById("liste").value.split(/\r?\n/).filter(l => l.trim());
-  if (!lignes.length) return;
+function decouperCsv(ligne, sep) {
+  // Une ligne CSV, guillemets compris (« "DUPONT";"Léa" »).
+  const cellules = [];
+  let courante = "", guillemets = false;
+  for (let i = 0; i < ligne.length; i++) {
+    const ch = ligne[i];
+    if (ch === '"') { if (guillemets && ligne[i + 1] === '"') { courante += '"'; i++; } else guillemets = !guillemets; }
+    else if (ch === sep && !guillemets) { cellules.push(courante); courante = ""; }
+    else courante += ch;
+  }
+  cellules.push(courante);
+  return cellules.map(x => x.trim());
+}
+function analyserListeEleves(texte) {
+  // Une ligne par élève. En-tête reconnue (nom, prénom, sexe ou civilité, niveaux), sinon l'ordre
+  // nom ; sexe ; bavardage ; devant ; participation. Niveau 0 : non renseigné.
+  const lignes = texte.split(/\r?\n/).filter(l => l.trim() && !/^sep=/i.test(l));
+  if (!lignes.length) return [];
   const sep = [";", ",", "\t"].sort((a, b) => lignes[0].split(b).length - lignes[0].split(a).length)[0];
-  const rangees = lignes.map(l => l.split(sep).map(x => x.trim()));
+  const rangees = lignes.map(l => decouperCsv(l, sep));
   let colonnes = {};
-  rangees[0].forEach((cellule, i) => { for (const champ in ALIAS) if (ALIAS[champ].includes(normalise(cellule))) colonnes[champ] = i; });
+  rangees[0].forEach((cellule, i) => { for (const champ in ALIAS) if (ALIAS[champ].includes(normalise(cellule)) && colonnes[champ] === undefined) colonnes[champ] = i; });
   if (colonnes.nom !== undefined || colonnes.prenom !== undefined) rangees.shift();
   else colonnes = {nom: 0, sexe: 1, bavardage: 2, devant: 3, participation: 4};
   const cellule = (r, champ) => colonnes[champ] !== undefined && r[colonnes[champ]] !== undefined ? r[colonnes[champ]] : "";
-  const existants = new Set(classe().eleves.map(e => normalise(e.nom)));
-  let ajoutes = 0, doublons = 0;
-  for (const r of rangees) {
-    const nom = [cellule(r, "prenom"), cellule(r, "nom")].filter(Boolean).join(" ");
-    if (!nom) continue;
-    if (existants.has(normalise(nom))) { doublons++; continue; }
-    existants.add(normalise(nom));
-    insererEleve(creerEleve(nom, lireSexe(cellule(r, "sexe")), lireNiveau(cellule(r, "bavardage")), lireNiveau(cellule(r, "devant")), lireNiveau(cellule(r, "participation"))));
-    ajoutes++;
+  const niveau = t => { const v = parseInt(t, 10); return v >= 1 && v <= 5 ? v : 0; };
+  return rangees.map(r => ({nom: [cellule(r, "prenom"), cellule(r, "nom")].filter(Boolean).join(" "), sexe: lireSexe(cellule(r, "sexe")),
+                            bavardage: niveau(cellule(r, "bavardage")), devant: niveau(cellule(r, "devant")), participation: niveau(cellule(r, "participation"))}))
+                .filter(e => e.nom);
+}
+function fusionnerEleves(c, liste) {
+  // Un élève déjà présent (même nom) garde sa fiche, mise à jour par ce que la liste renseigne ; les autres sont ajoutés.
+  const parNom = new Map(c.eleves.map(e => [normalise(e.nom), e]));
+  let ajoutes = 0, misAJour = 0;
+  for (const l of liste) {
+    const existant = parNom.get(normalise(l.nom));
+    if (existant) {
+      let change = false;
+      if (l.sexe && l.sexe !== existant.sexe) { existant.sexe = l.sexe; change = true; }
+      for (const ch of ["bavardage", "devant", "participation"]) if (l[ch] && l[ch] !== existant[ch]) { existant[ch] = l[ch]; change = true; }
+      if (change) misAJour++;
+    } else {
+      const e = creerEleve(l.nom, l.sexe, l.bavardage, l.devant, l.participation);
+      insererEleveDans(c, e);
+      parNom.set(normalise(l.nom), e);
+      ajoutes++;
+    }
   }
+  return {ajoutes, misAJour};
+}
+function collerListe() {
+  const r = fusionnerEleves(classe(), analyserListeEleves(document.getElementById("liste").value));
   sauver();
   rendreEleves();
-  if (doublons) alert(`${ajoutes} élève(s) ajouté(s) ; ${doublons} déjà présent(s), ignoré(s).`);
+  alert(`${r.ajoutes} élève(s) ajouté(s), ${r.misAJour} mis à jour.`);
 }
 
 // ----------------------------------------------------------------------- salle
 function rendreSalle() {
   const c = classe(), s = c.salle;
+  const nomsSalles = Object.keys(etat.salles).sort((a, b) => a.localeCompare(b, "fr"));
   const rangees = s.dessin.length, colonnes = Math.max(1, ...s.dessin.map(l => l.length));
   const nbPlaces = salleAnalysee().places.length;
   const cellules = s.dessin.map((l, r) => [...l.padEnd(colonnes)].map((ch, col) =>
@@ -614,6 +654,17 @@ function rendreSalle() {
         <input type="text" inputmode="numeric" class="court" id="genRangees" value="5"> rangées
         <button class="btn" id="btnGenerer">Dessiner</button></div>
     </div>
+    <div class="carte">
+      <b>Salles enregistrées</b>
+      <p class="aide">Une salle enregistrée se réutilise d'une classe à l'autre ; « Utiliser » la recopie dans cette classe.</p>
+      <div class="ligne"><select id="selSalle" style="flex:1">${nomsSalles.length ? nomsSalles.map(n => `<option>${echapper(n)}</option>`).join("") : `<option value="">aucune</option>`}</select>
+        <button class="btn" id="btnUtiliserSalle"${nomsSalles.length ? "" : " disabled"}>Utiliser</button>
+        <button class="btn petit danger" id="btnSupprimerSalle"${nomsSalles.length ? "" : " disabled"}>Supprimer</button></div>
+      <div class="ligne" style="margin-top:0.4rem"><input type="text" id="nomSalle" placeholder="Nom de la salle dessinée ci-dessus (B12…)" style="flex:1">
+        <button class="btn" id="btnEnregistrerSalle">Enregistrer</button></div>
+      <div class="ligne" style="margin-top:0.4rem"><label class="btn">Importer un dessin<input type="file" class="importFichiers" multiple hidden></label>
+        <span class="aide" style="margin:0">salle.txt du PC, un ou plusieurs fichiers</span></div>
+    </div>
     <details class="carte"><summary>Modifier en texte</summary>
       <p class="aide">Le format de salle.txt du PC : X = place, espace = allée, ligne vide = passage, « tableau » au-dessus ou au-dessous.</p>
       <textarea id="texteSalle" rows="${rangees + 3}" spellcheck="false">${echapper(texteSalle(s))}</textarea>
@@ -621,6 +672,22 @@ function rendreSalle() {
     </details>`;
   const zone = document.getElementById("onglet-salle");
   const modifier = f => { f(); c.plan = null; selection = null; sauver(); rendreSalle(); };
+  document.getElementById("btnUtiliserSalle").onclick = () => {
+    const modele = etat.salles[document.getElementById("selSalle").value];
+    if (modele) modifier(() => { c.salle = {dessin: modele.dessin.slice(), tableauEnHaut: modele.tableauEnHaut}; });
+  };
+  document.getElementById("btnSupprimerSalle").onclick = () => {
+    const nom = document.getElementById("selSalle").value;
+    if (nom && confirm(`Oublier la salle « ${nom} » ? (les classes qui l'utilisent gardent leur dessin)`)) { delete etat.salles[nom]; sauver(); rendreSalle(); }
+  };
+  document.getElementById("btnEnregistrerSalle").onclick = () => {
+    const nom = document.getElementById("nomSalle").value.trim();
+    if (!nom) { alert("Donner un nom à la salle."); return; }
+    if (!salleAnalysee().places.length) { alert("La salle n'a aucune place."); return; }
+    etat.salles[nom] = {dessin: s.dessin.slice(), tableauEnHaut: s.tableauEnHaut};
+    sauver(); rendreSalle();
+  };
+  zone.querySelectorAll(".importFichiers").forEach(i => brancherImport(i, "salle"));
   zone.querySelectorAll(".cellule").forEach(b => { b.onclick = () => modifier(() => {
     const r = Number(b.dataset.r), col = Number(b.dataset.c);
     const l = [...s.dessin[r].padEnd(colonnes)];
@@ -640,14 +707,19 @@ function rendreSalle() {
     const ligne = Array.from({length: nc}, () => "X".repeat(t)).join("   ");
     s.dessin = Array.from({length: nr}, () => ligne);
   });
-  document.getElementById("btnTexteSalle").onclick = () => modifier(() => lireTexteSalle(document.getElementById("texteSalle").value, s));
+  document.getElementById("btnTexteSalle").onclick = () => {
+    const lu = lireTexteSalle(document.getElementById("texteSalle").value);
+    if (!lu) { alert("Aucune place : dessiner chaque place par un X."); return; }
+    modifier(() => { s.dessin = lu.dessin; s.tableauEnHaut = lu.tableauEnHaut; });
+  };
 }
 function texteSalle(s) {
   const dessin = s.dessin.map(l => l.replace(/\s+$/, ""));
   return s.tableauEnHaut ? ["TABLEAU", "", ...dessin].join("\n") : [...dessin, "", "TABLEAU"].join("\n");
 }
-function lireTexteSalle(texte, s) {
+function lireTexteSalle(texte) {
   // Mêmes règles que lire_salle du script : lignes de places, ligne « tableau », commentaires #.
+  // Rend {dessin, tableauEnHaut}, ou null sans aucune place.
   const genres = [];
   for (let l of texte.split(/\r?\n/)) {
     l = l.replace(/\s+$/, "");
@@ -658,13 +730,12 @@ function lireTexteSalle(texte, s) {
     else genres.push(["autre", l]);
   }
   const rangs = genres.map((g, i) => g[0] === "places" ? i : -1).filter(i => i >= 0);
-  if (!rangs.length) { alert("Aucune place : dessiner chaque place par un X."); return; }
+  if (!rangs.length) return null;
   const debut = rangs[0], fin = rangs[rangs.length - 1];
   const tableaux = genres.map((g, i) => g[0] === "tableau" ? i : -1).filter(i => i >= 0);
-  s.tableauEnHaut = !tableaux.length || tableaux[0] < debut;
   const dessin = genres.slice(debut, fin + 1).map(([g, t]) => g === "places" ? t : "");
   const largeur = Math.max(...dessin.map(l => l.length));
-  s.dessin = dessin.map(l => l.replace(/[^XxOo]/g, " ").padEnd(largeur));
+  return {dessin: dessin.map(l => l.replace(/[^XxOo]/g, " ").padEnd(largeur)), tableauEnHaut: !tableaux.length || tableaux[0] < debut};
 }
 
 // ----------------------------------------------------------------------- contraintes
@@ -856,12 +927,22 @@ function rendrePlus() {
     <div class="carte ligne"><button class="btn" id="btnRenommer">Renommer « ${echapper(etat.classeActive)} »</button>
       <button class="btn danger" id="btnSupprimerClasse">Supprimer cette classe</button></div>
 
+    <h2>Importer mes fichiers</h2>
+    <div class="carte">
+      <p class="aide" style="margin-top:0">Les fichiers du dossier d'une classe sur le PC : <code>eleves.csv</code> (ou toute liste CSV
+        d'un tableur ou de Pronote : nom, prénom, sexe ou civilité, niveaux s'ils y sont), <code>salle.txt</code> et tout autre dessin de
+        salle, <code>contraintes.txt</code>, ainsi que les sauvegardes <code>.json</code> de cette page. Sur PC, un dossier entier :
+        chaque sous-dossier qui contient une liste d'élèves ou salle.txt devient une classe de ce nom, les autres dessins vont dans
+        les salles enregistrées. Un élève déjà présent garde sa fiche, mise à jour par ce que le fichier renseigne.</p>
+      <div class="ligne"><label class="btn principal">Importer des fichiers<input type="file" class="importFichiers" multiple hidden></label>
+        <label class="btn" id="labelDossier">Importer un dossier<input type="file" id="fichierDossier" webkitdirectory multiple hidden></label></div>
+    </div>
+
     <h2>Sauvegarde</h2>
     <div class="carte">
       <p class="aide" style="margin-top:0">Tout reste dans ce navigateur, rien n'est envoyé. Pour garder une copie, changer d'appareil ou
-        revenir en arrière : exporter, puis importer ailleurs. Une classe importée remplace celle du même nom.</p>
+        revenir en arrière : exporter, puis importer ailleurs (bouton ci-dessus, ou coller ci-dessous). Une classe importée remplace celle du même nom.</p>
       <div class="ligne"><button class="btn" id="btnExporter">Exporter (fichier)</button>
-        <label class="btn">Importer (fichier)<input type="file" id="fichierImport" accept=".json,application/json" style="display:none"></label>
         <button class="btn" id="btnCopierDonnees">Copier les données</button></div>
       <details style="margin-top:0.5rem"><summary>Coller des données</summary>
         <textarea id="donneesCollees" rows="4" placeholder="Coller ici ce qu'a donné « Copier les données »"></textarea>
@@ -906,26 +987,154 @@ function rendrePlus() {
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 2000);
   };
-  document.getElementById("fichierImport").onchange = ev => {
-    const f = ev.target.files[0];
-    if (!f) return;
-    f.text().then(t => importer(t)).catch(() => alert("Fichier illisible."));
-  };
+  zone.querySelectorAll(".importFichiers").forEach(i => brancherImport(i, "eleves"));
+  brancherImport(document.getElementById("fichierDossier"), "eleves");
+  if (!("webkitdirectory" in document.createElement("input"))) document.getElementById("labelDossier").style.display = "none";
   document.getElementById("btnCopierDonnees").onclick = ev => copier(exporter(), ev.target);
-  document.getElementById("btnImporterColle").onclick = () => importer(document.getElementById("donneesCollees").value);
+  document.getElementById("btnImporterColle").onclick = () => { alert(importerJson(document.getElementById("donneesCollees").value)); sauver(); afficherOnglet("eleves"); };
   zone.querySelectorAll(".copierFichier").forEach(b => { b.onclick = () => copier(b.closest("details").querySelector("textarea").value, b); });
 }
 function exporter() { return JSON.stringify({application: "plan-de-classe", version: 1, classe: etat.classeActive, donnees: classe()}, null, 1); }
-function importer(texte) {
+function importerJson(texte) {
+  // Une sauvegarde de cette page ; rend une phrase pour le compte rendu.
   let d;
-  try { d = JSON.parse(texte); } catch (err) { alert("Ce n'est pas une sauvegarde de cette page."); return; }
-  if (!d || d.application !== "plan-de-classe" || !d.donnees || !Array.isArray(d.donnees.eleves)) { alert("Ce n'est pas une sauvegarde de cette page."); return; }
+  try { d = JSON.parse(texte); } catch (err) { return "ce n'est pas une sauvegarde de cette page"; }
+  if (!d || d.application !== "plan-de-classe" || !d.donnees || !Array.isArray(d.donnees.eleves)) return "ce n'est pas une sauvegarde de cette page";
   const nom = d.classe || "Classe importée";
-  if (etat.classes[nom] && !confirm(`Remplacer la classe « ${nom} » ?`)) return;
+  if (etat.classes[nom] && !confirm(`Remplacer la classe « ${nom} » ?`)) return `classe « ${nom} » conservée`;
   etat.classes[nom] = Object.assign(nouvelleClasse(), d.donnees);
   etat.classeActive = nom;
+  return `classe « ${nom} » importée (${d.donnees.eleves.length} élèves)`;
+}
+
+// ----------------------------------------------------------------------- import de fichiers
+// Fichiers reconnus à leur contenu : liste d'élèves (eleves.csv, export d'un tableur ou de Pronote), dessin de
+// salle (salle.txt), contraintes.txt, sauvegarde .json. Sur PC, un dossier : les fichiers sont regroupés par
+// dossier ; un dossier qui contient une liste d'élèves, des contraintes ou salle.txt est une classe du même nom.
+const EXTENSIONS = ["csv", "txt", "tsv", "json"];
+const MOTS_SEPARER = ["separer", "eloigner", "loin", "ecarter", "separe", "eloigne"];
+const MOTS_RAPPROCHER = ["rapprocher", "ensemble", "proche", "grouper", "rapproche", "proches"];
+function decoderFichier(fichier) {
+  // UTF-8 (avec ou sans BOM), sinon Windows-1252 (Excel, Pronote).
+  return fichier.arrayBuffer().then(tampon => {
+    try { return new TextDecoder("utf-8", {fatal: true}).decode(tampon); }
+    catch (err) { return new TextDecoder("windows-1252").decode(tampon); }
+  }).then(t => t.replace(/^\uFEFF/, ""));
+}
+function reconnaitre(texte) {
+  const t = texte.trim();
+  if (!t) return "vide";
+  if (t.startsWith("{")) return "json";
+  const lignes = t.split(/\r?\n/).map(l => l.replace(/\s+$/, "")).filter(l => l.trim() && !l.trim().startsWith("#"));
+  const ligneSalle = l => [...l].every(ch => estPlace(ch) || " ._-|".includes(ch));
+  if (lignes.some(l => ligneSalle(l) && [...l].some(estPlace)) && lignes.every(l => ligneSalle(l) || normalise(l).startsWith("tableau"))) return "salle";
+  const mot = l => normalise(l.split(":")[0]);
+  if (lignes.every(l => l.includes(":") && (MOTS_SEPARER.includes(mot(l)) || MOTS_RAPPROCHER.includes(mot(l))))) return "contraintes";
+  return "eleves";
+}
+function trouverEleve(c, terme) {
+  // L'élève désigné par un nom complet, un début ou un morceau de nom, s'il est seul à correspondre.
+  const cle = normalise(terme);
+  if (!cle) return null;
+  for (const critere of [e => normalise(e.nom) === cle, e => normalise(e.nom).startsWith(cle), e => normalise(e.nom).includes(cle)]) {
+    const trouves = c.eleves.filter(critere);
+    if (trouves.length === 1) return trouves[0];
+    if (trouves.length > 1) return null;
+  }
+  return null;
+}
+function importerContraintes(c, texte) {
+  let ajoutes = 0;
+  const problemes = [];
+  for (let l of texte.split(/\r?\n/)) {
+    l = l.split("#")[0].trim();
+    if (!l) continue;
+    const i = l.indexOf(":");
+    const mot = i < 0 ? "" : normalise(l.slice(0, i));
+    const type = MOTS_SEPARER.includes(mot) ? "separer" : MOTS_RAPPROCHER.includes(mot) ? "rapprocher" : null;
+    if (!type) { problemes.push(l); continue; }
+    const ids = [], inconnus = [];
+    for (const t of l.slice(i + 1).split(/[,;]/).map(x => x.trim()).filter(Boolean)) {
+      const e = trouverEleve(c, t);
+      if (!e) inconnus.push(t); else if (!ids.includes(e.id)) ids.push(e.id);
+    }
+    if (inconnus.length) problemes.push(`${l} (inconnu ou ambigu : ${inconnus.join(", ")})`);
+    if (ids.length >= 2 && !c.contraintes.some(g => g.type === type && g.ids.length === ids.length && ids.every(id => g.ids.includes(id)))) {
+      c.contraintes.push({type, ids});
+      ajoutes++;
+    }
+  }
+  return {ajoutes, problemes};
+}
+function nomSansExtension(nom) { return nom.replace(/\.[^.]+$/, ""); }
+async function importerFichiers(fichiers, ongletApres) {
+  const lus = [];
+  for (const f of fichiers) {
+    const chemin = (f.webkitRelativePath || f.name).split("/");
+    const ext = (f.name.split(".").pop() || "").toLowerCase();
+    if (!EXTENSIONS.includes(ext) || f.name.startsWith(".")) continue;
+    lus.push({nom: f.name, dossier: chemin.length > 1 ? chemin[chemin.length - 2] : "", chemin: chemin.slice(0, -1).join("/"), texte: await decoderFichier(f)});
+  }
+  if (!lus.length) { alert("Aucun fichier reconnu : attendus .csv, .txt ou .json."); return; }
+  const groupes = new Map();
+  for (const f of lus) {
+    f.genre = reconnaitre(f.texte);
+    if (!groupes.has(f.chemin)) groupes.set(f.chemin, []);
+    groupes.get(f.chemin).push(f);
+  }
+  const rapport = [];
+  let derniereClasse = null;
+  for (const [chemin, groupe] of groupes) {
+    const estClasse = groupe.some(f => f.genre === "eleves" || f.genre === "contraintes" || (f.genre === "salle" && /^salle\.txt$/i.test(f.nom)));
+    for (const f of groupe) if (f.genre === "json") rapport.push(`${f.nom} : ${importerJson(f.texte)}`);
+    for (const f of groupe) if (f.genre === "vide") rapport.push(`${f.nom} : vide, ignoré`);
+    if (!chemin || estClasse) {
+      const nomClasse = chemin ? groupe[0].dossier : etat.classeActive;
+      const c = etat.classes[nomClasse] || (etat.classes[nomClasse] = nouvelleClasse());
+      for (const f of groupe) if (f.genre === "eleves") {
+        const r = fusionnerEleves(c, analyserListeEleves(f.texte));
+        rapport.push(`${f.nom} → ${nomClasse} : ${r.ajoutes} élève(s) ajouté(s), ${r.misAJour} mis à jour`);
+      }
+      for (const f of groupe) if (f.genre === "salle") {
+        const lu = lireTexteSalle(f.texte);
+        if (!lu) continue;
+        const nomSalle = /^salle\.txt$/i.test(f.nom) ? nomClasse : nomSansExtension(f.nom);
+        etat.salles[nomSalle] = lu;
+        c.salle = {dessin: lu.dessin.slice(), tableauEnHaut: lu.tableauEnHaut};
+        c.plan = null;
+        rapport.push(`${f.nom} → salle « ${nomSalle} » (${analyserSalle(lu.dessin, true).places.length} places), utilisée par ${nomClasse}`);
+      }
+      for (const f of groupe) if (f.genre === "contraintes") {
+        const r = importerContraintes(c, f.texte);
+        rapport.push(`${f.nom} → ${nomClasse} : ${r.ajoutes} binôme(s) ajouté(s)` + (r.problemes.length ? ` ; non compris : ${r.problemes.join(" / ")}` : ""));
+      }
+      if (groupe.some(f => ["eleves", "salle", "contraintes"].includes(f.genre))) derniereClasse = nomClasse;
+    } else {
+      for (const f of groupe) if (f.genre === "salle") {
+        const lu = lireTexteSalle(f.texte);
+        if (!lu) continue;
+        const nomSalle = nomSansExtension(f.nom);
+        etat.salles[nomSalle] = lu;
+        rapport.push(`${f.nom} → salle « ${nomSalle} » (${analyserSalle(lu.dessin, true).places.length} places) enregistrée`);
+      }
+    }
+  }
+  if (derniereClasse) etat.classeActive = derniereClasse;
+  // La classe vide créée au premier lancement disparaît dès qu'une vraie classe est importée.
+  const vide = etat.classes["Ma classe"];
+  if (vide && vide !== etat.classes[etat.classeActive] && !vide.eleves.length && !vide.contraintes.length && Object.keys(etat.classes).length > 1) delete etat.classes["Ma classe"];
+  selection = null;
   sauver();
-  afficherOnglet("eleves");
+  alert(rapport.join("\n"));
+  afficherOnglet(ongletApres || onglet);
+}
+function brancherImport(input, ongletApres) {
+  if (!input) return;
+  input.onchange = ev => {
+    const fichiers = [...ev.target.files];
+    ev.target.value = "";
+    if (fichiers.length) importerFichiers(fichiers, ongletApres).catch(err => alert("Import impossible : " + err.message));
+  };
 }
 function texteEleves(c) {
   return ["nom;sexe;bavardage;devant;participation", ...c.eleves.map(e => [e.nom, e.sexe, e.bavardage, e.devant, e.participation].join(";"))].join("\n");
