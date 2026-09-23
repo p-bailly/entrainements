@@ -533,6 +533,8 @@ const zoneProg = $('#progression');
 const zoneQuiz = $('#quiz');
 const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
 const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
+// Une seule partie : aucun nom de partie n'est affiché (grille, question, corrigé, note).
+const UNE_PARTIE = QUIZ.parties.length === 1;
 const questionsDe = p => QUIZ.questions.map((q, i) => q.partie === p ? i : -1).filter(i => i >= 0);
 
 /* ---------- Affichage ---------- */
@@ -558,8 +560,8 @@ function rendreProgression() {
       if (rep) marques += `<td class="${rep.ok ? 'juste' : 'erreur'}${i === etat.courant ? ' courant' : ''}" data-q="${i}"><span class="marque ${rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`;
       else marques += `<td class="${i === etat.courant ? 'courant' : ''}" data-q="${i}"></td>`;
     });
-    return `<div class="bloc-grille"><p class="nom-partie">${nomPartie(p)}</p>
-      <table class="grille-reponses" aria-label="${nomPartie(p)} : ${faites} question${faites > 1 ? 's' : ''} sur ${rangs.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+    return `<div class="bloc-grille">${UNE_PARTIE ? '' : `<p class="nom-partie">${nomPartie(p)}</p>`}
+      <table class="grille-reponses" aria-label="${UNE_PARTIE ? 'Réponses' : nomPartie(p)} : ${faites} question${faites > 1 ? 's' : ''} sur ${rangs.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
   }).join('');
 }
 
@@ -606,7 +608,7 @@ function rendreQuestion(i) {
     ? `<button type="button" class="bouton" id="suivant">${derniere ? 'Voir ma note' : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante'}</button>`
     : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
   zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
-    <p class="partie">${nomPartie(q.partie)}</p>
+    ${UNE_PARTIE ? '' : `<p class="partie">${nomPartie(q.partie)}</p>`}
     <p class="question" id="titre-q"><b>Question ${i + 1}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
     <div class="enonce">${tex(q.enonce)}</div>
     <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
@@ -691,7 +693,7 @@ function demanderRecommencer(btn) {
 // Questions regroupées par partie : un titre, puis la liste produite par item(q, i).
 function listeParParties(item) {
   return QUIZ.parties.map((nom, p) =>
-    `<h2 class="titre-partie">${nomPartie(p)}</h2><ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
+    `${UNE_PARTIE ? '' : `<h2 class="titre-partie">${nomPartie(p)}</h2>`}<ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
   ).join('');
 }
 
@@ -732,7 +734,7 @@ function rendreResultat() {
     <p class="question" id="titre-r"><b>Note.</b></p>
     <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
     <p class="appreciation">${appreciation}</p>
-    <p class="bilan-parties">${parties}</p>
+    ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
     ${revoir}
     <div class="actions">
       <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
