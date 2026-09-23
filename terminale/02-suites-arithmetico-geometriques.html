@@ -8,9 +8,14 @@
   Entraînement auto-corrigé à l'évaluation du chapitre 2 (Suites) - Terminale,
   mathématiques complémentaires. Une seule partie, sans automatismes, qui reprend tout le
   chapitre : modes de génération, sens de variation (à partir d'un rang), suites
-  arithmétiques (expression explicite, somme), suites géométriques (expression explicite,
-  sens de variation, somme, pourcentage), tableur, suites arithmético-géométriques (cas
-  particulier, point fixe, suite auxiliaire, expression explicite, seuil).
+  arithmétiques (expression explicite, somme), suites géométriques (définition, expression
+  explicite, sens de variation, somme, pourcentage), tableur (feuille affichée), lectures
+  graphiques de termes (nuage de points, construction en escalier), suites
+  arithmético-géométriques (cas particulier, point fixe, suite auxiliaire, expression
+  explicite, seuil). Trois questions de cours (définition d'une suite géométrique, sens de
+  variation, suite auxiliaire).
+  Questions rangées par difficulté croissante, en trois niveaux : cours et applications
+  directes, calculs en plusieurs étapes, puis pièges et méthode de la partie 3.
   Mêmes types de questions que dans le cours (capacités 1 à 4, méthode), la fiche et
   l'évaluation, avec d'autres valeurs. Pas de limite de suite (chapitre 7).
 
@@ -207,7 +212,7 @@ table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
     <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
     <div class="entete"><span>Terminale · Mathématiques complémentaires</span><span>M. Bailly</span><span>Chapitre 2 · Suites</span></div>
     <h1>Entraînement Évaluation suites</h1>
-    <p class="consigne">Quatorze questions sur tout le chapitre. Une seule réponse est exacte à chaque fois. Calculatrice autorisée.</p>
+    <p class="consigne">Dix-neuf questions sur tout le chapitre, de la plus simple à la plus difficile. Une seule réponse est exacte à chaque fois. Calculatrice autorisée.</p>
     <div class="filet" role="presentation"></div>
   </header>
   <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
@@ -300,12 +305,30 @@ function calcul(...lignes) {
 }
 
 /* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
+// Construction en escalier : droite d (f(x) = 0,5x + 2), droite Δ (y = x) et u0 = 8 sur l'axe.
+function escalier(o) {
+  return repere(Object.assign({ xmin: -1, xmax: 9, ymin: -1, ymax: 9,
+    courbes: [{ f: x => 0.5 * x + 2 }, { f: x => x, classe: 'c-bleu' }],
+    noms: [{ x: 2, y: 3.6, texte: 'd' }, { x: 7.4, y: 8, texte: 'Δ', ancre: 'end', classe: 'c-bleu' },
+           { x: 8.12, y: 0.3, texte: 'u', indice: '0', classe: 'c-noir' }],
+    points: [{ x: 8, y: 0, classe: 'c-noir' }] }, o));
+}
+
 const QUIZ = {
   id: 'tle-02-suites-entrainement',
   parties: ['Suites'],
   questions: [
 
-  /* ----- Suite numérique ----- */
+  /* ----- Niveau 1 : cours et applications directes ----- */
+
+  { partie: 0, theme: 'Définition', type: 'qcm',
+    enonce: r`Une suite $(u_{n})$ est géométrique de raison $q$ lorsque, pour tout entier naturel $n$&nbsp;:`,
+    choix: [r`$u_{n+1} = q \times u_{n}$`, r`$u_{n+1} = u_{n} + q$`, r`$u_{n} = u_{0} + n \times q$`, r`$u_{n} = u_{0} \times q \times n$`],
+    bonne: 0,
+    explication: [
+      r`On passe d'un terme au suivant en multipliant toujours par le même nombre $q$, la raison.`,
+      r`Pour tout entier naturel $n$, <span class="resultat">$u_{n+1} = q \times u_{n}$</span>.`],
+    revoir: r`définition d'une suite géométrique (partie 2 du cours)` },
 
   { partie: 0, theme: 'Récurrence', type: 'qcm',
     enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 3$ et, pour tout entier naturel $n$, $u_{n+1} = 2u_{n} - 1$. Le terme $u_{3}$ vaut&nbsp;:`,
@@ -316,41 +339,21 @@ const QUIZ = {
       calcul(r`u_{1} & = 2 \times 3 - 1 = 5`, r`u_{2} & = 2 \times 5 - 1 = 9`, r`u_{3} & = 2 \times 9 - 1 = \resultat{17}`)],
     revoir: r`modes de génération (partie 1 du cours)` },
 
-  { partie: 0, theme: 'Sens de variation', type: 'qcm', fixe: true,
-    enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = n^{2} - 8n + 3$. Elle est strictement croissante à partir du rang&nbsp;:`,
-    choix: [r`$0$`, r`$3$`, r`$4$`, r`$8$`],
-    bonne: 2,
-    explication: [
-      r`On calcule la différence $u_{n+1} - u_{n}$ et on étudie son signe.`,
-      calcul(r`u_{n+1} - u_{n} & = (n + 1)^{2} - 8(n + 1) + 3 - (n^{2} - 8n + 3)`, r`& = n^{2} + 2n + 1 - 8n - 8 + 3 - n^{2} + 8n - 3`, r`& = 2n - 7`),
-      r`Pour $n \ge 4$, $2n - 7 \ge 1 > 0$&nbsp;; pour $n = 3$, $2n - 7 = -1 < 0$.`,
-      r`La suite est strictement croissante à partir du rang <span class="resultat">$4$</span>.`],
-    revoir: r`sens de variation (partie 1 du cours)` },
-
-  /* ----- Suites arithmétiques ----- */
-
-  { partie: 0, theme: 'Suite arithmétique', type: 'qcm',
-    enonce: r`La suite $(a_{n})$ est arithmétique, avec $a_{3} = 11$ et $a_{9} = 29$. Pour tout entier naturel $n$, $a_{n}$ est égal à&nbsp;:`,
-    choix: [r`$2 + 3n$`, r`$11 + 3n$`, r`$3 + 2n$`, r`$2 + 6n$`],
+  { partie: 0, theme: 'Lecture graphique', type: 'qcm',
+    enonce: r`Le nuage de points ci-dessous représente les premiers termes d'une suite géométrique $(u_{n})$. Sa raison est&nbsp;:`
+      + repere({ xmin: -1, xmax: 5, ymin: -1, ymax: 9,
+          points: [{ x: 0, y: 8 }, { x: 1, y: 4 }, { x: 2, y: 2 }, { x: 3, y: 1 }, { x: 4, y: 0.5 }],
+          label: 'Repère avec cinq points : (0 ; 8), (1 ; 4), (2 ; 2), (3 ; 1) et (4 ; 0,5)' }),
+    choix: [r`$0{,}5$`, r`$-4$`, r`$2$`, r`$4$`],
     bonne: 0,
     explication: [
-      r`On passe de $a_{3}$ à $a_{9}$ en ajoutant $6$ fois la raison $r$.`,
-      calcul(r`a_{9} & = a_{3} + 6r`, r`29 & = 11 + 6r`, r`r & = 3`),
-      r`Puis $a_{3} = a_{0} + 3r$, donc $a_{0} = 11 - 9 = 2$.`,
-      r`Pour tout entier naturel $n$, $a_{n} = a_{0} + nr$, soit <span class="resultat">$a_{n} = 2 + 3n$</span>.`],
-    revoir: r`capacité 2 du cours` },
-
-  { partie: 0, theme: 'Somme arithmétique', type: 'qcm',
-    enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = 4 + 2n$. La somme $S = u_{0} + u_{1} + \dots + u_{15}$ vaut&nbsp;:`,
-    choix: [r`$304$`, r`$285$`, r`$608$`, r`$34$`],
-    bonne: 0,
-    explication: [
-      r`La suite est arithmétique de raison $2$. La somme compte $16$ termes (de $0$ à $15$).`,
-      r`Le premier terme vaut $u_{0} = 4$ et le dernier $u_{15} = 4 + 2 \times 15 = 34$.`,
-      calcul(r`S & = \text{nombre de termes} \times \dfrac{\text{premier} + \text{dernier}}{2}`, r`& = 16 \times \dfrac{4 + 34}{2}`, r`& = 16 \times 19`, r`& = \resultat{304}`)],
-    revoir: r`somme de termes consécutifs (partie 2 du cours), capacité 2` },
-
-  /* ----- Suites géométriques ----- */
+      r`On lit les ordonnées des points&nbsp;: $u_{0} = 8$, $u_{1} = 4$, $u_{2} = 2$, $u_{3} = 1$.`,
+      repere({ xmin: -1, xmax: 5, ymin: -1, ymax: 9, echelle: 1.15,
+          points: [{ x: 0, y: 8 }, { x: 1, y: 4 }, { x: 2, y: 2 }, { x: 3, y: 1 }, { x: 4, y: 0.5 }],
+          lectures: [[[1, 4], [0, 4]], [[2, 2], [0, 2]], [[3, 1], [0, 1]]],
+          label: 'Les mêmes points, lus sur l\'axe des ordonnées : 8, 4, 2 et 1' }),
+      r`D'un terme au suivant, on multiplie toujours par le même nombre&nbsp;: $q = \dfrac{u_{1}}{u_{0}} = \dfrac{4}{8}$, soit <span class="resultat">$q = 0{,}5$</span>.`],
+    revoir: r`suites géométriques (partie 2 du cours)` },
 
   { partie: 0, theme: 'Suite géométrique', type: 'qcm',
     enonce: r`La suite $(v_{n})$ est géométrique, de premier terme $v_{0} = 5$ et de raison $3$. Pour tout entier naturel $n$, $v_{n}$ est égal à&nbsp;:`,
@@ -370,15 +373,46 @@ const QUIZ = {
       r`Pour tout entier naturel $n$, $p_{n+1} = 0{,}96\,p_{n}$&nbsp;: la raison est <span class="resultat">$0{,}96$</span>.`],
     revoir: r`capacité 4 du cours (globe-trotter)` },
 
-  { partie: 0, theme: 'Sens de variation', type: 'qcm', fixe: true,
-    enonce: r`La suite $(w_{n})$ est définie pour tout entier naturel $n$ par $w_{n} = -2 \times 0{,}7^{n}$. Cette suite est&nbsp;:`,
-    choix: [r`strictement croissante`, r`strictement décroissante`, r`constante`, r`ni croissante, ni décroissante`],
+  { partie: 0, theme: 'Cas particulier', type: 'qcm',
+    enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 7$ et, pour tout entier naturel $n$, $u_{n+1} = u_{n} - 4$. Cette suite est&nbsp;:`,
+    choix: [r`arithmétique de raison $-4$`, r`géométrique de raison $-4$`, r`arithmétique de raison $7$`, r`ni arithmétique, ni géométrique`],
     bonne: 0,
     explication: [
-      r`$(w_{n})$ est géométrique de raison $q = 0{,}7$, avec $0 < q < 1$, et de premier terme $w_{0} = -2$.`,
-      r`Si le premier terme était positif, la suite serait décroissante. Comme $w_{0} < 0$, le sens de variation est inversé.`,
-      r`La suite est <span class="resultat">strictement croissante</span>&nbsp;: $w_{0} = -2$, $w_{1} = -1{,}4$, $w_{2} = -0{,}98$…`],
-    revoir: r`capacité 3 du cours` },
+      r`C'est une relation $u_{n+1} = a\,u_{n} + b$ avec $a = 1$ et $b = -4$.`,
+      r`Quand $a = 1$, on ajoute toujours le même nombre&nbsp;: la suite est <span class="resultat">arithmétique de raison $-4$</span>.`],
+    revoir: r`cas particuliers des suites arithmético-géométriques (partie 3 du cours)` },
+
+  { partie: 0, theme: 'Sens de variation', type: 'qcm', fixe: true,
+    enonce: r`Une suite géométrique a un premier terme $u_{0} > 0$ et une raison $q$ telle que $0 < q < 1$. Cette suite est&nbsp;:`,
+    choix: [r`strictement croissante`, r`strictement décroissante`, r`constante`, r`ni croissante, ni décroissante`],
+    bonne: 1,
+    explication: [
+      r`Chaque terme s'obtient en multipliant le précédent, positif, par un nombre $q$ compris entre $0$ et $1$&nbsp;: il est plus petit.`,
+      r`La suite est <span class="resultat">strictement décroissante</span>. Par exemple, avec $u_{0} = 8$ et $q = 0{,}5$&nbsp;: $8$, $4$, $2$, $1$…`],
+    revoir: r`sens de variation d'une suite géométrique (partie 2 du cours)` },
+
+  { partie: 0, theme: 'Tableur', type: 'qcm',
+    enonce: r`On calcule les termes de la suite définie par $u_{0} = 50$ et $u_{n+1} = 0{,}7\,u_{n} + 30$ avec un tableur. Quelle formule saisir dans la cellule B3, pour la recopier vers le bas&nbsp;?`
+      + tableur([[r`$n$`, r`$u_{n}$`], ['0', '50'], ['1', '#sel'], ['2', '']],
+          'Feuille de calcul : A1 contient n, B1 contient u indice n, A2 contient 0 et B2 contient 50, A3 contient 1 et B3 est vide'),
+    choix: [r`<code>=0,7*B2+30</code>`, r`<code>=0,7*B3+30</code>`, r`<code>=0,7*A2+30</code>`, r`<code>0,7*B2+30</code>`],
+    bonne: 0,
+    explication: [
+      r`Le terme de la ligne $3$ se calcule à partir du terme précédent, qui est dans la cellule B2 (la colonne A contient les rangs).`,
+      r`Une formule commence par le signe $=$&nbsp;: <span class="resultat"><code>=0,7*B2+30</code></span>. En B3, on obtient $u_{1} = 0{,}7 \times 50 + 30 = 65$.`],
+    revoir: r`capacité 1 du cours (phoques)` },
+
+  /* ----- Niveau 2 : calculs en plusieurs étapes ----- */
+
+  { partie: 0, theme: 'Somme arithmétique', type: 'qcm',
+    enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = 4 + 2n$. La somme $S = u_{0} + u_{1} + \dots + u_{15}$ vaut&nbsp;:`,
+    choix: [r`$304$`, r`$285$`, r`$608$`, r`$34$`],
+    bonne: 0,
+    explication: [
+      r`La suite est arithmétique de raison $2$. La somme compte $16$ termes (de $0$ à $15$).`,
+      r`Le premier terme vaut $u_{0} = 4$ et le dernier $u_{15} = 4 + 2 \times 15 = 34$.`,
+      calcul(r`S & = \text{nombre de termes} \times \dfrac{\text{premier} + \text{dernier}}{2}`, r`& = 16 \times \dfrac{4 + 34}{2}`, r`& = 16 \times 19`, r`& = \resultat{304}`)],
+    revoir: r`somme de termes consécutifs (partie 2 du cours), capacité 2` },
 
   { partie: 0, theme: 'Somme géométrique', type: 'qcm',
     enonce: r`La somme $S = 1 + 2 + 2^{2} + \dots + 2^{9}$ vaut&nbsp;:`,
@@ -389,25 +423,32 @@ const QUIZ = {
       calcul(r`S & = \dfrac{1 - 2^{10}}{1 - 2}`, r`& = \dfrac{1 - 1\,024}{-1}`, r`& = \resultat{1\,023}`)],
     revoir: r`somme de termes consécutifs d'une suite géométrique (partie 2 du cours)` },
 
-  /* ----- Suites arithmético-géométriques ----- */
-
-  { partie: 0, theme: 'Cas particulier', type: 'qcm',
-    enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 7$ et, pour tout entier naturel $n$, $u_{n+1} = u_{n} - 4$. Cette suite est&nbsp;:`,
-    choix: [r`arithmétique de raison $-4$`, r`géométrique de raison $-4$`, r`arithmétique de raison $7$`, r`ni arithmétique, ni géométrique`],
+  { partie: 0, theme: 'Suite arithmétique', type: 'qcm',
+    enonce: r`La suite $(a_{n})$ est arithmétique, avec $a_{3} = 11$ et $a_{9} = 29$. Pour tout entier naturel $n$, $a_{n}$ est égal à&nbsp;:`,
+    choix: [r`$2 + 3n$`, r`$11 + 3n$`, r`$3 + 2n$`, r`$2 + 6n$`],
     bonne: 0,
     explication: [
-      r`C'est une relation $u_{n+1} = a\,u_{n} + b$ avec $a = 1$ et $b = -4$.`,
-      r`Quand $a = 1$, on ajoute toujours le même nombre&nbsp;: la suite est <span class="resultat">arithmétique de raison $-4$</span>.`],
-    revoir: r`cas particuliers des suites arithmético-géométriques (partie 3 du cours)` },
+      r`On passe de $a_{3}$ à $a_{9}$ en ajoutant $6$ fois la raison $r$.`,
+      calcul(r`a_{9} & = a_{3} + 6r`, r`29 & = 11 + 6r`, r`r & = 3`),
+      r`Puis $a_{3} = a_{0} + 3r$, donc $a_{0} = 11 - 9 = 2$.`,
+      r`Pour tout entier naturel $n$, $a_{n} = a_{0} + nr$, soit <span class="resultat">$a_{n} = 2 + 3n$</span>.`],
+    revoir: r`capacité 2 du cours` },
 
-  { partie: 0, theme: 'Tableur', type: 'qcm',
-    enonce: r`Dans une feuille de calcul, les rangs $n$ sont en colonne A et les termes $u_{n}$ en colonne B, avec $u_{0}$ en B2. La suite vérifie $u_{n+1} = 0{,}7\,u_{n} + 30$. Quelle formule saisir en B3, puis recopier vers le bas&nbsp;?`,
-    choix: [r`<code>=0,7*B2+30</code>`, r`<code>=0,7*B3+30</code>`, r`<code>=0,7*A2+30</code>`, r`<code>0,7*B2+30</code>`],
+  { partie: 0, theme: 'Construction en escalier', type: 'qcm',
+    enonce: r`Dans le repère ci-dessous, la droite $d$ représente une fonction affine $f$ et $\Delta$ est la droite d'équation $y = x$. La suite $(u_{n})$ est définie par $u_{0} = 8$ et, pour tout entier naturel $n$, $u_{n+1} = f(u_{n})$. Par lecture graphique, $u_{2}$ vaut&nbsp;:`
+      + escalier({ label: 'Repère avec la droite d, qui passe par (0 ; 2) et (8 ; 6), la droite Δ d\'équation y = x, et u0 = 8 placé sur l\'axe des abscisses' }),
+    choix: [r`$5$`, r`$6$`, r`$4$`, r`$4{,}5$`],
     bonne: 0,
     explication: [
-      r`Le terme de la ligne $3$ se calcule à partir du terme précédent, qui est en B2 (la colonne A contient les rangs).`,
-      r`Une formule commence par le signe $=$&nbsp;: <span class="resultat"><code>=0,7*B2+30</code></span>.`],
-    revoir: r`capacité 1 du cours (phoques)` },
+      r`$u_{1} = f(u_{0}) = f(8)$ est l'ordonnée du point de $d$ d'abscisse $8$&nbsp;: $u_{1} = 6$.`,
+      r`On reporte $u_{1}$ sur l'axe des abscisses grâce à la droite $\Delta$, puis on recommence&nbsp;: $u_{2} = f(6)$.`,
+      escalier({ echelle: 1.15,
+          lectures: [[[8, 0], [8, 6], [6, 6], [6, 5], [5, 5], [5, 0]], [[6, 5], [6, 0]]],
+          textes: [{ x: 6.12, y: 0.3, texte: 'u<tspan dy="3" font-size="8.5">1</tspan>', ancre: 'start' },
+                   { x: 5.12, y: 0.3, texte: 'u<tspan dy="3" font-size="8.5">2</tspan>', ancre: 'start' }],
+          label: 'Construction en escalier : de u0 = 8 on monte à d en (8 ; 6), on rejoint Δ en (6 ; 6), on descend à d en (6 ; 5), on rejoint Δ en (5 ; 5), puis on descend sur l\'axe des abscisses en 5' }),
+      r`On lit <span class="resultat">$u_{2} = 5$</span>.`],
+    revoir: r`capacité 1 du cours (phoques, construction des termes)` },
 
   { partie: 0, theme: 'Point fixe', type: 'qcm',
     enonce: r`La suite $(u_{n})$ vérifie, pour tout entier naturel $n$, $u_{n+1} = 0{,}6\,u_{n} + 12$. Le point fixe $\alpha$, solution de l'équation $x = 0{,}6\,x + 12$, vaut&nbsp;:`,
@@ -417,6 +458,39 @@ const QUIZ = {
       calcul(r`x = 0{,}6\,x + 12 & \iff x - 0{,}6\,x = 12`, r`& \iff 0{,}4\,x = 12`, r`& \iff x = \dfrac{12}{0{,}4}`, r`& \iff x = 30`),
       r`On peut aussi utiliser $\alpha = \dfrac{b}{1 - a} = \dfrac{12}{1 - 0{,}6}$&nbsp;: <span class="resultat">$\alpha = 30$</span>.`],
     revoir: r`propriété du point fixe (partie 3 du cours), exercice 1 de la fiche` },
+
+  { partie: 0, theme: 'Suite auxiliaire', type: 'qcm',
+    enonce: r`La suite $(u_{n})$ vérifie $u_{n+1} = a\,u_{n} + b$ pour tout entier naturel $n$, avec $a \ne 1$, et $\alpha$ est la solution de l'équation $x = a\,x + b$. La suite $(v_{n})$ définie par $v_{n} = u_{n} - \alpha$ est&nbsp;:`,
+    choix: [r`géométrique de raison $a$`, r`géométrique de raison $b$`, r`arithmétique de raison $b$`, r`géométrique de raison $\alpha$`],
+    bonne: 0,
+    explication: [
+      r`Comme $\alpha$ est solution de l'équation, $\alpha = a\,\alpha + b$.`,
+      calcul(r`v_{n+1} & = u_{n+1} - \alpha`, r`& = a\,u_{n} + b - (a\,\alpha + b)`, r`& = a\,u_{n} - a\,\alpha`, r`& = a\,(u_{n} - \alpha)`, r`& = a\,v_{n}`),
+      r`La suite $(v_{n})$ est <span class="resultat">géométrique de raison $a$</span>.`],
+    revoir: r`propriété du point fixe et sa démonstration (partie 3 du cours)` },
+
+  /* ----- Niveau 3 : pièges et méthode de la partie 3 ----- */
+
+  { partie: 0, theme: 'Sens de variation', type: 'qcm', fixe: true,
+    enonce: r`La suite $(w_{n})$ est définie pour tout entier naturel $n$ par $w_{n} = -2 \times 0{,}7^{n}$. Cette suite est&nbsp;:`,
+    choix: [r`strictement croissante`, r`strictement décroissante`, r`constante`, r`ni croissante, ni décroissante`],
+    bonne: 0,
+    explication: [
+      r`$(w_{n})$ est géométrique de raison $q = 0{,}7$, avec $0 < q < 1$, et de premier terme $w_{0} = -2$.`,
+      r`Si le premier terme était positif, la suite serait décroissante. Comme $w_{0} < 0$, le sens de variation est inversé.`,
+      r`La suite est <span class="resultat">strictement croissante</span>&nbsp;: $w_{0} = -2$, $w_{1} = -1{,}4$, $w_{2} = -0{,}98$…`],
+    revoir: r`capacité 3 du cours` },
+
+  { partie: 0, theme: 'Sens de variation', type: 'qcm', fixe: true,
+    enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = n^{2} - 8n + 3$. Elle est strictement croissante à partir du rang&nbsp;:`,
+    choix: [r`$0$`, r`$3$`, r`$4$`, r`$8$`],
+    bonne: 2,
+    explication: [
+      r`On calcule la différence $u_{n+1} - u_{n}$ et on étudie son signe.`,
+      calcul(r`u_{n+1} - u_{n} & = (n + 1)^{2} - 8(n + 1) + 3 - (n^{2} - 8n + 3)`, r`& = n^{2} + 2n + 1 - 8n - 8 + 3 - n^{2} + 8n - 3`, r`& = 2n - 7`),
+      r`Pour $n \ge 4$, $2n - 7 \ge 1 > 0$&nbsp;; pour $n = 3$, $2n - 7 = -1 < 0$.`,
+      r`La suite est strictement croissante à partir du rang <span class="resultat">$4$</span>.`],
+    revoir: r`sens de variation (partie 1 du cours)` },
 
   { partie: 0, theme: 'Suite auxiliaire', type: 'qcm',
     enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 10$ et $u_{n+1} = 0{,}6\,u_{n} + 12$. On pose $v_{n} = u_{n} - 30$ pour tout entier naturel $n$. La suite $(v_{n})$ est&nbsp;:`,
