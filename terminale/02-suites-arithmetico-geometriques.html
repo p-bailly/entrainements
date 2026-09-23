@@ -16,6 +16,8 @@
   variation, suite auxiliaire).
   Questions rangées par difficulté croissante, en trois niveaux : cours et applications
   directes, calculs en plusieurs étapes, puis pièges et méthode de la partie 3.
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
   Mêmes types de questions que dans le cours (capacités 1 à 4, méthode), la fiche et
   l'évaluation, avec d'autres valeurs. Pas de limite de suite (chapitre 7).
 
@@ -70,7 +72,7 @@ h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
 .grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
 .grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
 .grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
-.grille-reponses td[data-q]{cursor:pointer}
+.grille-reponses td[data-q],.grille-reponses td[data-r]{cursor:pointer}
 .grille-reponses td.ici{background:var(--filet-clair)}
 .grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
 .grille-reponses button.aller:hover{text-decoration:underline}
@@ -154,6 +156,8 @@ code{font-family:var(--mono); font-size:.88em}
 .appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
 .bilan-parties{margin:0 0 6px}
 .bilan-parties span{white-space:nowrap}
+.bilan-reprise{margin:0 0 10px}
+.reprise-info{margin:0 0 10px; font-style:italic}
 .a-revoir{margin:0 0 16px}
 .a-revoir ul{margin:4px 0 0; padding-left:1.3em}
 .titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
@@ -167,6 +171,7 @@ code{font-family:var(--mono); font-size:.88em}
 .liste-choix{margin:0 0 8px; padding-left:1.6em}
 .liste-choix li{border:0; padding:1px 0}
 .liste-choix li.bonne{color:var(--vert)}
+.variante{margin:14px 0 0; padding:0 0 0 14px; border-left:1px dashed var(--filet)}
 .pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
 .pied p{margin:0 0 4px}
 .pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
@@ -305,14 +310,30 @@ function calcul(...lignes) {
 }
 
 /* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
-// Construction en escalier : droite d (f(x) = 0,5x + 2), droite Δ (y = x) et u0 = 8 sur l'axe.
-function escalier(o) {
-  return repere(Object.assign({ xmin: -1, xmax: 9, ymin: -1, ymax: 9,
-    courbes: [{ f: x => 0.5 * x + 2 }, { f: x => x, classe: 'c-bleu' }],
-    noms: [{ x: 2, y: 3.6, texte: 'd' }, { x: 7.4, y: 8, texte: 'Δ', ancre: 'end', classe: 'c-bleu' },
-           { x: 8.12, y: 0.3, texte: 'u', indice: '0', classe: 'c-noir' }],
-    points: [{ x: 8, y: 0, classe: 'c-noir' }] }, o));
+// Nuage de points des premiers termes d'une suite ; avec lire: true, lectures vertes des
+// ordonnées sur l'axe (sauf u0, déjà sur l'axe).
+function nuage(pts, o) {
+  const fig = { xmin: -1, xmax: 5, ymin: -1, ymax: 9, points: pts.map(p => ({ x: p[0], y: p[1] })) };
+  if (o.lire) fig.lectures = pts.filter(p => p[0] > 0 && Number.isInteger(p[1])).map(p => [p, [0, p[1]]]);
+  return repere(Object.assign(fig, o));
 }
+
+// Construction en escalier : droite d (fonction affine f), droite Δ (y = x), u0 placé sur
+// l'axe des abscisses ; nomD = position du nom de d. Avec termes: true, construction de u1
+// et u2 en tirets verts.
+function escalier(f, u0, nomD, o) {
+  const u1 = f(u0), u2 = f(u1), indice = n => `u<tspan dy="3" font-size="8.5">${n}</tspan>`;
+  const fig = { xmin: -1, xmax: 9, ymin: -1, ymax: 9,
+    courbes: [{ f: f }, { f: x => x, classe: 'c-bleu' }],
+    noms: [{ x: nomD[0], y: nomD[1], texte: 'd' }, { x: 7.4, y: 8, texte: 'Δ', ancre: 'end', classe: 'c-bleu' },
+           { x: u0 + 0.12, y: 0.3, texte: 'u', indice: '0', classe: 'c-noir' }],
+    points: [{ x: u0, y: 0, classe: 'c-noir' }] };
+  if (o.termes) Object.assign(fig, {
+    lectures: [[[u0, 0], [u0, u1], [u1, u1], [u1, u2], [u2, u2], [u2, 0]], [[u1, Math.min(u1, u2)], [u1, 0]]],
+    textes: [{ x: u1 + 0.12, y: 0.3, texte: indice(1), ancre: 'start' }, { x: u2 + 0.12, y: 0.3, texte: indice(2), ancre: 'start' }] });
+  return repere(Object.assign(fig, o));
+}
+const droite1 = x => 0.5 * x + 2, droite2 = x => 0.5 * x + 3;
 
 const QUIZ = {
   id: 'tle-02-suites-entrainement',
@@ -328,7 +349,15 @@ const QUIZ = {
     explication: [
       r`On passe d'un terme au suivant en multipliant toujours par le même nombre $q$, la raison.`,
       r`Pour tout entier naturel $n$, <span class="resultat">$u_{n+1} = q \times u_{n}$</span>.`],
-    revoir: r`définition d'une suite géométrique (partie 2 du cours)` },
+    revoir: r`définition d'une suite géométrique (partie 2 du cours)`,
+    variante: {
+      enonce: r`Une suite $(u_{n})$ est arithmétique de raison $r$ lorsque, pour tout entier naturel $n$&nbsp;:`,
+      choix: [r`$u_{n+1} = u_{n} + r$`, r`$u_{n+1} = r \times u_{n}$`, r`$u_{n} = u_{0} \times r^{n}$`, r`$u_{n+1} = u_{n} + n \times r$`],
+      bonne: 0,
+      explication: [
+        r`On passe d'un terme au suivant en ajoutant toujours le même nombre $r$, la raison.`,
+        r`Pour tout entier naturel $n$, <span class="resultat">$u_{n+1} = u_{n} + r$</span>.`],
+      revoir: r`définition d'une suite arithmétique (partie 2 du cours)` } },
 
   { partie: 0, theme: 'Récurrence', type: 'qcm',
     enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 3$ et, pour tout entier naturel $n$, $u_{n+1} = 2u_{n} - 1$. Le terme $u_{3}$ vaut&nbsp;:`,
@@ -337,23 +366,34 @@ const QUIZ = {
     explication: [
       r`La suite est définie par récurrence&nbsp;: chaque terme se calcule à partir du précédent.`,
       calcul(r`u_{1} & = 2 \times 3 - 1 = 5`, r`u_{2} & = 2 \times 5 - 1 = 9`, r`u_{3} & = 2 \times 9 - 1 = \resultat{17}`)],
-    revoir: r`modes de génération (partie 1 du cours)` },
+    revoir: r`modes de génération (partie 1 du cours)`,
+    variante: {
+      enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 4$ et, pour tout entier naturel $n$, $u_{n+1} = 3u_{n} - 5$. Le terme $u_{3}$ vaut&nbsp;:`,
+      choix: [r`$43$`, r`$16$`, r`$7$`, r`$103$`],
+      bonne: 0,
+      explication: [
+        r`La suite est définie par récurrence&nbsp;: chaque terme se calcule à partir du précédent.`,
+        calcul(r`u_{1} & = 3 \times 4 - 5 = 7`, r`u_{2} & = 3 \times 7 - 5 = 16`, r`u_{3} & = 3 \times 16 - 5 = \resultat{43}`)] } },
 
   { partie: 0, theme: 'Lecture graphique', type: 'qcm',
     enonce: r`Le nuage de points ci-dessous représente les premiers termes d'une suite géométrique $(u_{n})$. Sa raison est&nbsp;:`
-      + repere({ xmin: -1, xmax: 5, ymin: -1, ymax: 9,
-          points: [{ x: 0, y: 8 }, { x: 1, y: 4 }, { x: 2, y: 2 }, { x: 3, y: 1 }, { x: 4, y: 0.5 }],
-          label: 'Repère avec cinq points : (0 ; 8), (1 ; 4), (2 ; 2), (3 ; 1) et (4 ; 0,5)' }),
+      + nuage([[0, 8], [1, 4], [2, 2], [3, 1], [4, 0.5]], { label: 'Repère avec cinq points : (0 ; 8), (1 ; 4), (2 ; 2), (3 ; 1) et (4 ; 0,5)' }),
     choix: [r`$0{,}5$`, r`$-4$`, r`$2$`, r`$4$`],
     bonne: 0,
     explication: [
       r`On lit les ordonnées des points&nbsp;: $u_{0} = 8$, $u_{1} = 4$, $u_{2} = 2$, $u_{3} = 1$.`,
-      repere({ xmin: -1, xmax: 5, ymin: -1, ymax: 9, echelle: 1.15,
-          points: [{ x: 0, y: 8 }, { x: 1, y: 4 }, { x: 2, y: 2 }, { x: 3, y: 1 }, { x: 4, y: 0.5 }],
-          lectures: [[[1, 4], [0, 4]], [[2, 2], [0, 2]], [[3, 1], [0, 1]]],
-          label: 'Les mêmes points, lus sur l\'axe des ordonnées : 8, 4, 2 et 1' }),
+      nuage([[0, 8], [1, 4], [2, 2], [3, 1], [4, 0.5]], { lire: true, echelle: 1.15, label: 'Les mêmes points, lus sur l\'axe des ordonnées : 8, 4, 2 et 1' }),
       r`D'un terme au suivant, on multiplie toujours par le même nombre&nbsp;: $q = \dfrac{u_{1}}{u_{0}} = \dfrac{4}{8}$, soit <span class="resultat">$q = 0{,}5$</span>.`],
-    revoir: r`suites géométriques (partie 2 du cours)` },
+    revoir: r`suites géométriques (partie 2 du cours)`,
+    variante: {
+      enonce: r`Le nuage de points ci-dessous représente les premiers termes d'une suite géométrique $(u_{n})$. Sa raison est&nbsp;:`
+        + nuage([[0, 1], [1, 2], [2, 4], [3, 8]], { label: 'Repère avec quatre points : (0 ; 1), (1 ; 2), (2 ; 4) et (3 ; 8)' }),
+      choix: [r`$2$`, r`$1$`, r`$0{,}5$`, r`$4$`],
+      bonne: 0,
+      explication: [
+        r`On lit les ordonnées des points&nbsp;: $u_{0} = 1$, $u_{1} = 2$, $u_{2} = 4$, $u_{3} = 8$.`,
+        nuage([[0, 1], [1, 2], [2, 4], [3, 8]], { lire: true, echelle: 1.15, label: 'Les mêmes points, lus sur l\'axe des ordonnées : 1, 2, 4 et 8' }),
+        r`D'un terme au suivant, on multiplie toujours par le même nombre&nbsp;: $q = \dfrac{u_{1}}{u_{0}} = \dfrac{2}{1}$, soit <span class="resultat">$q = 2$</span>.`] } },
 
   { partie: 0, theme: 'Suite géométrique', type: 'qcm',
     enonce: r`La suite $(v_{n})$ est géométrique, de premier terme $v_{0} = 5$ et de raison $3$. Pour tout entier naturel $n$, $v_{n}$ est égal à&nbsp;:`,
@@ -362,7 +402,14 @@ const QUIZ = {
     explication: [
       r`Pour une suite géométrique, $v_{n} = v_{0} \times q^{n}$.`,
       r`Ici, <span class="resultat">$v_{n} = 5 \times 3^{n}$</span>. ($5 + 3n$ serait une suite arithmétique.)`],
-    revoir: r`expression explicite d'une suite géométrique (partie 2 du cours)` },
+    revoir: r`expression explicite d'une suite géométrique (partie 2 du cours)`,
+    variante: {
+      enonce: r`La suite $(v_{n})$ est géométrique, de premier terme $v_{0} = 3$ et de raison $2$. Pour tout entier naturel $n$, $v_{n}$ est égal à&nbsp;:`,
+      choix: [r`$3 \times 2^{n}$`, r`$2 \times 3^{n}$`, r`$3 + 2n$`, r`$6^{n}$`],
+      bonne: 0,
+      explication: [
+        r`Pour une suite géométrique, $v_{n} = v_{0} \times q^{n}$.`,
+        r`Ici, <span class="resultat">$v_{n} = 3 \times 2^{n}$</span>.`] } },
 
   { partie: 0, theme: 'Pourcentage', type: 'qcm',
     enonce: r`Une population diminue de $4\,\%$ chaque année. On note $p_{n}$ l'effectif au bout de $n$ années. La suite $(p_{n})$ est géométrique de raison&nbsp;:`,
@@ -371,7 +418,14 @@ const QUIZ = {
     explication: [
       r`Diminuer de $4\,\%$, c'est multiplier par $1 - \dfrac{4}{100} = 0{,}96$.`,
       r`Pour tout entier naturel $n$, $p_{n+1} = 0{,}96\,p_{n}$&nbsp;: la raison est <span class="resultat">$0{,}96$</span>.`],
-    revoir: r`capacité 4 du cours (globe-trotter)` },
+    revoir: r`capacité 4 du cours (globe-trotter)`,
+    variante: {
+      enonce: r`Un capital augmente de $6\,\%$ chaque année. On note $c_{n}$ le capital au bout de $n$ années. La suite $(c_{n})$ est géométrique de raison&nbsp;:`,
+      choix: [r`$1{,}06$`, r`$0{,}06$`, r`$0{,}94$`, r`$6$`],
+      bonne: 0,
+      explication: [
+        r`Augmenter de $6\,\%$, c'est multiplier par $1 + \dfrac{6}{100} = 1{,}06$.`,
+        r`Pour tout entier naturel $n$, $c_{n+1} = 1{,}06\,c_{n}$&nbsp;: la raison est <span class="resultat">$1{,}06$</span>.`] } },
 
   { partie: 0, theme: 'Cas particulier', type: 'qcm',
     enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 7$ et, pour tout entier naturel $n$, $u_{n+1} = u_{n} - 4$. Cette suite est&nbsp;:`,
@@ -380,7 +434,14 @@ const QUIZ = {
     explication: [
       r`C'est une relation $u_{n+1} = a\,u_{n} + b$ avec $a = 1$ et $b = -4$.`,
       r`Quand $a = 1$, on ajoute toujours le même nombre&nbsp;: la suite est <span class="resultat">arithmétique de raison $-4$</span>.`],
-    revoir: r`cas particuliers des suites arithmético-géométriques (partie 3 du cours)` },
+    revoir: r`cas particuliers des suites arithmético-géométriques (partie 3 du cours)`,
+    variante: {
+      enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 5$ et, pour tout entier naturel $n$, $u_{n+1} = 3u_{n}$. Cette suite est&nbsp;:`,
+      choix: [r`géométrique de raison $3$`, r`arithmétique de raison $3$`, r`géométrique de raison $5$`, r`ni arithmétique, ni géométrique`],
+      bonne: 0,
+      explication: [
+        r`C'est une relation $u_{n+1} = a\,u_{n} + b$ avec $a = 3$ et $b = 0$.`,
+        r`Quand $b = 0$, on multiplie toujours par le même nombre&nbsp;: la suite est <span class="resultat">géométrique de raison $3$</span>.`] } },
 
   { partie: 0, theme: 'Sens de variation', type: 'qcm', fixe: true,
     enonce: r`Une suite géométrique a un premier terme $u_{0} > 0$ et une raison $q$ telle que $0 < q < 1$. Cette suite est&nbsp;:`,
@@ -389,7 +450,14 @@ const QUIZ = {
     explication: [
       r`Chaque terme s'obtient en multipliant le précédent, positif, par un nombre $q$ compris entre $0$ et $1$&nbsp;: il est plus petit.`,
       r`La suite est <span class="resultat">strictement décroissante</span>. Par exemple, avec $u_{0} = 8$ et $q = 0{,}5$&nbsp;: $8$, $4$, $2$, $1$…`],
-    revoir: r`sens de variation d'une suite géométrique (partie 2 du cours)` },
+    revoir: r`sens de variation d'une suite géométrique (partie 2 du cours)`,
+    variante: {
+      enonce: r`Une suite géométrique a un premier terme $u_{0} > 0$ et une raison $q > 1$. Cette suite est&nbsp;:`,
+      choix: [r`strictement croissante`, r`strictement décroissante`, r`constante`, r`ni croissante, ni décroissante`],
+      bonne: 0,
+      explication: [
+        r`Chaque terme s'obtient en multipliant le précédent, positif, par un nombre $q$ plus grand que $1$&nbsp;: il est plus grand.`,
+        r`La suite est <span class="resultat">strictement croissante</span>. Par exemple, avec $u_{0} = 1$ et $q = 2$&nbsp;: $1$, $2$, $4$, $8$…`] } },
 
   { partie: 0, theme: 'Tableur', type: 'qcm',
     enonce: r`On calcule les termes de la suite définie par $u_{0} = 50$ et $u_{n+1} = 0{,}7\,u_{n} + 30$ avec un tableur. Quelle formule saisir dans la cellule B3, pour la recopier vers le bas&nbsp;?`
@@ -400,7 +468,16 @@ const QUIZ = {
     explication: [
       r`Le terme de la ligne $3$ se calcule à partir du terme précédent, qui est dans la cellule B2 (la colonne A contient les rangs).`,
       r`Une formule commence par le signe $=$&nbsp;: <span class="resultat"><code>=0,7*B2+30</code></span>. En B3, on obtient $u_{1} = 0{,}7 \times 50 + 30 = 65$.`],
-    revoir: r`capacité 1 du cours (phoques)` },
+    revoir: r`capacité 1 du cours (phoques)`,
+    variante: {
+      enonce: r`On calcule les termes de la suite définie par $u_{0} = 200$ et $u_{n+1} = 0{,}9\,u_{n} + 15$ avec un tableur. Quelle formule saisir dans la cellule B3, pour la recopier vers le bas&nbsp;?`
+        + tableur([[r`$n$`, r`$u_{n}$`], ['0', '200'], ['1', '#sel'], ['2', '']],
+            'Feuille de calcul : A1 contient n, B1 contient u indice n, A2 contient 0 et B2 contient 200, A3 contient 1 et B3 est vide'),
+      choix: [r`<code>=0,9*B2+15</code>`, r`<code>=0,9*B3+15</code>`, r`<code>=0,9*A2+15</code>`, r`<code>0,9*B2+15</code>`],
+      bonne: 0,
+      explication: [
+        r`Le terme de la ligne $3$ se calcule à partir du terme précédent, qui est dans la cellule B2 (la colonne A contient les rangs).`,
+        r`Une formule commence par le signe $=$&nbsp;: <span class="resultat"><code>=0,9*B2+15</code></span>. En B3, on obtient $u_{1} = 0{,}9 \times 200 + 15 = 195$.`] } },
 
   /* ----- Niveau 2 : calculs en plusieurs étapes ----- */
 
@@ -412,7 +489,15 @@ const QUIZ = {
       r`La suite est arithmétique de raison $2$. La somme compte $16$ termes (de $0$ à $15$).`,
       r`Le premier terme vaut $u_{0} = 4$ et le dernier $u_{15} = 4 + 2 \times 15 = 34$.`,
       calcul(r`S & = \text{nombre de termes} \times \dfrac{\text{premier} + \text{dernier}}{2}`, r`& = 16 \times \dfrac{4 + 34}{2}`, r`& = 16 \times 19`, r`& = \resultat{304}`)],
-    revoir: r`somme de termes consécutifs (partie 2 du cours), capacité 2` },
+    revoir: r`somme de termes consécutifs (partie 2 du cours), capacité 2`,
+    variante: {
+      enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = 2 + 4n$. La somme $S = u_{0} + u_{1} + \dots + u_{19}$ vaut&nbsp;:`,
+      choix: [r`$800$`, r`$760$`, r`$1\,600$`, r`$78$`],
+      bonne: 0,
+      explication: [
+        r`La suite est arithmétique de raison $4$. La somme compte $20$ termes (de $0$ à $19$).`,
+        r`Le premier terme vaut $u_{0} = 2$ et le dernier $u_{19} = 2 + 4 \times 19 = 78$.`,
+        calcul(r`S & = \text{nombre de termes} \times \dfrac{\text{premier} + \text{dernier}}{2}`, r`& = 20 \times \dfrac{2 + 78}{2}`, r`& = 20 \times 40`, r`& = \resultat{800}`)] } },
 
   { partie: 0, theme: 'Somme géométrique', type: 'qcm',
     enonce: r`La somme $S = 1 + 2 + 2^{2} + \dots + 2^{9}$ vaut&nbsp;:`,
@@ -421,7 +506,14 @@ const QUIZ = {
     explication: [
       r`C'est la somme des termes d'une suite géométrique de premier terme $1$ et de raison $2$&nbsp;: elle compte $10$ termes (de $2^{0}$ à $2^{9}$).`,
       calcul(r`S & = \dfrac{1 - 2^{10}}{1 - 2}`, r`& = \dfrac{1 - 1\,024}{-1}`, r`& = \resultat{1\,023}`)],
-    revoir: r`somme de termes consécutifs d'une suite géométrique (partie 2 du cours)` },
+    revoir: r`somme de termes consécutifs d'une suite géométrique (partie 2 du cours)`,
+    variante: {
+      enonce: r`La somme $S = 1 + 3 + 3^{2} + \dots + 3^{6}$ vaut&nbsp;:`,
+      choix: [r`$1\,093$`, r`$2\,187$`, r`$364$`, r`$3\,280$`],
+      bonne: 0,
+      explication: [
+        r`C'est la somme des termes d'une suite géométrique de premier terme $1$ et de raison $3$&nbsp;: elle compte $7$ termes (de $3^{0}$ à $3^{6}$).`,
+        calcul(r`S & = \dfrac{1 - 3^{7}}{1 - 3}`, r`& = \dfrac{1 - 2\,187}{-2}`, r`& = \resultat{1\,093}`)] } },
 
   { partie: 0, theme: 'Suite arithmétique', type: 'qcm',
     enonce: r`La suite $(a_{n})$ est arithmétique, avec $a_{3} = 11$ et $a_{9} = 29$. Pour tout entier naturel $n$, $a_{n}$ est égal à&nbsp;:`,
@@ -432,23 +524,40 @@ const QUIZ = {
       calcul(r`a_{9} & = a_{3} + 6r`, r`29 & = 11 + 6r`, r`r & = 3`),
       r`Puis $a_{3} = a_{0} + 3r$, donc $a_{0} = 11 - 9 = 2$.`,
       r`Pour tout entier naturel $n$, $a_{n} = a_{0} + nr$, soit <span class="resultat">$a_{n} = 2 + 3n$</span>.`],
-    revoir: r`capacité 2 du cours` },
+    revoir: r`capacité 2 du cours`,
+    variante: {
+      enonce: r`La suite $(a_{n})$ est arithmétique, avec $a_{4} = 7$ et $a_{10} = 25$. Pour tout entier naturel $n$, $a_{n}$ est égal à&nbsp;:`,
+      choix: [r`$-5 + 3n$`, r`$7 + 3n$`, r`$3 - 5n$`, r`$-5 + 6n$`],
+      bonne: 0,
+      explication: [
+        r`On passe de $a_{4}$ à $a_{10}$ en ajoutant $6$ fois la raison $r$.`,
+        calcul(r`a_{10} & = a_{4} + 6r`, r`25 & = 7 + 6r`, r`r & = 3`),
+        r`Puis $a_{4} = a_{0} + 4r$, donc $a_{0} = 7 - 12 = -5$.`,
+        r`Pour tout entier naturel $n$, $a_{n} = a_{0} + nr$, soit <span class="resultat">$a_{n} = -5 + 3n$</span>.`] } },
 
   { partie: 0, theme: 'Construction en escalier', type: 'qcm',
     enonce: r`Dans le repère ci-dessous, la droite $d$ représente une fonction affine $f$ et $\Delta$ est la droite d'équation $y = x$. La suite $(u_{n})$ est définie par $u_{0} = 8$ et, pour tout entier naturel $n$, $u_{n+1} = f(u_{n})$. Par lecture graphique, $u_{2}$ vaut&nbsp;:`
-      + escalier({ label: 'Repère avec la droite d, qui passe par (0 ; 2) et (8 ; 6), la droite Δ d\'équation y = x, et u0 = 8 placé sur l\'axe des abscisses' }),
+      + escalier(droite1, 8, [2, 3.6], { label: 'Repère avec la droite d, qui passe par (0 ; 2) et (8 ; 6), la droite Δ d\'équation y = x, et u0 = 8 placé sur l\'axe des abscisses' }),
     choix: [r`$5$`, r`$6$`, r`$4$`, r`$4{,}5$`],
     bonne: 0,
     explication: [
       r`$u_{1} = f(u_{0}) = f(8)$ est l'ordonnée du point de $d$ d'abscisse $8$&nbsp;: $u_{1} = 6$.`,
       r`On reporte $u_{1}$ sur l'axe des abscisses grâce à la droite $\Delta$, puis on recommence&nbsp;: $u_{2} = f(6)$.`,
-      escalier({ echelle: 1.15,
-          lectures: [[[8, 0], [8, 6], [6, 6], [6, 5], [5, 5], [5, 0]], [[6, 5], [6, 0]]],
-          textes: [{ x: 6.12, y: 0.3, texte: 'u<tspan dy="3" font-size="8.5">1</tspan>', ancre: 'start' },
-                   { x: 5.12, y: 0.3, texte: 'u<tspan dy="3" font-size="8.5">2</tspan>', ancre: 'start' }],
+      escalier(droite1, 8, [2, 3.6], { termes: true, echelle: 1.15,
           label: 'Construction en escalier : de u0 = 8 on monte à d en (8 ; 6), on rejoint Δ en (6 ; 6), on descend à d en (6 ; 5), on rejoint Δ en (5 ; 5), puis on descend sur l\'axe des abscisses en 5' }),
       r`On lit <span class="resultat">$u_{2} = 5$</span>.`],
-    revoir: r`capacité 1 du cours (phoques, construction des termes)` },
+    revoir: r`capacité 1 du cours (phoques, construction des termes)`,
+    variante: {
+      enonce: r`Dans le repère ci-dessous, la droite $d$ représente une fonction affine $f$ et $\Delta$ est la droite d'équation $y = x$. La suite $(u_{n})$ est définie par $u_{0} = 2$ et, pour tout entier naturel $n$, $u_{n+1} = f(u_{n})$. Par lecture graphique, $u_{2}$ vaut&nbsp;:`
+        + escalier(droite2, 2, [0.4, 3.9], { label: 'Repère avec la droite d, qui passe par (0 ; 3) et (6 ; 6), la droite Δ d\'équation y = x, et u0 = 2 placé sur l\'axe des abscisses' }),
+      choix: [r`$5$`, r`$4$`, r`$6$`, r`$5{,}5$`],
+      bonne: 0,
+      explication: [
+        r`$u_{1} = f(u_{0}) = f(2)$ est l'ordonnée du point de $d$ d'abscisse $2$&nbsp;: $u_{1} = 4$.`,
+        r`On reporte $u_{1}$ sur l'axe des abscisses grâce à la droite $\Delta$, puis on recommence&nbsp;: $u_{2} = f(4)$.`,
+        escalier(droite2, 2, [0.4, 3.9], { termes: true, echelle: 1.15,
+            label: 'Construction en escalier : de u0 = 2 on monte à d en (2 ; 4), on rejoint Δ en (4 ; 4), on monte à d en (4 ; 5), on rejoint Δ en (5 ; 5), puis on descend sur l\'axe des abscisses en 5' }),
+        r`On lit <span class="resultat">$u_{2} = 5$</span>.`] } },
 
   { partie: 0, theme: 'Point fixe', type: 'qcm',
     enonce: r`La suite $(u_{n})$ vérifie, pour tout entier naturel $n$, $u_{n+1} = 0{,}6\,u_{n} + 12$. Le point fixe $\alpha$, solution de l'équation $x = 0{,}6\,x + 12$, vaut&nbsp;:`,
@@ -457,7 +566,14 @@ const QUIZ = {
     explication: [
       calcul(r`x = 0{,}6\,x + 12 & \iff x - 0{,}6\,x = 12`, r`& \iff 0{,}4\,x = 12`, r`& \iff x = \dfrac{12}{0{,}4}`, r`& \iff x = 30`),
       r`On peut aussi utiliser $\alpha = \dfrac{b}{1 - a} = \dfrac{12}{1 - 0{,}6}$&nbsp;: <span class="resultat">$\alpha = 30$</span>.`],
-    revoir: r`propriété du point fixe (partie 3 du cours), exercice 1 de la fiche` },
+    revoir: r`propriété du point fixe (partie 3 du cours), exercice 1 de la fiche`,
+    variante: {
+      enonce: r`La suite $(u_{n})$ vérifie, pour tout entier naturel $n$, $u_{n+1} = 0{,}25\,u_{n} + 15$. Le point fixe $\alpha$, solution de l'équation $x = 0{,}25\,x + 15$, vaut&nbsp;:`,
+      choix: [r`$20$`, r`$60$`, r`$12$`, r`$-20$`],
+      bonne: 0,
+      explication: [
+        calcul(r`x = 0{,}25\,x + 15 & \iff x - 0{,}25\,x = 15`, r`& \iff 0{,}75\,x = 15`, r`& \iff x = \dfrac{15}{0{,}75}`, r`& \iff x = 20`),
+        r`On peut aussi utiliser $\alpha = \dfrac{b}{1 - a} = \dfrac{15}{1 - 0{,}25}$&nbsp;: <span class="resultat">$\alpha = 20$</span>.`] } },
 
   { partie: 0, theme: 'Suite auxiliaire', type: 'qcm',
     enonce: r`La suite $(u_{n})$ vérifie $u_{n+1} = a\,u_{n} + b$ pour tout entier naturel $n$, avec $a \ne 1$, et $\alpha$ est la solution de l'équation $x = a\,x + b$. La suite $(v_{n})$ définie par $v_{n} = u_{n} - \alpha$ est&nbsp;:`,
@@ -467,7 +583,16 @@ const QUIZ = {
       r`Comme $\alpha$ est solution de l'équation, $\alpha = a\,\alpha + b$.`,
       calcul(r`v_{n+1} & = u_{n+1} - \alpha`, r`& = a\,u_{n} + b - (a\,\alpha + b)`, r`& = a\,u_{n} - a\,\alpha`, r`& = a\,(u_{n} - \alpha)`, r`& = a\,v_{n}`),
       r`La suite $(v_{n})$ est <span class="resultat">géométrique de raison $a$</span>.`],
-    revoir: r`propriété du point fixe et sa démonstration (partie 3 du cours)` },
+    revoir: r`propriété du point fixe et sa démonstration (partie 3 du cours)`,
+    variante: {
+      theme: 'Point fixe',
+      enonce: r`Soit $a$ et $b$ deux réels, avec $a \ne 1$. La solution $\alpha$ de l'équation $x = a\,x + b$, le point fixe, est&nbsp;:`,
+      choix: [r`$\alpha = \dfrac{b}{1 - a}$`, r`$\alpha = \dfrac{b}{a - 1}$`, r`$\alpha = \dfrac{1 - a}{b}$`, r`$\alpha = \dfrac{b}{1 + a}$`],
+      bonne: 0,
+      explication: [
+        r`On regroupe les termes en $x$ dans le membre de gauche, puis on divise par $1 - a$, qui n'est pas nul car $a \ne 1$.`,
+        calcul(r`x = a\,x + b & \iff x - a\,x = b`, r`& \iff (1 - a)\,x = b`, r`& \iff x = \dfrac{b}{1 - a}`),
+        r`Le point fixe est <span class="resultat">$\alpha = \dfrac{b}{1 - a}$</span>.`] } },
 
   /* ----- Niveau 3 : pièges et méthode de la partie 3 ----- */
 
@@ -479,7 +604,15 @@ const QUIZ = {
       r`$(w_{n})$ est géométrique de raison $q = 0{,}7$, avec $0 < q < 1$, et de premier terme $w_{0} = -2$.`,
       r`Si le premier terme était positif, la suite serait décroissante. Comme $w_{0} < 0$, le sens de variation est inversé.`,
       r`La suite est <span class="resultat">strictement croissante</span>&nbsp;: $w_{0} = -2$, $w_{1} = -1{,}4$, $w_{2} = -0{,}98$…`],
-    revoir: r`capacité 3 du cours` },
+    revoir: r`capacité 3 du cours`,
+    variante: {
+      enonce: r`La suite $(w_{n})$ est définie pour tout entier naturel $n$ par $w_{n} = -3 \times 1{,}5^{n}$. Cette suite est&nbsp;:`,
+      choix: [r`strictement croissante`, r`strictement décroissante`, r`constante`, r`ni croissante, ni décroissante`],
+      bonne: 1,
+      explication: [
+        r`$(w_{n})$ est géométrique de raison $q = 1{,}5$, avec $q > 1$, et de premier terme $w_{0} = -3$.`,
+        r`Si le premier terme était positif, la suite serait croissante. Comme $w_{0} < 0$, le sens de variation est inversé.`,
+        r`La suite est <span class="resultat">strictement décroissante</span>&nbsp;: $w_{0} = -3$, $w_{1} = -4{,}5$, $w_{2} = -6{,}75$…`] } },
 
   { partie: 0, theme: 'Sens de variation', type: 'qcm', fixe: true,
     enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = n^{2} - 8n + 3$. Elle est strictement croissante à partir du rang&nbsp;:`,
@@ -490,7 +623,16 @@ const QUIZ = {
       calcul(r`u_{n+1} - u_{n} & = (n + 1)^{2} - 8(n + 1) + 3 - (n^{2} - 8n + 3)`, r`& = n^{2} + 2n + 1 - 8n - 8 + 3 - n^{2} + 8n - 3`, r`& = 2n - 7`),
       r`Pour $n \ge 4$, $2n - 7 \ge 1 > 0$&nbsp;; pour $n = 3$, $2n - 7 = -1 < 0$.`,
       r`La suite est strictement croissante à partir du rang <span class="resultat">$4$</span>.`],
-    revoir: r`sens de variation (partie 1 du cours)` },
+    revoir: r`sens de variation (partie 1 du cours)`,
+    variante: {
+      enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = n^{2} - 10n + 1$. Elle est strictement croissante à partir du rang&nbsp;:`,
+      choix: [r`$0$`, r`$4$`, r`$5$`, r`$10$`],
+      bonne: 2,
+      explication: [
+        r`On calcule la différence $u_{n+1} - u_{n}$ et on étudie son signe.`,
+        calcul(r`u_{n+1} - u_{n} & = (n + 1)^{2} - 10(n + 1) + 1 - (n^{2} - 10n + 1)`, r`& = n^{2} + 2n + 1 - 10n - 10 + 1 - n^{2} + 10n - 1`, r`& = 2n - 9`),
+        r`Pour $n \ge 5$, $2n - 9 \ge 1 > 0$&nbsp;; pour $n = 4$, $2n - 9 = -1 < 0$.`,
+        r`La suite est strictement croissante à partir du rang <span class="resultat">$5$</span>.`] } },
 
   { partie: 0, theme: 'Suite auxiliaire', type: 'qcm',
     enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 10$ et $u_{n+1} = 0{,}6\,u_{n} + 12$. On pose $v_{n} = u_{n} - 30$ pour tout entier naturel $n$. La suite $(v_{n})$ est&nbsp;:`,
@@ -502,7 +644,17 @@ const QUIZ = {
       calcul(r`v_{n+1} & = u_{n+1} - 30`, r`& = 0{,}6\,u_{n} + 12 - 30`, r`& = 0{,}6\,u_{n} - 18`, r`& = 0{,}6\,(u_{n} - 30)`, r`& = 0{,}6\,v_{n}`),
       r`Et $v_{0} = u_{0} - 30 = 10 - 30 = -20$.`,
       r`La suite $(v_{n})$ est <span class="resultat">géométrique de raison $0{,}6$ et de premier terme $-20$</span>.`],
-    revoir: r`démonstration de la partie 3 du cours, méthode, exercice 1 de la fiche` },
+    revoir: r`démonstration de la partie 3 du cours, méthode, exercice 1 de la fiche`,
+    variante: {
+      enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 5$ et $u_{n+1} = 0{,}8\,u_{n} + 4$. On pose $v_{n} = u_{n} - 20$ pour tout entier naturel $n$. La suite $(v_{n})$ est&nbsp;:`,
+      choix: [r`géométrique de raison $0{,}8$ et de premier terme $-15$`, r`géométrique de raison $0{,}8$ et de premier terme $5$`,
+              r`arithmétique de raison $4$ et de premier terme $-15$`, r`géométrique de raison $4$ et de premier terme $-15$`],
+      bonne: 0,
+      explication: [
+        r`On exprime $v_{n+1}$ en fonction de $v_{n}$.`,
+        calcul(r`v_{n+1} & = u_{n+1} - 20`, r`& = 0{,}8\,u_{n} + 4 - 20`, r`& = 0{,}8\,u_{n} - 16`, r`& = 0{,}8\,(u_{n} - 20)`, r`& = 0{,}8\,v_{n}`),
+        r`Et $v_{0} = u_{0} - 20 = 5 - 20 = -15$.`,
+        r`La suite $(v_{n})$ est <span class="resultat">géométrique de raison $0{,}8$ et de premier terme $-15$</span>.`] } },
 
   { partie: 0, theme: 'Expression explicite', type: 'qcm',
     enonce: r`Avec la même suite ($u_{0} = 10$, $u_{n+1} = 0{,}6\,u_{n} + 12$ et $v_{n} = u_{n} - 30$), pour tout entier naturel $n$, $u_{n}$ est égal à&nbsp;:`,
@@ -512,7 +664,15 @@ const QUIZ = {
       r`La suite $(v_{n})$ est géométrique de raison $0{,}6$ et de premier terme $-20$&nbsp;: $v_{n} = -20 \times 0{,}6^{n}$.`,
       r`Comme $v_{n} = u_{n} - 30$, on a $u_{n} = v_{n} + 30$.`,
       r`Pour tout entier naturel $n$, <span class="resultat">$u_{n} = 30 - 20 \times 0{,}6^{n}$</span>. Vérification&nbsp;: $u_{0} = 30 - 20 = 10$.`],
-    revoir: r`méthode de la partie 3 du cours (étapes 4 et 5), exercice 1 de la fiche` },
+    revoir: r`méthode de la partie 3 du cours (étapes 4 et 5), exercice 1 de la fiche`,
+    variante: {
+      enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 5$ et $u_{n+1} = 0{,}8\,u_{n} + 4$ ; la suite $(v_{n})$, définie par $v_{n} = u_{n} - 20$, est géométrique de raison $0{,}8$ et de premier terme $-15$. Pour tout entier naturel $n$, $u_{n}$ est égal à&nbsp;:`,
+      choix: [r`$20 - 15 \times 0{,}8^{n}$`, r`$-15 \times 0{,}8^{n}$`, r`$20 + 5 \times 0{,}8^{n}$`, r`$5 \times 0{,}8^{n} + 4$`],
+      bonne: 0,
+      explication: [
+        r`La suite $(v_{n})$ est géométrique de raison $0{,}8$ et de premier terme $-15$&nbsp;: $v_{n} = -15 \times 0{,}8^{n}$.`,
+        r`Comme $v_{n} = u_{n} - 20$, on a $u_{n} = v_{n} + 20$.`,
+        r`Pour tout entier naturel $n$, <span class="resultat">$u_{n} = 20 - 15 \times 0{,}8^{n}$</span>. Vérification&nbsp;: $u_{0} = 20 - 15 = 5$.`] } },
 
   { partie: 0, theme: 'Seuil', type: 'qcm', fixe: true,
     enonce: r`Pour tout entier naturel $n$, $u_{n} = 30 - 20 \times 0{,}6^{n}$. Le plus petit entier $n$ tel que $u_{n} > 29$ est&nbsp;:`,
@@ -522,7 +682,15 @@ const QUIZ = {
       r`La suite est croissante&nbsp;: on cherche le premier terme qui dépasse $29$ avec le mode suite de la calculatrice.`,
       calcul(r`u_{5} & = 30 - 20 \times 0{,}6^{5} \approx 28{,}44`, r`u_{6} & = 30 - 20 \times 0{,}6^{6} \approx 29{,}07`),
       r`Le plus petit entier est <span class="resultat">$n = 6$</span>.`],
-    revoir: r`capacité 4 du cours, exercices 1 et 2 de la fiche` }
+    revoir: r`capacité 4 du cours, exercices 1 et 2 de la fiche`,
+    variante: {
+      enonce: r`Pour tout entier naturel $n$, $u_{n} = 20 - 15 \times 0{,}8^{n}$. Le plus petit entier $n$ tel que $u_{n} > 19$ est&nbsp;:`,
+      choix: [r`$12$`, r`$13$`, r`$14$`, r`$19$`],
+      bonne: 1,
+      explication: [
+        r`La suite est croissante&nbsp;: on cherche le premier terme qui dépasse $19$ avec le mode suite de la calculatrice.`,
+        calcul(r`u_{12} & = 20 - 15 \times 0{,}8^{12} \approx 18{,}97`, r`u_{13} & = 20 - 15 \times 0{,}8^{13} \approx 19{,}18`),
+        r`Le plus petit entier est <span class="resultat">$n = 13$</span>.`] } }
   ]
 };
 
@@ -621,23 +789,36 @@ function tex(src) {
 /* ---------- État (enregistré sur l'appareil, pour reprendre plus tard) ---------- */
 const N = QUIZ.questions.length;
 const CLE = 'quiz-' + QUIZ.id;
-const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length).join('|');
+const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length
+  + (q.variante ? '~' + q.variante.enonce.length : '')).join('|');
 const MODE_CORRIGE = /(\?|&|#)corrige/.test(location.search + location.hash);
+// La question i dans sa variante : les champs que la variante ne donne pas viennent de la question.
+const variante = i => Object.assign({}, QUIZ.questions[i], QUIZ.questions[i].variante);
 
 function melange(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const ordreDe = q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k));
+// reprise : null, ou la reprise des questions manquées { rangs (questions d'origine), ordre, reponses, courant }.
 function nouvelEtat() {
   return {
     signature: SIGNATURE,
-    ordre: QUIZ.questions.map(q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k))),
+    ordre: QUIZ.questions.map(ordreDe),
     reponses: Array(N).fill(null),
-    courant: 0
+    courant: 0,
+    reprise: null
   };
+}
+function repriseValide(R) {
+  return !!R && Array.isArray(R.rangs) && R.rangs.length > 0 && Array.isArray(R.ordre) && Array.isArray(R.reponses)
+    && R.ordre.length === R.rangs.length && R.reponses.length === R.rangs.length
+    && R.rangs.every(i => QUIZ.questions[i] && QUIZ.questions[i].variante);
 }
 function charger() {
   try {
     const s = JSON.parse(localStorage.getItem(CLE));
     if (s && s.signature === SIGNATURE && Array.isArray(s.reponses) && s.reponses.length === N && Array.isArray(s.ordre)) {
       s.courant = Math.min(Math.max(0, s.courant | 0), N);
+      if (repriseValide(s.reprise)) s.reprise.courant = Math.min(Math.max(0, s.reprise.courant | 0), s.reprise.rangs.length);
+      else s.reprise = null;
       return s;
     }
   } catch (e) { /* stockage indisponible : on repart de zéro */ }
@@ -669,35 +850,56 @@ function reponseTexte(q, choix) {
   return '« ' + tex(q.choix[choix]) + ' »';
 }
 
+// Tour en cours : le premier passage (les questions du fichier), ou la reprise des questions
+// manquées (leurs variantes). Chacun a ses réponses, l'ordre de ses choix et sa question courante k ;
+// le numéro affiché est toujours celui de la question d'origine.
+function tourCourant() {
+  const R = etat.reprise;
+  if (R && R.courant < R.rangs.length)
+    return { reprise: true, etat: R, total: R.rangs.length, question: k => variante(R.rangs[k]), numero: k => R.rangs[k] + 1 };
+  return { reprise: false, etat: etat, total: N, question: k => QUIZ.questions[k], numero: k => k + 1 };
+}
+
+// Une grille de réponses. items = [{cle, numero, rep}] ; attr = data-q (premier passage) ou data-r (reprise).
+function grille(nom, items, courant, attr) {
+  const faites = items.filter(it => it.rep).length;
+  let nums = '', marques = '';
+  items.forEach(it => {
+    const ici = it.cle === courant;
+    nums += `<td class="${ici ? 'ici' : ''}"><button type="button" class="aller" ${attr}="${it.cle}" aria-label="Aller à la question ${it.numero}">${it.numero}</button></td>`;
+    marques += it.rep
+      ? `<td class="${it.rep.ok ? 'juste' : 'erreur'}${ici ? ' courant' : ''}" ${attr}="${it.cle}"><span class="marque ${it.rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`
+      : `<td class="${ici ? 'courant' : ''}" ${attr}="${it.cle}"></td>`;
+  });
+  return `<div class="bloc-grille">${nom ? `<p class="nom-partie">${nom}</p>` : ''}
+    <table class="grille-reponses" aria-label="${nom || 'Réponses'} : ${faites} question${faites > 1 ? 's' : ''} sur ${items.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+}
+
 function rendreProgression() {
   if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
-  zoneProg.innerHTML = QUIZ.parties.map((nom, p) => {
-    const rangs = questionsDe(p), faites = rangs.filter(i => etat.reponses[i]).length;
-    let nums = '', marques = '';
-    rangs.forEach(i => {
-      const rep = etat.reponses[i];
-      nums += `<td class="${i === etat.courant ? 'ici' : ''}"><button type="button" class="aller" data-q="${i}" aria-label="Aller à la question ${i + 1}">${i + 1}</button></td>`;
-      if (rep) marques += `<td class="${rep.ok ? 'juste' : 'erreur'}${i === etat.courant ? ' courant' : ''}" data-q="${i}"><span class="marque ${rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`;
-      else marques += `<td class="${i === etat.courant ? 'courant' : ''}" data-q="${i}"></td>`;
-    });
-    return `<div class="bloc-grille">${UNE_PARTIE ? '' : `<p class="nom-partie">${nomPartie(p)}</p>`}
-      <table class="grille-reponses" aria-label="${UNE_PARTIE ? 'Réponses' : nomPartie(p)} : ${faites} question${faites > 1 ? 's' : ''} sur ${rangs.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
-  }).join('');
+  const T = tourCourant(), R = etat.reprise;
+  zoneProg.innerHTML = T.reprise
+    ? grille('Reprise des questions manquées', R.rangs.map((i, k) => ({ cle: k, numero: i + 1, rep: R.reponses[k] })), R.courant, 'data-r')
+    : QUIZ.parties.map((nom, p) => grille(UNE_PARTIE ? '' : nomPartie(p),
+        questionsDe(p).map(i => ({ cle: i, numero: i + 1, rep: etat.reponses[i] })), etat.courant, 'data-q')).join('');
 }
 
 function rendre() {
   rendreProgression();
   if (MODE_CORRIGE) return rendreCorrige();
-  if (etat.courant >= N) rendreResultat(); else rendreQuestion(etat.courant);
+  const T = tourCourant();
+  if (T.etat.courant >= T.total) rendreResultat(); else rendreQuestion(T, T.etat.courant);
 }
 
 function boite(marque) {
   return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
 }
 
-function rendreQuestion(i) {
-  const q = QUIZ.questions[i], rep = etat.reponses[i], derniere = i === N - 1;
-  const changePartie = !derniere && QUIZ.questions[i + 1].partie !== q.partie;
+function rendreQuestion(T, k) {
+  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = k === T.total - 1;
+  const changePartie = !T.reprise && !derniere && QUIZ.questions[k + 1].partie !== q.partie;
+  const tete = T.reprise ? `Reprise des questions manquées · ${k + 1} sur ${T.total}` : UNE_PARTIE ? '' : nomPartie(q.partie);
+  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir ma note') : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante';
   let options;
   if (q.type === 'vf') {
     options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
@@ -710,14 +912,14 @@ function rendreQuestion(i) {
       return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
     }).join('');
   } else {
-    options = etat.ordre[i].map((orig, k) => {
+    options = ordre.map((orig, j) => {
       let cls = 'choix', marque = '';
       if (rep) {
         if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
         else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
         else cls += ' terne';
       }
-      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[k]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
+      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[j]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
     }).join('');
   }
   const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
@@ -725,11 +927,11 @@ function rendreQuestion(i) {
       <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
       <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
   const bouton = rep
-    ? `<button type="button" class="bouton" id="suivant">${derniere ? 'Voir ma note' : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante'}</button>`
+    ? `<button type="button" class="bouton" id="suivant">${suite}</button>`
     : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
   zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
-    ${UNE_PARTIE ? '' : `<p class="partie">${nomPartie(q.partie)}</p>`}
-    <p class="question" id="titre-q"><b>Question ${i + 1}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
+    ${tete ? `<p class="partie">${tete}</p>` : ''}
+    <p class="question" id="titre-q"><b>Question ${T.numero(k)}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
     <div class="enonce">${tex(q.enonce)}</div>
     <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
     <div class="actions">${bouton}</div>
@@ -756,21 +958,22 @@ function choisir(b, q) {
 }
 
 function valider() {
-  const i = etat.courant, q = QUIZ.questions[i];
-  if (selection === null || etat.reponses[i]) return;
-  etat.reponses[i] = { choix: selection, ok: selection === q.bonne };
+  const T = tourCourant(), k = T.etat.courant, q = T.question(k);
+  if (selection === null || T.etat.reponses[k]) return;
+  T.etat.reponses[k] = { choix: selection, ok: selection === q.bonne };
   sauver();
-  rendreProgression();
-  rendreQuestion(i);
+  rendre();
   const suivantBtn = $('#suivant');
   if (suivantBtn) suivantBtn.focus({ preventScroll: true });
   const correction = $('.correction');
   if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
 }
 
-// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question.
-function aller(i) {
-  etat.courant = i;
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question
+// (data-q : premier passage ; data-r : reprise des questions manquées).
+function aller(cible) {
+  if (cible.dataset.r !== undefined) etat.reprise.courant = Number(cible.dataset.r);
+  else etat.courant = Number(cible.dataset.q);
   selection = null;
   sauver();
   rendre();
@@ -778,7 +981,8 @@ function aller(i) {
 }
 
 function suivant() {
-  etat.courant = Math.min(etat.courant + 1, N);
+  const T = tourCourant();
+  T.etat.courant = Math.min(T.etat.courant + 1, T.total);
   selection = null;
   sauver();
   rendre();
@@ -817,20 +1021,47 @@ function listeParParties(item) {
   ).join('');
 }
 
+// Une question de la copie : énoncé, réponse donnée, explication.
+function itemRevue(q, rep, numero) {
+  const ok = !!(rep && rep.ok);
+  let bilan;
+  if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
+  else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  return `<li class="${ok ? 'juste' : 'erreur'}">
+    <p class="question"><b>Question ${numero}.</b> <i>${q.theme}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <p class="bilan">${bilan}</p>
+    <div class="explication">${explicationHTML(q)}</div>
+  </li>`;
+}
+
 function revueHTML() {
-  return listeParParties((q, i) => {
-    const rep = etat.reponses[i], ok = !!(rep && rep.ok);
-    let bilan;
-    if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
-    else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
-    else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
-    return `<li class="${ok ? 'juste' : 'erreur'}">
-      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
-      <div class="enonce">${tex(q.enonce)}</div>
-      <p class="bilan">${bilan}</p>
-      <div class="explication">${explicationHTML(q)}</div>
-    </li>`;
+  return listeParParties((q, i) => itemRevue(q, etat.reponses[i], i + 1));
+}
+
+function revueRepriseHTML() {
+  const R = etat.reprise;
+  return `<h2 class="titre-partie">Reprise des questions manquées</h2><ol class="revue">${R.rangs.map((i, k) => itemRevue(variante(i), R.reponses[k], i + 1)).join('')}</ol>`;
+}
+
+// Bouton qui montre ou cache une copie.
+function bascule(idBouton, idListe, texte) {
+  $('#' + idBouton).addEventListener('click', () => {
+    const liste = $('#' + idListe), btn = $('#' + idBouton);
+    liste.hidden = !liste.hidden;
+    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
+    btn.textContent = (liste.hidden ? 'Revoir ' : 'Masquer ') + texte;
   });
+}
+
+// Reprise des questions manquées qui ont une variante : nouveau tour, noté à part.
+function reprendre(rangs) {
+  etat.reprise = { rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 };
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
 }
 
 function rendreResultat() {
@@ -850,36 +1081,48 @@ function rendreResultat() {
   QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
   const revoir = aRevoir.length
     ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
-  zoneQuiz.innerHTML = `<article class="resultat" aria-labelledby="titre-r">
+  // Questions manquées qui ont une variante, et reprise déjà faite (on n'arrive ici qu'une fois finie).
+  const manquees = QUIZ.questions.map((q, i) => i).filter(i => !juste(i) && QUIZ.questions[i].variante);
+  const R = etat.reprise, nm = manquees.length;
+  const bilanReprise = R
+    ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(x => x && x.ok).length} / ${R.rangs.length}</b></p>` : '';
+  const infoReprise = nm && !R
+    ? `<p class="reprise-info">Tu peux refaire ${nm > 1 ? 'les ' + nm + ' questions manquées' : 'la question manquée'}, un peu ${nm > 1 ? 'modifiées' : 'modifiée'}&nbsp;: mêmes notions, autres valeurs.</p>` : '';
+  zoneQuiz.innerHTML = `<article class="page-note" aria-labelledby="titre-r">
     <p class="question" id="titre-r"><b>Note.</b></p>
     <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
     <p class="appreciation">${appreciation}</p>
     ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
+    ${bilanReprise}
     ${revoir}
+    ${infoReprise}
     <div class="actions">
+      ${nm ? `<button type="button" class="bouton" id="reprendre">${R ? 'Refaire la reprise' : 'Refaire les questions manquées'}</button>` : ''}
       <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
+      ${R ? '<button type="button" class="bouton" id="revoir-reprise" aria-expanded="false" aria-controls="revue-reprise">Revoir la reprise</button>' : ''}
       <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
     </div>
     <div id="revue" hidden>${revueHTML()}</div>
+    ${R ? `<div id="revue-reprise" hidden>${revueRepriseHTML()}</div>` : ''}
   </article>`;
-  $('#revoir').addEventListener('click', () => {
-    const liste = $('#revue'), btn = $('#revoir');
-    liste.hidden = !liste.hidden;
-    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
-    btn.textContent = liste.hidden ? 'Revoir la copie' : 'Masquer la copie';
-  });
+  bascule('revoir', 'revue', 'la copie');
+  if (R) bascule('revoir-reprise', 'revue-reprise', 'la reprise');
+  if (nm) $('#reprendre').addEventListener('click', () => reprendre(manquees));
   $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
 }
 
 function rendreCorrige() {
+  // Énoncé, choix (bonne réponse en vert), explication.
+  const corps = q => `<div class="enonce">${tex(q.enonce)}</div>
+      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
+      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
+      <div class="explication">${explicationHTML(q)}</div>`;
   zoneQuiz.innerHTML = `<article>
     <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
     ${listeParParties((q, i) => `<li class="juste">
       <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
-      <div class="enonce">${tex(q.enonce)}</div>
-      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
-      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
-      <div class="explication">${explicationHTML(q)}</div>
+      ${corps(q)}
+      ${q.variante ? `<div class="variante"><p class="question"><b>Variante</b> <i>(reprise des questions manquées)</i></p>${corps(variante(i))}</div>` : ''}
     </li>`)}
   </article>`;
 }
@@ -887,8 +1130,8 @@ function rendreCorrige() {
 /* ---------- Démarrage ---------- */
 $('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
 zoneProg.addEventListener('click', e => {
-  const cible = e.target.closest('[data-q]');
-  if (cible) aller(Number(cible.dataset.q));
+  const cible = e.target.closest('[data-q],[data-r]');
+  if (cible) aller(cible);
 });
 rendre();
 })();

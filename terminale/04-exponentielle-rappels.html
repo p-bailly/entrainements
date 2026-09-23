@@ -63,7 +63,7 @@ h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
 .grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
 .grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
 .grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
-.grille-reponses td[data-q]{cursor:pointer}
+.grille-reponses td[data-q],.grille-reponses td[data-r]{cursor:pointer}
 .grille-reponses td.ici{background:var(--filet-clair)}
 .grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
 .grille-reponses button.aller:hover{text-decoration:underline}
@@ -147,6 +147,8 @@ code{font-family:var(--mono); font-size:.88em}
 .appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
 .bilan-parties{margin:0 0 6px}
 .bilan-parties span{white-space:nowrap}
+.bilan-reprise{margin:0 0 10px}
+.reprise-info{margin:0 0 10px; font-style:italic}
 .a-revoir{margin:0 0 16px}
 .a-revoir ul{margin:4px 0 0; padding-left:1.3em}
 .titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
@@ -160,6 +162,7 @@ code{font-family:var(--mono); font-size:.88em}
 .liste-choix{margin:0 0 8px; padding-left:1.6em}
 .liste-choix li{border:0; padding:1px 0}
 .liste-choix li.bonne{color:var(--vert)}
+.variante{margin:14px 0 0; padding:0 0 0 14px; border-left:1px dashed var(--filet)}
 .pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
 .pied p{margin:0 0 4px}
 .pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
@@ -509,23 +512,36 @@ function tex(src) {
 /* ---------- État (enregistré sur l'appareil, pour reprendre plus tard) ---------- */
 const N = QUIZ.questions.length;
 const CLE = 'quiz-' + QUIZ.id;
-const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length).join('|');
+const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length
+  + (q.variante ? '~' + q.variante.enonce.length : '')).join('|');
 const MODE_CORRIGE = /(\?|&|#)corrige/.test(location.search + location.hash);
+// La question i dans sa variante : les champs que la variante ne donne pas viennent de la question.
+const variante = i => Object.assign({}, QUIZ.questions[i], QUIZ.questions[i].variante);
 
 function melange(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const ordreDe = q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k));
+// reprise : null, ou la reprise des questions manquées { rangs (questions d'origine), ordre, reponses, courant }.
 function nouvelEtat() {
   return {
     signature: SIGNATURE,
-    ordre: QUIZ.questions.map(q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k))),
+    ordre: QUIZ.questions.map(ordreDe),
     reponses: Array(N).fill(null),
-    courant: 0
+    courant: 0,
+    reprise: null
   };
+}
+function repriseValide(R) {
+  return !!R && Array.isArray(R.rangs) && R.rangs.length > 0 && Array.isArray(R.ordre) && Array.isArray(R.reponses)
+    && R.ordre.length === R.rangs.length && R.reponses.length === R.rangs.length
+    && R.rangs.every(i => QUIZ.questions[i] && QUIZ.questions[i].variante);
 }
 function charger() {
   try {
     const s = JSON.parse(localStorage.getItem(CLE));
     if (s && s.signature === SIGNATURE && Array.isArray(s.reponses) && s.reponses.length === N && Array.isArray(s.ordre)) {
       s.courant = Math.min(Math.max(0, s.courant | 0), N);
+      if (repriseValide(s.reprise)) s.reprise.courant = Math.min(Math.max(0, s.reprise.courant | 0), s.reprise.rangs.length);
+      else s.reprise = null;
       return s;
     }
   } catch (e) { /* stockage indisponible : on repart de zéro */ }
@@ -557,35 +573,56 @@ function reponseTexte(q, choix) {
   return '« ' + tex(q.choix[choix]) + ' »';
 }
 
+// Tour en cours : le premier passage (les questions du fichier), ou la reprise des questions
+// manquées (leurs variantes). Chacun a ses réponses, l'ordre de ses choix et sa question courante k ;
+// le numéro affiché est toujours celui de la question d'origine.
+function tourCourant() {
+  const R = etat.reprise;
+  if (R && R.courant < R.rangs.length)
+    return { reprise: true, etat: R, total: R.rangs.length, question: k => variante(R.rangs[k]), numero: k => R.rangs[k] + 1 };
+  return { reprise: false, etat: etat, total: N, question: k => QUIZ.questions[k], numero: k => k + 1 };
+}
+
+// Une grille de réponses. items = [{cle, numero, rep}] ; attr = data-q (premier passage) ou data-r (reprise).
+function grille(nom, items, courant, attr) {
+  const faites = items.filter(it => it.rep).length;
+  let nums = '', marques = '';
+  items.forEach(it => {
+    const ici = it.cle === courant;
+    nums += `<td class="${ici ? 'ici' : ''}"><button type="button" class="aller" ${attr}="${it.cle}" aria-label="Aller à la question ${it.numero}">${it.numero}</button></td>`;
+    marques += it.rep
+      ? `<td class="${it.rep.ok ? 'juste' : 'erreur'}${ici ? ' courant' : ''}" ${attr}="${it.cle}"><span class="marque ${it.rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`
+      : `<td class="${ici ? 'courant' : ''}" ${attr}="${it.cle}"></td>`;
+  });
+  return `<div class="bloc-grille">${nom ? `<p class="nom-partie">${nom}</p>` : ''}
+    <table class="grille-reponses" aria-label="${nom || 'Réponses'} : ${faites} question${faites > 1 ? 's' : ''} sur ${items.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+}
+
 function rendreProgression() {
   if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
-  zoneProg.innerHTML = QUIZ.parties.map((nom, p) => {
-    const rangs = questionsDe(p), faites = rangs.filter(i => etat.reponses[i]).length;
-    let nums = '', marques = '';
-    rangs.forEach(i => {
-      const rep = etat.reponses[i];
-      nums += `<td class="${i === etat.courant ? 'ici' : ''}"><button type="button" class="aller" data-q="${i}" aria-label="Aller à la question ${i + 1}">${i + 1}</button></td>`;
-      if (rep) marques += `<td class="${rep.ok ? 'juste' : 'erreur'}${i === etat.courant ? ' courant' : ''}" data-q="${i}"><span class="marque ${rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`;
-      else marques += `<td class="${i === etat.courant ? 'courant' : ''}" data-q="${i}"></td>`;
-    });
-    return `<div class="bloc-grille">${UNE_PARTIE ? '' : `<p class="nom-partie">${nomPartie(p)}</p>`}
-      <table class="grille-reponses" aria-label="${UNE_PARTIE ? 'Réponses' : nomPartie(p)} : ${faites} question${faites > 1 ? 's' : ''} sur ${rangs.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
-  }).join('');
+  const T = tourCourant(), R = etat.reprise;
+  zoneProg.innerHTML = T.reprise
+    ? grille('Reprise des questions manquées', R.rangs.map((i, k) => ({ cle: k, numero: i + 1, rep: R.reponses[k] })), R.courant, 'data-r')
+    : QUIZ.parties.map((nom, p) => grille(UNE_PARTIE ? '' : nomPartie(p),
+        questionsDe(p).map(i => ({ cle: i, numero: i + 1, rep: etat.reponses[i] })), etat.courant, 'data-q')).join('');
 }
 
 function rendre() {
   rendreProgression();
   if (MODE_CORRIGE) return rendreCorrige();
-  if (etat.courant >= N) rendreResultat(); else rendreQuestion(etat.courant);
+  const T = tourCourant();
+  if (T.etat.courant >= T.total) rendreResultat(); else rendreQuestion(T, T.etat.courant);
 }
 
 function boite(marque) {
   return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
 }
 
-function rendreQuestion(i) {
-  const q = QUIZ.questions[i], rep = etat.reponses[i], derniere = i === N - 1;
-  const changePartie = !derniere && QUIZ.questions[i + 1].partie !== q.partie;
+function rendreQuestion(T, k) {
+  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = k === T.total - 1;
+  const changePartie = !T.reprise && !derniere && QUIZ.questions[k + 1].partie !== q.partie;
+  const tete = T.reprise ? `Reprise des questions manquées · ${k + 1} sur ${T.total}` : UNE_PARTIE ? '' : nomPartie(q.partie);
+  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir ma note') : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante';
   let options;
   if (q.type === 'vf') {
     options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
@@ -598,14 +635,14 @@ function rendreQuestion(i) {
       return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
     }).join('');
   } else {
-    options = etat.ordre[i].map((orig, k) => {
+    options = ordre.map((orig, j) => {
       let cls = 'choix', marque = '';
       if (rep) {
         if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
         else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
         else cls += ' terne';
       }
-      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[k]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
+      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[j]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
     }).join('');
   }
   const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
@@ -613,11 +650,11 @@ function rendreQuestion(i) {
       <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
       <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
   const bouton = rep
-    ? `<button type="button" class="bouton" id="suivant">${derniere ? 'Voir ma note' : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante'}</button>`
+    ? `<button type="button" class="bouton" id="suivant">${suite}</button>`
     : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
   zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
-    ${UNE_PARTIE ? '' : `<p class="partie">${nomPartie(q.partie)}</p>`}
-    <p class="question" id="titre-q"><b>Question ${i + 1}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
+    ${tete ? `<p class="partie">${tete}</p>` : ''}
+    <p class="question" id="titre-q"><b>Question ${T.numero(k)}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
     <div class="enonce">${tex(q.enonce)}</div>
     <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
     <div class="actions">${bouton}</div>
@@ -644,21 +681,22 @@ function choisir(b, q) {
 }
 
 function valider() {
-  const i = etat.courant, q = QUIZ.questions[i];
-  if (selection === null || etat.reponses[i]) return;
-  etat.reponses[i] = { choix: selection, ok: selection === q.bonne };
+  const T = tourCourant(), k = T.etat.courant, q = T.question(k);
+  if (selection === null || T.etat.reponses[k]) return;
+  T.etat.reponses[k] = { choix: selection, ok: selection === q.bonne };
   sauver();
-  rendreProgression();
-  rendreQuestion(i);
+  rendre();
   const suivantBtn = $('#suivant');
   if (suivantBtn) suivantBtn.focus({ preventScroll: true });
   const correction = $('.correction');
   if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
 }
 
-// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question.
-function aller(i) {
-  etat.courant = i;
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question
+// (data-q : premier passage ; data-r : reprise des questions manquées).
+function aller(cible) {
+  if (cible.dataset.r !== undefined) etat.reprise.courant = Number(cible.dataset.r);
+  else etat.courant = Number(cible.dataset.q);
   selection = null;
   sauver();
   rendre();
@@ -666,7 +704,8 @@ function aller(i) {
 }
 
 function suivant() {
-  etat.courant = Math.min(etat.courant + 1, N);
+  const T = tourCourant();
+  T.etat.courant = Math.min(T.etat.courant + 1, T.total);
   selection = null;
   sauver();
   rendre();
@@ -705,20 +744,47 @@ function listeParParties(item) {
   ).join('');
 }
 
+// Une question de la copie : énoncé, réponse donnée, explication.
+function itemRevue(q, rep, numero) {
+  const ok = !!(rep && rep.ok);
+  let bilan;
+  if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
+  else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  return `<li class="${ok ? 'juste' : 'erreur'}">
+    <p class="question"><b>Question ${numero}.</b> <i>${q.theme}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <p class="bilan">${bilan}</p>
+    <div class="explication">${explicationHTML(q)}</div>
+  </li>`;
+}
+
 function revueHTML() {
-  return listeParParties((q, i) => {
-    const rep = etat.reponses[i], ok = !!(rep && rep.ok);
-    let bilan;
-    if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
-    else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
-    else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
-    return `<li class="${ok ? 'juste' : 'erreur'}">
-      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
-      <div class="enonce">${tex(q.enonce)}</div>
-      <p class="bilan">${bilan}</p>
-      <div class="explication">${explicationHTML(q)}</div>
-    </li>`;
+  return listeParParties((q, i) => itemRevue(q, etat.reponses[i], i + 1));
+}
+
+function revueRepriseHTML() {
+  const R = etat.reprise;
+  return `<h2 class="titre-partie">Reprise des questions manquées</h2><ol class="revue">${R.rangs.map((i, k) => itemRevue(variante(i), R.reponses[k], i + 1)).join('')}</ol>`;
+}
+
+// Bouton qui montre ou cache une copie.
+function bascule(idBouton, idListe, texte) {
+  $('#' + idBouton).addEventListener('click', () => {
+    const liste = $('#' + idListe), btn = $('#' + idBouton);
+    liste.hidden = !liste.hidden;
+    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
+    btn.textContent = (liste.hidden ? 'Revoir ' : 'Masquer ') + texte;
   });
+}
+
+// Reprise des questions manquées qui ont une variante : nouveau tour, noté à part.
+function reprendre(rangs) {
+  etat.reprise = { rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 };
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
 }
 
 function rendreResultat() {
@@ -738,36 +804,48 @@ function rendreResultat() {
   QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
   const revoir = aRevoir.length
     ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
-  zoneQuiz.innerHTML = `<article class="resultat" aria-labelledby="titre-r">
+  // Questions manquées qui ont une variante, et reprise déjà faite (on n'arrive ici qu'une fois finie).
+  const manquees = QUIZ.questions.map((q, i) => i).filter(i => !juste(i) && QUIZ.questions[i].variante);
+  const R = etat.reprise, nm = manquees.length;
+  const bilanReprise = R
+    ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(x => x && x.ok).length} / ${R.rangs.length}</b></p>` : '';
+  const infoReprise = nm && !R
+    ? `<p class="reprise-info">Tu peux refaire ${nm > 1 ? 'les ' + nm + ' questions manquées' : 'la question manquée'}, un peu ${nm > 1 ? 'modifiées' : 'modifiée'}&nbsp;: mêmes notions, autres valeurs.</p>` : '';
+  zoneQuiz.innerHTML = `<article class="page-note" aria-labelledby="titre-r">
     <p class="question" id="titre-r"><b>Note.</b></p>
     <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
     <p class="appreciation">${appreciation}</p>
     ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
+    ${bilanReprise}
     ${revoir}
+    ${infoReprise}
     <div class="actions">
+      ${nm ? `<button type="button" class="bouton" id="reprendre">${R ? 'Refaire la reprise' : 'Refaire les questions manquées'}</button>` : ''}
       <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
+      ${R ? '<button type="button" class="bouton" id="revoir-reprise" aria-expanded="false" aria-controls="revue-reprise">Revoir la reprise</button>' : ''}
       <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
     </div>
     <div id="revue" hidden>${revueHTML()}</div>
+    ${R ? `<div id="revue-reprise" hidden>${revueRepriseHTML()}</div>` : ''}
   </article>`;
-  $('#revoir').addEventListener('click', () => {
-    const liste = $('#revue'), btn = $('#revoir');
-    liste.hidden = !liste.hidden;
-    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
-    btn.textContent = liste.hidden ? 'Revoir la copie' : 'Masquer la copie';
-  });
+  bascule('revoir', 'revue', 'la copie');
+  if (R) bascule('revoir-reprise', 'revue-reprise', 'la reprise');
+  if (nm) $('#reprendre').addEventListener('click', () => reprendre(manquees));
   $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
 }
 
 function rendreCorrige() {
+  // Énoncé, choix (bonne réponse en vert), explication.
+  const corps = q => `<div class="enonce">${tex(q.enonce)}</div>
+      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
+      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
+      <div class="explication">${explicationHTML(q)}</div>`;
   zoneQuiz.innerHTML = `<article>
     <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
     ${listeParParties((q, i) => `<li class="juste">
       <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
-      <div class="enonce">${tex(q.enonce)}</div>
-      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
-      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
-      <div class="explication">${explicationHTML(q)}</div>
+      ${corps(q)}
+      ${q.variante ? `<div class="variante"><p class="question"><b>Variante</b> <i>(reprise des questions manquées)</i></p>${corps(variante(i))}</div>` : ''}
     </li>`)}
   </article>`;
 }
@@ -775,8 +853,8 @@ function rendreCorrige() {
 /* ---------- Démarrage ---------- */
 $('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
 zoneProg.addEventListener('click', e => {
-  const cible = e.target.closest('[data-q]');
-  if (cible) aller(Number(cible.dataset.q));
+  const cible = e.target.closest('[data-q],[data-r]');
+  if (cible) aller(cible);
 });
 rendre();
 })();
