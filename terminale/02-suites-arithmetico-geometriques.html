@@ -3,20 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Entraînement Évaluation compléments sur la dérivation</title>
+<title>Entraînement Évaluation suites</title>
 <!--
-  Entraînement auto-corrigé à l'évaluation du chapitre 3 (Compléments sur la dérivation) -
-  Terminale, mathématiques complémentaires. Une seule partie, dix questions, sans
-  automatismes (demande du professeur) : nombre dérivé et tangente, fonctions non
-  dérivables, dérivée d'un produit et d'un quotient, dérivée des fonctions composées
-  (capacités 1 à 4), lien entre signe de la dérivée et variations, extremum d'un polynôme,
-  extremum local et changement de signe de la dérivée (capacité 5). Mêmes types de questions
-  que dans le cours, les exercices du manuel et l'évaluation, avec d'autres valeurs.
+  Entraînement auto-corrigé à l'évaluation du chapitre 2 (Suites) - Terminale,
+  mathématiques complémentaires. Une seule partie, sans automatismes, qui reprend tout le
+  chapitre : modes de génération, sens de variation (à partir d'un rang), suites
+  arithmétiques (expression explicite, somme), suites géométriques (expression explicite,
+  sens de variation, somme, pourcentage), tableur, suites arithmético-géométriques (cas
+  particulier, point fixe, suite auxiliaire, expression explicite, seuil).
+  Mêmes types de questions que dans le cours (capacités 1 à 4, méthode), la fiche et
+  l'évaluation, avec d'autres valeurs. Pas de limite de suite (chapitre 7).
 
   Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
-  entrainement-03-complements-derivation-questions.js (même dossier) ; moteur et mise en page :
+  entrainement-02-suites-arithmetico-geometriques-questions.js (même dossier) ; moteur et mise en page :
   Commun aux cours/entrainement/gabarit.html (format des questions en tête).
-  Publiée pour les élèves : https://p-bailly.github.io/entrainements/terminale/03-complements-derivation.html
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/terminale/02-suites-arithmetico-geometriques.html
   (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -204,9 +205,9 @@ table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
 <main class="feuille">
   <header>
     <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
-    <div class="entete"><span>Terminale · Mathématiques complémentaires</span><span>M. Bailly</span><span>Chapitre 3 · Compléments sur la dérivation</span></div>
-    <h1>Entraînement Évaluation compléments sur la dérivation</h1>
-    <p class="consigne">Dix questions sur les compléments sur la dérivation. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="entete"><span>Terminale · Mathématiques complémentaires</span><span>M. Bailly</span><span>Chapitre 2 · Suites</span></div>
+    <h1>Entraînement Évaluation suites</h1>
+    <p class="consigne">Quatorze questions sur tout le chapitre. Une seule réponse est exacte à chaque fois. Calculatrice autorisée.</p>
     <div class="filet" role="presentation"></div>
   </header>
   <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
@@ -300,109 +301,154 @@ function calcul(...lignes) {
 
 /* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
 const QUIZ = {
-  id: 'tle-03-complements-derivation-entrainement',
-  parties: ['Compléments sur la dérivation'],
+  id: 'tle-02-suites-entrainement',
+  parties: ['Suites'],
   questions: [
 
-  /* ----- Compléments sur la dérivation ----- */
+  /* ----- Suite numérique ----- */
 
-  { partie: 0, theme: 'Nombre dérivé', type: 'qcm',
-    enonce: r`On sait qu'une fonction $f$ est dérivable en $2$ et que la tangente à sa courbe représentative au point $A(2 ; 5)$ passe par le point $B(5 ; -4)$. Que vaut $f'(2)$&nbsp;?`,
-    choix: [r`$-3$`, r`$3$`, r`$-9$`, r`$-\dfrac{1}{3}$`],
+  { partie: 0, theme: 'Récurrence', type: 'qcm',
+    enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 3$ et, pour tout entier naturel $n$, $u_{n+1} = 2u_{n} - 1$. Le terme $u_{3}$ vaut&nbsp;:`,
+    choix: [r`$17$`, r`$9$`, r`$5$`, r`$33$`],
     bonne: 0,
     explication: [
-      r`Le nombre dérivé $f'(2)$ est le coefficient directeur de la tangente en $A$, calculé avec les coordonnées de deux de ses points.`,
-      calcul(r`f'(2) & = \dfrac{y_{B} - y_{A}}{x_{B} - x_{A}}`, r`& = \dfrac{-4 - 5}{5 - 2}`, r`& = \dfrac{-9}{3}`, r`& = \resultat{-3}`)],
-    revoir: r`capacité 1 du cours, partie B p. 7 du manuel` },
+      r`La suite est définie par récurrence&nbsp;: chaque terme se calcule à partir du précédent.`,
+      calcul(r`u_{1} & = 2 \times 3 - 1 = 5`, r`u_{2} & = 2 \times 5 - 1 = 9`, r`u_{3} & = 2 \times 9 - 1 = \resultat{17}`)],
+    revoir: r`modes de génération (partie 1 du cours)` },
 
-  { partie: 0, theme: 'Tangente', type: 'qcm',
-    enonce: r`On considère la fonction $f$ définie sur $\R$ par $f(x) = x^{2} + 2x$. Une équation réduite de la tangente à la courbe de $f$ au point d'abscisse $1$ est&nbsp;:`,
-    choix: [r`$y = 4x - 1$`, r`$y = 4x + 3$`, r`$y = 2x + 1$`, r`$y = 4x - 7$`],
+  { partie: 0, theme: 'Sens de variation', type: 'qcm', fixe: true,
+    enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = n^{2} - 8n + 3$. Elle est strictement croissante à partir du rang&nbsp;:`,
+    choix: [r`$0$`, r`$3$`, r`$4$`, r`$8$`],
+    bonne: 2,
+    explication: [
+      r`On calcule la différence $u_{n+1} - u_{n}$ et on étudie son signe.`,
+      calcul(r`u_{n+1} - u_{n} & = (n + 1)^{2} - 8(n + 1) + 3 - (n^{2} - 8n + 3)`, r`& = n^{2} + 2n + 1 - 8n - 8 + 3 - n^{2} + 8n - 3`, r`& = 2n - 7`),
+      r`Pour $n \ge 4$, $2n - 7 \ge 1 > 0$&nbsp;; pour $n = 3$, $2n - 7 = -1 < 0$.`,
+      r`La suite est strictement croissante à partir du rang <span class="resultat">$4$</span>.`],
+    revoir: r`sens de variation (partie 1 du cours)` },
+
+  /* ----- Suites arithmétiques ----- */
+
+  { partie: 0, theme: 'Suite arithmétique', type: 'qcm',
+    enonce: r`La suite $(a_{n})$ est arithmétique, avec $a_{3} = 11$ et $a_{9} = 29$. Pour tout entier naturel $n$, $a_{n}$ est égal à&nbsp;:`,
+    choix: [r`$2 + 3n$`, r`$11 + 3n$`, r`$3 + 2n$`, r`$2 + 6n$`],
     bonne: 0,
     explication: [
-      r`On calcule $f'(x)$, puis $f'(1)$ et $f(1)$, avant d'utiliser $y = f'(1)(x - 1) + f(1)$.`,
-      calcul(r`f'(x) & = 2x + 2`, r`f'(1) & = 2 \times 1 + 2 = 4`, r`f(1) & = 1^{2} + 2 \times 1 = 3`),
-      calcul(r`y & = f'(1)(x - 1) + f(1)`, r`& = 4(x - 1) + 3`, r`& = 4x - 4 + 3`, r`& = \resultat{4x - 1}`)],
-    revoir: r`capacité 2 et la propriété de la tangente (partie 1 du cours), exercice 31 p. 20 du manuel` },
+      r`On passe de $a_{3}$ à $a_{9}$ en ajoutant $6$ fois la raison $r$.`,
+      calcul(r`a_{9} & = a_{3} + 6r`, r`29 & = 11 + 6r`, r`r & = 3`),
+      r`Puis $a_{3} = a_{0} + 3r$, donc $a_{0} = 11 - 9 = 2$.`,
+      r`Pour tout entier naturel $n$, $a_{n} = a_{0} + nr$, soit <span class="resultat">$a_{n} = 2 + 3n$</span>.`],
+    revoir: r`capacité 2 du cours` },
 
-  { partie: 0, theme: 'Non dérivable', type: 'qcm',
-    enonce: r`Parmi les quatre fonctions suivantes, laquelle n'est pas dérivable en $0$&nbsp;?`,
-    choix: [r`$x \mapsto |x|$`, r`$x \mapsto x^{2}$`, r`$x \mapsto x^{3}$`, r`$x \mapsto 3x - 1$`],
+  { partie: 0, theme: 'Somme arithmétique', type: 'qcm',
+    enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = 4 + 2n$. La somme $S = u_{0} + u_{1} + \dots + u_{15}$ vaut&nbsp;:`,
+    choix: [r`$304$`, r`$285$`, r`$608$`, r`$34$`],
     bonne: 0,
     explication: [
-      r`Pour $x \mapsto |x|$, le taux d'accroissement entre $0$ et $h$ vaut $\dfrac{|h|}{h}$&nbsp;: il vaut $1$ si $h > 0$ et $-1$ si $h < 0$. Il n'a donc pas de limite unique quand $h$ tend vers $0$.`,
-      r`Les trois autres fonctions sont dérivables sur $\R$, donc en particulier en $0$&nbsp;: $x^{2}$ et $x^{3}$ sont des fonctions usuelles, $3x - 1$ est affine.`,
-      r`La fonction non dérivable en $0$ est <span class="resultat">$x \mapsto |x|$</span>.`],
-    revoir: r`capacité 2 du cours, question 2` },
+      r`La suite est arithmétique de raison $2$. La somme compte $16$ termes (de $0$ à $15$).`,
+      r`Le premier terme vaut $u_{0} = 4$ et le dernier $u_{15} = 4 + 2 \times 15 = 34$.`,
+      calcul(r`S & = \text{nombre de termes} \times \dfrac{\text{premier} + \text{dernier}}{2}`, r`& = 16 \times \dfrac{4 + 34}{2}`, r`& = 16 \times 19`, r`& = \resultat{304}`)],
+    revoir: r`somme de termes consécutifs (partie 2 du cours), capacité 2` },
 
-  { partie: 0, theme: 'Dérivée d\'un produit', type: 'qcm',
-    enonce: r`Soit $h$ la fonction définie sur $\R$ par $h(x) = (3x + 2)(x^{2} - 1)$. Pour tout réel $x$, $h'(x)$ est égal à&nbsp;:`,
-    choix: [r`$9x^{2} + 4x - 3$`, r`$6x^{2} + 4x$`, r`$3x^{2} - 3$`, r`$9x^{2} + 4x + 3$`],
+  /* ----- Suites géométriques ----- */
+
+  { partie: 0, theme: 'Suite géométrique', type: 'qcm',
+    enonce: r`La suite $(v_{n})$ est géométrique, de premier terme $v_{0} = 5$ et de raison $3$. Pour tout entier naturel $n$, $v_{n}$ est égal à&nbsp;:`,
+    choix: [r`$5 \times 3^{n}$`, r`$3 \times 5^{n}$`, r`$5 + 3n$`, r`$15^{n}$`],
     bonne: 0,
     explication: [
-      r`On pose $u(x) = 3x + 2$ et $v(x) = x^{2} - 1$, avec $u'(x) = 3$ et $v'(x) = 2x$. La dérivée d'un produit est $(uv)' = u'v + uv'$.`,
-      calcul(r`h'(x) & = 3 \times (x^{2} - 1) + (3x + 2) \times 2x`, r`& = 3x^{2} - 3 + 6x^{2} + 4x`, r`& = \resultat{9x^{2} + 4x - 3}`)],
-    revoir: r`capacité 3 du cours, exercices 35 p. 21 et 46 p. 22 du manuel` },
+      r`Pour une suite géométrique, $v_{n} = v_{0} \times q^{n}$.`,
+      r`Ici, <span class="resultat">$v_{n} = 5 \times 3^{n}$</span>. ($5 + 3n$ serait une suite arithmétique.)`],
+    revoir: r`expression explicite d'une suite géométrique (partie 2 du cours)` },
 
-  { partie: 0, theme: 'Dérivée d\'un quotient', type: 'qcm',
-    enonce: r`Soit $m$ la fonction définie sur $]-1 ; +\infty[$ par $m(x) = \dfrac{4x - 3}{x + 1}$. Pour tout $x$ de cet intervalle, $m'(x)$ est égal à&nbsp;:`,
-    choix: [r`$\dfrac{7}{(x+1)^{2}}$`, r`$\dfrac{-7}{(x+1)^{2}}$`, r`$\dfrac{8x + 1}{(x+1)^{2}}$`, r`$\dfrac{7}{x+1}$`],
+  { partie: 0, theme: 'Pourcentage', type: 'qcm',
+    enonce: r`Une population diminue de $4\,\%$ chaque année. On note $p_{n}$ l'effectif au bout de $n$ années. La suite $(p_{n})$ est géométrique de raison&nbsp;:`,
+    choix: [r`$0{,}96$`, r`$0{,}04$`, r`$1{,}04$`, r`$-4$`],
     bonne: 0,
     explication: [
-      r`On pose $u(x) = 4x - 3$ et $v(x) = x + 1$, avec $u'(x) = 4$ et $v'(x) = 1$. La dérivée d'un quotient est $\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^{2}}$.`,
-      calcul(r`m'(x) & = \dfrac{4 \times (x + 1) - (4x - 3) \times 1}{(x + 1)^{2}}`, r`& = \dfrac{4x + 4 - 4x + 3}{(x + 1)^{2}}`, r`& = \resultat{\dfrac{7}{(x+1)^{2}}}`)],
-    revoir: r`capacité 3 du cours, exercices 35 p. 21 et 46 p. 22 du manuel` },
+      r`Diminuer de $4\,\%$, c'est multiplier par $1 - \dfrac{4}{100} = 0{,}96$.`,
+      r`Pour tout entier naturel $n$, $p_{n+1} = 0{,}96\,p_{n}$&nbsp;: la raison est <span class="resultat">$0{,}96$</span>.`],
+    revoir: r`capacité 4 du cours (globe-trotter)` },
 
-  { partie: 0, theme: 'Fonction composée', type: 'qcm',
-    enonce: r`Soit $n$ la fonction définie sur $\R$ par $n(x) = (2x + 7)^{4}$. Pour tout réel $x$, $n'(x)$ est égal à&nbsp;:`,
-    choix: [r`$8(2x+7)^{3}$`, r`$4(2x+7)^{3}$`, r`$8(2x+7)^{4}$`, r`$4(2x+7)^{4}$`],
+  { partie: 0, theme: 'Sens de variation', type: 'qcm', fixe: true,
+    enonce: r`La suite $(w_{n})$ est définie pour tout entier naturel $n$ par $w_{n} = -2 \times 0{,}7^{n}$. Cette suite est&nbsp;:`,
+    choix: [r`strictement croissante`, r`strictement décroissante`, r`constante`, r`ni croissante, ni décroissante`],
     bonne: 0,
     explication: [
-      r`On applique la formule $(u^{n})' = n \, u' \, u^{n-1}$ avec $u(x) = 2x + 7$ (donc $u'(x) = 2$) et $n = 4$.`,
-      calcul(r`n'(x) & = 4 \times 2 \times (2x+7)^{3}`, r`& = \resultat{8(2x+7)^{3}}`)],
-    revoir: r`capacité 4 du cours, exercices 29 p. 20 et 45 p. 22 du manuel` },
+      r`$(w_{n})$ est géométrique de raison $q = 0{,}7$, avec $0 < q < 1$, et de premier terme $w_{0} = -2$.`,
+      r`Si le premier terme était positif, la suite serait décroissante. Comme $w_{0} < 0$, le sens de variation est inversé.`,
+      r`La suite est <span class="resultat">strictement croissante</span>&nbsp;: $w_{0} = -2$, $w_{1} = -1{,}4$, $w_{2} = -0{,}98$…`],
+    revoir: r`capacité 3 du cours` },
 
-  { partie: 0, theme: 'Fonction composée', type: 'qcm',
-    enonce: r`Soit $r$ la fonction définie sur $]-\dfrac{2}{7} ; +\infty[$ par $r(x) = \sqrt{7x + 2}$. Pour tout $x$ de cet intervalle, $r'(x)$ est égal à&nbsp;:`,
-    choix: [r`$\dfrac{7}{2\sqrt{7x+2}}$`, r`$\dfrac{7}{\sqrt{7x+2}}$`, r`$\dfrac{1}{2\sqrt{7x+2}}$`, r`$\dfrac{2}{\sqrt{7x+2}}$`],
+  { partie: 0, theme: 'Somme géométrique', type: 'qcm',
+    enonce: r`La somme $S = 1 + 2 + 2^{2} + \dots + 2^{9}$ vaut&nbsp;:`,
+    choix: [r`$1\,023$`, r`$1\,024$`, r`$511$`, r`$2\,047$`],
     bonne: 0,
     explication: [
-      r`On applique la formule $(\sqrt{u})' = \dfrac{u'}{2\sqrt{u}}$ avec $u(x) = 7x + 2$, donc $u'(x) = 7$.`,
-      calcul(r`r'(x) & = \resultat{\dfrac{7}{2\sqrt{7x+2}}}`)],
-    revoir: r`capacité 4 du cours, exercices 29 p. 20 et 45 p. 22 du manuel` },
+      r`C'est la somme des termes d'une suite géométrique de premier terme $1$ et de raison $2$&nbsp;: elle compte $10$ termes (de $2^{0}$ à $2^{9}$).`,
+      calcul(r`S & = \dfrac{1 - 2^{10}}{1 - 2}`, r`& = \dfrac{1 - 1\,024}{-1}`, r`& = \resultat{1\,023}`)],
+    revoir: r`somme de termes consécutifs d'une suite géométrique (partie 2 du cours)` },
 
-  { partie: 0, theme: 'Signe et variations', type: 'qcm',
-    enonce: r`On donne le signe de $f'(x)$ sur l'intervalle $[-3 ; 5]$&nbsp;: positif sur $[-3 ; -1[$, nul en $-1$, négatif sur $]-1 ; 2[$, nul en $2$, positif sur $]2 ; 5]$. Que peut-on en déduire pour la fonction $f$&nbsp;?`,
-    choix: [r`$f$ admet un maximum local en $-1$ et un minimum local en $2$`, r`$f$ admet un minimum local en $-1$ et un maximum local en $2$`, r`$f$ admet un maximum local en $-1$ et en $2$`, r`$f$ n'admet aucun extremum local sur $[-3 ; 5]$`],
+  /* ----- Suites arithmético-géométriques ----- */
+
+  { partie: 0, theme: 'Cas particulier', type: 'qcm',
+    enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 7$ et, pour tout entier naturel $n$, $u_{n+1} = u_{n} - 4$. Cette suite est&nbsp;:`,
+    choix: [r`arithmétique de raison $-4$`, r`géométrique de raison $-4$`, r`arithmétique de raison $7$`, r`ni arithmétique, ni géométrique`],
     bonne: 0,
     explication: [
-      r`$f'(x)$ s'annule en changeant de signe en $-1$ et en $2$&nbsp;: ce sont des conditions suffisantes d'extremum local (une simple annulation sans changement de signe, comme pour $x \mapsto x^{3}$ en $0$, ne suffirait pas).`,
-      r`En $-1$, $f'$ passe de positif à négatif&nbsp;: $f$ y admet un maximum local. En $2$, $f'$ passe de négatif à positif&nbsp;: $f$ y admet un minimum local.`,
-      r`La bonne réponse est&nbsp;: <span class="resultat">$f$ admet un maximum local en $-1$ et un minimum local en $2$</span>.`],
-    revoir: r`propriété sur le signe de la dérivée et capacité 5 du cours, exercices 27 et 28 p. 20 du manuel` },
+      r`C'est une relation $u_{n+1} = a\,u_{n} + b$ avec $a = 1$ et $b = -4$.`,
+      r`Quand $a = 1$, on ajoute toujours le même nombre&nbsp;: la suite est <span class="resultat">arithmétique de raison $-4$</span>.`],
+    revoir: r`cas particuliers des suites arithmético-géométriques (partie 3 du cours)` },
 
-  { partie: 0, theme: 'Étude de fonction', type: 'qcm',
-    enonce: r`Soit $f$ la fonction définie sur $[-4 ; 6]$ par $f(x) = x^{3} - 3x^{2} - 24x + 5$. Quel est le maximum de $f$ sur cet intervalle&nbsp;?`,
-    choix: [r`$33$`, r`$-75$`, r`$-11$`, r`$-31$`],
+  { partie: 0, theme: 'Tableur', type: 'qcm',
+    enonce: r`Dans une feuille de calcul, les rangs $n$ sont en colonne A et les termes $u_{n}$ en colonne B, avec $u_{0}$ en B2. La suite vérifie $u_{n+1} = 0{,}7\,u_{n} + 30$. Quelle formule saisir en B3, puis recopier vers le bas&nbsp;?`,
+    choix: [r`<code>=0,7*B2+30</code>`, r`<code>=0,7*B3+30</code>`, r`<code>=0,7*A2+30</code>`, r`<code>0,7*B2+30</code>`],
     bonne: 0,
     explication: [
-      r`On dérive&nbsp;: pour tout réel $x$, $f'(x) = 3x^{2} - 6x - 24 = 3(x-4)(x+2)$.`,
-      r`$f'(x)$ est positif sur $[-4 ; -2]$, négatif sur $[-2 ; 4]$, positif sur $[4 ; 6]$&nbsp;: $f$ est croissante, puis décroissante, puis croissante sur $[-4 ; 6]$.`,
-      r`Le maximum de $f$ est donc atteint soit en $-2$ (maximum local), soit à l'extrémité $6$&nbsp;: on compare les deux images.`,
-      calcul(r`f(-2) & = (-2)^{3} - 3\times(-2)^{2} - 24\times(-2) + 5`, r`& = -8 - 12 + 48 + 5`, r`& = \resultat{33}`),
-      r`Comme $f(6) = 216 - 108 - 144 + 5 = -31 < 33$, le maximum de $f$ sur $[-4 ; 6]$ est <span class="resultat">$33$</span>, atteint en $x = -2$.`],
-    revoir: r`partie 3 du cours, exercices 37 p. 21 et 50 p. 22 du manuel` },
+      r`Le terme de la ligne $3$ se calcule à partir du terme précédent, qui est en B2 (la colonne A contient les rangs).`,
+      r`Une formule commence par le signe $=$&nbsp;: <span class="resultat"><code>=0,7*B2+30</code></span>.`],
+    revoir: r`capacité 1 du cours (phoques)` },
 
-  { partie: 0, theme: 'Extremum', type: 'qcm',
-    enonce: r`Soit $f$ une fonction dérivable sur $\R$ dont la dérivée est donnée, pour tout réel $x$, par $f'(x) = (x + 2)(x - 1)^{2}$. Que peut-on affirmer&nbsp;?`,
-    choix: [r`$f$ admet un minimum local en $-2$ et aucun extremum en $1$`, r`$f$ admet un minimum local en $-2$ et un maximum local en $1$`, r`$f$ admet un minimum local en $-2$ et en $1$`, r`$f$ admet un maximum local en $-2$ et aucun extremum en $1$`],
+  { partie: 0, theme: 'Point fixe', type: 'qcm',
+    enonce: r`La suite $(u_{n})$ vérifie, pour tout entier naturel $n$, $u_{n+1} = 0{,}6\,u_{n} + 12$. Le point fixe $\alpha$, solution de l'équation $x = 0{,}6\,x + 12$, vaut&nbsp;:`,
+    choix: [r`$30$`, r`$20$`, r`$7{,}5$`, r`$-30$`],
     bonne: 0,
     explication: [
-      r`Pour tout réel $x$, $(x - 1)^{2} \ge 0$&nbsp;: le signe de $f'(x)$ est celui de $x + 2$, sauf en $x = 1$ où $f'(x)$ s'annule.`,
-      r`$f'(x)$ est donc négatif sur $]-\infty ; -2[$, positif sur $]-2 ; 1[$ et sur $]1 ; +\infty[$, nul en $-2$ et en $1$.`,
-      r`En $-2$, $f'$ s'annule en passant de négatif à positif&nbsp;: $f$ y admet un minimum local. En $1$, $f'$ s'annule sans changer de signe&nbsp;: $f$ est croissante sur $[-2 ; +\infty[$, donc n'y admet pas d'extremum.`,
-      r`La bonne réponse est&nbsp;: <span class="resultat">$f$ admet un minimum local en $-2$ et aucun extremum en $1$</span>.`],
-    revoir: r`propriété sur les extremums (partie 3 du cours) et capacité 5, exercice 70 p. 25 du manuel` }
+      calcul(r`x = 0{,}6\,x + 12 & \iff x - 0{,}6\,x = 12`, r`& \iff 0{,}4\,x = 12`, r`& \iff x = \dfrac{12}{0{,}4}`, r`& \iff x = 30`),
+      r`On peut aussi utiliser $\alpha = \dfrac{b}{1 - a} = \dfrac{12}{1 - 0{,}6}$&nbsp;: <span class="resultat">$\alpha = 30$</span>.`],
+    revoir: r`propriété du point fixe (partie 3 du cours), exercice 1 de la fiche` },
+
+  { partie: 0, theme: 'Suite auxiliaire', type: 'qcm',
+    enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 10$ et $u_{n+1} = 0{,}6\,u_{n} + 12$. On pose $v_{n} = u_{n} - 30$ pour tout entier naturel $n$. La suite $(v_{n})$ est&nbsp;:`,
+    choix: [r`géométrique de raison $0{,}6$ et de premier terme $-20$`, r`géométrique de raison $0{,}6$ et de premier terme $10$`,
+            r`arithmétique de raison $12$ et de premier terme $-20$`, r`géométrique de raison $12$ et de premier terme $-20$`],
+    bonne: 0,
+    explication: [
+      r`On exprime $v_{n+1}$ en fonction de $v_{n}$.`,
+      calcul(r`v_{n+1} & = u_{n+1} - 30`, r`& = 0{,}6\,u_{n} + 12 - 30`, r`& = 0{,}6\,u_{n} - 18`, r`& = 0{,}6\,(u_{n} - 30)`, r`& = 0{,}6\,v_{n}`),
+      r`Et $v_{0} = u_{0} - 30 = 10 - 30 = -20$.`,
+      r`La suite $(v_{n})$ est <span class="resultat">géométrique de raison $0{,}6$ et de premier terme $-20$</span>.`],
+    revoir: r`démonstration de la partie 3 du cours, méthode, exercice 1 de la fiche` },
+
+  { partie: 0, theme: 'Expression explicite', type: 'qcm',
+    enonce: r`Avec la même suite ($u_{0} = 10$, $u_{n+1} = 0{,}6\,u_{n} + 12$ et $v_{n} = u_{n} - 30$), pour tout entier naturel $n$, $u_{n}$ est égal à&nbsp;:`,
+    choix: [r`$30 - 20 \times 0{,}6^{n}$`, r`$-20 \times 0{,}6^{n}$`, r`$30 + 10 \times 0{,}6^{n}$`, r`$10 \times 0{,}6^{n} + 12$`],
+    bonne: 0,
+    explication: [
+      r`La suite $(v_{n})$ est géométrique de raison $0{,}6$ et de premier terme $-20$&nbsp;: $v_{n} = -20 \times 0{,}6^{n}$.`,
+      r`Comme $v_{n} = u_{n} - 30$, on a $u_{n} = v_{n} + 30$.`,
+      r`Pour tout entier naturel $n$, <span class="resultat">$u_{n} = 30 - 20 \times 0{,}6^{n}$</span>. Vérification&nbsp;: $u_{0} = 30 - 20 = 10$.`],
+    revoir: r`méthode de la partie 3 du cours (étapes 4 et 5), exercice 1 de la fiche` },
+
+  { partie: 0, theme: 'Seuil', type: 'qcm', fixe: true,
+    enonce: r`Pour tout entier naturel $n$, $u_{n} = 30 - 20 \times 0{,}6^{n}$. Le plus petit entier $n$ tel que $u_{n} > 29$ est&nbsp;:`,
+    choix: [r`$5$`, r`$6$`, r`$7$`, r`$29$`],
+    bonne: 1,
+    explication: [
+      r`La suite est croissante&nbsp;: on cherche le premier terme qui dépasse $29$ avec le mode suite de la calculatrice.`,
+      calcul(r`u_{5} & = 30 - 20 \times 0{,}6^{5} \approx 28{,}44`, r`u_{6} & = 30 - 20 \times 0{,}6^{6} \approx 29{,}07`),
+      r`Le plus petit entier est <span class="resultat">$n = 6$</span>.`],
+    revoir: r`capacité 4 du cours, exercices 1 et 2 de la fiche` }
   ]
 };
 

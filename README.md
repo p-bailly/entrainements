@@ -5,6 +5,7 @@
 
 ## Terminale, mathématiques complémentaires
 
+- Chapitre 2 : [Suites](https://p-bailly.github.io/entrainements/terminale/02-suites-arithmetico-geometriques.html)
 - Chapitre 3 : [Compléments sur la dérivation](https://p-bailly.github.io/entrainements/terminale/03-complements-derivation.html)
 - Chapitre 4 : [Fonction exponentielle, rappels](https://p-bailly.github.io/entrainements/terminale/04-exponentielle-rappels.html)
 
