@@ -11,6 +11,8 @@
   (dont l'étude d'une fonction x -> a e^x + bx + c) et fiche d'exercices.
   Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
   Seulement ce que le chapitre revoit : ni logarithme, ni limite, ni dérivée de e^(kx).
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
 
   Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
   entrainement-04-exponentielle-rappels-questions.js (même dossier) ; moteur et mise en page :
@@ -315,7 +317,14 @@ const QUIZ = {
     explication: [
       r`La fonction exponentielle est égale à sa dérivée et prend la valeur $1$ en $0$.`,
       r`Pour tout réel $x$, $\mathrm{exp}'(x) = \mathrm{exp}(x)$ et $\mathrm{exp}(0) = 1$&nbsp;: c'est la condition <span class="resultat">$f' = f$ et $f(0) = 1$</span>.`],
-    revoir: r`définition de la fonction exponentielle (partie 1 du cours)` },
+    revoir: r`définition de la fonction exponentielle (partie 1 du cours)`,
+    variante: {
+      enonce: r`On note $\mathrm{e}$ le nombre $\mathrm{exp}(1)$. Le nombre $\mathrm{e}^{0}$ est égal à&nbsp;:`,
+      choix: [r`$1$`, r`$0$`, r`$\mathrm{e}$`, r`$-1$`],
+      bonne: 0,
+      explication: [
+        r`Par définition de la fonction exponentielle, $\mathrm{exp}(0) = 1$.`,
+        r`Avec la notation $\mathrm{e}^{x} = \mathrm{exp}(x)$, on a donc <span class="resultat">$\mathrm{e}^{0} = 1$</span>. (Et $\mathrm{e}^{1} = \mathrm{e} \approx 2{,}718$.)`] } },
 
   { partie: 0, theme: 'Règles de calcul', type: 'qcm',
     enonce: r`Une seule de ces égalités est vraie pour tous réels $a$ et $b$. Laquelle&nbsp;?`,
@@ -324,7 +333,14 @@ const QUIZ = {
     explication: [
       r`C'est la relation fonctionnelle&nbsp;: pour tous réels $a$ et $b$, <span class="resultat">$\mathrm{e}^{a} \times \mathrm{e}^{b} = \mathrm{e}^{a+b}$</span>.`,
       r`Par exemple, $\mathrm{e}^{2} \times \mathrm{e}^{3} = \mathrm{e}^{2 + 3} = \mathrm{e}^{5}$.`],
-    revoir: r`relation fonctionnelle et règles de calcul (parties 1 et 2 du cours)` },
+    revoir: r`relation fonctionnelle et règles de calcul (parties 1 et 2 du cours)`,
+    variante: {
+      enonce: r`Une seule de ces égalités est vraie pour tous réels $a$ et $b$. Laquelle&nbsp;?`,
+      choix: [r`$\dfrac{\mathrm{e}^{a}}{\mathrm{e}^{b}} = \mathrm{e}^{a-b}$`, r`$\dfrac{\mathrm{e}^{a}}{\mathrm{e}^{b}} = \mathrm{e}^{\frac{a}{b}}$`, r`$(\mathrm{e}^{a})^{b} = \mathrm{e}^{a+b}$`, r`$\mathrm{e}^{a} - \mathrm{e}^{b} = \mathrm{e}^{a-b}$`],
+      bonne: 0,
+      explication: [
+        r`Pour diviser, on soustrait les exposants&nbsp;: pour tous réels $a$ et $b$, <span class="resultat">$\dfrac{\mathrm{e}^{a}}{\mathrm{e}^{b}} = \mathrm{e}^{a-b}$</span>.`,
+        r`Par exemple, $\dfrac{\mathrm{e}^{5}}{\mathrm{e}^{2}} = \mathrm{e}^{5 - 2} = \mathrm{e}^{3}$.`] } },
 
   { partie: 0, theme: 'Simplifier', type: 'qcm',
     enonce: r`Pour tout réel $x$, $\dfrac{\mathrm{e}^{2x+3}}{\mathrm{e}^{x-1}}$ est égal à&nbsp;:`,
@@ -334,7 +350,15 @@ const QUIZ = {
       r`Pour diviser, on <b>soustrait</b> les exposants&nbsp;: $\dfrac{\mathrm{e}^{a}}{\mathrm{e}^{b}} = \mathrm{e}^{a-b}$.`,
       r`L'exposant du dénominateur se met entre parenthèses.`,
       calcul(r`\dfrac{\mathrm{e}^{2x+3}}{\mathrm{e}^{x-1}} & = \mathrm{e}^{2x + 3 - (x - 1)}`, r`& = \mathrm{e}^{2x + 3 - x + 1}`, r`& = \resultat{\mathrm{e}^{x+4}}`)],
-    revoir: r`capacité 1 du cours, exercice 1 de la fiche` },
+    revoir: r`capacité 1 du cours, exercice 1 de la fiche`,
+    variante: {
+      enonce: r`Pour tout réel $x$, $\dfrac{\mathrm{e}^{4x-1}}{\mathrm{e}^{x+2}}$ est égal à&nbsp;:`,
+      choix: [r`$\mathrm{e}^{3x-3}$`, r`$\mathrm{e}^{3x+1}$`, r`$\mathrm{e}^{5x+1}$`, r`$\mathrm{e}^{-3x+3}$`],
+      bonne: 0,
+      explication: [
+        r`Pour diviser, on <b>soustrait</b> les exposants&nbsp;: $\dfrac{\mathrm{e}^{a}}{\mathrm{e}^{b}} = \mathrm{e}^{a-b}$.`,
+        r`L'exposant du dénominateur se met entre parenthèses.`,
+        calcul(r`\dfrac{\mathrm{e}^{4x-1}}{\mathrm{e}^{x+2}} & = \mathrm{e}^{4x - 1 - (x + 2)}`, r`& = \mathrm{e}^{4x - 1 - x - 2}`, r`& = \resultat{\mathrm{e}^{3x-3}}`)] } },
 
   { partie: 0, theme: 'Développer', type: 'qcm',
     enonce: r`Pour tout réel $x$, on pose $B(x) = (\mathrm{e}^{x} - \mathrm{e}^{-x})^{2}$. La forme développée de $B(x)$ est&nbsp;:`,
@@ -344,7 +368,15 @@ const QUIZ = {
       r`On utilise $(a - b)^{2} = a^{2} - 2ab + b^{2}$, avec $a = \mathrm{e}^{x}$ et $b = \mathrm{e}^{-x}$.`,
       r`Le double produit se simplifie&nbsp;: $\mathrm{e}^{x} \times \mathrm{e}^{-x} = \mathrm{e}^{x - x} = \mathrm{e}^{0} = 1$.`,
       calcul(r`B(x) & = (\mathrm{e}^{x})^{2} - 2 \times \mathrm{e}^{x} \times \mathrm{e}^{-x} + (\mathrm{e}^{-x})^{2}`, r`& = \mathrm{e}^{2x} - 2 \times 1 + \mathrm{e}^{-2x}`, r`& = \resultat{\mathrm{e}^{2x} - 2 + \mathrm{e}^{-2x}}`)],
-    revoir: r`capacité 1 du cours, exercice 2 de la fiche` },
+    revoir: r`capacité 1 du cours, exercice 2 de la fiche`,
+    variante: {
+      enonce: r`Pour tout réel $x$, on pose $B(x) = (\mathrm{e}^{x} + 2)^{2}$. La forme développée de $B(x)$ est&nbsp;:`,
+      choix: [r`$\mathrm{e}^{2x} + 4\mathrm{e}^{x} + 4$`, r`$\mathrm{e}^{2x} + 4$`, r`$\mathrm{e}^{x^{2}} + 4\mathrm{e}^{x} + 4$`, r`$\mathrm{e}^{2x} + 2\mathrm{e}^{x} + 4$`],
+      bonne: 0,
+      explication: [
+        r`On utilise $(a + b)^{2} = a^{2} + 2ab + b^{2}$, avec $a = \mathrm{e}^{x}$ et $b = 2$.`,
+        r`Le carré de $\mathrm{e}^{x}$ se simplifie&nbsp;: $(\mathrm{e}^{x})^{2} = \mathrm{e}^{2x}$.`,
+        calcul(r`B(x) & = (\mathrm{e}^{x})^{2} + 2 \times \mathrm{e}^{x} \times 2 + 2^{2}`, r`& = \resultat{\mathrm{e}^{2x} + 4\mathrm{e}^{x} + 4}`)] } },
 
   { partie: 0, theme: 'Suite géométrique', type: 'qcm',
     enonce: r`La suite $(v_{n})$ est définie pour tout entier naturel $n$ par $v_{n} = \dfrac{(\mathrm{e}^{4})^{n}}{\mathrm{e}^{n+2}}$. Cette suite est géométrique de raison&nbsp;:`,
@@ -356,7 +388,17 @@ const QUIZ = {
       r`On exprime ensuite $v_{n+1}$ en fonction de $v_{n}$.`,
       calcul(r`v_{n+1} & = \mathrm{e}^{3(n + 1) - 2}`, r`& = \mathrm{e}^{(3n - 2) + 3}`, r`& = \mathrm{e}^{3n - 2} \times \mathrm{e}^{3}`, r`& = \mathrm{e}^{3} \times v_{n}`),
       r`La suite $(v_{n})$ est géométrique de raison <span class="resultat">$\mathrm{e}^{3}$</span> et de premier terme $v_{0} = \mathrm{e}^{-2}$.`],
-    revoir: r`capacité 3 du cours, exercice 3 de la fiche` },
+    revoir: r`capacité 3 du cours, exercice 3 de la fiche`,
+    variante: {
+      enonce: r`La suite $(v_{n})$ est définie pour tout entier naturel $n$ par $v_{n} = \dfrac{(\mathrm{e}^{2})^{n}}{\mathrm{e}^{n-3}}$. Cette suite est géométrique de raison&nbsp;:`,
+      choix: [r`$\mathrm{e}$`, r`$\mathrm{e}^{2}$`, r`$\mathrm{e}^{3}$`, r`$\mathrm{e}^{-3}$`],
+      bonne: 0,
+      explication: [
+        r`On écrit d'abord $v_{n}$ sous la forme $\mathrm{e}^{\dots}$&nbsp;: $(\mathrm{e}^{2})^{n} = \mathrm{e}^{2n}$.`,
+        calcul(r`v_{n} & = \dfrac{\mathrm{e}^{2n}}{\mathrm{e}^{n-3}}`, r`& = \mathrm{e}^{2n - (n - 3)}`, r`& = \mathrm{e}^{n + 3}`),
+        r`On exprime ensuite $v_{n+1}$ en fonction de $v_{n}$.`,
+        calcul(r`v_{n+1} & = \mathrm{e}^{(n + 1) + 3}`, r`& = \mathrm{e}^{(n + 3) + 1}`, r`& = \mathrm{e}^{n + 3} \times \mathrm{e}^{1}`, r`& = \mathrm{e} \times v_{n}`),
+        r`La suite $(v_{n})$ est géométrique de raison <span class="resultat">$\mathrm{e}$</span> et de premier terme $v_{0} = \mathrm{e}^{3}$.`] } },
 
   { partie: 0, theme: 'Sens de variation', type: 'qcm', fixe: true,
     enonce: r`La suite $(t_{n})$ est définie pour tout entier naturel $n$ par $t_{n} = \dfrac{\mathrm{e}^{5}}{\mathrm{e}^{4n}}$. Cette suite est&nbsp;:`,
@@ -368,7 +410,16 @@ const QUIZ = {
       r`$(t_{n})$ est géométrique de raison $q = \mathrm{e}^{-4}$ et de premier terme $t_{0} = \mathrm{e}^{5} > 0$.`,
       r`$-4 < 0$ et la fonction exponentielle est strictement croissante, donc $0 < \mathrm{e}^{-4} < \mathrm{e}^{0} = 1$.`,
       r`Premier terme strictement positif et raison comprise entre $0$ et $1$&nbsp;: la suite est <span class="resultat">strictement décroissante</span>.`],
-    revoir: r`capacité 3 du cours, exercice 3 de la fiche` },
+    revoir: r`capacité 3 du cours, exercice 3 de la fiche`,
+    variante: {
+      enonce: r`La suite $(t_{n})$ est définie pour tout entier naturel $n$ par $t_{n} = \dfrac{\mathrm{e}^{3n}}{\mathrm{e}^{2}}$. Cette suite est&nbsp;:`,
+      bonne: 0,
+      explication: [
+        r`Pour tout entier naturel $n$, $t_{n} = \mathrm{e}^{3n - 2}$.`,
+        calcul(r`t_{n+1} & = \mathrm{e}^{3(n + 1) - 2}`, r`& = \mathrm{e}^{(3n - 2) + 3}`, r`& = \mathrm{e}^{3n - 2} \times \mathrm{e}^{3}`, r`& = \mathrm{e}^{3} \times t_{n}`),
+        r`$(t_{n})$ est géométrique de raison $q = \mathrm{e}^{3}$ et de premier terme $t_{0} = \mathrm{e}^{-2} > 0$.`,
+        r`$3 > 0$ et la fonction exponentielle est strictement croissante, donc $\mathrm{e}^{3} > \mathrm{e}^{0} = 1$.`,
+        r`Premier terme strictement positif et raison plus grande que $1$&nbsp;: la suite est <span class="resultat">strictement croissante</span>.`] } },
 
   { partie: 0, theme: 'Signe', type: 'qcm',
     enonce: r`Pour tout réel $x$, le nombre $-3\mathrm{e}^{x}$ est&nbsp;:`,
@@ -377,7 +428,14 @@ const QUIZ = {
     explication: [
       r`Pour tout réel $x$, $\mathrm{e}^{x} > 0$&nbsp;: une exponentielle est toujours strictement positive.`,
       r`On multiplie par $-3$, qui est négatif&nbsp;: le produit $-3\mathrm{e}^{x}$ est <span class="resultat">strictement négatif</span>.`],
-    revoir: r`signe de la fonction exponentielle (partie 3 du cours)` },
+    revoir: r`signe de la fonction exponentielle (partie 3 du cours)`,
+    variante: {
+      enonce: r`Pour tout réel $x$, le nombre $4\mathrm{e}^{-x}$ est&nbsp;:`,
+      choix: [r`strictement positif`, r`strictement négatif`, r`négatif ou nul`, r`positif ou négatif selon la valeur de $x$`],
+      bonne: 0,
+      explication: [
+        r`Pour tout réel $x$, $-x$ est un réel, donc $\mathrm{e}^{-x} > 0$&nbsp;: une exponentielle est toujours strictement positive.`,
+        r`On multiplie par $4$, qui est positif&nbsp;: le produit $4\mathrm{e}^{-x}$ est <span class="resultat">strictement positif</span>.`] } },
 
   { partie: 0, theme: 'Dériver', type: 'qcm',
     enonce: r`La fonction $h$ est définie et dérivable sur $\R$ par $h(x) = 2\mathrm{e}^{x} - 7x + 1$. Pour tout réel $x$, $h'(x)$ est égal à&nbsp;:`,
@@ -387,7 +445,15 @@ const QUIZ = {
       r`La fonction exponentielle est égale à sa dérivée&nbsp;: la dérivée de $x \mapsto 2\mathrm{e}^{x}$ est $x \mapsto 2\mathrm{e}^{x}$.`,
       r`La dérivée de $x \mapsto -7x + 1$ est la constante $-7$.`,
       r`Donc, pour tout réel $x$, <span class="resultat">$h'(x) = 2\mathrm{e}^{x} - 7$</span>.`],
-    revoir: r`capacité 2 du cours, exercice 4 de la fiche` },
+    revoir: r`capacité 2 du cours, exercice 4 de la fiche`,
+    variante: {
+      enonce: r`La fonction $h$ est définie et dérivable sur $\R$ par $h(x) = 5x^{2} - 3\mathrm{e}^{x} + 4$. Pour tout réel $x$, $h'(x)$ est égal à&nbsp;:`,
+      choix: [r`$10x - 3\mathrm{e}^{x}$`, r`$10x - 3\mathrm{e}^{x} + 4$`, r`$10x - 3x\mathrm{e}^{x-1}$`, r`$5x - 3\mathrm{e}^{x}$`],
+      bonne: 0,
+      explication: [
+        r`La dérivée de $x \mapsto 5x^{2}$ est $x \mapsto 10x$.`,
+        r`La fonction exponentielle est égale à sa dérivée&nbsp;: la dérivée de $x \mapsto -3\mathrm{e}^{x}$ est $x \mapsto -3\mathrm{e}^{x}$. La constante $4$ a pour dérivée $0$.`,
+        r`Donc, pour tout réel $x$, <span class="resultat">$h'(x) = 10x - 3\mathrm{e}^{x}$</span>.`] } },
 
   { partie: 0, theme: 'Étude de fonction', type: 'qcm',
     enonce: r`La fonction $f$ est définie sur $\R$ par $f(x) = 4x - 4\mathrm{e}^{x} + 3$. La fonction $f$ est&nbsp;:`,
@@ -400,7 +466,18 @@ const QUIZ = {
       calcul(r`f'(x) \ge 0 & \iff 4 - 4\mathrm{e}^{x} \ge 0`, r`& \iff 4 \ge 4\mathrm{e}^{x}`, r`& \iff 1 \ge \mathrm{e}^{x}`, r`& \iff \mathrm{e}^{0} \ge \mathrm{e}^{x}`, r`& \iff 0 \ge x`),
       r`Ainsi $f'(x) > 0$ sur $]-\infty ; 0[$, $f'(0) = 0$ et $f'(x) < 0$ sur $]0 ; +\infty[$.`,
       r`La fonction $f$ est <span class="resultat">croissante sur $]-\infty ; 0]$, puis décroissante sur $[0 ; +\infty[$</span>. Son maximum est $f(0) = 0 - 4 + 3 = -1$.`],
-    revoir: r`capacité 2 du cours, exercice 5 de la fiche` },
+    revoir: r`capacité 2 du cours, exercice 5 de la fiche`,
+    variante: {
+      enonce: r`La fonction $f$ est définie sur $\R$ par $f(x) = 2\mathrm{e}^{x} - 2x + 1$. La fonction $f$ est&nbsp;:`,
+      choix: [r`décroissante sur $]-\infty ; 0]$, puis croissante sur $[0 ; +\infty[$`, r`croissante sur $]-\infty ; 0]$, puis décroissante sur $[0 ; +\infty[$`,
+              r`décroissante sur $]-\infty ; 1]$, puis croissante sur $[1 ; +\infty[$`, r`croissante sur $\R$`],
+      bonne: 0,
+      explication: [
+        r`On dérive&nbsp;: pour tout réel $x$, $f'(x) = 2\mathrm{e}^{x} - 2$.`,
+        r`On étudie le signe de $f'(x)$ en comparant $\mathrm{e}^{x}$ à $1 = \mathrm{e}^{0}$.`,
+        calcul(r`f'(x) \ge 0 & \iff 2\mathrm{e}^{x} - 2 \ge 0`, r`& \iff 2\mathrm{e}^{x} \ge 2`, r`& \iff \mathrm{e}^{x} \ge 1`, r`& \iff \mathrm{e}^{x} \ge \mathrm{e}^{0}`, r`& \iff x \ge 0`),
+        r`Ainsi $f'(x) < 0$ sur $]-\infty ; 0[$, $f'(0) = 0$ et $f'(x) > 0$ sur $]0 ; +\infty[$.`,
+        r`La fonction $f$ est <span class="resultat">décroissante sur $]-\infty ; 0]$, puis croissante sur $[0 ; +\infty[$</span>. Son minimum est $f(0) = 2 - 0 + 1 = 3$.`] } },
 
   { partie: 0, theme: 'Étude de fonction', type: 'qcm',
     enonce: r`La fonction $g$ est définie sur $\R$ par $g(x) = 5\mathrm{e}^{x} - 5x - 8$. Sur $\R$, la fonction $g$ admet&nbsp;:`,
@@ -413,7 +490,18 @@ const QUIZ = {
       r`La fonction $g$ est décroissante sur $]-\infty ; 0]$, puis croissante sur $[0 ; +\infty[$&nbsp;: elle admet un minimum en $0$.`,
       calcul(r`g(0) & = 5\mathrm{e}^{0} - 5 \times 0 - 8`, r`& = 5 - 8`, r`& = -3`),
       r`La fonction $g$ admet <span class="resultat">un minimum égal à $-3$, atteint en $x = 0$</span>.`],
-    revoir: r`capacité 2 du cours, exercice 4 de la fiche` }
+    revoir: r`capacité 2 du cours, exercice 4 de la fiche`,
+    variante: {
+      enonce: r`La fonction $g$ est définie sur $\R$ par $g(x) = -2\mathrm{e}^{x} + 2x + 7$. Sur $\R$, la fonction $g$ admet&nbsp;:`,
+      choix: [r`un maximum égal à $5$, atteint en $x = 0$`, r`un minimum égal à $5$, atteint en $x = 0$`,
+              r`un maximum égal à $7$, atteint en $x = 0$`, r`un maximum égal à $9 - 2\mathrm{e}$, atteint en $x = 1$`],
+      bonne: 0,
+      explication: [
+        r`On dérive&nbsp;: pour tout réel $x$, $g'(x) = -2\mathrm{e}^{x} + 2$.`,
+        calcul(r`g'(x) \ge 0 & \iff -2\mathrm{e}^{x} + 2 \ge 0`, r`& \iff 2 \ge 2\mathrm{e}^{x}`, r`& \iff 1 \ge \mathrm{e}^{x}`, r`& \iff \mathrm{e}^{0} \ge \mathrm{e}^{x}`, r`& \iff 0 \ge x`),
+        r`La fonction $g$ est croissante sur $]-\infty ; 0]$, puis décroissante sur $[0 ; +\infty[$&nbsp;: elle admet un maximum en $0$.`,
+        calcul(r`g(0) & = -2\mathrm{e}^{0} + 2 \times 0 + 7`, r`& = -2 + 7`, r`& = 5`),
+        r`La fonction $g$ admet <span class="resultat">un maximum égal à $5$, atteint en $x = 0$</span>.`] } }
   ]
 };
 

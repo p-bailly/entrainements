@@ -12,6 +12,8 @@
   (capacités 1 à 4), lien entre signe de la dérivée et variations, extremum d'un polynôme,
   extremum local et changement de signe de la dérivée (capacité 5). Mêmes types de questions
   que dans le cours, les exercices du manuel et l'évaluation, avec d'autres valeurs.
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
 
   Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
   entrainement-03-complements-derivation-questions.js (même dossier) ; moteur et mise en page :
@@ -316,7 +318,14 @@ const QUIZ = {
     explication: [
       r`Le nombre dérivé $f'(2)$ est le coefficient directeur de la tangente en $A$, calculé avec les coordonnées de deux de ses points.`,
       calcul(r`f'(2) & = \dfrac{y_{B} - y_{A}}{x_{B} - x_{A}}`, r`& = \dfrac{-4 - 5}{5 - 2}`, r`& = \dfrac{-9}{3}`, r`& = \resultat{-3}`)],
-    revoir: r`capacité 1 du cours, partie B p. 7 du manuel` },
+    revoir: r`capacité 1 du cours, partie B p. 7 du manuel`,
+    variante: {
+      enonce: r`On sait qu'une fonction $f$ est dérivable en $1$ et que la tangente à sa courbe représentative au point $A(1 ; -2)$ passe par le point $B(3 ; 6)$. Que vaut $f'(1)$&nbsp;?`,
+      choix: [r`$4$`, r`$-4$`, r`$8$`, r`$\dfrac{1}{4}$`],
+      bonne: 0,
+      explication: [
+        r`Le nombre dérivé $f'(1)$ est le coefficient directeur de la tangente en $A$, calculé avec les coordonnées de deux de ses points.`,
+        calcul(r`f'(1) & = \dfrac{y_{B} - y_{A}}{x_{B} - x_{A}}`, r`& = \dfrac{6 - (-2)}{3 - 1}`, r`& = \dfrac{8}{2}`, r`& = \resultat{4}`)] } },
 
   { partie: 0, theme: 'Tangente', type: 'qcm',
     enonce: r`On considère la fonction $f$ définie sur $\R$ par $f(x) = x^{2} + 2x$. Une équation réduite de la tangente à la courbe de $f$ au point d'abscisse $1$ est&nbsp;:`,
@@ -326,7 +335,15 @@ const QUIZ = {
       r`On calcule $f'(x)$, puis $f'(1)$ et $f(1)$, avant d'utiliser $y = f'(1)(x - 1) + f(1)$.`,
       calcul(r`f'(x) & = 2x + 2`, r`f'(1) & = 2 \times 1 + 2 = 4`, r`f(1) & = 1^{2} + 2 \times 1 = 3`),
       calcul(r`y & = f'(1)(x - 1) + f(1)`, r`& = 4(x - 1) + 3`, r`& = 4x - 4 + 3`, r`& = \resultat{4x - 1}`)],
-    revoir: r`capacité 2 et la propriété de la tangente (partie 1 du cours), exercice 31 p. 20 du manuel` },
+    revoir: r`capacité 2 et la propriété de la tangente (partie 1 du cours), exercice 31 p. 20 du manuel`,
+    variante: {
+      enonce: r`On considère la fonction $f$ définie sur $\R$ par $f(x) = x^{2} - 3x$. Une équation réduite de la tangente à la courbe de $f$ au point d'abscisse $2$ est&nbsp;:`,
+      choix: [r`$y = x - 4$`, r`$y = x - 2$`, r`$y = -2x + 2$`, r`$y = x + 4$`],
+      bonne: 0,
+      explication: [
+        r`On calcule $f'(x)$, puis $f'(2)$ et $f(2)$, avant d'utiliser $y = f'(2)(x - 2) + f(2)$.`,
+        calcul(r`f'(x) & = 2x - 3`, r`f'(2) & = 2 \times 2 - 3 = 1`, r`f(2) & = 2^{2} - 3 \times 2 = -2`),
+        calcul(r`y & = f'(2)(x - 2) + f(2)`, r`& = 1 \times (x - 2) - 2`, r`& = x - 2 - 2`, r`& = \resultat{x - 4}`)] } },
 
   { partie: 0, theme: 'Non dérivable', type: 'qcm',
     enonce: r`Parmi les quatre fonctions suivantes, laquelle n'est pas dérivable en $0$&nbsp;?`,
@@ -336,7 +353,15 @@ const QUIZ = {
       r`Pour $x \mapsto |x|$, le taux d'accroissement entre $0$ et $h$ vaut $\dfrac{|h|}{h}$&nbsp;: il vaut $1$ si $h > 0$ et $-1$ si $h < 0$. Il n'a donc pas de limite unique quand $h$ tend vers $0$.`,
       r`Les trois autres fonctions sont dérivables sur $\R$, donc en particulier en $0$&nbsp;: $x^{2}$ et $x^{3}$ sont des fonctions usuelles, $3x - 1$ est affine.`,
       r`La fonction non dérivable en $0$ est <span class="resultat">$x \mapsto |x|$</span>.`],
-    revoir: r`capacité 2 du cours, question 2` },
+    revoir: r`capacité 2 du cours, question 2`,
+    variante: {
+      enonce: r`Parmi les quatre fonctions suivantes, définies sur $[0 ; +\infty[$, laquelle n'est pas dérivable en $0$&nbsp;?`,
+      choix: [r`$x \mapsto \sqrt{x}$`, r`$x \mapsto x^{2} - 5x$`, r`$x \mapsto 2x + 7$`, r`$x \mapsto x^{3}$`],
+      bonne: 0,
+      explication: [
+        r`Pour $x \mapsto \sqrt{x}$, le taux d'accroissement entre $0$ et $h > 0$ vaut $\dfrac{\sqrt{h}}{h} = \dfrac{1}{\sqrt{h}}$&nbsp;: il devient aussi grand qu'on veut quand $h$ tend vers $0$, il n'a pas de limite finie.`,
+        r`C'est pourquoi, dans le tableau des dérivées usuelles, la fonction racine carrée n'est dérivable que sur $]0 ; +\infty[$. Les trois autres fonctions sont des polynômes, dérivables sur $\R$.`,
+        r`La fonction non dérivable en $0$ est <span class="resultat">$x \mapsto \sqrt{x}$</span>.`] } },
 
   { partie: 0, theme: 'Dérivée d\'un produit', type: 'qcm',
     enonce: r`Soit $h$ la fonction définie sur $\R$ par $h(x) = (3x + 2)(x^{2} - 1)$. Pour tout réel $x$, $h'(x)$ est égal à&nbsp;:`,
@@ -345,7 +370,14 @@ const QUIZ = {
     explication: [
       r`On pose $u(x) = 3x + 2$ et $v(x) = x^{2} - 1$, avec $u'(x) = 3$ et $v'(x) = 2x$. La dérivée d'un produit est $(uv)' = u'v + uv'$.`,
       calcul(r`h'(x) & = 3 \times (x^{2} - 1) + (3x + 2) \times 2x`, r`& = 3x^{2} - 3 + 6x^{2} + 4x`, r`& = \resultat{9x^{2} + 4x - 3}`)],
-    revoir: r`capacité 3 du cours, exercices 35 p. 21 et 46 p. 22 du manuel` },
+    revoir: r`capacité 3 du cours, exercices 35 p. 21 et 46 p. 22 du manuel`,
+    variante: {
+      enonce: r`Soit $h$ la fonction définie sur $\R$ par $h(x) = (2x - 1)(x^{2} + 3)$. Pour tout réel $x$, $h'(x)$ est égal à&nbsp;:`,
+      choix: [r`$6x^{2} - 2x + 6$`, r`$4x$`, r`$6x^{2} + 2x + 6$`, r`$6x^{2} - 2x - 6$`],
+      bonne: 0,
+      explication: [
+        r`On pose $u(x) = 2x - 1$ et $v(x) = x^{2} + 3$, avec $u'(x) = 2$ et $v'(x) = 2x$. La dérivée d'un produit est $(uv)' = u'v + uv'$.`,
+        calcul(r`h'(x) & = 2 \times (x^{2} + 3) + (2x - 1) \times 2x`, r`& = 2x^{2} + 6 + 4x^{2} - 2x`, r`& = \resultat{6x^{2} - 2x + 6}`)] } },
 
   { partie: 0, theme: 'Dérivée d\'un quotient', type: 'qcm',
     enonce: r`Soit $m$ la fonction définie sur $]-1 ; +\infty[$ par $m(x) = \dfrac{4x - 3}{x + 1}$. Pour tout $x$ de cet intervalle, $m'(x)$ est égal à&nbsp;:`,
@@ -354,7 +386,14 @@ const QUIZ = {
     explication: [
       r`On pose $u(x) = 4x - 3$ et $v(x) = x + 1$, avec $u'(x) = 4$ et $v'(x) = 1$. La dérivée d'un quotient est $\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^{2}}$.`,
       calcul(r`m'(x) & = \dfrac{4 \times (x + 1) - (4x - 3) \times 1}{(x + 1)^{2}}`, r`& = \dfrac{4x + 4 - 4x + 3}{(x + 1)^{2}}`, r`& = \resultat{\dfrac{7}{(x+1)^{2}}}`)],
-    revoir: r`capacité 3 du cours, exercices 35 p. 21 et 46 p. 22 du manuel` },
+    revoir: r`capacité 3 du cours, exercices 35 p. 21 et 46 p. 22 du manuel`,
+    variante: {
+      enonce: r`Soit $m$ la fonction définie sur $]3 ; +\infty[$ par $m(x) = \dfrac{2x + 5}{x - 3}$. Pour tout $x$ de cet intervalle, $m'(x)$ est égal à&nbsp;:`,
+      choix: [r`$\dfrac{-11}{(x-3)^{2}}$`, r`$\dfrac{11}{(x-3)^{2}}$`, r`$\dfrac{4x - 1}{(x-3)^{2}}$`, r`$\dfrac{-11}{x-3}$`],
+      bonne: 0,
+      explication: [
+        r`On pose $u(x) = 2x + 5$ et $v(x) = x - 3$, avec $u'(x) = 2$ et $v'(x) = 1$. La dérivée d'un quotient est $\left(\dfrac{u}{v}\right)' = \dfrac{u'v - uv'}{v^{2}}$.`,
+        calcul(r`m'(x) & = \dfrac{2 \times (x - 3) - (2x + 5) \times 1}{(x - 3)^{2}}`, r`& = \dfrac{2x - 6 - 2x - 5}{(x - 3)^{2}}`, r`& = \resultat{\dfrac{-11}{(x-3)^{2}}}`)] } },
 
   { partie: 0, theme: 'Fonction composée', type: 'qcm',
     enonce: r`Soit $n$ la fonction définie sur $\R$ par $n(x) = (2x + 7)^{4}$. Pour tout réel $x$, $n'(x)$ est égal à&nbsp;:`,
@@ -363,7 +402,14 @@ const QUIZ = {
     explication: [
       r`On applique la formule $(u^{n})' = n \, u' \, u^{n-1}$ avec $u(x) = 2x + 7$ (donc $u'(x) = 2$) et $n = 4$.`,
       calcul(r`n'(x) & = 4 \times 2 \times (2x+7)^{3}`, r`& = \resultat{8(2x+7)^{3}}`)],
-    revoir: r`capacité 4 du cours, exercices 29 p. 20 et 45 p. 22 du manuel` },
+    revoir: r`capacité 4 du cours, exercices 29 p. 20 et 45 p. 22 du manuel`,
+    variante: {
+      enonce: r`Soit $n$ la fonction définie sur $\R$ par $n(x) = (5x - 1)^{3}$. Pour tout réel $x$, $n'(x)$ est égal à&nbsp;:`,
+      choix: [r`$15(5x-1)^{2}$`, r`$3(5x-1)^{2}$`, r`$15(5x-1)^{3}$`, r`$5(5x-1)^{2}$`],
+      bonne: 0,
+      explication: [
+        r`On applique la formule $(u^{n})' = n \, u' \, u^{n-1}$ avec $u(x) = 5x - 1$ (donc $u'(x) = 5$) et $n = 3$.`,
+        calcul(r`n'(x) & = 3 \times 5 \times (5x-1)^{2}`, r`& = \resultat{15(5x-1)^{2}}`)] } },
 
   { partie: 0, theme: 'Fonction composée', type: 'qcm',
     enonce: r`Soit $r$ la fonction définie sur $]-\dfrac{2}{7} ; +\infty[$ par $r(x) = \sqrt{7x + 2}$. Pour tout $x$ de cet intervalle, $r'(x)$ est égal à&nbsp;:`,
@@ -372,7 +418,14 @@ const QUIZ = {
     explication: [
       r`On applique la formule $(\sqrt{u})' = \dfrac{u'}{2\sqrt{u}}$ avec $u(x) = 7x + 2$, donc $u'(x) = 7$.`,
       calcul(r`r'(x) & = \resultat{\dfrac{7}{2\sqrt{7x+2}}}`)],
-    revoir: r`capacité 4 du cours, exercices 29 p. 20 et 45 p. 22 du manuel` },
+    revoir: r`capacité 4 du cours, exercices 29 p. 20 et 45 p. 22 du manuel`,
+    variante: {
+      enonce: r`Soit $r$ la fonction définie sur $]-\dfrac{5}{3} ; +\infty[$ par $r(x) = \sqrt{3x + 5}$. Pour tout $x$ de cet intervalle, $r'(x)$ est égal à&nbsp;:`,
+      choix: [r`$\dfrac{3}{2\sqrt{3x+5}}$`, r`$\dfrac{3}{\sqrt{3x+5}}$`, r`$\dfrac{1}{2\sqrt{3x+5}}$`, r`$\dfrac{6}{\sqrt{3x+5}}$`],
+      bonne: 0,
+      explication: [
+        r`On applique la formule $(\sqrt{u})' = \dfrac{u'}{2\sqrt{u}}$ avec $u(x) = 3x + 5$, donc $u'(x) = 3$.`,
+        calcul(r`r'(x) & = \resultat{\dfrac{3}{2\sqrt{3x+5}}}`)] } },
 
   { partie: 0, theme: 'Signe et variations', type: 'qcm',
     enonce: r`On donne le signe de $f'(x)$ sur l'intervalle $[-3 ; 5]$&nbsp;: positif sur $[-3 ; -1[$, nul en $-1$, négatif sur $]-1 ; 2[$, nul en $2$, positif sur $]2 ; 5]$. Que peut-on en déduire pour la fonction $f$&nbsp;?`,
@@ -382,7 +435,15 @@ const QUIZ = {
       r`$f'(x)$ s'annule en changeant de signe en $-1$ et en $2$&nbsp;: ce sont des conditions suffisantes d'extremum local (une simple annulation sans changement de signe, comme pour $x \mapsto x^{3}$ en $0$, ne suffirait pas).`,
       r`En $-1$, $f'$ passe de positif à négatif&nbsp;: $f$ y admet un maximum local. En $2$, $f'$ passe de négatif à positif&nbsp;: $f$ y admet un minimum local.`,
       r`La bonne réponse est&nbsp;: <span class="resultat">$f$ admet un maximum local en $-1$ et un minimum local en $2$</span>.`],
-    revoir: r`propriété sur le signe de la dérivée et capacité 5 du cours, exercices 27 et 28 p. 20 du manuel` },
+    revoir: r`propriété sur le signe de la dérivée et capacité 5 du cours, exercices 27 et 28 p. 20 du manuel`,
+    variante: {
+      enonce: r`On donne le signe de $f'(x)$ sur l'intervalle $[-4 ; 6]$&nbsp;: négatif sur $[-4 ; 0[$, nul en $0$, positif sur $]0 ; 3[$, nul en $3$, négatif sur $]3 ; 6]$. Que peut-on en déduire pour la fonction $f$&nbsp;?`,
+      choix: [r`$f$ admet un minimum local en $0$ et un maximum local en $3$`, r`$f$ admet un maximum local en $0$ et un minimum local en $3$`, r`$f$ admet un minimum local en $0$ et en $3$`, r`$f$ n'admet aucun extremum local sur $[-4 ; 6]$`],
+      bonne: 0,
+      explication: [
+        r`$f'(x)$ s'annule en changeant de signe en $0$ et en $3$&nbsp;: ce sont des conditions suffisantes d'extremum local.`,
+        r`En $0$, $f'$ passe de négatif à positif&nbsp;: $f$ y admet un minimum local. En $3$, $f'$ passe de positif à négatif&nbsp;: $f$ y admet un maximum local.`,
+        r`La bonne réponse est&nbsp;: <span class="resultat">$f$ admet un minimum local en $0$ et un maximum local en $3$</span>.`] } },
 
   { partie: 0, theme: 'Étude de fonction', type: 'qcm',
     enonce: r`Soit $f$ la fonction définie sur $[-4 ; 6]$ par $f(x) = x^{3} - 3x^{2} - 24x + 5$. Quel est le maximum de $f$ sur cet intervalle&nbsp;?`,
@@ -394,7 +455,17 @@ const QUIZ = {
       r`Le maximum de $f$ est donc atteint soit en $-2$ (maximum local), soit à l'extrémité $6$&nbsp;: on compare les deux images.`,
       calcul(r`f(-2) & = (-2)^{3} - 3\times(-2)^{2} - 24\times(-2) + 5`, r`& = -8 - 12 + 48 + 5`, r`& = \resultat{33}`),
       r`Comme $f(6) = 216 - 108 - 144 + 5 = -31 < 33$, le maximum de $f$ sur $[-4 ; 6]$ est <span class="resultat">$33$</span>, atteint en $x = -2$.`],
-    revoir: r`partie 3 du cours, exercices 37 p. 21 et 50 p. 22 du manuel` },
+    revoir: r`partie 3 du cours, exercices 37 p. 21 et 50 p. 22 du manuel`,
+    variante: {
+      enonce: r`Soit $f$ la fonction définie sur $[-3 ; 3]$ par $f(x) = x^{3} - 12x + 1$. Quel est le maximum de $f$ sur cet intervalle&nbsp;?`,
+      choix: [r`$17$`, r`$-15$`, r`$10$`, r`$-8$`],
+      bonne: 0,
+      explication: [
+        r`On dérive&nbsp;: pour tout réel $x$, $f'(x) = 3x^{2} - 12 = 3(x-2)(x+2)$.`,
+        r`$f'(x)$ est positif sur $[-3 ; -2]$, négatif sur $[-2 ; 2]$, positif sur $[2 ; 3]$&nbsp;: $f$ est croissante, puis décroissante, puis croissante sur $[-3 ; 3]$.`,
+        r`Le maximum de $f$ est donc atteint soit en $-2$ (maximum local), soit à l'extrémité $3$&nbsp;: on compare les deux images.`,
+        calcul(r`f(-2) & = (-2)^{3} - 12\times(-2) + 1`, r`& = -8 + 24 + 1`, r`& = 17`),
+        r`Comme $f(3) = 27 - 36 + 1 = -8 < 17$, le maximum de $f$ sur $[-3 ; 3]$ est <span class="resultat">$17$</span>, atteint en $x = -2$.`] } },
 
   { partie: 0, theme: 'Extremum', type: 'qcm',
     enonce: r`Soit $f$ une fonction dérivable sur $\R$ dont la dérivée est donnée, pour tout réel $x$, par $f'(x) = (x + 2)(x - 1)^{2}$. Que peut-on affirmer&nbsp;?`,
@@ -405,7 +476,16 @@ const QUIZ = {
       r`$f'(x)$ est donc négatif sur $]-\infty ; -2[$, positif sur $]-2 ; 1[$ et sur $]1 ; +\infty[$, nul en $-2$ et en $1$.`,
       r`En $-2$, $f'$ s'annule en passant de négatif à positif&nbsp;: $f$ y admet un minimum local. En $1$, $f'$ s'annule sans changer de signe&nbsp;: $f$ est croissante sur $[-2 ; +\infty[$, donc n'y admet pas d'extremum.`,
       r`La bonne réponse est&nbsp;: <span class="resultat">$f$ admet un minimum local en $-2$ et aucun extremum en $1$</span>.`],
-    revoir: r`propriété sur les extremums (partie 3 du cours) et capacité 5, exercice 70 p. 25 du manuel` }
+    revoir: r`propriété sur les extremums (partie 3 du cours) et capacité 5, exercice 70 p. 25 du manuel`,
+    variante: {
+      enonce: r`Soit $f$ une fonction dérivable sur $\R$ dont la dérivée est donnée, pour tout réel $x$, par $f'(x) = (x - 3)(x + 1)^{2}$. Que peut-on affirmer&nbsp;?`,
+      choix: [r`$f$ admet un minimum local en $3$ et aucun extremum en $-1$`, r`$f$ admet un minimum local en $3$ et un maximum local en $-1$`, r`$f$ admet un maximum local en $3$ et aucun extremum en $-1$`, r`$f$ admet un minimum local en $3$ et en $-1$`],
+      bonne: 0,
+      explication: [
+        r`Pour tout réel $x$, $(x + 1)^{2} \ge 0$&nbsp;: le signe de $f'(x)$ est celui de $x - 3$, sauf en $x = -1$ où $f'(x)$ s'annule.`,
+        r`$f'(x)$ est donc négatif sur $]-\infty ; -1[$ et sur $]-1 ; 3[$, positif sur $]3 ; +\infty[$, nul en $-1$ et en $3$.`,
+        r`En $3$, $f'$ s'annule en passant de négatif à positif&nbsp;: $f$ y admet un minimum local. En $-1$, $f'$ s'annule sans changer de signe&nbsp;: $f$ est décroissante sur $]-\infty ; 3]$, donc n'y admet pas d'extremum.`,
+        r`La bonne réponse est&nbsp;: <span class="resultat">$f$ admet un minimum local en $3$ et aucun extremum en $-1$</span>.`] } }
   ]
 };
 

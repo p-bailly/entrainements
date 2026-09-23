@@ -13,6 +13,8 @@
     2. Généralités sur les suites : cours, capacités 1 à 6, méthode du sens de variation
        et fiche d'exercices.
   Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
 
   Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
   entrainement-02-generalites-suites-questions.js (même dossier) ; moteur et mise en page :
@@ -319,7 +321,14 @@ const QUIZ = {
     explication: [
       r`On met les deux fractions au même dénominateur, $21$, en multipliant le numérateur et le dénominateur par le même nombre.`,
       calcul(r`\dfrac{7}{3} + \dfrac{3}{7} & = \dfrac{7 \mul{\times 7}}{3 \mul{\times 7}} + \dfrac{3 \mul{\times 3}}{7 \mul{\times 3}}`, r`& = \dfrac{49}{21} + \dfrac{9}{21}`, r`& = \resultat{\dfrac{58}{21}}`)],
-    revoir: r`gamme 1 des automatismes (manuel p.&nbsp;70)` },
+    revoir: r`gamme 1 des automatismes (manuel p.&nbsp;70)`,
+    variante: {
+      enonce: r`$\dfrac{5}{2} + \dfrac{2}{5}$ est égal à&nbsp;:`,
+      choix: [r`$\dfrac{29}{10}$`, r`$\dfrac{7}{7}$`, r`$\dfrac{7}{10}$`, r`$\dfrac{29}{20}$`],
+      bonne: 0,
+      explication: [
+        r`On met les deux fractions au même dénominateur, $10$, en multipliant le numérateur et le dénominateur par le même nombre.`,
+        calcul(r`\dfrac{5}{2} + \dfrac{2}{5} & = \dfrac{5 \mul{\times 5}}{2 \mul{\times 5}} + \dfrac{2 \mul{\times 2}}{5 \mul{\times 2}}`, r`& = \dfrac{25}{10} + \dfrac{4}{10}`, r`& = \resultat{\dfrac{29}{10}}`)] } },
 
   { partie: 0, theme: 'Identités remarquables', type: 'qcm',
     enonce: r`La forme développée de $(4n - 3)^{2}$ est&nbsp;:`,
@@ -328,7 +337,14 @@ const QUIZ = {
     explication: [
       r`On utilise $(a - b)^{2} = a^{2} - 2ab + b^{2}$, avec $a = 4n$ et $b = 3$.`,
       calcul(r`(4n - 3)^{2} & = (4n)^{2} - 2 \times 4n \times 3 + 3^{2}`, r`& = \resultat{16n^{2} - 24n + 9}`)],
-    revoir: r`gamme 1 des automatismes (manuel p.&nbsp;70)` },
+    revoir: r`gamme 1 des automatismes (manuel p.&nbsp;70)`,
+    variante: {
+      enonce: r`La forme développée de $(3n + 5)^{2}$ est&nbsp;:`,
+      choix: [r`$9n^{2} + 30n + 25$`, r`$9n^{2} + 25$`, r`$9n^{2} + 15n + 25$`, r`$3n^{2} + 30n + 25$`],
+      bonne: 0,
+      explication: [
+        r`On utilise $(a + b)^{2} = a^{2} + 2ab + b^{2}$, avec $a = 3n$ et $b = 5$.`,
+        calcul(r`(3n + 5)^{2} & = (3n)^{2} + 2 \times 3n \times 5 + 5^{2}`, r`& = \resultat{9n^{2} + 30n + 25}`)] } },
 
   { partie: 0, theme: 'Formules', type: 'qcm',
     enonce: r`On donne la formule $P = \dfrac{U^{2}}{R}$. Exprimée en fonction de $U$ et de $P$, la résistance $R$ est égale à&nbsp;:`,
@@ -337,7 +353,14 @@ const QUIZ = {
     explication: [
       r`On multiplie les deux membres par $R$, puis on les divise par $P$.`,
       calcul(r`P = \dfrac{U^{2}}{R} & \iff P \op{\times R} = \dfrac{U^{2}}{R} \op{\times R}`, r`& \iff PR = U^{2}`, r`& \iff \dfrac{PR}{\op{P}} = \dfrac{U^{2}}{\op{P}}`, r`& \iff \resultat{R = \dfrac{U^{2}}{P}}`)],
-    revoir: r`gamme 1 des automatismes (manuel p.&nbsp;70)` },
+    revoir: r`gamme 1 des automatismes (manuel p.&nbsp;70)`,
+    variante: {
+      enonce: r`On donne la formule de l'énergie cinétique $E = \dfrac{1}{2}mv^{2}$. Exprimée en fonction de $E$ et de $v$, la masse $m$ est égale à&nbsp;:`,
+      choix: [r`$\dfrac{2E}{v^{2}}$`, r`$\dfrac{E}{2v^{2}}$`, r`$\dfrac{v^{2}}{2E}$`, r`$2E - v^{2}$`],
+      bonne: 0,
+      explication: [
+        r`On multiplie les deux membres par $2$, puis on les divise par $v^{2}$.`,
+        calcul(r`E = \dfrac{1}{2}mv^{2} & \iff E \op{\times 2} = \dfrac{1}{2}mv^{2} \op{\times 2}`, r`& \iff 2E = mv^{2}`, r`& \iff \dfrac{2E}{\op{v^{2}}} = \dfrac{mv^{2}}{\op{v^{2}}}`, r`& \iff \resultat{m = \dfrac{2E}{v^{2}}}`)] } },
 
   { partie: 0, theme: 'Antécédents, lecture graphique', type: 'qcm',
     enonce: r`On donne la courbe d'une fonction $f$ définie sur l'intervalle $[-3{,}5 ; 3]$. Combien d'antécédents le nombre $1$ possède-t-il par $f$&nbsp;?`
@@ -353,7 +376,21 @@ const QUIZ = {
           points: [{ x: -2.68, y: 1 }, { x: -0.64, y: 1 }, { x: 2.32, y: 1 }],
           label: 'La même courbe et la droite horizontale d\'ordonnée 1, qui la coupe en trois points' }),
       r`Le nombre $1$ a <span class="resultat">$3$ antécédents</span>.`],
-    revoir: r`gamme 1 des automatismes (manuel p.&nbsp;70)` },
+    revoir: r`gamme 1 des automatismes (manuel p.&nbsp;70)`,
+    variante: {
+      enonce: r`On donne la courbe d'une fonction $f$ définie sur l'intervalle $[-3{,}5 ; 3]$. Combien d'antécédents le nombre $3$ possède-t-il par $f$&nbsp;?`
+        + repere({ xmin: -4, xmax: 3, ymin: -3, ymax: 4, courbes: [{ f: cubique, x1: -3.5, x2: 3 }],
+            label: 'Repère avec une courbe qui monte de (−3,5 ; −2,4) jusqu\'à environ (−1,8 ; 2), redescend jusqu\'à environ (1,1 ; −1), puis remonte jusqu\'en haut du repère' }),
+      choix: [r`$1$`, r`$3$`, r`$2$`, r`$0$`],
+      bonne: 0,
+      explication: [
+        r`Les antécédents de $3$ sont les abscisses des points de la courbe d'ordonnée $3$.`,
+        r`On trace la droite horizontale d'ordonnée $3$&nbsp;: elle passe au-dessus de la première bosse et ne coupe la courbe qu'en un point.`,
+        repere({ xmin: -4, xmax: 3, ymin: -3, ymax: 4, echelle: 1.15,
+            courbes: [{ f: cubique, x1: -3.5, x2: 3 }, { f: () => 3, classe: 'c-bleu' }],
+            points: [{ x: 2.76, y: 3 }],
+            label: 'La même courbe et la droite horizontale d\'ordonnée 3, qui la coupe en un seul point, d\'abscisse proche de 2,8' }),
+        r`Le nombre $3$ a <span class="resultat">$1$ antécédent</span>.`] } },
 
   { partie: 0, theme: 'Puissances', type: 'qcm',
     enonce: r`$3 \times 3^{4} \times 3^{2}$ est égal à&nbsp;:`,
@@ -362,7 +399,14 @@ const QUIZ = {
     explication: [
       r`$3 = 3^{1}$. Pour multiplier des puissances de $3$, on <b>ajoute</b> les exposants.`,
       calcul(r`3 \times 3^{4} \times 3^{2} & = 3^{1 + 4 + 2}`, r`& = \resultat{3^{7}}`)],
-    revoir: r`gamme 2 des automatismes (manuel p.&nbsp;70)` },
+    revoir: r`gamme 2 des automatismes (manuel p.&nbsp;70)`,
+    variante: {
+      enonce: r`$2^{3} \times 2 \times 2^{5}$ est égal à&nbsp;:`,
+      choix: [r`$2^{9}$`, r`$2^{8}$`, r`$2^{15}$`, r`$8^{9}$`],
+      bonne: 0,
+      explication: [
+        r`$2 = 2^{1}$. Pour multiplier des puissances de $2$, on <b>ajoute</b> les exposants.`,
+        calcul(r`2^{3} \times 2 \times 2^{5} & = 2^{3 + 1 + 5}`, r`& = \resultat{2^{9}}`)] } },
 
   { partie: 0, theme: 'Équations', type: 'qcm',
     enonce: r`La solution de l'équation $\sqrt{x} = 12$ est&nbsp;:`,
@@ -371,7 +415,14 @@ const QUIZ = {
     explication: [
       r`$\sqrt{x}$ est le nombre positif dont le carré vaut $x$.`,
       calcul(r`\sqrt{x} = 12 & \iff x = 12^{2}`, r`& \iff \resultat{x = 144}`)],
-    revoir: r`gamme 2 des automatismes (manuel p.&nbsp;70)` },
+    revoir: r`gamme 2 des automatismes (manuel p.&nbsp;70)`,
+    variante: {
+      enonce: r`La solution de l'équation $\sqrt{x} = 9$ est&nbsp;:`,
+      choix: [r`$81$`, r`$3$`, r`$18$`, r`$\sqrt{9}$`],
+      bonne: 0,
+      explication: [
+        r`$\sqrt{x}$ est le nombre positif dont le carré vaut $x$.`,
+        calcul(r`\sqrt{x} = 9 & \iff x = 9^{2}`, r`& \iff \resultat{x = 81}`)] } },
 
   /* ----- Partie 2 : généralités sur les suites ----- */
 
@@ -381,7 +432,13 @@ const QUIZ = {
     explication: [
       r`L'indice d'un terme est un entier naturel&nbsp;: $0$, $1$, $2$, $3$…`,
       r`$-2$ n'est pas un entier naturel&nbsp;: l'écriture $u_{-2}$ <span class="resultat">n'a pas de sens</span>.`],
-    revoir: r`capacité 1 du cours` },
+    revoir: r`capacité 1 du cours`,
+    variante: {
+      enonce: r`Pour une suite $u$ définie sur $\N$, l'écriture $u_{2{,}5}$ a un sens.`,
+      bonne: false,
+      explication: [
+        r`L'indice d'un terme est un entier naturel&nbsp;: $0$, $1$, $2$, $3$…`,
+        r`$2{,}5$ n'est pas un entier&nbsp;: l'écriture $u_{2{,}5}$ <span class="resultat">n'a pas de sens</span>.`] } },
 
   { partie: 1, theme: 'Notation indicielle', type: 'qcm',
     enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = n^{2} - 2n$. Alors $u_{n+1}$ est égal à&nbsp;:`,
@@ -390,7 +447,14 @@ const QUIZ = {
     explication: [
       r`On remplace <b>chaque</b> $n$ par $n + 1$.`,
       calcul(r`u_{n+1} & = (n + 1)^{2} - 2(n + 1)`, r`& = n^{2} + 2n + 1 - 2n - 2`, r`& = \resultat{n^{2} - 1}`)],
-    revoir: r`capacité 2 du cours, exercice 1 de la fiche` },
+    revoir: r`capacité 2 du cours, exercice 1 de la fiche`,
+    variante: {
+      enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = n^{2} + 3n$. Alors $u_{n+1}$ est égal à&nbsp;:`,
+      choix: [r`$n^{2} + 5n + 4$`, r`$n^{2} + 3n + 1$`, r`$n^{2} + 3n + 4$`, r`$n^{2} + 5n + 1$`],
+      bonne: 0,
+      explication: [
+        r`On remplace <b>chaque</b> $n$ par $n + 1$.`,
+        calcul(r`u_{n+1} & = (n + 1)^{2} + 3(n + 1)`, r`& = n^{2} + 2n + 1 + 3n + 3`, r`& = \resultat{n^{2} + 5n + 4}`)] } },
 
   { partie: 1, theme: 'Notation indicielle', type: 'qcm',
     enonce: r`La suite $(v_{n})$ est définie pour tout entier naturel $n$ par $v_{n} = (n + 2)^{2}$. L'indice du terme de valeur $81$ est&nbsp;:`,
@@ -401,7 +465,16 @@ const QUIZ = {
       r`Deux nombres ont pour carré $81$&nbsp;: $\sqrt{81} = 9$ et $-\sqrt{81} = -9$.`,
       calcul(r`(n + 2)^{2} = 81 & \iff n + 2 = \sqrt{81} \text{ ou } n + 2 = -\sqrt{81}`, r`& \iff n + 2 = 9 \text{ ou } n + 2 = -9`, r`& \iff n = 7 \text{ ou } n = -11`),
       r`$n$ est un entier naturel, donc $-11$ ne convient pas&nbsp;: <span class="resultat">$n = 7$</span>.`],
-    revoir: r`capacité 2 du cours, exercice 1 de la fiche` },
+    revoir: r`capacité 2 du cours, exercice 1 de la fiche`,
+    variante: {
+      enonce: r`La suite $(v_{n})$ est définie pour tout entier naturel $n$ par $v_{n} = (n + 3)^{2}$. L'indice du terme de valeur $64$ est&nbsp;:`,
+      choix: [r`$5$`, r`$8$`, r`$61$`, r`$-11$ et $5$`],
+      bonne: 0,
+      explication: [
+        r`On cherche l'entier naturel $n$ tel que $v_{n} = 64$.`,
+        r`Deux nombres ont pour carré $64$&nbsp;: $\sqrt{64} = 8$ et $-\sqrt{64} = -8$.`,
+        calcul(r`(n + 3)^{2} = 64 & \iff n + 3 = \sqrt{64} \text{ ou } n + 3 = -\sqrt{64}`, r`& \iff n + 3 = 8 \text{ ou } n + 3 = -8`, r`& \iff n = 5 \text{ ou } n = -11`),
+        r`$n$ est un entier naturel, donc $-11$ ne convient pas&nbsp;: <span class="resultat">$n = 5$</span>.`] } },
 
   { partie: 1, theme: 'Nuage de points', type: 'qcm',
     enonce: r`Le nuage de points ci-dessous représente les premiers termes d'une suite $(u_{n})$. Cette suite peut être définie par&nbsp;:`
@@ -414,7 +487,18 @@ const QUIZ = {
       r`On lit $u_{0} = -3$, puis on ajoute $2$ d'un terme au suivant&nbsp;: les points sont alignés.`,
       r`On vérifie avec $u_{n} = 2n - 3$&nbsp;: $u_{0} = -3$, $u_{1} = -1$, $u_{2} = 1$, $u_{3} = 3$, $u_{4} = 5$.`,
       r`La suite est définie par <span class="resultat">$u_{n} = 2n - 3$</span>.`],
-    revoir: r`capacité 3 du cours, exercice 2 de la fiche` },
+    revoir: r`capacité 3 du cours, exercice 2 de la fiche`,
+    variante: {
+      enonce: r`Le nuage de points ci-dessous représente les premiers termes d'une suite $(u_{n})$. Cette suite peut être définie par&nbsp;:`
+        + repere({ xmin: -1, xmax: 5, ymin: -4, ymax: 6,
+            points: [{ x: 0, y: 5 }, { x: 1, y: 3 }, { x: 2, y: 1 }, { x: 3, y: -1 }, { x: 4, y: -3 }],
+            label: 'Repère avec cinq points : (0 ; 5), (1 ; 3), (2 ; 1), (3 ; −1) et (4 ; −3)' }),
+      choix: [r`$u_{n} = 5 - 2n$`, r`$u_{n} = 2n + 5$`, r`$u_{n} = 5n - 2$`, r`$u_{n} = 5 - n$`],
+      bonne: 0,
+      explication: [
+        r`On lit $u_{0} = 5$, puis on retire $2$ d'un terme au suivant&nbsp;: les points sont alignés.`,
+        r`On vérifie avec $u_{n} = 5 - 2n$&nbsp;: $u_{0} = 5$, $u_{1} = 3$, $u_{2} = 1$, $u_{3} = -1$, $u_{4} = -3$.`,
+        r`La suite est définie par <span class="resultat">$u_{n} = 5 - 2n$</span>.`] } },
 
   { partie: 1, theme: 'Formule explicite', type: 'qcm',
     enonce: r`La suite $(w_{n})$ est définie pour tout entier naturel $n$ par $w_{n} = 5 + 3n$. À partir de quel indice $n$ a-t-on $w_{n} > 200$&nbsp;?`,
@@ -424,7 +508,15 @@ const QUIZ = {
       r`On soustrait $5$ de chaque côté, puis on divise chaque côté par $3$, qui est positif.`,
       calcul(r`5 + 3n > 200 & \iff 5 + 3n \op{- 5} > 200 \op{- 5}`, r`& \iff 3n > 195`, r`& \iff \dfrac{3n}{\op{3}} > \dfrac{195}{\op{3}}`, r`& \iff n > 65`),
       r`$n$ est un entier&nbsp;: c'est vrai <span class="resultat">à partir de $n = 66$</span>.`],
-    revoir: r`capacité 3 du cours, exercice 2 de la fiche` },
+    revoir: r`capacité 3 du cours, exercice 2 de la fiche`,
+    variante: {
+      enonce: r`La suite $(w_{n})$ est définie pour tout entier naturel $n$ par $w_{n} = 4 + 7n$. À partir de quel indice $n$ a-t-on $w_{n} > 150$&nbsp;?`,
+      choix: [r`$n = 21$`, r`$n = 20$`, r`$n = 22$`, r`$n = 146$`],
+      bonne: 0,
+      explication: [
+        r`On soustrait $4$ de chaque côté, puis on divise chaque côté par $7$, qui est positif.`,
+        calcul(r`4 + 7n > 150 & \iff 4 + 7n \op{- 4} > 150 \op{- 4}`, r`& \iff 7n > 146`, r`& \iff \dfrac{7n}{\op{7}} > \dfrac{146}{\op{7}}`, r`& \iff n > \dfrac{146}{7}`),
+        r`$\dfrac{146}{7} \approx 20{,}9$ et $n$ est un entier&nbsp;: c'est vrai <span class="resultat">à partir de $n = 21$</span>. Vérification&nbsp;: $w_{20} = 144$ et $w_{21} = 151$.`] } },
 
   { partie: 1, theme: 'Relation de récurrence', type: 'qcm',
     enonce: r`La suite $u$ est définie par $u_{0} = 2$ et, pour tout entier naturel $n$, $u_{n+1} = 3u_{n} - 1$. Alors $u_{2}$ est égal à&nbsp;:`,
@@ -433,7 +525,14 @@ const QUIZ = {
     explication: [
       r`On calcule les termes de proche en proche.`,
       calcul(r`u_{1} & = 3 \times 2 - 1 = 5`, r`u_{2} & = 3 \times 5 - 1 = \resultat{14}`)],
-    revoir: r`capacité 5 du cours, exercice 3 de la fiche` },
+    revoir: r`capacité 5 du cours, exercice 3 de la fiche`,
+    variante: {
+      enonce: r`La suite $u$ est définie par $u_{0} = 5$ et, pour tout entier naturel $n$, $u_{n+1} = 2u_{n} - 3$. Alors $u_{2}$ est égal à&nbsp;:`,
+      choix: [r`$11$`, r`$7$`, r`$19$`, r`$13$`],
+      bonne: 0,
+      explication: [
+        r`On calcule les termes de proche en proche.`,
+        calcul(r`u_{1} & = 2 \times 5 - 3 = 7`, r`u_{2} & = 2 \times 7 - 3 = \resultat{11}`)] } },
 
   { partie: 1, theme: 'Modéliser par récurrence', type: 'qcm',
     enonce: r`Un parc compte $500$ arbres en 2026. Chaque année, $8\,\%$ des arbres sont abattus et on en plante $30$ nouveaux. On note $a_{n}$ le nombre d'arbres $n$ années après 2026. Pour tout entier naturel $n$&nbsp;:`,
@@ -442,7 +541,14 @@ const QUIZ = {
     explication: [
       r`Retirer $8\,\%$, c'est multiplier par $1 - 0{,}08 = 0{,}92$&nbsp;: il reste $0{,}92\,a_{n}$ arbres.`,
       r`On ajoute les $30$ arbres plantés&nbsp;: <span class="resultat">$a_{n+1} = 0{,}92\,a_{n} + 30$</span>.`],
-    revoir: r`capacité 4 du cours` },
+    revoir: r`capacité 4 du cours`,
+    variante: {
+      enonce: r`Une association compte $800$ adhérents en 2026. Chaque année, $15\,\%$ des adhérents ne renouvellent pas leur adhésion et $90$ nouveaux adhérents arrivent. On note $a_{n}$ le nombre d'adhérents $n$ années après 2026. Pour tout entier naturel $n$&nbsp;:`,
+      choix: [r`$a_{n+1} = 0{,}85\,a_{n} + 90$`, r`$a_{n+1} = 1{,}15\,a_{n} + 90$`, r`$a_{n+1} = 0{,}15\,a_{n} + 90$`, r`$a_{n+1} = 0{,}85\,a_{n} - 90$`],
+      bonne: 0,
+      explication: [
+        r`Retirer $15\,\%$, c'est multiplier par $1 - 0{,}15 = 0{,}85$&nbsp;: il reste $0{,}85\,a_{n}$ adhérents.`,
+        r`On ajoute les $90$ nouveaux adhérents&nbsp;: <span class="resultat">$a_{n+1} = 0{,}85\,a_{n} + 90$</span>.`] } },
 
   { partie: 1, theme: 'Tableur', type: 'qcm',
     enonce: r`On calcule les termes de la suite définie par $a_{0} = 500$ et $a_{n+1} = 0{,}92\,a_{n} + 30$ avec un tableur. Quelle formule saisir dans la cellule <span class="rm">B3</span>, pour la recopier vers le bas&nbsp;?`
@@ -453,7 +559,16 @@ const QUIZ = {
     explication: [
       r`Le terme de la ligne $3$ se calcule à partir du terme précédent, qui est dans la cellule <span class="rm">B2</span>.`,
       r`La formule est <span class="resultat"><span class="rm">=0,92*B2+30</span></span>.`],
-    revoir: r`capacité 4 du cours, remarque sur le tableur` },
+    revoir: r`capacité 4 du cours, remarque sur le tableur`,
+    variante: {
+      enonce: r`On calcule les termes de la suite définie par $a_{0} = 800$ et $a_{n+1} = 0{,}85\,a_{n} + 90$ avec un tableur. Quelle formule saisir dans la cellule <span class="rm">B3</span>, pour la recopier vers le bas&nbsp;?`
+        + tableur([[r`$n$`, r`$a_{n}$`], ['0', '800'], ['1', '#sel'], ['2', '']],
+            'Feuille de calcul : A1 contient n, B1 contient a indice n, A2 contient 0 et B2 contient 800, A3 contient 1 et B3 est vide'),
+      choix: [r`<span class="rm">=0,85*B2+90</span>`, r`<span class="rm">=0,85*B3+90</span>`, r`<span class="rm">=0,85*A2+90</span>`, r`<span class="rm">=0,15*B2+90</span>`],
+      bonne: 0,
+      explication: [
+        r`Le terme de la ligne $3$ se calcule à partir du terme précédent, qui est dans la cellule <span class="rm">B2</span>.`,
+        r`La formule est <span class="resultat"><span class="rm">=0,85*B2+90</span></span>.`] } },
 
   { partie: 1, theme: 'Sens de variation', type: 'qcm', fixe: true,
     enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = n^{2} + 3n$. Cette suite est&nbsp;:`,
@@ -463,7 +578,14 @@ const QUIZ = {
       r`On étudie le signe de $u_{n+1} - u_{n}$.`,
       calcul(r`u_{n+1} - u_{n} & = (n + 1)^{2} + 3(n + 1) - (n^{2} + 3n)`, r`& = n^{2} + 2n + 1 + 3n + 3 - n^{2} - 3n`, r`& = 2n + 4`),
       r`$n \ge 0$, donc $2n + 4 > 0$&nbsp;: la suite est <span class="resultat">croissante</span>.`],
-    revoir: r`méthode du cours (partie III)` },
+    revoir: r`méthode du cours (partie III)`,
+    variante: {
+      enonce: r`La suite $(u_{n})$ est définie pour tout entier naturel $n$ par $u_{n} = 5 - n^{2}$. Cette suite est&nbsp;:`,
+      bonne: 1,
+      explication: [
+        r`On étudie le signe de $u_{n+1} - u_{n}$.`,
+        calcul(r`u_{n+1} - u_{n} & = 5 - (n + 1)^{2} - (5 - n^{2})`, r`& = 5 - n^{2} - 2n - 1 - 5 + n^{2}`, r`& = -2n - 1`),
+        r`$n \ge 0$, donc $-2n - 1 < 0$&nbsp;: la suite est <span class="resultat">décroissante</span>.`] } },
 
   { partie: 1, theme: 'Sens de variation', type: 'vf',
     enonce: r`Une suite $(t_{n})$ vérifie $t_{0} = 4$, $t_{1} = 6$ et $t_{2} = 5$. Cette suite peut être croissante.`,
@@ -471,7 +593,13 @@ const QUIZ = {
     explication: [
       r`$t_{1} = 6$ et $t_{2} = 5$&nbsp;: $t_{2} < t_{1}$.`,
       r`Une suite croissante vérifie $t_{n} \le t_{n+1}$ pour tout $n$&nbsp;: la suite <span class="resultat">ne peut pas être croissante</span>.`],
-    revoir: r`capacité 6 du cours` }
+    revoir: r`capacité 6 du cours`,
+    variante: {
+      enonce: r`Une suite $(t_{n})$ vérifie $t_{0} = 9$, $t_{1} = 7$ et $t_{2} = 8$. Cette suite peut être décroissante.`,
+      bonne: false,
+      explication: [
+        r`$t_{1} = 7$ et $t_{2} = 8$&nbsp;: $t_{2} > t_{1}$.`,
+        r`Une suite décroissante vérifie $t_{n} \ge t_{n+1}$ pour tout $n$&nbsp;: la suite <span class="resultat">ne peut pas être décroissante</span>.`] } }
   ]
 };
 
