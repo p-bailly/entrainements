@@ -1,0 +1,1072 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement Évaluation nombres réels (partie 1)</title>
+<!--
+  Entraînement auto-corrigé à l'évaluation du chapitre 3 (Nombres réels, partie 1) - Seconde.
+  Une seule partie, douze questions, sans automatismes (demande du professeur pour la
+  Seconde), dans l'ordre du cours et des séances du plan :
+    1 à 3 : nature d'un nombre, appartenance et inclusion, vrai ou faux avec contre-exemple
+            (activité 1, parties 1 à 3 du cours, capacité 1, exercices 1 et 2 de la fiche,
+            exercices 1 p. 50, 34, 35, 37 et 38 p. 65, 121 p. 69 du manuel) ;
+    4 à 6 : droite numérique, lire une abscisse, placer un réel, milieu d'un segment
+            (capacité 2, exercice 3 de la fiche, exercice 113 p. 69, question 5 p. 73) ;
+    7     : encadrer une racine carrée en comparant des carrés (activité 2, balayage) ;
+    8 à 12 : encadrement d'amplitude 10^(-n), troncature, arrondi, division posée, chiffres
+            significatifs, arrondi d'un résultat (capacité 3, exercices 4 et 5 de la fiche,
+            exercices 178 et 181 p. 75, questions 6 et 7 p. 73).
+  Mêmes types de questions que dans le cours, la fiche et l'évaluation (sujets A et B), avec
+  d'autres valeurs. Calculatrice interdite, comme à l'évaluation : les affichages utiles sont
+  donnés. Ni intervalle ni valeur absolue (chapitre 5).
+  Ensembles de nombres : \N, \Z et \R, compris par KaTeX et par le mini-LaTeX de secours ;
+  𝔻 et ℚ en caractères Unicode, que les deux affichent aussi (de même que ⊂).
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
+
+  Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
+  entrainement-03-nombres-reels-1-questions.js (même dossier) ; moteur et mise en page :
+  Commun aux cours/entrainement/gabarit.html (format des questions en tête).
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/seconde/03-nombres-reels-1.html
+  (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&display=swap">
+<!-- KaTeX, chargé sans bloquer la page (réseau du lycée parfois filtré) : les formules s'affichent
+     d'abord en mini-LaTeX, puis KaTeX les recompose sur place dès que sa feuille et son script sont là. -->
+<link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css" integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous" media="print" onload="this.media='all'; if (window.katexPret) katexPret()">
+<script async src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js" integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj" crossorigin="anonymous" onload="if (window.katexPret) katexPret()"></script>
+<style>
+:root{
+  --papier:#FCFBF7; --encre:#161616; --gris:#6B6A66; --filet:#C4BFB3; --filet-clair:#E4E0D6; --case:#F0EDE5;
+  --stylo:#1E3D96; --rouge:#CE2029; --vert:#2A7A36; --orange:#E8940A; --violet:#7A3E9D;
+  --serif:"Old Standard TT","Times New Roman",Times,serif;
+  --main:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --mono:ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 var(--serif); min-height:100vh}
+.feuille{max-width:720px; margin:0 auto; padding:34px 40px 60px}
+
+/* Retour à la liste des entraînements */
+.retour{margin:0 0 14px; font-size:.95rem}
+.retour a{color:var(--stylo); text-decoration:none; border-bottom:1px solid var(--filet)}
+.retour a:hover,.retour a:focus-visible{border-bottom-color:var(--stylo)}
+
+/* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
+.mul{color:#9C27B0}
+/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
+.op{color:var(--rouge)}
+
+/* En-tête de la copie */
+.entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
+h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
+.consigne{margin:0 0 12px; font-style:italic}
+.filet{height:4px; border-top:1px solid var(--encre); border-bottom:1px solid var(--encre); margin:8px 0 20px}
+
+/* Grilles de réponses, une par partie */
+.progression{display:flex; flex-wrap:wrap; gap:10px 28px; margin:0 0 24px; scroll-margin-top:12px}
+.bloc-grille{max-width:100%; overflow-x:auto}
+.nom-partie{margin:0 0 3px; font-style:italic; font-size:.9rem; white-space:nowrap}
+.grille-reponses{border-collapse:collapse; font-size:.9rem}
+.grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
+.grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
+.grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
+.grille-reponses td[data-q],.grille-reponses td[data-r]{cursor:pointer}
+.grille-reponses td.ici{background:var(--filet-clair)}
+.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
+.grille-reponses button.aller:hover{text-decoration:underline}
+.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
+.grille-reponses td.juste{color:var(--vert)}
+.grille-reponses td.erreur{color:var(--rouge)}
+
+/* Marques au stylo : croix et coche dessinées en CSS */
+.marque{position:relative; display:inline-block; width:18px; height:18px; vertical-align:-4px; color:inherit}
+.marque::before,.marque::after{content:""; position:absolute; width:2px; background:currentColor; border-radius:1px; display:none}
+.marque.croix::before,.marque.croix::after{display:block; left:8px; top:-2px; height:22px}
+.marque.croix::before{transform:rotate(43deg)}
+.marque.croix::after{transform:rotate(-47deg)}
+.marque.coche::before,.marque.coche::after{display:block}
+.marque.coche::before{left:3px; top:8px; height:8px; transform:rotate(-42deg)}
+.marque.coche::after{left:10px; top:-2px; height:20px; transform:rotate(38deg)}
+
+/* Question et réponses */
+.partie{margin:0 0 2px; font-variant:small-caps; letter-spacing:.03em}
+.question{margin:0 0 6px}
+.question i{color:var(--gris)}
+.enonce{margin:0 0 14px}
+.reponses{display:grid; gap:6px; margin:0 0 18px}
+.reponses.vf{display:flex; gap:12px 40px; flex-wrap:wrap}
+.choix{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; padding:5px 4px; border:0; border-radius:0; background:transparent; color:var(--encre); font:inherit; line-height:1.45; cursor:pointer}
+.reponses.vf .choix{width:auto; padding-right:12px}
+.choix:disabled{cursor:default}
+.choix .boite{flex:none; position:relative; width:18px; height:18px; margin-top:5px; border:1px solid var(--encre); background:var(--papier)}
+.choix .boite .marque{position:absolute; left:-1px; top:-1px}
+.choix:hover:not(:disabled) .boite{box-shadow:0 0 0 1px var(--encre)}
+.choix .lettre{flex:none; width:1.3em; color:var(--gris)}
+.choix .texte{flex:1; min-width:0}
+.choix.choisi .marque{color:var(--stylo)}
+.choix.juste .marque{color:var(--vert)}
+.choix.erreur .marque{color:var(--rouge)}
+.choix.terne{color:var(--gris)}
+.actions{display:flex; gap:12px 18px; flex-wrap:wrap; align-items:center}
+.bouton{font:inherit; font-variant:small-caps; letter-spacing:.04em; font-size:1rem; padding:5px 18px; border:1px solid var(--encre); border-radius:0; background:var(--papier); color:var(--encre); cursor:pointer}
+.bouton:hover:not(:disabled){background:var(--encre); color:var(--papier)}
+.bouton:disabled{opacity:.4; cursor:default}
+.bouton.discret{border-color:var(--filet)}
+
+/* Correction du professeur */
+.correction{margin:20px 0 0; padding:2px 0 2px 16px; border-left:2px solid var(--rouge)}
+.correction.juste{border-left-color:var(--vert)}
+.verdict{font:600 1.7rem/1.1 var(--main); color:var(--rouge); margin:0 0 6px}
+.correction.juste .verdict{color:var(--vert)}
+.explication{margin:0; font-size:1rem; line-height:1.55}
+.explication p{margin:0 0 .55em}
+.explication p:last-child{margin-bottom:0}
+.explication .revoir{font-style:italic; color:var(--gris)}
+.explication .fig{margin:8px auto 12px}
+/* Calcul en colonne : une étape par ligne, alignées sur le signe = ou ⇔ (comme dans les PDF) */
+.calcul{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.45em .4em; align-items:baseline; margin:.3em 0 .5em 1.4em; padding:.2em 0 .3em; overflow-x:auto; overflow-y:hidden}
+.calcul .g{justify-self:end}
+.resultat{display:inline-block; border:1px solid currentColor; padding:.05em .4em; line-height:1.35}
+code{font-family:var(--mono); font-size:.88em}
+
+/* Figures dans les énoncés et les corrections */
+.fig{display:block; width:100%; height:auto; margin:12px auto 4px}
+.fig .grille{stroke:var(--filet); stroke-width:.7; fill:none}
+.fig .axe{stroke:var(--encre); stroke-width:1.1; fill:none}
+.fig .fleche{fill:var(--encre)}
+.fig .tick{font:10.5px var(--serif); fill:var(--encre); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .courbe{stroke:currentColor; stroke-width:2.2; fill:none}
+.fig .lab{font:italic 13px var(--serif); fill:currentColor; paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .pt{fill:currentColor}
+.fig .lecture{stroke:var(--vert); stroke-width:1.5; stroke-dasharray:5 3; fill:none}
+.fig .pointe{fill:var(--vert)}
+.fig .note{font:italic 11.5px var(--serif); fill:var(--vert); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .surligne{stroke:var(--orange); stroke-width:9; opacity:.6; fill:none}
+.fig .c-rouge{color:var(--rouge)}
+.fig .c-bleu{color:var(--stylo)}
+.fig .c-noir{color:var(--encre)}
+.fig .c-violet{color:var(--violet)}
+
+/* Résultat */
+.note{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:6px 0 2px; color:var(--rouge)}
+.note .grand{font:700 3.6rem/1 var(--main)}
+.note .sur{font:400 1.5rem/1 var(--main)}
+.appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
+.bilan-parties{margin:0 0 6px}
+.bilan-parties span{white-space:nowrap}
+.bilan-reprise{margin:0 0 10px}
+.reprise-info{margin:0 0 10px; font-style:italic}
+.a-revoir{margin:0 0 16px}
+.a-revoir ul{margin:4px 0 0; padding-left:1.3em}
+.titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
+.revue{list-style:none; padding:0; margin:8px 0 0; border-top:1px solid var(--encre)}
+.revue li{padding:14px 0; border-bottom:1px solid var(--filet)}
+.revue .enonce{margin-bottom:10px}
+.revue .bilan{margin:6px 0 8px; font-style:italic}
+.revue li.juste .bilan{color:var(--vert)}
+.revue li.erreur .bilan{color:var(--rouge)}
+.revue .explication{font-size:1rem}
+.liste-choix{margin:0 0 8px; padding-left:1.6em}
+.liste-choix li{border:0; padding:1px 0}
+.liste-choix li.bonne{color:var(--vert)}
+.variante{margin:14px 0 0; padding:0 0 0 14px; border-left:1px dashed var(--filet)}
+.pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
+.pied p{margin:0 0 4px}
+.pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
+
+/* Formules : KaTeX (réduit de 1,21 à 1,1 em pour s'accorder au texte), sinon mini-LaTeX (.m) */
+.katex{font-size:1.1em}
+.m{font-family:var(--serif); white-space:nowrap}
+.m.m-long{white-space:normal}
+.m i{font-style:italic}
+.m .rm{font-style:normal}
+.m sub,.m sup{font-size:.8em; line-height:0; white-space:nowrap}
+.m .prime{display:inline-block; margin-left:.08em; font-size:1.2em; line-height:0}
+.m sub{vertical-align:-.25em}
+.m sup{vertical-align:.55em}
+.frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; font-size:.92em; line-height:1.2; margin:0 .15em}
+.frac .num{border-bottom:1px solid currentColor; padding:0 .25em .04em}
+.frac .den{padding:.04em .25em 0}
+.sqrt .rad{border-top:1px solid currentColor; padding:0 .12em}
+
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important; scroll-behavior:auto !important}}
+@media (max-width:520px){
+  body{font-size:17px}
+  .feuille{padding:22px 16px 48px}
+  .entete{font-size:.9rem}
+  h1{font-size:1.7rem}
+  .reponses.vf{gap:8px 24px}
+}
+@media print{
+  .actions,.pied,.progression{display:none}
+  .revue li{break-inside:avoid}
+}
+/* Feuille de calcul */
+table.tableur{border-collapse:collapse; margin:10px auto 4px; font:400 .88rem "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+table.tableur th{background:var(--case); color:var(--gris); font-weight:400; border:1px solid var(--filet); padding:2px 10px; text-align:center; min-width:2.2em}
+table.tableur td{border:1px solid var(--filet); padding:2px 10px; min-width:5em; height:1.9em; background:#FFFFFF; text-align:center}
+table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
+</style>
+</head>
+<body>
+<main class="feuille">
+  <header>
+    <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
+    <div class="entete"><span>Seconde</span><span>M. Bailly</span><span>Chapitre 3 · Nombres réels (partie 1)</span></div>
+    <h1>Entraînement Évaluation nombres réels (partie 1)</h1>
+    <p class="consigne">Douze questions sur les nombres réels. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="filet" role="presentation"></div>
+  </header>
+  <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
+  <section id="quiz" aria-live="polite"></section>
+  <footer class="pied">
+    <p><button type="button" id="reinitialiser">Recommencer depuis le début</button></p>
+  </footer>
+</main>
+<script>
+(function () {
+'use strict';
+const r = String.raw;
+
+/* ---------- Figures (SVG généré) ---------- */
+const arrondi = x => Math.round(x * 10) / 10;
+const fr = x => String(x).replace('.', ',');
+const moins = n => String(n).replace('-', '−');
+function fleche(x, y, sens) {
+  return sens === 'droite'
+    ? `<path class="fleche" d="M${x} ${y} l-7 -3.5 v7 z"/>`
+    : `<path class="fleche" d="M${x} ${y} l-3.5 7 h7 z"/>`;
+}
+// Repère orthonormé quadrillé et gradué de 1 en 1. o = {xmin, xmax, ymin, ymax, label, echelle} et, au choix :
+//   courbes  : [{f: x => ..., classe, x1, x2}]        classe = c-rouge (défaut), c-bleu, c-noir, c-violet
+//   noms     : [{x, y, texte, indice, apres, classe, ancre}]   nom d'une courbe, dans sa couleur
+//   lectures : [[[x, y], [x, y], ...], ...]            lignes de lecture en tirets verts, flèche au bout
+//   textes   : [{x, y, texte, ancre}]                  annotations vertes des lectures (+1, +3...)
+//   points   : [{x, y, classe}]
+//   surligne : {x1, x2}                                partie de l'axe des abscisses surlignée en orange (null = bord du repère)
+let numeroFigure = 0;
+function repere(o) {
+  const u = 26, m = 17;
+  const W = (o.xmax - o.xmin) * u + 2 * m, H = (o.ymax - o.ymin) * u + 2 * m;
+  const X = x => arrondi(m + (x - o.xmin) * u), Y = y => arrondi(m + (o.ymax - y) * u);
+  const cadre = 'cadre-' + (++numeroFigure);
+  const xfin = X(o.xmax) + 12, yhaut = Y(o.ymax) - 12;
+  let s = `<svg class="fig" viewBox="0 0 ${W} ${H}" style="max-width:${Math.round(W * (o.echelle || 1.3))}px" role="img" aria-label="${o.label}">`;
+  s += `<defs><clipPath id="${cadre}"><rect x="${X(o.xmin)}" y="${Y(o.ymax)}" width="${(o.xmax - o.xmin) * u}" height="${(o.ymax - o.ymin) * u}"/></clipPath></defs>`;
+  for (let x = o.xmin; x <= o.xmax; x++) s += `<line class="grille" x1="${X(x)}" y1="${Y(o.ymin)}" x2="${X(x)}" y2="${Y(o.ymax)}"/>`;
+  for (let y = o.ymin; y <= o.ymax; y++) s += `<line class="grille" x1="${X(o.xmin)}" y1="${Y(y)}" x2="${X(o.xmax)}" y2="${Y(y)}"/>`;
+  if (o.surligne) {
+    const x1 = o.surligne.x1 === null ? o.xmin : o.surligne.x1, x2 = o.surligne.x2 === null ? o.xmax : o.surligne.x2;
+    s += `<line class="surligne" x1="${X(x1)}" y1="${Y(0)}" x2="${X(x2)}" y2="${Y(0)}"/>`;
+  }
+  s += `<line class="axe" x1="${X(o.xmin)}" y1="${Y(0)}" x2="${xfin}" y2="${Y(0)}"/>${fleche(xfin, Y(0), 'droite')}`;
+  s += `<line class="axe" x1="${X(0)}" y1="${Y(o.ymin)}" x2="${X(0)}" y2="${yhaut}"/>${fleche(X(0), yhaut, 'haut')}`;
+  (o.courbes || []).forEach(c => {
+    const x1 = c.x1 === undefined ? o.xmin : c.x1, x2 = c.x2 === undefined ? o.xmax : c.x2, n = 80;
+    let d = '';
+    for (let k = 0; k <= n; k++) { const x = x1 + (x2 - x1) * k / n; d += (k ? ' L' : 'M') + X(x) + ' ' + Y(c.f(x)); }
+    s += `<path class="courbe ${c.classe || 'c-rouge'}" clip-path="url(#${cadre})" d="${d}"/>`;
+  });
+  (o.lectures || []).forEach(pts => {
+    const P = pts.map(p => [X(p[0]), Y(p[1])]);
+    const a = P[P.length - 2], b = P[P.length - 1];
+    const L = Math.hypot(b[0] - a[0], b[1] - a[1]), ux = (b[0] - a[0]) / L, uy = (b[1] - a[1]) / L;
+    s += `<polyline class="lecture" points="${P.map(p => p.join(',')).join(' ')}"/>`;
+    s += `<path class="pointe" d="M${b[0]} ${b[1]} L${arrondi(b[0] - 7 * ux + 3.2 * uy)} ${arrondi(b[1] - 7 * uy - 3.2 * ux)} L${arrondi(b[0] - 7 * ux - 3.2 * uy)} ${arrondi(b[1] - 7 * uy + 3.2 * ux)} z"/>`;
+  });
+  // Graduations sur fond papier, par-dessus les courbes et les lectures : elles restent lisibles.
+  for (let x = o.xmin; x <= o.xmax; x++) if (x !== 0) s += `<text class="tick" x="${X(x)}" y="${Y(0) + 13}" text-anchor="middle">${moins(x)}</text>`;
+  for (let y = o.ymin; y <= o.ymax; y++) if (y !== 0) s += `<text class="tick" x="${X(0) - 5}" y="${Y(y) + 3.5}" text-anchor="end">${moins(y)}</text>`;
+  s += `<text class="tick" x="${X(0) - 5}" y="${Y(0) + 13}" text-anchor="end">0</text>`;
+  (o.points || []).forEach(p => { s += `<circle class="pt ${p.classe || 'c-rouge'}" cx="${X(p.x)}" cy="${Y(p.y)}" r="3.3"/>`; });
+  (o.textes || []).forEach(t => { s += `<text class="note" x="${X(t.x)}" y="${Y(t.y)}" text-anchor="${t.ancre || 'middle'}">${t.texte}</text>`; });
+  (o.noms || []).forEach(n => {
+    const indice = n.indice ? `<tspan dy="3" font-size="9.5">${n.indice}</tspan>` + (n.apres ? `<tspan dy="-3">${n.apres}</tspan>` : '') : '';
+    s += `<text class="lab ${n.classe || 'c-rouge'}" x="${X(n.x)}" y="${Y(n.y)}" text-anchor="${n.ancre || 'start'}">${n.texte}${indice}</text>`;
+  });
+  return s + '</svg>';
+}
+// Feuille de calcul (question sur le tableur) : lignes = [[A, B], ...] à partir de la ligne 1 ;
+// la cellule '#sel' est la cellule sélectionnée, laissée vide.
+function tableur(lignes, label) {
+  const cellule = c => c === '#sel' ? '<td class="sel"></td>' : `<td>${c}</td>`;
+  return `<table class="tableur" aria-label="${label}"><tr><th></th><th>A</th><th>B</th></tr>`
+    + lignes.map((l, k) => `<tr><th>${k + 1}</th>${cellule(l[0])}${cellule(l[1])}</tr>`).join('')
+    + '</table>';
+}
+
+// Calcul en colonne, comme l'environnement calcul des PDF : une étape par ligne, alignées sur le
+// signe placé après & (formules écrites sans les dollars). Le résultat s'encadre avec \resultat{...}.
+//   calcul(r`A & = x - 4(3x + 2)`, r`& = x - 12x - 8`, r`& = \resultat{-11x - 8}`)
+function calcul(...lignes) {
+  return '<div class="calcul">' + lignes.map(l => {
+    const k = l.indexOf('&');
+    const gauche = k < 0 ? '' : l.slice(0, k).trim(), droite = (k < 0 ? l : l.slice(k + 1)).trim();
+    return '<span class="g">' + (gauche ? '$' + gauche + '$' : '') + '</span><span class="d">$' + droite + '$</span>';
+  }).join('') + '</div>';
+}
+
+/* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
+// Droite graduée des questions sur la droite numérique, de la même allure que repere()
+// (gabarit) : axe fin fléché, unité partagée en quatre (graduations de 0,25), entiers
+// numérotés. Écrite par concaténation de chaînes, sans gabarit de chaîne.
+//   o = {xmin, xmax, label, points, lectures}
+//   points   : [{x, nom, classe}], nom au-dessus du point ; classe c-rouge (défaut, points de
+//              l'énoncé) ou c-bleu (point placé dans la correction) ;
+//   lectures : [{x1, x2, texte, niveau}], segment en tirets verts au-dessus de l'axe, de x1 à
+//              x2, avec son texte vert ; niveau 1 (défaut) ou 2 (plus haut).
+// La hauteur de la figure dépend du plus haut niveau de lecture (aucun, 1 ou 2).
+function droiteGraduee(o) {
+  const niveaux = (o.lectures || []).map(l => l.niveau || 1);
+  const u = 44, marge = 16, yAxe = [26, 44, 68][Math.max(0, ...niveaux)], hauteur = yAxe + 26;
+  const largeur = (o.xmax - o.xmin) * u + 2 * marge + 14;
+  const X = x => Math.round((marge + (x - o.xmin) * u) * 10) / 10;
+  const nombre = x => String(x).replace('.', ',').replace('-', '−');
+  let s = '<svg class="fig" viewBox="0 0 ' + largeur + ' ' + hauteur + '" style="max-width:'
+    + Math.round(largeur * 1.6) + 'px" role="img" aria-label="' + o.label + '">';
+  s = s + '<line class="axe" x1="' + (X(o.xmin) - 10) + '" y1="' + yAxe + '" x2="' + (largeur - 4) + '" y2="' + yAxe + '"/>';
+  s = s + '<path class="fleche" d="M' + (largeur - 4) + ' ' + yAxe + ' l-7 -3.5 v7 z"/>';
+  for (let k = 0; k <= (o.xmax - o.xmin) * 4; k++) {
+    const x = o.xmin + k / 4, h = k % 4 === 0 ? 6 : 3.5;
+    s = s + '<line class="axe" x1="' + X(x) + '" y1="' + (yAxe - h) + '" x2="' + X(x) + '" y2="' + (yAxe + h) + '"/>';
+    if (k % 4 === 0) s = s + '<text class="tick" x="' + X(x) + '" y="' + (yAxe + 20) + '" text-anchor="middle">' + nombre(x) + '</text>';
+  }
+  (o.lectures || []).forEach(l => {
+    const y = yAxe - (l.niveau === 2 ? 50 : 26);
+    s = s + '<line class="lecture" x1="' + X(l.x1) + '" y1="' + y + '" x2="' + X(l.x2) + '" y2="' + y + '"/>';
+    [l.x1, l.x2].forEach(x => {
+      s = s + '<line class="lecture" style="stroke-dasharray:none" x1="' + X(x) + '" y1="' + (y - 3) + '" x2="' + X(x) + '" y2="' + (y + 3) + '"/>';
+    });
+    s = s + '<text class="note" x="' + X((l.x1 + l.x2) / 2) + '" y="' + (y - 5) + '" text-anchor="middle">' + l.texte + '</text>';
+  });
+  (o.points || []).forEach(p => {
+    const c = p.classe || 'c-rouge';
+    s = s + '<circle class="pt ' + c + '" cx="' + X(p.x) + '" cy="' + yAxe + '" r="3.3"/>';
+    s = s + '<text class="lab ' + c + '" x="' + X(p.x) + '" y="' + (yAxe - 9) + '" text-anchor="middle">' + p.nom + '</text>';
+  });
+  return s + '</svg>';
+}
+// Toutes les droites de l'entraînement vont de -3 à 3, comme dans le cours et l'évaluation.
+const droite = o => droiteGraduee(Object.assign({ xmin: -3, xmax: 3 }, o));
+
+const QUIZ = {
+  id: '2de-03-nombres-reels-1-entrainement',
+  parties: ['Nombres réels'],
+  questions: [
+
+  /* ----- Ensembles de nombres (parties 1 à 3 du cours, capacité 1) ----- */
+
+  { partie: 0, theme: "Nature d'un nombre", type: 'qcm',
+    enonce: r`Le plus petit des ensembles $\N$, $\Z$, $𝔻$, $ℚ$, $\R$ auquel appartient le nombre $\dfrac{7}{12}$ est&nbsp;:`,
+    choix: [r`$ℚ$`, r`$𝔻$`, r`$\R$`, r`$\Z$`],
+    bonne: 0,
+    explication: [
+      r`On cherche si l'écriture décimale de $\dfrac{7}{12}$ s'arrête&nbsp;: on pose la division de $7$ par $12$, en abaissant un zéro à chaque étape.`,
+      calcul(r`7 & = 12 \times 0 + 7 \quad \text{unités : } 0`, r`70 & = 12 \times 5 + 10 \quad \text{dixièmes : } 5`,
+             r`100 & = 12 \times 8 + 4 \quad \text{centièmes : } 8`, r`40 & = 12 \times 3 + 4 \quad \text{millièmes : } 3`),
+      r`Le reste $4$ revient ensuite à chaque étape&nbsp;: $\dfrac{7}{12} = 0{,}58333\dots$ ne s'arrête jamais, donc $\dfrac{7}{12}$ n'est pas décimal.`,
+      r`C'est un quotient de deux entiers&nbsp;: le plus petit ensemble est <span class="resultat">$ℚ$</span>.`],
+    revoir: r`capacité 1 du cours, exercice 1 de la fiche`,
+    variante: {
+      enonce: r`Le plus petit des ensembles $\N$, $\Z$, $𝔻$, $ℚ$, $\R$ auquel appartient le nombre $\dfrac{4}{15}$ est&nbsp;:`,
+      choix: [r`$ℚ$`, r`$𝔻$`, r`$\R$`, r`$\N$`],
+      bonne: 0,
+      explication: [
+        r`On cherche si l'écriture décimale de $\dfrac{4}{15}$ s'arrête&nbsp;: on pose la division de $4$ par $15$, en abaissant un zéro à chaque étape.`,
+        calcul(r`4 & = 15 \times 0 + 4 \quad \text{unités : } 0`, r`40 & = 15 \times 2 + 10 \quad \text{dixièmes : } 2`,
+               r`100 & = 15 \times 6 + 10 \quad \text{centièmes : } 6`, r`100 & = 15 \times 6 + 10 \quad \text{millièmes : } 6`),
+        r`Le reste $10$ revient ensuite à chaque étape&nbsp;: $\dfrac{4}{15} = 0{,}2666\dots$ ne s'arrête jamais, donc $\dfrac{4}{15}$ n'est pas décimal.`,
+        r`C'est un quotient de deux entiers&nbsp;: le plus petit ensemble est <span class="resultat">$ℚ$</span>.`] } },
+
+  { partie: 0, theme: 'Appartenance, inclusion', type: 'qcm',
+    enonce: r`Une seule de ces quatre affirmations est <b>fausse</b>. Laquelle&nbsp;?`,
+    choix: [r`$\sqrt{12} \in ℚ$`, r`$-\sqrt{25} \in \Z$`, r`$3{,}5 \times 10^{2} \in \N$`, r`$\N ⊂ 𝔻$`],
+    bonne: 0,
+    explication: [
+      r`On écrit chaque nombre le plus simplement possible, puis on vérifie chaque affirmation.`,
+      r`$\sqrt{25} = 5$ car $5 \ge 0$ et $5^{2} = 25$&nbsp;: $-\sqrt{25} = -5$ est un entier négatif, $-\sqrt{25} \in \Z$ est vraie.`,
+      r`$3{,}5 \times 10^{2} = 3{,}5 \times 100 = 350$ est un entier positif&nbsp;: $3{,}5 \times 10^{2} \in \N$ est vraie.`,
+      r`Tout entier est un nombre décimal ($\N ⊂ \Z ⊂ 𝔻$)&nbsp;: $\N ⊂ 𝔻$ est vraie.`,
+      r`$3^{2} = 9 < 12 < 16 = 4^{2}$&nbsp;: $12$ n'est pas un carré parfait, donc $\sqrt{12}$ est irrationnel (admis) et n'appartient pas à $ℚ$. L'affirmation fausse est <span class="resultat">$\sqrt{12} \in ℚ$</span>.`],
+    revoir: r`notations $\in$ et $⊂$, classification des nombres (parties 1 à 3 du cours), capacité 1`,
+    variante: {
+      enonce: r`Une seule de ces quatre affirmations est <b>fausse</b>. Laquelle&nbsp;?`,
+      choix: [r`$\dfrac{\pi}{4} \in ℚ$`, r`$0{,}08 \times 10^{3} \in \N$`, r`$-\dfrac{9}{4} \in 𝔻$`, r`$\Z ⊂ ℚ$`],
+      bonne: 0,
+      explication: [
+        r`On écrit chaque nombre le plus simplement possible, puis on vérifie chaque affirmation.`,
+        r`$0{,}08 \times 10^{3} = 0{,}08 \times 1\,000 = 80$ est un entier positif&nbsp;: $0{,}08 \times 10^{3} \in \N$ est vraie.`,
+        r`Pour $-\dfrac{9}{4}$, on cherche une fraction de dénominateur $100$&nbsp;:`,
+        calcul(r`-\dfrac{9}{4} & = -\dfrac{9 \mul{\times 25}}{4 \mul{\times 25}}`, r`& = -\dfrac{225}{100}`, r`& = -2{,}25`),
+        r`L'écriture décimale s'arrête&nbsp;: $-\dfrac{9}{4} \in 𝔻$ est vraie.`,
+        r`Tout entier est décimal et tout décimal est rationnel ($\Z ⊂ 𝔻 ⊂ ℚ$)&nbsp;: $\Z ⊂ ℚ$ est vraie.`,
+        r`$\pi$ est irrationnel&nbsp;: si $\dfrac{\pi}{4}$ s'écrivait $\dfrac{a}{b}$, avec $a$ et $b$ entiers, on aurait $\pi = \dfrac{4a}{b}$, quotient de deux entiers, ce qui est impossible. L'affirmation fausse est <span class="resultat">$\dfrac{\pi}{4} \in ℚ$</span>.`] } },
+
+  { partie: 0, theme: 'Ensembles de nombres', type: 'vf',
+    enonce: r`L'inverse d'un nombre entier non nul est toujours un nombre décimal.`,
+    bonne: false,
+    explication: [
+      r`Pour montrer qu'une affirmation est fausse, un seul contre-exemple suffit.`,
+      r`$3$ est un entier non nul. Son inverse $\dfrac{1}{3} = 0{,}333\dots$ n'est pas un nombre décimal (démonstration du cours)&nbsp;: la division de $1$ par $3$ ne s'arrête jamais, le reste $1$ revient à chaque étape.`,
+      r`L'affirmation est donc <span class="resultat">fausse</span>, même si elle est vraie pour certains entiers, comme $2$&nbsp;: $\dfrac{1}{2} = 0{,}5$.`],
+    revoir: r`exercice 2 de la fiche, exercices 37 et 38 p.&nbsp;65 du manuel`,
+    variante: {
+      enonce: r`L'inverse d'un nombre décimal non nul est toujours un nombre décimal.`,
+      bonne: false,
+      explication: [
+        r`Pour montrer qu'une affirmation est fausse, un seul contre-exemple suffit.`,
+        r`$1{,}5 = \dfrac{3}{2}$ est un nombre décimal non nul. Son inverse est $\dfrac{2}{3}$.`,
+        r`On pose la division de $2$ par $3$&nbsp;: $20 = 3 \times 6 + 2$, et le reste $2$ revient à chaque étape. $\dfrac{2}{3} = 0{,}666\dots$ ne s'arrête jamais&nbsp;: ce n'est pas un nombre décimal.`,
+        r`L'affirmation est donc <span class="resultat">fausse</span>, même si elle est vraie pour certains décimaux, comme $0{,}5$, dont l'inverse est $2$.`] } },
+
+  /* ----- Droite numérique (partie 3 du cours, capacité 2) ----- */
+
+  { partie: 0, theme: 'Lire une abscisse', type: 'qcm',
+    enonce: r`Sur la droite graduée ci-dessous, l'abscisse du point $A$ est&nbsp;:`
+      + droite({ points: [{ x: -1.25, nom: 'A' }],
+          label: 'Droite graduée de −3 à 3, chaque unité partagée en quatre ; le point A est entre −2 et −1, une petite graduation à gauche de −1' }),
+    choix: [r`$-1{,}25$, soit $-\dfrac{5}{4}$`, r`$-1{,}1$, soit $-\dfrac{11}{10}$`, r`$-0{,}75$, soit $-\dfrac{3}{4}$`, r`$1{,}25$, soit $\dfrac{5}{4}$`],
+    bonne: 0,
+    explication: [
+      r`Entre deux entiers consécutifs, l'unité est partagée en $4$&nbsp;: une petite graduation vaut $\dfrac{1}{4} = 0{,}25$.`,
+      r`On compte les graduations à partir de $0$&nbsp;: $A$ est à $5$ graduations à gauche de $0$ (en vert).`,
+      droite({ points: [{ x: -1.25, nom: 'A' }], lectures: [{ x1: 0, x2: 0.25, texte: '0,25' }, { x1: -1.25, x2: 0, texte: '5 graduations', niveau: 2 }],
+          label: 'La même droite : une petite graduation vaut 0,25, et le point A est à 5 graduations à gauche de 0' }),
+      calcul(r`x_{A} & = -5 \times \dfrac{1}{4}`, r`& = \resultat{-\dfrac{5}{4} = -1{,}25}`),
+      r`La fraction $\dfrac{5}{4}$ est irréductible&nbsp;: $5$ est impair.`],
+    revoir: r`capacité 2 du cours, exercice 3 de la fiche`,
+    variante: {
+      enonce: r`Sur la droite graduée ci-dessous, l'abscisse du point $B$ est&nbsp;:`
+        + droite({ points: [{ x: 2.75, nom: 'B' }],
+            label: 'Droite graduée de −3 à 3, chaque unité partagée en quatre ; le point B est entre 2 et 3, une petite graduation à gauche de 3' }),
+      choix: [r`$2{,}75$, soit $\dfrac{11}{4}$`, r`$2{,}3$, soit $\dfrac{23}{10}$`, r`$3{,}25$, soit $\dfrac{13}{4}$`, r`$-2{,}75$, soit $-\dfrac{11}{4}$`],
+      bonne: 0,
+      explication: [
+        r`Entre deux entiers consécutifs, l'unité est partagée en $4$&nbsp;: une petite graduation vaut $\dfrac{1}{4} = 0{,}25$.`,
+        r`On compte les graduations à partir de $0$&nbsp;: $B$ est à $11$ graduations à droite de $0$ (en vert).`,
+        droite({ points: [{ x: 2.75, nom: 'B' }], lectures: [{ x1: 0, x2: 0.25, texte: '0,25' }, { x1: 0, x2: 2.75, texte: '11 graduations', niveau: 2 }],
+            label: 'La même droite : une petite graduation vaut 0,25, et le point B est à 11 graduations à droite de 0' }),
+        calcul(r`x_{B} & = 11 \times \dfrac{1}{4}`, r`& = \resultat{\dfrac{11}{4} = 2{,}75}`),
+        r`La fraction $\dfrac{11}{4}$ est irréductible&nbsp;: $11$ est impair.`] } },
+
+  { partie: 0, theme: 'Placer un réel', type: 'qcm',
+    enonce: r`On donne $\sqrt{3} \approx 1{,}73$. Sur la droite graduée ci-dessous, le point $E$ d'abscisse $-\sqrt{3}$ se place&nbsp;:`
+      + droite({ label: 'Droite graduée de −3 à 3, chaque unité partagée en quatre graduations de 0,25' }),
+    choix: [r`entre $-1{,}75$ et $-1{,}5$`, r`entre $1{,}5$ et $1{,}75$`, r`entre $-2$ et $-1{,}75$`, r`entre $-0{,}5$ et $-0{,}25$`],
+    bonne: 0,
+    explication: [
+      r`$-\sqrt{3}$ est l'opposé de $\sqrt{3} \approx 1{,}73$&nbsp;: son point est à gauche de $0$, symétrique du point d'abscisse $\sqrt{3}$ par rapport à $0$.`,
+      r`Une petite graduation vaut $0{,}25$, et $1{,}5 < 1{,}73 < 1{,}75$&nbsp;: le point d'abscisse $\sqrt{3}$ est entre les graduations $1{,}5$ et $1{,}75$, tout près de $1{,}75$.`,
+      r`Par symétrie, le point $E$ se place <span class="resultat">entre $-1{,}75$ et $-1{,}5$</span>, tout près de $-1{,}75$ (en bleu).`,
+      droite({ points: [{ x: -Math.sqrt(3), nom: 'E', classe: 'c-bleu' }], lectures: [{ x1: -1.75, x2: -1.5, texte: 'entre −1,75 et −1,5' }],
+          label: 'La même droite avec le point E, placé entre les graduations −1,75 et −1,5, tout près de −1,75' })],
+    revoir: r`capacité 2 du cours, exercice 3 de la fiche, exercice 113 p.&nbsp;69 du manuel`,
+    variante: {
+      enonce: r`On donne $\sqrt{6} \approx 2{,}45$. Sur la droite graduée ci-dessous, le point $F$ d'abscisse $-\sqrt{6}$ se place&nbsp;:`
+        + droite({ label: 'Droite graduée de −3 à 3, chaque unité partagée en quatre graduations de 0,25' }),
+      choix: [r`entre $-2{,}5$ et $-2{,}25$`, r`entre $2{,}25$ et $2{,}5$`, r`entre $-2{,}75$ et $-2{,}5$`, r`entre $-1{,}75$ et $-1{,}5$`],
+      bonne: 0,
+      explication: [
+        r`$-\sqrt{6}$ est l'opposé de $\sqrt{6} \approx 2{,}45$&nbsp;: son point est à gauche de $0$, symétrique du point d'abscisse $\sqrt{6}$ par rapport à $0$.`,
+        r`Une petite graduation vaut $0{,}25$, et $2{,}25 < 2{,}45 < 2{,}5$&nbsp;: le point d'abscisse $\sqrt{6}$ est entre les graduations $2{,}25$ et $2{,}5$, tout près de $2{,}5$.`,
+        r`Par symétrie, le point $F$ se place <span class="resultat">entre $-2{,}5$ et $-2{,}25$</span>, tout près de $-2{,}5$ (en bleu).`,
+        droite({ points: [{ x: -Math.sqrt(6), nom: 'F', classe: 'c-bleu' }], lectures: [{ x1: -2.5, x2: -2.25, texte: 'entre −2,5 et −2,25' }],
+            label: 'La même droite avec le point F, placé entre les graduations −2,5 et −2,25, tout près de −2,5' })] } },
+
+  { partie: 0, theme: "Milieu d'un segment", type: 'qcm',
+    enonce: r`Sur la droite graduée ci-dessous, l'abscisse du milieu $M$ du segment $[AB]$ est&nbsp;:`
+      + droite({ points: [{ x: -2.5, nom: 'A' }, { x: 1.5, nom: 'B' }],
+          label: 'Droite graduée de −3 à 3, chaque unité partagée en quatre ; le point A est au milieu entre −3 et −2, le point B au milieu entre 1 et 2' }),
+    choix: [r`$-0{,}5$`, r`$2$`, r`$-1$`, r`$-2$`],
+    bonne: 0,
+    explication: [
+      r`On lit les abscisses&nbsp;: $A$ est à $10$ graduations de $0{,}25$ à gauche de $0$, donc $x_{A} = -2{,}5$&nbsp;; $B$ est à $6$ graduations à droite de $0$, donc $x_{B} = 1{,}5$.`,
+      r`L'abscisse du milieu d'un segment est la moyenne des abscisses de ses extrémités.`,
+      calcul(r`x_{M} & = \dfrac{x_{A} + x_{B}}{2}`, r`& = \dfrac{-2{,}5 + 1{,}5}{2}`, r`& = \dfrac{-1}{2}`, r`& = \resultat{-0{,}5}`),
+      r`Vérification&nbsp;: de $A$ à $M$, $-0{,}5 - (-2{,}5) = 2$&nbsp;; de $M$ à $B$, $1{,}5 - (-0{,}5) = 2$ (en vert).`,
+      droite({ points: [{ x: -2.5, nom: 'A' }, { x: 1.5, nom: 'B' }, { x: -0.5, nom: 'M', classe: 'c-bleu' }],
+          lectures: [{ x1: -2.5, x2: -0.5, texte: '2' }, { x1: -0.5, x2: 1.5, texte: '2' }],
+          label: 'La même droite avec le milieu M, à −0,5 : il est à 2 unités de A et à 2 unités de B' })],
+    revoir: r`capacité 2 du cours, exercice 3 de la fiche`,
+    variante: {
+      enonce: r`Sur la droite graduée ci-dessous, l'abscisse du milieu $M$ du segment $[AB]$ est&nbsp;:`
+        + droite({ points: [{ x: -3, nom: 'A' }, { x: 1.5, nom: 'B' }],
+            label: 'Droite graduée de −3 à 3, chaque unité partagée en quatre ; le point A est sur la graduation −3, le point B au milieu entre 1 et 2' }),
+      choix: [r`$-0{,}75$`, r`$2{,}25$`, r`$-1{,}5$`, r`$-2{,}25$`],
+      bonne: 0,
+      explication: [
+        r`On lit les abscisses&nbsp;: $A$ est sur la graduation $-3$, donc $x_{A} = -3$&nbsp;; $B$ est à $6$ graduations de $0{,}25$ à droite de $0$, donc $x_{B} = 1{,}5$.`,
+        r`L'abscisse du milieu d'un segment est la moyenne des abscisses de ses extrémités.`,
+        calcul(r`x_{M} & = \dfrac{x_{A} + x_{B}}{2}`, r`& = \dfrac{-3 + 1{,}5}{2}`, r`& = \dfrac{-1{,}5}{2}`, r`& = \resultat{-0{,}75}`),
+        r`Vérification&nbsp;: de $A$ à $M$, $-0{,}75 - (-3) = 2{,}25$&nbsp;; de $M$ à $B$, $1{,}5 - (-0{,}75) = 2{,}25$ (en vert).`,
+        droite({ points: [{ x: -3, nom: 'A' }, { x: 1.5, nom: 'B' }, { x: -0.75, nom: 'M', classe: 'c-bleu' }],
+            lectures: [{ x1: -3, x2: -0.75, texte: '2,25' }, { x1: -0.75, x2: 1.5, texte: '2,25' }],
+            label: 'La même droite avec le milieu M, à −0,75 : il est à 2,25 unités de A et à 2,25 unités de B' })] } },
+
+  /* ----- Encadrements et arrondis (activité 2, partie 4 du cours, capacité 3) ----- */
+
+  { partie: 0, theme: 'Encadrer une racine carrée', type: 'qcm',
+    enonce: r`Sans calculatrice, en comparant des carrés, un encadrement de $\sqrt{10}$ d'amplitude $10^{-1}$ est&nbsp;:`,
+    choix: [r`$3{,}1 < \sqrt{10} < 3{,}2$`, r`$3 < \sqrt{10} < 4$`, r`$3{,}2 < \sqrt{10} < 3{,}3$`, r`$5 < \sqrt{10} < 5{,}1$`],
+    bonne: 0,
+    explication: [
+      r`$\sqrt{10}$ est le nombre positif dont le carré vaut $10$. Pour des nombres positifs, le plus grand a le plus grand carré&nbsp;: on compare donc des carrés à $10$.`,
+      r`$3^{2} = 9 < 10 < 16 = 4^{2}$, donc $\sqrt{10}$ est entre $3$ et $4$. On avance ensuite de $0{,}1$ à partir de $3$, jusqu'à dépasser $10$&nbsp;:`,
+      calcul(r`3{,}1^{2} & = 9{,}61 < 10`, r`3{,}2^{2} & = 10{,}24 > 10`),
+      r`$10$ est entre $3{,}1^{2}$ et $3{,}2^{2}$, donc <span class="resultat">$3{,}1 < \sqrt{10} < 3{,}2$</span>&nbsp;: deux bornes à une décimale, d'écart $0{,}1 = 10^{-1}$.`],
+    revoir: r`activité 2 (encadrer $\sqrt{2}$), exercice 3 de la fiche`,
+    variante: {
+      enonce: r`Sans calculatrice, en comparant des carrés, un encadrement de $\sqrt{7}$ d'amplitude $10^{-1}$ est&nbsp;:`,
+      choix: [r`$2{,}6 < \sqrt{7} < 2{,}7$`, r`$2 < \sqrt{7} < 3$`, r`$2{,}7 < \sqrt{7} < 2{,}8$`, r`$3{,}5 < \sqrt{7} < 3{,}6$`],
+      bonne: 0,
+      explication: [
+        r`$\sqrt{7}$ est le nombre positif dont le carré vaut $7$. Pour des nombres positifs, le plus grand a le plus grand carré&nbsp;: on compare donc des carrés à $7$.`,
+        r`$2^{2} = 4 < 7 < 9 = 3^{2}$, donc $\sqrt{7}$ est entre $2$ et $3$. On avance ensuite de $0{,}1$ à partir de $2$ ($2{,}1^{2} = 4{,}41$, $2{,}2^{2} = 4{,}84$…), jusqu'à dépasser $7$&nbsp;:`,
+        calcul(r`2{,}5^{2} & = 6{,}25 < 7`, r`2{,}6^{2} & = 6{,}76 < 7`, r`2{,}7^{2} & = 7{,}29 > 7`),
+        r`$7$ est entre $2{,}6^{2}$ et $2{,}7^{2}$, donc <span class="resultat">$2{,}6 < \sqrt{7} < 2{,}7$</span>&nbsp;: deux bornes à une décimale, d'écart $0{,}1 = 10^{-1}$.`] } },
+
+  { partie: 0, theme: 'Encadrement', type: 'qcm',
+    enonce: r`La calculatrice affiche $\sqrt{23} \approx 4{,}795831523$. Un encadrement de $\sqrt{23}$ d'amplitude $10^{-2}$ est&nbsp;:`,
+    choix: [r`$4{,}79 < \sqrt{23} < 4{,}80$`, r`$4{,}795 < \sqrt{23} < 4{,}796$`, r`$4{,}7 < \sqrt{23} < 4{,}8$`, r`$4{,}80 < \sqrt{23} < 4{,}81$`],
+    bonne: 0,
+    explication: [
+      r`À $10^{-2}$ près, les deux bornes ont deux décimales, et leur écart, l'amplitude, vaut $0{,}01 = 10^{-2}$.`,
+      r`On coupe l'écriture de la calculatrice après la deuxième décimale pour la borne inférieure, $4{,}79$, puis on ajoute $0{,}01$ pour la borne supérieure, $4{,}80$.`,
+      r`Donc <span class="resultat">$4{,}79 < \sqrt{23} < 4{,}80$</span>.`],
+    revoir: r`capacité 3 du cours, exercice 4 de la fiche, exercices 178 et 181 p.&nbsp;75 du manuel`,
+    variante: {
+      enonce: r`La calculatrice affiche $\sqrt{30} \approx 5{,}477225575$. Un encadrement de $\sqrt{30}$ d'amplitude $10^{-2}$ est&nbsp;:`,
+      choix: [r`$5{,}47 < \sqrt{30} < 5{,}48$`, r`$5{,}477 < \sqrt{30} < 5{,}478$`, r`$5{,}4 < \sqrt{30} < 5{,}5$`, r`$5{,}48 < \sqrt{30} < 5{,}49$`],
+      bonne: 0,
+      explication: [
+        r`À $10^{-2}$ près, les deux bornes ont deux décimales, et leur écart, l'amplitude, vaut $0{,}01 = 10^{-2}$.`,
+        r`On coupe l'écriture de la calculatrice après la deuxième décimale pour la borne inférieure, $5{,}47$, puis on ajoute $0{,}01$ pour la borne supérieure, $5{,}48$.`,
+        r`Donc <span class="resultat">$5{,}47 < \sqrt{30} < 5{,}48$</span>.`] } },
+
+  { partie: 0, theme: 'Troncature et arrondi', type: 'qcm',
+    enonce: r`La calculatrice affiche $\sqrt{89} \approx 9{,}433981132$. La troncature et l'arrondi de $\sqrt{89}$ à $10^{-3}$ près sont&nbsp;:`,
+    choix: [r`troncature $9{,}433$&nbsp;; arrondi $9{,}434$`, r`troncature $9{,}434$&nbsp;; arrondi $9{,}434$`, r`troncature $9{,}433$&nbsp;; arrondi $9{,}433$`, r`troncature $9{,}434$&nbsp;; arrondi $9{,}433$`],
+    bonne: 0,
+    explication: [
+      r`La troncature à $10^{-3}$ près garde les trois premières décimales, sans rien changer&nbsp;: $9{,}433$. C'est la borne inférieure de l'encadrement $9{,}433 < \sqrt{89} < 9{,}434$.`,
+      r`Pour l'arrondi, on regarde la quatrième décimale, $9$&nbsp;: elle est au moins égale à $5$, on arrondit donc au millième supérieur, $9{,}434$.`,
+      r`Ainsi <span class="resultat">troncature $9{,}433$&nbsp;; arrondi $9{,}434$</span>.`],
+    revoir: r`capacité 3 du cours, exercice 4 de la fiche`,
+    variante: {
+      enonce: r`La calculatrice affiche $\sqrt{97} \approx 9{,}848857802$. La troncature et l'arrondi de $\sqrt{97}$ à $10^{-3}$ près sont&nbsp;:`,
+      choix: [r`troncature $9{,}848$&nbsp;; arrondi $9{,}849$`, r`troncature $9{,}849$&nbsp;; arrondi $9{,}849$`, r`troncature $9{,}848$&nbsp;; arrondi $9{,}848$`, r`troncature $9{,}849$&nbsp;; arrondi $9{,}848$`],
+      bonne: 0,
+      explication: [
+        r`La troncature à $10^{-3}$ près garde les trois premières décimales, sans rien changer&nbsp;: $9{,}848$. C'est la borne inférieure de l'encadrement $9{,}848 < \sqrt{97} < 9{,}849$.`,
+        r`Pour l'arrondi, on regarde la quatrième décimale, $8$&nbsp;: elle est au moins égale à $5$, on arrondit donc au millième supérieur, $9{,}849$.`,
+        r`Ainsi <span class="resultat">troncature $9{,}848$&nbsp;; arrondi $9{,}849$</span>.`] } },
+
+  { partie: 0, theme: 'Encadrer un quotient', type: 'qcm',
+    enonce: r`En posant la division, un encadrement de $\dfrac{25}{6}$ d'amplitude $10^{-3}$ est&nbsp;:`,
+    choix: [r`$4{,}166 < \dfrac{25}{6} < 4{,}167$`, r`$4{,}16 < \dfrac{25}{6} < 4{,}17$`, r`$4{,}167 < \dfrac{25}{6} < 4{,}168$`, r`$4{,}1666 < \dfrac{25}{6} < 4{,}1667$`],
+    bonne: 0,
+    explication: [
+      r`On pose la division de $25$ par $6$, en abaissant un zéro à chaque étape.`,
+      calcul(r`25 & = 6 \times 4 + 1 \quad \text{unités : } 4`, r`10 & = 6 \times 1 + 4 \quad \text{dixièmes : } 1`,
+             r`40 & = 6 \times 6 + 4 \quad \text{centièmes : } 6`, r`40 & = 6 \times 6 + 4 \quad \text{millièmes : } 6`),
+      r`Le reste $4$ revient sans cesse&nbsp;: $\dfrac{25}{6} = 4{,}1666\dots$ On garde trois décimales pour la borne inférieure, $4{,}166$, puis on ajoute $0{,}001$.`,
+      r`Donc <span class="resultat">$4{,}166 < \dfrac{25}{6} < 4{,}167$</span>.`],
+    revoir: r`capacité 3 du cours, exercice 4 de la fiche`,
+    variante: {
+      enonce: r`En posant la division, un encadrement de $\dfrac{8}{3}$ d'amplitude $10^{-3}$ est&nbsp;:`,
+      choix: [r`$2{,}666 < \dfrac{8}{3} < 2{,}667$`, r`$2{,}66 < \dfrac{8}{3} < 2{,}67$`, r`$2{,}667 < \dfrac{8}{3} < 2{,}668$`, r`$2{,}6666 < \dfrac{8}{3} < 2{,}6667$`],
+      bonne: 0,
+      explication: [
+        r`On pose la division de $8$ par $3$, en abaissant un zéro à chaque étape.`,
+        calcul(r`8 & = 3 \times 2 + 2 \quad \text{unités : } 2`, r`20 & = 3 \times 6 + 2 \quad \text{dixièmes : } 6`,
+               r`20 & = 3 \times 6 + 2 \quad \text{centièmes : } 6`, r`20 & = 3 \times 6 + 2 \quad \text{millièmes : } 6`),
+        r`Le reste $2$ revient sans cesse&nbsp;: $\dfrac{8}{3} = 2{,}666\dots$ On garde trois décimales pour la borne inférieure, $2{,}666$, puis on ajoute $0{,}001$.`,
+        r`Donc <span class="resultat">$2{,}666 < \dfrac{8}{3} < 2{,}667$</span>.`] } },
+
+  { partie: 0, theme: 'Chiffres significatifs', type: 'qcm',
+    enonce: r`Combien de chiffres significatifs le nombre $0{,}02050$ a-t-il&nbsp;?`,
+    choix: [r`$4$`, r`$3$`, r`$5$`, r`$6$`],
+    bonne: 0,
+    explication: [
+      r`On compte les chiffres à partir du premier chiffre non nul&nbsp;; les zéros placés après lui comptent, même le zéro final.`,
+      r`Dans $0{,}02050$, le premier chiffre non nul est $2$&nbsp;: les chiffres significatifs sont $2$, $0$, $5$ et $0$, soit <span class="resultat">$4$ chiffres significatifs</span>.`],
+    revoir: r`capacité 3 du cours, exercice 5 de la fiche`,
+    variante: {
+      enonce: r`Combien de chiffres significatifs le nombre $0{,}00340$ a-t-il&nbsp;?`,
+      choix: [r`$3$`, r`$2$`, r`$5$`, r`$6$`],
+      bonne: 0,
+      explication: [
+        r`On compte les chiffres à partir du premier chiffre non nul&nbsp;; les zéros placés après lui comptent, même le zéro final.`,
+        r`Dans $0{,}00340$, le premier chiffre non nul est $3$&nbsp;: les chiffres significatifs sont $3$, $4$ et $0$, soit <span class="resultat">$3$ chiffres significatifs</span>.`] } },
+
+  { partie: 0, theme: 'Arrondir un résultat', type: 'qcm',
+    enonce: r`Un randonneur parcourt $17{,}5$ km en $3{,}6$ h. La calculatrice donne $\dfrac{17{,}5}{3{,}6} \approx 4{,}861$. Sa vitesse moyenne, arrondie avec un nombre de chiffres significatifs adapté, est&nbsp;:`,
+    choix: [r`$4{,}9$ km/h`, r`$4{,}86$ km/h`, r`$4{,}861$ km/h`, r`$4{,}8$ km/h`],
+    bonne: 0,
+    explication: [
+      r`Un résultat n'est pas plus précis que les données&nbsp;: on l'arrondit avec autant de chiffres significatifs que la donnée la moins précise.`,
+      r`$17{,}5$ a trois chiffres significatifs, $3{,}6$ en a deux&nbsp;: on garde deux chiffres significatifs. Le troisième chiffre de $4{,}861$, $6$, est au moins égal à $5$&nbsp;: on arrondit au dixième supérieur.`,
+      calcul(r`v & = \dfrac{17{,}5}{3{,}6}`, r`& \approx 4{,}861`, r`& \approx \resultat{4{,}9 \text{ km/h}}`)],
+    revoir: r`capacité 3 du cours, exercice 5 de la fiche, question 7 p.&nbsp;73 du manuel`,
+    variante: {
+      enonce: r`Un rectangle mesure $12{,}6$ cm sur $4{,}5$ cm, au millimètre près. La calculatrice donne $12{,}6 \times 4{,}5 = 56{,}7$. Son aire, arrondie avec un nombre de chiffres significatifs adapté, est&nbsp;:`,
+      choix: [r`$57$ cm²`, r`$56{,}7$ cm²`, r`$56$ cm²`, r`$60$ cm²`],
+      bonne: 0,
+      explication: [
+        r`Un résultat n'est pas plus précis que les données&nbsp;: on l'arrondit avec autant de chiffres significatifs que la donnée la moins précise.`,
+        r`$12{,}6$ a trois chiffres significatifs, $4{,}5$ en a deux&nbsp;: on garde deux chiffres significatifs. Le troisième chiffre de $56{,}7$, $7$, est au moins égal à $5$&nbsp;: on arrondit à l'unité supérieure.`,
+        calcul(r`\mathscr{A} & = 12{,}6 \times 4{,}5`, r`& = 56{,}7`, r`& \approx \resultat{57 \text{ cm}^{2}}`)] } }
+  ]
+};
+
+/* ---------- Conversion des formules ($...$, mini-LaTeX) en HTML ---------- */
+const SYM = {
+  times: '×', cdot: '·', dots: '…', ldots: '…', cdots: '…', ne: '≠', neq: '≠', le: '≤', leq: '≤',
+  ge: '≥', geq: '≥', approx: '≈', infty: '∞', forall: '∀', in: '∈', N: 'ℕ', R: 'ℝ', Z: 'ℤ',
+  pm: '±', Delta: 'Δ', sum: 'Σ', pi: 'π', alpha: 'α', mapsto: '↦', to: '→', iff: '⇔',
+  Longleftrightarrow: '⇔', Leftrightarrow: '⇔', Rightarrow: '⇒', implies: '⇒',
+  quad: ' ', qquad: '  ', displaystyle: '', left: '', right: ''
+};
+const SYM1 = { ',': ' ', ';': ' ', ' ': ' ', '{': '{', '}': '}', '%': '%', '_': '_', '&': '&amp;', '$': '$', '\\': '<br>' };
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function math(s) {
+  let i = 0;
+  const skip = () => { while (i < s.length && s[i] === ' ') i++; };
+  function raw() {            // contenu brut d'un {groupe}, sans mise en italique
+    skip();
+    if (s[i] !== '{') return esc(s[i++] || '');
+    let prof = 0, out = '';
+    for (; i < s.length; i++) {
+      const c = s[i];
+      if (c === '{') { prof++; if (prof === 1) continue; }
+      if (c === '}') { prof--; if (prof === 0) { i++; break; } }
+      out += c;
+    }
+    return esc(out);
+  }
+  function group() { i++; let out = ''; while (i < s.length && s[i] !== '}') out += atom(); i++; return out; }
+  function arg() { skip(); if (s[i] === '{') return group(); return atom(); }
+  const frac = (a, b) => `<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`;
+  function atom() {
+    if (i >= s.length) return '';
+    const c = s[i];
+    if (c === '{') return group();
+    if (c === '}') { i++; return ''; }
+    if (c === '\\') {
+      const n = s[i + 1];
+      if (n === undefined) { i++; return ''; }
+      if (!/[a-zA-Z]/.test(n)) { i += 2; return SYM1[n] !== undefined ? SYM1[n] : esc(n); }
+      let j = i + 1;
+      while (j < s.length && /[a-zA-Z]/.test(s[j])) j++;
+      const nom = s.slice(i + 1, j); i = j;
+      if (nom === 'frac' || nom === 'dfrac' || nom === 'tfrac') { const a = arg(); const b = arg(); return frac(a, b); }
+      if (nom === 'mathrm' || nom === 'text') return `<span class="rm">${raw()}</span>`;
+      if (nom === 'textbf') return `<b class="rm">${raw()}</b>`;
+      if (nom === 'mathscr') return `<i>${raw()}</i>`;
+      if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
+      if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
+      if (nom === 'op') return `<span class="op">${arg()}</span>`;
+      if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
+      return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
+    }
+    if (c === '_' || c === '^') { i++; const a = arg(); return c === '_' ? `<sub>${a}</sub>` : `<sup>${a}</sup>`; }
+    i++;
+    if (/[a-zA-Z]/.test(c)) return `<i>${c}</i>`;
+    if (c === '-') return '−';
+    if (c === '*') return '×';
+    if (c === "'") return '<span class="prime">′</span>';
+    return esc(c);
+  }
+  let out = '';
+  while (i < s.length) out += atom();
+  return out;
+}
+// Une formule : KaTeX s'il est chargé, sinon (pas encore là, hors ligne, CDN filtré, commande qu'il
+// refuse) le mini-LaTeX, qui garde la source dans data-tex pour que katexPret() la recompose.
+// (## : signe # d'une couleur dans une macro, # seul désignant un argument)
+const MACROS = { '\\mul': '\\textcolor{##9C27B0}{#1}', '\\op': '\\textcolor{##CE2029}{#1}', '\\resultat': '\\boxed{#1}' };
+function katexDispo() {
+  const feuille = document.getElementById('katex-css');
+  return !!window.katex && !!feuille && feuille.media === 'all';
+}
+function katexHTML(f) {
+  try { return katex.renderToString(f, { macros: Object.assign({}, MACROS), throwOnError: true, strict: false }); }
+  catch (e) { return null; }
+}
+function formule(f) {
+  const k = katexDispo() ? katexHTML(f) : null;
+  return k || `<span class="m${f.length > 42 ? ' m-long' : ''}" data-tex="${esc(f).replace(/"/g, '&quot;')}">${math(f)}</span>`;
+}
+window.katexPret = function () {
+  if (!katexDispo()) return;
+  document.querySelectorAll('.m[data-tex]').forEach(e => {
+    const k = katexHTML(e.dataset.tex);
+    if (k) e.outerHTML = k;
+  });
+};
+function tex(src) {
+  return String(src).split(/(\$[^$]*\$)/).map(p =>
+    (p.length >= 2 && p[0] === '$' && p[p.length - 1] === '$') ? formule(p.slice(1, -1)) : p
+  ).join('');
+}
+
+/* ---------- État (enregistré sur l'appareil, pour reprendre plus tard) ---------- */
+const N = QUIZ.questions.length;
+const CLE = 'quiz-' + QUIZ.id;
+const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length
+  + (q.variante ? '~' + q.variante.enonce.length : '')).join('|');
+const MODE_CORRIGE = /(\?|&|#)corrige/.test(location.search + location.hash);
+// La question i dans sa variante : les champs que la variante ne donne pas viennent de la question.
+const variante = i => Object.assign({}, QUIZ.questions[i], QUIZ.questions[i].variante);
+
+function melange(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const ordreDe = q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k));
+// reprise : null, ou la reprise des questions manquées { rangs (questions d'origine), ordre, reponses, courant }.
+function nouvelEtat() {
+  return {
+    signature: SIGNATURE,
+    ordre: QUIZ.questions.map(ordreDe),
+    reponses: Array(N).fill(null),
+    courant: 0,
+    reprise: null
+  };
+}
+function repriseValide(R) {
+  return !!R && Array.isArray(R.rangs) && R.rangs.length > 0 && Array.isArray(R.ordre) && Array.isArray(R.reponses)
+    && R.ordre.length === R.rangs.length && R.reponses.length === R.rangs.length
+    && R.rangs.every(i => QUIZ.questions[i] && QUIZ.questions[i].variante);
+}
+function charger() {
+  try {
+    const s = JSON.parse(localStorage.getItem(CLE));
+    if (s && s.signature === SIGNATURE && Array.isArray(s.reponses) && s.reponses.length === N && Array.isArray(s.ordre)) {
+      s.courant = Math.min(Math.max(0, s.courant | 0), N);
+      if (repriseValide(s.reprise)) s.reprise.courant = Math.min(Math.max(0, s.reprise.courant | 0), s.reprise.rangs.length);
+      else s.reprise = null;
+      return s;
+    }
+  } catch (e) { /* stockage indisponible : on repart de zéro */ }
+  return null;
+}
+function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* sans importance */ } }
+
+let etat = charger() || nouvelEtat();
+let selection = null;
+
+const $ = sel => document.querySelector(sel);
+const zoneProg = $('#progression');
+const zoneQuiz = $('#quiz');
+const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
+// Une seule partie : aucun nom de partie n'est affiché (grille, question, corrigé, note).
+const UNE_PARTIE = QUIZ.parties.length === 1;
+const questionsDe = p => QUIZ.questions.map((q, i) => q.partie === p ? i : -1).filter(i => i >= 0);
+
+/* ---------- Affichage ---------- */
+// Explication : un texte, ou une liste de blocs (paragraphes, calculs en colonne, figures).
+function explicationHTML(q) {
+  const blocs = Array.isArray(q.explication) ? q.explication : [q.explication];
+  return blocs.map(b => /^<(div|svg)\b/.test(b) ? tex(b) : '<p>' + tex(b) + '</p>').join('');
+}
+
+function reponseTexte(q, choix) {
+  if (q.type === 'vf') return choix ? 'Vrai' : 'Faux';
+  return '« ' + tex(q.choix[choix]) + ' »';
+}
+
+// Tour en cours : le premier passage (les questions du fichier), ou la reprise des questions
+// manquées (leurs variantes). Chacun a ses réponses, l'ordre de ses choix et sa question courante k ;
+// le numéro affiché est toujours celui de la question d'origine.
+function tourCourant() {
+  const R = etat.reprise;
+  if (R && R.courant < R.rangs.length)
+    return { reprise: true, etat: R, total: R.rangs.length, question: k => variante(R.rangs[k]), numero: k => R.rangs[k] + 1 };
+  return { reprise: false, etat: etat, total: N, question: k => QUIZ.questions[k], numero: k => k + 1 };
+}
+
+// Une grille de réponses. items = [{cle, numero, rep}] ; attr = data-q (premier passage) ou data-r (reprise).
+function grille(nom, items, courant, attr) {
+  const faites = items.filter(it => it.rep).length;
+  let nums = '', marques = '';
+  items.forEach(it => {
+    const ici = it.cle === courant;
+    nums += `<td class="${ici ? 'ici' : ''}"><button type="button" class="aller" ${attr}="${it.cle}" aria-label="Aller à la question ${it.numero}">${it.numero}</button></td>`;
+    marques += it.rep
+      ? `<td class="${it.rep.ok ? 'juste' : 'erreur'}${ici ? ' courant' : ''}" ${attr}="${it.cle}"><span class="marque ${it.rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`
+      : `<td class="${ici ? 'courant' : ''}" ${attr}="${it.cle}"></td>`;
+  });
+  return `<div class="bloc-grille">${nom ? `<p class="nom-partie">${nom}</p>` : ''}
+    <table class="grille-reponses" aria-label="${nom || 'Réponses'} : ${faites} question${faites > 1 ? 's' : ''} sur ${items.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+}
+
+function rendreProgression() {
+  if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
+  const T = tourCourant(), R = etat.reprise;
+  zoneProg.innerHTML = T.reprise
+    ? grille('Reprise des questions manquées', R.rangs.map((i, k) => ({ cle: k, numero: i + 1, rep: R.reponses[k] })), R.courant, 'data-r')
+    : QUIZ.parties.map((nom, p) => grille(UNE_PARTIE ? '' : nomPartie(p),
+        questionsDe(p).map(i => ({ cle: i, numero: i + 1, rep: etat.reponses[i] })), etat.courant, 'data-q')).join('');
+}
+
+function rendre() {
+  rendreProgression();
+  if (MODE_CORRIGE) return rendreCorrige();
+  const T = tourCourant();
+  if (T.etat.courant >= T.total) rendreResultat(); else rendreQuestion(T, T.etat.courant);
+}
+
+function boite(marque) {
+  return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
+}
+
+function rendreQuestion(T, k) {
+  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = k === T.total - 1;
+  const changePartie = !T.reprise && !derniere && QUIZ.questions[k + 1].partie !== q.partie;
+  const tete = T.reprise ? `Reprise des questions manquées · ${k + 1} sur ${T.total}` : UNE_PARTIE ? '' : nomPartie(q.partie);
+  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir ma note') : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante';
+  let options;
+  if (q.type === 'vf') {
+    options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (val === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (val === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
+    }).join('');
+  } else {
+    options = ordre.map((orig, j) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[j]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
+    }).join('');
+  }
+  const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
+  const correction = rep ? `<div class="correction ${rep.ok ? 'juste' : 'erreur'}" role="status">
+      <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
+      <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
+  const bouton = rep
+    ? `<button type="button" class="bouton" id="suivant">${suite}</button>`
+    : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
+  zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
+    ${tete ? `<p class="partie">${tete}</p>` : ''}
+    <p class="question" id="titre-q"><b>Question ${T.numero(k)}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
+    <div class="actions">${bouton}</div>
+    ${correction}
+  </article>`;
+  selection = null;
+  if (!rep) {
+    zoneQuiz.querySelectorAll('.choix').forEach(b => b.addEventListener('click', () => choisir(b, q)));
+    $('#valider').addEventListener('click', valider);
+  } else {
+    $('#suivant').addEventListener('click', suivant);
+  }
+}
+
+function choisir(b, q) {
+  zoneQuiz.querySelectorAll('.choix').forEach(o => {
+    const actif = o === b;
+    o.classList.toggle('choisi', actif);
+    o.setAttribute('aria-pressed', actif ? 'true' : 'false');
+    o.querySelector('.marque').className = actif ? 'marque croix' : 'marque';
+  });
+  selection = q.type === 'vf' ? b.dataset.val === 'true' : Number(b.dataset.val);
+  $('#valider').disabled = false;
+}
+
+function valider() {
+  const T = tourCourant(), k = T.etat.courant, q = T.question(k);
+  if (selection === null || T.etat.reponses[k]) return;
+  T.etat.reponses[k] = { choix: selection, ok: selection === q.bonne };
+  sauver();
+  rendre();
+  const suivantBtn = $('#suivant');
+  if (suivantBtn) suivantBtn.focus({ preventScroll: true });
+  const correction = $('.correction');
+  if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
+}
+
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question
+// (data-q : premier passage ; data-r : reprise des questions manquées).
+function aller(cible) {
+  if (cible.dataset.r !== undefined) etat.reprise.courant = Number(cible.dataset.r);
+  else etat.courant = Number(cible.dataset.q);
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function suivant() {
+  const T = tourCourant();
+  T.etat.courant = Math.min(T.etat.courant + 1, T.total);
+  selection = null;
+  sauver();
+  rendre();
+  // On remonte aux grilles de réponses, pas tout en haut : sur téléphone, l'en-tête occupe un écran.
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function recommencer() {
+  etat = nouvelEtat();
+  selection = null;
+  sauver();
+  rendre();
+  window.scrollTo({ top: 0, behavior: motion() });
+}
+// Deux clics pour tout effacer : le premier transforme le bouton en demande de confirmation.
+function demanderRecommencer(btn) {
+  const entame = etat.courant > 0 || etat.reponses.some(Boolean);
+  if (btn.dataset.minuteur) {
+    clearTimeout(Number(btn.dataset.minuteur));
+    btn.textContent = btn.dataset.texte;
+    delete btn.dataset.minuteur;
+    recommencer();
+  } else if (!entame) {
+    recommencer();
+  } else {
+    btn.dataset.texte = btn.textContent;
+    btn.textContent = 'Confirmer : effacer mes réponses';
+    btn.dataset.minuteur = String(setTimeout(() => { btn.textContent = btn.dataset.texte; delete btn.dataset.minuteur; }, 4000));
+  }
+}
+
+// Questions regroupées par partie : un titre, puis la liste produite par item(q, i).
+function listeParParties(item) {
+  return QUIZ.parties.map((nom, p) =>
+    `${UNE_PARTIE ? '' : `<h2 class="titre-partie">${nomPartie(p)}</h2>`}<ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
+  ).join('');
+}
+
+// Une question de la copie : énoncé, réponse donnée, explication.
+function itemRevue(q, rep, numero) {
+  const ok = !!(rep && rep.ok);
+  let bilan;
+  if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
+  else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  return `<li class="${ok ? 'juste' : 'erreur'}">
+    <p class="question"><b>Question ${numero}.</b> <i>${q.theme}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <p class="bilan">${bilan}</p>
+    <div class="explication">${explicationHTML(q)}</div>
+  </li>`;
+}
+
+function revueHTML() {
+  return listeParParties((q, i) => itemRevue(q, etat.reponses[i], i + 1));
+}
+
+function revueRepriseHTML() {
+  const R = etat.reprise;
+  return `<h2 class="titre-partie">Reprise des questions manquées</h2><ol class="revue">${R.rangs.map((i, k) => itemRevue(variante(i), R.reponses[k], i + 1)).join('')}</ol>`;
+}
+
+// Bouton qui montre ou cache une copie.
+function bascule(idBouton, idListe, texte) {
+  $('#' + idBouton).addEventListener('click', () => {
+    const liste = $('#' + idListe), btn = $('#' + idBouton);
+    liste.hidden = !liste.hidden;
+    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
+    btn.textContent = (liste.hidden ? 'Revoir ' : 'Masquer ') + texte;
+  });
+}
+
+// Reprise des questions manquées qui ont une variante : nouveau tour, noté à part.
+function reprendre(rangs) {
+  etat.reprise = { rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 };
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function rendreResultat() {
+  const juste = i => !!(etat.reponses[i] && etat.reponses[i].ok);
+  const score = QUIZ.questions.filter((q, i) => juste(i)).length;
+  const appreciation = score >= 0.75 * N
+    ? 'C\'est solide. Relis quand même les explications des questions manquées.'
+    : score >= 0.5 * N
+      ? 'L\'essentiel est là. Reprends les points listés ci-dessous, puis refais cet entraînement.'
+      : 'À retravailler avant l\'évaluation : reprends le cours et la fiche d\'exercices, puis refais cet entraînement.';
+  const sur20 = N === 20 ? '' : `<span class="sur">soit ${fr(Math.round(score * 20 / N * 2) / 2)} / 20</span>`;
+  const parties = QUIZ.parties.map((nom, p) => {
+    const rangs = questionsDe(p);
+    return `<span>${nomPartie(p)}&nbsp;: <b>${rangs.filter(juste).length} / ${rangs.length}</b></span>`;
+  }).join(' &emsp; ');
+  const aRevoir = [];
+  QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
+  const revoir = aRevoir.length
+    ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
+  // Questions manquées qui ont une variante, et reprise déjà faite (on n'arrive ici qu'une fois finie).
+  const manquees = QUIZ.questions.map((q, i) => i).filter(i => !juste(i) && QUIZ.questions[i].variante);
+  const R = etat.reprise, nm = manquees.length;
+  const bilanReprise = R
+    ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(x => x && x.ok).length} / ${R.rangs.length}</b></p>` : '';
+  const infoReprise = nm && !R
+    ? `<p class="reprise-info">Tu peux refaire ${nm > 1 ? 'les ' + nm + ' questions manquées' : 'la question manquée'}, un peu ${nm > 1 ? 'modifiées' : 'modifiée'}&nbsp;: mêmes notions, autres valeurs.</p>` : '';
+  zoneQuiz.innerHTML = `<article class="page-note" aria-labelledby="titre-r">
+    <p class="question" id="titre-r"><b>Note.</b></p>
+    <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
+    <p class="appreciation">${appreciation}</p>
+    ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
+    ${bilanReprise}
+    ${revoir}
+    ${infoReprise}
+    <div class="actions">
+      ${nm ? `<button type="button" class="bouton" id="reprendre">${R ? 'Refaire la reprise' : 'Refaire les questions manquées'}</button>` : ''}
+      <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
+      ${R ? '<button type="button" class="bouton" id="revoir-reprise" aria-expanded="false" aria-controls="revue-reprise">Revoir la reprise</button>' : ''}
+      <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
+    </div>
+    <div id="revue" hidden>${revueHTML()}</div>
+    ${R ? `<div id="revue-reprise" hidden>${revueRepriseHTML()}</div>` : ''}
+  </article>`;
+  bascule('revoir', 'revue', 'la copie');
+  if (R) bascule('revoir-reprise', 'revue-reprise', 'la reprise');
+  if (nm) $('#reprendre').addEventListener('click', () => reprendre(manquees));
+  $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+}
+
+function rendreCorrige() {
+  // Énoncé, choix (bonne réponse en vert), explication.
+  const corps = q => `<div class="enonce">${tex(q.enonce)}</div>
+      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
+      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
+      <div class="explication">${explicationHTML(q)}</div>`;
+  zoneQuiz.innerHTML = `<article>
+    <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
+    ${listeParParties((q, i) => `<li class="juste">
+      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
+      ${corps(q)}
+      ${q.variante ? `<div class="variante"><p class="question"><b>Variante</b> <i>(reprise des questions manquées)</i></p>${corps(variante(i))}</div>` : ''}
+    </li>`)}
+  </article>`;
+}
+
+/* ---------- Démarrage ---------- */
+$('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+zoneProg.addEventListener('click', e => {
+  const cible = e.target.closest('[data-q],[data-r]');
+  if (cible) aller(cible);
+});
+rendre();
+})();
+</script>
+</body>
+</html>
