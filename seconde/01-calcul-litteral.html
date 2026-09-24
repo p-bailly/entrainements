@@ -6,16 +6,11 @@
 <title>Entraînement Évaluation calcul littéral</title>
 <!--
   Entraînement auto-corrigé à l'évaluation du chapitre 1 (Calcul littéral) - Seconde.
-  Deux parties :
-    1. Automatismes : six questions sur les automatismes de début d'année de l'établissement,
-       au niveau d'un élève qui entre en Seconde : écritures d'un nombre (fraction, écriture
-       décimale, pourcentage), théorèmes de Pythagore et de Thalès, fonctions affines et
-       linéaires (expression, représentation graphique) ;
-    2. Calcul littéral, dans l'ordre du cours : somme ou produit, développer (distributivité
-       simple et double, identités remarquables), factoriser (facteur commun, identités
-       remarquables), vérifier une égalité (contre-exemple). Sources : capacités 1 à 6 du
-       cours, fiche d'exercices (exercices 1 à 5), évaluation (sujets A et B) et exercices du
-       manuel corrigés dans Livre/.
+  Une seule partie, sans automatismes (demande du professeur pour la Seconde), dans l'ordre
+  du cours : somme ou produit, développer (distributivité simple et double, identités
+  remarquables), factoriser (facteur commun, identités remarquables), vérifier une égalité
+  (contre-exemple). Sources : capacités 1 à 6 du cours, fiche d'exercices (exercices 1 à 5),
+  évaluation (sujets A et B) et exercices du manuel corrigés dans Livre/.
   Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
   Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
   questions manquées.
@@ -216,7 +211,7 @@ table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
     <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
     <div class="entete"><span>Seconde</span><span>M. Bailly</span><span>Chapitre 1 · Calcul littéral</span></div>
     <h1>Entraînement Évaluation calcul littéral</h1>
-    <p class="consigne">Deux parties&nbsp;: six automatismes, puis dix questions sur le calcul littéral. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <p class="consigne">Dix questions sur le calcul littéral. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
     <div class="filet" role="presentation"></div>
   </header>
   <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
@@ -309,181 +304,12 @@ function calcul(...lignes) {
 }
 
 /* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
-// Figure de géométrie (théorèmes de Pythagore et de Thalès), de même allure que repere :
-// traits fins, segment à calculer en rouge, angle droit marqué, sommets nommés en italique.
-//   points : {A: [x, y], ...} en centimètres, y vers le haut ; segments : ['AB', ...] ;
-//   cherche : le segment à calculer ; droit : ['E', 'F', 'G'] pour un angle droit en E, entre
-//   [EF] et [EG] ; decalages : {M: [dx, dy]} position d'un nom par rapport à son point, en
-//   pixels (par défaut, à l'opposé du centre de la figure) ; label : description (accessibilité).
-function geometrie(o) {
-  const u = 20, m = 18, P = o.points, noms = Object.keys(P);
-  const xs = noms.map(n => P[n][0]), ys = noms.map(n => P[n][1]);
-  const xmin = Math.min(...xs), xmax = Math.max(...xs), ymin = Math.min(...ys), ymax = Math.max(...ys);
-  const W = (xmax - xmin) * u + 2 * m, H = (ymax - ymin) * u + 2 * m;
-  const r1 = v => Math.round(v * 10) / 10;
-  const X = n => r1(m + (P[n][0] - xmin) * u), Y = n => r1(m + (ymax - P[n][1]) * u);
-  const trait = (seg, attr) => '<line ' + attr + ' x1="' + X(seg[0]) + '" y1="' + Y(seg[0]) + '" x2="' + X(seg[1]) + '" y2="' + Y(seg[1]) + '"/>';
-  let s = '<svg class="fig" viewBox="0 0 ' + W + ' ' + H + '" style="max-width:' + Math.round(W * 1.3) + 'px" role="img" aria-label="' + o.label + '">';
-  o.segments.forEach(seg => { s += trait(seg, 'stroke="currentColor" stroke-width="1.2"'); });
-  if (o.droit) {
-    const a = o.droit[0], k = 8;
-    const v = n => { const dx = X(n) - X(a), dy = Y(n) - Y(a), L = Math.hypot(dx, dy); return [k * dx / L, k * dy / L]; };
-    const p = v(o.droit[1]), q = v(o.droit[2]);
-    s += '<path d="M' + r1(X(a) + p[0]) + ' ' + r1(Y(a) + p[1]) + ' l' + r1(q[0]) + ' ' + r1(q[1]) + ' l' + r1(-p[0]) + ' ' + r1(-p[1]) + '" fill="none" stroke="currentColor" stroke-width="1"/>';
-  }
-  if (o.cherche) s += '<g class="c-rouge">' + trait(o.cherche, 'stroke="currentColor" stroke-width="2.2"') + '</g>';
-  const gx = xs.reduce((t, x) => t + x, 0) / xs.length, gy = ys.reduce((t, y) => t + y, 0) / ys.length;
-  noms.forEach(n => {
-    let d = o.decalages && o.decalages[n];
-    if (!d) { const dx = P[n][0] - gx, dy = gy - P[n][1], L = Math.hypot(dx, dy) || 1; d = [12 * dx / L, 12 * dy / L]; }
-    s += '<text class="lab c-noir" x="' + r1(X(n) + d[0]) + '" y="' + r1(Y(n) + d[1] + 4.5) + '" text-anchor="middle">' + n + '</text>';
-  });
-  return s + '</svg>';
-}
-
-const CADRE = { xmin: -4, xmax: 4, ymin: -4, ymax: 4 };   // repère des questions sur les droites
-
 const QUIZ = {
   id: '2de-01-calcul-litteral-entrainement',
-  parties: ['Automatismes', 'Calcul littéral'],
+  parties: ['Calcul littéral'],
   questions: [
 
-  /* ----- Partie 1 : automatismes de début d'année ----- */
-
-  { partie: 0, theme: 'Écritures d\'un nombre', type: 'qcm',
-    enonce: r`Le nombre $\dfrac{3}{20}$ s'écrit, en pourcentage&nbsp;:`,
-    choix: [r`$15\,\%$`, r`$0{,}15\,\%$`, r`$1{,}5\,\%$`, r`$60\,\%$`],
-    bonne: 0,
-    explication: [
-      r`Un pourcentage est une fraction de dénominateur $100$&nbsp;: on multiplie le numérateur et le dénominateur par $5$ pour obtenir le dénominateur $100$.`,
-      calcul(r`\dfrac{3}{20} & = \dfrac{3 \mul{\times 5}}{20 \mul{\times 5}}`, r`& = \dfrac{15}{100}`, r`& = \resultat{15\,\%}`)],
-    revoir: r`écritures d'un nombre&nbsp;: fraction, écriture décimale, pourcentage (collège)`,
-    variante: {
-      enonce: r`Le nombre $\dfrac{7}{25}$ s'écrit, en pourcentage&nbsp;:`,
-      choix: [r`$28\,\%$`, r`$0{,}28\,\%$`, r`$2{,}8\,\%$`, r`$175\,\%$`],
-      bonne: 0,
-      explication: [
-        r`Un pourcentage est une fraction de dénominateur $100$&nbsp;: on multiplie le numérateur et le dénominateur par $4$ pour obtenir le dénominateur $100$.`,
-        calcul(r`\dfrac{7}{25} & = \dfrac{7 \mul{\times 4}}{25 \mul{\times 4}}`, r`& = \dfrac{28}{100}`, r`& = \resultat{28\,\%}`)] } },
-
-  { partie: 0, theme: 'Écritures d\'un nombre', type: 'qcm',
-    enonce: r`Le nombre $0{,}35$ s'écrit sous la forme d'une fraction irréductible&nbsp;:`,
-    choix: [r`$\dfrac{7}{20}$`, r`$\dfrac{7}{2}$`, r`$\dfrac{3}{5}$`, r`$\dfrac{1}{35}$`],
-    bonne: 0,
-    explication: [
-      r`$0{,}35$, c'est $35$ centièmes&nbsp;: $0{,}35 = \dfrac{35}{100}$. On simplifie ensuite par $5$, qui divise le numérateur et le dénominateur.`,
-      calcul(r`0{,}35 & = \dfrac{35}{100}`, r`& = \dfrac{7 \mul{\times 5}}{20 \mul{\times 5}}`, r`& = \resultat{\dfrac{7}{20}}`),
-      r`$7$ et $20$ n'ont pas d'autre diviseur commun que $1$&nbsp;: la fraction est irréductible.`],
-    revoir: r`écritures d'un nombre&nbsp;: fraction, écriture décimale, pourcentage (collège)`,
-    variante: {
-      enonce: r`Le nombre $0{,}16$ s'écrit sous la forme d'une fraction irréductible&nbsp;:`,
-      choix: [r`$\dfrac{4}{25}$`, r`$\dfrac{8}{5}$`, r`$\dfrac{1}{6}$`, r`$\dfrac{1}{16}$`],
-      bonne: 0,
-      explication: [
-        r`$0{,}16$, c'est $16$ centièmes&nbsp;: $0{,}16 = \dfrac{16}{100}$. On simplifie ensuite par $4$, qui divise le numérateur et le dénominateur.`,
-        calcul(r`0{,}16 & = \dfrac{16}{100}`, r`& = \dfrac{4 \mul{\times 4}}{25 \mul{\times 4}}`, r`& = \resultat{\dfrac{4}{25}}`),
-        r`$4$ et $25$ n'ont pas d'autre diviseur commun que $1$&nbsp;: la fraction est irréductible.`] } },
-
-  { partie: 0, theme: 'Théorème de Pythagore', type: 'qcm',
-    enonce: r`Le triangle $EFG$ est rectangle en $E$, avec $EF = 6\,\text{cm}$ et $FG = 10\,\text{cm}$. La longueur $EG$ est égale à&nbsp;:`
-      + geometrie({ points: { E: [0, 0], F: [0, 6], G: [8, 0] }, segments: ['EF', 'FG'], cherche: 'EG', droit: ['E', 'F', 'G'],
-          label: 'Triangle EFG rectangle en E ; le côté [EG], à calculer, est en rouge' }),
-    choix: [r`$8\,\text{cm}$`, r`$\sqrt{136}\,\text{cm}$`, r`$4\,\text{cm}$`, r`$64\,\text{cm}$`],
-    bonne: 0,
-    explication: [
-      r`Le triangle $EFG$ est rectangle en $E$&nbsp;: son hypoténuse est $[FG]$, le côté opposé à l'angle droit. D'après le théorème de Pythagore, $FG^{2} = EF^{2} + EG^{2}$.`,
-      calcul(r`10^{2} & = 6^{2} + EG^{2}`, r`100 & = 36 + EG^{2}`, r`100 \op{- 36} & = 36 + EG^{2} \op{- 36}`, r`64 & = EG^{2}`),
-      r`$EG$ est une longueur, donc un nombre positif&nbsp;: $EG = \sqrt{64}$, soit <span class="resultat">$EG = 8\,\text{cm}$</span>.`],
-    revoir: r`théorème de Pythagore (collège)`,
-    variante: {
-      enonce: r`Le triangle $RST$ est rectangle en $R$, avec $RS = 5\,\text{cm}$ et $ST = 13\,\text{cm}$. La longueur $RT$ est égale à&nbsp;:`
-        + geometrie({ points: { R: [0, 0], S: [0, 5], T: [12, 0] }, segments: ['RS', 'ST'], cherche: 'RT', droit: ['R', 'S', 'T'],
-            label: 'Triangle RST rectangle en R ; le côté [RT], à calculer, est en rouge' }),
-      choix: [r`$12\,\text{cm}$`, r`$\sqrt{194}\,\text{cm}$`, r`$8\,\text{cm}$`, r`$144\,\text{cm}$`],
-      bonne: 0,
-      explication: [
-        r`Le triangle $RST$ est rectangle en $R$&nbsp;: son hypoténuse est $[ST]$, le côté opposé à l'angle droit. D'après le théorème de Pythagore, $ST^{2} = RS^{2} + RT^{2}$.`,
-        calcul(r`13^{2} & = 5^{2} + RT^{2}`, r`169 & = 25 + RT^{2}`, r`169 \op{- 25} & = 25 + RT^{2} \op{- 25}`, r`144 & = RT^{2}`),
-        r`$RT$ est une longueur, donc un nombre positif&nbsp;: $RT = \sqrt{144}$, soit <span class="resultat">$RT = 12\,\text{cm}$</span>.`] } },
-
-  { partie: 0, theme: 'Théorème de Thalès', type: 'qcm',
-    enonce: r`Sur la figure, les droites $(MN)$ et $(BC)$ sont parallèles, $M$ est un point du segment $[AB]$ et $N$ un point du segment $[AC]$. On donne $AM = 3\,\text{cm}$, $AB = 5\,\text{cm}$ et $BC = 10\,\text{cm}$. La longueur $MN$ est égale à&nbsp;:`
-      + geometrie({ points: { A: [3, 4], B: [0, 0], C: [10, 0], M: [1.2, 1.6], N: [7.2, 1.6] }, segments: ['AB', 'AC', 'BC'], cherche: 'MN',
-          decalages: { M: [-9.6, -7.2], N: [6, -10.4] },
-          label: 'Triangle ABC, avec M sur le côté [AB] et N sur le côté [AC] ; le segment [MN], parallèle à [BC] et à calculer, est en rouge' }),
-    choix: [r`$6\,\text{cm}$`, r`$\dfrac{50}{3}\,\text{cm}$`, r`$15\,\text{cm}$`, r`$8\,\text{cm}$`],
-    bonne: 0,
-    explication: [
-      r`Les droites $(MN)$ et $(BC)$ sont parallèles, $M$ est sur $[AB]$ et $N$ sur $[AC]$&nbsp;: d'après le théorème de Thalès dans le triangle $ABC$, $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.`,
-      r`On garde l'égalité $\dfrac{AM}{AB} = \dfrac{MN}{BC}$, puis on multiplie ses deux membres par $10$.`,
-      calcul(r`\dfrac{3}{5} & = \dfrac{MN}{10}`, r`\dfrac{3}{5} \op{\times 10} & = \dfrac{MN}{10} \op{\times 10}`, r`\dfrac{30}{5} & = MN`, r`6 & = MN`),
-      r`Donc <span class="resultat">$MN = 6\,\text{cm}$</span>.`],
-    revoir: r`théorème de Thalès (collège)`,
-    variante: {
-      enonce: r`Sur la figure, les droites $(MN)$ et $(BC)$ sont parallèles, $M$ est un point du segment $[AB]$ et $N$ un point du segment $[AC]$. On donne $AM = 2\,\text{cm}$, $AB = 6\,\text{cm}$ et $BC = 9\,\text{cm}$. La longueur $MN$ est égale à&nbsp;:`
-        + geometrie({ points: { A: [3.6, 4.8], B: [0, 0], C: [9, 0], M: [2.4, 3.2], N: [5.4, 3.2] }, segments: ['AB', 'AC', 'BC'], cherche: 'MN',
-            decalages: { M: [-9.6, -7.2], N: [8, -9] },
-            label: 'Triangle ABC, avec M sur le côté [AB] et N sur le côté [AC] ; le segment [MN], parallèle à [BC] et à calculer, est en rouge' }),
-      choix: [r`$3\,\text{cm}$`, r`$27\,\text{cm}$`, r`$4{,}5\,\text{cm}$`, r`$5\,\text{cm}$`],
-      bonne: 0,
-      explication: [
-        r`Les droites $(MN)$ et $(BC)$ sont parallèles, $M$ est sur $[AB]$ et $N$ sur $[AC]$&nbsp;: d'après le théorème de Thalès dans le triangle $ABC$, $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.`,
-        r`On garde l'égalité $\dfrac{AM}{AB} = \dfrac{MN}{BC}$, puis on multiplie ses deux membres par $9$.`,
-        calcul(r`\dfrac{2}{6} & = \dfrac{MN}{9}`, r`\dfrac{2}{6} \op{\times 9} & = \dfrac{MN}{9} \op{\times 9}`, r`\dfrac{18}{6} & = MN`, r`3 & = MN`),
-        r`Donc <span class="resultat">$MN = 3\,\text{cm}$</span>.`] } },
-
-  { partie: 0, theme: 'Fonction affine', type: 'qcm',
-    enonce: r`Parmi ces quatre fonctions, laquelle est une fonction <b>affine</b>&nbsp;?`,
-    choix: [r`$f(x) = 3 - 2x$`, r`$g(x) = 2x^{2} + 3$`, r`$h(x) = \dfrac{2}{x} + 3$`, r`$k(x) = x(3 - 2x)$`],
-    bonne: 0,
-    explication: [
-      r`Une fonction affine s'écrit $f(x) = ax + b$, où $a$ et $b$ sont deux nombres fixés.`,
-      r`$3 - 2x = -2x + 3$&nbsp;: c'est la forme $ax + b$, avec $a = -2$ et $b = 3$. La fonction affine est <span class="resultat">$f(x) = 3 - 2x$</span>.`],
-    revoir: r`fonctions affines (collège)`,
-    variante: {
-      enonce: r`Parmi ces quatre fonctions, laquelle est une fonction <b>affine</b>&nbsp;?`,
-      choix: [r`$g(x) = \dfrac{x}{4} - 1$`, r`$f(x) = 4x^{2} - 1$`, r`$h(x) = \dfrac{4}{x} - 1$`, r`$k(x) = x(4x - 1)$`],
-      bonne: 0,
-      explication: [
-        r`Une fonction affine s'écrit $f(x) = ax + b$, où $a$ et $b$ sont deux nombres fixés.`,
-        r`$\dfrac{x}{4} - 1 = \dfrac{1}{4}x - 1$&nbsp;: c'est la forme $ax + b$, avec $a = \dfrac{1}{4}$ et $b = -1$. La fonction affine est <span class="resultat">$g(x) = \dfrac{x}{4} - 1$</span>.`] } },
-
-  { partie: 0, theme: 'Fonction linéaire', type: 'qcm', fixe: true,
-    enonce: r`Laquelle de ces quatre droites représente la fonction linéaire $f$ définie par $f(x) = -2x$&nbsp;?`
-      + repere(Object.assign({}, CADRE, {
-          courbes: [{ f: x => 2 * x, classe: 'c-noir' }, { f: x => -2 * x, classe: 'c-bleu' }, { f: x => -2 * x + 3, classe: 'c-rouge' }, { f: x => -0.5 * x, classe: 'c-violet' }],
-          noms: [{ x: 2.15, y: 3.4, texte: '(d', indice: '1', apres: ')', classe: 'c-noir' }, { x: -2.05, y: 3.4, texte: '(d', indice: '2', apres: ')', classe: 'c-bleu', ancre: 'end' },
-                 { x: 3.2, y: -2.9, texte: '(d', indice: '3', apres: ')', classe: 'c-rouge' }, { x: -3.9, y: 2.4, texte: '(d', indice: '4', apres: ')', classe: 'c-violet' }],
-          label: 'Repère avec quatre droites. d1 passe par (0 ; 0) et (1 ; 2). d2 passe par (0 ; 0) et (1 ; −2). d3 passe par (0 ; 3) et (1 ; 1). d4 passe par (0 ; 0) et (2 ; −1)' })),
-    choix: [r`$(d_1)$`, r`$(d_2)$`, r`$(d_3)$`, r`$(d_4)$`],
-    bonne: 1,
-    explication: [
-      r`La représentation graphique d'une fonction linéaire est une droite qui passe par l'origine du repère.`,
-      r`$f(1) = -2 \times 1 = -2$&nbsp;: elle passe aussi par le point de coordonnées $(1\,;\,-2)$. C'est la droite <span class="resultat">$(d_2)$</span>.`,
-      repere(Object.assign({}, CADRE, { echelle: 1.15, courbes: [{ f: x => -2 * x, classe: 'c-bleu' }],
-          noms: [{ x: -2.05, y: 3.4, texte: '(d', indice: '2', apres: ')', classe: 'c-bleu', ancre: 'end' }],
-          points: [{ x: 0, y: 0, classe: 'c-bleu' }, { x: 1, y: -2, classe: 'c-bleu' }], lectures: [[[1, 0], [1, -2], [0, -2]]],
-          label: 'La droite d2 seule : elle passe par l\'origine et par le point (1 ; −2), lu en tirets verts' }))],
-    revoir: r`fonctions linéaires et leur représentation graphique (collège)`,
-    variante: {
-      enonce: r`Laquelle de ces quatre droites représente la fonction linéaire $g$ définie par $g(x) = 0{,}5x$&nbsp;?`
-        + repere(Object.assign({}, CADRE, {
-            courbes: [{ f: x => 2 * x, classe: 'c-rouge' }, { f: x => 0.5 * x + 2, classe: 'c-noir' }, { f: x => -0.5 * x, classe: 'c-bleu' }, { f: x => 0.5 * x, classe: 'c-violet' }],
-            noms: [{ x: 1.55, y: 3.5, texte: '(d', indice: '1', apres: ')', classe: 'c-rouge', ancre: 'end' }, { x: 3.1, y: 2.85, texte: '(d', indice: '2', apres: ')', classe: 'c-noir' },
-                   { x: -3.9, y: 2.4, texte: '(d', indice: '3', apres: ')', classe: 'c-bleu' }, { x: 3, y: 0.8, texte: '(d', indice: '4', apres: ')', classe: 'c-violet' }],
-            label: 'Repère avec quatre droites. d1 passe par (0 ; 0) et (1 ; 2). d2 passe par (0 ; 2) et (2 ; 3). d3 passe par (0 ; 0) et (2 ; −1). d4 passe par (0 ; 0) et (2 ; 1)' })),
-      bonne: 3,
-      explication: [
-        r`La représentation graphique d'une fonction linéaire est une droite qui passe par l'origine du repère.`,
-        r`$g(2) = 0{,}5 \times 2 = 1$&nbsp;: elle passe aussi par le point de coordonnées $(2\,;\,1)$. C'est la droite <span class="resultat">$(d_4)$</span>.`,
-        repere(Object.assign({}, CADRE, { echelle: 1.15, courbes: [{ f: x => 0.5 * x, classe: 'c-violet' }],
-            noms: [{ x: 3, y: 0.8, texte: '(d', indice: '4', apres: ')', classe: 'c-violet' }],
-            points: [{ x: 0, y: 0, classe: 'c-violet' }, { x: 2, y: 1, classe: 'c-violet' }], lectures: [[[2, 0], [2, 1], [0, 1]]],
-            label: 'La droite d4 seule : elle passe par l\'origine et par le point (2 ; 1), lu en tirets verts' }))] } },
-
-  /* ----- Partie 2 : calcul littéral ----- */
-
-  { partie: 1, theme: 'Somme ou produit', type: 'qcm',
+  { partie: 0, theme: 'Somme ou produit', type: 'qcm',
     enonce: r`Parmi ces quatre expressions, laquelle est un <b>produit</b>&nbsp;?`,
     choix: [r`$(3x - 1)^{2}$`, r`$x(x + 4) - 3$`, r`$5 + 2(x - 7)$`, r`$9x^{2} - 1$`],
     bonne: 0,
@@ -499,7 +325,7 @@ const QUIZ = {
         r`On cherche la <b>dernière opération</b> effectuée quand on calcule l'expression pour une valeur de $x$, en respectant les priorités&nbsp;: une multiplication donne un produit, une addition ou une soustraction donne une somme.`,
         r`Dans $4 + (x - 2)(x + 3)$, la multiplication est prioritaire&nbsp;: on calcule le produit $(x - 2)(x + 3)$, puis on ajoute $4$ en dernier. <span class="resultat">$4 + (x - 2)(x + 3)$ est une somme</span>, de termes $4$ et $(x - 2)(x + 3)$.`] } },
 
-  { partie: 1, theme: 'Distributivité simple', type: 'qcm',
+  { partie: 0, theme: 'Distributivité simple', type: 'qcm',
     enonce: r`La forme développée et réduite de $A = 3(x + 5) - 2(x - 4)$ est&nbsp;:`,
     choix: [r`$x + 23$`, r`$x + 7$`, r`$x + 19$`, r`$5x + 7$`],
     bonne: 0,
@@ -515,7 +341,7 @@ const QUIZ = {
         r`On développe chaque produit avec la distributivité simple, $k(a + b) = ka + kb$. Le nombre $-3$ multiplie chacun des termes $x$ et $-4$, avec $(-3) \times (-4) = 12$. Puis on regroupe les termes en $x$, puis les nombres.`,
         calcul(r`A & = 5 \times x + 5 \times 1 + (-3) \times x + (-3) \times (-4)`, r`& = 5x + 5 - 3x + 12`, r`& = \resultat{2x + 17}`)] } },
 
-  { partie: 1, theme: 'Double distributivité', type: 'qcm',
+  { partie: 0, theme: 'Double distributivité', type: 'qcm',
     enonce: r`La forme développée et réduite de $A = (3x - 2)(x + 4)$ est&nbsp;:`,
     choix: [r`$3x^{2} + 10x - 8$`, r`$3x^{2} - 8$`, r`$3x^{2} + 14x - 8$`, r`$3x^{2} + 10x + 8$`],
     bonne: 0,
@@ -531,7 +357,7 @@ const QUIZ = {
         r`Double distributivité&nbsp;: chaque terme de la première parenthèse multiplie chaque terme de la seconde (quatre produits), puis on réduit.`,
         calcul(r`A & = 2x \times x + 2x \times (-3) + 5 \times x + 5 \times (-3)`, r`& = 2x^{2} - 6x + 5x - 15`, r`& = \resultat{2x^{2} - x - 15}`)] } },
 
-  { partie: 1, theme: 'Facteur commun', type: 'qcm',
+  { partie: 0, theme: 'Facteur commun', type: 'qcm',
     enonce: r`Une forme factorisée de $A = 14x + 21$ est&nbsp;:`,
     choix: [r`$7(2x + 3)$`, r`$7(2x + 21)$`, r`$7x(2 + 3)$`, r`$14(x + 21)$`],
     bonne: 0,
@@ -549,7 +375,7 @@ const QUIZ = {
         calcul(r`A & = 5 \times 3x - 5 \times 4`, r`& = \resultat{5(3x - 4)}`),
         r`Vérification&nbsp;: en développant, $5(3x - 4) = 15x - 20$.`] } },
 
-  { partie: 1, theme: 'Facteur commun', type: 'qcm',
+  { partie: 0, theme: 'Facteur commun', type: 'qcm',
     enonce: r`Une forme factorisée de $A = (x + 2)(3x - 1) - (x + 2)(x + 4)$ est&nbsp;:`,
     choix: [r`$(x + 2)(2x - 5)$`, r`$(x + 2)(2x + 3)$`, r`$(x + 2)(4x + 3)$`, r`$(x + 2)(4x - 5)$`],
     bonne: 0,
@@ -565,7 +391,7 @@ const QUIZ = {
         r`Le facteur commun est la parenthèse $(x - 3)$. On écrit entre crochets ce qui reste de chaque terme&nbsp;; le signe $-$ devant le second terme porte sur toute la parenthèse $(x + 5)$.`,
         calcul(r`A & = (x - 3) \times (4x + 1) - (x - 3) \times (x + 5)`, r`& = (x - 3)[(4x + 1) - (x + 5)]`, r`& = (x - 3)(4x + 1 - x - 5)`, r`& = \resultat{(x - 3)(3x - 4)}`)] } },
 
-  { partie: 1, theme: 'Identités remarquables', type: 'qcm',
+  { partie: 0, theme: 'Identités remarquables', type: 'qcm',
     enonce: r`La forme développée et réduite de $A = (2x - 5)^{2}$ est&nbsp;:`,
     choix: [r`$4x^{2} - 20x + 25$`, r`$4x^{2} - 25$`, r`$2x^{2} - 20x + 25$`, r`$4x^{2} - 10x + 25$`],
     bonne: 0,
@@ -581,7 +407,7 @@ const QUIZ = {
         r`On applique l'identité remarquable $(a - b)^{2} = a^{2} - 2ab + b^{2}$ avec $a = 5x$ et $b = 1$.`,
         calcul(r`A & = (5x)^{2} - 2 \times 5x \times 1 + 1^{2}`, r`& = \resultat{25x^{2} - 10x + 1}`)] } },
 
-  { partie: 1, theme: 'Identités remarquables', type: 'qcm',
+  { partie: 0, theme: 'Identités remarquables', type: 'qcm',
     enonce: r`La forme développée et réduite de $A = (4x + 3)(4x - 3)$ est&nbsp;:`,
     choix: [r`$16x^{2} - 9$`, r`$4x^{2} - 9$`, r`$16x^{2} + 9$`, r`$16x^{2} - 24x + 9$`],
     bonne: 0,
@@ -597,7 +423,7 @@ const QUIZ = {
         r`On applique l'identité remarquable $(a + b)(a - b) = a^{2} - b^{2}$ avec $a = 2x$ et $b = 7$.`,
         calcul(r`A & = (2x)^{2} - 7^{2}`, r`& = \resultat{4x^{2} - 49}`)] } },
 
-  { partie: 1, theme: 'Factoriser avec une identité', type: 'qcm',
+  { partie: 0, theme: 'Factoriser avec une identité', type: 'qcm',
     enonce: r`Une forme factorisée de $A = 9x^{2} + 12x + 4$ est&nbsp;:`,
     choix: [r`$(3x + 2)^{2}$`, r`$(3x - 2)^{2}$`, r`$(9x + 4)^{2}$`, r`$(3x + 2)(3x - 2)$`],
     bonne: 0,
@@ -613,7 +439,7 @@ const QUIZ = {
         r`Trois termes, dont deux carrés&nbsp;: $16x^{2} = (4x)^{2}$ et $9 = 3^{2}$. Le troisième, $24x = 2 \times 4x \times 3$, est $2ab$ avec $a = 4x$ et $b = 3$&nbsp;: on reconnaît $a^{2} + 2ab + b^{2} = (a + b)^{2}$.`,
         calcul(r`A & = (4x)^{2} + 2 \times 4x \times 3 + 3^{2}`, r`& = \resultat{(4x + 3)^{2}}`)] } },
 
-  { partie: 1, theme: 'Factoriser avec une identité', type: 'qcm',
+  { partie: 0, theme: 'Factoriser avec une identité', type: 'qcm',
     enonce: r`Une forme factorisée de $A = 36x^{2} - 49$ est&nbsp;:`,
     choix: [r`$(6x - 7)(6x + 7)$`, r`$(6x - 7)^{2}$`, r`$(18x - 7)(18x + 7)$`, r`$(6x - 49)(6x + 49)$`],
     bonne: 0,
@@ -629,7 +455,7 @@ const QUIZ = {
         r`Deux carrés séparés par un signe $-$&nbsp;: $64x^{2} = (8x)^{2}$ et $25 = 5^{2}$. On applique $a^{2} - b^{2} = (a - b)(a + b)$ avec $a = 8x$ et $b = 5$.`,
         calcul(r`A & = (8x)^{2} - 5^{2}`, r`& = \resultat{(8x - 5)(8x + 5)}`)] } },
 
-  { partie: 1, theme: 'Vérifier une égalité', type: 'vf',
+  { partie: 0, theme: 'Vérifier une égalité', type: 'vf',
     enonce: r`L'égalité $(x - 6)^{2} = x^{2} - 36$ est vraie pour tout réel $x$.`,
     bonne: false,
     explication: [
