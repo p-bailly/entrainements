@@ -1,3 +1,7 @@
+## Seconde
+
+- Chapitre 1 : [Calcul littéral](https://p-bailly.github.io/entrainements/seconde/01-calcul-litteral.html)
+
 ## Première, mathématiques spécifiques
 
 - Chapitre 1 : [Fonctions affines](https://p-bailly.github.io/entrainements/premiere/01-fonctions-affines.html)

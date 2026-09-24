@@ -1,0 +1,1093 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement Évaluation calcul littéral</title>
+<!--
+  Entraînement auto-corrigé à l'évaluation du chapitre 1 (Calcul littéral) - Seconde.
+  Deux parties :
+    1. Automatismes : six questions sur les automatismes de début d'année de l'établissement,
+       au niveau d'un élève qui entre en Seconde : écritures d'un nombre (fraction, écriture
+       décimale, pourcentage), théorèmes de Pythagore et de Thalès, fonctions affines et
+       linéaires (expression, représentation graphique) ;
+    2. Calcul littéral, dans l'ordre du cours : somme ou produit, développer (distributivité
+       simple et double, identités remarquables), factoriser (facteur commun, identités
+       remarquables), vérifier une égalité (contre-exemple). Sources : capacités 1 à 6 du
+       cours, fiche d'exercices (exercices 1 à 5), évaluation (sujets A et B) et exercices du
+       manuel corrigés dans Livre/.
+  Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
+
+  Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
+  entrainement-01-calcul-litteral-questions.js (même dossier) ; moteur et mise en page :
+  Commun aux cours/entrainement/gabarit.html (format des questions en tête).
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/seconde/01-calcul-litteral.html
+  (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&display=swap">
+<!-- KaTeX, chargé sans bloquer la page (réseau du lycée parfois filtré) : les formules s'affichent
+     d'abord en mini-LaTeX, puis KaTeX les recompose sur place dès que sa feuille et son script sont là. -->
+<link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css" integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous" media="print" onload="this.media='all'; if (window.katexPret) katexPret()">
+<script async src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js" integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj" crossorigin="anonymous" onload="if (window.katexPret) katexPret()"></script>
+<style>
+:root{
+  --papier:#FCFBF7; --encre:#161616; --gris:#6B6A66; --filet:#C4BFB3; --filet-clair:#E4E0D6; --case:#F0EDE5;
+  --stylo:#1E3D96; --rouge:#CE2029; --vert:#2A7A36; --orange:#E8940A; --violet:#7A3E9D;
+  --serif:"Old Standard TT","Times New Roman",Times,serif;
+  --main:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --mono:ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 var(--serif); min-height:100vh}
+.feuille{max-width:720px; margin:0 auto; padding:34px 40px 60px}
+
+/* Retour à la liste des entraînements */
+.retour{margin:0 0 14px; font-size:.95rem}
+.retour a{color:var(--stylo); text-decoration:none; border-bottom:1px solid var(--filet)}
+.retour a:hover,.retour a:focus-visible{border-bottom-color:var(--stylo)}
+
+/* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
+.mul{color:#9C27B0}
+/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
+.op{color:var(--rouge)}
+
+/* En-tête de la copie */
+.entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
+h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
+.consigne{margin:0 0 12px; font-style:italic}
+.filet{height:4px; border-top:1px solid var(--encre); border-bottom:1px solid var(--encre); margin:8px 0 20px}
+
+/* Grilles de réponses, une par partie */
+.progression{display:flex; flex-wrap:wrap; gap:10px 28px; margin:0 0 24px; scroll-margin-top:12px}
+.bloc-grille{max-width:100%; overflow-x:auto}
+.nom-partie{margin:0 0 3px; font-style:italic; font-size:.9rem; white-space:nowrap}
+.grille-reponses{border-collapse:collapse; font-size:.9rem}
+.grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
+.grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
+.grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
+.grille-reponses td[data-q],.grille-reponses td[data-r]{cursor:pointer}
+.grille-reponses td.ici{background:var(--filet-clair)}
+.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
+.grille-reponses button.aller:hover{text-decoration:underline}
+.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
+.grille-reponses td.juste{color:var(--vert)}
+.grille-reponses td.erreur{color:var(--rouge)}
+
+/* Marques au stylo : croix et coche dessinées en CSS */
+.marque{position:relative; display:inline-block; width:18px; height:18px; vertical-align:-4px; color:inherit}
+.marque::before,.marque::after{content:""; position:absolute; width:2px; background:currentColor; border-radius:1px; display:none}
+.marque.croix::before,.marque.croix::after{display:block; left:8px; top:-2px; height:22px}
+.marque.croix::before{transform:rotate(43deg)}
+.marque.croix::after{transform:rotate(-47deg)}
+.marque.coche::before,.marque.coche::after{display:block}
+.marque.coche::before{left:3px; top:8px; height:8px; transform:rotate(-42deg)}
+.marque.coche::after{left:10px; top:-2px; height:20px; transform:rotate(38deg)}
+
+/* Question et réponses */
+.partie{margin:0 0 2px; font-variant:small-caps; letter-spacing:.03em}
+.question{margin:0 0 6px}
+.question i{color:var(--gris)}
+.enonce{margin:0 0 14px}
+.reponses{display:grid; gap:6px; margin:0 0 18px}
+.reponses.vf{display:flex; gap:12px 40px; flex-wrap:wrap}
+.choix{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; padding:5px 4px; border:0; border-radius:0; background:transparent; color:var(--encre); font:inherit; line-height:1.45; cursor:pointer}
+.reponses.vf .choix{width:auto; padding-right:12px}
+.choix:disabled{cursor:default}
+.choix .boite{flex:none; position:relative; width:18px; height:18px; margin-top:5px; border:1px solid var(--encre); background:var(--papier)}
+.choix .boite .marque{position:absolute; left:-1px; top:-1px}
+.choix:hover:not(:disabled) .boite{box-shadow:0 0 0 1px var(--encre)}
+.choix .lettre{flex:none; width:1.3em; color:var(--gris)}
+.choix .texte{flex:1; min-width:0}
+.choix.choisi .marque{color:var(--stylo)}
+.choix.juste .marque{color:var(--vert)}
+.choix.erreur .marque{color:var(--rouge)}
+.choix.terne{color:var(--gris)}
+.actions{display:flex; gap:12px 18px; flex-wrap:wrap; align-items:center}
+.bouton{font:inherit; font-variant:small-caps; letter-spacing:.04em; font-size:1rem; padding:5px 18px; border:1px solid var(--encre); border-radius:0; background:var(--papier); color:var(--encre); cursor:pointer}
+.bouton:hover:not(:disabled){background:var(--encre); color:var(--papier)}
+.bouton:disabled{opacity:.4; cursor:default}
+.bouton.discret{border-color:var(--filet)}
+
+/* Correction du professeur */
+.correction{margin:20px 0 0; padding:2px 0 2px 16px; border-left:2px solid var(--rouge)}
+.correction.juste{border-left-color:var(--vert)}
+.verdict{font:600 1.7rem/1.1 var(--main); color:var(--rouge); margin:0 0 6px}
+.correction.juste .verdict{color:var(--vert)}
+.explication{margin:0; font-size:1rem; line-height:1.55}
+.explication p{margin:0 0 .55em}
+.explication p:last-child{margin-bottom:0}
+.explication .revoir{font-style:italic; color:var(--gris)}
+.explication .fig{margin:8px auto 12px}
+/* Calcul en colonne : une étape par ligne, alignées sur le signe = ou ⇔ (comme dans les PDF) */
+.calcul{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.45em .4em; align-items:baseline; margin:.3em 0 .5em 1.4em; padding:.2em 0 .3em; overflow-x:auto; overflow-y:hidden}
+.calcul .g{justify-self:end}
+.resultat{display:inline-block; border:1px solid currentColor; padding:.05em .4em; line-height:1.35}
+code{font-family:var(--mono); font-size:.88em}
+
+/* Figures dans les énoncés et les corrections */
+.fig{display:block; width:100%; height:auto; margin:12px auto 4px}
+.fig .grille{stroke:var(--filet); stroke-width:.7; fill:none}
+.fig .axe{stroke:var(--encre); stroke-width:1.1; fill:none}
+.fig .fleche{fill:var(--encre)}
+.fig .tick{font:10.5px var(--serif); fill:var(--encre); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .courbe{stroke:currentColor; stroke-width:2.2; fill:none}
+.fig .lab{font:italic 13px var(--serif); fill:currentColor; paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .pt{fill:currentColor}
+.fig .lecture{stroke:var(--vert); stroke-width:1.5; stroke-dasharray:5 3; fill:none}
+.fig .pointe{fill:var(--vert)}
+.fig .note{font:italic 11.5px var(--serif); fill:var(--vert); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .surligne{stroke:var(--orange); stroke-width:9; opacity:.6; fill:none}
+.fig .c-rouge{color:var(--rouge)}
+.fig .c-bleu{color:var(--stylo)}
+.fig .c-noir{color:var(--encre)}
+.fig .c-violet{color:var(--violet)}
+
+/* Résultat */
+.note{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:6px 0 2px; color:var(--rouge)}
+.note .grand{font:700 3.6rem/1 var(--main)}
+.note .sur{font:400 1.5rem/1 var(--main)}
+.appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
+.bilan-parties{margin:0 0 6px}
+.bilan-parties span{white-space:nowrap}
+.bilan-reprise{margin:0 0 10px}
+.reprise-info{margin:0 0 10px; font-style:italic}
+.a-revoir{margin:0 0 16px}
+.a-revoir ul{margin:4px 0 0; padding-left:1.3em}
+.titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
+.revue{list-style:none; padding:0; margin:8px 0 0; border-top:1px solid var(--encre)}
+.revue li{padding:14px 0; border-bottom:1px solid var(--filet)}
+.revue .enonce{margin-bottom:10px}
+.revue .bilan{margin:6px 0 8px; font-style:italic}
+.revue li.juste .bilan{color:var(--vert)}
+.revue li.erreur .bilan{color:var(--rouge)}
+.revue .explication{font-size:1rem}
+.liste-choix{margin:0 0 8px; padding-left:1.6em}
+.liste-choix li{border:0; padding:1px 0}
+.liste-choix li.bonne{color:var(--vert)}
+.variante{margin:14px 0 0; padding:0 0 0 14px; border-left:1px dashed var(--filet)}
+.pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
+.pied p{margin:0 0 4px}
+.pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
+
+/* Formules : KaTeX (réduit de 1,21 à 1,1 em pour s'accorder au texte), sinon mini-LaTeX (.m) */
+.katex{font-size:1.1em}
+.m{font-family:var(--serif); white-space:nowrap}
+.m.m-long{white-space:normal}
+.m i{font-style:italic}
+.m .rm{font-style:normal}
+.m sub,.m sup{font-size:.8em; line-height:0; white-space:nowrap}
+.m .prime{display:inline-block; margin-left:.08em; font-size:1.2em; line-height:0}
+.m sub{vertical-align:-.25em}
+.m sup{vertical-align:.55em}
+.frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; font-size:.92em; line-height:1.2; margin:0 .15em}
+.frac .num{border-bottom:1px solid currentColor; padding:0 .25em .04em}
+.frac .den{padding:.04em .25em 0}
+.sqrt .rad{border-top:1px solid currentColor; padding:0 .12em}
+
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important; scroll-behavior:auto !important}}
+@media (max-width:520px){
+  body{font-size:17px}
+  .feuille{padding:22px 16px 48px}
+  .entete{font-size:.9rem}
+  h1{font-size:1.7rem}
+  .reponses.vf{gap:8px 24px}
+}
+@media print{
+  .actions,.pied,.progression{display:none}
+  .revue li{break-inside:avoid}
+}
+/* Feuille de calcul */
+table.tableur{border-collapse:collapse; margin:10px auto 4px; font:400 .88rem "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+table.tableur th{background:var(--case); color:var(--gris); font-weight:400; border:1px solid var(--filet); padding:2px 10px; text-align:center; min-width:2.2em}
+table.tableur td{border:1px solid var(--filet); padding:2px 10px; min-width:5em; height:1.9em; background:#FFFFFF; text-align:center}
+table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
+</style>
+</head>
+<body>
+<main class="feuille">
+  <header>
+    <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
+    <div class="entete"><span>Seconde</span><span>M. Bailly</span><span>Chapitre 1 · Calcul littéral</span></div>
+    <h1>Entraînement Évaluation calcul littéral</h1>
+    <p class="consigne">Deux parties&nbsp;: six automatismes, puis dix questions sur le calcul littéral. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="filet" role="presentation"></div>
+  </header>
+  <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
+  <section id="quiz" aria-live="polite"></section>
+  <footer class="pied">
+    <p><button type="button" id="reinitialiser">Recommencer depuis le début</button></p>
+  </footer>
+</main>
+<script>
+(function () {
+'use strict';
+const r = String.raw;
+
+/* ---------- Figures (SVG généré) ---------- */
+const arrondi = x => Math.round(x * 10) / 10;
+const fr = x => String(x).replace('.', ',');
+const moins = n => String(n).replace('-', '−');
+function fleche(x, y, sens) {
+  return sens === 'droite'
+    ? `<path class="fleche" d="M${x} ${y} l-7 -3.5 v7 z"/>`
+    : `<path class="fleche" d="M${x} ${y} l-3.5 7 h7 z"/>`;
+}
+// Repère orthonormé quadrillé et gradué de 1 en 1. o = {xmin, xmax, ymin, ymax, label, echelle} et, au choix :
+//   courbes  : [{f: x => ..., classe, x1, x2}]        classe = c-rouge (défaut), c-bleu, c-noir, c-violet
+//   noms     : [{x, y, texte, indice, apres, classe, ancre}]   nom d'une courbe, dans sa couleur
+//   lectures : [[[x, y], [x, y], ...], ...]            lignes de lecture en tirets verts, flèche au bout
+//   textes   : [{x, y, texte, ancre}]                  annotations vertes des lectures (+1, +3...)
+//   points   : [{x, y, classe}]
+//   surligne : {x1, x2}                                partie de l'axe des abscisses surlignée en orange (null = bord du repère)
+let numeroFigure = 0;
+function repere(o) {
+  const u = 26, m = 17;
+  const W = (o.xmax - o.xmin) * u + 2 * m, H = (o.ymax - o.ymin) * u + 2 * m;
+  const X = x => arrondi(m + (x - o.xmin) * u), Y = y => arrondi(m + (o.ymax - y) * u);
+  const cadre = 'cadre-' + (++numeroFigure);
+  const xfin = X(o.xmax) + 12, yhaut = Y(o.ymax) - 12;
+  let s = `<svg class="fig" viewBox="0 0 ${W} ${H}" style="max-width:${Math.round(W * (o.echelle || 1.3))}px" role="img" aria-label="${o.label}">`;
+  s += `<defs><clipPath id="${cadre}"><rect x="${X(o.xmin)}" y="${Y(o.ymax)}" width="${(o.xmax - o.xmin) * u}" height="${(o.ymax - o.ymin) * u}"/></clipPath></defs>`;
+  for (let x = o.xmin; x <= o.xmax; x++) s += `<line class="grille" x1="${X(x)}" y1="${Y(o.ymin)}" x2="${X(x)}" y2="${Y(o.ymax)}"/>`;
+  for (let y = o.ymin; y <= o.ymax; y++) s += `<line class="grille" x1="${X(o.xmin)}" y1="${Y(y)}" x2="${X(o.xmax)}" y2="${Y(y)}"/>`;
+  if (o.surligne) {
+    const x1 = o.surligne.x1 === null ? o.xmin : o.surligne.x1, x2 = o.surligne.x2 === null ? o.xmax : o.surligne.x2;
+    s += `<line class="surligne" x1="${X(x1)}" y1="${Y(0)}" x2="${X(x2)}" y2="${Y(0)}"/>`;
+  }
+  s += `<line class="axe" x1="${X(o.xmin)}" y1="${Y(0)}" x2="${xfin}" y2="${Y(0)}"/>${fleche(xfin, Y(0), 'droite')}`;
+  s += `<line class="axe" x1="${X(0)}" y1="${Y(o.ymin)}" x2="${X(0)}" y2="${yhaut}"/>${fleche(X(0), yhaut, 'haut')}`;
+  (o.courbes || []).forEach(c => {
+    const x1 = c.x1 === undefined ? o.xmin : c.x1, x2 = c.x2 === undefined ? o.xmax : c.x2, n = 80;
+    let d = '';
+    for (let k = 0; k <= n; k++) { const x = x1 + (x2 - x1) * k / n; d += (k ? ' L' : 'M') + X(x) + ' ' + Y(c.f(x)); }
+    s += `<path class="courbe ${c.classe || 'c-rouge'}" clip-path="url(#${cadre})" d="${d}"/>`;
+  });
+  (o.lectures || []).forEach(pts => {
+    const P = pts.map(p => [X(p[0]), Y(p[1])]);
+    const a = P[P.length - 2], b = P[P.length - 1];
+    const L = Math.hypot(b[0] - a[0], b[1] - a[1]), ux = (b[0] - a[0]) / L, uy = (b[1] - a[1]) / L;
+    s += `<polyline class="lecture" points="${P.map(p => p.join(',')).join(' ')}"/>`;
+    s += `<path class="pointe" d="M${b[0]} ${b[1]} L${arrondi(b[0] - 7 * ux + 3.2 * uy)} ${arrondi(b[1] - 7 * uy - 3.2 * ux)} L${arrondi(b[0] - 7 * ux - 3.2 * uy)} ${arrondi(b[1] - 7 * uy + 3.2 * ux)} z"/>`;
+  });
+  // Graduations sur fond papier, par-dessus les courbes et les lectures : elles restent lisibles.
+  for (let x = o.xmin; x <= o.xmax; x++) if (x !== 0) s += `<text class="tick" x="${X(x)}" y="${Y(0) + 13}" text-anchor="middle">${moins(x)}</text>`;
+  for (let y = o.ymin; y <= o.ymax; y++) if (y !== 0) s += `<text class="tick" x="${X(0) - 5}" y="${Y(y) + 3.5}" text-anchor="end">${moins(y)}</text>`;
+  s += `<text class="tick" x="${X(0) - 5}" y="${Y(0) + 13}" text-anchor="end">0</text>`;
+  (o.points || []).forEach(p => { s += `<circle class="pt ${p.classe || 'c-rouge'}" cx="${X(p.x)}" cy="${Y(p.y)}" r="3.3"/>`; });
+  (o.textes || []).forEach(t => { s += `<text class="note" x="${X(t.x)}" y="${Y(t.y)}" text-anchor="${t.ancre || 'middle'}">${t.texte}</text>`; });
+  (o.noms || []).forEach(n => {
+    const indice = n.indice ? `<tspan dy="3" font-size="9.5">${n.indice}</tspan>` + (n.apres ? `<tspan dy="-3">${n.apres}</tspan>` : '') : '';
+    s += `<text class="lab ${n.classe || 'c-rouge'}" x="${X(n.x)}" y="${Y(n.y)}" text-anchor="${n.ancre || 'start'}">${n.texte}${indice}</text>`;
+  });
+  return s + '</svg>';
+}
+// Feuille de calcul (question sur le tableur) : lignes = [[A, B], ...] à partir de la ligne 1 ;
+// la cellule '#sel' est la cellule sélectionnée, laissée vide.
+function tableur(lignes, label) {
+  const cellule = c => c === '#sel' ? '<td class="sel"></td>' : `<td>${c}</td>`;
+  return `<table class="tableur" aria-label="${label}"><tr><th></th><th>A</th><th>B</th></tr>`
+    + lignes.map((l, k) => `<tr><th>${k + 1}</th>${cellule(l[0])}${cellule(l[1])}</tr>`).join('')
+    + '</table>';
+}
+
+// Calcul en colonne, comme l'environnement calcul des PDF : une étape par ligne, alignées sur le
+// signe placé après & (formules écrites sans les dollars). Le résultat s'encadre avec \resultat{...}.
+//   calcul(r`A & = x - 4(3x + 2)`, r`& = x - 12x - 8`, r`& = \resultat{-11x - 8}`)
+function calcul(...lignes) {
+  return '<div class="calcul">' + lignes.map(l => {
+    const k = l.indexOf('&');
+    const gauche = k < 0 ? '' : l.slice(0, k).trim(), droite = (k < 0 ? l : l.slice(k + 1)).trim();
+    return '<span class="g">' + (gauche ? '$' + gauche + '$' : '') + '</span><span class="d">$' + droite + '$</span>';
+  }).join('') + '</div>';
+}
+
+/* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
+// Figure de géométrie (théorèmes de Pythagore et de Thalès), de même allure que repere :
+// traits fins, segment à calculer en rouge, angle droit marqué, sommets nommés en italique.
+//   points : {A: [x, y], ...} en centimètres, y vers le haut ; segments : ['AB', ...] ;
+//   cherche : le segment à calculer ; droit : ['E', 'F', 'G'] pour un angle droit en E, entre
+//   [EF] et [EG] ; decalages : {M: [dx, dy]} position d'un nom par rapport à son point, en
+//   pixels (par défaut, à l'opposé du centre de la figure) ; label : description (accessibilité).
+function geometrie(o) {
+  const u = 20, m = 18, P = o.points, noms = Object.keys(P);
+  const xs = noms.map(n => P[n][0]), ys = noms.map(n => P[n][1]);
+  const xmin = Math.min(...xs), xmax = Math.max(...xs), ymin = Math.min(...ys), ymax = Math.max(...ys);
+  const W = (xmax - xmin) * u + 2 * m, H = (ymax - ymin) * u + 2 * m;
+  const r1 = v => Math.round(v * 10) / 10;
+  const X = n => r1(m + (P[n][0] - xmin) * u), Y = n => r1(m + (ymax - P[n][1]) * u);
+  const trait = (seg, attr) => '<line ' + attr + ' x1="' + X(seg[0]) + '" y1="' + Y(seg[0]) + '" x2="' + X(seg[1]) + '" y2="' + Y(seg[1]) + '"/>';
+  let s = '<svg class="fig" viewBox="0 0 ' + W + ' ' + H + '" style="max-width:' + Math.round(W * 1.3) + 'px" role="img" aria-label="' + o.label + '">';
+  o.segments.forEach(seg => { s += trait(seg, 'stroke="currentColor" stroke-width="1.2"'); });
+  if (o.droit) {
+    const a = o.droit[0], k = 8;
+    const v = n => { const dx = X(n) - X(a), dy = Y(n) - Y(a), L = Math.hypot(dx, dy); return [k * dx / L, k * dy / L]; };
+    const p = v(o.droit[1]), q = v(o.droit[2]);
+    s += '<path d="M' + r1(X(a) + p[0]) + ' ' + r1(Y(a) + p[1]) + ' l' + r1(q[0]) + ' ' + r1(q[1]) + ' l' + r1(-p[0]) + ' ' + r1(-p[1]) + '" fill="none" stroke="currentColor" stroke-width="1"/>';
+  }
+  if (o.cherche) s += '<g class="c-rouge">' + trait(o.cherche, 'stroke="currentColor" stroke-width="2.2"') + '</g>';
+  const gx = xs.reduce((t, x) => t + x, 0) / xs.length, gy = ys.reduce((t, y) => t + y, 0) / ys.length;
+  noms.forEach(n => {
+    let d = o.decalages && o.decalages[n];
+    if (!d) { const dx = P[n][0] - gx, dy = gy - P[n][1], L = Math.hypot(dx, dy) || 1; d = [12 * dx / L, 12 * dy / L]; }
+    s += '<text class="lab c-noir" x="' + r1(X(n) + d[0]) + '" y="' + r1(Y(n) + d[1] + 4.5) + '" text-anchor="middle">' + n + '</text>';
+  });
+  return s + '</svg>';
+}
+
+const CADRE = { xmin: -4, xmax: 4, ymin: -4, ymax: 4 };   // repère des questions sur les droites
+
+const QUIZ = {
+  id: '2de-01-calcul-litteral-entrainement',
+  parties: ['Automatismes', 'Calcul littéral'],
+  questions: [
+
+  /* ----- Partie 1 : automatismes de début d'année ----- */
+
+  { partie: 0, theme: 'Écritures d\'un nombre', type: 'qcm',
+    enonce: r`Le nombre $\dfrac{3}{20}$ s'écrit, en pourcentage&nbsp;:`,
+    choix: [r`$15\,\%$`, r`$0{,}15\,\%$`, r`$1{,}5\,\%$`, r`$60\,\%$`],
+    bonne: 0,
+    explication: [
+      r`Un pourcentage est une fraction de dénominateur $100$&nbsp;: on multiplie le numérateur et le dénominateur par $5$ pour obtenir le dénominateur $100$.`,
+      calcul(r`\dfrac{3}{20} & = \dfrac{3 \mul{\times 5}}{20 \mul{\times 5}}`, r`& = \dfrac{15}{100}`, r`& = \resultat{15\,\%}`)],
+    revoir: r`écritures d'un nombre&nbsp;: fraction, écriture décimale, pourcentage (collège)`,
+    variante: {
+      enonce: r`Le nombre $\dfrac{7}{25}$ s'écrit, en pourcentage&nbsp;:`,
+      choix: [r`$28\,\%$`, r`$0{,}28\,\%$`, r`$2{,}8\,\%$`, r`$175\,\%$`],
+      bonne: 0,
+      explication: [
+        r`Un pourcentage est une fraction de dénominateur $100$&nbsp;: on multiplie le numérateur et le dénominateur par $4$ pour obtenir le dénominateur $100$.`,
+        calcul(r`\dfrac{7}{25} & = \dfrac{7 \mul{\times 4}}{25 \mul{\times 4}}`, r`& = \dfrac{28}{100}`, r`& = \resultat{28\,\%}`)] } },
+
+  { partie: 0, theme: 'Écritures d\'un nombre', type: 'qcm',
+    enonce: r`Le nombre $0{,}35$ s'écrit sous la forme d'une fraction irréductible&nbsp;:`,
+    choix: [r`$\dfrac{7}{20}$`, r`$\dfrac{7}{2}$`, r`$\dfrac{3}{5}$`, r`$\dfrac{1}{35}$`],
+    bonne: 0,
+    explication: [
+      r`$0{,}35$, c'est $35$ centièmes&nbsp;: $0{,}35 = \dfrac{35}{100}$. On simplifie ensuite par $5$, qui divise le numérateur et le dénominateur.`,
+      calcul(r`0{,}35 & = \dfrac{35}{100}`, r`& = \dfrac{7 \mul{\times 5}}{20 \mul{\times 5}}`, r`& = \resultat{\dfrac{7}{20}}`),
+      r`$7$ et $20$ n'ont pas d'autre diviseur commun que $1$&nbsp;: la fraction est irréductible.`],
+    revoir: r`écritures d'un nombre&nbsp;: fraction, écriture décimale, pourcentage (collège)`,
+    variante: {
+      enonce: r`Le nombre $0{,}16$ s'écrit sous la forme d'une fraction irréductible&nbsp;:`,
+      choix: [r`$\dfrac{4}{25}$`, r`$\dfrac{8}{5}$`, r`$\dfrac{1}{6}$`, r`$\dfrac{1}{16}$`],
+      bonne: 0,
+      explication: [
+        r`$0{,}16$, c'est $16$ centièmes&nbsp;: $0{,}16 = \dfrac{16}{100}$. On simplifie ensuite par $4$, qui divise le numérateur et le dénominateur.`,
+        calcul(r`0{,}16 & = \dfrac{16}{100}`, r`& = \dfrac{4 \mul{\times 4}}{25 \mul{\times 4}}`, r`& = \resultat{\dfrac{4}{25}}`),
+        r`$4$ et $25$ n'ont pas d'autre diviseur commun que $1$&nbsp;: la fraction est irréductible.`] } },
+
+  { partie: 0, theme: 'Théorème de Pythagore', type: 'qcm',
+    enonce: r`Le triangle $EFG$ est rectangle en $E$, avec $EF = 6\,\text{cm}$ et $FG = 10\,\text{cm}$. La longueur $EG$ est égale à&nbsp;:`
+      + geometrie({ points: { E: [0, 0], F: [0, 6], G: [8, 0] }, segments: ['EF', 'FG'], cherche: 'EG', droit: ['E', 'F', 'G'],
+          label: 'Triangle EFG rectangle en E ; le côté [EG], à calculer, est en rouge' }),
+    choix: [r`$8\,\text{cm}$`, r`$\sqrt{136}\,\text{cm}$`, r`$4\,\text{cm}$`, r`$64\,\text{cm}$`],
+    bonne: 0,
+    explication: [
+      r`Le triangle $EFG$ est rectangle en $E$&nbsp;: son hypoténuse est $[FG]$, le côté opposé à l'angle droit. D'après le théorème de Pythagore, $FG^{2} = EF^{2} + EG^{2}$.`,
+      calcul(r`10^{2} & = 6^{2} + EG^{2}`, r`100 & = 36 + EG^{2}`, r`100 \op{- 36} & = 36 + EG^{2} \op{- 36}`, r`64 & = EG^{2}`),
+      r`$EG$ est une longueur, donc un nombre positif&nbsp;: $EG = \sqrt{64}$, soit <span class="resultat">$EG = 8\,\text{cm}$</span>.`],
+    revoir: r`théorème de Pythagore (collège)`,
+    variante: {
+      enonce: r`Le triangle $RST$ est rectangle en $R$, avec $RS = 5\,\text{cm}$ et $ST = 13\,\text{cm}$. La longueur $RT$ est égale à&nbsp;:`
+        + geometrie({ points: { R: [0, 0], S: [0, 5], T: [12, 0] }, segments: ['RS', 'ST'], cherche: 'RT', droit: ['R', 'S', 'T'],
+            label: 'Triangle RST rectangle en R ; le côté [RT], à calculer, est en rouge' }),
+      choix: [r`$12\,\text{cm}$`, r`$\sqrt{194}\,\text{cm}$`, r`$8\,\text{cm}$`, r`$144\,\text{cm}$`],
+      bonne: 0,
+      explication: [
+        r`Le triangle $RST$ est rectangle en $R$&nbsp;: son hypoténuse est $[ST]$, le côté opposé à l'angle droit. D'après le théorème de Pythagore, $ST^{2} = RS^{2} + RT^{2}$.`,
+        calcul(r`13^{2} & = 5^{2} + RT^{2}`, r`169 & = 25 + RT^{2}`, r`169 \op{- 25} & = 25 + RT^{2} \op{- 25}`, r`144 & = RT^{2}`),
+        r`$RT$ est une longueur, donc un nombre positif&nbsp;: $RT = \sqrt{144}$, soit <span class="resultat">$RT = 12\,\text{cm}$</span>.`] } },
+
+  { partie: 0, theme: 'Théorème de Thalès', type: 'qcm',
+    enonce: r`Sur la figure, les droites $(MN)$ et $(BC)$ sont parallèles, $M$ est un point du segment $[AB]$ et $N$ un point du segment $[AC]$. On donne $AM = 3\,\text{cm}$, $AB = 5\,\text{cm}$ et $BC = 10\,\text{cm}$. La longueur $MN$ est égale à&nbsp;:`
+      + geometrie({ points: { A: [3, 4], B: [0, 0], C: [10, 0], M: [1.2, 1.6], N: [7.2, 1.6] }, segments: ['AB', 'AC', 'BC'], cherche: 'MN',
+          decalages: { M: [-9.6, -7.2], N: [6, -10.4] },
+          label: 'Triangle ABC, avec M sur le côté [AB] et N sur le côté [AC] ; le segment [MN], parallèle à [BC] et à calculer, est en rouge' }),
+    choix: [r`$6\,\text{cm}$`, r`$\dfrac{50}{3}\,\text{cm}$`, r`$15\,\text{cm}$`, r`$8\,\text{cm}$`],
+    bonne: 0,
+    explication: [
+      r`Les droites $(MN)$ et $(BC)$ sont parallèles, $M$ est sur $[AB]$ et $N$ sur $[AC]$&nbsp;: d'après le théorème de Thalès dans le triangle $ABC$, $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.`,
+      r`On garde l'égalité $\dfrac{AM}{AB} = \dfrac{MN}{BC}$, puis on multiplie ses deux membres par $10$.`,
+      calcul(r`\dfrac{3}{5} & = \dfrac{MN}{10}`, r`\dfrac{3}{5} \op{\times 10} & = \dfrac{MN}{10} \op{\times 10}`, r`\dfrac{30}{5} & = MN`, r`6 & = MN`),
+      r`Donc <span class="resultat">$MN = 6\,\text{cm}$</span>.`],
+    revoir: r`théorème de Thalès (collège)`,
+    variante: {
+      enonce: r`Sur la figure, les droites $(MN)$ et $(BC)$ sont parallèles, $M$ est un point du segment $[AB]$ et $N$ un point du segment $[AC]$. On donne $AM = 2\,\text{cm}$, $AB = 6\,\text{cm}$ et $BC = 9\,\text{cm}$. La longueur $MN$ est égale à&nbsp;:`
+        + geometrie({ points: { A: [3.6, 4.8], B: [0, 0], C: [9, 0], M: [2.4, 3.2], N: [5.4, 3.2] }, segments: ['AB', 'AC', 'BC'], cherche: 'MN',
+            decalages: { M: [-9.6, -7.2], N: [8, -9] },
+            label: 'Triangle ABC, avec M sur le côté [AB] et N sur le côté [AC] ; le segment [MN], parallèle à [BC] et à calculer, est en rouge' }),
+      choix: [r`$3\,\text{cm}$`, r`$27\,\text{cm}$`, r`$4{,}5\,\text{cm}$`, r`$5\,\text{cm}$`],
+      bonne: 0,
+      explication: [
+        r`Les droites $(MN)$ et $(BC)$ sont parallèles, $M$ est sur $[AB]$ et $N$ sur $[AC]$&nbsp;: d'après le théorème de Thalès dans le triangle $ABC$, $\dfrac{AM}{AB} = \dfrac{AN}{AC} = \dfrac{MN}{BC}$.`,
+        r`On garde l'égalité $\dfrac{AM}{AB} = \dfrac{MN}{BC}$, puis on multiplie ses deux membres par $9$.`,
+        calcul(r`\dfrac{2}{6} & = \dfrac{MN}{9}`, r`\dfrac{2}{6} \op{\times 9} & = \dfrac{MN}{9} \op{\times 9}`, r`\dfrac{18}{6} & = MN`, r`3 & = MN`),
+        r`Donc <span class="resultat">$MN = 3\,\text{cm}$</span>.`] } },
+
+  { partie: 0, theme: 'Fonction affine', type: 'qcm',
+    enonce: r`Parmi ces quatre fonctions, laquelle est une fonction <b>affine</b>&nbsp;?`,
+    choix: [r`$f(x) = 3 - 2x$`, r`$g(x) = 2x^{2} + 3$`, r`$h(x) = \dfrac{2}{x} + 3$`, r`$k(x) = x(3 - 2x)$`],
+    bonne: 0,
+    explication: [
+      r`Une fonction affine s'écrit $f(x) = ax + b$, où $a$ et $b$ sont deux nombres fixés.`,
+      r`$3 - 2x = -2x + 3$&nbsp;: c'est la forme $ax + b$, avec $a = -2$ et $b = 3$. La fonction affine est <span class="resultat">$f(x) = 3 - 2x$</span>.`],
+    revoir: r`fonctions affines (collège)`,
+    variante: {
+      enonce: r`Parmi ces quatre fonctions, laquelle est une fonction <b>affine</b>&nbsp;?`,
+      choix: [r`$g(x) = \dfrac{x}{4} - 1$`, r`$f(x) = 4x^{2} - 1$`, r`$h(x) = \dfrac{4}{x} - 1$`, r`$k(x) = x(4x - 1)$`],
+      bonne: 0,
+      explication: [
+        r`Une fonction affine s'écrit $f(x) = ax + b$, où $a$ et $b$ sont deux nombres fixés.`,
+        r`$\dfrac{x}{4} - 1 = \dfrac{1}{4}x - 1$&nbsp;: c'est la forme $ax + b$, avec $a = \dfrac{1}{4}$ et $b = -1$. La fonction affine est <span class="resultat">$g(x) = \dfrac{x}{4} - 1$</span>.`] } },
+
+  { partie: 0, theme: 'Fonction linéaire', type: 'qcm', fixe: true,
+    enonce: r`Laquelle de ces quatre droites représente la fonction linéaire $f$ définie par $f(x) = -2x$&nbsp;?`
+      + repere(Object.assign({}, CADRE, {
+          courbes: [{ f: x => 2 * x, classe: 'c-noir' }, { f: x => -2 * x, classe: 'c-bleu' }, { f: x => -2 * x + 3, classe: 'c-rouge' }, { f: x => -0.5 * x, classe: 'c-violet' }],
+          noms: [{ x: 2.15, y: 3.4, texte: '(d', indice: '1', apres: ')', classe: 'c-noir' }, { x: -2.05, y: 3.4, texte: '(d', indice: '2', apres: ')', classe: 'c-bleu', ancre: 'end' },
+                 { x: 3.2, y: -2.9, texte: '(d', indice: '3', apres: ')', classe: 'c-rouge' }, { x: -3.9, y: 2.4, texte: '(d', indice: '4', apres: ')', classe: 'c-violet' }],
+          label: 'Repère avec quatre droites. d1 passe par (0 ; 0) et (1 ; 2). d2 passe par (0 ; 0) et (1 ; −2). d3 passe par (0 ; 3) et (1 ; 1). d4 passe par (0 ; 0) et (2 ; −1)' })),
+    choix: [r`$(d_1)$`, r`$(d_2)$`, r`$(d_3)$`, r`$(d_4)$`],
+    bonne: 1,
+    explication: [
+      r`La représentation graphique d'une fonction linéaire est une droite qui passe par l'origine du repère.`,
+      r`$f(1) = -2 \times 1 = -2$&nbsp;: elle passe aussi par le point de coordonnées $(1\,;\,-2)$. C'est la droite <span class="resultat">$(d_2)$</span>.`,
+      repere(Object.assign({}, CADRE, { echelle: 1.15, courbes: [{ f: x => -2 * x, classe: 'c-bleu' }],
+          noms: [{ x: -2.05, y: 3.4, texte: '(d', indice: '2', apres: ')', classe: 'c-bleu', ancre: 'end' }],
+          points: [{ x: 0, y: 0, classe: 'c-bleu' }, { x: 1, y: -2, classe: 'c-bleu' }], lectures: [[[1, 0], [1, -2], [0, -2]]],
+          label: 'La droite d2 seule : elle passe par l\'origine et par le point (1 ; −2), lu en tirets verts' }))],
+    revoir: r`fonctions linéaires et leur représentation graphique (collège)`,
+    variante: {
+      enonce: r`Laquelle de ces quatre droites représente la fonction linéaire $g$ définie par $g(x) = 0{,}5x$&nbsp;?`
+        + repere(Object.assign({}, CADRE, {
+            courbes: [{ f: x => 2 * x, classe: 'c-rouge' }, { f: x => 0.5 * x + 2, classe: 'c-noir' }, { f: x => -0.5 * x, classe: 'c-bleu' }, { f: x => 0.5 * x, classe: 'c-violet' }],
+            noms: [{ x: 1.55, y: 3.5, texte: '(d', indice: '1', apres: ')', classe: 'c-rouge', ancre: 'end' }, { x: 3.1, y: 2.85, texte: '(d', indice: '2', apres: ')', classe: 'c-noir' },
+                   { x: -3.9, y: 2.4, texte: '(d', indice: '3', apres: ')', classe: 'c-bleu' }, { x: 3, y: 0.8, texte: '(d', indice: '4', apres: ')', classe: 'c-violet' }],
+            label: 'Repère avec quatre droites. d1 passe par (0 ; 0) et (1 ; 2). d2 passe par (0 ; 2) et (2 ; 3). d3 passe par (0 ; 0) et (2 ; −1). d4 passe par (0 ; 0) et (2 ; 1)' })),
+      bonne: 3,
+      explication: [
+        r`La représentation graphique d'une fonction linéaire est une droite qui passe par l'origine du repère.`,
+        r`$g(2) = 0{,}5 \times 2 = 1$&nbsp;: elle passe aussi par le point de coordonnées $(2\,;\,1)$. C'est la droite <span class="resultat">$(d_4)$</span>.`,
+        repere(Object.assign({}, CADRE, { echelle: 1.15, courbes: [{ f: x => 0.5 * x, classe: 'c-violet' }],
+            noms: [{ x: 3, y: 0.8, texte: '(d', indice: '4', apres: ')', classe: 'c-violet' }],
+            points: [{ x: 0, y: 0, classe: 'c-violet' }, { x: 2, y: 1, classe: 'c-violet' }], lectures: [[[2, 0], [2, 1], [0, 1]]],
+            label: 'La droite d4 seule : elle passe par l\'origine et par le point (2 ; 1), lu en tirets verts' }))] } },
+
+  /* ----- Partie 2 : calcul littéral ----- */
+
+  { partie: 1, theme: 'Somme ou produit', type: 'qcm',
+    enonce: r`Parmi ces quatre expressions, laquelle est un <b>produit</b>&nbsp;?`,
+    choix: [r`$(3x - 1)^{2}$`, r`$x(x + 4) - 3$`, r`$5 + 2(x - 7)$`, r`$9x^{2} - 1$`],
+    bonne: 0,
+    explication: [
+      r`On cherche la <b>dernière opération</b> effectuée quand on calcule l'expression pour une valeur de $x$, en respectant les priorités&nbsp;: une multiplication donne un produit, une addition ou une soustraction donne une somme.`,
+      r`$(3x - 1)^{2} = (3x - 1) \times (3x - 1)$&nbsp;: on calcule $3x - 1$, puis on le multiplie par lui-même. <span class="resultat">$(3x - 1)^{2}$ est un produit</span>, de facteurs $3x - 1$ et $3x - 1$.`],
+    revoir: r`capacité 1 du cours, exercices 19 et 20 p.&nbsp;99 du manuel`,
+    variante: {
+      enonce: r`Parmi ces quatre expressions, laquelle est une <b>somme</b>&nbsp;?`,
+      choix: [r`$4 + (x - 2)(x + 3)$`, r`$(x + 5)(2x - 1)$`, r`$3(x - 2)^{2}$`, r`$(4x + 1)^{2}$`],
+      bonne: 0,
+      explication: [
+        r`On cherche la <b>dernière opération</b> effectuée quand on calcule l'expression pour une valeur de $x$, en respectant les priorités&nbsp;: une multiplication donne un produit, une addition ou une soustraction donne une somme.`,
+        r`Dans $4 + (x - 2)(x + 3)$, la multiplication est prioritaire&nbsp;: on calcule le produit $(x - 2)(x + 3)$, puis on ajoute $4$ en dernier. <span class="resultat">$4 + (x - 2)(x + 3)$ est une somme</span>, de termes $4$ et $(x - 2)(x + 3)$.`] } },
+
+  { partie: 1, theme: 'Distributivité simple', type: 'qcm',
+    enonce: r`La forme développée et réduite de $A = 3(x + 5) - 2(x - 4)$ est&nbsp;:`,
+    choix: [r`$x + 23$`, r`$x + 7$`, r`$x + 19$`, r`$5x + 7$`],
+    bonne: 0,
+    explication: [
+      r`On développe chaque produit avec la distributivité simple, $k(a + b) = ka + kb$. Le nombre $-2$ multiplie chacun des termes $x$ et $-4$, avec $(-2) \times (-4) = 8$. Puis on regroupe les termes en $x$, puis les nombres.`,
+      calcul(r`A & = 3 \times x + 3 \times 5 + (-2) \times x + (-2) \times (-4)`, r`& = 3x + 15 - 2x + 8`, r`& = \resultat{x + 23}`)],
+    revoir: r`capacité 2 du cours, exercice 1 de la fiche`,
+    variante: {
+      enonce: r`La forme développée et réduite de $A = 5(x + 1) - 3(x - 4)$ est&nbsp;:`,
+      choix: [r`$2x + 17$`, r`$2x - 7$`, r`$2x + 9$`, r`$8x - 7$`],
+      bonne: 0,
+      explication: [
+        r`On développe chaque produit avec la distributivité simple, $k(a + b) = ka + kb$. Le nombre $-3$ multiplie chacun des termes $x$ et $-4$, avec $(-3) \times (-4) = 12$. Puis on regroupe les termes en $x$, puis les nombres.`,
+        calcul(r`A & = 5 \times x + 5 \times 1 + (-3) \times x + (-3) \times (-4)`, r`& = 5x + 5 - 3x + 12`, r`& = \resultat{2x + 17}`)] } },
+
+  { partie: 1, theme: 'Double distributivité', type: 'qcm',
+    enonce: r`La forme développée et réduite de $A = (3x - 2)(x + 4)$ est&nbsp;:`,
+    choix: [r`$3x^{2} + 10x - 8$`, r`$3x^{2} - 8$`, r`$3x^{2} + 14x - 8$`, r`$3x^{2} + 10x + 8$`],
+    bonne: 0,
+    explication: [
+      r`Double distributivité&nbsp;: chaque terme de la première parenthèse multiplie chaque terme de la seconde (quatre produits), puis on réduit.`,
+      calcul(r`A & = 3x \times x + 3x \times 4 + (-2) \times x + (-2) \times 4`, r`& = 3x^{2} + 12x - 2x - 8`, r`& = \resultat{3x^{2} + 10x - 8}`)],
+    revoir: r`capacité 3 du cours, exercice 1 de la fiche`,
+    variante: {
+      enonce: r`La forme développée et réduite de $A = (2x + 5)(x - 3)$ est&nbsp;:`,
+      choix: [r`$2x^{2} - x - 15$`, r`$2x^{2} - 15$`, r`$2x^{2} - 11x - 15$`, r`$2x^{2} - x + 15$`],
+      bonne: 0,
+      explication: [
+        r`Double distributivité&nbsp;: chaque terme de la première parenthèse multiplie chaque terme de la seconde (quatre produits), puis on réduit.`,
+        calcul(r`A & = 2x \times x + 2x \times (-3) + 5 \times x + 5 \times (-3)`, r`& = 2x^{2} - 6x + 5x - 15`, r`& = \resultat{2x^{2} - x - 15}`)] } },
+
+  { partie: 1, theme: 'Facteur commun', type: 'qcm',
+    enonce: r`Une forme factorisée de $A = 14x + 21$ est&nbsp;:`,
+    choix: [r`$7(2x + 3)$`, r`$7(2x + 21)$`, r`$7x(2 + 3)$`, r`$14(x + 21)$`],
+    bonne: 0,
+    explication: [
+      r`$14x = 7 \times 2x$ et $21 = 7 \times 3$&nbsp;: le facteur commun est $7$. On le place devant une parenthèse&nbsp;: $ka + kb = k(a + b)$.`,
+      calcul(r`A & = 7 \times 2x + 7 \times 3`, r`& = \resultat{7(2x + 3)}`),
+      r`Vérification&nbsp;: en développant, $7(2x + 3) = 14x + 21$.`],
+    revoir: r`capacité 4 du cours, exercice 3 de la fiche`,
+    variante: {
+      enonce: r`Une forme factorisée de $A = 15x - 20$ est&nbsp;:`,
+      choix: [r`$5(3x - 4)$`, r`$5(3x - 20)$`, r`$5x(3 - 4)$`, r`$15(x - 20)$`],
+      bonne: 0,
+      explication: [
+        r`$15x = 5 \times 3x$ et $20 = 5 \times 4$&nbsp;: le facteur commun est $5$. On le place devant une parenthèse&nbsp;: $ka - kb = k(a - b)$.`,
+        calcul(r`A & = 5 \times 3x - 5 \times 4`, r`& = \resultat{5(3x - 4)}`),
+        r`Vérification&nbsp;: en développant, $5(3x - 4) = 15x - 20$.`] } },
+
+  { partie: 1, theme: 'Facteur commun', type: 'qcm',
+    enonce: r`Une forme factorisée de $A = (x + 2)(3x - 1) - (x + 2)(x + 4)$ est&nbsp;:`,
+    choix: [r`$(x + 2)(2x - 5)$`, r`$(x + 2)(2x + 3)$`, r`$(x + 2)(4x + 3)$`, r`$(x + 2)(4x - 5)$`],
+    bonne: 0,
+    explication: [
+      r`Le facteur commun est la parenthèse $(x + 2)$. On écrit entre crochets ce qui reste de chaque terme&nbsp;; le signe $-$ devant le second terme porte sur toute la parenthèse $(x + 4)$.`,
+      calcul(r`A & = (x + 2) \times (3x - 1) - (x + 2) \times (x + 4)`, r`& = (x + 2)[(3x - 1) - (x + 4)]`, r`& = (x + 2)(3x - 1 - x - 4)`, r`& = \resultat{(x + 2)(2x - 5)}`)],
+    revoir: r`capacité 4 du cours, exercice 3 de la fiche`,
+    variante: {
+      enonce: r`Une forme factorisée de $A = (x - 3)(4x + 1) - (x - 3)(x + 5)$ est&nbsp;:`,
+      choix: [r`$(x - 3)(3x - 4)$`, r`$(x - 3)(3x + 6)$`, r`$(x - 3)(5x + 6)$`, r`$(x - 3)(5x - 4)$`],
+      bonne: 0,
+      explication: [
+        r`Le facteur commun est la parenthèse $(x - 3)$. On écrit entre crochets ce qui reste de chaque terme&nbsp;; le signe $-$ devant le second terme porte sur toute la parenthèse $(x + 5)$.`,
+        calcul(r`A & = (x - 3) \times (4x + 1) - (x - 3) \times (x + 5)`, r`& = (x - 3)[(4x + 1) - (x + 5)]`, r`& = (x - 3)(4x + 1 - x - 5)`, r`& = \resultat{(x - 3)(3x - 4)}`)] } },
+
+  { partie: 1, theme: 'Identités remarquables', type: 'qcm',
+    enonce: r`La forme développée et réduite de $A = (2x - 5)^{2}$ est&nbsp;:`,
+    choix: [r`$4x^{2} - 20x + 25$`, r`$4x^{2} - 25$`, r`$2x^{2} - 20x + 25$`, r`$4x^{2} - 10x + 25$`],
+    bonne: 0,
+    explication: [
+      r`On applique l'identité remarquable $(a - b)^{2} = a^{2} - 2ab + b^{2}$ avec $a = 2x$ et $b = 5$.`,
+      calcul(r`A & = (2x)^{2} - 2 \times 2x \times 5 + 5^{2}`, r`& = \resultat{4x^{2} - 20x + 25}`)],
+    revoir: r`capacité 5 du cours, exercice 2 de la fiche`,
+    variante: {
+      enonce: r`La forme développée et réduite de $A = (5x - 1)^{2}$ est&nbsp;:`,
+      choix: [r`$25x^{2} - 10x + 1$`, r`$25x^{2} - 1$`, r`$5x^{2} - 10x + 1$`, r`$25x^{2} - 5x + 1$`],
+      bonne: 0,
+      explication: [
+        r`On applique l'identité remarquable $(a - b)^{2} = a^{2} - 2ab + b^{2}$ avec $a = 5x$ et $b = 1$.`,
+        calcul(r`A & = (5x)^{2} - 2 \times 5x \times 1 + 1^{2}`, r`& = \resultat{25x^{2} - 10x + 1}`)] } },
+
+  { partie: 1, theme: 'Identités remarquables', type: 'qcm',
+    enonce: r`La forme développée et réduite de $A = (4x + 3)(4x - 3)$ est&nbsp;:`,
+    choix: [r`$16x^{2} - 9$`, r`$4x^{2} - 9$`, r`$16x^{2} + 9$`, r`$16x^{2} - 24x + 9$`],
+    bonne: 0,
+    explication: [
+      r`On applique l'identité remarquable $(a + b)(a - b) = a^{2} - b^{2}$ avec $a = 4x$ et $b = 3$.`,
+      calcul(r`A & = (4x)^{2} - 3^{2}`, r`& = \resultat{16x^{2} - 9}`)],
+    revoir: r`capacité 5 du cours, exercice 2 de la fiche`,
+    variante: {
+      enonce: r`La forme développée et réduite de $A = (2x + 7)(2x - 7)$ est&nbsp;:`,
+      choix: [r`$4x^{2} - 49$`, r`$2x^{2} - 49$`, r`$4x^{2} + 49$`, r`$4x^{2} - 28x + 49$`],
+      bonne: 0,
+      explication: [
+        r`On applique l'identité remarquable $(a + b)(a - b) = a^{2} - b^{2}$ avec $a = 2x$ et $b = 7$.`,
+        calcul(r`A & = (2x)^{2} - 7^{2}`, r`& = \resultat{4x^{2} - 49}`)] } },
+
+  { partie: 1, theme: 'Factoriser avec une identité', type: 'qcm',
+    enonce: r`Une forme factorisée de $A = 9x^{2} + 12x + 4$ est&nbsp;:`,
+    choix: [r`$(3x + 2)^{2}$`, r`$(3x - 2)^{2}$`, r`$(9x + 4)^{2}$`, r`$(3x + 2)(3x - 2)$`],
+    bonne: 0,
+    explication: [
+      r`Trois termes, dont deux carrés&nbsp;: $9x^{2} = (3x)^{2}$ et $4 = 2^{2}$. Le troisième, $12x = 2 \times 3x \times 2$, est $2ab$ avec $a = 3x$ et $b = 2$&nbsp;: on reconnaît $a^{2} + 2ab + b^{2} = (a + b)^{2}$.`,
+      calcul(r`A & = (3x)^{2} + 2 \times 3x \times 2 + 2^{2}`, r`& = \resultat{(3x + 2)^{2}}`)],
+    revoir: r`capacité 6 du cours, exercice 4 de la fiche`,
+    variante: {
+      enonce: r`Une forme factorisée de $A = 16x^{2} + 24x + 9$ est&nbsp;:`,
+      choix: [r`$(4x + 3)^{2}$`, r`$(4x - 3)^{2}$`, r`$(16x + 9)^{2}$`, r`$(4x + 3)(4x - 3)$`],
+      bonne: 0,
+      explication: [
+        r`Trois termes, dont deux carrés&nbsp;: $16x^{2} = (4x)^{2}$ et $9 = 3^{2}$. Le troisième, $24x = 2 \times 4x \times 3$, est $2ab$ avec $a = 4x$ et $b = 3$&nbsp;: on reconnaît $a^{2} + 2ab + b^{2} = (a + b)^{2}$.`,
+        calcul(r`A & = (4x)^{2} + 2 \times 4x \times 3 + 3^{2}`, r`& = \resultat{(4x + 3)^{2}}`)] } },
+
+  { partie: 1, theme: 'Factoriser avec une identité', type: 'qcm',
+    enonce: r`Une forme factorisée de $A = 36x^{2} - 49$ est&nbsp;:`,
+    choix: [r`$(6x - 7)(6x + 7)$`, r`$(6x - 7)^{2}$`, r`$(18x - 7)(18x + 7)$`, r`$(6x - 49)(6x + 49)$`],
+    bonne: 0,
+    explication: [
+      r`Deux carrés séparés par un signe $-$&nbsp;: $36x^{2} = (6x)^{2}$ et $49 = 7^{2}$. On applique $a^{2} - b^{2} = (a - b)(a + b)$ avec $a = 6x$ et $b = 7$.`,
+      calcul(r`A & = (6x)^{2} - 7^{2}`, r`& = \resultat{(6x - 7)(6x + 7)}`)],
+    revoir: r`capacité 6 du cours, exercice 4 de la fiche`,
+    variante: {
+      enonce: r`Une forme factorisée de $A = 64x^{2} - 25$ est&nbsp;:`,
+      choix: [r`$(8x - 5)(8x + 5)$`, r`$(8x - 5)^{2}$`, r`$(32x - 5)(32x + 5)$`, r`$(8x - 25)(8x + 25)$`],
+      bonne: 0,
+      explication: [
+        r`Deux carrés séparés par un signe $-$&nbsp;: $64x^{2} = (8x)^{2}$ et $25 = 5^{2}$. On applique $a^{2} - b^{2} = (a - b)(a + b)$ avec $a = 8x$ et $b = 5$.`,
+        calcul(r`A & = (8x)^{2} - 5^{2}`, r`& = \resultat{(8x - 5)(8x + 5)}`)] } },
+
+  { partie: 1, theme: 'Vérifier une égalité', type: 'vf',
+    enonce: r`L'égalité $(x - 6)^{2} = x^{2} - 36$ est vraie pour tout réel $x$.`,
+    bonne: false,
+    explication: [
+      r`Pour montrer qu'une égalité n'est pas vraie pour tout réel $x$, il suffit d'un contre-exemple&nbsp;: une valeur de $x$ pour laquelle les deux membres sont différents. Pour $x = 0$&nbsp;:`,
+      calcul(r`(0 - 6)^{2} & = (-6)^{2}`, r`& = 36`, r`0^{2} - 36 & = -36`),
+      r`$36 \ne -36$&nbsp;: l'égalité est <span class="resultat">fausse</span>. En effet, $(x - 6)^{2} = x^{2} - 12x + 36$.`],
+    revoir: r`exercice 5 de la fiche (question 4), exercice 100 p.&nbsp;103 du manuel`,
+    variante: {
+      enonce: r`L'égalité $(x + 4)^{2} = x^{2} + 16$ est vraie pour tout réel $x$.`,
+      bonne: false,
+      explication: [
+        r`Pour montrer qu'une égalité n'est pas vraie pour tout réel $x$, il suffit d'un contre-exemple&nbsp;: une valeur de $x$ pour laquelle les deux membres sont différents. Pour $x = 1$&nbsp;:`,
+        calcul(r`(1 + 4)^{2} & = 5^{2}`, r`& = 25`, r`1^{2} + 16 & = 17`),
+        r`$25 \ne 17$&nbsp;: l'égalité est <span class="resultat">fausse</span>. En effet, $(x + 4)^{2} = x^{2} + 8x + 16$.`] } }
+  ]
+};
+
+/* ---------- Conversion des formules ($...$, mini-LaTeX) en HTML ---------- */
+const SYM = {
+  times: '×', cdot: '·', dots: '…', ldots: '…', cdots: '…', ne: '≠', neq: '≠', le: '≤', leq: '≤',
+  ge: '≥', geq: '≥', approx: '≈', infty: '∞', forall: '∀', in: '∈', N: 'ℕ', R: 'ℝ', Z: 'ℤ',
+  pm: '±', Delta: 'Δ', sum: 'Σ', pi: 'π', alpha: 'α', mapsto: '↦', to: '→', iff: '⇔',
+  Longleftrightarrow: '⇔', Leftrightarrow: '⇔', Rightarrow: '⇒', implies: '⇒',
+  quad: ' ', qquad: '  ', displaystyle: '', left: '', right: ''
+};
+const SYM1 = { ',': ' ', ';': ' ', ' ': ' ', '{': '{', '}': '}', '%': '%', '_': '_', '&': '&amp;', '$': '$', '\\': '<br>' };
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function math(s) {
+  let i = 0;
+  const skip = () => { while (i < s.length && s[i] === ' ') i++; };
+  function raw() {            // contenu brut d'un {groupe}, sans mise en italique
+    skip();
+    if (s[i] !== '{') return esc(s[i++] || '');
+    let prof = 0, out = '';
+    for (; i < s.length; i++) {
+      const c = s[i];
+      if (c === '{') { prof++; if (prof === 1) continue; }
+      if (c === '}') { prof--; if (prof === 0) { i++; break; } }
+      out += c;
+    }
+    return esc(out);
+  }
+  function group() { i++; let out = ''; while (i < s.length && s[i] !== '}') out += atom(); i++; return out; }
+  function arg() { skip(); if (s[i] === '{') return group(); return atom(); }
+  const frac = (a, b) => `<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`;
+  function atom() {
+    if (i >= s.length) return '';
+    const c = s[i];
+    if (c === '{') return group();
+    if (c === '}') { i++; return ''; }
+    if (c === '\\') {
+      const n = s[i + 1];
+      if (n === undefined) { i++; return ''; }
+      if (!/[a-zA-Z]/.test(n)) { i += 2; return SYM1[n] !== undefined ? SYM1[n] : esc(n); }
+      let j = i + 1;
+      while (j < s.length && /[a-zA-Z]/.test(s[j])) j++;
+      const nom = s.slice(i + 1, j); i = j;
+      if (nom === 'frac' || nom === 'dfrac' || nom === 'tfrac') { const a = arg(); const b = arg(); return frac(a, b); }
+      if (nom === 'mathrm' || nom === 'text') return `<span class="rm">${raw()}</span>`;
+      if (nom === 'textbf') return `<b class="rm">${raw()}</b>`;
+      if (nom === 'mathscr') return `<i>${raw()}</i>`;
+      if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
+      if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
+      if (nom === 'op') return `<span class="op">${arg()}</span>`;
+      if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
+      return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
+    }
+    if (c === '_' || c === '^') { i++; const a = arg(); return c === '_' ? `<sub>${a}</sub>` : `<sup>${a}</sup>`; }
+    i++;
+    if (/[a-zA-Z]/.test(c)) return `<i>${c}</i>`;
+    if (c === '-') return '−';
+    if (c === '*') return '×';
+    if (c === "'") return '<span class="prime">′</span>';
+    return esc(c);
+  }
+  let out = '';
+  while (i < s.length) out += atom();
+  return out;
+}
+// Une formule : KaTeX s'il est chargé, sinon (pas encore là, hors ligne, CDN filtré, commande qu'il
+// refuse) le mini-LaTeX, qui garde la source dans data-tex pour que katexPret() la recompose.
+// (## : signe # d'une couleur dans une macro, # seul désignant un argument)
+const MACROS = { '\\mul': '\\textcolor{##9C27B0}{#1}', '\\op': '\\textcolor{##CE2029}{#1}', '\\resultat': '\\boxed{#1}' };
+function katexDispo() {
+  const feuille = document.getElementById('katex-css');
+  return !!window.katex && !!feuille && feuille.media === 'all';
+}
+function katexHTML(f) {
+  try { return katex.renderToString(f, { macros: Object.assign({}, MACROS), throwOnError: true, strict: false }); }
+  catch (e) { return null; }
+}
+function formule(f) {
+  const k = katexDispo() ? katexHTML(f) : null;
+  return k || `<span class="m${f.length > 42 ? ' m-long' : ''}" data-tex="${esc(f).replace(/"/g, '&quot;')}">${math(f)}</span>`;
+}
+window.katexPret = function () {
+  if (!katexDispo()) return;
+  document.querySelectorAll('.m[data-tex]').forEach(e => {
+    const k = katexHTML(e.dataset.tex);
+    if (k) e.outerHTML = k;
+  });
+};
+function tex(src) {
+  return String(src).split(/(\$[^$]*\$)/).map(p =>
+    (p.length >= 2 && p[0] === '$' && p[p.length - 1] === '$') ? formule(p.slice(1, -1)) : p
+  ).join('');
+}
+
+/* ---------- État (enregistré sur l'appareil, pour reprendre plus tard) ---------- */
+const N = QUIZ.questions.length;
+const CLE = 'quiz-' + QUIZ.id;
+const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length
+  + (q.variante ? '~' + q.variante.enonce.length : '')).join('|');
+const MODE_CORRIGE = /(\?|&|#)corrige/.test(location.search + location.hash);
+// La question i dans sa variante : les champs que la variante ne donne pas viennent de la question.
+const variante = i => Object.assign({}, QUIZ.questions[i], QUIZ.questions[i].variante);
+
+function melange(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const ordreDe = q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k));
+// reprise : null, ou la reprise des questions manquées { rangs (questions d'origine), ordre, reponses, courant }.
+function nouvelEtat() {
+  return {
+    signature: SIGNATURE,
+    ordre: QUIZ.questions.map(ordreDe),
+    reponses: Array(N).fill(null),
+    courant: 0,
+    reprise: null
+  };
+}
+function repriseValide(R) {
+  return !!R && Array.isArray(R.rangs) && R.rangs.length > 0 && Array.isArray(R.ordre) && Array.isArray(R.reponses)
+    && R.ordre.length === R.rangs.length && R.reponses.length === R.rangs.length
+    && R.rangs.every(i => QUIZ.questions[i] && QUIZ.questions[i].variante);
+}
+function charger() {
+  try {
+    const s = JSON.parse(localStorage.getItem(CLE));
+    if (s && s.signature === SIGNATURE && Array.isArray(s.reponses) && s.reponses.length === N && Array.isArray(s.ordre)) {
+      s.courant = Math.min(Math.max(0, s.courant | 0), N);
+      if (repriseValide(s.reprise)) s.reprise.courant = Math.min(Math.max(0, s.reprise.courant | 0), s.reprise.rangs.length);
+      else s.reprise = null;
+      return s;
+    }
+  } catch (e) { /* stockage indisponible : on repart de zéro */ }
+  return null;
+}
+function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* sans importance */ } }
+
+let etat = charger() || nouvelEtat();
+let selection = null;
+
+const $ = sel => document.querySelector(sel);
+const zoneProg = $('#progression');
+const zoneQuiz = $('#quiz');
+const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
+// Une seule partie : aucun nom de partie n'est affiché (grille, question, corrigé, note).
+const UNE_PARTIE = QUIZ.parties.length === 1;
+const questionsDe = p => QUIZ.questions.map((q, i) => q.partie === p ? i : -1).filter(i => i >= 0);
+
+/* ---------- Affichage ---------- */
+// Explication : un texte, ou une liste de blocs (paragraphes, calculs en colonne, figures).
+function explicationHTML(q) {
+  const blocs = Array.isArray(q.explication) ? q.explication : [q.explication];
+  return blocs.map(b => /^<(div|svg)\b/.test(b) ? tex(b) : '<p>' + tex(b) + '</p>').join('');
+}
+
+function reponseTexte(q, choix) {
+  if (q.type === 'vf') return choix ? 'Vrai' : 'Faux';
+  return '« ' + tex(q.choix[choix]) + ' »';
+}
+
+// Tour en cours : le premier passage (les questions du fichier), ou la reprise des questions
+// manquées (leurs variantes). Chacun a ses réponses, l'ordre de ses choix et sa question courante k ;
+// le numéro affiché est toujours celui de la question d'origine.
+function tourCourant() {
+  const R = etat.reprise;
+  if (R && R.courant < R.rangs.length)
+    return { reprise: true, etat: R, total: R.rangs.length, question: k => variante(R.rangs[k]), numero: k => R.rangs[k] + 1 };
+  return { reprise: false, etat: etat, total: N, question: k => QUIZ.questions[k], numero: k => k + 1 };
+}
+
+// Une grille de réponses. items = [{cle, numero, rep}] ; attr = data-q (premier passage) ou data-r (reprise).
+function grille(nom, items, courant, attr) {
+  const faites = items.filter(it => it.rep).length;
+  let nums = '', marques = '';
+  items.forEach(it => {
+    const ici = it.cle === courant;
+    nums += `<td class="${ici ? 'ici' : ''}"><button type="button" class="aller" ${attr}="${it.cle}" aria-label="Aller à la question ${it.numero}">${it.numero}</button></td>`;
+    marques += it.rep
+      ? `<td class="${it.rep.ok ? 'juste' : 'erreur'}${ici ? ' courant' : ''}" ${attr}="${it.cle}"><span class="marque ${it.rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`
+      : `<td class="${ici ? 'courant' : ''}" ${attr}="${it.cle}"></td>`;
+  });
+  return `<div class="bloc-grille">${nom ? `<p class="nom-partie">${nom}</p>` : ''}
+    <table class="grille-reponses" aria-label="${nom || 'Réponses'} : ${faites} question${faites > 1 ? 's' : ''} sur ${items.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+}
+
+function rendreProgression() {
+  if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
+  const T = tourCourant(), R = etat.reprise;
+  zoneProg.innerHTML = T.reprise
+    ? grille('Reprise des questions manquées', R.rangs.map((i, k) => ({ cle: k, numero: i + 1, rep: R.reponses[k] })), R.courant, 'data-r')
+    : QUIZ.parties.map((nom, p) => grille(UNE_PARTIE ? '' : nomPartie(p),
+        questionsDe(p).map(i => ({ cle: i, numero: i + 1, rep: etat.reponses[i] })), etat.courant, 'data-q')).join('');
+}
+
+function rendre() {
+  rendreProgression();
+  if (MODE_CORRIGE) return rendreCorrige();
+  const T = tourCourant();
+  if (T.etat.courant >= T.total) rendreResultat(); else rendreQuestion(T, T.etat.courant);
+}
+
+function boite(marque) {
+  return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
+}
+
+function rendreQuestion(T, k) {
+  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = k === T.total - 1;
+  const changePartie = !T.reprise && !derniere && QUIZ.questions[k + 1].partie !== q.partie;
+  const tete = T.reprise ? `Reprise des questions manquées · ${k + 1} sur ${T.total}` : UNE_PARTIE ? '' : nomPartie(q.partie);
+  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir ma note') : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante';
+  let options;
+  if (q.type === 'vf') {
+    options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (val === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (val === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
+    }).join('');
+  } else {
+    options = ordre.map((orig, j) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[j]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
+    }).join('');
+  }
+  const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
+  const correction = rep ? `<div class="correction ${rep.ok ? 'juste' : 'erreur'}" role="status">
+      <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
+      <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
+  const bouton = rep
+    ? `<button type="button" class="bouton" id="suivant">${suite}</button>`
+    : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
+  zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
+    ${tete ? `<p class="partie">${tete}</p>` : ''}
+    <p class="question" id="titre-q"><b>Question ${T.numero(k)}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
+    <div class="actions">${bouton}</div>
+    ${correction}
+  </article>`;
+  selection = null;
+  if (!rep) {
+    zoneQuiz.querySelectorAll('.choix').forEach(b => b.addEventListener('click', () => choisir(b, q)));
+    $('#valider').addEventListener('click', valider);
+  } else {
+    $('#suivant').addEventListener('click', suivant);
+  }
+}
+
+function choisir(b, q) {
+  zoneQuiz.querySelectorAll('.choix').forEach(o => {
+    const actif = o === b;
+    o.classList.toggle('choisi', actif);
+    o.setAttribute('aria-pressed', actif ? 'true' : 'false');
+    o.querySelector('.marque').className = actif ? 'marque croix' : 'marque';
+  });
+  selection = q.type === 'vf' ? b.dataset.val === 'true' : Number(b.dataset.val);
+  $('#valider').disabled = false;
+}
+
+function valider() {
+  const T = tourCourant(), k = T.etat.courant, q = T.question(k);
+  if (selection === null || T.etat.reponses[k]) return;
+  T.etat.reponses[k] = { choix: selection, ok: selection === q.bonne };
+  sauver();
+  rendre();
+  const suivantBtn = $('#suivant');
+  if (suivantBtn) suivantBtn.focus({ preventScroll: true });
+  const correction = $('.correction');
+  if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
+}
+
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question
+// (data-q : premier passage ; data-r : reprise des questions manquées).
+function aller(cible) {
+  if (cible.dataset.r !== undefined) etat.reprise.courant = Number(cible.dataset.r);
+  else etat.courant = Number(cible.dataset.q);
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function suivant() {
+  const T = tourCourant();
+  T.etat.courant = Math.min(T.etat.courant + 1, T.total);
+  selection = null;
+  sauver();
+  rendre();
+  // On remonte aux grilles de réponses, pas tout en haut : sur téléphone, l'en-tête occupe un écran.
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function recommencer() {
+  etat = nouvelEtat();
+  selection = null;
+  sauver();
+  rendre();
+  window.scrollTo({ top: 0, behavior: motion() });
+}
+// Deux clics pour tout effacer : le premier transforme le bouton en demande de confirmation.
+function demanderRecommencer(btn) {
+  const entame = etat.courant > 0 || etat.reponses.some(Boolean);
+  if (btn.dataset.minuteur) {
+    clearTimeout(Number(btn.dataset.minuteur));
+    btn.textContent = btn.dataset.texte;
+    delete btn.dataset.minuteur;
+    recommencer();
+  } else if (!entame) {
+    recommencer();
+  } else {
+    btn.dataset.texte = btn.textContent;
+    btn.textContent = 'Confirmer : effacer mes réponses';
+    btn.dataset.minuteur = String(setTimeout(() => { btn.textContent = btn.dataset.texte; delete btn.dataset.minuteur; }, 4000));
+  }
+}
+
+// Questions regroupées par partie : un titre, puis la liste produite par item(q, i).
+function listeParParties(item) {
+  return QUIZ.parties.map((nom, p) =>
+    `${UNE_PARTIE ? '' : `<h2 class="titre-partie">${nomPartie(p)}</h2>`}<ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
+  ).join('');
+}
+
+// Une question de la copie : énoncé, réponse donnée, explication.
+function itemRevue(q, rep, numero) {
+  const ok = !!(rep && rep.ok);
+  let bilan;
+  if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
+  else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  return `<li class="${ok ? 'juste' : 'erreur'}">
+    <p class="question"><b>Question ${numero}.</b> <i>${q.theme}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <p class="bilan">${bilan}</p>
+    <div class="explication">${explicationHTML(q)}</div>
+  </li>`;
+}
+
+function revueHTML() {
+  return listeParParties((q, i) => itemRevue(q, etat.reponses[i], i + 1));
+}
+
+function revueRepriseHTML() {
+  const R = etat.reprise;
+  return `<h2 class="titre-partie">Reprise des questions manquées</h2><ol class="revue">${R.rangs.map((i, k) => itemRevue(variante(i), R.reponses[k], i + 1)).join('')}</ol>`;
+}
+
+// Bouton qui montre ou cache une copie.
+function bascule(idBouton, idListe, texte) {
+  $('#' + idBouton).addEventListener('click', () => {
+    const liste = $('#' + idListe), btn = $('#' + idBouton);
+    liste.hidden = !liste.hidden;
+    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
+    btn.textContent = (liste.hidden ? 'Revoir ' : 'Masquer ') + texte;
+  });
+}
+
+// Reprise des questions manquées qui ont une variante : nouveau tour, noté à part.
+function reprendre(rangs) {
+  etat.reprise = { rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 };
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function rendreResultat() {
+  const juste = i => !!(etat.reponses[i] && etat.reponses[i].ok);
+  const score = QUIZ.questions.filter((q, i) => juste(i)).length;
+  const appreciation = score >= 0.75 * N
+    ? 'C\'est solide. Relis quand même les explications des questions manquées.'
+    : score >= 0.5 * N
+      ? 'L\'essentiel est là. Reprends les points listés ci-dessous, puis refais cet entraînement.'
+      : 'À retravailler avant l\'évaluation : reprends le cours et la fiche d\'exercices, puis refais cet entraînement.';
+  const sur20 = N === 20 ? '' : `<span class="sur">soit ${fr(Math.round(score * 20 / N * 2) / 2)} / 20</span>`;
+  const parties = QUIZ.parties.map((nom, p) => {
+    const rangs = questionsDe(p);
+    return `<span>${nomPartie(p)}&nbsp;: <b>${rangs.filter(juste).length} / ${rangs.length}</b></span>`;
+  }).join(' &emsp; ');
+  const aRevoir = [];
+  QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
+  const revoir = aRevoir.length
+    ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
+  // Questions manquées qui ont une variante, et reprise déjà faite (on n'arrive ici qu'une fois finie).
+  const manquees = QUIZ.questions.map((q, i) => i).filter(i => !juste(i) && QUIZ.questions[i].variante);
+  const R = etat.reprise, nm = manquees.length;
+  const bilanReprise = R
+    ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(x => x && x.ok).length} / ${R.rangs.length}</b></p>` : '';
+  const infoReprise = nm && !R
+    ? `<p class="reprise-info">Tu peux refaire ${nm > 1 ? 'les ' + nm + ' questions manquées' : 'la question manquée'}, un peu ${nm > 1 ? 'modifiées' : 'modifiée'}&nbsp;: mêmes notions, autres valeurs.</p>` : '';
+  zoneQuiz.innerHTML = `<article class="page-note" aria-labelledby="titre-r">
+    <p class="question" id="titre-r"><b>Note.</b></p>
+    <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
+    <p class="appreciation">${appreciation}</p>
+    ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
+    ${bilanReprise}
+    ${revoir}
+    ${infoReprise}
+    <div class="actions">
+      ${nm ? `<button type="button" class="bouton" id="reprendre">${R ? 'Refaire la reprise' : 'Refaire les questions manquées'}</button>` : ''}
+      <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
+      ${R ? '<button type="button" class="bouton" id="revoir-reprise" aria-expanded="false" aria-controls="revue-reprise">Revoir la reprise</button>' : ''}
+      <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
+    </div>
+    <div id="revue" hidden>${revueHTML()}</div>
+    ${R ? `<div id="revue-reprise" hidden>${revueRepriseHTML()}</div>` : ''}
+  </article>`;
+  bascule('revoir', 'revue', 'la copie');
+  if (R) bascule('revoir-reprise', 'revue-reprise', 'la reprise');
+  if (nm) $('#reprendre').addEventListener('click', () => reprendre(manquees));
+  $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+}
+
+function rendreCorrige() {
+  // Énoncé, choix (bonne réponse en vert), explication.
+  const corps = q => `<div class="enonce">${tex(q.enonce)}</div>
+      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
+      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
+      <div class="explication">${explicationHTML(q)}</div>`;
+  zoneQuiz.innerHTML = `<article>
+    <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
+    ${listeParParties((q, i) => `<li class="juste">
+      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
+      ${corps(q)}
+      ${q.variante ? `<div class="variante"><p class="question"><b>Variante</b> <i>(reprise des questions manquées)</i></p>${corps(variante(i))}</div>` : ''}
+    </li>`)}
+  </article>`;
+}
+
+/* ---------- Démarrage ---------- */
+$('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+zoneProg.addEventListener('click', e => {
+  const cible = e.target.closest('[data-q],[data-r]');
+  if (cible) aller(cible);
+});
+rendre();
+})();
+</script>
+</body>
+</html>
