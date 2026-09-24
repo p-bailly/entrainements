@@ -1,0 +1,1117 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement Évaluation arithmétique</title>
+<!--
+  Entraînement auto-corrigé à l'évaluation du chapitre 8 (Arithmétique) - Seconde.
+  Une seule partie, douze questions, sans automatismes (demande du professeur), dans l'ordre
+  du cours et des séances du plan :
+    1 à 3    : multiples et diviseurs (critères de divisibilité par 4 et par 9, table d'un
+               nombre), liste des diviseurs, lecture des deux fonctions Python de la fiche
+               (est_multiple : reste a % b ; multiple_max : plus grand multiple de a
+               inférieur ou égal à b) ;
+    4 et 5   : démontrer avec des lettres (choisir la rédaction qui prouve qu'un nombre est
+               un multiple ; repérer l'étape fausse d'une rédaction d'élève : une même lettre
+               pour deux entiers quelconques, en parité puis pour la somme de deux multiples
+               de 7, démonstration du cours) ;
+    6 à 8    : nombre premier (tester les nombres premiers dont le carré ne dépasse pas
+               l'entier), décomposition en produit de facteurs premiers (échelle du cours),
+               fraction irréductible (facteurs premiers communs en violet) ;
+    9 et 10  : modéliser un problème (plus grand diviseur commun, plus petit multiple commun) ;
+    11 et 12 : une seule affirmation vraie parmi quatre, à justifier par un contre-exemple,
+               par l'absurde (6a + 14b impair impossible) ou par une démonstration, comme la
+               capacité 5 et l'exercice 3 de l'évaluation ; irrationalité de racine de 2
+               (étape manquante de la démonstration par l'absurde du cours).
+  Sources : capacités 1 à 5, méthodes et démonstrations du cours, activités 1 (somme de trois
+  entiers consécutifs) et 2 (crible d'Ératosthène), fiche d'exercices (exercices 1 à 6, dont
+  l'exercice 2 en Python), évaluation (sujets A et B, exercices 2 à 4 ; son QCM d'automatismes
+  n'est pas repris) et exercices du manuel cités dans le plan (22 et 25 p. 64 ; 29 p. 65 ;
+  49 p. 66 ; 76, 78, 82 et 85 p. 67 ; 92 p. 68 ; 102 p. 69 ; « Faire le point » p. 73).
+  Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs,
+  calculables de tête (calculatrice interdite, comme à l'évaluation). Distracteurs : erreurs
+  types (critère de 3 pris pour celui de 9, nombre pair cru divisible par 4, paire de
+  diviseurs oubliée, multiples donnés pour des diviseurs, reste renvoyé au lieu d'un booléen,
+  un tour de boucle de trop, exemple pris pour une démonstration, facteur qui n'est pas un
+  entier, facteur non premier ou exposant faux, fraction simplifiée à moitié, diviseur commun
+  qui n'est pas le plus grand, multiple commun pris pour un diviseur commun, produit ou somme
+  des durées, étape vraie qui ne contredit rien, hypothèse sans fraction irréductible).
+  Écrits avant QUIZ : programme Python (programmePython), rédaction en étapes numérotées
+  (etapes), échelle de décomposition du cours (echelle).
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
+
+  Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
+  entrainement-08-arithmetique-questions.js (même dossier) ; moteur et mise en page :
+  Commun aux cours/entrainement/gabarit.html (format des questions en tête).
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/seconde/08-arithmetique.html
+  (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&display=swap">
+<!-- KaTeX, chargé sans bloquer la page (réseau du lycée parfois filtré) : les formules s'affichent
+     d'abord en mini-LaTeX, puis KaTeX les recompose sur place dès que sa feuille et son script sont là. -->
+<link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css" integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous" media="print" onload="this.media='all'; if (window.katexPret) katexPret()">
+<script async src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js" integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj" crossorigin="anonymous" onload="if (window.katexPret) katexPret()"></script>
+<style>
+:root{
+  --papier:#FCFBF7; --encre:#161616; --gris:#6B6A66; --filet:#C4BFB3; --filet-clair:#E4E0D6; --case:#F0EDE5;
+  --stylo:#1E3D96; --rouge:#CE2029; --vert:#2A7A36; --orange:#E8940A; --violet:#7A3E9D;
+  --serif:"Old Standard TT","Times New Roman",Times,serif;
+  --main:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --mono:ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 var(--serif); min-height:100vh}
+.feuille{max-width:720px; margin:0 auto; padding:34px 40px 60px}
+
+/* Retour à la liste des entraînements */
+.retour{margin:0 0 14px; font-size:.95rem}
+.retour a{color:var(--stylo); text-decoration:none; border-bottom:1px solid var(--filet)}
+.retour a:hover,.retour a:focus-visible{border-bottom-color:var(--stylo)}
+
+/* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
+.mul{color:#9C27B0}
+/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
+.op{color:var(--rouge)}
+
+/* En-tête de la copie */
+.entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
+h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
+.consigne{margin:0 0 12px; font-style:italic}
+.filet{height:4px; border-top:1px solid var(--encre); border-bottom:1px solid var(--encre); margin:8px 0 20px}
+
+/* Grilles de réponses, une par partie */
+.progression{display:flex; flex-wrap:wrap; gap:10px 28px; margin:0 0 24px; scroll-margin-top:12px}
+.bloc-grille{max-width:100%; overflow-x:auto}
+.nom-partie{margin:0 0 3px; font-style:italic; font-size:.9rem; white-space:nowrap}
+.grille-reponses{border-collapse:collapse; font-size:.9rem}
+.grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
+.grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
+.grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
+.grille-reponses td[data-q],.grille-reponses td[data-r]{cursor:pointer}
+.grille-reponses td.ici{background:var(--filet-clair)}
+.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
+.grille-reponses button.aller:hover{text-decoration:underline}
+.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
+.grille-reponses td.juste{color:var(--vert)}
+.grille-reponses td.erreur{color:var(--rouge)}
+
+/* Marques au stylo : croix et coche dessinées en CSS */
+.marque{position:relative; display:inline-block; width:18px; height:18px; vertical-align:-4px; color:inherit}
+.marque::before,.marque::after{content:""; position:absolute; width:2px; background:currentColor; border-radius:1px; display:none}
+.marque.croix::before,.marque.croix::after{display:block; left:8px; top:-2px; height:22px}
+.marque.croix::before{transform:rotate(43deg)}
+.marque.croix::after{transform:rotate(-47deg)}
+.marque.coche::before,.marque.coche::after{display:block}
+.marque.coche::before{left:3px; top:8px; height:8px; transform:rotate(-42deg)}
+.marque.coche::after{left:10px; top:-2px; height:20px; transform:rotate(38deg)}
+
+/* Question et réponses */
+.partie{margin:0 0 2px; font-variant:small-caps; letter-spacing:.03em}
+.question{margin:0 0 6px}
+.question i{color:var(--gris)}
+.enonce{margin:0 0 14px}
+.reponses{display:grid; gap:6px; margin:0 0 18px}
+.reponses.vf{display:flex; gap:12px 40px; flex-wrap:wrap}
+.choix{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; padding:5px 4px; border:0; border-radius:0; background:transparent; color:var(--encre); font:inherit; line-height:1.45; cursor:pointer}
+.reponses.vf .choix{width:auto; padding-right:12px}
+.choix:disabled{cursor:default}
+.choix .boite{flex:none; position:relative; width:18px; height:18px; margin-top:5px; border:1px solid var(--encre); background:var(--papier)}
+.choix .boite .marque{position:absolute; left:-1px; top:-1px}
+.choix:hover:not(:disabled) .boite{box-shadow:0 0 0 1px var(--encre)}
+.choix .lettre{flex:none; width:1.3em; color:var(--gris)}
+.choix .texte{flex:1; min-width:0}
+.choix.choisi .marque{color:var(--stylo)}
+.choix.juste .marque{color:var(--vert)}
+.choix.erreur .marque{color:var(--rouge)}
+.choix.terne{color:var(--gris)}
+.actions{display:flex; gap:12px 18px; flex-wrap:wrap; align-items:center}
+.bouton{font:inherit; font-variant:small-caps; letter-spacing:.04em; font-size:1rem; padding:5px 18px; border:1px solid var(--encre); border-radius:0; background:var(--papier); color:var(--encre); cursor:pointer}
+.bouton:hover:not(:disabled){background:var(--encre); color:var(--papier)}
+.bouton:disabled{opacity:.4; cursor:default}
+.bouton.discret{border-color:var(--filet)}
+
+/* Correction du professeur */
+.correction{margin:20px 0 0; padding:2px 0 2px 16px; border-left:2px solid var(--rouge)}
+.correction.juste{border-left-color:var(--vert)}
+.verdict{font:600 1.7rem/1.1 var(--main); color:var(--rouge); margin:0 0 6px}
+.correction.juste .verdict{color:var(--vert)}
+.explication{margin:0; font-size:1rem; line-height:1.55}
+.explication p{margin:0 0 .55em}
+.explication p:last-child{margin-bottom:0}
+.explication .revoir{font-style:italic; color:var(--gris)}
+.explication .fig{margin:8px auto 12px}
+/* Calcul en colonne : une étape par ligne, alignées sur le signe = ou ⇔ (comme dans les PDF) */
+.calcul{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.45em .4em; align-items:baseline; margin:.3em 0 .5em 1.4em; padding:.2em 0 .3em; overflow-x:auto; overflow-y:hidden}
+.calcul .g{justify-self:end}
+.resultat{display:inline-block; border:1px solid currentColor; padding:.05em .4em; line-height:1.35}
+code{font-family:var(--mono); font-size:.88em}
+
+/* Figures dans les énoncés et les corrections */
+.fig{display:block; width:100%; height:auto; margin:12px auto 4px}
+.fig .grille{stroke:var(--filet); stroke-width:.7; fill:none}
+.fig .axe{stroke:var(--encre); stroke-width:1.1; fill:none}
+.fig .fleche{fill:var(--encre)}
+.fig .tick{font:10.5px var(--serif); fill:var(--encre); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .courbe{stroke:currentColor; stroke-width:2.2; fill:none}
+.fig .lab{font:italic 13px var(--serif); fill:currentColor; paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .pt{fill:currentColor}
+.fig .lecture{stroke:var(--vert); stroke-width:1.5; stroke-dasharray:5 3; fill:none}
+.fig .pointe{fill:var(--vert)}
+.fig .note{font:italic 11.5px var(--serif); fill:var(--vert); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .surligne{stroke:var(--orange); stroke-width:9; opacity:.6; fill:none}
+.fig .c-rouge{color:var(--rouge)}
+.fig .c-bleu{color:var(--stylo)}
+.fig .c-noir{color:var(--encre)}
+.fig .c-violet{color:var(--violet)}
+
+/* Résultat */
+.note{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:6px 0 2px; color:var(--rouge)}
+.note .grand{font:700 3.6rem/1 var(--main)}
+.note .sur{font:400 1.5rem/1 var(--main)}
+.appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
+.bilan-parties{margin:0 0 6px}
+.bilan-parties span{white-space:nowrap}
+.bilan-reprise{margin:0 0 10px}
+.reprise-info{margin:0 0 10px; font-style:italic}
+.a-revoir{margin:0 0 16px}
+.a-revoir ul{margin:4px 0 0; padding-left:1.3em}
+.titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
+.revue{list-style:none; padding:0; margin:8px 0 0; border-top:1px solid var(--encre)}
+.revue li{padding:14px 0; border-bottom:1px solid var(--filet)}
+.revue .enonce{margin-bottom:10px}
+.revue .bilan{margin:6px 0 8px; font-style:italic}
+.revue li.juste .bilan{color:var(--vert)}
+.revue li.erreur .bilan{color:var(--rouge)}
+.revue .explication{font-size:1rem}
+.liste-choix{margin:0 0 8px; padding-left:1.6em}
+.liste-choix li{border:0; padding:1px 0}
+.liste-choix li.bonne{color:var(--vert)}
+.variante{margin:14px 0 0; padding:0 0 0 14px; border-left:1px dashed var(--filet)}
+.pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
+.pied p{margin:0 0 4px}
+.pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
+
+/* Formules : KaTeX (réduit de 1,21 à 1,1 em pour s'accorder au texte), sinon mini-LaTeX (.m) */
+.katex{font-size:1.1em}
+.m{font-family:var(--serif); white-space:nowrap}
+.m.m-long{white-space:normal}
+.m i{font-style:italic}
+.m .rm{font-style:normal}
+.m sub,.m sup{font-size:.8em; line-height:0; white-space:nowrap}
+.m .prime{display:inline-block; margin-left:.08em; font-size:1.2em; line-height:0}
+.m sub{vertical-align:-.25em}
+.m sup{vertical-align:.55em}
+.frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; font-size:.92em; line-height:1.2; margin:0 .15em}
+.frac .num{border-bottom:1px solid currentColor; padding:0 .25em .04em}
+.frac .den{padding:.04em .25em 0}
+.sqrt .rad{border-top:1px solid currentColor; padding:0 .12em}
+
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important; scroll-behavior:auto !important}}
+@media (max-width:520px){
+  body{font-size:17px}
+  .feuille{padding:22px 16px 48px}
+  .entete{font-size:.9rem}
+  h1{font-size:1.7rem}
+  .reponses.vf{gap:8px 24px}
+}
+@media print{
+  .actions,.pied,.progression{display:none}
+  .revue li{break-inside:avoid}
+}
+/* Feuille de calcul */
+table.tableur{border-collapse:collapse; margin:10px auto 4px; font:400 .88rem "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+table.tableur th{background:var(--case); color:var(--gris); font-weight:400; border:1px solid var(--filet); padding:2px 10px; text-align:center; min-width:2.2em}
+table.tableur td{border:1px solid var(--filet); padding:2px 10px; min-width:5em; height:1.9em; background:#FFFFFF; text-align:center}
+table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
+</style>
+</head>
+<body>
+<main class="feuille">
+  <header>
+    <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
+    <div class="entete"><span>Seconde</span><span>M. Bailly</span><span>Chapitre 8 · Arithmétique</span></div>
+    <h1>Entraînement Évaluation arithmétique</h1>
+    <p class="consigne">Douze questions sur l'arithmétique. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="filet" role="presentation"></div>
+  </header>
+  <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
+  <section id="quiz" aria-live="polite"></section>
+  <footer class="pied">
+    <p><button type="button" id="reinitialiser">Recommencer depuis le début</button></p>
+  </footer>
+</main>
+<script>
+(function () {
+'use strict';
+const r = String.raw;
+
+/* ---------- Figures (SVG généré) ---------- */
+const arrondi = x => Math.round(x * 10) / 10;
+const fr = x => String(x).replace('.', ',');
+const moins = n => String(n).replace('-', '−');
+function fleche(x, y, sens) {
+  return sens === 'droite'
+    ? `<path class="fleche" d="M${x} ${y} l-7 -3.5 v7 z"/>`
+    : `<path class="fleche" d="M${x} ${y} l-3.5 7 h7 z"/>`;
+}
+// Repère orthonormé quadrillé et gradué de 1 en 1. o = {xmin, xmax, ymin, ymax, label, echelle} et, au choix :
+//   courbes  : [{f: x => ..., classe, x1, x2}]        classe = c-rouge (défaut), c-bleu, c-noir, c-violet
+//   noms     : [{x, y, texte, indice, apres, classe, ancre}]   nom d'une courbe, dans sa couleur
+//   lectures : [[[x, y], [x, y], ...], ...]            lignes de lecture en tirets verts, flèche au bout
+//   textes   : [{x, y, texte, ancre}]                  annotations vertes des lectures (+1, +3...)
+//   points   : [{x, y, classe}]
+//   surligne : {x1, x2}                                partie de l'axe des abscisses surlignée en orange (null = bord du repère)
+let numeroFigure = 0;
+function repere(o) {
+  const u = 26, m = 17;
+  const W = (o.xmax - o.xmin) * u + 2 * m, H = (o.ymax - o.ymin) * u + 2 * m;
+  const X = x => arrondi(m + (x - o.xmin) * u), Y = y => arrondi(m + (o.ymax - y) * u);
+  const cadre = 'cadre-' + (++numeroFigure);
+  const xfin = X(o.xmax) + 12, yhaut = Y(o.ymax) - 12;
+  let s = `<svg class="fig" viewBox="0 0 ${W} ${H}" style="max-width:${Math.round(W * (o.echelle || 1.3))}px" role="img" aria-label="${o.label}">`;
+  s += `<defs><clipPath id="${cadre}"><rect x="${X(o.xmin)}" y="${Y(o.ymax)}" width="${(o.xmax - o.xmin) * u}" height="${(o.ymax - o.ymin) * u}"/></clipPath></defs>`;
+  for (let x = o.xmin; x <= o.xmax; x++) s += `<line class="grille" x1="${X(x)}" y1="${Y(o.ymin)}" x2="${X(x)}" y2="${Y(o.ymax)}"/>`;
+  for (let y = o.ymin; y <= o.ymax; y++) s += `<line class="grille" x1="${X(o.xmin)}" y1="${Y(y)}" x2="${X(o.xmax)}" y2="${Y(y)}"/>`;
+  if (o.surligne) {
+    const x1 = o.surligne.x1 === null ? o.xmin : o.surligne.x1, x2 = o.surligne.x2 === null ? o.xmax : o.surligne.x2;
+    s += `<line class="surligne" x1="${X(x1)}" y1="${Y(0)}" x2="${X(x2)}" y2="${Y(0)}"/>`;
+  }
+  s += `<line class="axe" x1="${X(o.xmin)}" y1="${Y(0)}" x2="${xfin}" y2="${Y(0)}"/>${fleche(xfin, Y(0), 'droite')}`;
+  s += `<line class="axe" x1="${X(0)}" y1="${Y(o.ymin)}" x2="${X(0)}" y2="${yhaut}"/>${fleche(X(0), yhaut, 'haut')}`;
+  (o.courbes || []).forEach(c => {
+    const x1 = c.x1 === undefined ? o.xmin : c.x1, x2 = c.x2 === undefined ? o.xmax : c.x2, n = 80;
+    let d = '';
+    for (let k = 0; k <= n; k++) { const x = x1 + (x2 - x1) * k / n; d += (k ? ' L' : 'M') + X(x) + ' ' + Y(c.f(x)); }
+    s += `<path class="courbe ${c.classe || 'c-rouge'}" clip-path="url(#${cadre})" d="${d}"/>`;
+  });
+  (o.lectures || []).forEach(pts => {
+    const P = pts.map(p => [X(p[0]), Y(p[1])]);
+    const a = P[P.length - 2], b = P[P.length - 1];
+    const L = Math.hypot(b[0] - a[0], b[1] - a[1]), ux = (b[0] - a[0]) / L, uy = (b[1] - a[1]) / L;
+    s += `<polyline class="lecture" points="${P.map(p => p.join(',')).join(' ')}"/>`;
+    s += `<path class="pointe" d="M${b[0]} ${b[1]} L${arrondi(b[0] - 7 * ux + 3.2 * uy)} ${arrondi(b[1] - 7 * uy - 3.2 * ux)} L${arrondi(b[0] - 7 * ux - 3.2 * uy)} ${arrondi(b[1] - 7 * uy + 3.2 * ux)} z"/>`;
+  });
+  // Graduations sur fond papier, par-dessus les courbes et les lectures : elles restent lisibles.
+  for (let x = o.xmin; x <= o.xmax; x++) if (x !== 0) s += `<text class="tick" x="${X(x)}" y="${Y(0) + 13}" text-anchor="middle">${moins(x)}</text>`;
+  for (let y = o.ymin; y <= o.ymax; y++) if (y !== 0) s += `<text class="tick" x="${X(0) - 5}" y="${Y(y) + 3.5}" text-anchor="end">${moins(y)}</text>`;
+  s += `<text class="tick" x="${X(0) - 5}" y="${Y(0) + 13}" text-anchor="end">0</text>`;
+  (o.points || []).forEach(p => { s += `<circle class="pt ${p.classe || 'c-rouge'}" cx="${X(p.x)}" cy="${Y(p.y)}" r="3.3"/>`; });
+  (o.textes || []).forEach(t => { s += `<text class="note" x="${X(t.x)}" y="${Y(t.y)}" text-anchor="${t.ancre || 'middle'}">${t.texte}</text>`; });
+  (o.noms || []).forEach(n => {
+    const indice = n.indice ? `<tspan dy="3" font-size="9.5">${n.indice}</tspan>` + (n.apres ? `<tspan dy="-3">${n.apres}</tspan>` : '') : '';
+    s += `<text class="lab ${n.classe || 'c-rouge'}" x="${X(n.x)}" y="${Y(n.y)}" text-anchor="${n.ancre || 'start'}">${n.texte}${indice}</text>`;
+  });
+  return s + '</svg>';
+}
+// Feuille de calcul (question sur le tableur) : lignes = [[A, B], ...] à partir de la ligne 1 ;
+// la cellule '#sel' est la cellule sélectionnée, laissée vide.
+function tableur(lignes, label) {
+  const cellule = c => c === '#sel' ? '<td class="sel"></td>' : `<td>${c}</td>`;
+  return `<table class="tableur" aria-label="${label}"><tr><th></th><th>A</th><th>B</th></tr>`
+    + lignes.map((l, k) => `<tr><th>${k + 1}</th>${cellule(l[0])}${cellule(l[1])}</tr>`).join('')
+    + '</table>';
+}
+
+// Calcul en colonne, comme l'environnement calcul des PDF : une étape par ligne, alignées sur le
+// signe placé après & (formules écrites sans les dollars). Le résultat s'encadre avec \resultat{...}.
+//   calcul(r`A & = x - 4(3x + 2)`, r`& = x - 12x - 8`, r`& = \resultat{-11x - 8}`)
+function calcul(...lignes) {
+  return '<div class="calcul">' + lignes.map(l => {
+    const k = l.indexOf('&');
+    const gauche = k < 0 ? '' : l.slice(0, k).trim(), droite = (k < 0 ? l : l.slice(k + 1)).trim();
+    return '<span class="g">' + (gauche ? '$' + gauche + '$' : '') + '</span><span class="d">$' + droite + '$</span>';
+  }).join('') + '</div>';
+}
+
+/* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
+// Programme Python de la question 3, présenté comme dans la fiche d'exercices : police à chasse
+// fixe, fond gris clair, filet à gauche. Les signes <, > et & du code sont échappés ici.
+// Écrit par concaténation de chaînes, sans gabarit de chaîne.
+function programmePython(lignes) {
+  const code = lignes.map(l => l.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')).join('\n');
+  return '<pre style="margin:.5em 0 .8em 1.2em; padding:.45em .9em; background:var(--case);'
+    + ' border-left:2px solid var(--filet); font-family:var(--mono); font-size:.85em;'
+    + ' line-height:1.45; overflow-x:auto">' + code + '</pre>';
+}
+// Les deux fonctions de l'exercice 2 de la fiche, complétées.
+const FONCTIONS = programmePython([
+  'def est_multiple(a, b):',
+  '    return a % b == 0',
+  '',
+  'def multiple_max(a, b):',
+  '    m = 0',
+  '    while m + a <= b:',
+  '        m = m + a',
+  '    return m']);
+
+// Rédaction en étapes numérotées (questions 5 et 12) : une étape par ligne, en retrait derrière
+// un filet gris, comme sur une copie ; « …… » pour l'étape à compléter.
+function etapes(lignes) {
+  return '<div style="margin:.5em 0 .7em 1.2em; padding-left:.8em; border-left:2px solid var(--filet)">'
+    + lignes.map((l, k) => '<p style="margin:0 0 .3em"><b>Étape ' + (k + 1) + '.</b> ' + l + '</p>').join('')
+    + '</div>';
+}
+
+// Échelle de décomposition en facteurs premiers (question 7), comme \echelle dans le cours :
+// quotients successifs à gauche, plus petit diviseur premier à droite, filet vertical, 1 en bas.
+//   echelle([[1400, 2], [700, 2], ...], label)
+function echelle(lignes, label) {
+  const nombre = n => '$' + String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '\\,') + '$';
+  const gauche = '<td style="padding:1px 10px; text-align:right; border-right:1px solid currentColor">';
+  const droite = '<td style="padding:1px 10px; text-align:left">';
+  return '<div role="img" aria-label="' + label + '" style="display:flex; justify-content:center; margin:4px 0 10px">'
+    + '<table style="border-collapse:collapse">'
+    + lignes.map(l => '<tr>' + gauche + nombre(l[0]) + '</td>' + droite + nombre(l[1]) + '</td></tr>').join('')
+    + '<tr>' + gauche + '$1$</td>' + droite + '</td></tr></table></div>';
+}
+
+const QUIZ = {
+  id: '2de-08-arithmetique-entrainement',
+  parties: ['Arithmétique'],
+  questions: [
+
+  /* ----- Multiples et diviseurs (partie 1 du cours, capacité 1, exercices 1 et 2 de la fiche) ----- */
+
+  { partie: 0, theme: 'Multiples et diviseurs', type: 'qcm',
+    enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+    choix: [r`$182$ est un multiple de $13$`, r`$4\,326$ est divisible par $9$`, r`$2\,538$ est divisible par $4$`, r`$7$ est un diviseur de $250$`],
+    bonne: 0,
+    explication: [
+      r`On justifie chaque affirmation par un critère de divisibilité ou par un calcul&nbsp;: $a$ est un multiple de $b$ s'il existe un entier $k$ tel que $a = k \times b$.`,
+      r`Critère de divisibilité par $9$&nbsp;: $4 + 3 + 2 + 6 = 15$ n'est pas un multiple de $9$, donc $4\,326$ n'est pas divisible par $9$.`,
+      r`Critère de divisibilité par $4$&nbsp;: les deux derniers chiffres de $2\,538$ forment $38 = 4 \times 9 + 2$, qui n'est pas un multiple de $4$, donc $2\,538$ n'est pas divisible par $4$.`,
+      r`$7 \times 35 = 245$ et $7 \times 36 = 252$&nbsp;: $250$ n'est pas dans la table de $7$.`,
+      r`On cherche $182$ dans la table de $13$&nbsp;:`,
+      calcul(r`13 \times 14 & = 130 + 52`, r`& = 182`),
+      r`$14$ est un entier&nbsp;: l'affirmation vraie est <span class="resultat">$182$ est un multiple de $13$</span>.`],
+    revoir: r`capacité 1 du cours (questions 1 à 4), exercice 1 de la fiche (questions 1 à 4), exercice 49 p.&nbsp;66 du manuel`,
+    variante: {
+      enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+      choix: [r`$3\,582$ est divisible par $9$`, r`$1\,746$ est divisible par $4$`, r`$7$ est un diviseur de $180$`, r`$196$ est un multiple de $13$`],
+      bonne: 0,
+      explication: [
+        r`On justifie chaque affirmation par un critère de divisibilité ou par un calcul&nbsp;: $a$ est un multiple de $b$ s'il existe un entier $k$ tel que $a = k \times b$.`,
+        r`Critère de divisibilité par $4$&nbsp;: les deux derniers chiffres de $1\,746$ forment $46 = 4 \times 11 + 2$, qui n'est pas un multiple de $4$, donc $1\,746$ n'est pas divisible par $4$.`,
+        r`$7 \times 25 = 175$ et $7 \times 26 = 182$&nbsp;: $180$ n'est pas dans la table de $7$.`,
+        r`$13 \times 15 = 195$ et $13 \times 16 = 208$&nbsp;: $196$ n'est pas dans la table de $13$.`,
+        r`Critère de divisibilité par $9$&nbsp;: on calcule la somme des chiffres de $3\,582$.`,
+        calcul(r`3 + 5 + 8 + 2 & = 18`, r`& = 9 \times 2`),
+        r`$18$ est un multiple de $9$&nbsp;: l'affirmation vraie est <span class="resultat">$3\,582$ est divisible par $9$</span>. Vérification&nbsp;: $9 \times 398 = 3\,582$.`] } },
+
+  { partie: 0, theme: 'Liste des diviseurs', type: 'qcm',
+    enonce: r`La liste des diviseurs positifs de $56$ est&nbsp;:`,
+    choix: [r`$1$, $2$, $4$, $7$, $8$, $14$, $28$, $56$`, r`$1$, $2$, $4$, $14$, $28$, $56$`, r`$2$, $4$, $7$, $8$, $14$, $28$`, r`$56$, $112$, $168$, $224$…`],
+    bonne: 0,
+    explication: [
+      r`On écrit $56$ comme un produit de deux facteurs, en essayant $1$, $2$, $3$… dans l'ordre ($3$, $5$ et $6$ ne divisent pas $56$)&nbsp;; on s'arrête quand le premier facteur dépasse le second.`,
+      calcul(r`56 & = 1 \times 56`, r`& = 2 \times 28`, r`& = 4 \times 14`, r`& = 7 \times 8`),
+      r`Après $7 \times 8$, on retrouverait les mêmes produits. Les diviseurs positifs de $56$ sont <span class="resultat">$1$, $2$, $4$, $7$, $8$, $14$, $28$, $56$</span>.`],
+    revoir: r`méthode de la partie 1 et capacité 1 du cours (question 5), exercice 1 de la fiche (question 5), exercice 25 p.&nbsp;64 du manuel`,
+    variante: {
+      enonce: r`La liste des diviseurs positifs de $88$ est&nbsp;:`,
+      choix: [r`$1$, $2$, $4$, $8$, $11$, $22$, $44$, $88$`, r`$1$, $2$, $4$, $22$, $44$, $88$`, r`$2$, $4$, $8$, $11$, $22$, $44$`, r`$88$, $176$, $264$, $352$…`],
+      bonne: 0,
+      explication: [
+        r`On écrit $88$ comme un produit de deux facteurs, en essayant $1$, $2$, $3$… dans l'ordre ($3$, $5$, $6$, $7$, $9$ et $10$ ne divisent pas $88$)&nbsp;; on s'arrête quand le premier facteur dépasse le second.`,
+        calcul(r`88 & = 1 \times 88`, r`& = 2 \times 44`, r`& = 4 \times 22`, r`& = 8 \times 11`),
+        r`Après $8 \times 11$, on retrouverait les mêmes produits. Les diviseurs positifs de $88$ sont <span class="resultat">$1$, $2$, $4$, $8$, $11$, $22$, $44$, $88$</span>.`] } },
+
+  { partie: 0, theme: 'Programme Python', type: 'qcm',
+    enonce: r`On considère les deux fonctions Python ci-dessous, où <code>a % b</code> est le reste de la division de $a$ par $b$.`
+      + FONCTIONS + r`Que renvoient <code>est_multiple(150, 12)</code> et <code>multiple_max(12, 150)</code>&nbsp;?`,
+    choix: [r`<code>False</code> et $144$`, r`$6$ et $144$`, r`<code>False</code> et $156$`, r`<code>False</code> et $12$`],
+    bonne: 0,
+    explication: [
+      r`<code>est_multiple(a, b)</code> renvoie <code>True</code> (vrai) si le reste de la division de $a$ par $b$ est nul, c'est-à-dire si $a$ est un multiple de $b$, et <code>False</code> (faux) sinon.`,
+      calcul(r`150 & = 12 \times 12 + 6 \quad \text{reste } 6`),
+      r`Le reste n'est pas nul&nbsp;: <code>est_multiple(150, 12)</code> renvoie <code>False</code>. Dans <code>multiple_max(12, 150)</code>, <code>m</code> prend les valeurs $0$, $12$, $24$… tant que <code>m + 12</code> ne dépasse pas $150$&nbsp;:`,
+      calcul(r`12 \times 12 & = 144 \le 150`, r`12 \times 13 & = 156 > 150`),
+      r`La boucle s'arrête avec <code>m</code> $= 144$, le plus grand multiple de $12$ inférieur ou égal à $150$. Les deux appels renvoient <span class="resultat"><code>False</code> et $144$</span>.`],
+    revoir: r`exercice 2 de la fiche, capacité 1 du cours (question 6)`,
+    variante: {
+      enonce: r`On considère les deux fonctions Python ci-dessous, où <code>a % b</code> est le reste de la division de $a$ par $b$.`
+        + FONCTIONS + r`Que renvoient <code>est_multiple(119, 7)</code> et <code>multiple_max(7, 100)</code>&nbsp;?`,
+      choix: [r`<code>True</code> et $98$`, r`$0$ et $98$`, r`<code>True</code> et $105$`, r`<code>True</code> et $14$`],
+      bonne: 0,
+      explication: [
+        r`<code>est_multiple(a, b)</code> renvoie <code>True</code> (vrai) si le reste de la division de $a$ par $b$ est nul, c'est-à-dire si $a$ est un multiple de $b$, et <code>False</code> (faux) sinon.`,
+        calcul(r`119 & = 7 \times 17 + 0 \quad \text{reste } 0`),
+        r`Le reste est nul&nbsp;: <code>est_multiple(119, 7)</code> renvoie <code>True</code>. Dans <code>multiple_max(7, 100)</code>, <code>m</code> prend les valeurs $0$, $7$, $14$… tant que <code>m + 7</code> ne dépasse pas $100$&nbsp;:`,
+        calcul(r`7 \times 14 & = 98 \le 100`, r`7 \times 15 & = 105 > 100`),
+        r`La boucle s'arrête avec <code>m</code> $= 98$, le plus grand multiple de $7$ inférieur ou égal à $100$. Les deux appels renvoient <span class="resultat"><code>True</code> et $98$</span>.`] } },
+
+  /* ----- Démontrer avec des lettres (parties 1 et 2 du cours, capacité 2, exercice 3 de la fiche) ----- */
+
+  { partie: 0, theme: 'Démontrer avec des lettres', type: 'qcm',
+    enonce: r`Soit $n$ un entier. Laquelle de ces rédactions démontre que $14n + 21$ est un multiple de $7$&nbsp;?`,
+    choix: [r`$14n + 21 = 7(2n + 3)$, et $2n + 3$ est un entier`, r`Pour $n = 1$&nbsp;: $14 \times 1 + 21 = 35 = 7 \times 5$`,
+            r`$14n + 21 = 7(2n + 21)$, et $2n + 21$ est un entier`, r`$14n + 21 = 14(n + 1{,}5)$, et $14$ est un multiple de $7$`],
+    bonne: 0,
+    explication: [
+      r`Pour montrer qu'un nombre est un multiple de $7$, on le factorise par $7$, puis on justifie que l'autre facteur est un entier. Ici, $14n = 7 \times 2n$ et $21 = 7 \times 3$.`,
+      calcul(r`14n + 21 & = 7 \times 2n + 7 \times 3`, r`& = 7(2n + 3)`),
+      r`$n$ est un entier, donc $2n + 3$ aussi&nbsp;: $14n + 21$ s'écrit $7 \times (\text{entier})$. La bonne rédaction est <span class="resultat">$14n + 21 = 7(2n + 3)$, et $2n + 3$ est un entier</span>.`],
+    revoir: r`méthode de la partie 2 et capacité 2 du cours (question 1), exercice 3 de la fiche (question 2), exercice 22 p.&nbsp;64 et question 1 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73 du manuel`,
+    variante: {
+      enonce: r`Soit $n$ un entier. Laquelle de ces rédactions démontre que $10n + 35$ est un multiple de $5$&nbsp;?`,
+      choix: [r`$10n + 35 = 5(2n + 7)$, et $2n + 7$ est un entier`, r`Pour $n = 2$&nbsp;: $10 \times 2 + 35 = 55 = 5 \times 11$`,
+              r`$10n + 35 = 5(2n + 35)$, et $2n + 35$ est un entier`, r`$10n + 35 = 10(n + 3{,}5)$, et $10$ est un multiple de $5$`],
+      bonne: 0,
+      explication: [
+        r`Pour montrer qu'un nombre est un multiple de $5$, on le factorise par $5$, puis on justifie que l'autre facteur est un entier. Ici, $10n = 5 \times 2n$ et $35 = 5 \times 7$.`,
+        calcul(r`10n + 35 & = 5 \times 2n + 5 \times 7`, r`& = 5(2n + 7)`),
+        r`$n$ est un entier, donc $2n + 7$ aussi&nbsp;: $10n + 35$ s'écrit $5 \times (\text{entier})$. La bonne rédaction est <span class="resultat">$10n + 35 = 5(2n + 7)$, et $2n + 7$ est un entier</span>.`] } },
+
+  { partie: 0, theme: 'Vérifier une démonstration', type: 'qcm', fixe: true,
+    enonce: r`Un élève veut démontrer que la somme de deux entiers impairs est paire. Voici sa rédaction.`
+      + etapes([
+        r`Soient $m$ et $n$ deux entiers impairs&nbsp;: $m = 2k + 1$ et $n = 2k + 1$, avec $k$ entier.`,
+        r`$m + n = 2k + 1 + 2k + 1 = 4k + 2$.`,
+        r`$4k + 2 = 2(2k + 1)$.`,
+        r`$2k + 1$ est un entier, donc $m + n$ est pair.`])
+      + r`Quelle étape est fausse&nbsp;?`,
+    choix: [r`L'étape 1`, r`L'étape 2`, r`L'étape 3`, r`L'étape 4`],
+    bonne: 0,
+    explication: [
+      r`Deux entiers impairs quelconques s'écrivent avec deux lettres différentes&nbsp;: $m = 2k + 1$ et $n = 2k' + 1$, avec $k$ et $k'$ entiers. Avec la même lettre $k$, l'élève suppose $m = n$&nbsp;: sa démonstration ne vaut que pour deux entiers égaux.`,
+      r`Démonstration correcte&nbsp;: on factorise la somme par $2$.`,
+      calcul(r`m + n & = 2k + 1 + 2k' + 1`, r`& = 2k + 2k' + 2`, r`& = 2(k + k' + 1)`),
+      r`$k + k' + 1$ est un entier, donc $m + n$ est pair. L'étape fausse est <span class="resultat">l'étape 1</span>.`],
+    revoir: r`démonstration de la partie 1, méthode de la partie 2 et capacité 2 du cours (question 2), exercice 3 de la fiche (question 3), exercice 78 p.&nbsp;67 et question 2 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73 du manuel`,
+    variante: {
+      enonce: r`Un élève veut démontrer que la somme de deux multiples de $7$ est un multiple de $7$. Voici sa rédaction.`
+        + etapes([
+          r`On choisit deux multiples de $7$, notés $m$ et $n$.`,
+          r`Il existe un entier $k$ tel que $m = 7k$ et $n = 7k$.`,
+          r`$m + n = 7k + 7k = 14k$.`,
+          r`$14k = 7 \times 2k$ et $2k$ est un entier, donc $m + n$ est un multiple de $7$.`])
+        + r`Quelle étape est fausse&nbsp;?`,
+      choix: [r`L'étape 1`, r`L'étape 2`, r`L'étape 3`, r`L'étape 4`],
+      bonne: 1,
+      explication: [
+        r`Deux multiples de $7$ quelconques s'écrivent avec deux lettres différentes&nbsp;: $m = 7k$ et $n = 7k'$, avec $k$ et $k'$ entiers. Avec la même lettre $k$, l'élève suppose $m = n$&nbsp;: sa démonstration ne vaut que pour deux multiples égaux.`,
+        r`Démonstration correcte (propriété de la partie 1 du cours)&nbsp;: on factorise la somme par $7$.`,
+        calcul(r`m + n & = 7k + 7k'`, r`& = 7(k + k')`),
+        r`$k + k'$ est un entier, donc $m + n$ est un multiple de $7$. L'étape fausse est <span class="resultat">l'étape 2</span>.`] } },
+
+  /* ----- Nombres premiers, fractions irréductibles (partie 3 du cours, capacité 3, exercice 4 de la fiche) ----- */
+
+  { partie: 0, theme: 'Nombre premier', type: 'vf',
+    enonce: r`Le nombre $187$ est premier.`,
+    bonne: false,
+    explication: [
+      r`Pour savoir si un entier est premier, on cherche un diviseur parmi les nombres premiers dont le carré ne dépasse pas l'entier&nbsp;: ici $2$, $3$, $5$, $7$, $11$ et $13$, car $13^{2} = 169 \le 187$ et $17^{2} = 289 > 187$.`,
+      r`$187$ est impair&nbsp;; $1 + 8 + 7 = 16$ n'est pas un multiple de $3$&nbsp;; il ne se termine ni par $0$ ni par $5$&nbsp;; $7 \times 26 = 182$ et $7 \times 27 = 189$. On essaie $11$&nbsp;:`,
+      calcul(r`11 \times 17 & = 110 + 77`, r`& = 187`),
+      r`$187 = 11 \times 17$ a d'autres diviseurs positifs que $1$ et lui-même&nbsp;: l'affirmation est <span class="resultat">fausse</span>.`],
+    revoir: r`méthode de la partie 3 et capacité 3 du cours (questions 1 et 2), activité 2, exercice 4 de la fiche (question 1), exercice 29 p.&nbsp;65 du manuel`,
+    variante: {
+      enonce: r`Le nombre $113$ est premier.`,
+      bonne: true,
+      explication: [
+        r`Pour savoir si un entier est premier, on cherche un diviseur parmi les nombres premiers dont le carré ne dépasse pas l'entier&nbsp;: ici $2$, $3$, $5$ et $7$, car $11^{2} = 121 > 113$.`,
+        r`$113$ est impair&nbsp;; $1 + 1 + 3 = 5$ n'est pas un multiple de $3$&nbsp;; il ne se termine ni par $0$ ni par $5$. Pour $7$, on encadre $113$ par deux multiples consécutifs de $7$&nbsp;:`,
+        calcul(r`7 \times 16 & = 112 < 113`, r`7 \times 17 & = 119 > 113`),
+        r`Aucun de ces nombres premiers ne divise $113$&nbsp;: l'affirmation est <span class="resultat">vraie</span>.`] } },
+
+  { partie: 0, theme: 'Décomposition en facteurs premiers', type: 'qcm',
+    enonce: r`La décomposition de $1\,400$ en produit de facteurs premiers est&nbsp;:`,
+    choix: [r`$2^{3} \times 5^{2} \times 7$`, r`$2^{3} \times 25 \times 7$`, r`$2^{2} \times 5^{2} \times 7$`, r`$2 \times 5 \times 7$`],
+    bonne: 0,
+    explication: [
+      r`On divise $1\,400$ par le plus petit nombre premier qui le divise, puis on recommence avec le quotient, jusqu'à obtenir $1$&nbsp;; les facteurs premiers se lisent dans la colonne de droite.`,
+      echelle([[1400, 2], [700, 2], [350, 2], [175, 5], [35, 5], [7, 7]],
+        "Échelle de décomposition : 1 400 divisé par 2 donne 700, 700 divisé par 2 donne 350, 350 divisé par 2 donne 175, 175 divisé par 5 donne 35, 35 divisé par 5 donne 7, 7 divisé par 7 donne 1"),
+      calcul(r`1\,400 & = 2 \times 2 \times 2 \times 5 \times 5 \times 7`, r`& = \resultat{2^{3} \times 5^{2} \times 7}`),
+      r`Vérification&nbsp;: $8 \times 25 \times 7 = 200 \times 7 = 1\,400$.`],
+    revoir: r`méthode de la partie 3 et capacité 3 du cours (question 3), activité 2 (question 3), exercice 4 de la fiche (question 2), exercice 85 p.&nbsp;67 du manuel`,
+    variante: {
+      enonce: r`La décomposition de $980$ en produit de facteurs premiers est&nbsp;:`,
+      choix: [r`$2^{2} \times 5 \times 7^{2}$`, r`$2^{2} \times 5 \times 49$`, r`$2 \times 5 \times 7^{2}$`, r`$2 \times 5 \times 7$`],
+      bonne: 0,
+      explication: [
+        r`On divise $980$ par le plus petit nombre premier qui le divise, puis on recommence avec le quotient, jusqu'à obtenir $1$&nbsp;; les facteurs premiers se lisent dans la colonne de droite.`,
+        echelle([[980, 2], [490, 2], [245, 5], [49, 7], [7, 7]],
+          "Échelle de décomposition : 980 divisé par 2 donne 490, 490 divisé par 2 donne 245, 245 divisé par 5 donne 49, 49 divisé par 7 donne 7, 7 divisé par 7 donne 1"),
+        calcul(r`980 & = 2 \times 2 \times 5 \times 7 \times 7`, r`& = \resultat{2^{2} \times 5 \times 7^{2}}`),
+        r`Vérification&nbsp;: $4 \times 5 \times 49 = 20 \times 49 = 980$.`] } },
+
+  { partie: 0, theme: 'Fraction irréductible', type: 'qcm',
+    enonce: r`Sous forme de fraction irréductible, $\dfrac{98}{126}$ est égal à&nbsp;:`,
+    choix: [r`$\dfrac{7}{9}$`, r`$\dfrac{49}{63}$`, r`$\dfrac{9}{7}$`, r`$\dfrac{7}{18}$`],
+    bonne: 0,
+    explication: [
+      r`On décompose le numérateur et le dénominateur, $98 = 2 \times 7 \times 7$ et $126 = 2 \times 3 \times 3 \times 7$, puis on simplifie par tous leurs facteurs premiers communs, $2 \times 7 = 14$.`,
+      calcul(r`\dfrac{98}{126} & = \dfrac{2 \times 7 \times 7}{2 \times 3 \times 3 \times 7}`, r`& = \dfrac{7 \mul{\times 2 \times 7}}{9 \mul{\times 2 \times 7}}`, r`& = \resultat{\dfrac{7}{9}}`),
+      r`$7$ et $9$ n'ont pas d'autre diviseur positif commun que $1$&nbsp;: la fraction est irréductible. Vérification&nbsp;: $14 \times 7 = 98$ et $14 \times 9 = 126$.`],
+    revoir: r`méthode de la partie 3 et capacité 3 du cours (questions 4 à 6), exercice 4 de la fiche (question 3), exercice 102 p.&nbsp;69 et question 4 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73 du manuel`,
+    variante: {
+      enonce: r`Sous forme de fraction irréductible, $\dfrac{105}{165}$ est égal à&nbsp;:`,
+      choix: [r`$\dfrac{7}{11}$`, r`$\dfrac{21}{33}$`, r`$\dfrac{11}{7}$`, r`$\dfrac{7}{33}$`],
+      bonne: 0,
+      explication: [
+        r`On décompose le numérateur et le dénominateur, $105 = 3 \times 5 \times 7$ et $165 = 3 \times 5 \times 11$, puis on simplifie par tous leurs facteurs premiers communs, $3 \times 5 = 15$.`,
+        calcul(r`\dfrac{105}{165} & = \dfrac{3 \times 5 \times 7}{3 \times 5 \times 11}`, r`& = \dfrac{7 \mul{\times 3 \times 5}}{11 \mul{\times 3 \times 5}}`, r`& = \resultat{\dfrac{7}{11}}`),
+        r`$7$ et $11$ sont deux nombres premiers différents&nbsp;: la fraction est irréductible. Vérification&nbsp;: $15 \times 7 = 105$ et $15 \times 11 = 165$.`] } },
+
+  /* ----- Modéliser un problème (partie 4 du cours, capacité 4, exercice 5 de la fiche) ----- */
+
+  { partie: 0, theme: 'Diviseur commun', type: 'qcm',
+    enonce: r`Un professeur dispose de $72$ feutres et de $120$ crayons. Il veut faire des lots tous identiques (même nombre de feutres et même nombre de crayons dans chaque lot), en utilisant tout. Le plus grand nombre de lots possible est&nbsp;:`,
+    choix: [r`$24$`, r`$12$`, r`$360$`, r`$8$`],
+    bonne: 0,
+    explication: [
+      r`Les lots sont identiques et utilisent tout&nbsp;: le nombre de lots doit diviser $72$ et $120$. On cherche leur plus grand diviseur commun&nbsp;: on décompose, puis on garde les facteurs premiers communs.`,
+      calcul(r`72 & = 2 \times 2 \times 2 \times 3 \times 3`, r`120 & = 2 \times 2 \times 2 \times 3 \times 5`),
+      r`Facteurs communs&nbsp;: $2 \times 2 \times 2 \times 3 = 24$. Puis $72 = 24 \times 3$ et $120 = 24 \times 5$&nbsp;: au plus <span class="resultat">$24$ lots</span>, de $3$ feutres et $5$ crayons chacun.`],
+    revoir: r`méthode de la partie 4 et capacité 4 du cours (question 1), exercice 5 de la fiche (question 1)`,
+    variante: {
+      enonce: r`On veut couvrir un mur rectangulaire de $150$&nbsp;cm sur $90$&nbsp;cm avec des carreaux carrés tous identiques, sans découpe. Le plus grand côté possible d'un carreau est&nbsp;:`,
+      choix: [r`$30$&nbsp;cm`, r`$15$&nbsp;cm`, r`$450$&nbsp;cm`, r`$10$&nbsp;cm`],
+      bonne: 0,
+      explication: [
+        r`Sans découpe, le côté d'un carreau doit diviser la longueur et la largeur du mur&nbsp;: on cherche le plus grand diviseur commun de $150$ et $90$. On décompose, puis on garde les facteurs premiers communs.`,
+        calcul(r`150 & = 2 \times 3 \times 5 \times 5`, r`90 & = 2 \times 3 \times 3 \times 5`),
+        r`Facteurs communs&nbsp;: $2 \times 3 \times 5 = 30$. Puis $150 = 30 \times 5$ et $90 = 30 \times 3$&nbsp;: des carreaux de <span class="resultat">$30$&nbsp;cm</span> de côté, soit $5 \times 3 = 15$ carreaux.`] } },
+
+  { partie: 0, theme: 'Multiple commun', type: 'qcm',
+    enonce: r`Deux coureurs partent ensemble de la ligne de départ d'une piste à 10&nbsp;h. Le premier fait un tour en $9$ minutes, le second en $12$ minutes, toujours à la même allure. À quelle heure repasseront-ils ensemble sur la ligne pour la première fois&nbsp;?`,
+    choix: [r`10&nbsp;h&nbsp;36`, r`11&nbsp;h&nbsp;48`, r`10&nbsp;h&nbsp;21`, r`10&nbsp;h&nbsp;03`],
+    bonne: 0,
+    explication: [
+      r`Le premier coureur repasse sur la ligne aux multiples de $9$ minutes, le second aux multiples de $12$ minutes&nbsp;: on cherche leur plus petit multiple commun non nul. On liste les multiples de $12$, le plus grand nombre, jusqu'à trouver un multiple de $9$.`,
+      calcul(r`12 \times 1 & = 12 \quad \text{pas un multiple de } 9`, r`12 \times 2 & = 24 \quad \text{pas un multiple de } 9`, r`12 \times 3 & = 36 = 9 \times 4 \quad \text{multiple de } 9`),
+      r`Ils repassent ensemble sur la ligne $36$ minutes après 10&nbsp;h, soit à <span class="resultat">10&nbsp;h&nbsp;36</span>.`],
+    revoir: r`méthode de la partie 4 et capacité 4 du cours (question 2), exercice 5 de la fiche (question 2)`,
+    variante: {
+      enonce: r`Deux arroseurs automatiques se déclenchent ensemble à 7&nbsp;h. Ensuite, le premier se déclenche toutes les $10$ minutes et le second toutes les $25$ minutes. À quelle heure se déclencheront-ils de nouveau ensemble pour la première fois&nbsp;?`,
+      choix: [r`7&nbsp;h&nbsp;50`, r`11&nbsp;h&nbsp;10`, r`7&nbsp;h&nbsp;35`, r`7&nbsp;h&nbsp;05`],
+      bonne: 0,
+      explication: [
+        r`Le premier arroseur se déclenche aux multiples de $10$ minutes, le second aux multiples de $25$ minutes&nbsp;: on cherche leur plus petit multiple commun non nul. On liste les multiples de $25$, le plus grand nombre, jusqu'à trouver un multiple de $10$.`,
+        calcul(r`25 \times 1 & = 25 \quad \text{pas un multiple de } 10`, r`25 \times 2 & = 50 = 10 \times 5 \quad \text{multiple de } 10`),
+        r`Ils se déclenchent de nouveau ensemble $50$ minutes après 7&nbsp;h, soit à <span class="resultat">7&nbsp;h&nbsp;50</span>.`] } },
+
+  /* ----- Contre-exemple, raisonnement par l'absurde (partie 5 du cours, capacité 5, exercice 6 de la fiche) ----- */
+
+  { partie: 0, theme: 'Contre-exemple ou démonstration', type: 'qcm',
+    enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+    choix: [r`La somme de trois entiers consécutifs est un multiple de $3$`,
+            r`Si un entier est divisible par $6$ et par $10$, alors il est divisible par $60$`,
+            r`Il existe des entiers $a$ et $b$ tels que $6a + 14b = 45$`,
+            r`Pour tout entier naturel $n$, le nombre $n^{2} + n + 5$ est premier`],
+    bonne: 0,
+    explication: [
+      r`Pour montrer qu'une affirmation est fausse, un seul contre-exemple suffit&nbsp;; pour montrer qu'elle est vraie, il faut une démonstration valable pour tous les entiers.`,
+      r`$30 = 6 \times 5 = 10 \times 3$ est divisible par $6$ et par $10$, mais pas par $60$&nbsp;: c'est un contre-exemple, l'affirmation sur $60$ est fausse.`,
+      r`Par l'absurde&nbsp;: si $6a + 14b = 45$, alors $45 = 2(3a + 7b)$ serait pair, alors que $45 = 2 \times 22 + 1$ est impair. Cette contradiction montre que de tels entiers n'existent pas.`,
+      r`Pour $n = 4$, $4^{2} + 4 + 5 = 25 = 5 \times 5$ n'est pas premier&nbsp;: c'est un contre-exemple, l'affirmation sur $n^{2} + n + 5$ est fausse.`,
+      r`Trois entiers consécutifs s'écrivent $n$, $n + 1$ et $n + 2$, avec $n$ entier. On réduit leur somme, puis on la factorise par $3$&nbsp;:`,
+      calcul(r`n + (n + 1) + (n + 2) & = 3n + 3`, r`& = 3(n + 1)`),
+      r`$n + 1$ est un entier&nbsp;: <span class="resultat">la somme de trois entiers consécutifs est un multiple de $3$</span>.`],
+    revoir: r`méthodes de la partie 5 et capacité 5 du cours, activité 1, exercice 6 de la fiche (question 1), exercices 29 p.&nbsp;65 et 92 p.&nbsp;68 et question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73 du manuel`,
+    variante: {
+      enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+      choix: [r`Le produit de deux entiers pairs est un multiple de $4$`,
+              r`Si un entier est divisible par $4$ et par $14$, alors il est divisible par $56$`,
+              r`Il existe des entiers $a$ et $b$ tels que $10a + 4b = 27$`,
+              r`Si $p$ est un nombre premier, alors $p + 4$ est premier`],
+      bonne: 0,
+      explication: [
+        r`Pour montrer qu'une affirmation est fausse, un seul contre-exemple suffit&nbsp;; pour montrer qu'elle est vraie, il faut une démonstration valable pour tous les entiers.`,
+        r`$28 = 4 \times 7 = 14 \times 2$ est divisible par $4$ et par $14$, mais pas par $56$&nbsp;: c'est un contre-exemple, l'affirmation sur $56$ est fausse.`,
+        r`Par l'absurde&nbsp;: si $10a + 4b = 27$, alors $27 = 2(5a + 2b)$ serait pair, alors que $27 = 2 \times 13 + 1$ est impair. Cette contradiction montre que de tels entiers n'existent pas.`,
+        r`$5$ est premier, mais $5 + 4 = 9 = 3 \times 3$ ne l'est pas&nbsp;: c'est un contre-exemple, l'affirmation sur $p + 4$ est fausse.`,
+        r`Deux entiers pairs quelconques s'écrivent $2k$ et $2k'$, avec $k$ et $k'$ entiers. On calcule leur produit&nbsp;:`,
+        calcul(r`2k \times 2k' & = 4kk'`, r`& = 4 \times kk'`),
+        r`$kk'$ est un entier&nbsp;: <span class="resultat">le produit de deux entiers pairs est un multiple de $4$</span>.`] } },
+
+  { partie: 0, theme: "Démonstration par l'absurde", type: 'qcm',
+    enonce: r`On démontre par l'absurde que $\sqrt{2}$ est irrationnel. On suppose que $\sqrt{2} = \dfrac{p}{q}$, avec $p$ et $q$ entiers naturels non nuls et la fraction $\dfrac{p}{q}$ irréductible.`
+      + etapes([
+        r`En élevant au carré, $p^{2} = 2q^{2}$&nbsp;: $p^{2}$ est pair, donc $p$ est pair. On écrit $p = 2m$, avec $m$ entier.`,
+        r`Alors $4m^{2} = 2q^{2}$, soit $q^{2} = 2m^{2}$&nbsp;: $q^{2}$ est pair, donc $q$ est pair.`,
+        r`……`])
+      + r`Donc $\sqrt{2}$ est irrationnel. Que faut-il écrire à l'étape 3&nbsp;?`,
+    choix: [r`$p$ et $q$ sont pairs&nbsp;: $\dfrac{p}{q}$ se simplifie par $2$, ce qui contredit le choix d'une fraction irréductible`,
+            r`$p$ et $q$ sont pairs, donc $p^{2}$ et $q^{2}$ sont pairs aussi`,
+            r`$q^{2} = 2m^{2}$, donc $\sqrt{2} = \dfrac{q}{m}$&nbsp;: $\sqrt{2}$ est bien rationnel`,
+            r`$p$ et $q$ sont pairs, donc $\dfrac{p}{q}$ est un nombre entier`],
+    bonne: 0,
+    explication: [
+      r`Dans un raisonnement par l'absurde, on suppose l'affirmation fausse, puis on en déduit une contradiction. Ici, on a choisi la fraction $\dfrac{p}{q}$ irréductible&nbsp;: $p$ et $q$ n'ont pas d'autre diviseur positif commun que $1$.`,
+      r`D'après les étapes 1 et 2, $p = 2m$ et $q = 2m'$, avec $m$ et $m'$ entiers&nbsp;: la fraction se simplifie par $2$.`,
+      calcul(r`\dfrac{p}{q} & = \dfrac{m \mul{\times 2}}{m' \mul{\times 2}}`, r`& = \dfrac{m}{m'}`),
+      r`C'est la contradiction cherchée&nbsp;: à l'étape 3, on écrit que <span class="resultat">$\dfrac{p}{q}$ se simplifie par $2$, alors qu'elle est irréductible</span>. L'hypothèse de départ est donc fausse&nbsp;: $\sqrt{2}$ est irrationnel.`],
+    revoir: r`théorème et démonstration de la partie 5 du cours, exercice 6 de la fiche (question 2), exercice 82 p.&nbsp;67 du manuel`,
+    variante: {
+      enonce: r`On démontre par l'absurde que $\sqrt{2}$ est irrationnel.`
+        + etapes([
+          r`……`,
+          r`En élevant au carré, $p^{2} = 2q^{2}$&nbsp;: $p^{2}$ est pair, donc $p$ est pair. On écrit $p = 2m$, avec $m$ entier.`,
+          r`Alors $4m^{2} = 2q^{2}$, soit $q^{2} = 2m^{2}$&nbsp;: $q^{2}$ est pair, donc $q$ est pair.`,
+          r`$p$ et $q$ sont pairs&nbsp;: $\dfrac{p}{q}$ se simplifie par $2$. C'est une contradiction.`])
+        + r`Donc $\sqrt{2}$ est irrationnel. Que faut-il écrire à l'étape 1&nbsp;?`,
+      choix: [r`On suppose que $\sqrt{2} = \dfrac{p}{q}$, avec $p$ et $q$ entiers naturels non nuls et $\dfrac{p}{q}$ irréductible`,
+              r`On suppose que $\sqrt{2}$ est irrationnel`,
+              r`On suppose que $\sqrt{2} = \dfrac{p}{q}$, avec $p$ et $q$ entiers naturels non nuls`,
+              r`On suppose que $p$ et $q$ sont pairs`],
+      bonne: 0,
+      explication: [
+        r`Dans un raisonnement par l'absurde, on suppose que l'affirmation à démontrer est fausse&nbsp;: ici, que $\sqrt{2}$ est rationnel, c'est-à-dire qu'il s'écrit $\dfrac{p}{q}$, avec $p$ et $q$ entiers.`,
+        r`À l'étape 4, la contradiction vient de ce que $\dfrac{p}{q}$ se simplifie par $2$&nbsp;: il faut donc avoir choisi, à l'étape 1, une fraction irréductible (on peut toujours la simplifier jusqu'à ce qu'elle le soit).`,
+        r`L'étape 1 est&nbsp;: <span class="resultat">on suppose que $\sqrt{2} = \dfrac{p}{q}$, avec $p$ et $q$ entiers naturels non nuls et $\dfrac{p}{q}$ irréductible</span>.`] } }
+  ]
+};
+
+/* ---------- Conversion des formules ($...$, mini-LaTeX) en HTML ---------- */
+const SYM = {
+  times: '×', cdot: '·', dots: '…', ldots: '…', cdots: '…', ne: '≠', neq: '≠', le: '≤', leq: '≤',
+  ge: '≥', geq: '≥', approx: '≈', infty: '∞', forall: '∀', in: '∈', N: 'ℕ', R: 'ℝ', Z: 'ℤ',
+  pm: '±', Delta: 'Δ', sum: 'Σ', pi: 'π', alpha: 'α', mapsto: '↦', to: '→', iff: '⇔',
+  Longleftrightarrow: '⇔', Leftrightarrow: '⇔', Rightarrow: '⇒', implies: '⇒',
+  quad: ' ', qquad: '  ', displaystyle: '', left: '', right: ''
+};
+const SYM1 = { ',': ' ', ';': ' ', ' ': ' ', '{': '{', '}': '}', '%': '%', '_': '_', '&': '&amp;', '$': '$', '\\': '<br>' };
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function math(s) {
+  let i = 0;
+  const skip = () => { while (i < s.length && s[i] === ' ') i++; };
+  function raw() {            // contenu brut d'un {groupe}, sans mise en italique
+    skip();
+    if (s[i] !== '{') return esc(s[i++] || '');
+    let prof = 0, out = '';
+    for (; i < s.length; i++) {
+      const c = s[i];
+      if (c === '{') { prof++; if (prof === 1) continue; }
+      if (c === '}') { prof--; if (prof === 0) { i++; break; } }
+      out += c;
+    }
+    return esc(out);
+  }
+  function group() { i++; let out = ''; while (i < s.length && s[i] !== '}') out += atom(); i++; return out; }
+  function arg() { skip(); if (s[i] === '{') return group(); return atom(); }
+  const frac = (a, b) => `<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`;
+  function atom() {
+    if (i >= s.length) return '';
+    const c = s[i];
+    if (c === '{') return group();
+    if (c === '}') { i++; return ''; }
+    if (c === '\\') {
+      const n = s[i + 1];
+      if (n === undefined) { i++; return ''; }
+      if (!/[a-zA-Z]/.test(n)) { i += 2; return SYM1[n] !== undefined ? SYM1[n] : esc(n); }
+      let j = i + 1;
+      while (j < s.length && /[a-zA-Z]/.test(s[j])) j++;
+      const nom = s.slice(i + 1, j); i = j;
+      if (nom === 'frac' || nom === 'dfrac' || nom === 'tfrac') { const a = arg(); const b = arg(); return frac(a, b); }
+      if (nom === 'mathrm' || nom === 'text') return `<span class="rm">${raw()}</span>`;
+      if (nom === 'textbf') return `<b class="rm">${raw()}</b>`;
+      if (nom === 'mathscr') return `<i>${raw()}</i>`;
+      if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
+      if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
+      if (nom === 'op') return `<span class="op">${arg()}</span>`;
+      if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
+      return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
+    }
+    if (c === '_' || c === '^') { i++; const a = arg(); return c === '_' ? `<sub>${a}</sub>` : `<sup>${a}</sup>`; }
+    i++;
+    if (/[a-zA-Z]/.test(c)) return `<i>${c}</i>`;
+    if (c === '-') return '−';
+    if (c === '*') return '×';
+    if (c === "'") return '<span class="prime">′</span>';
+    return esc(c);
+  }
+  let out = '';
+  while (i < s.length) out += atom();
+  return out;
+}
+// Une formule : KaTeX s'il est chargé, sinon (pas encore là, hors ligne, CDN filtré, commande qu'il
+// refuse) le mini-LaTeX, qui garde la source dans data-tex pour que katexPret() la recompose.
+// (## : signe # d'une couleur dans une macro, # seul désignant un argument)
+const MACROS = { '\\mul': '\\textcolor{##9C27B0}{#1}', '\\op': '\\textcolor{##CE2029}{#1}', '\\resultat': '\\boxed{#1}' };
+function katexDispo() {
+  const feuille = document.getElementById('katex-css');
+  return !!window.katex && !!feuille && feuille.media === 'all';
+}
+function katexHTML(f) {
+  try { return katex.renderToString(f, { macros: Object.assign({}, MACROS), throwOnError: true, strict: false }); }
+  catch (e) { return null; }
+}
+function formule(f) {
+  const k = katexDispo() ? katexHTML(f) : null;
+  return k || `<span class="m${f.length > 42 ? ' m-long' : ''}" data-tex="${esc(f).replace(/"/g, '&quot;')}">${math(f)}</span>`;
+}
+window.katexPret = function () {
+  if (!katexDispo()) return;
+  document.querySelectorAll('.m[data-tex]').forEach(e => {
+    const k = katexHTML(e.dataset.tex);
+    if (k) e.outerHTML = k;
+  });
+};
+function tex(src) {
+  return String(src).split(/(\$[^$]*\$)/).map(p =>
+    (p.length >= 2 && p[0] === '$' && p[p.length - 1] === '$') ? formule(p.slice(1, -1)) : p
+  ).join('');
+}
+
+/* ---------- État (enregistré sur l'appareil, pour reprendre plus tard) ---------- */
+const N = QUIZ.questions.length;
+const CLE = 'quiz-' + QUIZ.id;
+const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length
+  + (q.variante ? '~' + q.variante.enonce.length : '')).join('|');
+const MODE_CORRIGE = /(\?|&|#)corrige/.test(location.search + location.hash);
+// La question i dans sa variante : les champs que la variante ne donne pas viennent de la question.
+const variante = i => Object.assign({}, QUIZ.questions[i], QUIZ.questions[i].variante);
+
+function melange(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const ordreDe = q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k));
+// reprise : null, ou la reprise des questions manquées { rangs (questions d'origine), ordre, reponses, courant }.
+function nouvelEtat() {
+  return {
+    signature: SIGNATURE,
+    ordre: QUIZ.questions.map(ordreDe),
+    reponses: Array(N).fill(null),
+    courant: 0,
+    reprise: null
+  };
+}
+function repriseValide(R) {
+  return !!R && Array.isArray(R.rangs) && R.rangs.length > 0 && Array.isArray(R.ordre) && Array.isArray(R.reponses)
+    && R.ordre.length === R.rangs.length && R.reponses.length === R.rangs.length
+    && R.rangs.every(i => QUIZ.questions[i] && QUIZ.questions[i].variante);
+}
+function charger() {
+  try {
+    const s = JSON.parse(localStorage.getItem(CLE));
+    if (s && s.signature === SIGNATURE && Array.isArray(s.reponses) && s.reponses.length === N && Array.isArray(s.ordre)) {
+      s.courant = Math.min(Math.max(0, s.courant | 0), N);
+      if (repriseValide(s.reprise)) s.reprise.courant = Math.min(Math.max(0, s.reprise.courant | 0), s.reprise.rangs.length);
+      else s.reprise = null;
+      return s;
+    }
+  } catch (e) { /* stockage indisponible : on repart de zéro */ }
+  return null;
+}
+function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* sans importance */ } }
+
+let etat = charger() || nouvelEtat();
+let selection = null;
+
+const $ = sel => document.querySelector(sel);
+const zoneProg = $('#progression');
+const zoneQuiz = $('#quiz');
+const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
+// Une seule partie : aucun nom de partie n'est affiché (grille, question, corrigé, note).
+const UNE_PARTIE = QUIZ.parties.length === 1;
+const questionsDe = p => QUIZ.questions.map((q, i) => q.partie === p ? i : -1).filter(i => i >= 0);
+
+/* ---------- Affichage ---------- */
+// Explication : un texte, ou une liste de blocs (paragraphes, calculs en colonne, figures).
+function explicationHTML(q) {
+  const blocs = Array.isArray(q.explication) ? q.explication : [q.explication];
+  return blocs.map(b => /^<(div|svg)\b/.test(b) ? tex(b) : '<p>' + tex(b) + '</p>').join('');
+}
+
+function reponseTexte(q, choix) {
+  if (q.type === 'vf') return choix ? 'Vrai' : 'Faux';
+  return '« ' + tex(q.choix[choix]) + ' »';
+}
+
+// Tour en cours : le premier passage (les questions du fichier), ou la reprise des questions
+// manquées (leurs variantes). Chacun a ses réponses, l'ordre de ses choix et sa question courante k ;
+// le numéro affiché est toujours celui de la question d'origine.
+function tourCourant() {
+  const R = etat.reprise;
+  if (R && R.courant < R.rangs.length)
+    return { reprise: true, etat: R, total: R.rangs.length, question: k => variante(R.rangs[k]), numero: k => R.rangs[k] + 1 };
+  return { reprise: false, etat: etat, total: N, question: k => QUIZ.questions[k], numero: k => k + 1 };
+}
+
+// Une grille de réponses. items = [{cle, numero, rep}] ; attr = data-q (premier passage) ou data-r (reprise).
+function grille(nom, items, courant, attr) {
+  const faites = items.filter(it => it.rep).length;
+  let nums = '', marques = '';
+  items.forEach(it => {
+    const ici = it.cle === courant;
+    nums += `<td class="${ici ? 'ici' : ''}"><button type="button" class="aller" ${attr}="${it.cle}" aria-label="Aller à la question ${it.numero}">${it.numero}</button></td>`;
+    marques += it.rep
+      ? `<td class="${it.rep.ok ? 'juste' : 'erreur'}${ici ? ' courant' : ''}" ${attr}="${it.cle}"><span class="marque ${it.rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`
+      : `<td class="${ici ? 'courant' : ''}" ${attr}="${it.cle}"></td>`;
+  });
+  return `<div class="bloc-grille">${nom ? `<p class="nom-partie">${nom}</p>` : ''}
+    <table class="grille-reponses" aria-label="${nom || 'Réponses'} : ${faites} question${faites > 1 ? 's' : ''} sur ${items.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+}
+
+function rendreProgression() {
+  if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
+  const T = tourCourant(), R = etat.reprise;
+  zoneProg.innerHTML = T.reprise
+    ? grille('Reprise des questions manquées', R.rangs.map((i, k) => ({ cle: k, numero: i + 1, rep: R.reponses[k] })), R.courant, 'data-r')
+    : QUIZ.parties.map((nom, p) => grille(UNE_PARTIE ? '' : nomPartie(p),
+        questionsDe(p).map(i => ({ cle: i, numero: i + 1, rep: etat.reponses[i] })), etat.courant, 'data-q')).join('');
+}
+
+function rendre() {
+  rendreProgression();
+  if (MODE_CORRIGE) return rendreCorrige();
+  const T = tourCourant();
+  if (T.etat.courant >= T.total) rendreResultat(); else rendreQuestion(T, T.etat.courant);
+}
+
+function boite(marque) {
+  return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
+}
+
+function rendreQuestion(T, k) {
+  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = k === T.total - 1;
+  const changePartie = !T.reprise && !derniere && QUIZ.questions[k + 1].partie !== q.partie;
+  const tete = T.reprise ? `Reprise des questions manquées · ${k + 1} sur ${T.total}` : UNE_PARTIE ? '' : nomPartie(q.partie);
+  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir ma note') : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante';
+  let options;
+  if (q.type === 'vf') {
+    options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (val === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (val === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
+    }).join('');
+  } else {
+    options = ordre.map((orig, j) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[j]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
+    }).join('');
+  }
+  const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
+  const correction = rep ? `<div class="correction ${rep.ok ? 'juste' : 'erreur'}" role="status">
+      <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
+      <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
+  const bouton = rep
+    ? `<button type="button" class="bouton" id="suivant">${suite}</button>`
+    : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
+  zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
+    ${tete ? `<p class="partie">${tete}</p>` : ''}
+    <p class="question" id="titre-q"><b>Question ${T.numero(k)}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
+    <div class="actions">${bouton}</div>
+    ${correction}
+  </article>`;
+  selection = null;
+  if (!rep) {
+    zoneQuiz.querySelectorAll('.choix').forEach(b => b.addEventListener('click', () => choisir(b, q)));
+    $('#valider').addEventListener('click', valider);
+  } else {
+    $('#suivant').addEventListener('click', suivant);
+  }
+}
+
+function choisir(b, q) {
+  zoneQuiz.querySelectorAll('.choix').forEach(o => {
+    const actif = o === b;
+    o.classList.toggle('choisi', actif);
+    o.setAttribute('aria-pressed', actif ? 'true' : 'false');
+    o.querySelector('.marque').className = actif ? 'marque croix' : 'marque';
+  });
+  selection = q.type === 'vf' ? b.dataset.val === 'true' : Number(b.dataset.val);
+  $('#valider').disabled = false;
+}
+
+function valider() {
+  const T = tourCourant(), k = T.etat.courant, q = T.question(k);
+  if (selection === null || T.etat.reponses[k]) return;
+  T.etat.reponses[k] = { choix: selection, ok: selection === q.bonne };
+  sauver();
+  rendre();
+  const suivantBtn = $('#suivant');
+  if (suivantBtn) suivantBtn.focus({ preventScroll: true });
+  const correction = $('.correction');
+  if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
+}
+
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question
+// (data-q : premier passage ; data-r : reprise des questions manquées).
+function aller(cible) {
+  if (cible.dataset.r !== undefined) etat.reprise.courant = Number(cible.dataset.r);
+  else etat.courant = Number(cible.dataset.q);
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function suivant() {
+  const T = tourCourant();
+  T.etat.courant = Math.min(T.etat.courant + 1, T.total);
+  selection = null;
+  sauver();
+  rendre();
+  // On remonte aux grilles de réponses, pas tout en haut : sur téléphone, l'en-tête occupe un écran.
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function recommencer() {
+  etat = nouvelEtat();
+  selection = null;
+  sauver();
+  rendre();
+  window.scrollTo({ top: 0, behavior: motion() });
+}
+// Deux clics pour tout effacer : le premier transforme le bouton en demande de confirmation.
+function demanderRecommencer(btn) {
+  const entame = etat.courant > 0 || etat.reponses.some(Boolean);
+  if (btn.dataset.minuteur) {
+    clearTimeout(Number(btn.dataset.minuteur));
+    btn.textContent = btn.dataset.texte;
+    delete btn.dataset.minuteur;
+    recommencer();
+  } else if (!entame) {
+    recommencer();
+  } else {
+    btn.dataset.texte = btn.textContent;
+    btn.textContent = 'Confirmer : effacer mes réponses';
+    btn.dataset.minuteur = String(setTimeout(() => { btn.textContent = btn.dataset.texte; delete btn.dataset.minuteur; }, 4000));
+  }
+}
+
+// Questions regroupées par partie : un titre, puis la liste produite par item(q, i).
+function listeParParties(item) {
+  return QUIZ.parties.map((nom, p) =>
+    `${UNE_PARTIE ? '' : `<h2 class="titre-partie">${nomPartie(p)}</h2>`}<ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
+  ).join('');
+}
+
+// Une question de la copie : énoncé, réponse donnée, explication.
+function itemRevue(q, rep, numero) {
+  const ok = !!(rep && rep.ok);
+  let bilan;
+  if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
+  else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  return `<li class="${ok ? 'juste' : 'erreur'}">
+    <p class="question"><b>Question ${numero}.</b> <i>${q.theme}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <p class="bilan">${bilan}</p>
+    <div class="explication">${explicationHTML(q)}</div>
+  </li>`;
+}
+
+function revueHTML() {
+  return listeParParties((q, i) => itemRevue(q, etat.reponses[i], i + 1));
+}
+
+function revueRepriseHTML() {
+  const R = etat.reprise;
+  return `<h2 class="titre-partie">Reprise des questions manquées</h2><ol class="revue">${R.rangs.map((i, k) => itemRevue(variante(i), R.reponses[k], i + 1)).join('')}</ol>`;
+}
+
+// Bouton qui montre ou cache une copie.
+function bascule(idBouton, idListe, texte) {
+  $('#' + idBouton).addEventListener('click', () => {
+    const liste = $('#' + idListe), btn = $('#' + idBouton);
+    liste.hidden = !liste.hidden;
+    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
+    btn.textContent = (liste.hidden ? 'Revoir ' : 'Masquer ') + texte;
+  });
+}
+
+// Reprise des questions manquées qui ont une variante : nouveau tour, noté à part.
+function reprendre(rangs) {
+  etat.reprise = { rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 };
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function rendreResultat() {
+  const juste = i => !!(etat.reponses[i] && etat.reponses[i].ok);
+  const score = QUIZ.questions.filter((q, i) => juste(i)).length;
+  const appreciation = score >= 0.75 * N
+    ? 'C\'est solide. Relis quand même les explications des questions manquées.'
+    : score >= 0.5 * N
+      ? 'L\'essentiel est là. Reprends les points listés ci-dessous, puis refais cet entraînement.'
+      : 'À retravailler avant l\'évaluation : reprends le cours et la fiche d\'exercices, puis refais cet entraînement.';
+  const sur20 = N === 20 ? '' : `<span class="sur">soit ${fr(Math.round(score * 20 / N * 2) / 2)} / 20</span>`;
+  const parties = QUIZ.parties.map((nom, p) => {
+    const rangs = questionsDe(p);
+    return `<span>${nomPartie(p)}&nbsp;: <b>${rangs.filter(juste).length} / ${rangs.length}</b></span>`;
+  }).join(' &emsp; ');
+  const aRevoir = [];
+  QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
+  const revoir = aRevoir.length
+    ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
+  // Questions manquées qui ont une variante, et reprise déjà faite (on n'arrive ici qu'une fois finie).
+  const manquees = QUIZ.questions.map((q, i) => i).filter(i => !juste(i) && QUIZ.questions[i].variante);
+  const R = etat.reprise, nm = manquees.length;
+  const bilanReprise = R
+    ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(x => x && x.ok).length} / ${R.rangs.length}</b></p>` : '';
+  const infoReprise = nm && !R
+    ? `<p class="reprise-info">Tu peux refaire ${nm > 1 ? 'les ' + nm + ' questions manquées' : 'la question manquée'}, un peu ${nm > 1 ? 'modifiées' : 'modifiée'}&nbsp;: mêmes notions, autres valeurs.</p>` : '';
+  zoneQuiz.innerHTML = `<article class="page-note" aria-labelledby="titre-r">
+    <p class="question" id="titre-r"><b>Note.</b></p>
+    <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
+    <p class="appreciation">${appreciation}</p>
+    ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
+    ${bilanReprise}
+    ${revoir}
+    ${infoReprise}
+    <div class="actions">
+      ${nm ? `<button type="button" class="bouton" id="reprendre">${R ? 'Refaire la reprise' : 'Refaire les questions manquées'}</button>` : ''}
+      <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
+      ${R ? '<button type="button" class="bouton" id="revoir-reprise" aria-expanded="false" aria-controls="revue-reprise">Revoir la reprise</button>' : ''}
+      <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
+    </div>
+    <div id="revue" hidden>${revueHTML()}</div>
+    ${R ? `<div id="revue-reprise" hidden>${revueRepriseHTML()}</div>` : ''}
+  </article>`;
+  bascule('revoir', 'revue', 'la copie');
+  if (R) bascule('revoir-reprise', 'revue-reprise', 'la reprise');
+  if (nm) $('#reprendre').addEventListener('click', () => reprendre(manquees));
+  $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+}
+
+function rendreCorrige() {
+  // Énoncé, choix (bonne réponse en vert), explication.
+  const corps = q => `<div class="enonce">${tex(q.enonce)}</div>
+      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
+      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
+      <div class="explication">${explicationHTML(q)}</div>`;
+  zoneQuiz.innerHTML = `<article>
+    <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
+    ${listeParParties((q, i) => `<li class="juste">
+      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
+      ${corps(q)}
+      ${q.variante ? `<div class="variante"><p class="question"><b>Variante</b> <i>(reprise des questions manquées)</i></p>${corps(variante(i))}</div>` : ''}
+    </li>`)}
+  </article>`;
+}
+
+/* ---------- Démarrage ---------- */
+$('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+zoneProg.addEventListener('click', e => {
+  const cible = e.target.closest('[data-q],[data-r]');
+  if (cible) aller(cible);
+});
+rendre();
+})();
+</script>
+</body>
+</html>
