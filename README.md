@@ -9,6 +9,7 @@
 - Chapitre 7 : [Information chiffrée](https://p-bailly.github.io/entrainements/seconde/07-information-chiffree.html)
 - Chapitre 8 : [Arithmétique](https://p-bailly.github.io/entrainements/seconde/08-arithmetique.html)
 - Chapitre 9 : [Vecteurs et repérage](https://p-bailly.github.io/entrainements/seconde/09-vecteurs-et-reperage.html)
+- Chapitre 10 : [Équations](https://p-bailly.github.io/entrainements/seconde/10-equations.html)
 
 ## Première, mathématiques spécifiques
 
