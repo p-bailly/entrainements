@@ -10,6 +10,7 @@
 - Chapitre 8 : [Arithmétique](https://p-bailly.github.io/entrainements/seconde/08-arithmetique.html)
 - Chapitre 9 : [Vecteurs et repérage](https://p-bailly.github.io/entrainements/seconde/09-vecteurs-et-reperage.html)
 - Chapitre 10 : [Équations](https://p-bailly.github.io/entrainements/seconde/10-equations.html)
+- Chapitre 11 : [Fonctions de référence](https://p-bailly.github.io/entrainements/seconde/11-fonctions-de-reference.html)
 
 ## Première, mathématiques spécifiques
 
