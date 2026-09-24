@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement Évaluation puissances, racines carrées et fractions</title>
+<!--
+  Entraînement auto-corrigé à l'évaluation du chapitre 2 (Puissances, racines carrées et
+  fractions) - Seconde. Une seule partie, douze questions, sans automatismes (demande du
+  professeur), dans l'ordre du cours et des dix séances du plan. Chaque calcul des
+  exercices 2 à 4 de l'évaluation (sujets A et B) a sa question, avec d'autres valeurs :
+    - fractions : produit prioritaire puis même dénominateur, quotient de deux fractions,
+      valeurs interdites, une seule fraction (capacité 1 ; manuel ex. 8 p. 98, 38 et 44
+      p. 100) ;
+    - puissances : -4² et (-3)², exposant négatif, règles de calcul, a^n x b^n = (ab)^n
+      (capacité 2 ; manuel ex. 14 p. 98, 49 p. 100) ;
+    - racines carrées : racine d'une somme, d'un produit (définition, activité 3 ; manuel
+      ex. 15 p. 98, 59 p. 101), simplifier et réduire (capacité 3 ; manuel ex. 17 p. 99,
+      63 p. 101, top chrono 146 p. 106), développer (capacité 4 ; manuel ex. 67 p. 102).
+  Distracteurs : les erreurs types relevées dans les corrections du cours et de l'évaluation.
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées ; celle de la dernière question développe un produit (a - b)(a + b),
+  l'autre calcul de la capacité 4 et de l'exercice 4 de l'évaluation.
+
+  Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
+  entrainement-02-puissances-racines-fractions-questions.js (même dossier) ; moteur et mise en page :
+  Commun aux cours/entrainement/gabarit.html (format des questions en tête).
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/seconde/02-puissances-racines-fractions.html
+  (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&display=swap">
+<!-- KaTeX, chargé sans bloquer la page (réseau du lycée parfois filtré) : les formules s'affichent
+     d'abord en mini-LaTeX, puis KaTeX les recompose sur place dès que sa feuille et son script sont là. -->
+<link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css" integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous" media="print" onload="this.media='all'; if (window.katexPret) katexPret()">
+<script async src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js" integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj" crossorigin="anonymous" onload="if (window.katexPret) katexPret()"></script>
+<style>
+:root{
+  --papier:#FCFBF7; --encre:#161616; --gris:#6B6A66; --filet:#C4BFB3; --filet-clair:#E4E0D6; --case:#F0EDE5;
+  --stylo:#1E3D96; --rouge:#CE2029; --vert:#2A7A36; --orange:#E8940A; --violet:#7A3E9D;
+  --serif:"Old Standard TT","Times New Roman",Times,serif;
+  --main:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --mono:ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 var(--serif); min-height:100vh}
+.feuille{max-width:720px; margin:0 auto; padding:34px 40px 60px}
+
+/* Retour à la liste des entraînements */
+.retour{margin:0 0 14px; font-size:.95rem}
+.retour a{color:var(--stylo); text-decoration:none; border-bottom:1px solid var(--filet)}
+.retour a:hover,.retour a:focus-visible{border-bottom-color:var(--stylo)}
+
+/* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
+.mul{color:#9C27B0}
+/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
+.op{color:var(--rouge)}
+
+/* En-tête de la copie */
+.entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
+h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
+.consigne{margin:0 0 12px; font-style:italic}
+.filet{height:4px; border-top:1px solid var(--encre); border-bottom:1px solid var(--encre); margin:8px 0 20px}
+
+/* Grilles de réponses, une par partie */
+.progression{display:flex; flex-wrap:wrap; gap:10px 28px; margin:0 0 24px; scroll-margin-top:12px}
+.bloc-grille{max-width:100%; overflow-x:auto}
+.nom-partie{margin:0 0 3px; font-style:italic; font-size:.9rem; white-space:nowrap}
+.grille-reponses{border-collapse:collapse; font-size:.9rem}
+.grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
+.grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
+.grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
+.grille-reponses td[data-q],.grille-reponses td[data-r]{cursor:pointer}
+.grille-reponses td.ici{background:var(--filet-clair)}
+.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
+.grille-reponses button.aller:hover{text-decoration:underline}
+.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
+.grille-reponses td.juste{color:var(--vert)}
+.grille-reponses td.erreur{color:var(--rouge)}
+
+/* Marques au stylo : croix et coche dessinées en CSS */
+.marque{position:relative; display:inline-block; width:18px; height:18px; vertical-align:-4px; color:inherit}
+.marque::before,.marque::after{content:""; position:absolute; width:2px; background:currentColor; border-radius:1px; display:none}
+.marque.croix::before,.marque.croix::after{display:block; left:8px; top:-2px; height:22px}
+.marque.croix::before{transform:rotate(43deg)}
+.marque.croix::after{transform:rotate(-47deg)}
+.marque.coche::before,.marque.coche::after{display:block}
+.marque.coche::before{left:3px; top:8px; height:8px; transform:rotate(-42deg)}
+.marque.coche::after{left:10px; top:-2px; height:20px; transform:rotate(38deg)}
+
+/* Question et réponses */
+.partie{margin:0 0 2px; font-variant:small-caps; letter-spacing:.03em}
+.question{margin:0 0 6px}
+.question i{color:var(--gris)}
+.enonce{margin:0 0 14px}
+.reponses{display:grid; gap:6px; margin:0 0 18px}
+.reponses.vf{display:flex; gap:12px 40px; flex-wrap:wrap}
+.choix{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; padding:5px 4px; border:0; border-radius:0; background:transparent; color:var(--encre); font:inherit; line-height:1.45; cursor:pointer}
+.reponses.vf .choix{width:auto; padding-right:12px}
+.choix:disabled{cursor:default}
+.choix .boite{flex:none; position:relative; width:18px; height:18px; margin-top:5px; border:1px solid var(--encre); background:var(--papier)}
+.choix .boite .marque{position:absolute; left:-1px; top:-1px}
+.choix:hover:not(:disabled) .boite{box-shadow:0 0 0 1px var(--encre)}
+.choix .lettre{flex:none; width:1.3em; color:var(--gris)}
+.choix .texte{flex:1; min-width:0}
+.choix.choisi .marque{color:var(--stylo)}
+.choix.juste .marque{color:var(--vert)}
+.choix.erreur .marque{color:var(--rouge)}
+.choix.terne{color:var(--gris)}
+.actions{display:flex; gap:12px 18px; flex-wrap:wrap; align-items:center}
+.bouton{font:inherit; font-variant:small-caps; letter-spacing:.04em; font-size:1rem; padding:5px 18px; border:1px solid var(--encre); border-radius:0; background:var(--papier); color:var(--encre); cursor:pointer}
+.bouton:hover:not(:disabled){background:var(--encre); color:var(--papier)}
+.bouton:disabled{opacity:.4; cursor:default}
+.bouton.discret{border-color:var(--filet)}
+
+/* Correction du professeur */
+.correction{margin:20px 0 0; padding:2px 0 2px 16px; border-left:2px solid var(--rouge)}
+.correction.juste{border-left-color:var(--vert)}
+.verdict{font:600 1.7rem/1.1 var(--main); color:var(--rouge); margin:0 0 6px}
+.correction.juste .verdict{color:var(--vert)}
+.explication{margin:0; font-size:1rem; line-height:1.55}
+.explication p{margin:0 0 .55em}
+.explication p:last-child{margin-bottom:0}
+.explication .revoir{font-style:italic; color:var(--gris)}
+.explication .fig{margin:8px auto 12px}
+/* Calcul en colonne : une étape par ligne, alignées sur le signe = ou ⇔ (comme dans les PDF) */
+.calcul{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.45em .4em; align-items:baseline; margin:.3em 0 .5em 1.4em; padding:.2em 0 .3em; overflow-x:auto; overflow-y:hidden}
+.calcul .g{justify-self:end}
+.resultat{display:inline-block; border:1px solid currentColor; padding:.05em .4em; line-height:1.35}
+code{font-family:var(--mono); font-size:.88em}
+
+/* Figures dans les énoncés et les corrections */
+.fig{display:block; width:100%; height:auto; margin:12px auto 4px}
+.fig .grille{stroke:var(--filet); stroke-width:.7; fill:none}
+.fig .axe{stroke:var(--encre); stroke-width:1.1; fill:none}
+.fig .fleche{fill:var(--encre)}
+.fig .tick{font:10.5px var(--serif); fill:var(--encre); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .courbe{stroke:currentColor; stroke-width:2.2; fill:none}
+.fig .lab{font:italic 13px var(--serif); fill:currentColor; paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .pt{fill:currentColor}
+.fig .lecture{stroke:var(--vert); stroke-width:1.5; stroke-dasharray:5 3; fill:none}
+.fig .pointe{fill:var(--vert)}
+.fig .note{font:italic 11.5px var(--serif); fill:var(--vert); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .surligne{stroke:var(--orange); stroke-width:9; opacity:.6; fill:none}
+.fig .c-rouge{color:var(--rouge)}
+.fig .c-bleu{color:var(--stylo)}
+.fig .c-noir{color:var(--encre)}
+.fig .c-violet{color:var(--violet)}
+
+/* Résultat */
+.note{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:6px 0 2px; color:var(--rouge)}
+.note .grand{font:700 3.6rem/1 var(--main)}
+.note .sur{font:400 1.5rem/1 var(--main)}
+.appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
+.bilan-parties{margin:0 0 6px}
+.bilan-parties span{white-space:nowrap}
+.bilan-reprise{margin:0 0 10px}
+.reprise-info{margin:0 0 10px; font-style:italic}
+.a-revoir{margin:0 0 16px}
+.a-revoir ul{margin:4px 0 0; padding-left:1.3em}
+.titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
+.revue{list-style:none; padding:0; margin:8px 0 0; border-top:1px solid var(--encre)}
+.revue li{padding:14px 0; border-bottom:1px solid var(--filet)}
+.revue .enonce{margin-bottom:10px}
+.revue .bilan{margin:6px 0 8px; font-style:italic}
+.revue li.juste .bilan{color:var(--vert)}
+.revue li.erreur .bilan{color:var(--rouge)}
+.revue .explication{font-size:1rem}
+.liste-choix{margin:0 0 8px; padding-left:1.6em}
+.liste-choix li{border:0; padding:1px 0}
+.liste-choix li.bonne{color:var(--vert)}
+.variante{margin:14px 0 0; padding:0 0 0 14px; border-left:1px dashed var(--filet)}
+.pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
+.pied p{margin:0 0 4px}
+.pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
+
+/* Formules : KaTeX (réduit de 1,21 à 1,1 em pour s'accorder au texte), sinon mini-LaTeX (.m) */
+.katex{font-size:1.1em}
+.m{font-family:var(--serif); white-space:nowrap}
+.m.m-long{white-space:normal}
+.m i{font-style:italic}
+.m .rm{font-style:normal}
+.m sub,.m sup{font-size:.8em; line-height:0; white-space:nowrap}
+.m .prime{display:inline-block; margin-left:.08em; font-size:1.2em; line-height:0}
+.m sub{vertical-align:-.25em}
+.m sup{vertical-align:.55em}
+.frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; font-size:.92em; line-height:1.2; margin:0 .15em}
+.frac .num{border-bottom:1px solid currentColor; padding:0 .25em .04em}
+.frac .den{padding:.04em .25em 0}
+.sqrt .rad{border-top:1px solid currentColor; padding:0 .12em}
+
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important; scroll-behavior:auto !important}}
+@media (max-width:520px){
+  body{font-size:17px}
+  .feuille{padding:22px 16px 48px}
+  .entete{font-size:.9rem}
+  h1{font-size:1.7rem}
+  .reponses.vf{gap:8px 24px}
+}
+@media print{
+  .actions,.pied,.progression{display:none}
+  .revue li{break-inside:avoid}
+}
+/* Feuille de calcul */
+table.tableur{border-collapse:collapse; margin:10px auto 4px; font:400 .88rem "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+table.tableur th{background:var(--case); color:var(--gris); font-weight:400; border:1px solid var(--filet); padding:2px 10px; text-align:center; min-width:2.2em}
+table.tableur td{border:1px solid var(--filet); padding:2px 10px; min-width:5em; height:1.9em; background:#FFFFFF; text-align:center}
+table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
+</style>
+</head>
+<body>
+<main class="feuille">
+  <header>
+    <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
+    <div class="entete"><span>Seconde</span><span>M. Bailly</span><span>Chapitre 2 · Puissances, racines carrées et fractions</span></div>
+    <h1>Entraînement Évaluation puissances, racines carrées et fractions</h1>
+    <p class="consigne">Douze questions sur les fractions, les puissances et les racines carrées. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="filet" role="presentation"></div>
+  </header>
+  <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
+  <section id="quiz" aria-live="polite"></section>
+  <footer class="pied">
+    <p><button type="button" id="reinitialiser">Recommencer depuis le début</button></p>
+  </footer>
+</main>
+<script>
+(function () {
+'use strict';
+const r = String.raw;
+
+/* ---------- Figures (SVG généré) ---------- */
+const arrondi = x => Math.round(x * 10) / 10;
+const fr = x => String(x).replace('.', ',');
+const moins = n => String(n).replace('-', '−');
+function fleche(x, y, sens) {
+  return sens === 'droite'
+    ? `<path class="fleche" d="M${x} ${y} l-7 -3.5 v7 z"/>`
+    : `<path class="fleche" d="M${x} ${y} l-3.5 7 h7 z"/>`;
+}
+// Repère orthonormé quadrillé et gradué de 1 en 1. o = {xmin, xmax, ymin, ymax, label, echelle} et, au choix :
+//   courbes  : [{f: x => ..., classe, x1, x2}]        classe = c-rouge (défaut), c-bleu, c-noir, c-violet
+//   noms     : [{x, y, texte, indice, apres, classe, ancre}]   nom d'une courbe, dans sa couleur
+//   lectures : [[[x, y], [x, y], ...], ...]            lignes de lecture en tirets verts, flèche au bout
+//   textes   : [{x, y, texte, ancre}]                  annotations vertes des lectures (+1, +3...)
+//   points   : [{x, y, classe}]
+//   surligne : {x1, x2}                                partie de l'axe des abscisses surlignée en orange (null = bord du repère)
+let numeroFigure = 0;
+function repere(o) {
+  const u = 26, m = 17;
+  const W = (o.xmax - o.xmin) * u + 2 * m, H = (o.ymax - o.ymin) * u + 2 * m;
+  const X = x => arrondi(m + (x - o.xmin) * u), Y = y => arrondi(m + (o.ymax - y) * u);
+  const cadre = 'cadre-' + (++numeroFigure);
+  const xfin = X(o.xmax) + 12, yhaut = Y(o.ymax) - 12;
+  let s = `<svg class="fig" viewBox="0 0 ${W} ${H}" style="max-width:${Math.round(W * (o.echelle || 1.3))}px" role="img" aria-label="${o.label}">`;
+  s += `<defs><clipPath id="${cadre}"><rect x="${X(o.xmin)}" y="${Y(o.ymax)}" width="${(o.xmax - o.xmin) * u}" height="${(o.ymax - o.ymin) * u}"/></clipPath></defs>`;
+  for (let x = o.xmin; x <= o.xmax; x++) s += `<line class="grille" x1="${X(x)}" y1="${Y(o.ymin)}" x2="${X(x)}" y2="${Y(o.ymax)}"/>`;
+  for (let y = o.ymin; y <= o.ymax; y++) s += `<line class="grille" x1="${X(o.xmin)}" y1="${Y(y)}" x2="${X(o.xmax)}" y2="${Y(y)}"/>`;
+  if (o.surligne) {
+    const x1 = o.surligne.x1 === null ? o.xmin : o.surligne.x1, x2 = o.surligne.x2 === null ? o.xmax : o.surligne.x2;
+    s += `<line class="surligne" x1="${X(x1)}" y1="${Y(0)}" x2="${X(x2)}" y2="${Y(0)}"/>`;
+  }
+  s += `<line class="axe" x1="${X(o.xmin)}" y1="${Y(0)}" x2="${xfin}" y2="${Y(0)}"/>${fleche(xfin, Y(0), 'droite')}`;
+  s += `<line class="axe" x1="${X(0)}" y1="${Y(o.ymin)}" x2="${X(0)}" y2="${yhaut}"/>${fleche(X(0), yhaut, 'haut')}`;
+  (o.courbes || []).forEach(c => {
+    const x1 = c.x1 === undefined ? o.xmin : c.x1, x2 = c.x2 === undefined ? o.xmax : c.x2, n = 80;
+    let d = '';
+    for (let k = 0; k <= n; k++) { const x = x1 + (x2 - x1) * k / n; d += (k ? ' L' : 'M') + X(x) + ' ' + Y(c.f(x)); }
+    s += `<path class="courbe ${c.classe || 'c-rouge'}" clip-path="url(#${cadre})" d="${d}"/>`;
+  });
+  (o.lectures || []).forEach(pts => {
+    const P = pts.map(p => [X(p[0]), Y(p[1])]);
+    const a = P[P.length - 2], b = P[P.length - 1];
+    const L = Math.hypot(b[0] - a[0], b[1] - a[1]), ux = (b[0] - a[0]) / L, uy = (b[1] - a[1]) / L;
+    s += `<polyline class="lecture" points="${P.map(p => p.join(',')).join(' ')}"/>`;
+    s += `<path class="pointe" d="M${b[0]} ${b[1]} L${arrondi(b[0] - 7 * ux + 3.2 * uy)} ${arrondi(b[1] - 7 * uy - 3.2 * ux)} L${arrondi(b[0] - 7 * ux - 3.2 * uy)} ${arrondi(b[1] - 7 * uy + 3.2 * ux)} z"/>`;
+  });
+  // Graduations sur fond papier, par-dessus les courbes et les lectures : elles restent lisibles.
+  for (let x = o.xmin; x <= o.xmax; x++) if (x !== 0) s += `<text class="tick" x="${X(x)}" y="${Y(0) + 13}" text-anchor="middle">${moins(x)}</text>`;
+  for (let y = o.ymin; y <= o.ymax; y++) if (y !== 0) s += `<text class="tick" x="${X(0) - 5}" y="${Y(y) + 3.5}" text-anchor="end">${moins(y)}</text>`;
+  s += `<text class="tick" x="${X(0) - 5}" y="${Y(0) + 13}" text-anchor="end">0</text>`;
+  (o.points || []).forEach(p => { s += `<circle class="pt ${p.classe || 'c-rouge'}" cx="${X(p.x)}" cy="${Y(p.y)}" r="3.3"/>`; });
+  (o.textes || []).forEach(t => { s += `<text class="note" x="${X(t.x)}" y="${Y(t.y)}" text-anchor="${t.ancre || 'middle'}">${t.texte}</text>`; });
+  (o.noms || []).forEach(n => {
+    const indice = n.indice ? `<tspan dy="3" font-size="9.5">${n.indice}</tspan>` + (n.apres ? `<tspan dy="-3">${n.apres}</tspan>` : '') : '';
+    s += `<text class="lab ${n.classe || 'c-rouge'}" x="${X(n.x)}" y="${Y(n.y)}" text-anchor="${n.ancre || 'start'}">${n.texte}${indice}</text>`;
+  });
+  return s + '</svg>';
+}
+// Feuille de calcul (question sur le tableur) : lignes = [[A, B], ...] à partir de la ligne 1 ;
+// la cellule '#sel' est la cellule sélectionnée, laissée vide.
+function tableur(lignes, label) {
+  const cellule = c => c === '#sel' ? '<td class="sel"></td>' : `<td>${c}</td>`;
+  return `<table class="tableur" aria-label="${label}"><tr><th></th><th>A</th><th>B</th></tr>`
+    + lignes.map((l, k) => `<tr><th>${k + 1}</th>${cellule(l[0])}${cellule(l[1])}</tr>`).join('')
+    + '</table>';
+}
+
+// Calcul en colonne, comme l'environnement calcul des PDF : une étape par ligne, alignées sur le
+// signe placé après & (formules écrites sans les dollars). Le résultat s'encadre avec \resultat{...}.
+//   calcul(r`A & = x - 4(3x + 2)`, r`& = x - 12x - 8`, r`& = \resultat{-11x - 8}`)
+function calcul(...lignes) {
+  return '<div class="calcul">' + lignes.map(l => {
+    const k = l.indexOf('&');
+    const gauche = k < 0 ? '' : l.slice(0, k).trim(), droite = (k < 0 ? l : l.slice(k + 1)).trim();
+    return '<span class="g">' + (gauche ? '$' + gauche + '$' : '') + '</span><span class="d">$' + droite + '$</span>';
+  }).join('') + '</div>';
+}
+
+/* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
+const QUIZ = {
+  id: '2de-02-puissances-racines-fractions-entrainement',
+  parties: ['Puissances, racines et fractions'],
+  questions: [
+
+  /* ----- Fractions ----- */
+
+  { partie: 0, theme: 'Fractions et priorités', type: 'qcm',
+    enonce: r`On pose $A = \dfrac{7}{6} - \dfrac{2}{3} \times \dfrac{3}{8}$. Sous forme de fraction irréductible, $A$ est égal à&nbsp;:`,
+    choix: [r`$\dfrac{11}{12}$`, r`$\dfrac{3}{16}$`, r`$3$`, r`$\dfrac{1}{2}$`],
+    bonne: 0,
+    explication: [
+      r`La multiplication est prioritaire&nbsp;: on calcule d'abord le produit (numérateurs entre eux, dénominateurs entre eux) et on le simplifie par $6$. Ensuite, on met au même dénominateur $12$.`,
+      calcul(r`A & = \dfrac{7}{6} - \dfrac{2 \times 3}{3 \times 8}`, r`& = \dfrac{7}{6} - \dfrac{1 \mul{\times 6}}{4 \mul{\times 6}}`, r`& = \dfrac{7}{6} - \dfrac{1}{4}`,
+        r`& = \dfrac{7 \mul{\times 2}}{6 \mul{\times 2}} - \dfrac{1 \mul{\times 3}}{4 \mul{\times 3}}`, r`& = \dfrac{14}{12} - \dfrac{3}{12}`, r`& = \resultat{\dfrac{11}{12}}`)],
+    revoir: r`capacité 1 du cours (question 2), exercice 38 p.&nbsp;100 du manuel`,
+    variante: {
+      enonce: r`On pose $A = \dfrac{5}{4} - \dfrac{3}{5} \times \dfrac{5}{6}$. Sous forme de fraction irréductible, $A$ est égal à&nbsp;:`,
+      choix: [r`$\dfrac{3}{4}$`, r`$\dfrac{13}{24}$`, r`$2$`, r`$1$`],
+      bonne: 0,
+      explication: [
+        r`La multiplication est prioritaire&nbsp;: on calcule d'abord le produit (numérateurs entre eux, dénominateurs entre eux) et on le simplifie par $15$. Ensuite, on met au même dénominateur $4$.`,
+        calcul(r`A & = \dfrac{5}{4} - \dfrac{3 \times 5}{5 \times 6}`, r`& = \dfrac{5}{4} - \dfrac{1 \mul{\times 15}}{2 \mul{\times 15}}`, r`& = \dfrac{5}{4} - \dfrac{1}{2}`,
+          r`& = \dfrac{5}{4} - \dfrac{1 \mul{\times 2}}{2 \mul{\times 2}}`, r`& = \dfrac{5}{4} - \dfrac{2}{4}`, r`& = \resultat{\dfrac{3}{4}}`)] } },
+
+  { partie: 0, theme: 'Quotient de fractions', type: 'qcm',
+    enonce: r`On pose $B = \dfrac{\;\dfrac{3}{8}\;}{\;\dfrac{9}{4}\;}$. Sous forme de fraction irréductible, $B$ est égal à&nbsp;:`,
+    choix: [r`$\dfrac{1}{6}$`, r`$\dfrac{27}{32}$`, r`$6$`, r`$\dfrac{32}{27}$`],
+    bonne: 0,
+    explication: [
+      r`Diviser par une fraction, c'est multiplier par son inverse&nbsp;: l'inverse de $\dfrac{9}{4}$ est $\dfrac{4}{9}$. Puis on simplifie par $12$.`,
+      calcul(r`B & = \dfrac{3}{8} \times \dfrac{4}{9}`, r`& = \dfrac{3 \times 4}{8 \times 9}`, r`& = \dfrac{12}{72}`, r`& = \dfrac{1 \mul{\times 12}}{6 \mul{\times 12}}`, r`& = \resultat{\dfrac{1}{6}}`)],
+    revoir: r`capacité 1 du cours (question 3), exercice 8 p.&nbsp;98 du manuel`,
+    variante: {
+      enonce: r`On pose $B = \dfrac{\;\dfrac{5}{12}\;}{\;\dfrac{10}{3}\;}$. Sous forme de fraction irréductible, $B$ est égal à&nbsp;:`,
+      choix: [r`$\dfrac{1}{8}$`, r`$\dfrac{25}{18}$`, r`$8$`, r`$\dfrac{18}{25}$`],
+      bonne: 0,
+      explication: [
+        r`Diviser par une fraction, c'est multiplier par son inverse&nbsp;: l'inverse de $\dfrac{10}{3}$ est $\dfrac{3}{10}$. Puis on simplifie par $15$.`,
+        calcul(r`B & = \dfrac{5}{12} \times \dfrac{3}{10}`, r`& = \dfrac{5 \times 3}{12 \times 10}`, r`& = \dfrac{15}{120}`, r`& = \dfrac{1 \mul{\times 15}}{8 \mul{\times 15}}`, r`& = \resultat{\dfrac{1}{8}}`)] } },
+
+  { partie: 0, theme: 'Valeurs interdites', type: 'qcm',
+    enonce: r`Les valeurs interdites de l'expression $E = \dfrac{x + 1}{x - 4} + \dfrac{3}{2x + 5}$ sont&nbsp;:`,
+    choix: [r`$4$ et $-\dfrac{5}{2}$`, r`$-1$, $4$ et $-\dfrac{5}{2}$`, r`$-4$ et $\dfrac{5}{2}$`, r`$4$ et $-\dfrac{2}{5}$`],
+    bonne: 0,
+    explication: [
+      r`Une valeur interdite annule un <b>dénominateur</b> (et non un numérateur)&nbsp;: on résout $x - 4 = 0$ et $2x + 5 = 0$.`,
+      r`D'abord, $x - 4 = 0$ pour $x = 4$. Ensuite&nbsp;:`,
+      calcul(r`2x + 5 = 0 & \iff 2x + 5 \op{- 5} = 0 \op{- 5}`, r`& \iff 2x = -5`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{-5}{\op{2}}`, r`& \iff x = -\dfrac{5}{2}`),
+      r`Les valeurs interdites sont <span class="resultat">$4$ et $-\dfrac{5}{2}$</span>.`],
+    revoir: r`définition d'une valeur interdite, capacité 1 du cours (questions 4 à 6)`,
+    variante: {
+      enonce: r`Les valeurs interdites de l'expression $E = \dfrac{2}{x + 3} - \dfrac{x - 2}{3x - 1}$ sont&nbsp;:`,
+      choix: [r`$-3$ et $\dfrac{1}{3}$`, r`$-3$, $\dfrac{1}{3}$ et $2$`, r`$3$ et $-\dfrac{1}{3}$`, r`$-3$ et $3$`],
+      bonne: 0,
+      explication: [
+        r`Une valeur interdite annule un <b>dénominateur</b> (et non un numérateur)&nbsp;: on résout $x + 3 = 0$ et $3x - 1 = 0$.`,
+        r`D'abord, $x + 3 = 0$ pour $x = -3$. Ensuite&nbsp;:`,
+        calcul(r`3x - 1 = 0 & \iff 3x - 1 \op{+ 1} = 0 \op{+ 1}`, r`& \iff 3x = 1`, r`& \iff \dfrac{3x}{\op{3}} = \dfrac{1}{\op{3}}`, r`& \iff x = \dfrac{1}{3}`),
+        r`Les valeurs interdites sont <span class="resultat">$-3$ et $\dfrac{1}{3}$</span>.`] } },
+
+  { partie: 0, theme: 'Une seule fraction', type: 'qcm',
+    enonce: r`Pour $x \ne 0$ et $x \ne -2$, on pose $E = \dfrac{3}{x} - \dfrac{1}{x + 2}$. Sous la forme d'une seule fraction, $E$ est égal à&nbsp;:`,
+    choix: [r`$\dfrac{2x + 6}{x(x + 2)}$`, r`$\dfrac{2}{x(x + 2)}$`, r`$\dfrac{4x + 6}{x(x + 2)}$`, r`$\dfrac{2}{2x + 2}$`],
+    bonne: 0,
+    explication: [
+      r`Le dénominateur commun est le produit $x(x + 2)$&nbsp;: on multiplie chaque fraction, en haut et en bas, par le dénominateur de l'autre, puis on soustrait les numérateurs.`,
+      calcul(r`E & = \dfrac{3 \mul{\times (x + 2)}}{x \mul{\times (x + 2)}} - \dfrac{1 \mul{\times x}}{(x + 2) \mul{\times x}}`, r`& = \dfrac{3x + 6}{x(x + 2)} - \dfrac{x}{x(x + 2)}`,
+        r`& = \dfrac{3x + 6 - x}{x(x + 2)}`, r`& = \resultat{\dfrac{2x + 6}{x(x + 2)}}`)],
+    revoir: r`méthode «&nbsp;additionner deux fractions&nbsp;», capacité 1 du cours (questions 4 et 6), exercice 44 p.&nbsp;100 du manuel`,
+    variante: {
+      enonce: r`Pour $x \ne 1$ et $x \ne 0$, on pose $E = \dfrac{2}{x - 1} + \dfrac{5}{x}$. Sous la forme d'une seule fraction, $E$ est égal à&nbsp;:`,
+      choix: [r`$\dfrac{7x - 5}{x(x - 1)}$`, r`$\dfrac{7}{x(x - 1)}$`, r`$\dfrac{7x - 1}{x(x - 1)}$`, r`$\dfrac{7}{2x - 1}$`],
+      bonne: 0,
+      explication: [
+        r`Le dénominateur commun est le produit $x(x - 1)$&nbsp;: on multiplie chaque fraction, en haut et en bas, par le dénominateur de l'autre, puis on additionne les numérateurs.`,
+        calcul(r`E & = \dfrac{2 \mul{\times x}}{(x - 1) \mul{\times x}} + \dfrac{5 \mul{\times (x - 1)}}{x \mul{\times (x - 1)}}`, r`& = \dfrac{2x}{x(x - 1)} + \dfrac{5x - 5}{x(x - 1)}`,
+          r`& = \dfrac{2x + 5x - 5}{x(x - 1)}`, r`& = \resultat{\dfrac{7x - 5}{x(x - 1)}}`)] } },
+
+  /* ----- Puissances ----- */
+
+  { partie: 0, theme: 'Puissances et signe', type: 'qcm',
+    enonce: r`On pose $A = -4^{2} + (-3)^{2}$. Alors $A$ est égal à&nbsp;:`,
+    choix: [r`$-7$`, r`$25$`, r`$-25$`, r`$7$`],
+    bonne: 0,
+    explication: [
+      r`Sans parenthèses, l'exposant ne porte que sur $4$&nbsp;: $-4^{2}$ est l'opposé de $4^{2}$. Avec les parenthèses, il porte sur $-3$&nbsp;: deux facteurs négatifs donnent un produit positif.`,
+      calcul(r`A & = -(4 \times 4) + (-3) \times (-3)`, r`& = -16 + 9`, r`& = \resultat{-7}`)],
+    revoir: r`capacité 2 du cours (questions 1 et 2)`,
+    variante: {
+      enonce: r`On pose $A = -5^{2} + (-4)^{2}$. Alors $A$ est égal à&nbsp;:`,
+      choix: [r`$-9$`, r`$41$`, r`$-41$`, r`$9$`],
+      bonne: 0,
+      explication: [
+        r`Sans parenthèses, l'exposant ne porte que sur $5$&nbsp;: $-5^{2}$ est l'opposé de $5^{2}$. Avec les parenthèses, il porte sur $-4$&nbsp;: deux facteurs négatifs donnent un produit positif.`,
+        calcul(r`A & = -(5 \times 5) + (-4) \times (-4)`, r`& = -25 + 16`, r`& = \resultat{-9}`)] } },
+
+  { partie: 0, theme: 'Exposant négatif', type: 'qcm',
+    enonce: r`Le nombre $\left(\dfrac{3}{5}\right)^{-2}$ est égal à&nbsp;:`,
+    choix: [r`$\dfrac{25}{9}$`, r`$\dfrac{9}{25}$`, r`$-\dfrac{9}{25}$`, r`$-\dfrac{6}{5}$`],
+    bonne: 0,
+    explication: [
+      r`Un exposant négatif donne l'inverse&nbsp;: $a^{-n} = \dfrac{1}{a^{n}}$. Diviser par $\dfrac{9}{25}$, c'est multiplier par son inverse $\dfrac{25}{9}$.`,
+      calcul(r`\left(\dfrac{3}{5}\right)^{-2} & = \dfrac{1}{\left(\dfrac{3}{5}\right)^{2}}`, r`& = \dfrac{1}{\;\dfrac{9}{25}\;}`, r`& = 1 \times \dfrac{25}{9}`, r`& = \resultat{\dfrac{25}{9}}`)],
+    revoir: r`définition de $a^{-n}$, capacité 2 du cours (question 3)`,
+    variante: {
+      enonce: r`Le nombre $\left(\dfrac{2}{7}\right)^{-2}$ est égal à&nbsp;:`,
+      choix: [r`$\dfrac{49}{4}$`, r`$\dfrac{4}{49}$`, r`$-\dfrac{4}{49}$`, r`$-\dfrac{4}{7}$`],
+      bonne: 0,
+      explication: [
+        r`Un exposant négatif donne l'inverse&nbsp;: $a^{-n} = \dfrac{1}{a^{n}}$. Diviser par $\dfrac{4}{49}$, c'est multiplier par son inverse $\dfrac{49}{4}$.`,
+        calcul(r`\left(\dfrac{2}{7}\right)^{-2} & = \dfrac{1}{\left(\dfrac{2}{7}\right)^{2}}`, r`& = \dfrac{1}{\;\dfrac{4}{49}\;}`, r`& = 1 \times \dfrac{49}{4}`, r`& = \resultat{\dfrac{49}{4}}`)] } },
+
+  { partie: 0, theme: 'Règles de calcul', type: 'qcm',
+    enonce: r`On pose $A = \dfrac{\left(5^{2}\right)^{3} \times 5^{-4}}{5^{-1}}$. Alors $A$ est égal à&nbsp;:`,
+    choix: [r`$125$`, r`$5$`, r`$25$`, r`$\dfrac{1}{125}$`],
+    bonne: 0,
+    explication: [
+      r`Puissance d'une puissance&nbsp;: on multiplie les exposants. Produit&nbsp;: on ajoute les exposants. Quotient&nbsp;: on soustrait l'exposant du dénominateur.`,
+      calcul(r`A & = \dfrac{5^{2 \times 3} \times 5^{-4}}{5^{-1}}`, r`& = \dfrac{5^{6 + (-4)}}{5^{-1}}`, r`& = \dfrac{5^{2}}{5^{-1}}`, r`& = 5^{2 - (-1)}`, r`& = 5^{3}`, r`& = \resultat{125}`)],
+    revoir: r`règles de calcul, capacité 2 du cours (questions 6, 8 et 9), exercice 49 p.&nbsp;100 du manuel`,
+    variante: {
+      enonce: r`On pose $A = \dfrac{\left(2^{3}\right)^{2} \times 2^{-5}}{2^{-2}}$. Alors $A$ est égal à&nbsp;:`,
+      choix: [r`$8$`, r`$\dfrac{1}{2}$`, r`$4$`, r`$\dfrac{1}{8}$`],
+      bonne: 0,
+      explication: [
+        r`Puissance d'une puissance&nbsp;: on multiplie les exposants. Produit&nbsp;: on ajoute les exposants. Quotient&nbsp;: on soustrait l'exposant du dénominateur.`,
+        calcul(r`A & = \dfrac{2^{3 \times 2} \times 2^{-5}}{2^{-2}}`, r`& = \dfrac{2^{6 + (-5)}}{2^{-2}}`, r`& = \dfrac{2^{1}}{2^{-2}}`, r`& = 2^{1 - (-2)}`, r`& = 2^{3}`, r`& = \resultat{8}`)] } },
+
+  { partie: 0, theme: 'Produit de puissances', type: 'qcm',
+    enonce: r`On pose $A = \dfrac{3^{4} \times 4^{4}}{12^{3}}$. Alors $A$ est égal à&nbsp;:`,
+    choix: [r`$12$`, r`$12^{5}$`, r`$12^{7}$`, r`$\dfrac{1}{12}$`],
+    bonne: 0,
+    explication: [
+      r`Les deux facteurs du numérateur ont le même exposant $4$&nbsp;: la règle $a^{n} \times b^{n} = (a \times b)^{n}$ les regroupe, et $3 \times 4 = 12$. Ensuite, pour diviser, on soustrait les exposants.`,
+      calcul(r`A & = \dfrac{(3 \times 4)^{4}}{12^{3}}`, r`& = \dfrac{12^{4}}{12^{3}}`, r`& = 12^{4 - 3}`, r`& = \resultat{12}`)],
+    revoir: r`règles de calcul, capacité 2 du cours (question 7), exercice 14 p.&nbsp;98 du manuel`,
+    variante: {
+      enonce: r`On pose $A = \dfrac{2^{5} \times 5^{5}}{10^{4}}$. Alors $A$ est égal à&nbsp;:`,
+      choix: [r`$10$`, r`$10^{6}$`, r`$10^{9}$`, r`$\dfrac{1}{10}$`],
+      bonne: 0,
+      explication: [
+        r`Les deux facteurs du numérateur ont le même exposant $5$&nbsp;: la règle $a^{n} \times b^{n} = (a \times b)^{n}$ les regroupe, et $2 \times 5 = 10$. Ensuite, pour diviser, on soustrait les exposants.`,
+        calcul(r`A & = \dfrac{(2 \times 5)^{5}}{10^{4}}`, r`& = \dfrac{10^{5}}{10^{4}}`, r`& = 10^{5 - 4}`, r`& = \resultat{10}`)] } },
+
+  /* ----- Racines carrées ----- */
+
+  { partie: 0, theme: 'Racine carrée', type: 'vf',
+    enonce: r`L'égalité $\sqrt{36 + 64} = \sqrt{36} + \sqrt{64}$ est vraie.`,
+    bonne: false,
+    explication: [
+      r`$\sqrt{a}$ est le nombre positif dont le carré est $a$&nbsp;: par exemple, $\sqrt{100} = 10$, car $10 \ge 0$ et $10^{2} = 100$. On calcule chaque membre.`,
+      calcul(r`\sqrt{36 + 64} & = \sqrt{100} = 10`, r`\sqrt{36} + \sqrt{64} & = 6 + 8 = 14`),
+      r`Comme $10 \ne 14$, l'égalité est <span class="resultat">fausse</span>&nbsp;: il n'y a pas de règle pour la racine carrée d'une somme.`],
+    revoir: r`définition et propriétés de la racine carrée (partie 3 du cours), activité 3, exercices 15 p.&nbsp;98 et 59 p.&nbsp;101 du manuel`,
+    variante: {
+      enonce: r`L'égalité $\sqrt{4 \times 49} = \sqrt{4} \times \sqrt{49}$ est vraie.`,
+      bonne: true,
+      explication: [
+        r`Pour $a \ge 0$ et $b \ge 0$, $\sqrt{a \times b} = \sqrt{a} \times \sqrt{b}$ (propriété démontrée dans le cours). On le vérifie en calculant chaque membre.`,
+        calcul(r`\sqrt{4 \times 49} & = \sqrt{196} = 14`, r`\sqrt{4} \times \sqrt{49} & = 2 \times 7 = 14`),
+        r`Les deux membres valent $14$&nbsp;: l'égalité est <span class="resultat">vraie</span>.`] } },
+
+  { partie: 0, theme: 'Simplifier une racine', type: 'qcm',
+    enonce: r`Écrit sous la forme $a\sqrt{b}$, avec $a$ et $b$ entiers et $b$ le plus petit possible, $\sqrt{180}$ est égal à&nbsp;:`,
+    choix: [r`$6\sqrt{5}$`, r`$3\sqrt{20}$`, r`$36\sqrt{5}$`, r`$5\sqrt{6}$`],
+    bonne: 0,
+    explication: [
+      r`On cherche le plus grand carré parfait qui divise $180$&nbsp;: c'est $36$, car $180 = 36 \times 5$. Puis $\sqrt{a \times b} = \sqrt{a} \times \sqrt{b}$.`,
+      calcul(r`\sqrt{180} & = \sqrt{36 \times 5}`, r`& = \sqrt{36} \times \sqrt{5}`, r`& = \resultat{6\sqrt{5}}`)],
+    revoir: r`méthode «&nbsp;extraire un carré parfait&nbsp;», capacité 3 du cours (questions 1 à 3), exercice 17 p.&nbsp;99 du manuel`,
+    variante: {
+      enonce: r`Écrit sous la forme $a\sqrt{b}$, avec $a$ et $b$ entiers et $b$ le plus petit possible, $\sqrt{128}$ est égal à&nbsp;:`,
+      choix: [r`$8\sqrt{2}$`, r`$4\sqrt{8}$`, r`$64\sqrt{2}$`, r`$2\sqrt{8}$`],
+      bonne: 0,
+      explication: [
+        r`On cherche le plus grand carré parfait qui divise $128$&nbsp;: c'est $64$, car $128 = 64 \times 2$. Puis $\sqrt{a \times b} = \sqrt{a} \times \sqrt{b}$.`,
+        calcul(r`\sqrt{128} & = \sqrt{64 \times 2}`, r`& = \sqrt{64} \times \sqrt{2}`, r`& = \resultat{8\sqrt{2}}`)] } },
+
+  { partie: 0, theme: 'Réduire', type: 'qcm',
+    enonce: r`On pose $A = 2\sqrt{18} - \sqrt{50} + \sqrt{8}$. Écrit le plus simplement possible, $A$ est égal à&nbsp;:`,
+    choix: [r`$3\sqrt{2}$`, r`$0$`, r`$15\sqrt{2}$`, r`$-\sqrt{2}$`],
+    bonne: 0,
+    explication: [
+      r`On écrit chaque racine sous la forme $a\sqrt{2}$ ($18 = 9 \times 2$, $50 = 25 \times 2$ et $8 = 4 \times 2$), puis on regroupe les termes en $\sqrt{2}$, comme des termes en $x$.`,
+      calcul(r`A & = 2\sqrt{9 \times 2} - \sqrt{25 \times 2} + \sqrt{4 \times 2}`, r`& = 2 \times 3\sqrt{2} - 5\sqrt{2} + 2\sqrt{2}`, r`& = 6\sqrt{2} - 5\sqrt{2} + 2\sqrt{2}`,
+        r`& = (6 - 5 + 2)\sqrt{2}`, r`& = \resultat{3\sqrt{2}}`)],
+    revoir: r`capacité 3 du cours (questions 4 et 5), exercice 63 p.&nbsp;101 et top chrono 146 p.&nbsp;106 du manuel`,
+    variante: {
+      enonce: r`On pose $A = 3\sqrt{12} - \sqrt{75} + \sqrt{27}$. Écrit le plus simplement possible, $A$ est égal à&nbsp;:`,
+      choix: [r`$4\sqrt{3}$`, r`$0$`, r`$10\sqrt{3}$`, r`$-2\sqrt{3}$`],
+      bonne: 0,
+      explication: [
+        r`On écrit chaque racine sous la forme $a\sqrt{3}$ ($12 = 4 \times 3$, $75 = 25 \times 3$ et $27 = 9 \times 3$), puis on regroupe les termes en $\sqrt{3}$, comme des termes en $x$.`,
+        calcul(r`A & = 3\sqrt{4 \times 3} - \sqrt{25 \times 3} + \sqrt{9 \times 3}`, r`& = 3 \times 2\sqrt{3} - 5\sqrt{3} + 3\sqrt{3}`, r`& = 6\sqrt{3} - 5\sqrt{3} + 3\sqrt{3}`,
+          r`& = (6 - 5 + 3)\sqrt{3}`, r`& = \resultat{4\sqrt{3}}`)] } },
+
+  { partie: 0, theme: 'Développer', type: 'qcm',
+    enonce: r`La forme développée et réduite de $A = \left(3\sqrt{2} - 1\right)^{2}$ est&nbsp;:`,
+    choix: [r`$19 - 6\sqrt{2}$`, r`$17$`, r`$7 - 6\sqrt{2}$`, r`$19 - 3\sqrt{2}$`],
+    bonne: 0,
+    explication: [
+      r`Identité remarquable $(a - b)^{2} = a^{2} - 2ab + b^{2}$ avec $a = 3\sqrt{2}$ et $b = 1$. Le carré porte sur les deux facteurs&nbsp;: $\left(3\sqrt{2}\right)^{2} = 3^{2} \times \left(\sqrt{2}\right)^{2}$.`,
+      calcul(r`A & = \left(3\sqrt{2}\right)^{2} - 2 \times 3\sqrt{2} \times 1 + 1^{2}`, r`& = 9 \times 2 - 6\sqrt{2} + 1`, r`& = 18 - 6\sqrt{2} + 1`, r`& = \resultat{19 - 6\sqrt{2}}`)],
+    revoir: r`méthode «&nbsp;développer&nbsp;» de la partie 3, capacité 4 du cours, exercice 67 p.&nbsp;102 du manuel`,
+    variante: {
+      enonce: r`La forme développée et réduite de $A = \left(3\sqrt{5} - 4\right)\left(3\sqrt{5} + 4\right)$ est&nbsp;:`,
+      choix: [r`$29$`, r`$-1$`, r`$61$`, r`$9\sqrt{5} - 16$`],
+      bonne: 0,
+      explication: [
+        r`Identité remarquable $(a - b)(a + b) = a^{2} - b^{2}$ avec $a = 3\sqrt{5}$ et $b = 4$. Le carré porte sur les deux facteurs&nbsp;: $\left(3\sqrt{5}\right)^{2} = 3^{2} \times \left(\sqrt{5}\right)^{2}$.`,
+        calcul(r`A & = \left(3\sqrt{5}\right)^{2} - 4^{2}`, r`& = 9 \times 5 - 16`, r`& = 45 - 16`, r`& = \resultat{29}`)] } }
+  ]
+};
+
+/* ---------- Conversion des formules ($...$, mini-LaTeX) en HTML ---------- */
+const SYM = {
+  times: '×', cdot: '·', dots: '…', ldots: '…', cdots: '…', ne: '≠', neq: '≠', le: '≤', leq: '≤',
+  ge: '≥', geq: '≥', approx: '≈', infty: '∞', forall: '∀', in: '∈', N: 'ℕ', R: 'ℝ', Z: 'ℤ',
+  pm: '±', Delta: 'Δ', sum: 'Σ', pi: 'π', alpha: 'α', mapsto: '↦', to: '→', iff: '⇔',
+  Longleftrightarrow: '⇔', Leftrightarrow: '⇔', Rightarrow: '⇒', implies: '⇒',
+  quad: ' ', qquad: '  ', displaystyle: '', left: '', right: ''
+};
+const SYM1 = { ',': ' ', ';': ' ', ' ': ' ', '{': '{', '}': '}', '%': '%', '_': '_', '&': '&amp;', '$': '$', '\\': '<br>' };
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function math(s) {
+  let i = 0;
+  const skip = () => { while (i < s.length && s[i] === ' ') i++; };
+  function raw() {            // contenu brut d'un {groupe}, sans mise en italique
+    skip();
+    if (s[i] !== '{') return esc(s[i++] || '');
+    let prof = 0, out = '';
+    for (; i < s.length; i++) {
+      const c = s[i];
+      if (c === '{') { prof++; if (prof === 1) continue; }
+      if (c === '}') { prof--; if (prof === 0) { i++; break; } }
+      out += c;
+    }
+    return esc(out);
+  }
+  function group() { i++; let out = ''; while (i < s.length && s[i] !== '}') out += atom(); i++; return out; }
+  function arg() { skip(); if (s[i] === '{') return group(); return atom(); }
+  const frac = (a, b) => `<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`;
+  function atom() {
+    if (i >= s.length) return '';
+    const c = s[i];
+    if (c === '{') return group();
+    if (c === '}') { i++; return ''; }
+    if (c === '\\') {
+      const n = s[i + 1];
+      if (n === undefined) { i++; return ''; }
+      if (!/[a-zA-Z]/.test(n)) { i += 2; return SYM1[n] !== undefined ? SYM1[n] : esc(n); }
+      let j = i + 1;
+      while (j < s.length && /[a-zA-Z]/.test(s[j])) j++;
+      const nom = s.slice(i + 1, j); i = j;
+      if (nom === 'frac' || nom === 'dfrac' || nom === 'tfrac') { const a = arg(); const b = arg(); return frac(a, b); }
+      if (nom === 'mathrm' || nom === 'text') return `<span class="rm">${raw()}</span>`;
+      if (nom === 'textbf') return `<b class="rm">${raw()}</b>`;
+      if (nom === 'mathscr') return `<i>${raw()}</i>`;
+      if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
+      if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
+      if (nom === 'op') return `<span class="op">${arg()}</span>`;
+      if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
+      return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
+    }
+    if (c === '_' || c === '^') { i++; const a = arg(); return c === '_' ? `<sub>${a}</sub>` : `<sup>${a}</sup>`; }
+    i++;
+    if (/[a-zA-Z]/.test(c)) return `<i>${c}</i>`;
+    if (c === '-') return '−';
+    if (c === '*') return '×';
+    if (c === "'") return '<span class="prime">′</span>';
+    return esc(c);
+  }
+  let out = '';
+  while (i < s.length) out += atom();
+  return out;
+}
+// Une formule : KaTeX s'il est chargé, sinon (pas encore là, hors ligne, CDN filtré, commande qu'il
+// refuse) le mini-LaTeX, qui garde la source dans data-tex pour que katexPret() la recompose.
+// (## : signe # d'une couleur dans une macro, # seul désignant un argument)
+const MACROS = { '\\mul': '\\textcolor{##9C27B0}{#1}', '\\op': '\\textcolor{##CE2029}{#1}', '\\resultat': '\\boxed{#1}' };
+function katexDispo() {
+  const feuille = document.getElementById('katex-css');
+  return !!window.katex && !!feuille && feuille.media === 'all';
+}
+function katexHTML(f) {
+  try { return katex.renderToString(f, { macros: Object.assign({}, MACROS), throwOnError: true, strict: false }); }
+  catch (e) { return null; }
+}
+function formule(f) {
+  const k = katexDispo() ? katexHTML(f) : null;
+  return k || `<span class="m${f.length > 42 ? ' m-long' : ''}" data-tex="${esc(f).replace(/"/g, '&quot;')}">${math(f)}</span>`;
+}
+window.katexPret = function () {
+  if (!katexDispo()) return;
+  document.querySelectorAll('.m[data-tex]').forEach(e => {
+    const k = katexHTML(e.dataset.tex);
+    if (k) e.outerHTML = k;
+  });
+};
+function tex(src) {
+  return String(src).split(/(\$[^$]*\$)/).map(p =>
+    (p.length >= 2 && p[0] === '$' && p[p.length - 1] === '$') ? formule(p.slice(1, -1)) : p
+  ).join('');
+}
+
+/* ---------- État (enregistré sur l'appareil, pour reprendre plus tard) ---------- */
+const N = QUIZ.questions.length;
+const CLE = 'quiz-' + QUIZ.id;
+const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length
+  + (q.variante ? '~' + q.variante.enonce.length : '')).join('|');
+const MODE_CORRIGE = /(\?|&|#)corrige/.test(location.search + location.hash);
+// La question i dans sa variante : les champs que la variante ne donne pas viennent de la question.
+const variante = i => Object.assign({}, QUIZ.questions[i], QUIZ.questions[i].variante);
+
+function melange(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const ordreDe = q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k));
+// reprise : null, ou la reprise des questions manquées { rangs (questions d'origine), ordre, reponses, courant }.
+function nouvelEtat() {
+  return {
+    signature: SIGNATURE,
+    ordre: QUIZ.questions.map(ordreDe),
+    reponses: Array(N).fill(null),
+    courant: 0,
+    reprise: null
+  };
+}
+function repriseValide(R) {
+  return !!R && Array.isArray(R.rangs) && R.rangs.length > 0 && Array.isArray(R.ordre) && Array.isArray(R.reponses)
+    && R.ordre.length === R.rangs.length && R.reponses.length === R.rangs.length
+    && R.rangs.every(i => QUIZ.questions[i] && QUIZ.questions[i].variante);
+}
+function charger() {
+  try {
+    const s = JSON.parse(localStorage.getItem(CLE));
+    if (s && s.signature === SIGNATURE && Array.isArray(s.reponses) && s.reponses.length === N && Array.isArray(s.ordre)) {
+      s.courant = Math.min(Math.max(0, s.courant | 0), N);
+      if (repriseValide(s.reprise)) s.reprise.courant = Math.min(Math.max(0, s.reprise.courant | 0), s.reprise.rangs.length);
+      else s.reprise = null;
+      return s;
+    }
+  } catch (e) { /* stockage indisponible : on repart de zéro */ }
+  return null;
+}
+function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* sans importance */ } }
+
+let etat = charger() || nouvelEtat();
+let selection = null;
+
+const $ = sel => document.querySelector(sel);
+const zoneProg = $('#progression');
+const zoneQuiz = $('#quiz');
+const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
+// Une seule partie : aucun nom de partie n'est affiché (grille, question, corrigé, note).
+const UNE_PARTIE = QUIZ.parties.length === 1;
+const questionsDe = p => QUIZ.questions.map((q, i) => q.partie === p ? i : -1).filter(i => i >= 0);
+
+/* ---------- Affichage ---------- */
+// Explication : un texte, ou une liste de blocs (paragraphes, calculs en colonne, figures).
+function explicationHTML(q) {
+  const blocs = Array.isArray(q.explication) ? q.explication : [q.explication];
+  return blocs.map(b => /^<(div|svg)\b/.test(b) ? tex(b) : '<p>' + tex(b) + '</p>').join('');
+}
+
+function reponseTexte(q, choix) {
+  if (q.type === 'vf') return choix ? 'Vrai' : 'Faux';
+  return '« ' + tex(q.choix[choix]) + ' »';
+}
+
+// Tour en cours : le premier passage (les questions du fichier), ou la reprise des questions
+// manquées (leurs variantes). Chacun a ses réponses, l'ordre de ses choix et sa question courante k ;
+// le numéro affiché est toujours celui de la question d'origine.
+function tourCourant() {
+  const R = etat.reprise;
+  if (R && R.courant < R.rangs.length)
+    return { reprise: true, etat: R, total: R.rangs.length, question: k => variante(R.rangs[k]), numero: k => R.rangs[k] + 1 };
+  return { reprise: false, etat: etat, total: N, question: k => QUIZ.questions[k], numero: k => k + 1 };
+}
+
+// Une grille de réponses. items = [{cle, numero, rep}] ; attr = data-q (premier passage) ou data-r (reprise).
+function grille(nom, items, courant, attr) {
+  const faites = items.filter(it => it.rep).length;
+  let nums = '', marques = '';
+  items.forEach(it => {
+    const ici = it.cle === courant;
+    nums += `<td class="${ici ? 'ici' : ''}"><button type="button" class="aller" ${attr}="${it.cle}" aria-label="Aller à la question ${it.numero}">${it.numero}</button></td>`;
+    marques += it.rep
+      ? `<td class="${it.rep.ok ? 'juste' : 'erreur'}${ici ? ' courant' : ''}" ${attr}="${it.cle}"><span class="marque ${it.rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`
+      : `<td class="${ici ? 'courant' : ''}" ${attr}="${it.cle}"></td>`;
+  });
+  return `<div class="bloc-grille">${nom ? `<p class="nom-partie">${nom}</p>` : ''}
+    <table class="grille-reponses" aria-label="${nom || 'Réponses'} : ${faites} question${faites > 1 ? 's' : ''} sur ${items.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+}
+
+function rendreProgression() {
+  if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
+  const T = tourCourant(), R = etat.reprise;
+  zoneProg.innerHTML = T.reprise
+    ? grille('Reprise des questions manquées', R.rangs.map((i, k) => ({ cle: k, numero: i + 1, rep: R.reponses[k] })), R.courant, 'data-r')
+    : QUIZ.parties.map((nom, p) => grille(UNE_PARTIE ? '' : nomPartie(p),
+        questionsDe(p).map(i => ({ cle: i, numero: i + 1, rep: etat.reponses[i] })), etat.courant, 'data-q')).join('');
+}
+
+function rendre() {
+  rendreProgression();
+  if (MODE_CORRIGE) return rendreCorrige();
+  const T = tourCourant();
+  if (T.etat.courant >= T.total) rendreResultat(); else rendreQuestion(T, T.etat.courant);
+}
+
+function boite(marque) {
+  return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
+}
+
+function rendreQuestion(T, k) {
+  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = k === T.total - 1;
+  const changePartie = !T.reprise && !derniere && QUIZ.questions[k + 1].partie !== q.partie;
+  const tete = T.reprise ? `Reprise des questions manquées · ${k + 1} sur ${T.total}` : UNE_PARTIE ? '' : nomPartie(q.partie);
+  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir ma note') : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante';
+  let options;
+  if (q.type === 'vf') {
+    options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (val === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (val === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
+    }).join('');
+  } else {
+    options = ordre.map((orig, j) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[j]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
+    }).join('');
+  }
+  const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
+  const correction = rep ? `<div class="correction ${rep.ok ? 'juste' : 'erreur'}" role="status">
+      <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
+      <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
+  const bouton = rep
+    ? `<button type="button" class="bouton" id="suivant">${suite}</button>`
+    : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
+  zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
+    ${tete ? `<p class="partie">${tete}</p>` : ''}
+    <p class="question" id="titre-q"><b>Question ${T.numero(k)}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
+    <div class="actions">${bouton}</div>
+    ${correction}
+  </article>`;
+  selection = null;
+  if (!rep) {
+    zoneQuiz.querySelectorAll('.choix').forEach(b => b.addEventListener('click', () => choisir(b, q)));
+    $('#valider').addEventListener('click', valider);
+  } else {
+    $('#suivant').addEventListener('click', suivant);
+  }
+}
+
+function choisir(b, q) {
+  zoneQuiz.querySelectorAll('.choix').forEach(o => {
+    const actif = o === b;
+    o.classList.toggle('choisi', actif);
+    o.setAttribute('aria-pressed', actif ? 'true' : 'false');
+    o.querySelector('.marque').className = actif ? 'marque croix' : 'marque';
+  });
+  selection = q.type === 'vf' ? b.dataset.val === 'true' : Number(b.dataset.val);
+  $('#valider').disabled = false;
+}
+
+function valider() {
+  const T = tourCourant(), k = T.etat.courant, q = T.question(k);
+  if (selection === null || T.etat.reponses[k]) return;
+  T.etat.reponses[k] = { choix: selection, ok: selection === q.bonne };
+  sauver();
+  rendre();
+  const suivantBtn = $('#suivant');
+  if (suivantBtn) suivantBtn.focus({ preventScroll: true });
+  const correction = $('.correction');
+  if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
+}
+
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question
+// (data-q : premier passage ; data-r : reprise des questions manquées).
+function aller(cible) {
+  if (cible.dataset.r !== undefined) etat.reprise.courant = Number(cible.dataset.r);
+  else etat.courant = Number(cible.dataset.q);
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function suivant() {
+  const T = tourCourant();
+  T.etat.courant = Math.min(T.etat.courant + 1, T.total);
+  selection = null;
+  sauver();
+  rendre();
+  // On remonte aux grilles de réponses, pas tout en haut : sur téléphone, l'en-tête occupe un écran.
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function recommencer() {
+  etat = nouvelEtat();
+  selection = null;
+  sauver();
+  rendre();
+  window.scrollTo({ top: 0, behavior: motion() });
+}
+// Deux clics pour tout effacer : le premier transforme le bouton en demande de confirmation.
+function demanderRecommencer(btn) {
+  const entame = etat.courant > 0 || etat.reponses.some(Boolean);
+  if (btn.dataset.minuteur) {
+    clearTimeout(Number(btn.dataset.minuteur));
+    btn.textContent = btn.dataset.texte;
+    delete btn.dataset.minuteur;
+    recommencer();
+  } else if (!entame) {
+    recommencer();
+  } else {
+    btn.dataset.texte = btn.textContent;
+    btn.textContent = 'Confirmer : effacer mes réponses';
+    btn.dataset.minuteur = String(setTimeout(() => { btn.textContent = btn.dataset.texte; delete btn.dataset.minuteur; }, 4000));
+  }
+}
+
+// Questions regroupées par partie : un titre, puis la liste produite par item(q, i).
+function listeParParties(item) {
+  return QUIZ.parties.map((nom, p) =>
+    `${UNE_PARTIE ? '' : `<h2 class="titre-partie">${nomPartie(p)}</h2>`}<ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
+  ).join('');
+}
+
+// Une question de la copie : énoncé, réponse donnée, explication.
+function itemRevue(q, rep, numero) {
+  const ok = !!(rep && rep.ok);
+  let bilan;
+  if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
+  else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  return `<li class="${ok ? 'juste' : 'erreur'}">
+    <p class="question"><b>Question ${numero}.</b> <i>${q.theme}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <p class="bilan">${bilan}</p>
+    <div class="explication">${explicationHTML(q)}</div>
+  </li>`;
+}
+
+function revueHTML() {
+  return listeParParties((q, i) => itemRevue(q, etat.reponses[i], i + 1));
+}
+
+function revueRepriseHTML() {
+  const R = etat.reprise;
+  return `<h2 class="titre-partie">Reprise des questions manquées</h2><ol class="revue">${R.rangs.map((i, k) => itemRevue(variante(i), R.reponses[k], i + 1)).join('')}</ol>`;
+}
+
+// Bouton qui montre ou cache une copie.
+function bascule(idBouton, idListe, texte) {
+  $('#' + idBouton).addEventListener('click', () => {
+    const liste = $('#' + idListe), btn = $('#' + idBouton);
+    liste.hidden = !liste.hidden;
+    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
+    btn.textContent = (liste.hidden ? 'Revoir ' : 'Masquer ') + texte;
+  });
+}
+
+// Reprise des questions manquées qui ont une variante : nouveau tour, noté à part.
+function reprendre(rangs) {
+  etat.reprise = { rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 };
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function rendreResultat() {
+  const juste = i => !!(etat.reponses[i] && etat.reponses[i].ok);
+  const score = QUIZ.questions.filter((q, i) => juste(i)).length;
+  const appreciation = score >= 0.75 * N
+    ? 'C\'est solide. Relis quand même les explications des questions manquées.'
+    : score >= 0.5 * N
+      ? 'L\'essentiel est là. Reprends les points listés ci-dessous, puis refais cet entraînement.'
+      : 'À retravailler avant l\'évaluation : reprends le cours et la fiche d\'exercices, puis refais cet entraînement.';
+  const sur20 = N === 20 ? '' : `<span class="sur">soit ${fr(Math.round(score * 20 / N * 2) / 2)} / 20</span>`;
+  const parties = QUIZ.parties.map((nom, p) => {
+    const rangs = questionsDe(p);
+    return `<span>${nomPartie(p)}&nbsp;: <b>${rangs.filter(juste).length} / ${rangs.length}</b></span>`;
+  }).join(' &emsp; ');
+  const aRevoir = [];
+  QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
+  const revoir = aRevoir.length
+    ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
+  // Questions manquées qui ont une variante, et reprise déjà faite (on n'arrive ici qu'une fois finie).
+  const manquees = QUIZ.questions.map((q, i) => i).filter(i => !juste(i) && QUIZ.questions[i].variante);
+  const R = etat.reprise, nm = manquees.length;
+  const bilanReprise = R
+    ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(x => x && x.ok).length} / ${R.rangs.length}</b></p>` : '';
+  const infoReprise = nm && !R
+    ? `<p class="reprise-info">Tu peux refaire ${nm > 1 ? 'les ' + nm + ' questions manquées' : 'la question manquée'}, un peu ${nm > 1 ? 'modifiées' : 'modifiée'}&nbsp;: mêmes notions, autres valeurs.</p>` : '';
+  zoneQuiz.innerHTML = `<article class="page-note" aria-labelledby="titre-r">
+    <p class="question" id="titre-r"><b>Note.</b></p>
+    <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
+    <p class="appreciation">${appreciation}</p>
+    ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
+    ${bilanReprise}
+    ${revoir}
+    ${infoReprise}
+    <div class="actions">
+      ${nm ? `<button type="button" class="bouton" id="reprendre">${R ? 'Refaire la reprise' : 'Refaire les questions manquées'}</button>` : ''}
+      <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
+      ${R ? '<button type="button" class="bouton" id="revoir-reprise" aria-expanded="false" aria-controls="revue-reprise">Revoir la reprise</button>' : ''}
+      <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
+    </div>
+    <div id="revue" hidden>${revueHTML()}</div>
+    ${R ? `<div id="revue-reprise" hidden>${revueRepriseHTML()}</div>` : ''}
+  </article>`;
+  bascule('revoir', 'revue', 'la copie');
+  if (R) bascule('revoir-reprise', 'revue-reprise', 'la reprise');
+  if (nm) $('#reprendre').addEventListener('click', () => reprendre(manquees));
+  $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+}
+
+function rendreCorrige() {
+  // Énoncé, choix (bonne réponse en vert), explication.
+  const corps = q => `<div class="enonce">${tex(q.enonce)}</div>
+      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
+      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
+      <div class="explication">${explicationHTML(q)}</div>`;
+  zoneQuiz.innerHTML = `<article>
+    <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
+    ${listeParParties((q, i) => `<li class="juste">
+      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
+      ${corps(q)}
+      ${q.variante ? `<div class="variante"><p class="question"><b>Variante</b> <i>(reprise des questions manquées)</i></p>${corps(variante(i))}</div>` : ''}
+    </li>`)}
+  </article>`;
+}
+
+/* ---------- Démarrage ---------- */
+$('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+zoneProg.addEventListener('click', e => {
+  const cible = e.target.closest('[data-q],[data-r]');
+  if (cible) aller(cible);
+});
+rendre();
+})();
+</script>
+</body>
+</html>
