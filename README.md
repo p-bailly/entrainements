@@ -3,6 +3,7 @@
 - Chapitre 1 : [Calcul littéral](https://p-bailly.github.io/entrainements/seconde/01-calcul-litteral.html)
 - Chapitre 2 : [Puissances, racines carrées et fractions](https://p-bailly.github.io/entrainements/seconde/02-puissances-racines-fractions.html)
 - Chapitre 3 : [Nombres réels (partie 1)](https://p-bailly.github.io/entrainements/seconde/03-nombres-reels-1.html)
+- Chapitre 4 : [Vecteurs](https://p-bailly.github.io/entrainements/seconde/04-vecteurs.html)
 - Chapitre 5 : [Nombres réels (partie 2)](https://p-bailly.github.io/entrainements/seconde/05-nombres-reels-2.html)
 - Chapitre 7 : [Information chiffrée](https://p-bailly.github.io/entrainements/seconde/07-information-chiffree.html)
 

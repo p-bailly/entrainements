@@ -1,0 +1,1239 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement Évaluation vecteurs</title>
+<!--
+  Entraînement auto-corrigé à l'évaluation du chapitre 4 (Vecteurs, sans repère) - Seconde.
+  Une seule partie, sans automatismes (demande du professeur pour la Seconde), dans l'ordre
+  du cours : vecteurs égaux sur un quadrillage, vecteurs égaux et parallélogramme, image par
+  une translation, norme (théorème de Pythagore), somme de deux vecteurs (bout à bout, règle
+  du parallélogramme), relation de Chasles, différence, produit par un réel (point F tel que
+  DF = u - 2v), décomposition d'un vecteur sur un quadrillage, réduction et colinéarité,
+  parallélisme, alignement et milieu dans un parallélogramme (caractérisation vectorielle
+  du milieu). Sources : capacités 1 à 5 du cours, activités 1 et 2, fiche d'exercices
+  (exercices 1 à 6), exercices du manuel cités dans le plan (16, 19 et 20 p. 134-135,
+  67 p. 138, 68, 71 et 73 p. 139) et évaluation (sujets A et B, sans le QCM
+  d'automatismes) : image d'un triangle, points E et F tels que DE = u + v et DF = u - 2v,
+  décomposition, relation de Chasles, colinéarité, alignement et milieu.
+  Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
+  Ni repère ni coordonnées (chapitre 9). Figures dessinées par la fonction quadrillage
+  (ci-dessous) : quadrillage gris clair, vecteurs donnés en rouge et en bleu, constructions
+  en tirets, lectures en tirets verts.
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
+
+  Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
+  entrainement-04-vecteurs-questions.js (même dossier) ; moteur et mise en page :
+  Commun aux cours/entrainement/gabarit.html (format des questions en tête).
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/seconde/04-vecteurs.html
+  (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&display=swap">
+<!-- KaTeX, chargé sans bloquer la page (réseau du lycée parfois filtré) : les formules s'affichent
+     d'abord en mini-LaTeX, puis KaTeX les recompose sur place dès que sa feuille et son script sont là. -->
+<link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css" integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous" media="print" onload="this.media='all'; if (window.katexPret) katexPret()">
+<script async src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js" integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj" crossorigin="anonymous" onload="if (window.katexPret) katexPret()"></script>
+<style>
+:root{
+  --papier:#FCFBF7; --encre:#161616; --gris:#6B6A66; --filet:#C4BFB3; --filet-clair:#E4E0D6; --case:#F0EDE5;
+  --stylo:#1E3D96; --rouge:#CE2029; --vert:#2A7A36; --orange:#E8940A; --violet:#7A3E9D;
+  --serif:"Old Standard TT","Times New Roman",Times,serif;
+  --main:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --mono:ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 var(--serif); min-height:100vh}
+.feuille{max-width:720px; margin:0 auto; padding:34px 40px 60px}
+
+/* Retour à la liste des entraînements */
+.retour{margin:0 0 14px; font-size:.95rem}
+.retour a{color:var(--stylo); text-decoration:none; border-bottom:1px solid var(--filet)}
+.retour a:hover,.retour a:focus-visible{border-bottom-color:var(--stylo)}
+
+/* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
+.mul{color:#9C27B0}
+/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
+.op{color:var(--rouge)}
+
+/* En-tête de la copie */
+.entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
+h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
+.consigne{margin:0 0 12px; font-style:italic}
+.filet{height:4px; border-top:1px solid var(--encre); border-bottom:1px solid var(--encre); margin:8px 0 20px}
+
+/* Grilles de réponses, une par partie */
+.progression{display:flex; flex-wrap:wrap; gap:10px 28px; margin:0 0 24px; scroll-margin-top:12px}
+.bloc-grille{max-width:100%; overflow-x:auto}
+.nom-partie{margin:0 0 3px; font-style:italic; font-size:.9rem; white-space:nowrap}
+.grille-reponses{border-collapse:collapse; font-size:.9rem}
+.grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
+.grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
+.grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
+.grille-reponses td[data-q],.grille-reponses td[data-r]{cursor:pointer}
+.grille-reponses td.ici{background:var(--filet-clair)}
+.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
+.grille-reponses button.aller:hover{text-decoration:underline}
+.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
+.grille-reponses td.juste{color:var(--vert)}
+.grille-reponses td.erreur{color:var(--rouge)}
+
+/* Marques au stylo : croix et coche dessinées en CSS */
+.marque{position:relative; display:inline-block; width:18px; height:18px; vertical-align:-4px; color:inherit}
+.marque::before,.marque::after{content:""; position:absolute; width:2px; background:currentColor; border-radius:1px; display:none}
+.marque.croix::before,.marque.croix::after{display:block; left:8px; top:-2px; height:22px}
+.marque.croix::before{transform:rotate(43deg)}
+.marque.croix::after{transform:rotate(-47deg)}
+.marque.coche::before,.marque.coche::after{display:block}
+.marque.coche::before{left:3px; top:8px; height:8px; transform:rotate(-42deg)}
+.marque.coche::after{left:10px; top:-2px; height:20px; transform:rotate(38deg)}
+
+/* Question et réponses */
+.partie{margin:0 0 2px; font-variant:small-caps; letter-spacing:.03em}
+.question{margin:0 0 6px}
+.question i{color:var(--gris)}
+.enonce{margin:0 0 14px}
+.reponses{display:grid; gap:6px; margin:0 0 18px}
+.reponses.vf{display:flex; gap:12px 40px; flex-wrap:wrap}
+.choix{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; padding:5px 4px; border:0; border-radius:0; background:transparent; color:var(--encre); font:inherit; line-height:1.45; cursor:pointer}
+.reponses.vf .choix{width:auto; padding-right:12px}
+.choix:disabled{cursor:default}
+.choix .boite{flex:none; position:relative; width:18px; height:18px; margin-top:5px; border:1px solid var(--encre); background:var(--papier)}
+.choix .boite .marque{position:absolute; left:-1px; top:-1px}
+.choix:hover:not(:disabled) .boite{box-shadow:0 0 0 1px var(--encre)}
+.choix .lettre{flex:none; width:1.3em; color:var(--gris)}
+.choix .texte{flex:1; min-width:0}
+.choix.choisi .marque{color:var(--stylo)}
+.choix.juste .marque{color:var(--vert)}
+.choix.erreur .marque{color:var(--rouge)}
+.choix.terne{color:var(--gris)}
+.actions{display:flex; gap:12px 18px; flex-wrap:wrap; align-items:center}
+.bouton{font:inherit; font-variant:small-caps; letter-spacing:.04em; font-size:1rem; padding:5px 18px; border:1px solid var(--encre); border-radius:0; background:var(--papier); color:var(--encre); cursor:pointer}
+.bouton:hover:not(:disabled){background:var(--encre); color:var(--papier)}
+.bouton:disabled{opacity:.4; cursor:default}
+.bouton.discret{border-color:var(--filet)}
+
+/* Correction du professeur */
+.correction{margin:20px 0 0; padding:2px 0 2px 16px; border-left:2px solid var(--rouge)}
+.correction.juste{border-left-color:var(--vert)}
+.verdict{font:600 1.7rem/1.1 var(--main); color:var(--rouge); margin:0 0 6px}
+.correction.juste .verdict{color:var(--vert)}
+.explication{margin:0; font-size:1rem; line-height:1.55}
+.explication p{margin:0 0 .55em}
+.explication p:last-child{margin-bottom:0}
+.explication .revoir{font-style:italic; color:var(--gris)}
+.explication .fig{margin:8px auto 12px}
+/* Calcul en colonne : une étape par ligne, alignées sur le signe = ou ⇔ (comme dans les PDF) */
+.calcul{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.45em .4em; align-items:baseline; margin:.3em 0 .5em 1.4em; padding:.2em 0 .3em; overflow-x:auto; overflow-y:hidden}
+.calcul .g{justify-self:end}
+.resultat{display:inline-block; border:1px solid currentColor; padding:.05em .4em; line-height:1.35}
+code{font-family:var(--mono); font-size:.88em}
+
+/* Figures dans les énoncés et les corrections */
+.fig{display:block; width:100%; height:auto; margin:12px auto 4px}
+.fig .grille{stroke:var(--filet); stroke-width:.7; fill:none}
+.fig .axe{stroke:var(--encre); stroke-width:1.1; fill:none}
+.fig .fleche{fill:var(--encre)}
+.fig .tick{font:10.5px var(--serif); fill:var(--encre); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .courbe{stroke:currentColor; stroke-width:2.2; fill:none}
+.fig .lab{font:italic 13px var(--serif); fill:currentColor; paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .pt{fill:currentColor}
+.fig .lecture{stroke:var(--vert); stroke-width:1.5; stroke-dasharray:5 3; fill:none}
+.fig .pointe{fill:var(--vert)}
+.fig .note{font:italic 11.5px var(--serif); fill:var(--vert); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .surligne{stroke:var(--orange); stroke-width:9; opacity:.6; fill:none}
+.fig .c-rouge{color:var(--rouge)}
+.fig .c-bleu{color:var(--stylo)}
+.fig .c-noir{color:var(--encre)}
+.fig .c-violet{color:var(--violet)}
+
+/* Résultat */
+.note{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:6px 0 2px; color:var(--rouge)}
+.note .grand{font:700 3.6rem/1 var(--main)}
+.note .sur{font:400 1.5rem/1 var(--main)}
+.appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
+.bilan-parties{margin:0 0 6px}
+.bilan-parties span{white-space:nowrap}
+.bilan-reprise{margin:0 0 10px}
+.reprise-info{margin:0 0 10px; font-style:italic}
+.a-revoir{margin:0 0 16px}
+.a-revoir ul{margin:4px 0 0; padding-left:1.3em}
+.titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
+.revue{list-style:none; padding:0; margin:8px 0 0; border-top:1px solid var(--encre)}
+.revue li{padding:14px 0; border-bottom:1px solid var(--filet)}
+.revue .enonce{margin-bottom:10px}
+.revue .bilan{margin:6px 0 8px; font-style:italic}
+.revue li.juste .bilan{color:var(--vert)}
+.revue li.erreur .bilan{color:var(--rouge)}
+.revue .explication{font-size:1rem}
+.liste-choix{margin:0 0 8px; padding-left:1.6em}
+.liste-choix li{border:0; padding:1px 0}
+.liste-choix li.bonne{color:var(--vert)}
+.variante{margin:14px 0 0; padding:0 0 0 14px; border-left:1px dashed var(--filet)}
+.pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
+.pied p{margin:0 0 4px}
+.pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
+
+/* Formules : KaTeX (réduit de 1,21 à 1,1 em pour s'accorder au texte), sinon mini-LaTeX (.m) */
+.katex{font-size:1.1em}
+.m{font-family:var(--serif); white-space:nowrap}
+.m.m-long{white-space:normal}
+.m i{font-style:italic}
+.m .rm{font-style:normal}
+.m sub,.m sup{font-size:.8em; line-height:0; white-space:nowrap}
+.m .prime{display:inline-block; margin-left:.08em; font-size:1.2em; line-height:0}
+.m sub{vertical-align:-.25em}
+.m sup{vertical-align:.55em}
+.frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; font-size:.92em; line-height:1.2; margin:0 .15em}
+.frac .num{border-bottom:1px solid currentColor; padding:0 .25em .04em}
+.frac .den{padding:.04em .25em 0}
+.sqrt .rad{border-top:1px solid currentColor; padding:0 .12em}
+
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important; scroll-behavior:auto !important}}
+@media (max-width:520px){
+  body{font-size:17px}
+  .feuille{padding:22px 16px 48px}
+  .entete{font-size:.9rem}
+  h1{font-size:1.7rem}
+  .reponses.vf{gap:8px 24px}
+}
+@media print{
+  .actions,.pied,.progression{display:none}
+  .revue li{break-inside:avoid}
+}
+/* Feuille de calcul */
+table.tableur{border-collapse:collapse; margin:10px auto 4px; font:400 .88rem "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+table.tableur th{background:var(--case); color:var(--gris); font-weight:400; border:1px solid var(--filet); padding:2px 10px; text-align:center; min-width:2.2em}
+table.tableur td{border:1px solid var(--filet); padding:2px 10px; min-width:5em; height:1.9em; background:#FFFFFF; text-align:center}
+table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
+</style>
+</head>
+<body>
+<main class="feuille">
+  <header>
+    <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
+    <div class="entete"><span>Seconde</span><span>M. Bailly</span><span>Chapitre 4 · Vecteurs</span></div>
+    <h1>Entraînement Évaluation vecteurs</h1>
+    <p class="consigne">Douze questions sur les vecteurs. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="filet" role="presentation"></div>
+  </header>
+  <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
+  <section id="quiz" aria-live="polite"></section>
+  <footer class="pied">
+    <p><button type="button" id="reinitialiser">Recommencer depuis le début</button></p>
+  </footer>
+</main>
+<script>
+(function () {
+'use strict';
+const r = String.raw;
+
+/* ---------- Figures (SVG généré) ---------- */
+const arrondi = x => Math.round(x * 10) / 10;
+const fr = x => String(x).replace('.', ',');
+const moins = n => String(n).replace('-', '−');
+function fleche(x, y, sens) {
+  return sens === 'droite'
+    ? `<path class="fleche" d="M${x} ${y} l-7 -3.5 v7 z"/>`
+    : `<path class="fleche" d="M${x} ${y} l-3.5 7 h7 z"/>`;
+}
+// Repère orthonormé quadrillé et gradué de 1 en 1. o = {xmin, xmax, ymin, ymax, label, echelle} et, au choix :
+//   courbes  : [{f: x => ..., classe, x1, x2}]        classe = c-rouge (défaut), c-bleu, c-noir, c-violet
+//   noms     : [{x, y, texte, indice, apres, classe, ancre}]   nom d'une courbe, dans sa couleur
+//   lectures : [[[x, y], [x, y], ...], ...]            lignes de lecture en tirets verts, flèche au bout
+//   textes   : [{x, y, texte, ancre}]                  annotations vertes des lectures (+1, +3...)
+//   points   : [{x, y, classe}]
+//   surligne : {x1, x2}                                partie de l'axe des abscisses surlignée en orange (null = bord du repère)
+let numeroFigure = 0;
+function repere(o) {
+  const u = 26, m = 17;
+  const W = (o.xmax - o.xmin) * u + 2 * m, H = (o.ymax - o.ymin) * u + 2 * m;
+  const X = x => arrondi(m + (x - o.xmin) * u), Y = y => arrondi(m + (o.ymax - y) * u);
+  const cadre = 'cadre-' + (++numeroFigure);
+  const xfin = X(o.xmax) + 12, yhaut = Y(o.ymax) - 12;
+  let s = `<svg class="fig" viewBox="0 0 ${W} ${H}" style="max-width:${Math.round(W * (o.echelle || 1.3))}px" role="img" aria-label="${o.label}">`;
+  s += `<defs><clipPath id="${cadre}"><rect x="${X(o.xmin)}" y="${Y(o.ymax)}" width="${(o.xmax - o.xmin) * u}" height="${(o.ymax - o.ymin) * u}"/></clipPath></defs>`;
+  for (let x = o.xmin; x <= o.xmax; x++) s += `<line class="grille" x1="${X(x)}" y1="${Y(o.ymin)}" x2="${X(x)}" y2="${Y(o.ymax)}"/>`;
+  for (let y = o.ymin; y <= o.ymax; y++) s += `<line class="grille" x1="${X(o.xmin)}" y1="${Y(y)}" x2="${X(o.xmax)}" y2="${Y(y)}"/>`;
+  if (o.surligne) {
+    const x1 = o.surligne.x1 === null ? o.xmin : o.surligne.x1, x2 = o.surligne.x2 === null ? o.xmax : o.surligne.x2;
+    s += `<line class="surligne" x1="${X(x1)}" y1="${Y(0)}" x2="${X(x2)}" y2="${Y(0)}"/>`;
+  }
+  s += `<line class="axe" x1="${X(o.xmin)}" y1="${Y(0)}" x2="${xfin}" y2="${Y(0)}"/>${fleche(xfin, Y(0), 'droite')}`;
+  s += `<line class="axe" x1="${X(0)}" y1="${Y(o.ymin)}" x2="${X(0)}" y2="${yhaut}"/>${fleche(X(0), yhaut, 'haut')}`;
+  (o.courbes || []).forEach(c => {
+    const x1 = c.x1 === undefined ? o.xmin : c.x1, x2 = c.x2 === undefined ? o.xmax : c.x2, n = 80;
+    let d = '';
+    for (let k = 0; k <= n; k++) { const x = x1 + (x2 - x1) * k / n; d += (k ? ' L' : 'M') + X(x) + ' ' + Y(c.f(x)); }
+    s += `<path class="courbe ${c.classe || 'c-rouge'}" clip-path="url(#${cadre})" d="${d}"/>`;
+  });
+  (o.lectures || []).forEach(pts => {
+    const P = pts.map(p => [X(p[0]), Y(p[1])]);
+    const a = P[P.length - 2], b = P[P.length - 1];
+    const L = Math.hypot(b[0] - a[0], b[1] - a[1]), ux = (b[0] - a[0]) / L, uy = (b[1] - a[1]) / L;
+    s += `<polyline class="lecture" points="${P.map(p => p.join(',')).join(' ')}"/>`;
+    s += `<path class="pointe" d="M${b[0]} ${b[1]} L${arrondi(b[0] - 7 * ux + 3.2 * uy)} ${arrondi(b[1] - 7 * uy - 3.2 * ux)} L${arrondi(b[0] - 7 * ux - 3.2 * uy)} ${arrondi(b[1] - 7 * uy + 3.2 * ux)} z"/>`;
+  });
+  // Graduations sur fond papier, par-dessus les courbes et les lectures : elles restent lisibles.
+  for (let x = o.xmin; x <= o.xmax; x++) if (x !== 0) s += `<text class="tick" x="${X(x)}" y="${Y(0) + 13}" text-anchor="middle">${moins(x)}</text>`;
+  for (let y = o.ymin; y <= o.ymax; y++) if (y !== 0) s += `<text class="tick" x="${X(0) - 5}" y="${Y(y) + 3.5}" text-anchor="end">${moins(y)}</text>`;
+  s += `<text class="tick" x="${X(0) - 5}" y="${Y(0) + 13}" text-anchor="end">0</text>`;
+  (o.points || []).forEach(p => { s += `<circle class="pt ${p.classe || 'c-rouge'}" cx="${X(p.x)}" cy="${Y(p.y)}" r="3.3"/>`; });
+  (o.textes || []).forEach(t => { s += `<text class="note" x="${X(t.x)}" y="${Y(t.y)}" text-anchor="${t.ancre || 'middle'}">${t.texte}</text>`; });
+  (o.noms || []).forEach(n => {
+    const indice = n.indice ? `<tspan dy="3" font-size="9.5">${n.indice}</tspan>` + (n.apres ? `<tspan dy="-3">${n.apres}</tspan>` : '') : '';
+    s += `<text class="lab ${n.classe || 'c-rouge'}" x="${X(n.x)}" y="${Y(n.y)}" text-anchor="${n.ancre || 'start'}">${n.texte}${indice}</text>`;
+  });
+  return s + '</svg>';
+}
+// Feuille de calcul (question sur le tableur) : lignes = [[A, B], ...] à partir de la ligne 1 ;
+// la cellule '#sel' est la cellule sélectionnée, laissée vide.
+function tableur(lignes, label) {
+  const cellule = c => c === '#sel' ? '<td class="sel"></td>' : `<td>${c}</td>`;
+  return `<table class="tableur" aria-label="${label}"><tr><th></th><th>A</th><th>B</th></tr>`
+    + lignes.map((l, k) => `<tr><th>${k + 1}</th>${cellule(l[0])}${cellule(l[1])}</tr>`).join('')
+    + '</table>';
+}
+
+// Calcul en colonne, comme l'environnement calcul des PDF : une étape par ligne, alignées sur le
+// signe placé après & (formules écrites sans les dollars). Le résultat s'encadre avec \resultat{...}.
+//   calcul(r`A & = x - 4(3x + 2)`, r`& = x - 12x - 8`, r`& = \resultat{-11x - 8}`)
+function calcul(...lignes) {
+  return '<div class="calcul">' + lignes.map(l => {
+    const k = l.indexOf('&');
+    const gauche = k < 0 ? '' : l.slice(0, k).trim(), droite = (k < 0 ? l : l.slice(k + 1)).trim();
+    return '<span class="g">' + (gauche ? '$' + gauche + '$' : '') + '</span><span class="d">$' + droite + '$</span>';
+  }).join('') + '</div>';
+}
+
+/* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
+// Quadrillage (ou figure sans quadrillage, grille: false) avec des segments, des vecteurs
+// fléchés et des points nommés, de même allure que repere : quadrillage gris clair, vecteurs
+// donnés en rouge et en bleu, constructions en tirets, lectures en tirets verts. L'unité est
+// le côté d'un carreau ; l'origine (0 ; 0) est le coin en bas à gauche.
+// quadrillage(base, plus) : les options de base (figure de l'énoncé), complétées ou
+// remplacées par celles de plus (label, constructions de la correction...).
+//   l, h     : largeur et hauteur, en carreaux ; label : description de la figure ;
+//   echelle  : largeur maximale en pixels = largeur du dessin × echelle (1,3 par défaut) ;
+//   segments : [{de: [x, y], a: [x, y], classe, fin, epais, tirets}]  côtés d'une figure, noirs par défaut ;
+//   lectures : [[[x, y], [x, y], ...], ...]   déplacement lu, en tirets verts ;
+//   vecteurs : [{de, a, classe, tirets, nom, pos}]  flèche de de vers a ; classe = c-rouge
+//              (défaut), c-bleu ou c-noir ; tirets: true pour une construction ; nom : lettre
+//              du vecteur, surmontée d'une petite flèche, écrite à gauche de la flèche (dans
+//              son sens de parcours, à 0,55 carreau), sauf décalage pos = [dx, dy] depuis
+//              son milieu ;
+//   points   : [{x, y, nom, pos, classe}]  point marqué et nommé ; pos = g, d, h, b, hg, hd,
+//              bg (défaut) ou bd (gauche, droite, haut, bas), ou décalage [dx, dy] ;
+//   textes   : [{x, y, texte}]              annotations vertes des lectures (4, 3...).
+function quadrillage(base, plus) {
+  const o = Object.assign({}, base, plus);
+  const u = 26, m = o.grille === false ? 24 : 16;
+  const W = Math.round(o.l * u + 2 * m), H = Math.round(o.h * u + 2 * m);
+  const ar = v => Math.round(v * 10) / 10;
+  const X = x => ar(m + x * u), Y = y => ar(m + (o.h - y) * u);
+  const POS = { g: [-0.4, 0], d: [0.4, 0], h: [0, 0.42], b: [0, -0.42],
+    hg: [-0.3, 0.32], hd: [0.3, 0.32], bg: [-0.3, -0.32], bd: [0.3, -0.32] };
+  const ligne = (x1, y1, x2, y2, attr) =>
+    '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" ' + attr + '/>';
+  // Pointe de flèche pleine (comme Stealth), de sommet (bx ; by), dans la direction de
+  // (ax ; ay) vers (bx ; by) ; longueur L et demi-largeur e, en pixels.
+  const pointe = (ax, ay, bx, by, L, e, cls) => {
+    const d = Math.hypot(bx - ax, by - ay), ux = (bx - ax) / d, uy = (by - ay) / d;
+    const p = (k, t) => ar(bx - k * ux - t * uy) + ' ' + ar(by - k * uy + t * ux);
+    return '<path class="pt ' + cls + '" d="M' + ar(bx) + ' ' + ar(by) + ' L' + p(L, e)
+      + ' L' + p(0.7 * L, 0) + ' L' + p(L, -e) + ' z"/>';
+  };
+  let s = '<svg class="fig" viewBox="0 0 ' + W + ' ' + H + '" style="max-width:'
+    + Math.round(W * (o.echelle || 1.3)) + 'px" role="img" aria-label="' + o.label + '">';
+  let noms = '';
+  if (o.grille !== false) {
+    for (let x = 0; x <= o.l; x++) s += ligne(X(x), Y(0), X(x), Y(o.h), 'class="grille"');
+    for (let y = 0; y <= o.h; y++) s += ligne(X(0), Y(y), X(o.l), Y(y), 'class="grille"');
+  }
+  (o.segments || []).forEach(g => {
+    s += ligne(X(g.de[0]), Y(g.de[1]), X(g.a[0]), Y(g.a[1]), 'class="courbe ' + (g.classe || 'c-noir')
+      + '" style="stroke-width:' + (g.fin ? 0.9 : g.epais ? 2.2 : 1.5) + '"' + (g.tirets ? ' stroke-dasharray="5 4"' : ''));
+  });
+  (o.lectures || []).forEach(pts => {
+    s += '<polyline class="lecture" points="' + pts.map(p => X(p[0]) + ',' + Y(p[1])).join(' ') + '"/>';
+  });
+  // Points marqués avant les vecteurs : une pointe de flèche recouvre le point qu'elle atteint.
+  (o.points || []).forEach(p => {
+    const cls = p.classe || 'c-noir', dec = Array.isArray(p.pos) ? p.pos : POS[p.pos || 'bg'];
+    s += '<circle class="pt ' + cls + '" cx="' + X(p.x) + '" cy="' + Y(p.y) + '" r="2.6"/>';
+    if (p.nom) noms += '<text class="lab ' + cls + '" x="' + X(p.x + dec[0]) + '" y="' + ar(Y(p.y + dec[1]) + 4.5)
+      + '" text-anchor="middle">' + p.nom + '</text>';
+  });
+  (o.vecteurs || []).forEach(v => {
+    const cls = v.classe || 'c-rouge', ax = X(v.de[0]), ay = Y(v.de[1]), bx = X(v.a[0]), by = Y(v.a[1]);
+    const d = Math.hypot(bx - ax, by - ay);
+    // Le trait s'arrête dans la pointe, qu'il ne dépasse pas.
+    s += ligne(ax, ay, ar(bx - 8 * (bx - ax) / d), ar(by - 8 * (by - ay) / d), 'class="courbe ' + cls
+      + '" style="stroke-width:1.9"' + (v.tirets ? ' stroke-dasharray="6 4"' : ''));
+    s += pointe(ax, ay, bx, by, 11, 4.5, cls);
+    if (v.nom) {
+      const n = d / u, dec = v.pos || [-0.55 * (v.a[1] - v.de[1]) / n, 0.55 * (v.a[0] - v.de[0]) / n];
+      const cx = X((v.de[0] + v.a[0]) / 2 + dec[0]), cy = Y((v.de[1] + v.a[1]) / 2 + dec[1]);
+      const e = 2 + 3 * v.nom.length;
+      noms += '<text class="lab ' + cls + '" x="' + cx + '" y="' + ar(cy + 4) + '" text-anchor="middle">' + v.nom + '</text>'
+        + ligne(ar(cx - e), ar(cy - 6.5), ar(cx + e - 2), ar(cy - 6.5), 'class="courbe ' + cls + '" style="stroke-width:1"')
+        + pointe(cx - e, cy - 6.5, cx + e + 1, cy - 6.5, 4, 2, cls);
+    }
+  });
+  (o.textes || []).forEach(t => {
+    noms += '<text class="note" x="' + X(t.x) + '" y="' + ar(Y(t.y) + 4) + '" text-anchor="middle">' + t.texte + '</text>';
+  });
+  return s + noms + '</svg>';
+}
+
+// Figures des énoncés (les corrections y ajoutent lectures et constructions).
+const FIG = {
+  // Question 1 : u (rouge) et quatre vecteurs nommés par leurs extrémités (bleus).
+  egaux: { l: 15, h: 6,
+    vecteurs: [{ de: [1, 4], a: [3, 5], nom: 'u' },
+      { de: [7, 5], a: [5, 4], classe: 'c-bleu' }, { de: [9, 1], a: [13, 3], classe: 'c-bleu' },
+      { de: [10, 4], a: [12, 5], classe: 'c-bleu' }, { de: [2, 1], a: [3, 3], classe: 'c-bleu' }],
+    points: [{ x: 7, y: 5, nom: 'A', pos: 'hd' }, { x: 5, y: 4, nom: 'B' }, { x: 9, y: 1, nom: 'C' },
+      { x: 13, y: 3, nom: 'D', pos: 'hd' }, { x: 10, y: 4, nom: 'E' }, { x: 12, y: 5, nom: 'F', pos: 'hd' },
+      { x: 2, y: 1, nom: 'G' }, { x: 3, y: 3, nom: 'H', pos: 'hd' }] },
+  egauxV: { l: 15, h: 6,
+    vecteurs: [{ de: [1, 5], a: [4, 4], nom: 'u', pos: [-0.2, -0.55] },
+      { de: [10, 2], a: [13, 1], classe: 'c-bleu' }, { de: [9, 4], a: [6, 5], classe: 'c-bleu' },
+      { de: [13, 5], a: [14, 2], classe: 'c-bleu' }, { de: [1, 3], a: [7, 1], classe: 'c-bleu' }],
+    points: [{ x: 10, y: 2, nom: 'K', pos: 'hg' }, { x: 13, y: 1, nom: 'L', pos: 'bd' },
+      { x: 9, y: 4, nom: 'M', pos: 'bd' }, { x: 6, y: 5, nom: 'N', pos: 'hg' },
+      { x: 13, y: 5, nom: 'P', pos: 'hg' }, { x: 14, y: 2, nom: 'Q', pos: 'd' },
+      { x: 1, y: 3, nom: 'R', pos: 'hg' }, { x: 7, y: 1, nom: 'S', pos: 'bd' }] },
+  // Question 2 : parallélogrammes (sans quadrillage), deux côtés opposés fléchés en rouge.
+  para: { l: 7.5, h: 3, grille: false,
+    segments: [{ de: [0, 0], a: [1.5, 3] }, { de: [6, 0], a: [7.5, 3] }],
+    vecteurs: [{ de: [0, 0], a: [6, 0] }, { de: [1.5, 3], a: [7.5, 3] }],
+    points: [{ x: 0, y: 0, nom: 'A' }, { x: 6, y: 0, nom: 'B', pos: 'bd' },
+      { x: 7.5, y: 3, nom: 'C', pos: 'hd' }, { x: 1.5, y: 3, nom: 'D', pos: 'hg' }] },
+  paraV: { l: 7.5, h: 3, grille: false,
+    segments: [{ de: [0, 0], a: [6, 0] }, { de: [1.5, 3], a: [7.5, 3] }],
+    vecteurs: [{ de: [0, 0], a: [1.5, 3] }, { de: [6, 0], a: [7.5, 3] }],
+    points: [{ x: 0, y: 0, nom: 'E' }, { x: 6, y: 0, nom: 'F', pos: 'bd' },
+      { x: 7.5, y: 3, nom: 'G', pos: 'hd' }, { x: 1.5, y: 3, nom: 'H', pos: 'hg' }] },
+  // Question 3 : triangle ABC, vecteur u et quatre points candidats.
+  translation: { l: 15, h: 7,
+    segments: [{ de: [3, 3], a: [6, 4] }, { de: [6, 4], a: [5, 2] }, { de: [5, 2], a: [3, 3] }],
+    vecteurs: [{ de: [10, 5], a: [14, 6], nom: 'u' }],
+    points: [{ x: 3, y: 3, nom: 'A', pos: 'g' }, { x: 6, y: 4, nom: 'B', pos: 'hd' }, { x: 5, y: 2, nom: 'C', pos: 'b' },
+      { x: 9, y: 1, nom: 'M', pos: 'd' }, { x: 9, y: 3, nom: 'N', pos: 'hd' }, { x: 1, y: 1, nom: 'P' },
+      { x: 6, y: 6, nom: 'Q', pos: 'h' }] },
+  translationV: { l: 11, h: 7,
+    segments: [{ de: [6, 4], a: [8, 5] }, { de: [8, 5], a: [5, 6] }, { de: [5, 6], a: [6, 4] }],
+    vecteurs: [{ de: [1, 3], a: [4, 1], nom: 'u', pos: [-0.3, -0.45] }],
+    points: [{ x: 6, y: 4, nom: 'A', pos: 'b' }, { x: 8, y: 5, nom: 'B', pos: 'd' }, { x: 5, y: 6, nom: 'C', pos: 'hg' },
+      { x: 9, y: 2, nom: 'K', pos: 'd' }, { x: 3, y: 6, nom: 'L', pos: 'hg' }, { x: 9, y: 6, nom: 'M', pos: 'hd' },
+      { x: 8, y: 1, nom: 'N', pos: 'bd' }] },
+  // Question 4 : un vecteur seul.
+  norme: { l: 10, h: 8, vecteurs: [{ de: [1, 1], a: [9, 7], nom: 'u' }] },
+  normeV: { l: 6, h: 3, vecteurs: [{ de: [2, 1], a: [4, 2], nom: 'u' }] },
+  // Question 5 : point D, vecteurs u et v, quatre points candidats.
+  somme: { l: 13, h: 8,
+    vecteurs: [{ de: [10, 2], a: [11, 4], nom: 'u' }, { de: [9, 7], a: [12, 6], classe: 'c-bleu', nom: 'v' }],
+    points: [{ x: 3, y: 4, nom: 'D' }, { x: 7, y: 5, nom: 'K', pos: 'd' }, { x: 1, y: 7, nom: 'L', pos: 'hg' },
+      { x: 7, y: 7, nom: 'M', pos: 'hd' }, { x: 5, y: 1, nom: 'N', pos: 'bd' }] },
+  sommeV: { l: 13, h: 7,
+    vecteurs: [{ de: [1, 5], a: [4, 6], nom: 'u' }, { de: [12, 4], a: [11, 6], classe: 'c-bleu', nom: 'v', pos: [0.5, 0.25] }],
+    points: [{ x: 5, y: 2, nom: 'D' }, { x: 9, y: 5, nom: 'K', pos: 'hd' }, { x: 7, y: 5, nom: 'L', pos: 'hg' },
+      { x: 9, y: 1, nom: 'M', pos: 'bd' }, { x: 1, y: 3, nom: 'N' }] },
+  // Question 8 : point D, vecteurs u et v, quatre points candidats.
+  produit: { l: 13, h: 8,
+    vecteurs: [{ de: [8, 6], a: [11, 7], nom: 'u' }, { de: [7, 2], a: [9, 1], classe: 'c-bleu', nom: 'v' }],
+    points: [{ x: 4, y: 4, nom: 'D' }, { x: 3, y: 7, nom: 'K', pos: 'hg' }, { x: 11, y: 3, nom: 'L', pos: 'd' },
+      { x: 5, y: 6, nom: 'M', pos: 'hd' }, { x: 5, y: 1, nom: 'N', pos: 'bd' }] },
+  produitV: { l: 13, h: 7,
+    vecteurs: [{ de: [1, 4], a: [2, 6], nom: 'u' }, { de: [12, 5], a: [10, 6], classe: 'c-bleu', nom: 'v' }],
+    points: [{ x: 6, y: 2, nom: 'D' }, { x: 3, y: 6, nom: 'K', pos: 'hg' }, { x: 9, y: 3, nom: 'L', pos: 'hd' },
+      { x: 11, y: 2, nom: 'M', pos: 'bd' }, { x: 1, y: 2, nom: 'N' }] },
+  // Question 9 : vecteurs u, v et w.
+  decompose: { l: 12, h: 6,
+    vecteurs: [{ de: [1, 4], a: [4, 5], nom: 'u' }, { de: [1, 1], a: [2, 3], classe: 'c-bleu', nom: 'v' },
+      { de: [6, 4], a: [11, 4], classe: 'c-noir', nom: 'w' }] },
+  decomposeV: { l: 12, h: 6,
+    vecteurs: [{ de: [1, 4], a: [3, 5], nom: 'u' }, { de: [3, 1], a: [2, 3], classe: 'c-bleu', nom: 'v' },
+      { de: [6, 5], a: [10, 2], classe: 'c-noir', nom: 'w' }] },
+  // Question 11 : triangle ABC et points M, N (sans quadrillage), [BC] et [MN] en rouge.
+  parallelisme: { l: 6, h: 4, grille: false,
+    segments: [{ de: [0, 0], a: [6, 0], fin: true }, { de: [0, 0], a: [2, 4], fin: true },
+      { de: [3, 0], a: [1, 2], classe: 'c-rouge', epais: true }, { de: [6, 0], a: [2, 4], classe: 'c-rouge', epais: true }],
+    points: [{ x: 0, y: 0, nom: 'A' }, { x: 3, y: 0, nom: 'B', pos: 'b' }, { x: 1, y: 2, nom: 'C', pos: 'g' },
+      { x: 6, y: 0, nom: 'M', pos: 'b' }, { x: 2, y: 4, nom: 'N', pos: 'g' }] },
+  parallelismeV: { l: 6, h: 4, grille: false,
+    segments: [{ de: [0, 0], a: [6, 0], fin: true }, { de: [0, 0], a: [2, 4], fin: true },
+      { de: [6, 0], a: [2, 4], classe: 'c-rouge', epais: true }, { de: [3, 0], a: [1, 2], classe: 'c-rouge', epais: true }],
+    points: [{ x: 0, y: 0, nom: 'A' }, { x: 6, y: 0, nom: 'B', pos: 'b' }, { x: 2, y: 4, nom: 'C', pos: 'g' },
+      { x: 3, y: 0, nom: 'M', pos: 'b' }, { x: 1, y: 2, nom: 'N', pos: 'g' }] },
+  // Question 12 : parallélogramme ABCD (sans quadrillage), le troisième point sur une
+  // parallèle à un côté, le segment qui porte les trois points alignés en rouge.
+  milieu: { l: 6, h: 6, grille: false,
+    segments: [{ de: [0, 3], a: [4.5, 3] }, { de: [4.5, 3], a: [6, 6] }, { de: [6, 6], a: [1.5, 6] },
+      { de: [1.5, 6], a: [0, 3] }, { de: [4.5, 3], a: [3, 0], fin: true },
+      { de: [1.5, 6], a: [3, 0], classe: 'c-rouge', epais: true }],
+    points: [{ x: 0, y: 3, nom: 'A', pos: 'g' }, { x: 4.5, y: 3, nom: 'B', pos: 'bd' }, { x: 6, y: 6, nom: 'C', pos: 'hd' },
+      { x: 1.5, y: 6, nom: 'D', pos: 'hg' }, { x: 2.25, y: 3, nom: 'K', pos: 'hd' }, { x: 3, y: 0, nom: 'G', pos: 'd' }] },
+  milieuV: { l: 9, h: 3, grille: false,
+    segments: [{ de: [3, 0], a: [7.5, 0] }, { de: [7.5, 0], a: [9, 3] }, { de: [9, 3], a: [4.5, 3] },
+      { de: [4.5, 3], a: [3, 0] }, { de: [4.5, 3], a: [0, 3], fin: true },
+      { de: [7.5, 0], a: [0, 3], classe: 'c-rouge', epais: true }],
+    points: [{ x: 3, y: 0, nom: 'A' }, { x: 7.5, y: 0, nom: 'B', pos: 'bd' }, { x: 9, y: 3, nom: 'C', pos: 'hd' },
+      { x: 4.5, y: 3, nom: 'D', pos: 'h' }, { x: 3.75, y: 1.5, nom: 'L', pos: [-0.16, 0.42] }, { x: 0, y: 3, nom: 'H', pos: 'g' }] }
+};
+
+const QUIZ = {
+  id: '2de-04-vecteurs-entrainement',
+  parties: ['Vecteurs'],
+  questions: [
+
+  /* ----- Partie 1 du cours : translation et vecteur ----- */
+
+  { partie: 0, theme: 'Vecteurs égaux', type: 'qcm',
+    enonce: r`Sur le quadrillage ci-dessous, quel vecteur est égal au vecteur $\vec{u}$&nbsp;?`
+      + quadrillage(FIG.egaux, { label: 'Quadrillage avec cinq vecteurs. u : 2 carreaux vers la droite et 1 vers le haut. AB : 2 carreaux vers la gauche et 1 vers le bas. CD : 4 carreaux vers la droite et 2 vers le haut. EF : 2 carreaux vers la droite et 1 vers le haut. GH : 1 carreau vers la droite et 2 vers le haut.' }),
+    choix: [r`$\overrightarrow{EF}$`, r`$\overrightarrow{AB}$`, r`$\overrightarrow{CD}$`, r`$\overrightarrow{GH}$`],
+    bonne: 0,
+    explication: [
+      r`Deux vecteurs sont égaux lorsqu'ils ont la même direction, le même sens et la même norme&nbsp;: sur un quadrillage, ils font faire le même déplacement.`,
+      r`On lit le déplacement de $\vec{u}$ (tirets verts)&nbsp;: $2$ carreaux vers la droite et $1$ vers le haut. $\overrightarrow{EF}$ fait faire le même déplacement, donc <span class="resultat">$\overrightarrow{EF} = \vec{u}$</span>.`,
+      quadrillage(FIG.egaux, { echelle: 1.15,
+        lectures: [[[1, 4], [3, 4], [3, 5]], [[10, 4], [12, 4], [12, 5]]],
+        textes: [{ x: 2, y: 3.6, texte: '2' }, { x: 3.3, y: 4.5, texte: '1' }, { x: 11, y: 3.6, texte: '2' }, { x: 12.3, y: 4.5, texte: '1' }],
+        label: 'Le même quadrillage, avec les lectures en tirets verts : u et EF font avancer de 2 carreaux vers la droite et de 1 vers le haut.' }),
+      r`Les autres ne conviennent pas&nbsp;: $\overrightarrow{AB} = -\vec{u}$ (sens contraire), $\overrightarrow{CD} = 2\vec{u}$ (norme double) et $\overrightarrow{GH}$ n'a pas la même direction.`],
+    revoir: r`capacité 1 du cours, exercice 16 p.&nbsp;134 du manuel`,
+    variante: {
+      enonce: r`Sur le quadrillage ci-dessous, quel vecteur est égal au vecteur $\vec{u}$&nbsp;?`
+        + quadrillage(FIG.egauxV, { label: 'Quadrillage avec cinq vecteurs. u : 3 carreaux vers la droite et 1 vers le bas. KL : 3 carreaux vers la droite et 1 vers le bas. MN : 3 carreaux vers la gauche et 1 vers le haut. PQ : 1 carreau vers la droite et 3 vers le bas. RS : 6 carreaux vers la droite et 2 vers le bas.' }),
+      choix: [r`$\overrightarrow{KL}$`, r`$\overrightarrow{MN}$`, r`$\overrightarrow{PQ}$`, r`$\overrightarrow{RS}$`],
+      bonne: 0,
+      explication: [
+        r`Deux vecteurs sont égaux lorsqu'ils ont la même direction, le même sens et la même norme&nbsp;: sur un quadrillage, ils font faire le même déplacement.`,
+        r`On lit le déplacement de $\vec{u}$ (tirets verts)&nbsp;: $3$ carreaux vers la droite et $1$ vers le bas. $\overrightarrow{KL}$ fait faire le même déplacement, donc <span class="resultat">$\overrightarrow{KL} = \vec{u}$</span>.`,
+        quadrillage(FIG.egauxV, { echelle: 1.15,
+          lectures: [[[1, 5], [4, 5], [4, 4]], [[10, 2], [13, 2], [13, 1]]],
+          textes: [{ x: 2.5, y: 5.38, texte: '3' }, { x: 4.3, y: 4.5, texte: '1' }, { x: 11.5, y: 2.38, texte: '3' }, { x: 13.3, y: 1.5, texte: '1' }],
+          label: 'Le même quadrillage, avec les lectures en tirets verts : u et KL font avancer de 3 carreaux vers la droite et de 1 vers le bas.' }),
+        r`Les autres ne conviennent pas&nbsp;: $\overrightarrow{MN} = -\vec{u}$ (sens contraire), $\overrightarrow{RS} = 2\vec{u}$ (norme double) et $\overrightarrow{PQ}$ n'a pas la même direction.`] } },
+
+  { partie: 0, theme: 'Parallélogramme', type: 'vf',
+    enonce: r`$ABCD$ est un parallélogramme. Alors $\overrightarrow{AB} = \overrightarrow{CD}$.`,
+    bonne: false,
+    explication: [
+      r`D'après le cours, $\overrightarrow{AB} = \overrightarrow{DC}$ si et seulement si $ABCD$ est un parallélogramme&nbsp;: les flèches de $A$ vers $B$ et de $D$ vers $C$ ont la même direction, le même sens et la même longueur.`,
+      quadrillage(FIG.para, { label: 'Parallélogramme ABCD, avec les flèches de A vers B et de D vers C, parallèles et de même sens.' }),
+      r`La flèche de $C$ vers $D$ va dans le sens contraire&nbsp;: $\overrightarrow{CD} = -\overrightarrow{AB}$. L'égalité est donc <span class="resultat">fausse</span>&nbsp;; la bonne égalité est $\overrightarrow{AB} = \overrightarrow{DC}$.`],
+    revoir: r`propriété des vecteurs égaux et du parallélogramme (partie 1 du cours), exercice 1 de la fiche, exercice 19 p.&nbsp;134 du manuel`,
+    variante: {
+      enonce: r`$EFGH$ est un parallélogramme. Alors $\overrightarrow{EH} = \overrightarrow{FG}$.`,
+      bonne: true,
+      explication: [
+        r`D'après le cours, $\overrightarrow{EH} = \overrightarrow{FG}$ si et seulement si $EHGF$ est un parallélogramme. Or $EHGF$ est le parallélogramme $EFGH$, parcouru dans l'autre sens.`,
+        quadrillage(FIG.paraV, { label: 'Parallélogramme EFGH, avec les flèches de E vers H et de F vers G, parallèles et de même sens.' }),
+        r`Les flèches de $E$ vers $H$ et de $F$ vers $G$ ont bien la même direction, le même sens et la même longueur&nbsp;: l'égalité est <span class="resultat">vraie</span>.`] } },
+
+  { partie: 0, theme: 'Translation', type: 'qcm',
+    enonce: r`On construit l'image $A'B'C'$ du triangle $ABC$ par la translation de vecteur $\vec{u}$. Le point $C'$ est le point&nbsp;:`
+      + quadrillage(FIG.translation, { label: 'Quadrillage avec le triangle ABC, le vecteur u (4 carreaux vers la droite et 1 vers le haut) et quatre points. À partir de C : M est à 4 carreaux à droite et 1 en dessous, N à 4 carreaux à droite et 1 au-dessus, P à 4 carreaux à gauche et 1 en dessous, Q à 1 carreau à droite et 4 au-dessus.' }),
+    choix: [r`$N$`, r`$M$`, r`$P$`, r`$Q$`],
+    bonne: 0,
+    explication: [
+      r`Une translation fait glisser tous les points du même déplacement&nbsp;: $C'$ est le point tel que $\overrightarrow{CC'} = \vec{u}$.`,
+      r`On lit le déplacement de $\vec{u}$&nbsp;: $4$ carreaux vers la droite et $1$ vers le haut. On fait le même déplacement à partir de $C$ (tirets verts)&nbsp;: <span class="resultat">$C'$ est le point $N$</span>.`,
+      quadrillage(FIG.translation, { echelle: 1.15,
+        vecteurs: FIG.translation.vecteurs.concat([{ de: [5, 2], a: [9, 3], classe: 'c-bleu', tirets: true }]),
+        lectures: [[[10, 5], [14, 5], [14, 6]], [[5, 2], [9, 2], [9, 3]]],
+        textes: [{ x: 12, y: 4.62, texte: '4' }, { x: 14.3, y: 5.5, texte: '1' }, { x: 7, y: 1.62, texte: '4' }, { x: 8.7, y: 2.5, texte: '1' }],
+        label: 'Le même quadrillage : u fait avancer de 4 carreaux vers la droite et de 1 vers le haut ; le même déplacement, à partir de C, mène au point N (tirets verts).' }),
+      r`De même, $A'$ et $B'$ sont à $4$ carreaux à droite et $1$ au-dessus de $A$ et de $B$.`],
+    revoir: r`capacité 1 du cours, activité 1`,
+    variante: {
+      enonce: r`On construit l'image $A'B'C'$ du triangle $ABC$ par la translation de vecteur $\vec{u}$. Le point $A'$ est le point&nbsp;:`
+        + quadrillage(FIG.translationV, { label: 'Quadrillage avec le triangle ABC, le vecteur u (3 carreaux vers la droite et 2 vers le bas) et quatre points. À partir de A : K est à 3 carreaux à droite et 2 en dessous, L à 3 carreaux à gauche et 2 au-dessus, M à 3 carreaux à droite et 2 au-dessus, N à 2 carreaux à droite et 3 en dessous.' }),
+      choix: [r`$K$`, r`$L$`, r`$M$`, r`$N$`],
+      bonne: 0,
+      explication: [
+        r`Une translation fait glisser tous les points du même déplacement&nbsp;: $A'$ est le point tel que $\overrightarrow{AA'} = \vec{u}$.`,
+        r`On lit le déplacement de $\vec{u}$&nbsp;: $3$ carreaux vers la droite et $2$ vers le bas. On fait le même déplacement à partir de $A$ (tirets verts)&nbsp;: <span class="resultat">$A'$ est le point $K$</span>.`,
+        quadrillage(FIG.translationV, { echelle: 1.15,
+          vecteurs: FIG.translationV.vecteurs.concat([{ de: [6, 4], a: [9, 2], classe: 'c-bleu', tirets: true }]),
+          lectures: [[[1, 3], [4, 3], [4, 1]], [[6, 4], [9, 4], [9, 2]]],
+          textes: [{ x: 2.5, y: 3.38, texte: '3' }, { x: 4.3, y: 2, texte: '2' }, { x: 7.5, y: 3.62, texte: '3' }, { x: 9.3, y: 3, texte: '2' }],
+          label: 'Le même quadrillage : u fait avancer de 3 carreaux vers la droite et de 2 vers le bas ; le même déplacement, à partir de A, mène au point K (tirets verts).' }),
+        r`De même, $B'$ et $C'$ sont à $3$ carreaux à droite et $2$ au-dessous de $B$ et de $C$.`] } },
+
+  { partie: 0, theme: 'Norme', type: 'qcm',
+    enonce: r`L'unité de longueur est le côté d'un carreau. La norme du vecteur $\vec{u}$ est égale à&nbsp;:`
+      + quadrillage(FIG.norme, { label: 'Quadrillage avec le vecteur u : 8 carreaux vers la droite et 6 vers le haut.' }),
+    choix: [r`$10$`, r`$14$`, r`$100$`, r`$\sqrt{14}$`],
+    bonne: 0,
+    explication: [
+      r`La norme de $\vec{u}$ est la longueur de la flèche&nbsp;: c'est l'hypoténuse d'un triangle rectangle dont les côtés de l'angle droit mesurent $8$ et $6$ carreaux (tirets verts).`,
+      quadrillage(FIG.norme, { echelle: 1.15, lectures: [[[1, 1], [9, 1], [9, 7]]],
+        textes: [{ x: 5, y: 0.6, texte: '8' }, { x: 9.3, y: 4, texte: '6' }],
+        label: 'Le même vecteur, hypoténuse d\'un triangle rectangle dont les côtés de l\'angle droit, en tirets verts, mesurent 8 et 6 carreaux.' }),
+      r`D'après le théorème de Pythagore&nbsp;:`,
+      calcul(r`\|\vec{u}\|^{2} & = 8^{2} + 6^{2}`, r`& = 64 + 36`, r`& = 100`),
+      r`Une norme est positive, donc <span class="resultat">$\|\vec{u}\| = 10$</span>.`],
+    revoir: r`capacité 1 du cours (question 4), exercice 2 de la fiche`,
+    variante: {
+      enonce: r`L'unité de longueur est le côté d'un carreau. La norme du vecteur $\vec{u}$ est égale à&nbsp;:`
+        + quadrillage(FIG.normeV, { label: 'Quadrillage avec le vecteur u : 2 carreaux vers la droite et 1 vers le haut.' }),
+      choix: [r`$\sqrt{5}$`, r`$3$`, r`$5$`, r`$\sqrt{3}$`],
+      bonne: 0,
+      explication: [
+        r`La norme de $\vec{u}$ est la longueur de la flèche&nbsp;: c'est l'hypoténuse d'un triangle rectangle dont les côtés de l'angle droit mesurent $2$ et $1$ carreaux (tirets verts).`,
+        quadrillage(FIG.normeV, { echelle: 1.15, lectures: [[[2, 1], [4, 1], [4, 2]]],
+          textes: [{ x: 3, y: 0.6, texte: '2' }, { x: 4.3, y: 1.5, texte: '1' }],
+          label: 'Le même vecteur, hypoténuse d\'un triangle rectangle dont les côtés de l\'angle droit, en tirets verts, mesurent 2 et 1 carreaux.' }),
+        r`D'après le théorème de Pythagore&nbsp;:`,
+        calcul(r`\|\vec{u}\|^{2} & = 2^{2} + 1^{2}`, r`& = 4 + 1`, r`& = 5`),
+        r`Une norme est positive, donc <span class="resultat">$\|\vec{u}\| = \sqrt{5}$</span>.`] } },
+
+  /* ----- Partie 2 du cours : somme de deux vecteurs ----- */
+
+  { partie: 0, theme: 'Somme de deux vecteurs', type: 'qcm',
+    enonce: r`Parmi les points $K$, $L$, $M$ et $N$, lequel est le point $E$ tel que $\overrightarrow{DE} = \vec{u} + \vec{v}$&nbsp;?`
+      + quadrillage(FIG.somme, { label: 'Quadrillage avec le point D, les vecteurs u (1 carreau vers la droite et 2 vers le haut) et v (3 carreaux vers la droite et 1 vers le bas), et quatre points. À partir de D : K est à 4 carreaux à droite et 1 au-dessus, L à 2 carreaux à gauche et 3 au-dessus, M à 4 carreaux à droite et 3 au-dessus, N à 2 carreaux à droite et 3 en dessous.' }),
+    choix: [r`$K$`, r`$L$`, r`$M$`, r`$N$`],
+    bonne: 0,
+    explication: [
+      r`On met les représentants bout à bout&nbsp;: à partir de $D$, on trace $\vec{u}$ ($1$ carreau à droite, $2$ vers le haut), puis, à partir de son extrémité, $\vec{v}$ ($3$ carreaux à droite, $1$ vers le bas). D'après la relation de Chasles, on arrive au point $E$.`,
+      quadrillage(FIG.somme, { echelle: 1.15,
+        vecteurs: FIG.somme.vecteurs.concat([{ de: [3, 4], a: [4, 6], tirets: true }, { de: [4, 6], a: [7, 5], classe: 'c-bleu', tirets: true },
+          { de: [3, 4], a: [7, 5], classe: 'c-noir' }]),
+        label: 'Le même quadrillage : à partir de D, u puis v mis bout à bout (tirets) mènent au point K.' }),
+      r`Au total, $1 + 3 = 4$ carreaux vers la droite et $2 - 1 = 1$ vers le haut&nbsp;: <span class="resultat">$E$ est le point $K$</span>. On obtient le même point en traçant $\vec{u}$ et $\vec{v}$ à partir de $D$, puis en complétant le parallélogramme.`],
+    revoir: r`capacité 2 du cours, activité 2, exercice 20 p.&nbsp;135 du manuel`,
+    variante: {
+      enonce: r`Parmi les points $K$, $L$, $M$ et $N$, lequel est le point $E$ tel que $\overrightarrow{DE} = \vec{u} + \vec{v}$&nbsp;?`
+        + quadrillage(FIG.sommeV, { label: 'Quadrillage avec le point D, les vecteurs u (3 carreaux vers la droite et 1 vers le haut) et v (1 carreau vers la gauche et 2 vers le haut), et quatre points. À partir de D : K est à 4 carreaux à droite et 3 au-dessus, L à 2 carreaux à droite et 3 au-dessus, M à 4 carreaux à droite et 1 en dessous, N à 4 carreaux à gauche et 1 au-dessus.' }),
+      choix: [r`$L$`, r`$K$`, r`$M$`, r`$N$`],
+      bonne: 0,
+      explication: [
+        r`Règle du parallélogramme&nbsp;: à partir de $D$, on trace $\vec{u}$ ($3$ carreaux à droite, $1$ vers le haut) et $\vec{v}$ ($1$ carreau à gauche, $2$ vers le haut), puis on complète le parallélogramme (tirets). Le vecteur $\vec{u} + \vec{v}$ est porté par sa diagonale issue de $D$.`,
+        quadrillage(FIG.sommeV, { echelle: 1.15,
+          segments: [{ de: [8, 3], a: [7, 5], tirets: true }, { de: [4, 4], a: [7, 5], tirets: true }],
+          vecteurs: FIG.sommeV.vecteurs.concat([{ de: [5, 2], a: [8, 3], tirets: true }, { de: [5, 2], a: [4, 4], classe: 'c-bleu', tirets: true },
+            { de: [5, 2], a: [7, 5], classe: 'c-noir' }]),
+          label: 'Le même quadrillage : u et v tracés à partir de D, et le parallélogramme complété en tirets ; sa diagonale issue de D mène au point L.' }),
+        r`Au total, $3 - 1 = 2$ carreaux vers la droite et $1 + 2 = 3$ vers le haut&nbsp;: <span class="resultat">$E$ est le point $L$</span>.`] } },
+
+  { partie: 0, theme: 'Relation de Chasles', type: 'qcm',
+    enonce: r`Écrite sous la forme d'un seul vecteur, la somme $\overrightarrow{BC} + \overrightarrow{AB} + \overrightarrow{CD}$ est égale à&nbsp;:`,
+    choix: [r`$\overrightarrow{AD}$`, r`$\overrightarrow{DA}$`, r`$\overrightarrow{AC}$`, r`$\overrightarrow{BD}$`],
+    bonne: 0,
+    explication: [
+      r`Relation de Chasles&nbsp;: $\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}$. On range les vecteurs pour que l'extrémité de chacun soit l'origine du suivant.`,
+      calcul(r`\overrightarrow{BC} + \overrightarrow{AB} + \overrightarrow{CD} & = \overrightarrow{AB} + \overrightarrow{BC} + \overrightarrow{CD}`, r`& = \overrightarrow{AC} + \overrightarrow{CD}`, r`& = \resultat{\overrightarrow{AD}}`)],
+    revoir: r`capacité 3 du cours, exercice 3 de la fiche, exercice 67 p.&nbsp;138 du manuel`,
+    variante: {
+      enonce: r`Écrite sous la forme d'un seul vecteur, la somme $\overrightarrow{EF} + \overrightarrow{GE} + \overrightarrow{HG}$ est égale à&nbsp;:`,
+      choix: [r`$\overrightarrow{HF}$`, r`$\overrightarrow{FH}$`, r`$\overrightarrow{HE}$`, r`$\overrightarrow{GF}$`],
+      bonne: 0,
+      explication: [
+        r`Relation de Chasles&nbsp;: $\overrightarrow{AB} + \overrightarrow{BC} = \overrightarrow{AC}$. On range les vecteurs pour que l'extrémité de chacun soit l'origine du suivant.`,
+        calcul(r`\overrightarrow{EF} + \overrightarrow{GE} + \overrightarrow{HG} & = \overrightarrow{HG} + \overrightarrow{GE} + \overrightarrow{EF}`, r`& = \overrightarrow{HE} + \overrightarrow{EF}`, r`& = \resultat{\overrightarrow{HF}}`)] } },
+
+  { partie: 0, theme: 'Différence', type: 'vf',
+    enonce: r`Pour tous points $M$, $A$ et $B$&nbsp;: $\overrightarrow{MA} - \overrightarrow{MB} = \overrightarrow{AB}$.`,
+    bonne: false,
+    explication: [
+      r`Soustraire un vecteur, c'est ajouter son opposé&nbsp;: $-\overrightarrow{MB} = \overrightarrow{BM}$. On range ensuite les vecteurs pour appliquer la relation de Chasles.`,
+      calcul(r`\overrightarrow{MA} - \overrightarrow{MB} & = \overrightarrow{MA} + \overrightarrow{BM}`, r`& = \overrightarrow{BM} + \overrightarrow{MA}`, r`& = \overrightarrow{BA}`),
+      r`Or $\overrightarrow{BA} = -\overrightarrow{AB}$&nbsp;: dès que $A \ne B$ (par exemple pour trois sommets d'un triangle), $\overrightarrow{BA}$ et $\overrightarrow{AB}$ sont de sens contraires, donc différents. L'égalité est <span class="resultat">fausse</span>.`],
+    revoir: r`capacité 3 du cours, exercice 3 de la fiche, exercice 68 p.&nbsp;139 du manuel`,
+    variante: {
+      enonce: r`Pour tous points $K$, $L$ et $M$&nbsp;: $\overrightarrow{KL} - \overrightarrow{KM} = \overrightarrow{ML}$.`,
+      bonne: true,
+      explication: [
+        r`Soustraire un vecteur, c'est ajouter son opposé&nbsp;: $-\overrightarrow{KM} = \overrightarrow{MK}$. On range ensuite les vecteurs pour appliquer la relation de Chasles.`,
+        calcul(r`\overrightarrow{KL} - \overrightarrow{KM} & = \overrightarrow{KL} + \overrightarrow{MK}`, r`& = \overrightarrow{MK} + \overrightarrow{KL}`, r`& = \overrightarrow{ML}`),
+        r`L'égalité est <span class="resultat">vraie</span>, pour tous points $K$, $L$ et $M$.`] } },
+
+  /* ----- Partie 3 du cours : produit d'un vecteur par un réel ----- */
+
+  { partie: 0, theme: 'Produit par un réel', type: 'qcm',
+    enonce: r`Parmi les points $K$, $L$, $M$ et $N$, lequel est le point $F$ tel que $\overrightarrow{DF} = \vec{u} - 2\vec{v}$&nbsp;?`
+      + quadrillage(FIG.produit, { label: 'Quadrillage avec le point D, les vecteurs u (3 carreaux vers la droite et 1 vers le haut) et v (2 carreaux vers la droite et 1 vers le bas), et quatre points. À partir de D : K est à 1 carreau à gauche et 3 au-dessus, L à 7 carreaux à droite et 1 en dessous, M à 1 carreau à droite et 2 au-dessus, N à 1 carreau à droite et 3 en dessous.' }),
+    choix: [r`$K$`, r`$L$`, r`$M$`, r`$N$`],
+    bonne: 0,
+    explication: [
+      r`$\vec{u} - 2\vec{v} = \vec{u} + (-2\vec{v})$. Le vecteur $-2\vec{v}$ a la même direction que $\vec{v}$, le sens contraire et une norme double.`,
+      r`On lit $\vec{u}$ ($3$ carreaux à droite, $1$ vers le haut) et $\vec{v}$ ($2$ carreaux à droite, $1$ vers le bas)&nbsp;: $-2\vec{v}$ fait avancer de $4$ carreaux vers la gauche et de $2$ vers le haut. À partir de $D$, on trace $\vec{u}$, puis $-2\vec{v}$, bout à bout (tirets).`,
+      quadrillage(FIG.produit, { echelle: 1.15,
+        vecteurs: FIG.produit.vecteurs.concat([{ de: [4, 4], a: [7, 5], tirets: true }, { de: [7, 5], a: [3, 7], classe: 'c-bleu', tirets: true },
+          { de: [4, 4], a: [3, 7], classe: 'c-noir' }]),
+        label: 'Le même quadrillage : à partir de D, u puis moins 2 v mis bout à bout (tirets) mènent au point K.' }),
+      r`Au total, $3 - 4 = -1$, soit $1$ carreau vers la gauche, et $1 + 2 = 3$ carreaux vers le haut&nbsp;: <span class="resultat">$F$ est le point $K$</span>.`],
+    revoir: r`capacité 4 du cours (question 1), exercice 4 de la fiche, exercice 71 p.&nbsp;139 du manuel`,
+    variante: {
+      enonce: r`Parmi les points $K$, $L$, $M$ et $N$, lequel est le point $F$ tel que $\overrightarrow{DF} = \vec{u} - 2\vec{v}$&nbsp;?`
+        + quadrillage(FIG.produitV, { label: 'Quadrillage avec le point D, les vecteurs u (1 carreau vers la droite et 2 vers le haut) et v (2 carreaux vers la gauche et 1 vers le haut), et quatre points. À partir de D : K est à 3 carreaux à gauche et 4 au-dessus, L à 3 carreaux à droite et 1 au-dessus, M à 5 carreaux à droite sur la même ligne, N à 5 carreaux à gauche sur la même ligne.' }),
+      choix: [r`$M$`, r`$K$`, r`$L$`, r`$N$`],
+      bonne: 0,
+      explication: [
+        r`$\vec{u} - 2\vec{v} = \vec{u} + (-2\vec{v})$. Le vecteur $-2\vec{v}$ a la même direction que $\vec{v}$, le sens contraire et une norme double.`,
+        r`On lit $\vec{u}$ ($1$ carreau à droite, $2$ vers le haut) et $\vec{v}$ ($2$ carreaux à gauche, $1$ vers le haut)&nbsp;: $-2\vec{v}$ fait avancer de $4$ carreaux vers la droite et de $2$ vers le bas. À partir de $D$, on trace $\vec{u}$, puis $-2\vec{v}$, bout à bout (tirets).`,
+        quadrillage(FIG.produitV, { echelle: 1.15,
+          vecteurs: FIG.produitV.vecteurs.concat([{ de: [6, 2], a: [7, 4], tirets: true }, { de: [7, 4], a: [11, 2], classe: 'c-bleu', tirets: true },
+            { de: [6, 2], a: [11, 2], classe: 'c-noir' }]),
+          label: 'Le même quadrillage : à partir de D, u puis moins 2 v mis bout à bout (tirets) mènent au point M.' }),
+        r`Au total, $1 + 4 = 5$ carreaux vers la droite et $2 - 2 = 0$ vers le haut&nbsp;: <span class="resultat">$F$ est le point $M$</span>.`] } },
+
+  { partie: 0, theme: 'Décomposer un vecteur', type: 'qcm',
+    enonce: r`D'après le quadrillage ci-dessous, le vecteur $\vec{w}$ est égal à&nbsp;:`
+      + quadrillage(FIG.decompose, { label: 'Quadrillage avec trois vecteurs. u : 3 carreaux vers la droite et 1 vers le haut. v : 1 carreau vers la droite et 2 vers le haut. w : 5 carreaux vers la droite.' }),
+    choix: [r`$2\vec{u} - \vec{v}$`, r`$2\vec{u} + \vec{v}$`, r`$\vec{u} - 2\vec{v}$`, r`$-2\vec{u} + \vec{v}$`],
+    bonne: 0,
+    explication: [
+      r`On va de l'origine de $\vec{w}$ à son extrémité par un chemin fait de représentants de $\vec{u}$ et de $\vec{v}$ (ou de leurs opposés) mis bout à bout, puis on compte combien de fois on a utilisé chacun d'eux.`,
+      quadrillage(FIG.decompose, { echelle: 1.15,
+        vecteurs: FIG.decompose.vecteurs.concat([{ de: [6, 4], a: [5, 2], classe: 'c-bleu', tirets: true }, { de: [5, 2], a: [8, 3], tirets: true },
+          { de: [8, 3], a: [11, 4], tirets: true }]),
+        label: 'Le même quadrillage : de l\'origine à l\'extrémité de w, un chemin en tirets fait de moins v, puis deux fois u.' }),
+      r`De l'origine à l'extrémité de $\vec{w}$&nbsp;: $-\vec{v}$, puis deux fois $\vec{u}$. Donc <span class="resultat">$\vec{w} = 2\vec{u} - \vec{v}$</span>.`,
+      r`Vérification&nbsp;: $2 \times 3 - 1 = 5$ carreaux vers la droite et $2 \times 1 - 2 = 0$ vers le haut, comme $\vec{w}$.`],
+    revoir: r`capacité 4 du cours (question 2), exercice 4 de la fiche`,
+    variante: {
+      enonce: r`D'après le quadrillage ci-dessous, le vecteur $\vec{w}$ est égal à&nbsp;:`
+        + quadrillage(FIG.decomposeV, { label: 'Quadrillage avec trois vecteurs. u : 2 carreaux vers la droite et 1 vers le haut. v : 1 carreau vers la gauche et 2 vers le haut. w : 4 carreaux vers la droite et 3 vers le bas.' }),
+      choix: [r`$\vec{u} - 2\vec{v}$`, r`$\vec{u} + 2\vec{v}$`, r`$2\vec{u} - \vec{v}$`, r`$-\vec{u} + 2\vec{v}$`],
+      bonne: 0,
+      explication: [
+        r`On va de l'origine de $\vec{w}$ à son extrémité par un chemin fait de représentants de $\vec{u}$ et de $\vec{v}$ (ou de leurs opposés) mis bout à bout, puis on compte combien de fois on a utilisé chacun d'eux.`,
+        quadrillage(FIG.decomposeV, { echelle: 1.15,
+          vecteurs: FIG.decomposeV.vecteurs.concat([{ de: [6, 5], a: [7, 3], classe: 'c-bleu', tirets: true }, { de: [7, 3], a: [8, 1], classe: 'c-bleu', tirets: true },
+            { de: [8, 1], a: [10, 2], tirets: true }]),
+          label: 'Le même quadrillage : de l\'origine à l\'extrémité de w, un chemin en tirets fait de deux fois moins v, puis u.' }),
+        r`De l'origine à l'extrémité de $\vec{w}$&nbsp;: deux fois $-\vec{v}$, puis $\vec{u}$. Donc <span class="resultat">$\vec{w} = \vec{u} - 2\vec{v}$</span>.`,
+        r`Vérification&nbsp;: $2 + 2 \times 1 = 4$ carreaux vers la droite et $1 - 2 \times 2 = -3$, soit $3$ carreaux vers le bas, comme $\vec{w}$.`] } },
+
+  { partie: 0, theme: 'Vecteurs colinéaires', type: 'qcm',
+    enonce: r`$\vec{u}$ et $\vec{v}$ sont deux vecteurs. On pose $\vec{p} = 3(\vec{v} - 3\vec{u}) + 3\vec{u}$ et $\vec{q} = 2\vec{u} - \vec{v}$. Alors&nbsp;:`,
+    choix: [r`$\vec{p} = -3\vec{q}$`, r`$\vec{p} = 3\vec{q}$`, r`$\vec{p} = -\dfrac{1}{3}\vec{q}$`, r`$\vec{p}$ et $\vec{q}$ ne sont pas colinéaires`],
+    bonne: 0,
+    explication: [
+      r`On réduit d'abord $\vec{p}$&nbsp;: on développe, puis on regroupe les termes en $\vec{u}$, comme en calcul littéral.`,
+      calcul(r`\vec{p} & = 3\vec{v} - 9\vec{u} + 3\vec{u}`, r`& = -6\vec{u} + 3\vec{v}`),
+      r`On cherche ensuite un réel $k$ tel que $\vec{p} = k\vec{q}$&nbsp;: on met $-3$ en facteur, pour faire apparaître $2\vec{u} - \vec{v}$.`,
+      calcul(r`\vec{p} & = -6\vec{u} + 3\vec{v}`, r`& = -3 \times (2\vec{u} - \vec{v})`, r`& = \resultat{-3\vec{q}}`),
+      r`Les vecteurs $\vec{p}$ et $\vec{q}$ sont donc colinéaires. Vérification&nbsp;: $-3 \times 2\vec{u} = -6\vec{u}$ et $-3 \times (-\vec{v}) = 3\vec{v}$.`],
+    revoir: r`capacité 4 du cours (question 3), exercice 4 de la fiche, exercice 73 p.&nbsp;139 du manuel`,
+    variante: {
+      enonce: r`$\vec{u}$ et $\vec{v}$ sont deux vecteurs. On pose $\vec{p} = 2(\vec{u} - 4\vec{v}) + 2\vec{u}$ et $\vec{q} = -\vec{u} + 2\vec{v}$. Alors&nbsp;:`,
+      choix: [r`$\vec{p} = -4\vec{q}$`, r`$\vec{p} = 4\vec{q}$`, r`$\vec{p} = -\dfrac{1}{4}\vec{q}$`, r`$\vec{p}$ et $\vec{q}$ ne sont pas colinéaires`],
+      bonne: 0,
+      explication: [
+        r`On réduit d'abord $\vec{p}$&nbsp;: on développe, puis on regroupe les termes en $\vec{u}$, comme en calcul littéral.`,
+        calcul(r`\vec{p} & = 2\vec{u} - 8\vec{v} + 2\vec{u}`, r`& = 4\vec{u} - 8\vec{v}`),
+        r`On cherche ensuite un réel $k$ tel que $\vec{p} = k\vec{q}$&nbsp;: on met $-4$ en facteur, pour faire apparaître $-\vec{u} + 2\vec{v}$.`,
+        calcul(r`\vec{p} & = 4\vec{u} - 8\vec{v}`, r`& = -4 \times (-\vec{u} + 2\vec{v})`, r`& = \resultat{-4\vec{q}}`),
+        r`Les vecteurs $\vec{p}$ et $\vec{q}$ sont donc colinéaires. Vérification&nbsp;: $-4 \times (-\vec{u}) = 4\vec{u}$ et $-4 \times 2\vec{v} = -8\vec{v}$.`] } },
+
+  /* ----- Partie 4 du cours : parallélisme, alignement, milieu ----- */
+
+  { partie: 0, theme: 'Parallélisme', type: 'qcm',
+    enonce: r`$ABC$ est un triangle&nbsp;; $M$ et $N$ sont les points tels que $\overrightarrow{AM} = 2\overrightarrow{AB}$ et $\overrightarrow{AN} = 2\overrightarrow{AC}$. Alors $\overrightarrow{MN}$ est égal à&nbsp;:`,
+    choix: [r`$2\overrightarrow{BC}$`, r`$2\overrightarrow{CB}$`, r`$\overrightarrow{BC}$`, r`$\dfrac{1}{2}\overrightarrow{BC}$`],
+    bonne: 0,
+    explication: [
+      r`On décompose $\overrightarrow{MN}$ en passant par $A$ (relation de Chasles). Comme $\overrightarrow{AM} = 2\overrightarrow{AB}$, son opposé est $\overrightarrow{MA} = -2\overrightarrow{AB}$&nbsp;; enfin $\overrightarrow{BA} + \overrightarrow{AC} = \overrightarrow{BC}$.`,
+      calcul(r`\overrightarrow{MN} & = \overrightarrow{MA} + \overrightarrow{AN}`, r`& = -2\overrightarrow{AB} + 2\overrightarrow{AC}`, r`& = 2(\overrightarrow{BA} + \overrightarrow{AC})`, r`& = \resultat{2\overrightarrow{BC}}`),
+      r`Les vecteurs $\overrightarrow{MN}$ et $\overrightarrow{BC}$ sont colinéaires&nbsp;: les droites $(MN)$ et $(BC)$ sont parallèles.`,
+      quadrillage(FIG.parallelisme, { label: 'Triangle ABC ; M sur la demi-droite [AB) avec AM = 2 AB, N sur la demi-droite [AC) avec AN = 2 AC ; les segments [BC] et [MN], en rouge, sont parallèles.' })],
+    revoir: r`capacité 5 du cours (question 1), exercice 5 de la fiche`,
+    variante: {
+      enonce: r`$ABC$ est un triangle&nbsp;; $M$ et $N$ sont les points tels que $\overrightarrow{AM} = \dfrac{1}{2}\overrightarrow{AB}$ et $\overrightarrow{AN} = \dfrac{1}{2}\overrightarrow{AC}$. Alors $\overrightarrow{MN}$ est égal à&nbsp;:`,
+      choix: [r`$\dfrac{1}{2}\overrightarrow{BC}$`, r`$\dfrac{1}{2}\overrightarrow{CB}$`, r`$\overrightarrow{BC}$`, r`$2\overrightarrow{BC}$`],
+      bonne: 0,
+      explication: [
+        r`On décompose $\overrightarrow{MN}$ en passant par $A$ (relation de Chasles). Comme $\overrightarrow{AM} = \dfrac{1}{2}\overrightarrow{AB}$, son opposé est $\overrightarrow{MA} = -\dfrac{1}{2}\overrightarrow{AB}$&nbsp;; enfin $\overrightarrow{BA} + \overrightarrow{AC} = \overrightarrow{BC}$.`,
+        calcul(r`\overrightarrow{MN} & = \overrightarrow{MA} + \overrightarrow{AN}`, r`& = -\dfrac{1}{2}\overrightarrow{AB} + \dfrac{1}{2}\overrightarrow{AC}`, r`& = \dfrac{1}{2}(\overrightarrow{BA} + \overrightarrow{AC})`, r`& = \resultat{\dfrac{1}{2}\overrightarrow{BC}}`),
+        r`Les vecteurs $\overrightarrow{MN}$ et $\overrightarrow{BC}$ sont colinéaires&nbsp;: les droites $(MN)$ et $(BC)$ sont parallèles. ($M$ et $N$ sont les milieux de $[AB]$ et de $[AC]$&nbsp;: on retrouve le théorème des milieux du collège.)`,
+        quadrillage(FIG.parallelismeV, { label: 'Triangle ABC ; M milieu de [AB], N milieu de [AC] ; les segments [BC] et [MN], en rouge, sont parallèles.' })] } },
+
+  { partie: 0, theme: 'Alignement et milieu', type: 'qcm',
+    enonce: r`$ABCD$ est un parallélogramme&nbsp;; $K$ est le milieu de $[AB]$ et $G$ est le point tel que $\overrightarrow{CG} = 2\overrightarrow{CB}$. Que peut-on dire des points $D$, $K$ et $G$&nbsp;?`,
+    choix: [r`Ils sont alignés et $K$ est le milieu de $[DG]$`, r`Ils sont alignés et $G$ est le milieu de $[DK]$`,
+            r`Ils sont alignés et $D$ est le milieu de $[KG]$`, r`Ils ne sont pas alignés`],
+    bonne: 0,
+    explication: [
+      r`On exprime $\overrightarrow{DK}$ et $\overrightarrow{DG}$ en fonction de $\overrightarrow{AB}$ et de $\overrightarrow{AD}$ avec la relation de Chasles, en passant par $A$, puis par $C$.`,
+      r`Comme $ABCD$ est un parallélogramme, $\overrightarrow{DC} = \overrightarrow{AB}$ et $\overrightarrow{CB} = \overrightarrow{DA} = -\overrightarrow{AD}$&nbsp;; comme $K$ est le milieu de $[AB]$, $\overrightarrow{AK} = \dfrac{1}{2}\overrightarrow{AB}$.`,
+      calcul(r`\overrightarrow{DK} & = \overrightarrow{DA} + \overrightarrow{AK}`, r`& = -\overrightarrow{AD} + \dfrac{1}{2}\overrightarrow{AB}`),
+      calcul(r`\overrightarrow{DG} & = \overrightarrow{DC} + \overrightarrow{CG}`, r`& = \overrightarrow{AB} + 2\overrightarrow{CB}`, r`& = \overrightarrow{AB} - 2\overrightarrow{AD}`),
+      r`On compare $\overrightarrow{DG}$ au double de $\overrightarrow{DK}$.`,
+      calcul(r`2\overrightarrow{DK} & = -2\overrightarrow{AD} + \overrightarrow{AB}`, r`& = \overrightarrow{DG}`),
+      r`Ainsi $\overrightarrow{DG} = 2\overrightarrow{DK}$&nbsp;: ces vecteurs sont colinéaires et ont la même origine $D$, donc les points sont alignés. De plus $\overrightarrow{DK} = \dfrac{1}{2}\overrightarrow{DG}$&nbsp;: d'après la caractérisation vectorielle du milieu, <span class="resultat">$D$, $K$ et $G$ sont alignés et $K$ est le milieu de $[DG]$</span>.`,
+      quadrillage(FIG.milieu, { label: 'Parallélogramme ABCD ; K milieu de [AB] ; G sur la droite (BC), avec B milieu de [CG] ; le segment [DG], en rouge, passe par K.' })],
+    revoir: r`capacité 5 du cours (question 2), exercice 6 de la fiche`,
+    variante: {
+      enonce: r`$ABCD$ est un parallélogramme&nbsp;; $L$ est le milieu de $[AD]$ et $H$ est le point tel que $\overrightarrow{CH} = 2\overrightarrow{CD}$. Que peut-on dire des points $B$, $L$ et $H$&nbsp;?`,
+      choix: [r`Ils sont alignés et $L$ est le milieu de $[BH]$`, r`Ils sont alignés et $H$ est le milieu de $[BL]$`,
+              r`Ils sont alignés et $B$ est le milieu de $[LH]$`, r`Ils ne sont pas alignés`],
+      bonne: 0,
+      explication: [
+        r`On exprime $\overrightarrow{BL}$ et $\overrightarrow{BH}$ en fonction de $\overrightarrow{AB}$ et de $\overrightarrow{AD}$ avec la relation de Chasles, en passant par $A$, puis par $C$.`,
+        r`Comme $ABCD$ est un parallélogramme, $\overrightarrow{BC} = \overrightarrow{AD}$ et $\overrightarrow{CD} = \overrightarrow{BA} = -\overrightarrow{AB}$&nbsp;; comme $L$ est le milieu de $[AD]$, $\overrightarrow{AL} = \dfrac{1}{2}\overrightarrow{AD}$.`,
+        calcul(r`\overrightarrow{BL} & = \overrightarrow{BA} + \overrightarrow{AL}`, r`& = -\overrightarrow{AB} + \dfrac{1}{2}\overrightarrow{AD}`),
+        calcul(r`\overrightarrow{BH} & = \overrightarrow{BC} + \overrightarrow{CH}`, r`& = \overrightarrow{AD} + 2\overrightarrow{CD}`, r`& = \overrightarrow{AD} - 2\overrightarrow{AB}`),
+        r`On compare $\overrightarrow{BH}$ au double de $\overrightarrow{BL}$.`,
+        calcul(r`2\overrightarrow{BL} & = -2\overrightarrow{AB} + \overrightarrow{AD}`, r`& = \overrightarrow{BH}`),
+        r`Ainsi $\overrightarrow{BH} = 2\overrightarrow{BL}$&nbsp;: ces vecteurs sont colinéaires et ont la même origine $B$, donc les points sont alignés. De plus $\overrightarrow{BL} = \dfrac{1}{2}\overrightarrow{BH}$&nbsp;: d'après la caractérisation vectorielle du milieu, <span class="resultat">$B$, $L$ et $H$ sont alignés et $L$ est le milieu de $[BH]$</span>.`,
+        quadrillage(FIG.milieuV, { label: 'Parallélogramme ABCD ; L milieu de [AD] ; H sur la droite (CD), avec D milieu de [CH] ; le segment [BH], en rouge, passe par L.' })] } }
+  ]
+};
+
+/* ---------- Conversion des formules ($...$, mini-LaTeX) en HTML ---------- */
+const SYM = {
+  times: '×', cdot: '·', dots: '…', ldots: '…', cdots: '…', ne: '≠', neq: '≠', le: '≤', leq: '≤',
+  ge: '≥', geq: '≥', approx: '≈', infty: '∞', forall: '∀', in: '∈', N: 'ℕ', R: 'ℝ', Z: 'ℤ',
+  pm: '±', Delta: 'Δ', sum: 'Σ', pi: 'π', alpha: 'α', mapsto: '↦', to: '→', iff: '⇔',
+  Longleftrightarrow: '⇔', Leftrightarrow: '⇔', Rightarrow: '⇒', implies: '⇒',
+  quad: ' ', qquad: '  ', displaystyle: '', left: '', right: ''
+};
+const SYM1 = { ',': ' ', ';': ' ', ' ': ' ', '{': '{', '}': '}', '%': '%', '_': '_', '&': '&amp;', '$': '$', '\\': '<br>' };
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function math(s) {
+  let i = 0;
+  const skip = () => { while (i < s.length && s[i] === ' ') i++; };
+  function raw() {            // contenu brut d'un {groupe}, sans mise en italique
+    skip();
+    if (s[i] !== '{') return esc(s[i++] || '');
+    let prof = 0, out = '';
+    for (; i < s.length; i++) {
+      const c = s[i];
+      if (c === '{') { prof++; if (prof === 1) continue; }
+      if (c === '}') { prof--; if (prof === 0) { i++; break; } }
+      out += c;
+    }
+    return esc(out);
+  }
+  function group() { i++; let out = ''; while (i < s.length && s[i] !== '}') out += atom(); i++; return out; }
+  function arg() { skip(); if (s[i] === '{') return group(); return atom(); }
+  const frac = (a, b) => `<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`;
+  function atom() {
+    if (i >= s.length) return '';
+    const c = s[i];
+    if (c === '{') return group();
+    if (c === '}') { i++; return ''; }
+    if (c === '\\') {
+      const n = s[i + 1];
+      if (n === undefined) { i++; return ''; }
+      if (!/[a-zA-Z]/.test(n)) { i += 2; return SYM1[n] !== undefined ? SYM1[n] : esc(n); }
+      let j = i + 1;
+      while (j < s.length && /[a-zA-Z]/.test(s[j])) j++;
+      const nom = s.slice(i + 1, j); i = j;
+      if (nom === 'frac' || nom === 'dfrac' || nom === 'tfrac') { const a = arg(); const b = arg(); return frac(a, b); }
+      if (nom === 'mathrm' || nom === 'text') return `<span class="rm">${raw()}</span>`;
+      if (nom === 'textbf') return `<b class="rm">${raw()}</b>`;
+      if (nom === 'mathscr') return `<i>${raw()}</i>`;
+      if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
+      if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
+      if (nom === 'op') return `<span class="op">${arg()}</span>`;
+      if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
+      return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
+    }
+    if (c === '_' || c === '^') { i++; const a = arg(); return c === '_' ? `<sub>${a}</sub>` : `<sup>${a}</sup>`; }
+    i++;
+    if (/[a-zA-Z]/.test(c)) return `<i>${c}</i>`;
+    if (c === '-') return '−';
+    if (c === '*') return '×';
+    if (c === "'") return '<span class="prime">′</span>';
+    return esc(c);
+  }
+  let out = '';
+  while (i < s.length) out += atom();
+  return out;
+}
+// Une formule : KaTeX s'il est chargé, sinon (pas encore là, hors ligne, CDN filtré, commande qu'il
+// refuse) le mini-LaTeX, qui garde la source dans data-tex pour que katexPret() la recompose.
+// (## : signe # d'une couleur dans une macro, # seul désignant un argument)
+const MACROS = { '\\mul': '\\textcolor{##9C27B0}{#1}', '\\op': '\\textcolor{##CE2029}{#1}', '\\resultat': '\\boxed{#1}' };
+function katexDispo() {
+  const feuille = document.getElementById('katex-css');
+  return !!window.katex && !!feuille && feuille.media === 'all';
+}
+function katexHTML(f) {
+  try { return katex.renderToString(f, { macros: Object.assign({}, MACROS), throwOnError: true, strict: false }); }
+  catch (e) { return null; }
+}
+function formule(f) {
+  const k = katexDispo() ? katexHTML(f) : null;
+  return k || `<span class="m${f.length > 42 ? ' m-long' : ''}" data-tex="${esc(f).replace(/"/g, '&quot;')}">${math(f)}</span>`;
+}
+window.katexPret = function () {
+  if (!katexDispo()) return;
+  document.querySelectorAll('.m[data-tex]').forEach(e => {
+    const k = katexHTML(e.dataset.tex);
+    if (k) e.outerHTML = k;
+  });
+};
+function tex(src) {
+  return String(src).split(/(\$[^$]*\$)/).map(p =>
+    (p.length >= 2 && p[0] === '$' && p[p.length - 1] === '$') ? formule(p.slice(1, -1)) : p
+  ).join('');
+}
+
+/* ---------- État (enregistré sur l'appareil, pour reprendre plus tard) ---------- */
+const N = QUIZ.questions.length;
+const CLE = 'quiz-' + QUIZ.id;
+const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length
+  + (q.variante ? '~' + q.variante.enonce.length : '')).join('|');
+const MODE_CORRIGE = /(\?|&|#)corrige/.test(location.search + location.hash);
+// La question i dans sa variante : les champs que la variante ne donne pas viennent de la question.
+const variante = i => Object.assign({}, QUIZ.questions[i], QUIZ.questions[i].variante);
+
+function melange(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const ordreDe = q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k));
+// reprise : null, ou la reprise des questions manquées { rangs (questions d'origine), ordre, reponses, courant }.
+function nouvelEtat() {
+  return {
+    signature: SIGNATURE,
+    ordre: QUIZ.questions.map(ordreDe),
+    reponses: Array(N).fill(null),
+    courant: 0,
+    reprise: null
+  };
+}
+function repriseValide(R) {
+  return !!R && Array.isArray(R.rangs) && R.rangs.length > 0 && Array.isArray(R.ordre) && Array.isArray(R.reponses)
+    && R.ordre.length === R.rangs.length && R.reponses.length === R.rangs.length
+    && R.rangs.every(i => QUIZ.questions[i] && QUIZ.questions[i].variante);
+}
+function charger() {
+  try {
+    const s = JSON.parse(localStorage.getItem(CLE));
+    if (s && s.signature === SIGNATURE && Array.isArray(s.reponses) && s.reponses.length === N && Array.isArray(s.ordre)) {
+      s.courant = Math.min(Math.max(0, s.courant | 0), N);
+      if (repriseValide(s.reprise)) s.reprise.courant = Math.min(Math.max(0, s.reprise.courant | 0), s.reprise.rangs.length);
+      else s.reprise = null;
+      return s;
+    }
+  } catch (e) { /* stockage indisponible : on repart de zéro */ }
+  return null;
+}
+function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* sans importance */ } }
+
+let etat = charger() || nouvelEtat();
+let selection = null;
+
+const $ = sel => document.querySelector(sel);
+const zoneProg = $('#progression');
+const zoneQuiz = $('#quiz');
+const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
+// Une seule partie : aucun nom de partie n'est affiché (grille, question, corrigé, note).
+const UNE_PARTIE = QUIZ.parties.length === 1;
+const questionsDe = p => QUIZ.questions.map((q, i) => q.partie === p ? i : -1).filter(i => i >= 0);
+
+/* ---------- Affichage ---------- */
+// Explication : un texte, ou une liste de blocs (paragraphes, calculs en colonne, figures).
+function explicationHTML(q) {
+  const blocs = Array.isArray(q.explication) ? q.explication : [q.explication];
+  return blocs.map(b => /^<(div|svg)\b/.test(b) ? tex(b) : '<p>' + tex(b) + '</p>').join('');
+}
+
+function reponseTexte(q, choix) {
+  if (q.type === 'vf') return choix ? 'Vrai' : 'Faux';
+  return '« ' + tex(q.choix[choix]) + ' »';
+}
+
+// Tour en cours : le premier passage (les questions du fichier), ou la reprise des questions
+// manquées (leurs variantes). Chacun a ses réponses, l'ordre de ses choix et sa question courante k ;
+// le numéro affiché est toujours celui de la question d'origine.
+function tourCourant() {
+  const R = etat.reprise;
+  if (R && R.courant < R.rangs.length)
+    return { reprise: true, etat: R, total: R.rangs.length, question: k => variante(R.rangs[k]), numero: k => R.rangs[k] + 1 };
+  return { reprise: false, etat: etat, total: N, question: k => QUIZ.questions[k], numero: k => k + 1 };
+}
+
+// Une grille de réponses. items = [{cle, numero, rep}] ; attr = data-q (premier passage) ou data-r (reprise).
+function grille(nom, items, courant, attr) {
+  const faites = items.filter(it => it.rep).length;
+  let nums = '', marques = '';
+  items.forEach(it => {
+    const ici = it.cle === courant;
+    nums += `<td class="${ici ? 'ici' : ''}"><button type="button" class="aller" ${attr}="${it.cle}" aria-label="Aller à la question ${it.numero}">${it.numero}</button></td>`;
+    marques += it.rep
+      ? `<td class="${it.rep.ok ? 'juste' : 'erreur'}${ici ? ' courant' : ''}" ${attr}="${it.cle}"><span class="marque ${it.rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`
+      : `<td class="${ici ? 'courant' : ''}" ${attr}="${it.cle}"></td>`;
+  });
+  return `<div class="bloc-grille">${nom ? `<p class="nom-partie">${nom}</p>` : ''}
+    <table class="grille-reponses" aria-label="${nom || 'Réponses'} : ${faites} question${faites > 1 ? 's' : ''} sur ${items.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+}
+
+function rendreProgression() {
+  if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
+  const T = tourCourant(), R = etat.reprise;
+  zoneProg.innerHTML = T.reprise
+    ? grille('Reprise des questions manquées', R.rangs.map((i, k) => ({ cle: k, numero: i + 1, rep: R.reponses[k] })), R.courant, 'data-r')
+    : QUIZ.parties.map((nom, p) => grille(UNE_PARTIE ? '' : nomPartie(p),
+        questionsDe(p).map(i => ({ cle: i, numero: i + 1, rep: etat.reponses[i] })), etat.courant, 'data-q')).join('');
+}
+
+function rendre() {
+  rendreProgression();
+  if (MODE_CORRIGE) return rendreCorrige();
+  const T = tourCourant();
+  if (T.etat.courant >= T.total) rendreResultat(); else rendreQuestion(T, T.etat.courant);
+}
+
+function boite(marque) {
+  return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
+}
+
+function rendreQuestion(T, k) {
+  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = k === T.total - 1;
+  const changePartie = !T.reprise && !derniere && QUIZ.questions[k + 1].partie !== q.partie;
+  const tete = T.reprise ? `Reprise des questions manquées · ${k + 1} sur ${T.total}` : UNE_PARTIE ? '' : nomPartie(q.partie);
+  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir ma note') : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante';
+  let options;
+  if (q.type === 'vf') {
+    options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (val === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (val === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
+    }).join('');
+  } else {
+    options = ordre.map((orig, j) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[j]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
+    }).join('');
+  }
+  const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
+  const correction = rep ? `<div class="correction ${rep.ok ? 'juste' : 'erreur'}" role="status">
+      <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
+      <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
+  const bouton = rep
+    ? `<button type="button" class="bouton" id="suivant">${suite}</button>`
+    : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
+  zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
+    ${tete ? `<p class="partie">${tete}</p>` : ''}
+    <p class="question" id="titre-q"><b>Question ${T.numero(k)}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
+    <div class="actions">${bouton}</div>
+    ${correction}
+  </article>`;
+  selection = null;
+  if (!rep) {
+    zoneQuiz.querySelectorAll('.choix').forEach(b => b.addEventListener('click', () => choisir(b, q)));
+    $('#valider').addEventListener('click', valider);
+  } else {
+    $('#suivant').addEventListener('click', suivant);
+  }
+}
+
+function choisir(b, q) {
+  zoneQuiz.querySelectorAll('.choix').forEach(o => {
+    const actif = o === b;
+    o.classList.toggle('choisi', actif);
+    o.setAttribute('aria-pressed', actif ? 'true' : 'false');
+    o.querySelector('.marque').className = actif ? 'marque croix' : 'marque';
+  });
+  selection = q.type === 'vf' ? b.dataset.val === 'true' : Number(b.dataset.val);
+  $('#valider').disabled = false;
+}
+
+function valider() {
+  const T = tourCourant(), k = T.etat.courant, q = T.question(k);
+  if (selection === null || T.etat.reponses[k]) return;
+  T.etat.reponses[k] = { choix: selection, ok: selection === q.bonne };
+  sauver();
+  rendre();
+  const suivantBtn = $('#suivant');
+  if (suivantBtn) suivantBtn.focus({ preventScroll: true });
+  const correction = $('.correction');
+  if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
+}
+
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question
+// (data-q : premier passage ; data-r : reprise des questions manquées).
+function aller(cible) {
+  if (cible.dataset.r !== undefined) etat.reprise.courant = Number(cible.dataset.r);
+  else etat.courant = Number(cible.dataset.q);
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function suivant() {
+  const T = tourCourant();
+  T.etat.courant = Math.min(T.etat.courant + 1, T.total);
+  selection = null;
+  sauver();
+  rendre();
+  // On remonte aux grilles de réponses, pas tout en haut : sur téléphone, l'en-tête occupe un écran.
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function recommencer() {
+  etat = nouvelEtat();
+  selection = null;
+  sauver();
+  rendre();
+  window.scrollTo({ top: 0, behavior: motion() });
+}
+// Deux clics pour tout effacer : le premier transforme le bouton en demande de confirmation.
+function demanderRecommencer(btn) {
+  const entame = etat.courant > 0 || etat.reponses.some(Boolean);
+  if (btn.dataset.minuteur) {
+    clearTimeout(Number(btn.dataset.minuteur));
+    btn.textContent = btn.dataset.texte;
+    delete btn.dataset.minuteur;
+    recommencer();
+  } else if (!entame) {
+    recommencer();
+  } else {
+    btn.dataset.texte = btn.textContent;
+    btn.textContent = 'Confirmer : effacer mes réponses';
+    btn.dataset.minuteur = String(setTimeout(() => { btn.textContent = btn.dataset.texte; delete btn.dataset.minuteur; }, 4000));
+  }
+}
+
+// Questions regroupées par partie : un titre, puis la liste produite par item(q, i).
+function listeParParties(item) {
+  return QUIZ.parties.map((nom, p) =>
+    `${UNE_PARTIE ? '' : `<h2 class="titre-partie">${nomPartie(p)}</h2>`}<ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
+  ).join('');
+}
+
+// Une question de la copie : énoncé, réponse donnée, explication.
+function itemRevue(q, rep, numero) {
+  const ok = !!(rep && rep.ok);
+  let bilan;
+  if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
+  else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  return `<li class="${ok ? 'juste' : 'erreur'}">
+    <p class="question"><b>Question ${numero}.</b> <i>${q.theme}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <p class="bilan">${bilan}</p>
+    <div class="explication">${explicationHTML(q)}</div>
+  </li>`;
+}
+
+function revueHTML() {
+  return listeParParties((q, i) => itemRevue(q, etat.reponses[i], i + 1));
+}
+
+function revueRepriseHTML() {
+  const R = etat.reprise;
+  return `<h2 class="titre-partie">Reprise des questions manquées</h2><ol class="revue">${R.rangs.map((i, k) => itemRevue(variante(i), R.reponses[k], i + 1)).join('')}</ol>`;
+}
+
+// Bouton qui montre ou cache une copie.
+function bascule(idBouton, idListe, texte) {
+  $('#' + idBouton).addEventListener('click', () => {
+    const liste = $('#' + idListe), btn = $('#' + idBouton);
+    liste.hidden = !liste.hidden;
+    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
+    btn.textContent = (liste.hidden ? 'Revoir ' : 'Masquer ') + texte;
+  });
+}
+
+// Reprise des questions manquées qui ont une variante : nouveau tour, noté à part.
+function reprendre(rangs) {
+  etat.reprise = { rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 };
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function rendreResultat() {
+  const juste = i => !!(etat.reponses[i] && etat.reponses[i].ok);
+  const score = QUIZ.questions.filter((q, i) => juste(i)).length;
+  const appreciation = score >= 0.75 * N
+    ? 'C\'est solide. Relis quand même les explications des questions manquées.'
+    : score >= 0.5 * N
+      ? 'L\'essentiel est là. Reprends les points listés ci-dessous, puis refais cet entraînement.'
+      : 'À retravailler avant l\'évaluation : reprends le cours et la fiche d\'exercices, puis refais cet entraînement.';
+  const sur20 = N === 20 ? '' : `<span class="sur">soit ${fr(Math.round(score * 20 / N * 2) / 2)} / 20</span>`;
+  const parties = QUIZ.parties.map((nom, p) => {
+    const rangs = questionsDe(p);
+    return `<span>${nomPartie(p)}&nbsp;: <b>${rangs.filter(juste).length} / ${rangs.length}</b></span>`;
+  }).join(' &emsp; ');
+  const aRevoir = [];
+  QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
+  const revoir = aRevoir.length
+    ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
+  // Questions manquées qui ont une variante, et reprise déjà faite (on n'arrive ici qu'une fois finie).
+  const manquees = QUIZ.questions.map((q, i) => i).filter(i => !juste(i) && QUIZ.questions[i].variante);
+  const R = etat.reprise, nm = manquees.length;
+  const bilanReprise = R
+    ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(x => x && x.ok).length} / ${R.rangs.length}</b></p>` : '';
+  const infoReprise = nm && !R
+    ? `<p class="reprise-info">Tu peux refaire ${nm > 1 ? 'les ' + nm + ' questions manquées' : 'la question manquée'}, un peu ${nm > 1 ? 'modifiées' : 'modifiée'}&nbsp;: mêmes notions, autres valeurs.</p>` : '';
+  zoneQuiz.innerHTML = `<article class="page-note" aria-labelledby="titre-r">
+    <p class="question" id="titre-r"><b>Note.</b></p>
+    <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
+    <p class="appreciation">${appreciation}</p>
+    ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
+    ${bilanReprise}
+    ${revoir}
+    ${infoReprise}
+    <div class="actions">
+      ${nm ? `<button type="button" class="bouton" id="reprendre">${R ? 'Refaire la reprise' : 'Refaire les questions manquées'}</button>` : ''}
+      <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
+      ${R ? '<button type="button" class="bouton" id="revoir-reprise" aria-expanded="false" aria-controls="revue-reprise">Revoir la reprise</button>' : ''}
+      <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
+    </div>
+    <div id="revue" hidden>${revueHTML()}</div>
+    ${R ? `<div id="revue-reprise" hidden>${revueRepriseHTML()}</div>` : ''}
+  </article>`;
+  bascule('revoir', 'revue', 'la copie');
+  if (R) bascule('revoir-reprise', 'revue-reprise', 'la reprise');
+  if (nm) $('#reprendre').addEventListener('click', () => reprendre(manquees));
+  $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+}
+
+function rendreCorrige() {
+  // Énoncé, choix (bonne réponse en vert), explication.
+  const corps = q => `<div class="enonce">${tex(q.enonce)}</div>
+      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
+      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
+      <div class="explication">${explicationHTML(q)}</div>`;
+  zoneQuiz.innerHTML = `<article>
+    <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
+    ${listeParParties((q, i) => `<li class="juste">
+      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
+      ${corps(q)}
+      ${q.variante ? `<div class="variante"><p class="question"><b>Variante</b> <i>(reprise des questions manquées)</i></p>${corps(variante(i))}</div>` : ''}
+    </li>`)}
+  </article>`;
+}
+
+/* ---------- Démarrage ---------- */
+$('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+zoneProg.addEventListener('click', e => {
+  const cible = e.target.closest('[data-q],[data-r]');
+  if (cible) aller(cible);
+});
+rendre();
+})();
+</script>
+</body>
+</html>
