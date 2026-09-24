@@ -1,0 +1,1153 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement Évaluation fonctions, fonctions affines</title>
+<!--
+  Entraînement auto-corrigé à l'évaluation du chapitre 6 (Généralités sur les fonctions,
+  fonctions affines) - Seconde. Une seule partie, douze questions, sans automatismes (demande
+  du professeur), dans l'ordre du cours : image et antécédent par le calcul, ensemble de
+  définition (racine carrée), image et antécédents d'un même nombre lus sur une courbe, point
+  d'une courbe, résolution graphique de f(x) < k, puis de f(x) < g(x) (avec f(x) = g(x) :
+  points d'intersection), coefficient directeur m et ordonnée à l'origine p lus sur une
+  droite, puis calculés avec deux points (taux d'accroissement), fonction affine à reconnaître
+  (développer, réduire) et sens de variation selon le signe de m, tableau de signes à choisir
+  parmi quatre, modélisation (température et altitude, comme l'exercice 4 de l'évaluation).
+  Sources : capacités 1 à 6 du cours, activités 1 et 2, fiche d'exercices (exercices 1 à 6),
+  évaluation (sujets A et B, exercices 2 à 4, sans le QCM d'automatismes) et exercices du
+  manuel cités dans le plan (1 à 4 p. 212 ; 88 et 90 p. 232 ; 95 p. 233 ; 126 p. 235 ;
+  « Faire le point » p. 237, question 5 ; 136 p. 239 ; 1, 2, 7, 9, 10 et 11 p. 246 ; 30 et 31
+  p. 257 ; 61, 63 et 64 p. 261 ; 78 p. 262 ; « Faire le point » p. 263, questions 9 et 10).
+  Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs,
+  sans calculatrice, notations du cours (f(x) = mx + p). Distracteurs : erreurs types (carré
+  d'un nombre négatif écrit sans parenthèses, image et antécédent confondus, sens d'une
+  inégalité gardé en divisant par un nombre négatif, antécédent oublié à l'extrémité d'une
+  courbe, crochets, courbe au-dessus au lieu d'au-dessous, taux d'accroissement pris à
+  l'envers ou non divisé, p pris pour l'ordonnée d'un point donné, signes du tableau
+  inversés).
+  Figures : repere du gabarit. Les courbes passent par des noeuds entiers, reliés par
+  l'interpolation monotone de lisse (celle des arcs de Bézier des figures du cours) : toutes
+  les lectures tombent sur le quadrillage. repereSol surligne plusieurs intervalles
+  solutions ; tableauSignes dessine un tableau de signes comme ceux du cours (tkz-tab).
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
+
+  Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
+  entrainement-06-fonctions-generalites-affines-questions.js (même dossier) ; moteur et mise en page :
+  Commun aux cours/entrainement/gabarit.html (format des questions en tête).
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/seconde/06-fonctions-generalites-affines.html
+  (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&display=swap">
+<!-- KaTeX, chargé sans bloquer la page (réseau du lycée parfois filtré) : les formules s'affichent
+     d'abord en mini-LaTeX, puis KaTeX les recompose sur place dès que sa feuille et son script sont là. -->
+<link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css" integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous" media="print" onload="this.media='all'; if (window.katexPret) katexPret()">
+<script async src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js" integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj" crossorigin="anonymous" onload="if (window.katexPret) katexPret()"></script>
+<style>
+:root{
+  --papier:#FCFBF7; --encre:#161616; --gris:#6B6A66; --filet:#C4BFB3; --filet-clair:#E4E0D6; --case:#F0EDE5;
+  --stylo:#1E3D96; --rouge:#CE2029; --vert:#2A7A36; --orange:#E8940A; --violet:#7A3E9D;
+  --serif:"Old Standard TT","Times New Roman",Times,serif;
+  --main:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --mono:ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 var(--serif); min-height:100vh}
+.feuille{max-width:720px; margin:0 auto; padding:34px 40px 60px}
+
+/* Retour à la liste des entraînements */
+.retour{margin:0 0 14px; font-size:.95rem}
+.retour a{color:var(--stylo); text-decoration:none; border-bottom:1px solid var(--filet)}
+.retour a:hover,.retour a:focus-visible{border-bottom-color:var(--stylo)}
+
+/* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
+.mul{color:#9C27B0}
+/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
+.op{color:var(--rouge)}
+
+/* En-tête de la copie */
+.entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
+h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
+.consigne{margin:0 0 12px; font-style:italic}
+.filet{height:4px; border-top:1px solid var(--encre); border-bottom:1px solid var(--encre); margin:8px 0 20px}
+
+/* Grilles de réponses, une par partie */
+.progression{display:flex; flex-wrap:wrap; gap:10px 28px; margin:0 0 24px; scroll-margin-top:12px}
+.bloc-grille{max-width:100%; overflow-x:auto}
+.nom-partie{margin:0 0 3px; font-style:italic; font-size:.9rem; white-space:nowrap}
+.grille-reponses{border-collapse:collapse; font-size:.9rem}
+.grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
+.grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
+.grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
+.grille-reponses td[data-q],.grille-reponses td[data-r]{cursor:pointer}
+.grille-reponses td.ici{background:var(--filet-clair)}
+.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
+.grille-reponses button.aller:hover{text-decoration:underline}
+.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
+.grille-reponses td.juste{color:var(--vert)}
+.grille-reponses td.erreur{color:var(--rouge)}
+
+/* Marques au stylo : croix et coche dessinées en CSS */
+.marque{position:relative; display:inline-block; width:18px; height:18px; vertical-align:-4px; color:inherit}
+.marque::before,.marque::after{content:""; position:absolute; width:2px; background:currentColor; border-radius:1px; display:none}
+.marque.croix::before,.marque.croix::after{display:block; left:8px; top:-2px; height:22px}
+.marque.croix::before{transform:rotate(43deg)}
+.marque.croix::after{transform:rotate(-47deg)}
+.marque.coche::before,.marque.coche::after{display:block}
+.marque.coche::before{left:3px; top:8px; height:8px; transform:rotate(-42deg)}
+.marque.coche::after{left:10px; top:-2px; height:20px; transform:rotate(38deg)}
+
+/* Question et réponses */
+.partie{margin:0 0 2px; font-variant:small-caps; letter-spacing:.03em}
+.question{margin:0 0 6px}
+.question i{color:var(--gris)}
+.enonce{margin:0 0 14px}
+.reponses{display:grid; gap:6px; margin:0 0 18px}
+.reponses.vf{display:flex; gap:12px 40px; flex-wrap:wrap}
+.choix{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; padding:5px 4px; border:0; border-radius:0; background:transparent; color:var(--encre); font:inherit; line-height:1.45; cursor:pointer}
+.reponses.vf .choix{width:auto; padding-right:12px}
+.choix:disabled{cursor:default}
+.choix .boite{flex:none; position:relative; width:18px; height:18px; margin-top:5px; border:1px solid var(--encre); background:var(--papier)}
+.choix .boite .marque{position:absolute; left:-1px; top:-1px}
+.choix:hover:not(:disabled) .boite{box-shadow:0 0 0 1px var(--encre)}
+.choix .lettre{flex:none; width:1.3em; color:var(--gris)}
+.choix .texte{flex:1; min-width:0}
+.choix.choisi .marque{color:var(--stylo)}
+.choix.juste .marque{color:var(--vert)}
+.choix.erreur .marque{color:var(--rouge)}
+.choix.terne{color:var(--gris)}
+.actions{display:flex; gap:12px 18px; flex-wrap:wrap; align-items:center}
+.bouton{font:inherit; font-variant:small-caps; letter-spacing:.04em; font-size:1rem; padding:5px 18px; border:1px solid var(--encre); border-radius:0; background:var(--papier); color:var(--encre); cursor:pointer}
+.bouton:hover:not(:disabled){background:var(--encre); color:var(--papier)}
+.bouton:disabled{opacity:.4; cursor:default}
+.bouton.discret{border-color:var(--filet)}
+
+/* Correction du professeur */
+.correction{margin:20px 0 0; padding:2px 0 2px 16px; border-left:2px solid var(--rouge)}
+.correction.juste{border-left-color:var(--vert)}
+.verdict{font:600 1.7rem/1.1 var(--main); color:var(--rouge); margin:0 0 6px}
+.correction.juste .verdict{color:var(--vert)}
+.explication{margin:0; font-size:1rem; line-height:1.55}
+.explication p{margin:0 0 .55em}
+.explication p:last-child{margin-bottom:0}
+.explication .revoir{font-style:italic; color:var(--gris)}
+.explication .fig{margin:8px auto 12px}
+/* Calcul en colonne : une étape par ligne, alignées sur le signe = ou ⇔ (comme dans les PDF) */
+.calcul{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.45em .4em; align-items:baseline; margin:.3em 0 .5em 1.4em; padding:.2em 0 .3em; overflow-x:auto; overflow-y:hidden}
+.calcul .g{justify-self:end}
+.resultat{display:inline-block; border:1px solid currentColor; padding:.05em .4em; line-height:1.35}
+code{font-family:var(--mono); font-size:.88em}
+
+/* Figures dans les énoncés et les corrections */
+.fig{display:block; width:100%; height:auto; margin:12px auto 4px}
+.fig .grille{stroke:var(--filet); stroke-width:.7; fill:none}
+.fig .axe{stroke:var(--encre); stroke-width:1.1; fill:none}
+.fig .fleche{fill:var(--encre)}
+.fig .tick{font:10.5px var(--serif); fill:var(--encre); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .courbe{stroke:currentColor; stroke-width:2.2; fill:none}
+.fig .lab{font:italic 13px var(--serif); fill:currentColor; paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .pt{fill:currentColor}
+.fig .lecture{stroke:var(--vert); stroke-width:1.5; stroke-dasharray:5 3; fill:none}
+.fig .pointe{fill:var(--vert)}
+.fig .note{font:italic 11.5px var(--serif); fill:var(--vert); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .surligne{stroke:var(--orange); stroke-width:9; opacity:.6; fill:none}
+.fig .c-rouge{color:var(--rouge)}
+.fig .c-bleu{color:var(--stylo)}
+.fig .c-noir{color:var(--encre)}
+.fig .c-violet{color:var(--violet)}
+
+/* Résultat */
+.note{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:6px 0 2px; color:var(--rouge)}
+.note .grand{font:700 3.6rem/1 var(--main)}
+.note .sur{font:400 1.5rem/1 var(--main)}
+.appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
+.bilan-parties{margin:0 0 6px}
+.bilan-parties span{white-space:nowrap}
+.bilan-reprise{margin:0 0 10px}
+.reprise-info{margin:0 0 10px; font-style:italic}
+.a-revoir{margin:0 0 16px}
+.a-revoir ul{margin:4px 0 0; padding-left:1.3em}
+.titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
+.revue{list-style:none; padding:0; margin:8px 0 0; border-top:1px solid var(--encre)}
+.revue li{padding:14px 0; border-bottom:1px solid var(--filet)}
+.revue .enonce{margin-bottom:10px}
+.revue .bilan{margin:6px 0 8px; font-style:italic}
+.revue li.juste .bilan{color:var(--vert)}
+.revue li.erreur .bilan{color:var(--rouge)}
+.revue .explication{font-size:1rem}
+.liste-choix{margin:0 0 8px; padding-left:1.6em}
+.liste-choix li{border:0; padding:1px 0}
+.liste-choix li.bonne{color:var(--vert)}
+.variante{margin:14px 0 0; padding:0 0 0 14px; border-left:1px dashed var(--filet)}
+.pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
+.pied p{margin:0 0 4px}
+.pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
+
+/* Formules : KaTeX (réduit de 1,21 à 1,1 em pour s'accorder au texte), sinon mini-LaTeX (.m) */
+.katex{font-size:1.1em}
+.m{font-family:var(--serif); white-space:nowrap}
+.m.m-long{white-space:normal}
+.m i{font-style:italic}
+.m .rm{font-style:normal}
+.m sub,.m sup{font-size:.8em; line-height:0; white-space:nowrap}
+.m .prime{display:inline-block; margin-left:.08em; font-size:1.2em; line-height:0}
+.m sub{vertical-align:-.25em}
+.m sup{vertical-align:.55em}
+.frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; font-size:.92em; line-height:1.2; margin:0 .15em}
+.frac .num{border-bottom:1px solid currentColor; padding:0 .25em .04em}
+.frac .den{padding:.04em .25em 0}
+.sqrt .rad{border-top:1px solid currentColor; padding:0 .12em}
+
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important; scroll-behavior:auto !important}}
+@media (max-width:520px){
+  body{font-size:17px}
+  .feuille{padding:22px 16px 48px}
+  .entete{font-size:.9rem}
+  h1{font-size:1.7rem}
+  .reponses.vf{gap:8px 24px}
+}
+@media print{
+  .actions,.pied,.progression{display:none}
+  .revue li{break-inside:avoid}
+}
+/* Feuille de calcul */
+table.tableur{border-collapse:collapse; margin:10px auto 4px; font:400 .88rem "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+table.tableur th{background:var(--case); color:var(--gris); font-weight:400; border:1px solid var(--filet); padding:2px 10px; text-align:center; min-width:2.2em}
+table.tableur td{border:1px solid var(--filet); padding:2px 10px; min-width:5em; height:1.9em; background:#FFFFFF; text-align:center}
+table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
+</style>
+</head>
+<body>
+<main class="feuille">
+  <header>
+    <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
+    <div class="entete"><span>Seconde</span><span>M. Bailly</span><span>Chapitre 6 · Généralités sur les fonctions, fonctions affines</span></div>
+    <h1>Entraînement Évaluation fonctions, fonctions affines</h1>
+    <p class="consigne">Douze questions sur les fonctions et les fonctions affines. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="filet" role="presentation"></div>
+  </header>
+  <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
+  <section id="quiz" aria-live="polite"></section>
+  <footer class="pied">
+    <p><button type="button" id="reinitialiser">Recommencer depuis le début</button></p>
+  </footer>
+</main>
+<script>
+(function () {
+'use strict';
+const r = String.raw;
+
+/* ---------- Figures (SVG généré) ---------- */
+const arrondi = x => Math.round(x * 10) / 10;
+const fr = x => String(x).replace('.', ',');
+const moins = n => String(n).replace('-', '−');
+function fleche(x, y, sens) {
+  return sens === 'droite'
+    ? `<path class="fleche" d="M${x} ${y} l-7 -3.5 v7 z"/>`
+    : `<path class="fleche" d="M${x} ${y} l-3.5 7 h7 z"/>`;
+}
+// Repère orthonormé quadrillé et gradué de 1 en 1. o = {xmin, xmax, ymin, ymax, label, echelle} et, au choix :
+//   courbes  : [{f: x => ..., classe, x1, x2}]        classe = c-rouge (défaut), c-bleu, c-noir, c-violet
+//   noms     : [{x, y, texte, indice, apres, classe, ancre}]   nom d'une courbe, dans sa couleur
+//   lectures : [[[x, y], [x, y], ...], ...]            lignes de lecture en tirets verts, flèche au bout
+//   textes   : [{x, y, texte, ancre}]                  annotations vertes des lectures (+1, +3...)
+//   points   : [{x, y, classe}]
+//   surligne : {x1, x2}                                partie de l'axe des abscisses surlignée en orange (null = bord du repère)
+let numeroFigure = 0;
+function repere(o) {
+  const u = 26, m = 17;
+  const W = (o.xmax - o.xmin) * u + 2 * m, H = (o.ymax - o.ymin) * u + 2 * m;
+  const X = x => arrondi(m + (x - o.xmin) * u), Y = y => arrondi(m + (o.ymax - y) * u);
+  const cadre = 'cadre-' + (++numeroFigure);
+  const xfin = X(o.xmax) + 12, yhaut = Y(o.ymax) - 12;
+  let s = `<svg class="fig" viewBox="0 0 ${W} ${H}" style="max-width:${Math.round(W * (o.echelle || 1.3))}px" role="img" aria-label="${o.label}">`;
+  s += `<defs><clipPath id="${cadre}"><rect x="${X(o.xmin)}" y="${Y(o.ymax)}" width="${(o.xmax - o.xmin) * u}" height="${(o.ymax - o.ymin) * u}"/></clipPath></defs>`;
+  for (let x = o.xmin; x <= o.xmax; x++) s += `<line class="grille" x1="${X(x)}" y1="${Y(o.ymin)}" x2="${X(x)}" y2="${Y(o.ymax)}"/>`;
+  for (let y = o.ymin; y <= o.ymax; y++) s += `<line class="grille" x1="${X(o.xmin)}" y1="${Y(y)}" x2="${X(o.xmax)}" y2="${Y(y)}"/>`;
+  if (o.surligne) {
+    const x1 = o.surligne.x1 === null ? o.xmin : o.surligne.x1, x2 = o.surligne.x2 === null ? o.xmax : o.surligne.x2;
+    s += `<line class="surligne" x1="${X(x1)}" y1="${Y(0)}" x2="${X(x2)}" y2="${Y(0)}"/>`;
+  }
+  s += `<line class="axe" x1="${X(o.xmin)}" y1="${Y(0)}" x2="${xfin}" y2="${Y(0)}"/>${fleche(xfin, Y(0), 'droite')}`;
+  s += `<line class="axe" x1="${X(0)}" y1="${Y(o.ymin)}" x2="${X(0)}" y2="${yhaut}"/>${fleche(X(0), yhaut, 'haut')}`;
+  (o.courbes || []).forEach(c => {
+    const x1 = c.x1 === undefined ? o.xmin : c.x1, x2 = c.x2 === undefined ? o.xmax : c.x2, n = 80;
+    let d = '';
+    for (let k = 0; k <= n; k++) { const x = x1 + (x2 - x1) * k / n; d += (k ? ' L' : 'M') + X(x) + ' ' + Y(c.f(x)); }
+    s += `<path class="courbe ${c.classe || 'c-rouge'}" clip-path="url(#${cadre})" d="${d}"/>`;
+  });
+  (o.lectures || []).forEach(pts => {
+    const P = pts.map(p => [X(p[0]), Y(p[1])]);
+    const a = P[P.length - 2], b = P[P.length - 1];
+    const L = Math.hypot(b[0] - a[0], b[1] - a[1]), ux = (b[0] - a[0]) / L, uy = (b[1] - a[1]) / L;
+    s += `<polyline class="lecture" points="${P.map(p => p.join(',')).join(' ')}"/>`;
+    s += `<path class="pointe" d="M${b[0]} ${b[1]} L${arrondi(b[0] - 7 * ux + 3.2 * uy)} ${arrondi(b[1] - 7 * uy - 3.2 * ux)} L${arrondi(b[0] - 7 * ux - 3.2 * uy)} ${arrondi(b[1] - 7 * uy + 3.2 * ux)} z"/>`;
+  });
+  // Graduations sur fond papier, par-dessus les courbes et les lectures : elles restent lisibles.
+  for (let x = o.xmin; x <= o.xmax; x++) if (x !== 0) s += `<text class="tick" x="${X(x)}" y="${Y(0) + 13}" text-anchor="middle">${moins(x)}</text>`;
+  for (let y = o.ymin; y <= o.ymax; y++) if (y !== 0) s += `<text class="tick" x="${X(0) - 5}" y="${Y(y) + 3.5}" text-anchor="end">${moins(y)}</text>`;
+  s += `<text class="tick" x="${X(0) - 5}" y="${Y(0) + 13}" text-anchor="end">0</text>`;
+  (o.points || []).forEach(p => { s += `<circle class="pt ${p.classe || 'c-rouge'}" cx="${X(p.x)}" cy="${Y(p.y)}" r="3.3"/>`; });
+  (o.textes || []).forEach(t => { s += `<text class="note" x="${X(t.x)}" y="${Y(t.y)}" text-anchor="${t.ancre || 'middle'}">${t.texte}</text>`; });
+  (o.noms || []).forEach(n => {
+    const indice = n.indice ? `<tspan dy="3" font-size="9.5">${n.indice}</tspan>` + (n.apres ? `<tspan dy="-3">${n.apres}</tspan>` : '') : '';
+    s += `<text class="lab ${n.classe || 'c-rouge'}" x="${X(n.x)}" y="${Y(n.y)}" text-anchor="${n.ancre || 'start'}">${n.texte}${indice}</text>`;
+  });
+  return s + '</svg>';
+}
+// Feuille de calcul (question sur le tableur) : lignes = [[A, B], ...] à partir de la ligne 1 ;
+// la cellule '#sel' est la cellule sélectionnée, laissée vide.
+function tableur(lignes, label) {
+  const cellule = c => c === '#sel' ? '<td class="sel"></td>' : `<td>${c}</td>`;
+  return `<table class="tableur" aria-label="${label}"><tr><th></th><th>A</th><th>B</th></tr>`
+    + lignes.map((l, k) => `<tr><th>${k + 1}</th>${cellule(l[0])}${cellule(l[1])}</tr>`).join('')
+    + '</table>';
+}
+
+// Calcul en colonne, comme l'environnement calcul des PDF : une étape par ligne, alignées sur le
+// signe placé après & (formules écrites sans les dollars). Le résultat s'encadre avec \resultat{...}.
+//   calcul(r`A & = x - 4(3x + 2)`, r`& = x - 12x - 8`, r`& = \resultat{-11x - 8}`)
+function calcul(...lignes) {
+  return '<div class="calcul">' + lignes.map(l => {
+    const k = l.indexOf('&');
+    const gauche = k < 0 ? '' : l.slice(0, k).trim(), droite = (k < 0 ? l : l.slice(k + 1)).trim();
+    return '<span class="g">' + (gauche ? '$' + gauche + '$' : '') + '</span><span class="d">$' + droite + '$</span>';
+  }).join('') + '</div>';
+}
+
+/* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
+// Courbe lisse pour repere : fonction qui passe par les noeuds (x0 ; ys[0]), (x0 + 1 ; ys[1]),
+// ... et les relie par l'interpolation cubique monotone (PCHIP), la même que les arcs de Bézier
+// des figures du cours : entre deux noeuds, la courbe ne dépasse ni l'un ni l'autre (extremums
+// aux noeuds), et toutes les lectures demandées tombent sur le quadrillage.
+function lisse(x0, ys) {
+  const n = ys.length, d = [], m = [];
+  for (let k = 0; k < n - 1; k++) d.push(ys[k + 1] - ys[k]);
+  for (let k = 1; k < n - 1; k++) m[k] = d[k - 1] * d[k] <= 0 ? 0 : 2 / (1 / d[k - 1] + 1 / d[k]);
+  // Pente aux extrémités : formule à trois points, bornée pour que la courbe reste monotone.
+  const bout = (d0, d1) => {
+    let t = (3 * d0 - d1) / 2;
+    if (t * d0 <= 0) t = 0;
+    else if (d0 * d1 < 0 && Math.abs(t) > Math.abs(3 * d0)) t = 3 * d0;
+    return t;
+  };
+  m[0] = bout(d[0], d[1]);
+  m[n - 1] = bout(d[n - 2], d[n - 3]);
+  return x => {
+    const k = Math.max(0, Math.min(n - 2, Math.floor(x - x0)));
+    const t = x - x0 - k, t2 = t * t, t3 = t2 * t;
+    return (2 * t3 - 3 * t2 + 1) * ys[k] + (t3 - 2 * t2 + t) * m[k]
+      + (-2 * t3 + 3 * t2) * ys[k + 1] + (t3 - t2) * m[k + 1];
+  };
+}
+
+// repere avec plusieurs intervalles de l'axe des abscisses surlignés en orange (solutions d'une
+// inéquation) : o.surlignes = [{x1, x2}, ...]. repere n'en surligne qu'un : chaque trait orange
+// est pris dans un repère vide tracé avec ce seul intervalle, puis glissé sous les axes.
+function repereSol(o) {
+  const base = Object.assign({}, o);
+  delete base.surlignes;
+  const traits = (o.surlignes || []).map(i => {
+    const vide = repere({ xmin: o.xmin, xmax: o.xmax, ymin: o.ymin, ymax: o.ymax, label: '', surligne: i });
+    const trait = vide.match(/<line class="surligne"[^>]*\/>/);
+    return trait ? trait[0] : '';
+  }).join('');
+  return repere(base).replace('<line class="axe"', () => traits + '<line class="axe"');
+}
+
+// Tableau de signes d'une fonction affine, comme ceux du cours (tkz-tab) : ligne de x (−∞, la
+// valeur qui annule, +∞), puis ligne des signes, le 0 posé sur un trait vertical.
+// tableauSignes(nom, x0, signes) : nom de la fonction ('f', 'g'), valeur qui annule (texte :
+// '2', '−4'), signes à gauche et à droite de cette valeur (['+', '−'] ou ['−', '+']).
+function tableauSignes(nom, x0, signes) {
+  const W = 240, H = 58, c = 50, h = 28;       // largeur, hauteur, première colonne, hauteur d'une ligne
+  const xm = (c + W) / 2, xg = (c + xm) / 2, xd = (xm + W) / 2;
+  const mot = s => s === '+' ? 'positif' : 'négatif';
+  const texte = (x, y, t, cls, taille) => '<text class="' + cls + '" x="' + x + '" y="' + y
+    + '" text-anchor="middle" style="font-size:' + taille + 'px">' + t + '</text>';
+  const trait = (x1, y1, x2, y2) => '<line class="axe" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '"/>';
+  return '<svg class="fig" viewBox="0 0 ' + W + ' ' + H + '" style="max-width:' + Math.round(W * 1.2)
+    + 'px" role="img" aria-label="Tableau de signes de ' + nom + '(x) : ' + mot(signes[0]) + ' avant ' + x0
+    + ', nul en ' + x0 + ', ' + mot(signes[1]) + ' après ' + x0 + '">'
+    + '<rect class="axe" x="1" y="1" width="' + (W - 2) + '" height="' + (H - 2) + '"/>'
+    + trait(c, 1, c, H - 1) + trait(1, 1 + h, W - 1, 1 + h) + trait(xm, 1 + h, xm, H - 1)
+    + texte(c / 2, 20, 'x', 'lab c-noir', 14)
+    + texte(c + 17, 20, '−∞', 'tick', 13) + texte(xm, 20, x0, 'tick', 13) + texte(W - 18, 20, '+∞', 'tick', 13)
+    + '<text class="lab c-noir" x="' + (c / 2) + '" y="48" text-anchor="middle" style="font-size:14px">' + nom
+    + '<tspan font-style="normal">(</tspan>x<tspan font-style="normal">)</tspan></text>'
+    + texte(xg, 49, signes[0], 'tick', 17) + texte(xm, 48, '0', 'tick', 13) + texte(xd, 49, signes[1], 'tick', 17)
+    + '</svg>';
+}
+
+// Figures des énoncés (les corrections y ajoutent lectures et solutions). Courbes de f : points
+// rouges aux extrémités (bornes de l'ensemble de définition, comprises).
+const F4 = lisse(-3, [-2, 0, 1, 2, 3, 1, 0, 1]);
+const FIG4 = { xmin: -3, xmax: 4, ymin: -3, ymax: 4, courbes: [{ f: F4 }],
+  points: [{ x: -3, y: -2 }, { x: 4, y: 1 }], noms: [{ x: 1.3, y: 3.35, texte: 'C', indice: 'f' }],
+  label: 'Repère avec la courbe de f, tracée de x = −3 à x = 4 : elle passe par les points (−3 ; −2), (−2 ; 0), (−1 ; 1), (0 ; 2), (1 ; 3), (2 ; 1), (3 ; 0) et (4 ; 1)' };
+const F4v = lisse(-4, [0, 2, 3, 2, 0, -1, 1, 2]);
+const FIG4v = { xmin: -4, xmax: 3, ymin: -2, ymax: 4, courbes: [{ f: F4v }],
+  points: [{ x: -4, y: 0 }, { x: 3, y: 2 }], noms: [{ x: -1.7, y: 3.35, texte: 'C', indice: 'f' }],
+  label: 'Repère avec la courbe de f, tracée de x = −4 à x = 3 : elle passe par les points (−4 ; 0), (−3 ; 2), (−2 ; 3), (−1 ; 2), (0 ; 0), (1 ; −1), (2 ; 1) et (3 ; 2)' };
+const F6 = lisse(-3, [4, 2, 0, 1, 2, 3, 2, -1]);
+const FIG6 = { xmin: -3, xmax: 4, ymin: -2, ymax: 5, courbes: [{ f: F6 }],
+  points: [{ x: -3, y: 4 }, { x: 4, y: -1 }], noms: [{ x: 2.3, y: 3.35, texte: 'C', indice: 'f' }],
+  label: 'Repère avec la courbe de f, tracée de x = −3 à x = 4 : elle passe par les points (−3 ; 4), (−2 ; 2), (−1 ; 0), (0 ; 1), (1 ; 2), (2 ; 3), (3 ; 2) et (4 ; −1)' };
+const F6v = lisse(-4, [-1, 1, 3, 1, -1, 0, 1, 3]);
+const FIG6v = { xmin: -4, xmax: 3, ymin: -2, ymax: 4, courbes: [{ f: F6v }],
+  points: [{ x: -4, y: -1 }, { x: 3, y: 3 }], noms: [{ x: -1.7, y: 3.35, texte: 'C', indice: 'f' }],
+  label: 'Repère avec la courbe de f, tracée de x = −4 à x = 3 : elle passe par les points (−4 ; −1), (−3 ; 1), (−2 ; 3), (−1 ; 1), (0 ; −1), (1 ; 0), (2 ; 1) et (3 ; 3)' };
+const F7 = lisse(-4, [-2, -1, 0, 2, 4, 3, 2, 1]);
+const FIG7 = { xmin: -4, xmax: 3, ymin: -3, ymax: 5, courbes: [{ f: x => 0.5 * x + 1, classe: 'c-bleu' }, { f: F7 }],
+  points: [{ x: -4, y: -2 }, { x: 3, y: 1 }],
+  noms: [{ x: 0.3, y: 4.35, texte: 'C', indice: 'f' }, { x: 2.4, y: 2.95, texte: 'C', indice: 'g', classe: 'c-bleu' }],
+  label: 'Repère avec la courbe de f, tracée de x = −4 à x = 3, qui passe par les points (−4 ; −2), (−3 ; −1), (−2 ; 0), (−1 ; 2), (0 ; 4), (1 ; 3), (2 ; 2) et (3 ; 1), et la droite de g, en bleu, qui passe par les points (−2 ; 0), (0 ; 1) et (2 ; 2)' };
+const F7v = lisse(-3, [0, 2, 3, 4, 3, 2, -1, -3]);
+const FIG7v = { xmin: -3, xmax: 4, ymin: -4, ymax: 5, courbes: [{ f: x => -x + 2, classe: 'c-bleu' }, { f: F7v }],
+  points: [{ x: -3, y: 0 }, { x: 4, y: -3 }],
+  noms: [{ x: 0.3, y: 4.35, texte: 'C', indice: 'f' }, { x: -2.1, y: 4.55, texte: 'C', indice: 'g', classe: 'c-bleu' }],
+  label: 'Repère avec la courbe de f, tracée de x = −3 à x = 4, qui passe par les points (−3 ; 0), (−2 ; 2), (−1 ; 3), (0 ; 4), (1 ; 3), (2 ; 2), (3 ; −1) et (4 ; −3), et la droite de g, en bleu, qui passe par les points (−1 ; 3), (0 ; 2) et (3 ; −1)' };
+const FIG8 = { xmin: -4, xmax: 4, ymin: -4, ymax: 4, courbes: [{ f: x => 1.5 * x - 2 }],
+  noms: [{ x: 3, y: 1.7, texte: 'C', indice: 'f' }],
+  label: 'Repère avec une droite qui monte : elle passe par les points (0 ; −2), (2 ; 1) et (4 ; 4)' };
+const FIG8v = { xmin: -4, xmax: 4, ymin: -4, ymax: 4, courbes: [{ f: x => -1.5 * x + 3 }],
+  noms: [{ x: 3.4, y: -1.3, texte: 'C', indice: 'f' }],
+  label: 'Repère avec une droite qui descend : elle passe par les points (0 ; 3), (2 ; 0) et (4 ; −3)' };
+
+const QUIZ = {
+  id: '2de-06-fonctions-generalites-affines-entrainement',
+  parties: ['Fonctions, fonctions affines'],
+  questions: [
+
+  /* ----- Notion de fonction (partie 1 du cours) ----- */
+
+  { partie: 0, theme: 'Image par le calcul', type: 'qcm',
+    enonce: r`Soit $f$ la fonction définie sur $\R$ par $f(x) = 2x^{2} - x + 3$. L'image de $-3$ par $f$ est&nbsp;:`,
+    choix: [r`$24$`, r`$-12$`, r`$18$`, r`$42$`],
+    bonne: 0,
+    explication: [
+      r`L'image de $-3$ est $f(-3)$&nbsp;: on remplace $x$ par $(-3)$, entre parenthèses, puis on calcule en commençant par le carré.`,
+      calcul(r`f(-3) & = 2 \times (-3)^{2} - (-3) + 3`, r`& = 2 \times 9 + 3 + 3`, r`& = \resultat{24}`),
+      r`Attention&nbsp;: $(-3)^{2} = 9$, alors que $-3^{2} = -9$.`],
+    revoir: r`méthode et capacité 1 du cours (question 1), exercice 1 de la fiche, exercice 2 p.&nbsp;212 du manuel`,
+    variante: {
+      enonce: r`Soit $f$ la fonction définie sur $\R$ par $f(x) = 3x^{2} + 2x - 4$. L'image de $-2$ par $f$ est&nbsp;:`,
+      choix: [r`$4$`, r`$-20$`, r`$12$`, r`$28$`],
+      bonne: 0,
+      explication: [
+        r`L'image de $-2$ est $f(-2)$&nbsp;: on remplace $x$ par $(-2)$, entre parenthèses, puis on calcule en commençant par le carré.`,
+        calcul(r`f(-2) & = 3 \times (-2)^{2} + 2 \times (-2) - 4`, r`& = 3 \times 4 - 4 - 4`, r`& = \resultat{4}`),
+        r`Attention&nbsp;: $(-2)^{2} = 4$, alors que $-2^{2} = -4$.`] } },
+
+  { partie: 0, theme: 'Antécédent par le calcul', type: 'qcm',
+    enonce: r`Soit $g$ la fonction définie sur $\R$ par $g(x) = 3x - 8$. L'antécédent de $7$ par $g$ est&nbsp;:`,
+    choix: [r`$5$`, r`$13$`, r`$-\dfrac{1}{3}$`, r`$12$`],
+    bonne: 0,
+    explication: [
+      r`Chercher l'antécédent de $7$, c'est résoudre l'équation $g(x) = 7$&nbsp;: on ajoute $8$ aux deux membres, puis on les divise par $3$.`,
+      calcul(r`g(x) = 7 & \iff 3x - 8 = 7`, r`& \iff 3x - 8 \op{+ 8} = 7 \op{+ 8}`, r`& \iff 3x = 15`, r`& \iff \dfrac{3x}{\op{3}} = \dfrac{15}{\op{3}}`, r`& \iff \resultat{x = 5}`),
+      r`Vérification&nbsp;: $g(5) = 15 - 8 = 7$. Attention&nbsp;: $13$ est l'image de $7$, car $g(7) = 21 - 8 = 13$&nbsp;; ce n'est pas son antécédent.`],
+    revoir: r`méthode et capacité 1 du cours (question 2), exercice 6 de la fiche (question 2), exercice 2 p.&nbsp;212 du manuel`,
+    variante: {
+      enonce: r`Soit $g$ la fonction définie sur $\R$ par $g(x) = 5x + 2$. L'antécédent de $-8$ par $g$ est&nbsp;:`,
+      choix: [r`$-2$`, r`$-38$`, r`$-\dfrac{6}{5}$`, r`$-15$`],
+      bonne: 0,
+      explication: [
+        r`Chercher l'antécédent de $-8$, c'est résoudre l'équation $g(x) = -8$&nbsp;: on retire $2$ aux deux membres, puis on les divise par $5$.`,
+        calcul(r`g(x) = -8 & \iff 5x + 2 = -8`, r`& \iff 5x + 2 \op{- 2} = -8 \op{- 2}`, r`& \iff 5x = -10`, r`& \iff \dfrac{5x}{\op{5}} = \dfrac{-10}{\op{5}}`, r`& \iff \resultat{x = -2}`),
+        r`Vérification&nbsp;: $g(-2) = -10 + 2 = -8$. Attention&nbsp;: $-38$ est l'image de $-8$, car $g(-8) = -40 + 2 = -38$&nbsp;; ce n'est pas son antécédent.`] } },
+
+  { partie: 0, theme: 'Ensemble de définition', type: 'qcm',
+    enonce: r`Soit $k$ la fonction définie par $k(x) = \sqrt{12 - 3x}$. L'ensemble de définition de $k$ est&nbsp;:`,
+    choix: [r`$\left]-\infty\,;\,4\right]$`, r`$\left[4\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,4\right[$`, r`$\left]-\infty\,;\,-4\right]$`],
+    bonne: 0,
+    explication: [
+      r`Le nombre sous la racine carrée doit être positif ou nul&nbsp;: on résout l'inéquation $12 - 3x \ge 0$.`,
+      calcul(r`12 - 3x \ge 0 & \iff 12 - 3x \op{- 12} \ge 0 \op{- 12}`, r`& \iff -3x \ge -12`, r`& \iff \dfrac{-3x}{\op{-3}} \le \dfrac{-12}{\op{-3}}`, r`& \iff x \le 4`),
+      r`On divise par $-3$, un nombre négatif&nbsp;: le sens de l'inégalité change. Le nombre $4$ est compris, car $\sqrt{0} = 0$ existe&nbsp;: l'ensemble de définition de $k$ est <span class="resultat">$\left]-\infty\,;\,4\right]$</span>.`],
+    revoir: r`méthode et capacité 1 du cours (question 5), exercice 2 de la fiche (questions 2 et 3)`,
+    variante: {
+      enonce: r`Soit $k$ la fonction définie par $k(x) = \sqrt{10 - 5x}$. L'ensemble de définition de $k$ est&nbsp;:`,
+      choix: [r`$\left]-\infty\,;\,2\right]$`, r`$\left[2\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,2\right[$`, r`$\left]-\infty\,;\,-2\right]$`],
+      bonne: 0,
+      explication: [
+        r`Le nombre sous la racine carrée doit être positif ou nul&nbsp;: on résout l'inéquation $10 - 5x \ge 0$.`,
+        calcul(r`10 - 5x \ge 0 & \iff 10 - 5x \op{- 10} \ge 0 \op{- 10}`, r`& \iff -5x \ge -10`, r`& \iff \dfrac{-5x}{\op{-5}} \le \dfrac{-10}{\op{-5}}`, r`& \iff x \le 2`),
+        r`On divise par $-5$, un nombre négatif&nbsp;: le sens de l'inégalité change. Le nombre $2$ est compris, car $\sqrt{0} = 0$ existe&nbsp;: l'ensemble de définition de $k$ est <span class="resultat">$\left]-\infty\,;\,2\right]$</span>.`] } },
+
+  /* ----- Courbe représentative (partie 2 du cours) ----- */
+
+  { partie: 0, theme: 'Image et antécédents, lecture graphique', type: 'qcm',
+    enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-3\,;\,4\right]$. Par lecture graphique, on obtient&nbsp;:`
+      + repere(FIG4),
+    choix: [r`image de $1$&nbsp;: $3$&nbsp;; antécédents de $1$&nbsp;: $-1$, $2$ et $4$`,
+            r`image de $1$&nbsp;: $3$&nbsp;; antécédents de $1$&nbsp;: $-1$ et $2$`,
+            r`image de $1$&nbsp;: $3$&nbsp;; antécédent de $1$&nbsp;: $-1$ seulement`,
+            r`image de $1$&nbsp;: $-1$, $2$ et $4$&nbsp;; antécédent de $1$&nbsp;: $3$`],
+    bonne: 0,
+    explication: [
+      r`Image de $1$&nbsp;: du point d'abscisse $1$ de l'axe des abscisses, on rejoint $\mathscr{C}_{f}$ verticalement, puis on lit l'ordonnée. Antécédents de $1$&nbsp;: on trace la droite horizontale d'ordonnée $1$, puis on lit les abscisses de ses points d'intersection avec $\mathscr{C}_{f}$ (tirets verts).`,
+      repere(Object.assign({}, FIG4, { echelle: 1.15,
+          lectures: [[[1, 0], [1, 3], [0, 3]], [[0, 1], [-1, 1], [-1, 0]], [[0, 1], [2, 1], [2, 0]], [[0, 1], [4, 1], [4, 0]]],
+          label: 'La même courbe, avec les lignes de lecture : de l\'abscisse 1 vers l\'ordonnée 3, puis de l\'ordonnée 1 vers les abscisses −1, 2 et 4' })),
+      r`Le point de $\mathscr{C}_{f}$ d'abscisse $1$ a pour ordonnée $3$&nbsp;: $f(1) = 3$. La droite d'ordonnée $1$ coupe $\mathscr{C}_{f}$ en trois points, d'abscisses $-1$, $2$ et $4$ ($4$ est l'extrémité droite de la courbe, marquée d'un point). Donc <span class="resultat">image de $1$&nbsp;: $3$&nbsp;; antécédents de $1$&nbsp;: $-1$, $2$ et $4$</span>. Un nombre a une seule image, mais il peut avoir plusieurs antécédents.`],
+    revoir: r`méthode «&nbsp;lire une image, des antécédents&nbsp;» et capacité 2 du cours (questions 2 et 3), exercice 3 de la fiche (question 1), exercices 1 et 2 p.&nbsp;246 du manuel`,
+    variante: {
+      enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-4\,;\,3\right]$. Par lecture graphique, on obtient&nbsp;:`
+        + repere(FIG4v),
+      choix: [r`image de $2$&nbsp;: $1$&nbsp;; antécédents de $2$&nbsp;: $-3$, $-1$ et $3$`,
+              r`image de $2$&nbsp;: $1$&nbsp;; antécédents de $2$&nbsp;: $-3$ et $-1$`,
+              r`image de $2$&nbsp;: $1$&nbsp;; antécédent de $2$&nbsp;: $-3$ seulement`,
+              r`image de $2$&nbsp;: $-3$, $-1$ et $3$&nbsp;; antécédent de $2$&nbsp;: $1$`],
+      bonne: 0,
+      explication: [
+        r`Image de $2$&nbsp;: du point d'abscisse $2$ de l'axe des abscisses, on rejoint $\mathscr{C}_{f}$ verticalement, puis on lit l'ordonnée. Antécédents de $2$&nbsp;: on trace la droite horizontale d'ordonnée $2$, puis on lit les abscisses de ses points d'intersection avec $\mathscr{C}_{f}$ (tirets verts).`,
+        repere(Object.assign({}, FIG4v, { echelle: 1.15,
+            lectures: [[[2, 0], [2, 1], [0, 1]], [[0, 2], [-3, 2], [-3, 0]], [[0, 2], [-1, 2], [-1, 0]], [[0, 2], [3, 2], [3, 0]]],
+            label: 'La même courbe, avec les lignes de lecture : de l\'abscisse 2 vers l\'ordonnée 1, puis de l\'ordonnée 2 vers les abscisses −3, −1 et 3' })),
+        r`Le point de $\mathscr{C}_{f}$ d'abscisse $2$ a pour ordonnée $1$&nbsp;: $f(2) = 1$. La droite d'ordonnée $2$ coupe $\mathscr{C}_{f}$ en trois points, d'abscisses $-3$, $-1$ et $3$ ($3$ est l'extrémité droite de la courbe, marquée d'un point). Donc <span class="resultat">image de $2$&nbsp;: $1$&nbsp;; antécédents de $2$&nbsp;: $-3$, $-1$ et $3$</span>. Un nombre a une seule image, mais il peut avoir plusieurs antécédents.`] } },
+
+  { partie: 0, theme: 'Point d\'une courbe', type: 'vf',
+    enonce: r`Soit $f$ la fonction définie sur $\R$ par $f(x) = x^{2} + 3x - 2$, et $\mathscr{C}_{f}$ sa courbe représentative. Le point $A(-3\,;\,-2)$ appartient à $\mathscr{C}_{f}$.`,
+    bonne: true,
+    explication: [
+      r`Un point appartient à $\mathscr{C}_{f}$ si son ordonnée est l'image de son abscisse&nbsp;: on calcule $f(-3)$, puis on le compare à l'ordonnée de $A$.`,
+      calcul(r`f(-3) & = (-3)^{2} + 3 \times (-3) - 2`, r`& = 9 - 9 - 2`, r`& = -2`),
+      r`$f(-3) = -2$ est bien l'ordonnée de $A$&nbsp;: l'affirmation est <span class="resultat">vraie</span>. Attention&nbsp;: $(-3)^{2} = 9$, alors que $-3^{2} = -9$.`],
+    revoir: r`définition de la courbe représentative et capacité 2 du cours (question 5), exercice 88 p.&nbsp;232 du manuel`,
+    variante: {
+      enonce: r`Soit $f$ la fonction définie sur $\R$ par $f(x) = 2x^{2} - 5x + 1$, et $\mathscr{C}_{f}$ sa courbe représentative. Le point $B(-1\,;\,-2)$ appartient à $\mathscr{C}_{f}$.`,
+      bonne: false,
+      explication: [
+        r`Un point appartient à $\mathscr{C}_{f}$ si son ordonnée est l'image de son abscisse&nbsp;: on calcule $f(-1)$, puis on le compare à l'ordonnée de $B$.`,
+        calcul(r`f(-1) & = 2 \times (-1)^{2} - 5 \times (-1) + 1`, r`& = 2 + 5 + 1`, r`& = 8`),
+        r`$f(-1) = 8$, alors que l'ordonnée de $B$ est $-2$&nbsp;: comme $8 \ne -2$, l'affirmation est <span class="resultat">fausse</span>, $B$ n'appartient pas à $\mathscr{C}_{f}$. Attention&nbsp;: $-5 \times (-1) = 5$.`] } },
+
+  /* ----- Résolution graphique d'équations et d'inéquations (partie 3 du cours) ----- */
+
+  { partie: 0, theme: 'Inéquation, lecture graphique', type: 'qcm',
+    enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-3\,;\,4\right]$. L'ensemble des solutions de l'inéquation $f(x) < 2$ est&nbsp;:`
+      + repere(FIG6),
+    choix: [r`$\left]-2\,;\,1\right[ ∪ \left]3\,;\,4\right]$`, r`$\left[-2\,;\,1\right] ∪ \left[3\,;\,4\right]$`,
+            r`$\left]-2\,;\,1\right[ ∪ \left]3\,;\,4\right[$`, r`$\left[-3\,;\,-2\right[ ∪ \left]1\,;\,3\right[$`],
+    bonne: 0,
+    explication: [
+      r`Les solutions de $f(x) < 2$ sont les abscisses des points de $\mathscr{C}_{f}$ situés strictement au-dessous de la droite horizontale d'ordonnée $2$. Cette droite coupe $\mathscr{C}_{f}$ en trois points, d'abscisses $-2$, $1$ et $3$ (tirets verts).`,
+      repereSol(Object.assign({}, FIG6, { echelle: 1.15,
+          lectures: [[[0, 2], [-2, 2], [-2, 0]], [[0, 2], [1, 2], [1, 0]], [[0, 2], [3, 2], [3, 0]]],
+          surlignes: [{ x1: -2, x2: 1 }, { x1: 3, x2: 4 }],
+          label: 'La même courbe, avec les lignes de lecture de l\'ordonnée 2 vers les abscisses −2, 1 et 3, et les solutions surlignées en orange sur l\'axe des abscisses : de −2 à 1 et de 3 à 4' })),
+      r`$\mathscr{C}_{f}$ est strictement au-dessous de cette droite pour $x$ entre $-2$ et $1$, et entre $3$ et $4$ (en orange). Les nombres $-2$, $1$ et $3$ sont exclus, car leur image vaut $2$&nbsp;; $4$ est compris, car $f(4) = -1 < 2$. L'ensemble des solutions est <span class="resultat">$\left]-2\,;\,1\right[ ∪ \left]3\,;\,4\right]$</span>.`],
+    revoir: r`propriété «&nbsp;résolution graphique&nbsp;» et capacité 3 du cours (questions 1 et 2), exercice 3 de la fiche (question 2), exercices 90 p.&nbsp;232 et 10 p.&nbsp;246 du manuel`,
+    variante: {
+      enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-4\,;\,3\right]$. L'ensemble des solutions de l'inéquation $f(x) < 1$ est&nbsp;:`
+        + repere(FIG6v),
+      choix: [r`$\left[-4\,;\,-3\right[ ∪ \left]-1\,;\,2\right[$`, r`$\left[-4\,;\,-3\right] ∪ \left[-1\,;\,2\right]$`,
+              r`$\left]-4\,;\,-3\right[ ∪ \left]-1\,;\,2\right[$`, r`$\left]-3\,;\,-1\right[ ∪ \left]2\,;\,3\right]$`],
+      bonne: 0,
+      explication: [
+        r`Les solutions de $f(x) < 1$ sont les abscisses des points de $\mathscr{C}_{f}$ situés strictement au-dessous de la droite horizontale d'ordonnée $1$. Cette droite coupe $\mathscr{C}_{f}$ en trois points, d'abscisses $-3$, $-1$ et $2$ (tirets verts).`,
+        repereSol(Object.assign({}, FIG6v, { echelle: 1.15,
+            lectures: [[[0, 1], [-3, 1], [-3, 0]], [[0, 1], [-1, 1], [-1, 0]], [[0, 1], [2, 1], [2, 0]]],
+            surlignes: [{ x1: -4, x2: -3 }, { x1: -1, x2: 2 }],
+            label: 'La même courbe, avec les lignes de lecture de l\'ordonnée 1 vers les abscisses −3, −1 et 2, et les solutions surlignées en orange sur l\'axe des abscisses : de −4 à −3 et de −1 à 2' })),
+        r`$\mathscr{C}_{f}$ est strictement au-dessous de cette droite pour $x$ entre $-4$ et $-3$, et entre $-1$ et $2$ (en orange). Les nombres $-3$, $-1$ et $2$ sont exclus, car leur image vaut $1$&nbsp;; $-4$ est compris, car $f(-4) = -1 < 1$. L'ensemble des solutions est <span class="resultat">$\left[-4\,;\,-3\right[ ∪ \left]-1\,;\,2\right[$</span>.`] } },
+
+  { partie: 0, theme: 'Deux courbes, lecture graphique', type: 'qcm',
+    enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-4\,;\,3\right]$, et $\mathscr{C}_{g}$ la droite qui représente la fonction $g$ définie sur $\R$ par $g(x) = 0{,}5x + 1$. L'ensemble des solutions de l'inéquation $f(x) < g(x)$ est&nbsp;:`
+      + repere(FIG7),
+    choix: [r`$\left[-4\,;\,-2\right[ ∪ \left]2\,;\,3\right]$`, r`$\{-2\,;\,2\}$`, r`$\left]-2\,;\,2\right[$`, r`$\left[-4\,;\,-2\right] ∪ \left[2\,;\,3\right]$`],
+    bonne: 0,
+    explication: [
+      r`Les solutions de $f(x) = g(x)$ sont les abscisses des points d'intersection de $\mathscr{C}_{f}$ et $\mathscr{C}_{g}$&nbsp;: $-2$ (le point est sur l'axe des abscisses) et $2$ (tirets verts). Vérification&nbsp;: $g(-2) = -1 + 1 = 0 = f(-2)$ et $g(2) = 1 + 1 = 2 = f(2)$.`,
+      repereSol(Object.assign({}, FIG7, { echelle: 1.15,
+          points: [{ x: -4, y: -2 }, { x: 3, y: 1 }, { x: -2, y: 0, classe: 'c-noir' }, { x: 2, y: 2, classe: 'c-noir' }],
+          lectures: [[[2, 2], [2, 0]]],
+          surlignes: [{ x1: -4, x2: -2 }, { x1: 2, x2: 3 }],
+          label: 'La même figure : les deux courbes se coupent aux points (−2 ; 0) et (2 ; 2) ; les solutions sont surlignées en orange sur l\'axe des abscisses, de −4 à −2 et de 2 à 3' })),
+      r`Les solutions de $f(x) < g(x)$ sont les abscisses des points où $\mathscr{C}_{f}$ est strictement au-dessous de $\mathscr{C}_{g}$&nbsp;: de $-4$ à $-2$ et de $2$ à $3$ (en orange), sans $-2$ ni $2$, où les courbes se coupent&nbsp;; $-4$ et $3$, extrémités de $\mathscr{C}_{f}$, sont compris. L'ensemble des solutions est <span class="resultat">$\left[-4\,;\,-2\right[ ∪ \left]2\,;\,3\right]$</span>.`],
+    revoir: r`propriété «&nbsp;résolution graphique&nbsp;» et capacité 3 du cours (question 3), exercice 3 de la fiche (question 4), question 5 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237 du manuel`,
+    variante: {
+      enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-3\,;\,4\right]$, et $\mathscr{C}_{g}$ la droite qui représente la fonction $g$ définie sur $\R$ par $g(x) = -x + 2$. L'ensemble des solutions de l'inéquation $f(x) < g(x)$ est&nbsp;:`
+        + repere(FIG7v),
+      choix: [r`$\left[-3\,;\,-1\right[ ∪ \left]3\,;\,4\right]$`, r`$\{-1\,;\,3\}$`, r`$\left]-1\,;\,3\right[$`, r`$\left[-3\,;\,-1\right] ∪ \left[3\,;\,4\right]$`],
+      bonne: 0,
+      explication: [
+        r`Les solutions de $f(x) = g(x)$ sont les abscisses des points d'intersection de $\mathscr{C}_{f}$ et $\mathscr{C}_{g}$&nbsp;: $-1$ et $3$ (tirets verts). Vérification&nbsp;: $g(-1) = 1 + 2 = 3 = f(-1)$ et $g(3) = -3 + 2 = -1 = f(3)$.`,
+        repereSol(Object.assign({}, FIG7v, { echelle: 1.15,
+            points: [{ x: -3, y: 0 }, { x: 4, y: -3 }, { x: -1, y: 3, classe: 'c-noir' }, { x: 3, y: -1, classe: 'c-noir' }],
+            lectures: [[[-1, 3], [-1, 0]], [[3, -1], [3, 0]]],
+            surlignes: [{ x1: -3, x2: -1 }, { x1: 3, x2: 4 }],
+            label: 'La même figure : les deux courbes se coupent aux points (−1 ; 3) et (3 ; −1) ; les solutions sont surlignées en orange sur l\'axe des abscisses, de −3 à −1 et de 3 à 4' })),
+        r`Les solutions de $f(x) < g(x)$ sont les abscisses des points où $\mathscr{C}_{f}$ est strictement au-dessous de $\mathscr{C}_{g}$&nbsp;: de $-3$ à $-1$ et de $3$ à $4$ (en orange), sans $-1$ ni $3$, où les courbes se coupent&nbsp;; $-3$ et $4$, extrémités de $\mathscr{C}_{f}$, sont compris. L'ensemble des solutions est <span class="resultat">$\left[-3\,;\,-1\right[ ∪ \left]3\,;\,4\right]$</span>.`] } },
+
+  /* ----- Fonctions affines (partie 4 du cours) ----- */
+
+  { partie: 0, theme: 'Droite : lire m et p', type: 'qcm',
+    enonce: r`Dans le repère ci-dessous, la droite $\mathscr{C}_{f}$ représente une fonction affine $f$. L'expression de $f(x)$ est&nbsp;:`
+      + repere(FIG8),
+    choix: [r`$f(x) = 1{,}5x - 2$`, r`$f(x) = 3x - 2$`, r`$f(x) = \dfrac{2}{3}x - 2$`, r`$f(x) = -2x + 1{,}5$`],
+    bonne: 0,
+    explication: [
+      r`$f(x) = mx + p$&nbsp;: l'ordonnée à l'origine $p$ se lit là où la droite coupe l'axe des ordonnées&nbsp;; pour le coefficient directeur $m$, on part d'un point de la droite, on avance de $1$ et on lit la montée (si l'on avance de $2$, on divise la montée par $2$).`,
+      r`La droite coupe l'axe des ordonnées au point $(0\,;\,-2)$&nbsp;: $p = -2$. À partir de ce point, en avançant de $2$, on monte de $3$ (tirets verts)&nbsp;; en avançant de $1$, on monte donc de $\dfrac{3}{2} = 1{,}5$&nbsp;: $m = 1{,}5$.`,
+      repere(Object.assign({}, FIG8, { echelle: 1.15, points: [{ x: 0, y: -2 }], lectures: [[[0, -2], [2, -2], [2, 1]]],
+          textes: [{ x: 1, y: -2.6, texte: '+2' }, { x: 2.2, y: -1.3, texte: '+3', ancre: 'start' }],
+          label: 'La même droite, avec la lecture : on part du point (0 ; −2), on avance de 2 et on monte de 3' })),
+      r`Donc <span class="resultat">$f(x) = 1{,}5x - 2$</span>.`],
+    revoir: r`propriété «&nbsp;droite représentative&nbsp;», méthode et capacité 4 du cours (question 2), exercice 3 de la fiche (question 3)`,
+    variante: {
+      enonce: r`Dans le repère ci-dessous, la droite $\mathscr{C}_{f}$ représente une fonction affine $f$. L'expression de $f(x)$ est&nbsp;:`
+        + repere(FIG8v),
+      choix: [r`$f(x) = -1{,}5x + 3$`, r`$f(x) = -3x + 3$`, r`$f(x) = -\dfrac{2}{3}x + 3$`, r`$f(x) = 3x - 1{,}5$`],
+      bonne: 0,
+      explication: [
+        r`$f(x) = mx + p$&nbsp;: l'ordonnée à l'origine $p$ se lit là où la droite coupe l'axe des ordonnées&nbsp;; pour le coefficient directeur $m$, on part d'un point de la droite, on avance de $1$ et on lit la montée ou la descente (si l'on avance de $2$, on la divise par $2$).`,
+        r`La droite coupe l'axe des ordonnées au point $(0\,;\,3)$&nbsp;: $p = 3$. À partir de ce point, en avançant de $2$, on descend de $3$ (tirets verts)&nbsp;; en avançant de $1$, on descend donc de $\dfrac{3}{2} = 1{,}5$&nbsp;: $m = -1{,}5$.`,
+        repere(Object.assign({}, FIG8v, { echelle: 1.15, points: [{ x: 0, y: 3 }], lectures: [[[0, 3], [2, 3], [2, 0]]],
+            textes: [{ x: 1, y: 3.25, texte: '+2' }, { x: 2.2, y: 1.5, texte: '−3', ancre: 'start' }],
+            label: 'La même droite, avec la lecture : on part du point (0 ; 3), on avance de 2 et on descend de 3' })),
+        r`Donc <span class="resultat">$f(x) = -1{,}5x + 3$</span>.`] } },
+
+  { partie: 0, theme: 'Fonction affine par le calcul', type: 'qcm',
+    enonce: r`La droite qui représente une fonction affine $f$ passe par les points $A(-1\,;\,-5)$ et $B(2\,;\,4)$. L'expression de $f(x)$ est&nbsp;:`,
+    choix: [r`$f(x) = 3x - 2$`, r`$f(x) = -3x + 10$`, r`$f(x) = 3x + 10$`, r`$f(x) = 3x - 5$`],
+    bonne: 0,
+    explication: [
+      r`$f(x) = mx + p$. Les points $A$ et $B$ sont sur la droite&nbsp;: leurs ordonnées sont les images de leurs abscisses, $f(-1) = -5$ et $f(2) = 4$. Le coefficient directeur $m$ est le taux d'accroissement de $f$ entre $-1$ et $2$.`,
+      calcul(r`m & = \dfrac{f(2) - f(-1)}{2 - (-1)}`, r`& = \dfrac{4 + 5}{2 + 1}`, r`& = \dfrac{9}{3}`, r`& = 3`),
+      r`On trouve $p$ en écrivant $f(2) = 4$ avec $m = 3$.`,
+      calcul(r`f(2) = 4 & \iff 3 \times 2 + p = 4`, r`& \iff 6 + p \op{- 6} = 4 \op{- 6}`, r`& \iff p = -2`),
+      r`Donc <span class="resultat">$f(x) = 3x - 2$</span>. Vérification&nbsp;: $f(-1) = 3 \times (-1) - 2 = -5$.`],
+    revoir: r`propriété «&nbsp;droite représentative&nbsp;» (taux d'accroissement), méthode et capacité 4 du cours (question 1), exercice 4 de la fiche (question 2)`,
+    variante: {
+      enonce: r`La droite qui représente une fonction affine $f$ passe par les points $A(-2\,;\,7)$ et $B(1\,;\,-2)$. L'expression de $f(x)$ est&nbsp;:`,
+      choix: [r`$f(x) = -3x + 1$`, r`$f(x) = 3x - 5$`, r`$f(x) = -3x - 5$`, r`$f(x) = -3x + 7$`],
+      bonne: 0,
+      explication: [
+        r`$f(x) = mx + p$. Les points $A$ et $B$ sont sur la droite&nbsp;: leurs ordonnées sont les images de leurs abscisses, $f(-2) = 7$ et $f(1) = -2$. Le coefficient directeur $m$ est le taux d'accroissement de $f$ entre $-2$ et $1$.`,
+        calcul(r`m & = \dfrac{f(1) - f(-2)}{1 - (-2)}`, r`& = \dfrac{-2 - 7}{1 + 2}`, r`& = \dfrac{-9}{3}`, r`& = -3`),
+        r`On trouve $p$ en écrivant $f(1) = -2$ avec $m = -3$.`,
+        calcul(r`f(1) = -2 & \iff -3 \times 1 + p = -2`, r`& \iff -3 + p \op{+ 3} = -2 \op{+ 3}`, r`& \iff p = 1`),
+        r`Donc <span class="resultat">$f(x) = -3x + 1$</span>. Vérification&nbsp;: $f(-2) = -3 \times (-2) + 1 = 7$.`] } },
+
+  /* ----- Sens de variation et signe d'une fonction affine, modélisation (partie 5 du cours) ----- */
+
+  { partie: 0, theme: 'Sens de variation', type: 'vf',
+    enonce: r`La fonction $f$ définie sur $\R$ par $f(x) = 3(x - 2) - 5x$ est croissante sur $\R$.`,
+    bonne: false,
+    explication: [
+      r`On développe et on réduit $f(x)$ pour l'écrire sous la forme $mx + p$&nbsp;: le sens de variation d'une fonction affine se lit sur le signe de son coefficient directeur $m$.`,
+      calcul(r`f(x) & = 3x - 6 - 5x`, r`& = -2x - 6`),
+      r`$f$ est affine, de coefficient directeur $m = -2$. Comme $m < 0$, $f$ est décroissante sur $\R$&nbsp;: l'affirmation est <span class="resultat">fausse</span>. Contre-exemple&nbsp;: $0 < 1$, mais $f(0) = -6$ est plus grand que $f(1) = -8$.`],
+    revoir: r`définition d'une fonction affine, propriété «&nbsp;sens de variation d'une fonction affine&nbsp;» et capacité 5 du cours, exercices 4 (question 1) et 5 de la fiche, question 9 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263 du manuel`,
+    variante: {
+      enonce: r`La fonction $g$ définie sur $\R$ par $g(x) = 2(3 - x) + 5x$ est croissante sur $\R$.`,
+      bonne: true,
+      explication: [
+        r`On développe et on réduit $g(x)$ pour l'écrire sous la forme $mx + p$&nbsp;: le sens de variation d'une fonction affine se lit sur le signe de son coefficient directeur $m$.`,
+        calcul(r`g(x) & = 6 - 2x + 5x`, r`& = 3x + 6`),
+        r`$g$ est affine, de coefficient directeur $m = 3$. Comme $m > 0$, $g$ est croissante sur $\R$&nbsp;: l'affirmation est <span class="resultat">vraie</span>.`] } },
+
+  { partie: 0, theme: 'Tableau de signes', type: 'qcm',
+    enonce: r`Soit $f$ la fonction affine définie sur $\R$ par $f(x) = 6 - 3x$. Son tableau de signes est&nbsp;:`,
+    choix: [tableauSignes('f', '2', ['+', '−']), tableauSignes('f', '2', ['−', '+']),
+            tableauSignes('f', '−2', ['+', '−']), tableauSignes('f', '−2', ['−', '+'])],
+    bonne: 0,
+    explication: [
+      r`On cherche d'abord le nombre qui annule $f(x)$, en résolvant l'équation $f(x) = 0$.`,
+      calcul(r`6 - 3x = 0 & \iff 6 - 3x \op{- 6} = 0 \op{- 6}`, r`& \iff -3x = -6`, r`& \iff \dfrac{-3x}{\op{-3}} = \dfrac{-6}{\op{-3}}`, r`& \iff x = 2`),
+      r`$f(x) = -3x + 6$&nbsp;: le coefficient directeur $m = -3$ est négatif. À droite de $2$, $f(x)$ est du signe de $m$, négatif&nbsp;; à gauche de $2$, il est positif. Le tableau porte <span class="resultat">$+$, puis $0$ en $2$, puis $-$</span>.`,
+      tableauSignes('f', '2', ['+', '−'])],
+    revoir: r`propriété «&nbsp;signe d'une fonction affine&nbsp;» et capacité 5 du cours, exercice 5 de la fiche, exercices 31 p.&nbsp;257 et 63 p.&nbsp;261 du manuel`,
+    variante: {
+      enonce: r`Soit $g$ la fonction affine définie sur $\R$ par $g(x) = 2x + 8$. Son tableau de signes est&nbsp;:`,
+      choix: [tableauSignes('g', '−4', ['−', '+']), tableauSignes('g', '−4', ['+', '−']),
+              tableauSignes('g', '4', ['−', '+']), tableauSignes('g', '4', ['+', '−'])],
+      bonne: 0,
+      explication: [
+        r`On cherche d'abord le nombre qui annule $g(x)$, en résolvant l'équation $g(x) = 0$.`,
+        calcul(r`2x + 8 = 0 & \iff 2x + 8 \op{- 8} = 0 \op{- 8}`, r`& \iff 2x = -8`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{-8}{\op{2}}`, r`& \iff x = -4`),
+        r`Le coefficient directeur $m = 2$ est positif. À droite de $-4$, $g(x)$ est du signe de $m$, positif&nbsp;; à gauche de $-4$, il est négatif. Le tableau porte <span class="resultat">$-$, puis $0$ en $-4$, puis $+$</span>.`,
+        tableauSignes('g', '−4', ['−', '+'])] } },
+
+  { partie: 0, theme: 'Modélisation', type: 'qcm',
+    enonce: r`En montagne, la température de l'air, en °C, est modélisée par une fonction affine $T$ de l'altitude $x$, en km. On a relevé $15$&nbsp;°C à $1$&nbsp;km d'altitude et $3$&nbsp;°C à $3$&nbsp;km. D'après ce modèle&nbsp;:`,
+    choix: [r`la température baisse de $6$&nbsp;°C par kilomètre, et il fait $21$&nbsp;°C au niveau de la mer`,
+            r`la température baisse de $12$&nbsp;°C par kilomètre, et il fait $27$&nbsp;°C au niveau de la mer`,
+            r`la température baisse de $6$&nbsp;°C par kilomètre, et il fait $15$&nbsp;°C au niveau de la mer`,
+            r`la température monte de $6$&nbsp;°C par kilomètre, et il fait $9$&nbsp;°C au niveau de la mer`],
+    bonne: 0,
+    explication: [
+      r`$T$ est affine&nbsp;: $T(x) = mx + p$. Le coefficient directeur $m$ est le taux d'accroissement de $T$ entre $1$ et $3$.`,
+      calcul(r`m & = \dfrac{T(3) - T(1)}{3 - 1}`, r`& = \dfrac{3 - 15}{2}`, r`& = \dfrac{-12}{2}`, r`& = -6`),
+      r`On trouve $p$ en écrivant $T(1) = 15$ avec $m = -6$.`,
+      calcul(r`T(1) = 15 & \iff -6 \times 1 + p = 15`, r`& \iff -6 + p \op{+ 6} = 15 \op{+ 6}`, r`& \iff p = 21`),
+      r`Donc $T(x) = -6x + 21$. $m = -6$&nbsp;: quand on monte de $1$&nbsp;km, la température baisse de $6$&nbsp;°C. $p = T(0) = 21$&nbsp;: à l'altitude $0$, au niveau de la mer, il fait $21$&nbsp;°C. D'après ce modèle, <span class="resultat">la température baisse de $6$&nbsp;°C par kilomètre, et il fait $21$&nbsp;°C au niveau de la mer</span>.`],
+    revoir: r`capacités 4 et 6 du cours, exercice 6 de la fiche, activité 2`,
+    variante: {
+      enonce: r`Une bougie se consume&nbsp;: sa longueur, en cm, est modélisée par une fonction affine $L$ du temps $t$, en heures. Elle mesure $18$&nbsp;cm après $2$&nbsp;heures et $12$&nbsp;cm après $5$&nbsp;heures. D'après ce modèle&nbsp;:`,
+      choix: [r`la bougie raccourcit de $2$&nbsp;cm par heure, et elle mesurait $22$&nbsp;cm au départ`,
+              r`la bougie raccourcit de $6$&nbsp;cm par heure, et elle mesurait $30$&nbsp;cm au départ`,
+              r`la bougie raccourcit de $2$&nbsp;cm par heure, et elle mesurait $18$&nbsp;cm au départ`,
+              r`la bougie raccourcit de $0{,}5$&nbsp;cm par heure, et elle mesurait $19$&nbsp;cm au départ`],
+      bonne: 0,
+      explication: [
+        r`$L$ est affine&nbsp;: $L(t) = mt + p$. Le coefficient directeur $m$ est le taux d'accroissement de $L$ entre $2$ et $5$.`,
+        calcul(r`m & = \dfrac{L(5) - L(2)}{5 - 2}`, r`& = \dfrac{12 - 18}{3}`, r`& = \dfrac{-6}{3}`, r`& = -2`),
+        r`On trouve $p$ en écrivant $L(2) = 18$ avec $m = -2$.`,
+        calcul(r`L(2) = 18 & \iff -2 \times 2 + p = 18`, r`& \iff -4 + p \op{+ 4} = 18 \op{+ 4}`, r`& \iff p = 22`),
+        r`Donc $L(t) = -2t + 22$. $m = -2$&nbsp;: chaque heure, la bougie raccourcit de $2$&nbsp;cm. $p = L(0) = 22$&nbsp;: au départ, pour $t = 0$, elle mesurait $22$&nbsp;cm. D'après ce modèle, <span class="resultat">la bougie raccourcit de $2$&nbsp;cm par heure, et elle mesurait $22$&nbsp;cm au départ</span>.`] } }
+  ]
+};
+
+/* ---------- Conversion des formules ($...$, mini-LaTeX) en HTML ---------- */
+const SYM = {
+  times: '×', cdot: '·', dots: '…', ldots: '…', cdots: '…', ne: '≠', neq: '≠', le: '≤', leq: '≤',
+  ge: '≥', geq: '≥', approx: '≈', infty: '∞', forall: '∀', in: '∈', N: 'ℕ', R: 'ℝ', Z: 'ℤ',
+  pm: '±', Delta: 'Δ', sum: 'Σ', pi: 'π', alpha: 'α', mapsto: '↦', to: '→', iff: '⇔',
+  Longleftrightarrow: '⇔', Leftrightarrow: '⇔', Rightarrow: '⇒', implies: '⇒',
+  quad: ' ', qquad: '  ', displaystyle: '', left: '', right: ''
+};
+const SYM1 = { ',': ' ', ';': ' ', ' ': ' ', '{': '{', '}': '}', '%': '%', '_': '_', '&': '&amp;', '$': '$', '\\': '<br>' };
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function math(s) {
+  let i = 0;
+  const skip = () => { while (i < s.length && s[i] === ' ') i++; };
+  function raw() {            // contenu brut d'un {groupe}, sans mise en italique
+    skip();
+    if (s[i] !== '{') return esc(s[i++] || '');
+    let prof = 0, out = '';
+    for (; i < s.length; i++) {
+      const c = s[i];
+      if (c === '{') { prof++; if (prof === 1) continue; }
+      if (c === '}') { prof--; if (prof === 0) { i++; break; } }
+      out += c;
+    }
+    return esc(out);
+  }
+  function group() { i++; let out = ''; while (i < s.length && s[i] !== '}') out += atom(); i++; return out; }
+  function arg() { skip(); if (s[i] === '{') return group(); return atom(); }
+  const frac = (a, b) => `<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`;
+  function atom() {
+    if (i >= s.length) return '';
+    const c = s[i];
+    if (c === '{') return group();
+    if (c === '}') { i++; return ''; }
+    if (c === '\\') {
+      const n = s[i + 1];
+      if (n === undefined) { i++; return ''; }
+      if (!/[a-zA-Z]/.test(n)) { i += 2; return SYM1[n] !== undefined ? SYM1[n] : esc(n); }
+      let j = i + 1;
+      while (j < s.length && /[a-zA-Z]/.test(s[j])) j++;
+      const nom = s.slice(i + 1, j); i = j;
+      if (nom === 'frac' || nom === 'dfrac' || nom === 'tfrac') { const a = arg(); const b = arg(); return frac(a, b); }
+      if (nom === 'mathrm' || nom === 'text') return `<span class="rm">${raw()}</span>`;
+      if (nom === 'textbf') return `<b class="rm">${raw()}</b>`;
+      if (nom === 'mathscr') return `<i>${raw()}</i>`;
+      if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
+      if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
+      if (nom === 'op') return `<span class="op">${arg()}</span>`;
+      if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
+      return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
+    }
+    if (c === '_' || c === '^') { i++; const a = arg(); return c === '_' ? `<sub>${a}</sub>` : `<sup>${a}</sup>`; }
+    i++;
+    if (/[a-zA-Z]/.test(c)) return `<i>${c}</i>`;
+    if (c === '-') return '−';
+    if (c === '*') return '×';
+    if (c === "'") return '<span class="prime">′</span>';
+    return esc(c);
+  }
+  let out = '';
+  while (i < s.length) out += atom();
+  return out;
+}
+// Une formule : KaTeX s'il est chargé, sinon (pas encore là, hors ligne, CDN filtré, commande qu'il
+// refuse) le mini-LaTeX, qui garde la source dans data-tex pour que katexPret() la recompose.
+// (## : signe # d'une couleur dans une macro, # seul désignant un argument)
+const MACROS = { '\\mul': '\\textcolor{##9C27B0}{#1}', '\\op': '\\textcolor{##CE2029}{#1}', '\\resultat': '\\boxed{#1}' };
+function katexDispo() {
+  const feuille = document.getElementById('katex-css');
+  return !!window.katex && !!feuille && feuille.media === 'all';
+}
+function katexHTML(f) {
+  try { return katex.renderToString(f, { macros: Object.assign({}, MACROS), throwOnError: true, strict: false }); }
+  catch (e) { return null; }
+}
+function formule(f) {
+  const k = katexDispo() ? katexHTML(f) : null;
+  return k || `<span class="m${f.length > 42 ? ' m-long' : ''}" data-tex="${esc(f).replace(/"/g, '&quot;')}">${math(f)}</span>`;
+}
+window.katexPret = function () {
+  if (!katexDispo()) return;
+  document.querySelectorAll('.m[data-tex]').forEach(e => {
+    const k = katexHTML(e.dataset.tex);
+    if (k) e.outerHTML = k;
+  });
+};
+function tex(src) {
+  return String(src).split(/(\$[^$]*\$)/).map(p =>
+    (p.length >= 2 && p[0] === '$' && p[p.length - 1] === '$') ? formule(p.slice(1, -1)) : p
+  ).join('');
+}
+
+/* ---------- État (enregistré sur l'appareil, pour reprendre plus tard) ---------- */
+const N = QUIZ.questions.length;
+const CLE = 'quiz-' + QUIZ.id;
+const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length
+  + (q.variante ? '~' + q.variante.enonce.length : '')).join('|');
+const MODE_CORRIGE = /(\?|&|#)corrige/.test(location.search + location.hash);
+// La question i dans sa variante : les champs que la variante ne donne pas viennent de la question.
+const variante = i => Object.assign({}, QUIZ.questions[i], QUIZ.questions[i].variante);
+
+function melange(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const ordreDe = q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k));
+// reprise : null, ou la reprise des questions manquées { rangs (questions d'origine), ordre, reponses, courant }.
+function nouvelEtat() {
+  return {
+    signature: SIGNATURE,
+    ordre: QUIZ.questions.map(ordreDe),
+    reponses: Array(N).fill(null),
+    courant: 0,
+    reprise: null
+  };
+}
+function repriseValide(R) {
+  return !!R && Array.isArray(R.rangs) && R.rangs.length > 0 && Array.isArray(R.ordre) && Array.isArray(R.reponses)
+    && R.ordre.length === R.rangs.length && R.reponses.length === R.rangs.length
+    && R.rangs.every(i => QUIZ.questions[i] && QUIZ.questions[i].variante);
+}
+function charger() {
+  try {
+    const s = JSON.parse(localStorage.getItem(CLE));
+    if (s && s.signature === SIGNATURE && Array.isArray(s.reponses) && s.reponses.length === N && Array.isArray(s.ordre)) {
+      s.courant = Math.min(Math.max(0, s.courant | 0), N);
+      if (repriseValide(s.reprise)) s.reprise.courant = Math.min(Math.max(0, s.reprise.courant | 0), s.reprise.rangs.length);
+      else s.reprise = null;
+      return s;
+    }
+  } catch (e) { /* stockage indisponible : on repart de zéro */ }
+  return null;
+}
+function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* sans importance */ } }
+
+let etat = charger() || nouvelEtat();
+let selection = null;
+
+const $ = sel => document.querySelector(sel);
+const zoneProg = $('#progression');
+const zoneQuiz = $('#quiz');
+const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
+// Une seule partie : aucun nom de partie n'est affiché (grille, question, corrigé, note).
+const UNE_PARTIE = QUIZ.parties.length === 1;
+const questionsDe = p => QUIZ.questions.map((q, i) => q.partie === p ? i : -1).filter(i => i >= 0);
+
+/* ---------- Affichage ---------- */
+// Explication : un texte, ou une liste de blocs (paragraphes, calculs en colonne, figures).
+function explicationHTML(q) {
+  const blocs = Array.isArray(q.explication) ? q.explication : [q.explication];
+  return blocs.map(b => /^<(div|svg)\b/.test(b) ? tex(b) : '<p>' + tex(b) + '</p>').join('');
+}
+
+function reponseTexte(q, choix) {
+  if (q.type === 'vf') return choix ? 'Vrai' : 'Faux';
+  return '« ' + tex(q.choix[choix]) + ' »';
+}
+
+// Tour en cours : le premier passage (les questions du fichier), ou la reprise des questions
+// manquées (leurs variantes). Chacun a ses réponses, l'ordre de ses choix et sa question courante k ;
+// le numéro affiché est toujours celui de la question d'origine.
+function tourCourant() {
+  const R = etat.reprise;
+  if (R && R.courant < R.rangs.length)
+    return { reprise: true, etat: R, total: R.rangs.length, question: k => variante(R.rangs[k]), numero: k => R.rangs[k] + 1 };
+  return { reprise: false, etat: etat, total: N, question: k => QUIZ.questions[k], numero: k => k + 1 };
+}
+
+// Une grille de réponses. items = [{cle, numero, rep}] ; attr = data-q (premier passage) ou data-r (reprise).
+function grille(nom, items, courant, attr) {
+  const faites = items.filter(it => it.rep).length;
+  let nums = '', marques = '';
+  items.forEach(it => {
+    const ici = it.cle === courant;
+    nums += `<td class="${ici ? 'ici' : ''}"><button type="button" class="aller" ${attr}="${it.cle}" aria-label="Aller à la question ${it.numero}">${it.numero}</button></td>`;
+    marques += it.rep
+      ? `<td class="${it.rep.ok ? 'juste' : 'erreur'}${ici ? ' courant' : ''}" ${attr}="${it.cle}"><span class="marque ${it.rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`
+      : `<td class="${ici ? 'courant' : ''}" ${attr}="${it.cle}"></td>`;
+  });
+  return `<div class="bloc-grille">${nom ? `<p class="nom-partie">${nom}</p>` : ''}
+    <table class="grille-reponses" aria-label="${nom || 'Réponses'} : ${faites} question${faites > 1 ? 's' : ''} sur ${items.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+}
+
+function rendreProgression() {
+  if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
+  const T = tourCourant(), R = etat.reprise;
+  zoneProg.innerHTML = T.reprise
+    ? grille('Reprise des questions manquées', R.rangs.map((i, k) => ({ cle: k, numero: i + 1, rep: R.reponses[k] })), R.courant, 'data-r')
+    : QUIZ.parties.map((nom, p) => grille(UNE_PARTIE ? '' : nomPartie(p),
+        questionsDe(p).map(i => ({ cle: i, numero: i + 1, rep: etat.reponses[i] })), etat.courant, 'data-q')).join('');
+}
+
+function rendre() {
+  rendreProgression();
+  if (MODE_CORRIGE) return rendreCorrige();
+  const T = tourCourant();
+  if (T.etat.courant >= T.total) rendreResultat(); else rendreQuestion(T, T.etat.courant);
+}
+
+function boite(marque) {
+  return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
+}
+
+function rendreQuestion(T, k) {
+  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = k === T.total - 1;
+  const changePartie = !T.reprise && !derniere && QUIZ.questions[k + 1].partie !== q.partie;
+  const tete = T.reprise ? `Reprise des questions manquées · ${k + 1} sur ${T.total}` : UNE_PARTIE ? '' : nomPartie(q.partie);
+  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir ma note') : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante';
+  let options;
+  if (q.type === 'vf') {
+    options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (val === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (val === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
+    }).join('');
+  } else {
+    options = ordre.map((orig, j) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[j]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
+    }).join('');
+  }
+  const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
+  const correction = rep ? `<div class="correction ${rep.ok ? 'juste' : 'erreur'}" role="status">
+      <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
+      <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
+  const bouton = rep
+    ? `<button type="button" class="bouton" id="suivant">${suite}</button>`
+    : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
+  zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
+    ${tete ? `<p class="partie">${tete}</p>` : ''}
+    <p class="question" id="titre-q"><b>Question ${T.numero(k)}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
+    <div class="actions">${bouton}</div>
+    ${correction}
+  </article>`;
+  selection = null;
+  if (!rep) {
+    zoneQuiz.querySelectorAll('.choix').forEach(b => b.addEventListener('click', () => choisir(b, q)));
+    $('#valider').addEventListener('click', valider);
+  } else {
+    $('#suivant').addEventListener('click', suivant);
+  }
+}
+
+function choisir(b, q) {
+  zoneQuiz.querySelectorAll('.choix').forEach(o => {
+    const actif = o === b;
+    o.classList.toggle('choisi', actif);
+    o.setAttribute('aria-pressed', actif ? 'true' : 'false');
+    o.querySelector('.marque').className = actif ? 'marque croix' : 'marque';
+  });
+  selection = q.type === 'vf' ? b.dataset.val === 'true' : Number(b.dataset.val);
+  $('#valider').disabled = false;
+}
+
+function valider() {
+  const T = tourCourant(), k = T.etat.courant, q = T.question(k);
+  if (selection === null || T.etat.reponses[k]) return;
+  T.etat.reponses[k] = { choix: selection, ok: selection === q.bonne };
+  sauver();
+  rendre();
+  const suivantBtn = $('#suivant');
+  if (suivantBtn) suivantBtn.focus({ preventScroll: true });
+  const correction = $('.correction');
+  if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
+}
+
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question
+// (data-q : premier passage ; data-r : reprise des questions manquées).
+function aller(cible) {
+  if (cible.dataset.r !== undefined) etat.reprise.courant = Number(cible.dataset.r);
+  else etat.courant = Number(cible.dataset.q);
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function suivant() {
+  const T = tourCourant();
+  T.etat.courant = Math.min(T.etat.courant + 1, T.total);
+  selection = null;
+  sauver();
+  rendre();
+  // On remonte aux grilles de réponses, pas tout en haut : sur téléphone, l'en-tête occupe un écran.
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function recommencer() {
+  etat = nouvelEtat();
+  selection = null;
+  sauver();
+  rendre();
+  window.scrollTo({ top: 0, behavior: motion() });
+}
+// Deux clics pour tout effacer : le premier transforme le bouton en demande de confirmation.
+function demanderRecommencer(btn) {
+  const entame = etat.courant > 0 || etat.reponses.some(Boolean);
+  if (btn.dataset.minuteur) {
+    clearTimeout(Number(btn.dataset.minuteur));
+    btn.textContent = btn.dataset.texte;
+    delete btn.dataset.minuteur;
+    recommencer();
+  } else if (!entame) {
+    recommencer();
+  } else {
+    btn.dataset.texte = btn.textContent;
+    btn.textContent = 'Confirmer : effacer mes réponses';
+    btn.dataset.minuteur = String(setTimeout(() => { btn.textContent = btn.dataset.texte; delete btn.dataset.minuteur; }, 4000));
+  }
+}
+
+// Questions regroupées par partie : un titre, puis la liste produite par item(q, i).
+function listeParParties(item) {
+  return QUIZ.parties.map((nom, p) =>
+    `${UNE_PARTIE ? '' : `<h2 class="titre-partie">${nomPartie(p)}</h2>`}<ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
+  ).join('');
+}
+
+// Une question de la copie : énoncé, réponse donnée, explication.
+function itemRevue(q, rep, numero) {
+  const ok = !!(rep && rep.ok);
+  let bilan;
+  if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
+  else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  return `<li class="${ok ? 'juste' : 'erreur'}">
+    <p class="question"><b>Question ${numero}.</b> <i>${q.theme}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <p class="bilan">${bilan}</p>
+    <div class="explication">${explicationHTML(q)}</div>
+  </li>`;
+}
+
+function revueHTML() {
+  return listeParParties((q, i) => itemRevue(q, etat.reponses[i], i + 1));
+}
+
+function revueRepriseHTML() {
+  const R = etat.reprise;
+  return `<h2 class="titre-partie">Reprise des questions manquées</h2><ol class="revue">${R.rangs.map((i, k) => itemRevue(variante(i), R.reponses[k], i + 1)).join('')}</ol>`;
+}
+
+// Bouton qui montre ou cache une copie.
+function bascule(idBouton, idListe, texte) {
+  $('#' + idBouton).addEventListener('click', () => {
+    const liste = $('#' + idListe), btn = $('#' + idBouton);
+    liste.hidden = !liste.hidden;
+    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
+    btn.textContent = (liste.hidden ? 'Revoir ' : 'Masquer ') + texte;
+  });
+}
+
+// Reprise des questions manquées qui ont une variante : nouveau tour, noté à part.
+function reprendre(rangs) {
+  etat.reprise = { rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 };
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function rendreResultat() {
+  const juste = i => !!(etat.reponses[i] && etat.reponses[i].ok);
+  const score = QUIZ.questions.filter((q, i) => juste(i)).length;
+  const appreciation = score >= 0.75 * N
+    ? 'C\'est solide. Relis quand même les explications des questions manquées.'
+    : score >= 0.5 * N
+      ? 'L\'essentiel est là. Reprends les points listés ci-dessous, puis refais cet entraînement.'
+      : 'À retravailler avant l\'évaluation : reprends le cours et la fiche d\'exercices, puis refais cet entraînement.';
+  const sur20 = N === 20 ? '' : `<span class="sur">soit ${fr(Math.round(score * 20 / N * 2) / 2)} / 20</span>`;
+  const parties = QUIZ.parties.map((nom, p) => {
+    const rangs = questionsDe(p);
+    return `<span>${nomPartie(p)}&nbsp;: <b>${rangs.filter(juste).length} / ${rangs.length}</b></span>`;
+  }).join(' &emsp; ');
+  const aRevoir = [];
+  QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
+  const revoir = aRevoir.length
+    ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
+  // Questions manquées qui ont une variante, et reprise déjà faite (on n'arrive ici qu'une fois finie).
+  const manquees = QUIZ.questions.map((q, i) => i).filter(i => !juste(i) && QUIZ.questions[i].variante);
+  const R = etat.reprise, nm = manquees.length;
+  const bilanReprise = R
+    ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(x => x && x.ok).length} / ${R.rangs.length}</b></p>` : '';
+  const infoReprise = nm && !R
+    ? `<p class="reprise-info">Tu peux refaire ${nm > 1 ? 'les ' + nm + ' questions manquées' : 'la question manquée'}, un peu ${nm > 1 ? 'modifiées' : 'modifiée'}&nbsp;: mêmes notions, autres valeurs.</p>` : '';
+  zoneQuiz.innerHTML = `<article class="page-note" aria-labelledby="titre-r">
+    <p class="question" id="titre-r"><b>Note.</b></p>
+    <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
+    <p class="appreciation">${appreciation}</p>
+    ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
+    ${bilanReprise}
+    ${revoir}
+    ${infoReprise}
+    <div class="actions">
+      ${nm ? `<button type="button" class="bouton" id="reprendre">${R ? 'Refaire la reprise' : 'Refaire les questions manquées'}</button>` : ''}
+      <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
+      ${R ? '<button type="button" class="bouton" id="revoir-reprise" aria-expanded="false" aria-controls="revue-reprise">Revoir la reprise</button>' : ''}
+      <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
+    </div>
+    <div id="revue" hidden>${revueHTML()}</div>
+    ${R ? `<div id="revue-reprise" hidden>${revueRepriseHTML()}</div>` : ''}
+  </article>`;
+  bascule('revoir', 'revue', 'la copie');
+  if (R) bascule('revoir-reprise', 'revue-reprise', 'la reprise');
+  if (nm) $('#reprendre').addEventListener('click', () => reprendre(manquees));
+  $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+}
+
+function rendreCorrige() {
+  // Énoncé, choix (bonne réponse en vert), explication.
+  const corps = q => `<div class="enonce">${tex(q.enonce)}</div>
+      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
+      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
+      <div class="explication">${explicationHTML(q)}</div>`;
+  zoneQuiz.innerHTML = `<article>
+    <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
+    ${listeParParties((q, i) => `<li class="juste">
+      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
+      ${corps(q)}
+      ${q.variante ? `<div class="variante"><p class="question"><b>Variante</b> <i>(reprise des questions manquées)</i></p>${corps(variante(i))}</div>` : ''}
+    </li>`)}
+  </article>`;
+}
+
+/* ---------- Démarrage ---------- */
+$('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+zoneProg.addEventListener('click', e => {
+  const cible = e.target.closest('[data-q],[data-r]');
+  if (cible) aller(cible);
+});
+rendre();
+})();
+</script>
+</body>
+</html>
