@@ -2,7 +2,10 @@
 <html lang="fr">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#FFFFFF">
 <title>Entraînement Évaluation fonctions affines</title>
 <!--
   Entraînement auto-corrigé à l'évaluation du chapitre 1 (Fonctions affines) - Première,
@@ -20,111 +23,156 @@
   Publiée pour les élèves : https://p-bailly.github.io/entrainements/premiere/01-fonctions-affines.html
   (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
 -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&display=swap">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 <!-- KaTeX, chargé sans bloquer la page (réseau du lycée parfois filtré) : les formules s'affichent
      d'abord en mini-LaTeX, puis KaTeX les recompose sur place dès que sa feuille et son script sont là. -->
 <link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css" integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous" media="print" onload="this.media='all'; if (window.katexPret) katexPret()">
 <script async src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js" integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj" crossorigin="anonymous" onload="if (window.katexPret) katexPret()"></script>
 <style>
 :root{
-  --papier:#FCFBF7; --encre:#161616; --gris:#6B6A66; --filet:#C4BFB3; --filet-clair:#E4E0D6; --case:#F0EDE5;
-  --stylo:#1E3D96; --rouge:#CE2029; --vert:#2A7A36; --orange:#E8940A; --violet:#7A3E9D;
-  --serif:"Old Standard TT","Times New Roman",Times,serif;
-  --main:"Caveat","Segoe Print","Bradley Hand",cursive;
-  --mono:ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+  --papier:#FFFFFF; --fond:#EDEDED; --encre:#161616; --gris:#5C5C5C; --filet:#CCCCCC; --case:#F2F2F2;
+  --stylo:#1E3D96; --rouge:#C62026; --vert:#1C7436; --orange:#E8940A; --violet:#5B3E96;
+  --bleu-clair:#E8EDF8; --vert-clair:#E6F2E9; --rouge-clair:#FAE9E9;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --serif:Georgia,"Times New Roman",serif;
+  --mono:ui-monospace,"SFMono-Regular",Consolas,"Roboto Mono",monospace;
+  --bas:72px;
 }
 *{box-sizing:border-box}
 [hidden]{display:none !important}
-html{-webkit-text-size-adjust:100%}
-body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 var(--serif); min-height:100vh}
-.feuille{max-width:720px; margin:0 auto; padding:34px 40px 60px}
+html{-webkit-text-size-adjust:100%; text-size-adjust:100%}
+body{margin:0; min-height:100vh; background:var(--fond); color:var(--encre); font:400 17px/1.5 var(--sans); -webkit-tap-highlight-color:transparent}
+button{font-family:inherit}
 
-/* Retour à la liste des entraînements */
-.retour{margin:0 0 14px; font-size:.95rem}
-.retour a{color:var(--stylo); text-decoration:none; border-bottom:1px solid var(--filet)}
-.retour a:hover,.retour a:focus-visible{border-bottom-color:var(--stylo)}
+/* Barre du haut : retour, lycée et chapitre, compteur, avancement */
+.haut{position:sticky; top:0; z-index:5; background:var(--papier); border-bottom:1px solid var(--filet); padding-top:env(safe-area-inset-top)}
+.haut .ligne{display:flex; align-items:center; gap:6px; max-width:40rem; margin:0 auto; padding:6px 14px 4px 6px; min-height:52px}
+.retour{flex:none; display:grid; place-items:center; width:44px; height:44px; color:var(--encre); border-radius:50%}
+.retour:active{background:var(--case)}
+.retour svg{width:22px; height:22px}
+.titres{flex:1; min-width:0; line-height:1.25}
+.titres span{display:block; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.titres .lycee{font-size:.78rem; color:var(--gris); white-space:normal}
+.titres .chap{font-size:.95rem; font-weight:600}
+.compteur{flex:none; font-size:.95rem; font-weight:600; font-variant-numeric:tabular-nums}
+.segments{display:flex; gap:3px; max-width:40rem; margin:0 auto; padding:0 14px 4px}
+.segments button{flex:1; min-width:0; height:18px; margin:0; padding:0; border:0; background:none; cursor:pointer; position:relative}
+.segments button::before{content:""; position:absolute; left:0; right:0; top:6px; height:6px; border-radius:3px; background:#D6D6D6}
+.segments button.juste::before{background:var(--vert)}
+.segments button.faux::before{background:var(--rouge)}
+.segments button.ici::before{background:var(--encre)}
+.segments button.vu::before{box-shadow:0 0 0 1.5px var(--papier), 0 0 0 3px var(--encre)}
 
-/* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
+/* Écran */
+main{max-width:40rem; margin:0 auto; padding:14px 12px calc(var(--bas) + 28px + env(safe-area-inset-bottom))}
+body.avec-brouillon main{padding-bottom:calc(var(--bas) + min(56vh, 480px) + 28px)}
+.carte{background:var(--papier); border:1px solid var(--filet); border-radius:10px; padding:16px}
+.carte + .carte,.carte + .retour-corr{margin-top:12px}
+.meta{margin:0 0 8px; font-size:.9rem; font-weight:600; color:var(--gris)}
+.meta span{font-weight:400}
+.partie{margin:0 0 4px; font-size:.82rem; color:var(--gris)}
+.enonce{font-size:1.06rem; margin:0 0 16px}
+.enonce p{margin:0 0 .5em}
+.bandeau-reprise{margin:0 0 10px; padding:8px 12px; border-radius:8px; background:var(--bleu-clair); font-size:.9rem}
+
+/* Réponses : grands boutons */
+.options{display:grid; grid-template-columns:minmax(0,1fr); gap:10px}
+.option{display:flex; align-items:center; gap:12px; width:100%; min-height:56px; margin:0; padding:10px 12px; border:1.5px solid var(--filet); border-radius:9px; background:var(--papier); color:var(--encre); font-size:1.02rem; line-height:1.4; text-align:left; cursor:pointer; touch-action:manipulation}
+.option:active:not(:disabled){background:var(--case)}
+@media (hover:hover){.option:hover:not(:disabled){border-color:var(--gris)}}
+.option:disabled{cursor:default; color:var(--encre)}
+.pastille{flex:none; display:grid; place-items:center; width:30px; height:30px; border-radius:50%; border:1.5px solid var(--filet); font-size:.9rem; font-weight:600; color:var(--gris)}
+.option .texte{flex:1; min-width:0}
+.option .icone{flex:none; font-weight:700; font-size:1.15rem}
+.option[aria-checked="true"]{border-color:var(--stylo); background:var(--bleu-clair)}
+.option[aria-checked="true"] .pastille{border-color:var(--stylo); background:var(--stylo); color:#FFF}
+.option.juste{border-color:var(--vert); background:var(--vert-clair)}
+.option.juste .pastille{border-color:var(--vert); background:var(--vert); color:#FFF}
+.option.juste .icone{color:var(--vert)}
+.option.faux{border-color:var(--rouge); background:var(--rouge-clair)}
+.option.faux .pastille{border-color:var(--rouge); background:var(--rouge); color:#FFF}
+.option.faux .icone{color:var(--rouge)}
+.option.terne{color:var(--gris); border-color:#E0E0E0}
+
+/* Correction sous la question */
+.retour-corr{background:var(--papier); border:1px solid var(--filet); border-left:5px solid var(--rouge); border-radius:10px; padding:14px 16px; scroll-margin-bottom:calc(var(--bas) + 16px)}
+.retour-corr.juste{border-left-color:var(--vert)}
+.verdict{margin:0 0 8px; font-weight:700}
+.retour-corr.faux .verdict{color:var(--rouge)}
+.retour-corr.juste .verdict{color:var(--vert)}
+.explication{font-size:.98rem}
+.revoir{margin:10px 0 0; font-size:.92rem; color:var(--gris)}
+
+/* Écran de départ */
+.intro h1{margin:0 0 2px; font-size:1.5rem; line-height:1.2}
+.intro .sous{margin:0 0 12px; color:var(--gris)}
+.intro ul{margin:12px 0 0; padding-left:1.1em; font-size:.95rem; color:var(--gris)}
+.intro li{margin:0 0 4px}
+
+/* Résultat */
+.score{margin:0; font-size:1.3rem}
+.score b{font-size:3rem; line-height:1}
+.sur20{margin:2px 0 10px; color:var(--gris)}
+.appreciation{margin:0}
+.bilan-reprise,.bilan-parties{margin:10px 0 0}
+.a-revoir{margin:0; padding-left:1.1em}
+.titre-liste{margin:22px 4px 8px; font-size:1rem}
+.recap{list-style:none; margin:0; padding:0; background:var(--papier); border:1px solid var(--filet); border-radius:10px; overflow:hidden}
+.recap li + li{border-top:1px solid var(--filet)}
+.recap summary{display:flex; align-items:center; gap:12px; min-height:52px; padding:8px 14px; cursor:pointer; list-style:none}
+.recap summary::-webkit-details-marker{display:none}
+.recap .num{flex:none; width:1.6em; font-weight:600; font-variant-numeric:tabular-nums}
+.recap .theme{flex:1; min-width:0}
+.recap .icone{flex:none; font-weight:700; font-size:1.1rem}
+.recap li.juste .icone{color:var(--vert)}
+.recap li.faux .icone,.recap li.vide .icone{color:var(--rouge)}
+.recap details[open] summary{background:var(--case)}
+.recap .detail{padding:12px 14px 16px}
+.ta-rep{margin:0 0 10px; font-size:.95rem}
+
+/* Barre du bas : brouillon et bouton principal, sous le pouce */
+.bas{position:fixed; left:0; right:0; bottom:0; z-index:6; background:var(--papier); border-top:1px solid var(--filet); padding:10px 12px calc(10px + env(safe-area-inset-bottom))}
+.bas .dedans{max-width:40rem; margin:0 auto; display:flex; gap:10px}
+.btn{min-height:50px; padding:6px 16px; border:1.5px solid var(--encre); border-radius:9px; background:var(--papier); color:var(--encre); font-size:1rem; font-weight:600; line-height:1.2; cursor:pointer; touch-action:manipulation}
+.btn.principal{flex:1; border-color:var(--stylo); background:var(--stylo); color:#FFF}
+.btn:disabled{opacity:.4; cursor:default}
+.btn[aria-pressed="true"]{background:var(--encre); color:#FFF}
+.btn:active:not(:disabled){filter:brightness(.92)}
+
+/* Brouillon : petits carreaux, on écrit au doigt */
+.brouillon{position:fixed; left:0; right:0; bottom:calc(var(--bas) + env(safe-area-inset-bottom)); z-index:6; height:min(56vh, 480px); display:flex; flex-direction:column; background:var(--papier); border-top:1px solid var(--encre)}
+.brouillon .outils{display:flex; align-items:center; gap:6px; padding:6px 10px; border-bottom:1px solid var(--filet)}
+.brouillon .outils .titre{flex:1; font-size:.85rem; color:var(--gris)}
+.outil{min-height:40px; padding:4px 12px; border:1px solid var(--filet); border-radius:8px; background:var(--papier); color:var(--encre); font-size:.9rem; cursor:pointer}
+.outil[aria-pressed="true"]{border-color:var(--encre); background:var(--case); font-weight:600}
+.toile{flex:1; display:block; width:100%; min-height:0; touch-action:none; cursor:crosshair; background-color:#FFF;
+  background-image:linear-gradient(#D5E2F2 1px, transparent 1px), linear-gradient(90deg, #D5E2F2 1px, transparent 1px);
+  background-size:19px 19px}
+
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+@media (min-width:700px){
+  main{padding-top:22px}
+  .carte{padding:20px 22px}
+  .brouillon{left:50%; width:40rem; transform:translateX(-50%); border:1px solid var(--encre); border-bottom:0; border-radius:10px 10px 0 0}
+}
+@media print{ .bas,.brouillon,.segments{display:none} }
+/* ---- Contenu des questions : formules, calculs en colonne, figures, tableur ----
+   Variables utilisées aussi par les fichiers de questions : --encre, --papier, --case, --filet,
+   --rouge, --vert, --stylo, --orange, --violet, --serif, --mono, --gris. */
 .mul{color:#9C27B0}
-/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
 .op{color:var(--rouge)}
-
-/* En-tête de la copie */
-.entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
-h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
-.consigne{margin:0 0 12px; font-style:italic}
-.filet{height:4px; border-top:1px solid var(--encre); border-bottom:1px solid var(--encre); margin:8px 0 20px}
-
-/* Grilles de réponses, une par partie */
-.progression{display:flex; flex-wrap:wrap; gap:10px 28px; margin:0 0 24px; scroll-margin-top:12px}
-.bloc-grille{max-width:100%; overflow-x:auto}
-.nom-partie{margin:0 0 3px; font-style:italic; font-size:.9rem; white-space:nowrap}
-.grille-reponses{border-collapse:collapse; font-size:.9rem}
-.grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
-.grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
-.grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
-.grille-reponses td[data-q],.grille-reponses td[data-r]{cursor:pointer}
-.grille-reponses td.ici{background:var(--filet-clair)}
-.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
-.grille-reponses button.aller:hover{text-decoration:underline}
-.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
-.grille-reponses td.juste{color:var(--vert)}
-.grille-reponses td.erreur{color:var(--rouge)}
-
-/* Marques au stylo : croix et coche dessinées en CSS */
-.marque{position:relative; display:inline-block; width:18px; height:18px; vertical-align:-4px; color:inherit}
-.marque::before,.marque::after{content:""; position:absolute; width:2px; background:currentColor; border-radius:1px; display:none}
-.marque.croix::before,.marque.croix::after{display:block; left:8px; top:-2px; height:22px}
-.marque.croix::before{transform:rotate(43deg)}
-.marque.croix::after{transform:rotate(-47deg)}
-.marque.coche::before,.marque.coche::after{display:block}
-.marque.coche::before{left:3px; top:8px; height:8px; transform:rotate(-42deg)}
-.marque.coche::after{left:10px; top:-2px; height:20px; transform:rotate(38deg)}
-
-/* Question et réponses */
-.partie{margin:0 0 2px; font-variant:small-caps; letter-spacing:.03em}
-.question{margin:0 0 6px}
-.question i{color:var(--gris)}
-.enonce{margin:0 0 14px}
-.reponses{display:grid; gap:6px; margin:0 0 18px}
-.reponses.vf{display:flex; gap:12px 40px; flex-wrap:wrap}
-.choix{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; padding:5px 4px; border:0; border-radius:0; background:transparent; color:var(--encre); font:inherit; line-height:1.45; cursor:pointer}
-.reponses.vf .choix{width:auto; padding-right:12px}
-.choix:disabled{cursor:default}
-.choix .boite{flex:none; position:relative; width:18px; height:18px; margin-top:5px; border:1px solid var(--encre); background:var(--papier)}
-.choix .boite .marque{position:absolute; left:-1px; top:-1px}
-.choix:hover:not(:disabled) .boite{box-shadow:0 0 0 1px var(--encre)}
-.choix .lettre{flex:none; width:1.3em; color:var(--gris)}
-.choix .texte{flex:1; min-width:0}
-.choix.choisi .marque{color:var(--stylo)}
-.choix.juste .marque{color:var(--vert)}
-.choix.erreur .marque{color:var(--rouge)}
-.choix.terne{color:var(--gris)}
-.actions{display:flex; gap:12px 18px; flex-wrap:wrap; align-items:center}
-.bouton{font:inherit; font-variant:small-caps; letter-spacing:.04em; font-size:1rem; padding:5px 18px; border:1px solid var(--encre); border-radius:0; background:var(--papier); color:var(--encre); cursor:pointer}
-.bouton:hover:not(:disabled){background:var(--encre); color:var(--papier)}
-.bouton:disabled{opacity:.4; cursor:default}
-.bouton.discret{border-color:var(--filet)}
-
-/* Correction du professeur */
-.correction{margin:20px 0 0; padding:2px 0 2px 16px; border-left:2px solid var(--rouge)}
-.correction.juste{border-left-color:var(--vert)}
-.verdict{font:600 1.7rem/1.1 var(--main); color:var(--rouge); margin:0 0 6px}
-.correction.juste .verdict{color:var(--vert)}
-.explication{margin:0; font-size:1rem; line-height:1.55}
-.explication p{margin:0 0 .55em}
-.explication p:last-child{margin-bottom:0}
-.explication .revoir{font-style:italic; color:var(--gris)}
-.explication .fig{margin:8px auto 12px}
-/* Calcul en colonne : une étape par ligne, alignées sur le signe = ou ⇔ (comme dans les PDF) */
-.calcul{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.45em .4em; align-items:baseline; margin:.3em 0 .5em 1.4em; padding:.2em 0 .3em; overflow-x:auto; overflow-y:hidden}
+.calcul{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.45em .4em; align-items:baseline; margin:.3em 0 .5em 1em; padding:.2em 0 .3em; overflow-x:auto; overflow-y:hidden}
 .calcul .g{justify-self:end}
 .resultat{display:inline-block; border:1px solid currentColor; padding:.05em .4em; line-height:1.35}
 code{font-family:var(--mono); font-size:.88em}
+.enonce,.explication,.texte{overflow-wrap:break-word}
+/* Réponse trop longue pour un téléphone (formule d'un seul tenant) : elle défile dans sa case,
+   la page ne déborde jamais. */
+.texte{overflow-x:auto; overflow-y:hidden}
+.explication p{margin:0 0 .55em}
+.explication p:last-child{margin-bottom:0}
+.explication .fig{margin:8px auto 12px}
 
-/* Figures dans les énoncés et les corrections */
 .fig{display:block; width:100%; height:auto; margin:12px auto 4px}
 .fig .grille{stroke:var(--filet); stroke-width:.7; fill:none}
 .fig .axe{stroke:var(--encre); stroke-width:1.1; fill:none}
@@ -142,34 +190,12 @@ code{font-family:var(--mono); font-size:.88em}
 .fig .c-noir{color:var(--encre)}
 .fig .c-violet{color:var(--violet)}
 
-/* Résultat */
-.note{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:6px 0 2px; color:var(--rouge)}
-.note .grand{font:700 3.6rem/1 var(--main)}
-.note .sur{font:400 1.5rem/1 var(--main)}
-.appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
-.bilan-parties{margin:0 0 6px}
-.bilan-parties span{white-space:nowrap}
-.bilan-reprise{margin:0 0 10px}
-.reprise-info{margin:0 0 10px; font-style:italic}
-.a-revoir{margin:0 0 16px}
-.a-revoir ul{margin:4px 0 0; padding-left:1.3em}
-.titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
-.revue{list-style:none; padding:0; margin:8px 0 0; border-top:1px solid var(--encre)}
-.revue li{padding:14px 0; border-bottom:1px solid var(--filet)}
-.revue .enonce{margin-bottom:10px}
-.revue .bilan{margin:6px 0 8px; font-style:italic}
-.revue li.juste .bilan{color:var(--vert)}
-.revue li.erreur .bilan{color:var(--rouge)}
-.revue .explication{font-size:1rem}
-.liste-choix{margin:0 0 8px; padding-left:1.6em}
-.liste-choix li{border:0; padding:1px 0}
-.liste-choix li.bonne{color:var(--vert)}
-.variante{margin:14px 0 0; padding:0 0 0 14px; border-left:1px dashed var(--filet)}
-.pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
-.pied p{margin:0 0 4px}
-.pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
+table.tableur{border-collapse:collapse; margin:10px auto 4px; font:400 .88rem "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+table.tableur th{background:var(--case); color:var(--gris); font-weight:400; border:1px solid var(--filet); padding:2px 10px; text-align:center; min-width:2.2em}
+table.tableur td{border:1px solid var(--filet); padding:2px 10px; min-width:5em; height:1.9em; background:#FFFFFF; text-align:center}
+table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
 
-/* Formules : KaTeX (réduit de 1,21 à 1,1 em pour s'accorder au texte), sinon mini-LaTeX (.m) */
+/* Formules : KaTeX, sinon mini-LaTeX (.m) */
 .katex{font-size:1.1em}
 .m{font-family:var(--serif); white-space:nowrap}
 .m.m-long{white-space:normal}
@@ -184,41 +210,41 @@ code{font-family:var(--mono); font-size:.88em}
 .frac .den{padding:.04em .25em 0}
 .sqrt .rad{border-top:1px solid currentColor; padding:0 .12em}
 
-:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
-@media (prefers-reduced-motion: reduce){*{transition:none !important; scroll-behavior:auto !important}}
-@media (max-width:520px){
-  body{font-size:17px}
-  .feuille{padding:22px 16px 48px}
-  .entete{font-size:.9rem}
-  h1{font-size:1.7rem}
-  .reponses.vf{gap:8px 24px}
-}
-@media print{
-  .actions,.pied,.progression{display:none}
-  .revue li{break-inside:avoid}
-}
-/* Feuille de calcul */
-table.tableur{border-collapse:collapse; margin:10px auto 4px; font:400 .88rem "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
-table.tableur th{background:var(--case); color:var(--gris); font-weight:400; border:1px solid var(--filet); padding:2px 10px; text-align:center; min-width:2.2em}
-table.tableur td{border:1px solid var(--filet); padding:2px 10px; min-width:5em; height:1.9em; background:#FFFFFF; text-align:center}
-table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
 </style>
 </head>
 <body>
-<main class="feuille">
-  <header>
-    <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
-    <div class="entete"><span>Première · Mathématiques spécifiques</span><span>M. Bailly</span><span>Chapitre 1 · Fonctions affines</span></div>
-    <h1>Entraînement Évaluation fonctions affines</h1>
-    <p class="consigne">Deux parties&nbsp;: six automatismes, puis dix questions sur les fonctions affines. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
-    <div class="filet" role="presentation"></div>
-  </header>
-  <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
-  <section id="quiz" aria-live="polite"></section>
-  <footer class="pied">
-    <p><button type="button" id="reinitialiser">Recommencer depuis le début</button></p>
-  </footer>
+<header class="haut">
+  <div class="ligne">
+    <a class="retour" href="https://p-bailly.github.io/entrainements/" aria-label="Tous les entraînements"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="titres"><span class="lycee">M. Bailly · Lycée Émile Loubet · Première · Mathématiques spécifiques</span><span class="chap">Chapitre 1 · Fonctions affines</span></div>
+    <span class="compteur" id="compteur"></span>
+  </div>
+  <nav class="segments" id="segments" aria-label="Questions"></nav>
+</header>
+<main>
+  <section class="carte intro" id="intro" hidden>
+    <p class="meta" id="intro-num"></p>
+    <h1 id="intro-titre">Chapitre 1 · Fonctions affines</h1>
+    <p class="sous">Entraînement à l'évaluation</p>
+    <p>Deux parties&nbsp;: six automatismes, puis dix questions sur les fonctions affines. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <ul>
+      <li>La correction s'affiche après chaque question.</li>
+      <li>Tes réponses restent enregistrées sur cet appareil : tu peux t'arrêter et reprendre plus tard.</li>
+      <li>Pour calculer, bouton « Brouillon » en bas de l'écran.</li>
+    </ul>
+  </section>
+  <div id="ecran" aria-live="polite"></div>
 </main>
+<div class="brouillon" id="brouillon" hidden>
+  <div class="outils">
+    <span class="titre">Brouillon</span>
+    <button type="button" class="outil" data-outil="crayon" aria-pressed="true">Stylo</button>
+    <button type="button" class="outil" data-outil="gomme" aria-pressed="false">Gomme</button>
+    <button type="button" class="outil" id="tout-effacer">Tout effacer</button>
+  </div>
+  <canvas class="toile" id="toile" aria-label="Brouillon : écrire au doigt ou à la souris"></canvas>
+</div>
+<footer class="bas"><div class="dedans"><button type="button" class="btn" id="gauche">Brouillon</button><button type="button" class="btn principal" id="principal">Valider</button></div></footer>
 <script>
 (function () {
 'use strict';
@@ -778,310 +804,326 @@ function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } cat
 let etat = charger() || nouvelEtat();
 let selection = null;
 
+/* ---------- Outils de l'affichage ---------- */
 const $ = sel => document.querySelector(sel);
-const zoneProg = $('#progression');
-const zoneQuiz = $('#quiz');
 const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
-const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
-// Une seule partie : aucun nom de partie n'est affiché (grille, question, corrigé, note).
 const UNE_PARTIE = QUIZ.parties.length === 1;
+const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
 const questionsDe = p => QUIZ.questions.map((q, i) => q.partie === p ? i : -1).filter(i => i >= 0);
+const LETTRES = 'abcdefgh';
+const estJuste = rep => !!(rep && rep.ok);
 
-/* ---------- Affichage ---------- */
 // Explication : un texte, ou une liste de blocs (paragraphes, calculs en colonne, figures).
 function explicationHTML(q) {
   const blocs = Array.isArray(q.explication) ? q.explication : [q.explication];
   return blocs.map(b => /^<(div|svg)\b/.test(b) ? tex(b) : '<p>' + tex(b) + '</p>').join('');
 }
-
-function reponseTexte(q, choix) {
-  if (q.type === 'vf') return choix ? 'Vrai' : 'Faux';
-  return '« ' + tex(q.choix[choix]) + ' »';
+// Valeurs proposées, dans l'ordre de l'élève : [true, false] pour un vrai ou faux.
+const valeursDe = (q, ordre) => q.type === 'vf' ? [true, false] : ordre;
+const lettreDe = (q, ordre, val) => q.type === 'vf' ? '' : LETTRES[ordre.indexOf(val)];
+// Une réponse en toutes lettres : « Vrai », ou « c) 3x − 1 ».
+function reponseTexte(q, ordre, val) {
+  if (q.type === 'vf') return val ? 'Vrai' : 'Faux';
+  return lettreDe(q, ordre, val) + ')&nbsp;' + tex(q.choix[val]);
 }
-
-// Tour en cours : le premier passage (les questions du fichier), ou la reprise des questions
-// manquées (leurs variantes). Chacun a ses réponses, l'ordre de ses choix et sa question courante k ;
-// le numéro affiché est toujours celui de la question d'origine.
+const lireValeur = (q, s) => q.type === 'vf' ? s === 'true' : Number(s);
+const noteSur20 = (score, n) => fr(Math.round(score * 20 / n * 2) / 2);
+function appreciation(score, n) {
+  if (score >= 0.75 * n) return 'C\'est solide. Relis quand même la correction des questions manquées.';
+  if (score >= 0.5 * n) return 'L\'essentiel est là. Reprends les points ci-dessous, puis refais l\'entraînement.';
+  return 'À retravailler avant l\'évaluation : reprends le cours et la fiche d\'exercices, puis refais l\'entraînement.';
+}
+function listeARevoir() {
+  const l = [];
+  QUIZ.questions.forEach((q, i) => { if (!estJuste(etat.reponses[i]) && q.revoir && l.indexOf(q.revoir) < 0) l.push(q.revoir); });
+  return l;
+}
+// Questions manquées (fausses ou sans réponse) qui ont une variante.
+const manquees = () => QUIZ.questions.map((q, i) => i).filter(i => !estJuste(etat.reponses[i]) && QUIZ.questions[i].variante);
+const nouvelleReprise = rangs => ({ rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 });
+// Tour en cours : le premier passage, ou la reprise des questions manquées (leurs variantes).
 function tourCourant() {
   const R = etat.reprise;
   if (R && R.courant < R.rangs.length)
     return { reprise: true, etat: R, total: R.rangs.length, question: k => variante(R.rangs[k]), numero: k => R.rangs[k] + 1 };
   return { reprise: false, etat: etat, total: N, question: k => QUIZ.questions[k], numero: k => k + 1 };
 }
+// Deux appuis pour effacer : le premier transforme le bouton en demande de confirmation.
+function confirmer(btn, texte, action) {
+  if (btn.dataset.minuteur) {
+    clearTimeout(Number(btn.dataset.minuteur));
+    btn.textContent = btn.dataset.texte;
+    delete btn.dataset.minuteur;
+    action();
+  } else {
+    btn.dataset.texte = btn.textContent;
+    btn.textContent = texte;
+    btn.dataset.minuteur = String(setTimeout(() => { btn.textContent = btn.dataset.texte; delete btn.dataset.minuteur; }, 4000));
+  }
+}
+const pluriel = (n, mot) => n + ' ' + mot + (n > 1 ? 's' : '');
 
-// Une grille de réponses. items = [{cle, numero, rep}] ; attr = data-q (premier passage) ou data-r (reprise).
-function grille(nom, items, courant, attr) {
-  const faites = items.filter(it => it.rep).length;
-  let nums = '', marques = '';
-  items.forEach(it => {
-    const ici = it.cle === courant;
-    nums += `<td class="${ici ? 'ici' : ''}"><button type="button" class="aller" ${attr}="${it.cle}" aria-label="Aller à la question ${it.numero}">${it.numero}</button></td>`;
-    marques += it.rep
-      ? `<td class="${it.rep.ok ? 'juste' : 'erreur'}${ici ? ' courant' : ''}" ${attr}="${it.cle}"><span class="marque ${it.rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`
-      : `<td class="${ici ? 'courant' : ''}" ${attr}="${it.cle}"></td>`;
-  });
-  return `<div class="bloc-grille">${nom ? `<p class="nom-partie">${nom}</p>` : ''}
-    <table class="grille-reponses" aria-label="${nom || 'Réponses'} : ${faites} question${faites > 1 ? 's' : ''} sur ${items.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+/* ---------- Affichage : une question par écran ---------- */
+const ecran = $('#ecran'), intro = $('#intro'), segments = $('#segments'), compteur = $('#compteur');
+const btnG = $('#gauche'), btnP = $('#principal');
+let introFaite = false;   // écran de départ montré tant que rien n'est commencé
+let actionG = null, actionP = null;
+{
+  const t = $('#intro-titre'), morceaux = t.textContent.split(' · ');
+  if (morceaux.length > 1) { $('#intro-num').textContent = morceaux[0] + ' · ' + N + ' questions'; t.textContent = morceaux.slice(1).join(' · '); }
 }
 
-function rendreProgression() {
-  if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
-  const T = tourCourant(), R = etat.reprise;
-  zoneProg.innerHTML = T.reprise
-    ? grille('Reprise des questions manquées', R.rangs.map((i, k) => ({ cle: k, numero: i + 1, rep: R.reponses[k] })), R.courant, 'data-r')
-    : QUIZ.parties.map((nom, p) => grille(UNE_PARTIE ? '' : nomPartie(p),
-        questionsDe(p).map(i => ({ cle: i, numero: i + 1, rep: etat.reponses[i] })), etat.courant, 'data-q')).join('');
+// Barre du bas : bouton de gauche (brouillon, recommencer) et bouton principal.
+function barreBas(g, p) {
+  [btnG, btnP].forEach(b => { if (b.dataset.minuteur) { clearTimeout(Number(b.dataset.minuteur)); delete b.dataset.minuteur; } });
+  btnG.hidden = !g;
+  if (g) {
+    btnG.textContent = g.texte; actionG = g.action;
+    if (g.presse === undefined) btnG.removeAttribute('aria-pressed'); else btnG.setAttribute('aria-pressed', g.presse ? 'true' : 'false');
+  }
+  btnP.textContent = p.texte; btnP.disabled = !!p.desactive; actionP = p.action;
 }
+btnG.addEventListener('click', () => { if (actionG) actionG(btnG); });
+btnP.addEventListener('click', () => { if (actionP && !btnP.disabled) actionP(btnP); });
 
 function rendre() {
-  rendreProgression();
   if (MODE_CORRIGE) return rendreCorrige();
   const T = tourCourant();
-  if (T.etat.courant >= T.total) rendreResultat(); else rendreQuestion(T, T.etat.courant);
+  rendreSegments(T);
+  intro.hidden = introFaite;
+  ecran.hidden = !introFaite;
+  if (!introFaite) {
+    compteur.textContent = '';
+    return barreBas(null, { texte: 'Commencer', action: () => { introFaite = true; rendre(); } });
+  }
+  if (T.etat.courant >= T.total) return rendreResultat();
+  rendreQuestion(T, T.etat.courant);
 }
 
-function boite(marque) {
-  return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
+function rendreSegments(T) {
+  const fini = !T.reprise && etat.courant >= N;
+  segments.innerHTML = Array.from({ length: T.total }, (_, k) => {
+    const rep = T.etat.reponses[k];
+    const ici = introFaite && !fini && k === T.etat.courant;
+    const cls = (rep ? (rep.ok ? 'juste' : 'faux') : '') + (ici ? (rep ? ' vu' : ' ici') : '');
+    return `<button type="button" class="${cls}" data-k="${k}" aria-label="Question ${T.numero(k)}${rep ? (rep.ok ? ', juste' : ', fausse') : ''}"></button>`;
+  }).join('');
+  compteur.textContent = fini ? '' : `${Math.min(T.etat.courant + 1, T.total)} / ${T.total}`;
 }
+segments.addEventListener('click', e => {
+  const b = e.target.closest('[data-k]');
+  if (!b || MODE_CORRIGE) return;
+  const T = tourCourant();
+  T.etat.courant = Number(b.dataset.k);
+  introFaite = true; selection = null;
+  sauver(); rendre(); window.scrollTo(0, 0);
+});
+
+const brouillonBouton = () => ({ texte: 'Brouillon', action: basculerBrouillon, presse: brouillonOuvert });
 
 function rendreQuestion(T, k) {
-  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = k === T.total - 1;
-  const changePartie = !T.reprise && !derniere && QUIZ.questions[k + 1].partie !== q.partie;
-  const tete = T.reprise ? `Reprise des questions manquées · ${k + 1} sur ${T.total}` : UNE_PARTIE ? '' : nomPartie(q.partie);
-  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir ma note') : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante';
-  let options;
-  if (q.type === 'vf') {
-    options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
-      let cls = 'choix', marque = '';
-      if (rep) {
-        if (val === q.bonne) { cls += ' juste'; marque = 'coche'; }
-        else if (val === rep.choix) { cls += ' erreur'; marque = 'croix'; }
-        else cls += ' terne';
-      }
-      return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
-    }).join('');
-  } else {
-    options = ordre.map((orig, j) => {
-      let cls = 'choix', marque = '';
-      if (rep) {
-        if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
-        else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
-        else cls += ' terne';
-      }
-      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[j]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
-    }).join('');
-  }
-  const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
-  const correction = rep ? `<div class="correction ${rep.ok ? 'juste' : 'erreur'}" role="status">
-      <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
-      <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
-  const bouton = rep
-    ? `<button type="button" class="bouton" id="suivant">${suite}</button>`
-    : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
-  zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
-    ${tete ? `<p class="partie">${tete}</p>` : ''}
-    <p class="question" id="titre-q"><b>Question ${T.numero(k)}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
-    <div class="enonce">${tex(q.enonce)}</div>
-    <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
-    <div class="actions">${bouton}</div>
-    ${correction}
-  </article>`;
-  selection = null;
-  if (!rep) {
-    zoneQuiz.querySelectorAll('.choix').forEach(b => b.addEventListener('click', () => choisir(b, q)));
-    $('#valider').addEventListener('click', valider);
-  } else {
-    $('#suivant').addEventListener('click', suivant);
-  }
+  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = prochaine(T) === T.total;
+  const options = valeursDe(q, ordre).map(val => {
+    let cls = 'option', icone = '';
+    if (rep) {
+      if (val === q.bonne) { cls += ' juste'; icone = '✓'; }
+      else if (val === rep.choix) { cls += ' faux'; icone = '✗'; }
+      else cls += ' terne';
+    }
+    const coche = rep ? val === rep.choix : val === selection;
+    const lettre = q.type === 'vf' ? (val ? 'V' : 'F') : lettreDe(q, ordre, val).toUpperCase();
+    const lib = q.type === 'vf' ? (val ? 'Vrai' : 'Faux') : tex(q.choix[val]);
+    return `<button type="button" class="${cls}" role="radio" aria-checked="${coche}" data-val="${val}"${rep ? ' disabled' : ''}>`
+      + `<span class="pastille" aria-hidden="true">${lettre}</span><span class="texte">${lib}</span>${icone ? `<span class="icone" aria-hidden="true">${icone}</span>` : ''}</button>`;
+  }).join('');
+  ecran.innerHTML = `${T.reprise ? '<p class="bandeau-reprise">Reprise des questions manquées : mêmes notions, autres valeurs.</p>' : ''}
+    <article class="carte" aria-labelledby="titre-q">
+      ${!UNE_PARTIE && !T.reprise ? `<p class="partie">${nomPartie(q.partie)}</p>` : ''}
+      <p class="meta" id="titre-q">Question ${T.numero(k)}<span> · ${q.theme}${q.type === 'vf' ? ' · vrai ou faux' : ''}</span></p>
+      <div class="enonce">${tex(q.enonce)}</div>
+      <div class="options" role="radiogroup" aria-label="Réponses">${options}</div>
+    </article>
+    ${rep ? retourHTML(q, ordre, rep) : ''}`;
+  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir mon résultat') : 'Question suivante';
+  barreBas(brouillonBouton(), rep ? { texte: suite, action: suivant } : { texte: 'Valider', action: valider, desactive: selection === null });
 }
 
-function choisir(b, q) {
-  zoneQuiz.querySelectorAll('.choix').forEach(o => {
-    const actif = o === b;
-    o.classList.toggle('choisi', actif);
-    o.setAttribute('aria-pressed', actif ? 'true' : 'false');
-    o.querySelector('.marque').className = actif ? 'marque croix' : 'marque';
-  });
-  selection = q.type === 'vf' ? b.dataset.val === 'true' : Number(b.dataset.val);
-  $('#valider').disabled = false;
+function retourHTML(q, ordre, rep) {
+  const bonne = q.type === 'vf' ? (q.bonne ? 'Vrai' : 'Faux') : lettreDe(q, ordre, q.bonne).toUpperCase();
+  return `<section class="retour-corr ${rep.ok ? 'juste' : 'faux'}">
+    <p class="verdict">${rep.ok ? 'Juste' : 'Faux. La bonne réponse est ' + bonne + '.'}</p>
+    <div class="explication">${explicationHTML(q)}</div>
+    ${!rep.ok && q.revoir ? `<p class="revoir">À revoir : ${tex(q.revoir)}.</p>` : ''}
+  </section>`;
 }
+
+ecran.addEventListener('click', e => {
+  const o = e.target.closest('.option');
+  if (!o || o.disabled || MODE_CORRIGE) return;
+  const T = tourCourant();
+  selection = lireValeur(T.question(T.etat.courant), o.dataset.val);
+  ecran.querySelectorAll('.option').forEach(b => b.setAttribute('aria-checked', b === o ? 'true' : 'false'));
+  btnP.disabled = false;
+});
 
 function valider() {
   const T = tourCourant(), k = T.etat.courant, q = T.question(k);
   if (selection === null || T.etat.reponses[k]) return;
   T.etat.reponses[k] = { choix: selection, ok: selection === q.bonne };
-  sauver();
-  rendre();
-  const suivantBtn = $('#suivant');
-  if (suivantBtn) suivantBtn.focus({ preventScroll: true });
-  const correction = $('.correction');
-  if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
-}
-
-// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question
-// (data-q : premier passage ; data-r : reprise des questions manquées).
-function aller(cible) {
-  if (cible.dataset.r !== undefined) etat.reprise.courant = Number(cible.dataset.r);
-  else etat.courant = Number(cible.dataset.q);
   selection = null;
   sauver();
   rendre();
-  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+  const c = $('.retour-corr');
+  if (c) c.scrollIntoView({ block: 'nearest', behavior: motion() });
 }
 
+// La prochaine question sans réponse (après celle-ci, sinon depuis le début) ; toutes faites : le résultat.
+function prochaine(T) {
+  const reps = T.etat.reponses, k0 = T.etat.courant;
+  for (let k = k0 + 1; k < T.total; k++) if (!reps[k]) return k;
+  for (let k = 0; k < k0; k++) if (!reps[k]) return k;
+  return T.total;
+}
 function suivant() {
   const T = tourCourant();
-  T.etat.courant = Math.min(T.etat.courant + 1, T.total);
+  T.etat.courant = prochaine(T);
   selection = null;
   sauver();
   rendre();
-  // On remonte aux grilles de réponses, pas tout en haut : sur téléphone, l'en-tête occupe un écran.
-  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+  window.scrollTo(0, 0);
+}
+
+function ligneRecap(q, ordre, rep, numero) {
+  const bonne = 'Bonne réponse&nbsp;: ' + reponseTexte(q, ordre, q.bonne);
+  const texte = !rep ? 'Sans réponse. ' + bonne : rep.ok ? 'Ta réponse&nbsp;: ' + reponseTexte(q, ordre, rep.choix) + '. Juste.'
+    : 'Ta réponse&nbsp;: ' + reponseTexte(q, ordre, rep.choix) + '.<br>' + bonne + '.';
+  return `<li class="${!rep ? 'vide' : rep.ok ? 'juste' : 'faux'}"><details>
+    <summary><span class="num">${numero}</span><span class="theme">${q.theme}</span><span class="icone" role="img" aria-label="${!rep ? 'sans réponse' : rep.ok ? 'juste' : 'fausse'}">${!rep ? '–' : rep.ok ? '✓' : '✗'}</span></summary>
+    <div class="detail"><div class="enonce">${tex(q.enonce)}</div><p class="ta-rep">${texte}</p><div class="explication">${explicationHTML(q)}</div></div>
+  </details></li>`;
+}
+
+function rendreResultat() {
+  if (brouillonOuvert) basculerBrouillon();
+  const score = etat.reponses.filter(estJuste).length, R = etat.reprise, nm = manquees().length, aRevoir = listeARevoir();
+  const parties = UNE_PARTIE ? '' : `<p class="bilan-parties">${QUIZ.parties.map((nom, p) => {
+    const rg = questionsDe(p);
+    return `${nomPartie(p)}&nbsp;: <b>${rg.filter(i => estJuste(etat.reponses[i])).length} / ${rg.length}</b>`;
+  }).join('<br>')}</p>`;
+  ecran.innerHTML = `<section class="carte" aria-labelledby="titre-res">
+      <p class="meta" id="titre-res">Résultat</p>
+      <p class="score"><b>${score}</b> / ${N}</p>
+      ${N === 20 ? '' : `<p class="sur20">soit ${noteSur20(score, N)} sur 20</p>`}
+      <p class="appreciation">${appreciation(score, N)}</p>
+      ${parties}
+      ${R ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(estJuste).length} / ${R.rangs.length}</b></p>` : ''}
+    </section>
+    ${aRevoir.length ? `<section class="carte"><p class="meta">À revoir avant l'évaluation</p><ul class="a-revoir">${aRevoir.map(t => `<li>${tex(t)}</li>`).join('')}</ul></section>` : ''}
+    <h2 class="titre-liste">Tes réponses</h2>
+    <ol class="recap">${QUIZ.questions.map((q, i) => ligneRecap(q, etat.ordre[i], etat.reponses[i], i + 1)).join('')}</ol>
+    ${R ? `<h2 class="titre-liste">Reprise</h2><ol class="recap">${R.rangs.map((i, k) => ligneRecap(variante(i), R.ordre[k], R.reponses[k], i + 1)).join('')}</ol>` : ''}`;
+  const recommencerBtn = { texte: 'Recommencer', action: b => confirmer(b, 'Confirmer', recommencer) };
+  if (nm) barreBas(recommencerBtn, { texte: R ? 'Refaire la reprise' : `Refaire les manquées (${nm})`, action: () => reprendre(manquees()) });
+  else barreBas(null, { texte: 'Recommencer', action: b => confirmer(b, 'Confirmer : tout effacer', recommencer) });
+}
+
+function reprendre(rangs) {
+  etat.reprise = nouvelleReprise(rangs);
+  selection = null;
+  sauver();
+  rendre();
+  window.scrollTo(0, 0);
 }
 
 function recommencer() {
   etat = nouvelEtat();
   selection = null;
+  introFaite = true;
   sauver();
   rendre();
-  window.scrollTo({ top: 0, behavior: motion() });
-}
-// Deux clics pour tout effacer : le premier transforme le bouton en demande de confirmation.
-function demanderRecommencer(btn) {
-  const entame = etat.courant > 0 || etat.reponses.some(Boolean);
-  if (btn.dataset.minuteur) {
-    clearTimeout(Number(btn.dataset.minuteur));
-    btn.textContent = btn.dataset.texte;
-    delete btn.dataset.minuteur;
-    recommencer();
-  } else if (!entame) {
-    recommencer();
-  } else {
-    btn.dataset.texte = btn.textContent;
-    btn.textContent = 'Confirmer : effacer mes réponses';
-    btn.dataset.minuteur = String(setTimeout(() => { btn.textContent = btn.dataset.texte; delete btn.dataset.minuteur; }, 4000));
-  }
-}
-
-// Questions regroupées par partie : un titre, puis la liste produite par item(q, i).
-function listeParParties(item) {
-  return QUIZ.parties.map((nom, p) =>
-    `${UNE_PARTIE ? '' : `<h2 class="titre-partie">${nomPartie(p)}</h2>`}<ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
-  ).join('');
-}
-
-// Une question de la copie : énoncé, réponse donnée, explication.
-function itemRevue(q, rep, numero) {
-  const ok = !!(rep && rep.ok);
-  let bilan;
-  if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
-  else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
-  else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
-  return `<li class="${ok ? 'juste' : 'erreur'}">
-    <p class="question"><b>Question ${numero}.</b> <i>${q.theme}</i></p>
-    <div class="enonce">${tex(q.enonce)}</div>
-    <p class="bilan">${bilan}</p>
-    <div class="explication">${explicationHTML(q)}</div>
-  </li>`;
-}
-
-function revueHTML() {
-  return listeParParties((q, i) => itemRevue(q, etat.reponses[i], i + 1));
-}
-
-function revueRepriseHTML() {
-  const R = etat.reprise;
-  return `<h2 class="titre-partie">Reprise des questions manquées</h2><ol class="revue">${R.rangs.map((i, k) => itemRevue(variante(i), R.reponses[k], i + 1)).join('')}</ol>`;
-}
-
-// Bouton qui montre ou cache une copie.
-function bascule(idBouton, idListe, texte) {
-  $('#' + idBouton).addEventListener('click', () => {
-    const liste = $('#' + idListe), btn = $('#' + idBouton);
-    liste.hidden = !liste.hidden;
-    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
-    btn.textContent = (liste.hidden ? 'Revoir ' : 'Masquer ') + texte;
-  });
-}
-
-// Reprise des questions manquées qui ont une variante : nouveau tour, noté à part.
-function reprendre(rangs) {
-  etat.reprise = { rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 };
-  selection = null;
-  sauver();
-  rendre();
-  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
-}
-
-function rendreResultat() {
-  const juste = i => !!(etat.reponses[i] && etat.reponses[i].ok);
-  const score = QUIZ.questions.filter((q, i) => juste(i)).length;
-  const appreciation = score >= 0.75 * N
-    ? 'C\'est solide. Relis quand même les explications des questions manquées.'
-    : score >= 0.5 * N
-      ? 'L\'essentiel est là. Reprends les points listés ci-dessous, puis refais cet entraînement.'
-      : 'À retravailler avant l\'évaluation : reprends le cours et la fiche d\'exercices, puis refais cet entraînement.';
-  const sur20 = N === 20 ? '' : `<span class="sur">soit ${fr(Math.round(score * 20 / N * 2) / 2)} / 20</span>`;
-  const parties = QUIZ.parties.map((nom, p) => {
-    const rangs = questionsDe(p);
-    return `<span>${nomPartie(p)}&nbsp;: <b>${rangs.filter(juste).length} / ${rangs.length}</b></span>`;
-  }).join(' &emsp; ');
-  const aRevoir = [];
-  QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
-  const revoir = aRevoir.length
-    ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
-  // Questions manquées qui ont une variante, et reprise déjà faite (on n'arrive ici qu'une fois finie).
-  const manquees = QUIZ.questions.map((q, i) => i).filter(i => !juste(i) && QUIZ.questions[i].variante);
-  const R = etat.reprise, nm = manquees.length;
-  const bilanReprise = R
-    ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(x => x && x.ok).length} / ${R.rangs.length}</b></p>` : '';
-  const infoReprise = nm && !R
-    ? `<p class="reprise-info">Tu peux refaire ${nm > 1 ? 'les ' + nm + ' questions manquées' : 'la question manquée'}, un peu ${nm > 1 ? 'modifiées' : 'modifiée'}&nbsp;: mêmes notions, autres valeurs.</p>` : '';
-  zoneQuiz.innerHTML = `<article class="page-note" aria-labelledby="titre-r">
-    <p class="question" id="titre-r"><b>Note.</b></p>
-    <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
-    <p class="appreciation">${appreciation}</p>
-    ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
-    ${bilanReprise}
-    ${revoir}
-    ${infoReprise}
-    <div class="actions">
-      ${nm ? `<button type="button" class="bouton" id="reprendre">${R ? 'Refaire la reprise' : 'Refaire les questions manquées'}</button>` : ''}
-      <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
-      ${R ? '<button type="button" class="bouton" id="revoir-reprise" aria-expanded="false" aria-controls="revue-reprise">Revoir la reprise</button>' : ''}
-      <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
-    </div>
-    <div id="revue" hidden>${revueHTML()}</div>
-    ${R ? `<div id="revue-reprise" hidden>${revueRepriseHTML()}</div>` : ''}
-  </article>`;
-  bascule('revoir', 'revue', 'la copie');
-  if (R) bascule('revoir-reprise', 'revue-reprise', 'la reprise');
-  if (nm) $('#reprendre').addEventListener('click', () => reprendre(manquees));
-  $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+  window.scrollTo(0, 0);
 }
 
 function rendreCorrige() {
-  // Énoncé, choix (bonne réponse en vert), explication.
-  const corps = q => `<div class="enonce">${tex(q.enonce)}</div>
-      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
-      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
-      <div class="explication">${explicationHTML(q)}</div>`;
-  zoneQuiz.innerHTML = `<article>
-    <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
-    ${listeParParties((q, i) => `<li class="juste">
-      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
-      ${corps(q)}
-      ${q.variante ? `<div class="variante"><p class="question"><b>Variante</b> <i>(reprise des questions manquées)</i></p>${corps(variante(i))}</div>` : ''}
-    </li>`)}
-  </article>`;
+  intro.hidden = true;
+  segments.hidden = true;
+  $('.bas').hidden = true;
+  compteur.textContent = 'Corrigé';
+  const carte = (q, numero, titre) => {
+    const ordre = q.type === 'qcm' ? q.choix.map((_, k) => k) : null;
+    const options = valeursDe(q, ordre).map(val => `<button type="button" class="option ${val === q.bonne ? 'juste' : 'terne'}" disabled>`
+      + `<span class="pastille">${q.type === 'vf' ? (val ? 'V' : 'F') : lettreDe(q, ordre, val).toUpperCase()}</span>`
+      + `<span class="texte">${q.type === 'vf' ? (val ? 'Vrai' : 'Faux') : tex(q.choix[val])}</span></button>`).join('');
+    return `<article class="carte"><p class="meta">${titre} ${numero}<span> · ${q.theme}</span></p><div class="enonce">${tex(q.enonce)}</div>
+      <div class="options">${options}</div><div class="explication" style="margin-top:14px">${explicationHTML(q)}</div></article>`;
+  };
+  ecran.innerHTML = QUIZ.questions.map((q, i) => carte(q, i + 1, 'Question') + (q.variante ? carte(variante(i), i + 1, 'Variante de la question') : '')).join('');
 }
 
-/* ---------- Démarrage ---------- */
-$('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
-zoneProg.addEventListener('click', e => {
-  const cible = e.target.closest('[data-q],[data-r]');
-  if (cible) aller(cible);
+// Clavier (ordinateur) : 1 à 4 ou a à d pour choisir, Entrée pour valider ou passer à la suite.
+document.addEventListener('keydown', e => {
+  if (MODE_CORRIGE || e.altKey || e.ctrlKey || e.metaKey || !brouillon.hidden && e.key !== 'Enter') return;
+  const options = Array.from(ecran.querySelectorAll('.option:not(:disabled)'));
+  const n = /^[1-6]$/.test(e.key) ? Number(e.key) - 1 : 'abcdef'.indexOf(e.key.toLowerCase());
+  if (options.length && e.key.length === 1 && n >= 0 && n < options.length) { options[n].click(); e.preventDefault(); }
+  else if (e.key === 'Enter' && (document.activeElement === document.body || document.activeElement.classList.contains('option')) && !btnP.disabled) { btnP.click(); e.preventDefault(); }
 });
+
+/* ---------- Brouillon : on écrit au doigt (ou à la souris) sur des petits carreaux ---------- */
+const brouillon = $('#brouillon'), toile = $('#toile'), ctx = toile.getContext('2d');
+let brouillonOuvert = false, outil = 'crayon', dernier = null;
+function basculerBrouillon() {
+  brouillonOuvert = !brouillonOuvert;
+  brouillon.hidden = !brouillonOuvert;
+  document.body.classList.toggle('avec-brouillon', brouillonOuvert);
+  btnG.setAttribute('aria-pressed', brouillonOuvert ? 'true' : 'false');
+  if (brouillonOuvert) ajusterToile();
+}
+// La toile suit la taille de son cadre (rotation du téléphone) sans perdre ce qui est écrit.
+function ajusterToile() {
+  const cadre = toile.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  const l = Math.round(cadre.width * dpr), h = Math.round(cadre.height * dpr);
+  if (!l || !h || (toile.width === l && toile.height === h)) return;
+  const copie = document.createElement('canvas');
+  copie.width = toile.width; copie.height = toile.height;
+  if (copie.width && copie.height) copie.getContext('2d').drawImage(toile, 0, 0);
+  toile.width = l; toile.height = h;
+  ctx.drawImage(copie, 0, 0);
+}
+function position(e) {
+  const cadre = toile.getBoundingClientRect(), k = toile.width / cadre.width;
+  return { x: (e.clientX - cadre.left) * k, y: (e.clientY - cadre.top) * k, k: k };
+}
+function trait(a, b) {
+  ctx.globalCompositeOperation = outil === 'gomme' ? 'destination-out' : 'source-over';
+  ctx.strokeStyle = '#1E3D96';
+  ctx.lineWidth = (outil === 'gomme' ? 24 : 2.4) * b.k;
+  ctx.lineCap = 'round'; ctx.lineJoin = 'round';
+  ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+}
+toile.addEventListener('pointerdown', e => {
+  e.preventDefault();
+  toile.setPointerCapture(e.pointerId);
+  dernier = position(e);
+  trait(dernier, { x: dernier.x + 0.1, y: dernier.y, k: dernier.k });
+});
+toile.addEventListener('pointermove', e => {
+  if (!dernier) return;
+  (e.getCoalescedEvents ? e.getCoalescedEvents() : [e]).forEach(ev => { const p = position(ev); trait(dernier, p); dernier = p; });
+});
+['pointerup', 'pointercancel'].forEach(t => toile.addEventListener(t, () => { dernier = null; }));
+brouillon.addEventListener('click', e => {
+  const b = e.target.closest('button');
+  if (!b) return;
+  if (b.dataset.outil) {
+    outil = b.dataset.outil;
+    brouillon.querySelectorAll('[data-outil]').forEach(o => o.setAttribute('aria-pressed', o === b ? 'true' : 'false'));
+  } else if (b.id === 'tout-effacer') ctx.clearRect(0, 0, toile.width, toile.height);
+});
+window.addEventListener('resize', () => { if (brouillonOuvert) ajusterToile(); });
+
+
+introFaite = etat.reponses.some(Boolean) || !!etat.reprise;
 rendre();
 })();
 </script>
