@@ -6,29 +6,31 @@
 <title>Entraînement Évaluation droites du plan</title>
 <!--
   Entraînement auto-corrigé à l'évaluation du chapitre 15 (Droites du plan) - Seconde.
-  Une seule partie, douze questions, sans automatismes (demande du professeur), dans l'ordre
-  du cours et des séances du plan, comme les exercices 2 à 4 de l'évaluation :
-    1 à 4    : équation cartésienne (parties 1 et 2 du cours, capacités 1 et 2) : un point
-               appartient-il à une droite (vrai ou faux), vecteur directeur (-b ; a) lu sur
-               une équation, équation cartésienne par un point et un vecteur directeur (avec
-               le déterminant), droite tracée à reconnaître parmi quatre (deux de ses points) ;
-    5 à 8    : équation réduite et pente (partie 3, capacités 3 et 4) : pente et équation
-               réduite par deux points, lecture graphique (ordonnée à l'origine, pente
-               fractionnaire), droite parallèle à l'axe des ordonnées (x = c, pas de pente),
-               passer de ax + by + c = 0 à y = mx + p (division par un coefficient négatif) ;
-    9 à 11   : parallélisme et alignement (partie 4, capacité 5) : droite parallèle à une
-               droite donnée, à choisir parmi quatre (les trois autres sont sécantes avec
-               elle), parallèle passant par un point, trois points alignés ou non (vrai ou
-               faux ; dans la question, le point est tout près de la droite) ;
-    12       : lecture de la fonction Python equation de l'activité 3 (coefficients d'une
-               équation de la droite (AB)).
+  Une seule partie, douze questions, sans automatismes (demande du professeur), sur les
+  notions des exercices 2 à 4 de l'évaluation, rangées par difficulté croissante, en trois
+  niveaux :
+    1 à 3  : cours et applications directes : un point appartient-il à une droite (vrai ou
+             faux), vecteur directeur (-b ; a) lu sur une équation (capacité 1), équation
+             réduite lue sur un graphique (ordonnée à l'origine, pente fractionnaire ;
+             capacités 3 et 4) ;
+    4 à 8  : méthodes en deux ou trois étapes : droite parallèle à l'axe des ordonnées (x = c,
+             pas de pente), parallèle passant par un point, droite tracée à reconnaître parmi
+             quatre (deux de ses points), pente et équation réduite par deux points, équation
+             cartésienne par un point et un vecteur directeur, avec le déterminant
+             (capacités 1, 2, 3 et 5) ;
+    9 à 12 : plusieurs étapes et pièges : trois points alignés ou non (vrai ou faux ; dans la
+             question, le point est tout près de la droite), passer de ax + by + c = 0 à
+             y = mx + p (division par un coefficient négatif ; capacité 4), droite parallèle
+             à une droite donnée, à choisir parmi quatre (les trois autres sont sécantes avec
+             elle ; capacité 5), lecture de la fonction Python equation de l'activité 3
+             (coefficients d'une équation de la droite (AB)).
   Sources : théorème, méthodes et capacités 1 à 5 du cours (et leurs versions imprimées),
   activités 1 (une droite et son équation), 2 (la pente d'une route) et 3 (programmer une
   équation de droite), fiche d'exercices (exercices 1 à 5), évaluation (sujets A et B,
   exercices 2 à 4 ; son QCM d'automatismes n'est pas repris) et exercices du manuel cités
   dans le plan, hors « Plus rapides » (14, 15 et 16 p. 192 ; 25, 26, 27 et 31 p. 193 ; 41
   p. 194 ; 96 et 104 p. 196 ; 130 p. 198 ; 151 p. 200, questions 1 à 3 ; « Faire le point »
-  p. 201, questions 1 à 4 et 6 à 8) ; la question 4 reprend aussi l'idée de l'exercice 93
+  p. 201, questions 1 à 4 et 6 à 8) ; la question 6 reprend aussi l'idée de l'exercice 93
   p. 196 (des plus rapides).
   Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs,
   calculables de tête (calculatrice interdite, comme à l'évaluation). Ni point
@@ -49,7 +51,9 @@
   repereDroites (droite parallèle à l'axe des ordonnées, que repere ne trace pas) ;
   programmePython (repris du chapitre 8) pour la fonction de l'activité 3.
   Calculs en colonne : l'équation ou l'expression de départ seule sur la première ligne,
-  puis une étape par ligne, pour que chaque ligne tienne sur un écran de téléphone.
+  puis une seule transformation par ligne (une opération des deux côtés, puis la ligne
+  simplifiée ; chaque produit écrit avant d'être effectué), pour que chaque ligne tienne sur
+  un écran de téléphone et que l'élève voie d'où vient chaque nombre.
   Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
   questions manquées.
 
@@ -376,7 +380,7 @@ const EQUATION = programmePython([
 
 // Figures des énoncés et des corrections (les corrections y ajoutent points et lectures).
 const FIG = {
-  // Question 4 : x + 2y - 4 = 0 est d2 (en bleu), qui passe par (0 ; 2) et (4 ; 0) ; d3 passe
+  // Question 6 : x + 2y - 4 = 0 est d2 (en bleu), qui passe par (0 ; 2) et (4 ; 0) ; d3 passe
   // aussi par (0 ; 2), d4 aussi par (4 ; 0), d1 par (2 ; 0) et (0 ; 4) (coordonnées échangées).
   trace: { xmin: -5, xmax: 5, ymin: -3, ymax: 5,
     courbes: [{ f: x => -2 * x + 4 }, { f: x => -x / 2 + 2, classe: 'c-bleu' },
@@ -391,14 +395,14 @@ const FIG = {
     noms: [{ x: 1.5, y: 4.45, texte: 'd', indice: '1' }, { x: -3.9, y: 3.75, texte: 'd', indice: '2', classe: 'c-bleu' },
       { x: 4, y: 3.4, texte: 'd', indice: '3', classe: 'c-noir', ancre: 'end' }, { x: 4.65, y: -3.55, texte: 'd', indice: '4', classe: 'c-violet' }],
     label: 'Repère avec quatre droites. d1, en rouge, passe par (−2 ; 0) et (0 ; 3). d2, en bleu, passe par (0 ; 2) et (3 ; 0). d3, en noir, passe par (0 ; −3) et (2 ; 0). d4, en violet, passe par (0 ; 3), (2 ; 0) et (4 ; −3).' },
-  // Question 6 : d : y = 3x/4 - 3, puis, en variante, d : y = -4x/3 + 4.
+  // Question 3 : d : y = 3x/4 - 3, puis, en variante, d : y = -4x/3 + 4.
   lecture: { xmin: -2, xmax: 6, ymin: -4, ymax: 2, courbes: [{ f: x => 0.75 * x - 3 }],
     noms: [{ x: 4.9, y: 1.1, texte: 'd' }],
     label: 'Repère avec une droite d qui monte : elle passe par les points (0 ; −3) et (4 ; 0).' },
   lectureV: { xmin: -2, xmax: 5, ymin: -2, ymax: 6, courbes: [{ f: x => -4 * x / 3 + 4 }],
     noms: [{ x: 4.3, y: -1.2, texte: 'd' }],
     label: 'Repère avec une droite d qui descend : elle passe par les points (0 ; 4) et (3 ; 0).' },
-  // Question 7 (corrections) : la droite (EF), verticale, puis la droite (GH).
+  // Question 4 (corrections) : la droite (EF), verticale, puis la droite (GH).
   verticale: { xmin: -2, xmax: 5, ymin: -3, ymax: 6, verticales: [{ k: 3 }],
     points: [{ x: 3, y: 5, classe: 'c-noir' }, { x: 3, y: -2, classe: 'c-noir' }],
     noms: [{ x: 3.25, y: 5.15, texte: 'E', classe: 'c-noir' }, { x: 3.25, y: -2.45, texte: 'F', classe: 'c-noir' },
@@ -416,7 +420,7 @@ const QUIZ = {
   parties: ['Droites du plan'],
   questions: [
 
-  /* ----- Équation cartésienne (parties 1 et 2 du cours, capacités 1 et 2, exercices 1 et 2 de la fiche) ----- */
+  /* ----- Niveau 1 : cours et applications directes ----- */
 
   { partie: 0, theme: 'Point d\'une droite', type: 'vf',
     enonce: r`Le point $A(2\,;\,-5)$ appartient à la droite $d : 3x - 2y + 4 = 0$.`,
@@ -440,7 +444,7 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`Pour une droite d'équation $ax + by + c = 0$, le vecteur $(-b\,;\,a)$ est un vecteur directeur&nbsp;: on lit $a$ et $b$ avec leur signe. Ici, $a = 5$ et $b = -2$.`,
-      calcul(r`-b & = -(-2) = 2`, r`a & = 5`),
+      calcul(r`-b & = -(-2)`, r`& = 2`, r`a & = 5`),
       r`Donc <span class="resultat">$\vec{u}(2\,;\,5)$</span> est un vecteur directeur de $d$&nbsp;; tout vecteur non nul colinéaire à $\vec{u}$, comme $(4\,;\,10)$, en est un aussi. Vérification&nbsp;: le point $(1\,;\,3)$ est sur $d$ ($5 - 6 + 1 = 0$)&nbsp;; en se déplaçant de $\vec{u}$, on arrive en $(3\,;\,8)$, lui aussi sur $d$ ($15 - 16 + 1 = 0$).`],
     revoir: r`méthode et capacité 1 du cours (question 1), exercice 1 de la fiche (question 1), exercice 14 p.&nbsp;192 du manuel, question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
     variante: {
@@ -449,75 +453,8 @@ const QUIZ = {
       bonne: 0,
       explication: [
         r`Pour une droite d'équation $ax + by + c = 0$, le vecteur $(-b\,;\,a)$ est un vecteur directeur&nbsp;: on lit $a$ et $b$ avec leur signe. Ici, $a = 3$ et $b = -4$.`,
-        calcul(r`-b & = -(-4) = 4`, r`a & = 3`),
+        calcul(r`-b & = -(-4)`, r`& = 4`, r`a & = 3`),
         r`Donc <span class="resultat">$\vec{u}(4\,;\,3)$</span> est un vecteur directeur de $d$&nbsp;; tout vecteur non nul colinéaire à $\vec{u}$, comme $(8\,;\,6)$, en est un aussi. Vérification&nbsp;: le point $(2\,;\,2)$ est sur $d$ ($6 - 8 + 2 = 0$)&nbsp;; en se déplaçant de $\vec{u}$, on arrive en $(6\,;\,5)$, lui aussi sur $d$ ($18 - 20 + 2 = 0$).`] } },
-
-  { partie: 0, theme: 'Équation cartésienne', type: 'qcm',
-    enonce: r`La droite $d$ passe par le point $A(2\,;\,-3)$ et a pour vecteur directeur $\vec{u}(1\,;\,4)$. Une équation cartésienne de $d$ est&nbsp;:`,
-    choix: [r`$4x - y - 11 = 0$`, r`$4x - y - 5 = 0$`, r`$x + 4y + 10 = 0$`, r`$x - 4y - 14 = 0$`],
-    bonne: 0,
-    explication: [
-      r`Par le déterminant&nbsp;: un point $M(x\,;\,y)$ appartient à $d$ si et seulement si $\mathrm{det}(\overrightarrow{AM}\,;\,\vec{u}) = 0$, avec $\overrightarrow{AM}(x - 2\,;\,y + 3)$ et $\vec{u}(1\,;\,4)$. On calcule ce déterminant (produits en croix), puis on développe et on réduit.`,
-      calcul(r`\mathrm{det}(\overrightarrow{AM}\,;\,\vec{u})`, r`& = (x - 2) \times 4 - 1 \times (y + 3)`, r`& = 4x - 8 - y - 3`, r`& = 4x - y - 11`),
-      r`Une équation de $d$ est <span class="resultat">$4x - y - 11 = 0$</span>. Vérification avec $A$&nbsp;: $4 \times 2 - (-3) - 11 = 8 + 3 - 11 = 0$, et $(-b\,;\,a) = (1\,;\,4)$ est bien $\vec{u}$. Attention&nbsp;: $y - (-3) = y + 3$.`],
-    revoir: r`méthode et capacité 2 du cours (question 1), activité 1 (question 2), exercice 2 de la fiche (question 1), exercices 15 p.&nbsp;192 et 41 p.&nbsp;194 du manuel`,
-    variante: {
-      enonce: r`La droite $d$ passe par le point $A(-1\,;\,2)$ et a pour vecteur directeur $\vec{u}(2\,;\,3)$. Une équation cartésienne de $d$ est&nbsp;:`,
-      choix: [r`$3x - 2y + 7 = 0$`, r`$3x - 2y + 1 = 0$`, r`$2x + 3y - 4 = 0$`, r`$2x - 3y + 8 = 0$`],
-      bonne: 0,
-      explication: [
-        r`Par le déterminant&nbsp;: un point $M(x\,;\,y)$ appartient à $d$ si et seulement si $\mathrm{det}(\overrightarrow{AM}\,;\,\vec{u}) = 0$, avec $\overrightarrow{AM}(x + 1\,;\,y - 2)$ et $\vec{u}(2\,;\,3)$. On calcule ce déterminant (produits en croix), puis on développe et on réduit.`,
-        calcul(r`\mathrm{det}(\overrightarrow{AM}\,;\,\vec{u})`, r`& = (x + 1) \times 3 - 2 \times (y - 2)`, r`& = 3x + 3 - 2y + 4`, r`& = 3x - 2y + 7`),
-        r`Une équation de $d$ est <span class="resultat">$3x - 2y + 7 = 0$</span>. Vérification avec $A$&nbsp;: $3 \times (-1) - 2 \times 2 + 7 = -3 - 4 + 7 = 0$, et $(-b\,;\,a) = (2\,;\,3)$ est bien $\vec{u}$. Attention&nbsp;: $x - (-1) = x + 1$.`] } },
-
-  { partie: 0, theme: 'Reconnaître une droite', type: 'qcm', fixe: true,
-    enonce: r`Dans le repère ci-dessous, quatre droites sont tracées. Laquelle a pour équation $x + 2y - 4 = 0$&nbsp;?`
-      + repere(FIG.trace),
-    choix: [r`$d_{1}$`, r`$d_{2}$`, r`$d_{3}$`, r`$d_{4}$`],
-    bonne: 1,
-    explication: [
-      r`Pour reconnaître la droite, on détermine deux de ses points&nbsp;: on choisit $x = 0$, puis $y = 0$, et l'on résout l'équation obtenue.`,
-      calcul(r`x = 0 & : \ 2y - 4 = 0 \iff y = 2`, r`y = 0 & : \ x - 4 = 0 \iff x = 4`),
-      repere(Object.assign({}, FIG.trace, { echelle: 1.15,
-        points: [{ x: 0, y: 2, classe: 'c-noir' }, { x: 4, y: 0, classe: 'c-noir' }],
-        label: 'La même figure : les points (0 ; 2) et (4 ; 0), marqués en noir, sont tous les deux sur la droite d2, en bleu.' })),
-      r`La droite qui passe par $(0\,;\,2)$ et par $(4\,;\,0)$ est <span class="resultat">$d_{2}$</span>. Attention&nbsp;: $d_{3}$ passe aussi par $(0\,;\,2)$, et $d_{4}$ par $(4\,;\,0)$&nbsp;; un seul point ne suffit pas. Autre méthode&nbsp;: l'équation réduite est $y = -\dfrac{1}{2}x + 2$.`],
-    revoir: r`méthode et capacité 1 du cours (question 3), exercice 1 de la fiche (question 3), exercice 16 p.&nbsp;192 du manuel, question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
-    variante: {
-      enonce: r`Dans le repère ci-dessous, quatre droites sont tracées. Laquelle a pour équation $3x + 2y - 6 = 0$&nbsp;?`
-        + repere(FIG.traceV),
-      bonne: 3,
-      explication: [
-        r`Pour reconnaître la droite, on détermine deux de ses points&nbsp;: on choisit $x = 0$, puis $y = 0$, et l'on résout l'équation obtenue.`,
-        calcul(r`x = 0 & : \ 2y - 6 = 0 \iff y = 3`, r`y = 0 & : \ 3x - 6 = 0 \iff x = 2`),
-        repere(Object.assign({}, FIG.traceV, { echelle: 1.15,
-          points: [{ x: 0, y: 3, classe: 'c-noir' }, { x: 2, y: 0, classe: 'c-noir' }],
-          label: 'La même figure : les points (0 ; 3) et (2 ; 0), marqués en noir, sont tous les deux sur la droite d4, en violet.' })),
-        r`La droite qui passe par $(0\,;\,3)$ et par $(2\,;\,0)$ est <span class="resultat">$d_{4}$</span>. Attention&nbsp;: $d_{1}$ passe aussi par $(0\,;\,3)$, et $d_{3}$ par $(2\,;\,0)$&nbsp;; un seul point ne suffit pas. Autre méthode&nbsp;: l'équation réduite est $y = -\dfrac{3}{2}x + 3$.`] } },
-
-  /* ----- Équation réduite et pente (partie 3 du cours, capacités 3 et 4, activité 2, exercice 3 de la fiche) ----- */
-
-  { partie: 0, theme: 'Pente et équation réduite', type: 'qcm',
-    enonce: r`On donne les points $A(-3\,;\,-1)$ et $B(3\,;\,3)$. L'équation réduite de la droite $(AB)$ est&nbsp;:`,
-    choix: [r`$y = \dfrac{2}{3}x + 1$`, r`$y = \dfrac{3}{2}x - \dfrac{3}{2}$`, r`$y = \dfrac{1}{3}x + 2$`, r`$y = \dfrac{2}{3}x - 1$`],
-    bonne: 0,
-    explication: [
-      r`$x_{A} \ne x_{B}$&nbsp;: la pente est le quotient de la variation des ordonnées par celle des abscisses.`,
-      calcul(r`m & = \dfrac{y_{B} - y_{A}}{x_{B} - x_{A}}`, r`& = \dfrac{3 - (-1)}{3 - (-3)}`, r`& = \dfrac{4}{6}`, r`& = \dfrac{2 \mul{\times 2}}{3 \mul{\times 2}}`, r`& = \dfrac{2}{3}`),
-      r`On trouve $p$ en écrivant que $B(3\,;\,3)$ est sur la droite&nbsp;: $y_{B} = mx_{B} + p$.`,
-      calcul(r`3 = \dfrac{2}{3} \times 3 + p`, r`& \iff 3 = 2 + p`, r`& \iff 3 \op{- 2} = 2 + p \op{- 2}`, r`& \iff p = 1`),
-      r`Donc <span class="resultat">$(AB) : y = \dfrac{2}{3}x + 1$</span>. Vérification avec $A$&nbsp;: $\dfrac{2}{3} \times (-3) + 1 = -2 + 1 = -1$. Attention&nbsp;: $3 - (-1) = 4$ et $3 - (-3) = 6$.`],
-    revoir: r`méthode et capacité 3 du cours (question 1), activité 2 (question 3), exercice 3 de la fiche (question 1), exercices 25 et 26 p.&nbsp;193 du manuel`,
-    variante: {
-      enonce: r`On donne les points $E(-3\,;\,4)$ et $F(3\,;\,0)$. L'équation réduite de la droite $(EF)$ est&nbsp;:`,
-      choix: [r`$y = -\dfrac{2}{3}x + 2$`, r`$y = -\dfrac{3}{2}x + \dfrac{9}{2}$`, r`$y = \dfrac{2}{3}x - 2$`, r`$y = -\dfrac{2}{3}x + 4$`],
-      bonne: 0,
-      explication: [
-        r`$x_{E} \ne x_{F}$&nbsp;: la pente est le quotient de la variation des ordonnées par celle des abscisses.`,
-        calcul(r`m & = \dfrac{y_{F} - y_{E}}{x_{F} - x_{E}}`, r`& = \dfrac{0 - 4}{3 - (-3)}`, r`& = \dfrac{-4}{6}`, r`& = -\dfrac{2 \mul{\times 2}}{3 \mul{\times 2}}`, r`& = -\dfrac{2}{3}`),
-        r`On trouve $p$ en écrivant que $F(3\,;\,0)$ est sur la droite&nbsp;: $y_{F} = mx_{F} + p$.`,
-        calcul(r`0 = -\dfrac{2}{3} \times 3 + p`, r`& \iff 0 = -2 + p`, r`& \iff 0 \op{+ 2} = -2 + p \op{+ 2}`, r`& \iff p = 2`),
-        r`Donc <span class="resultat">$(EF) : y = -\dfrac{2}{3}x + 2$</span>. Vérification avec $E$&nbsp;: $-\dfrac{2}{3} \times (-3) + 2 = 2 + 2 = 4$. Attention&nbsp;: la droite descend, sa pente est négative.`] } },
 
   { partie: 0, theme: 'Lecture graphique', type: 'qcm',
     enonce: r`La droite $d$ est tracée dans le repère ci-dessous. Son équation réduite est&nbsp;:`
@@ -547,6 +484,8 @@ const QUIZ = {
           label: 'La même droite, avec la lecture : on part du point (0 ; 4), on avance de 3 et on descend de 4.' })),
         r`Donc <span class="resultat">$d : y = -\dfrac{4}{3}x + 4$</span>. Attention&nbsp;: la droite descend, sa pente est négative&nbsp;; et $3$ est l'abscisse du point où $d$ coupe l'axe des abscisses, ce n'est pas l'ordonnée à l'origine.`] } },
 
+  /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
+
   { partie: 0, theme: 'Droite parallèle à un axe', type: 'qcm',
     enonce: r`On donne les points $E(3\,;\,5)$ et $F(3\,;\,-2)$. Une seule de ces affirmations sur la droite $(EF)$ est vraie. Laquelle&nbsp;?`,
     choix: [r`Une équation de $(EF)$ est $x - 3 = 0$.`, r`La droite $(EF)$ a pour pente $0$.`, r`Une équation de $(EF)$ est $y = 3$.`,
@@ -570,48 +509,6 @@ const QUIZ = {
         r`Cette droite n'a pas de pente&nbsp;: la formule diviserait par $x_{H} - x_{G} = 0$. Elle est dirigée par $\vec{j}(0\,;\,1)$, et non par $\vec{i}(1\,;\,0)$. La droite d'équation $y = -2$ est parallèle à l'axe des abscisses.`,
         r`Les équations $2x + 4 = 0$ et $x = -2$ sont équivalentes&nbsp;: l'affirmation vraie est <span class="resultat">une équation de $(GH)$ est $2x + 4 = 0$</span>.`] } },
 
-  { partie: 0, theme: 'Passer à l\'équation réduite', type: 'qcm',
-    enonce: r`L'équation réduite de la droite $d : 4x - 3y - 6 = 0$ est&nbsp;:`,
-    choix: [r`$y = \dfrac{4}{3}x - 2$`, r`$y = -\dfrac{4}{3}x + 2$`, r`$y = \dfrac{4}{3}x + 6$`, r`$y = \dfrac{4}{3}x + 2$`],
-    bonne: 0,
-    explication: [
-      r`On isole $y$&nbsp;: on passe les autres termes dans le second membre, puis on divise les deux membres par $-3$, le coefficient de $y$.`,
-      calcul(r`4x - 3y - 6 = 0`, r`& \iff 4x - 3y - 6 \op{- 4x} = 0 \op{- 4x}`, r`& \iff -3y - 6 \op{+ 6} = -4x \op{+ 6}`, r`& \iff -3y = -4x + 6`,
-        r`& \iff \dfrac{-3y}{\op{-3}} = \dfrac{-4x + 6}{\op{-3}}`, r`& \iff y = \dfrac{4}{3}x - 2`),
-      r`L'équation réduite de $d$ est <span class="resultat">$y = \dfrac{4}{3}x - 2$</span>, de pente $\dfrac{4}{3}$. Attention&nbsp;: diviser par $-3$ change les deux signes du second membre, et l'on divise les deux termes, $\dfrac{6}{-3} = -2$.`],
-    revoir: r`méthode et capacité 4 du cours (question 1), exercice 3 de la fiche (questions 4 et 5), exercice 27 p.&nbsp;193 du manuel`,
-    variante: {
-      enonce: r`L'équation réduite de la droite $d : 2x - 5y + 10 = 0$ est&nbsp;:`,
-      choix: [r`$y = \dfrac{2}{5}x + 2$`, r`$y = -\dfrac{2}{5}x - 2$`, r`$y = \dfrac{2}{5}x - 10$`, r`$y = \dfrac{2}{5}x - 2$`],
-      bonne: 0,
-      explication: [
-        r`On isole $y$&nbsp;: on passe les autres termes dans le second membre, puis on divise les deux membres par $-5$, le coefficient de $y$.`,
-        calcul(r`2x - 5y + 10 = 0`, r`& \iff 2x - 5y + 10 \op{- 2x} = 0 \op{- 2x}`, r`& \iff -5y + 10 \op{- 10} = -2x \op{- 10}`, r`& \iff -5y = -2x - 10`,
-          r`& \iff \dfrac{-5y}{\op{-5}} = \dfrac{-2x - 10}{\op{-5}}`, r`& \iff y = \dfrac{2}{5}x + 2`),
-        r`L'équation réduite de $d$ est <span class="resultat">$y = \dfrac{2}{5}x + 2$</span>, de pente $\dfrac{2}{5}$. Attention&nbsp;: diviser par $-5$ change les deux signes du second membre, et l'on divise les deux termes, $\dfrac{-10}{-5} = 2$.`] } },
-
-  /* ----- Alignement et parallélisme (partie 4 du cours, capacité 5, activité 3, exercices 4 et 5 de la fiche) ----- */
-
-  { partie: 0, theme: 'Droites parallèles', type: 'qcm',
-    enonce: r`Laquelle de ces droites, données par une équation, est parallèle à la droite $d : y = 2x - 3$&nbsp;?`,
-    choix: [r`$4x - 2y + 1 = 0$`, r`$2x + y - 3 = 0$`, r`$x - 2y + 3 = 0$`, r`$y = -2x - 3$`],
-    bonne: 0,
-    explication: [
-      r`Deux droites sont parallèles si et seulement si leurs vecteurs directeurs sont colinéaires. $d : y = 2x - 3$ est dirigée par $\vec{u}(1\,;\,2)$, le vecteur $(1\,;\,m)$&nbsp;; la droite $4x - 2y + 1 = 0$ est dirigée par $(-b\,;\,a)$, soit $\vec{v}(2\,;\,4)$.`,
-      calcul(r`\mathrm{det}(\vec{u}\,;\,\vec{v})`, r`& = 1 \times 4 - 2 \times 2`, r`& = 4 - 4`, r`& = 0`),
-      r`Les vecteurs sont colinéaires ($\vec{v} = 2\vec{u}$)&nbsp;: <span class="resultat">la droite d'équation $4x - 2y + 1 = 0$ est parallèle à $d$</span>. En isolant $y$, elle s'écrit $y = 2x + \dfrac{1}{2}$&nbsp;: même pente $2$, ordonnées à l'origine différentes, les deux droites sont strictement parallèles.`,
-      r`Les trois autres droites ont une pente différente de $2$&nbsp;: elles sont sécantes avec $d$. Attention&nbsp;: la pente n'est pas le coefficient de $x$&nbsp;; $2x + y - 3 = 0$ s'écrit $y = -2x + 3$, de pente $-2$. Et $y = -2x - 3$ a la même ordonnée à l'origine que $d$, mais pas la même pente.`],
-    revoir: r`propriété «&nbsp;droites parallèles, droites sécantes&nbsp;» et capacité 5 du cours (questions 2 et 3), exercice 5 de la fiche (question 2), exercice 130 p.&nbsp;198 du manuel, questions 6 et 7 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
-    variante: {
-      enonce: r`Laquelle de ces droites, données par une équation, est parallèle à la droite $d : y = -3x + 1$&nbsp;?`,
-      choix: [r`$6x + 2y - 5 = 0$`, r`$-3x + y + 2 = 0$`, r`$x + 3y - 2 = 0$`, r`$y = 3x + 1$`],
-      bonne: 0,
-      explication: [
-        r`Deux droites sont parallèles si et seulement si leurs vecteurs directeurs sont colinéaires. $d : y = -3x + 1$ est dirigée par $\vec{u}(1\,;\,-3)$, le vecteur $(1\,;\,m)$&nbsp;; la droite $6x + 2y - 5 = 0$ est dirigée par $(-b\,;\,a)$, soit $\vec{v}(-2\,;\,6)$.`,
-        calcul(r`\mathrm{det}(\vec{u}\,;\,\vec{v})`, r`& = 1 \times 6 - (-2) \times (-3)`, r`& = 6 - 6`, r`& = 0`),
-        r`Les vecteurs sont colinéaires ($\vec{v} = -2\vec{u}$)&nbsp;: <span class="resultat">la droite d'équation $6x + 2y - 5 = 0$ est parallèle à $d$</span>. En isolant $y$, elle s'écrit $y = -3x + \dfrac{5}{2}$&nbsp;: même pente $-3$, ordonnées à l'origine différentes, les deux droites sont strictement parallèles.`,
-        r`Les trois autres droites ont une pente différente de $-3$&nbsp;: elles sont sécantes avec $d$. Attention&nbsp;: la pente n'est pas le coefficient de $x$&nbsp;; $-3x + y + 2 = 0$ s'écrit $y = 3x - 2$, de pente $3$. Et $y = 3x + 1$ a la même ordonnée à l'origine que $d$, mais pas la même pente.`] } },
-
   { partie: 0, theme: 'Parallèle passant par un point', type: 'qcm',
     enonce: r`L'équation réduite de la droite parallèle à $d : y = -2x + 1$ et passant par le point $K(3\,;\,1)$ est&nbsp;:`,
     choix: [r`$y = -2x + 7$`, r`$y = -2x - 5$`, r`$y = -2x + 1$`, r`$y = 2x - 5$`],
@@ -630,11 +527,87 @@ const QUIZ = {
         calcul(r`-1 = 3 \times 2 + p`, r`& \iff -1 = 6 + p`, r`& \iff -1 \op{- 6} = 6 + p \op{- 6}`, r`& \iff p = -7`),
         r`L'équation réduite est <span class="resultat">$y = 3x - 7$</span>. Vérification&nbsp;: $3 \times 2 - 7 = -1$. Attention&nbsp;: il faut recalculer $p$, car $d$ elle-même ne passe pas par $K$&nbsp;: $3 \times 2 - 4 = 2 \ne -1$.`] } },
 
+  { partie: 0, theme: 'Reconnaître une droite', type: 'qcm', fixe: true,
+    enonce: r`Dans le repère ci-dessous, quatre droites sont tracées. Laquelle a pour équation $x + 2y - 4 = 0$&nbsp;?`
+      + repere(FIG.trace),
+    choix: [r`$d_{1}$`, r`$d_{2}$`, r`$d_{3}$`, r`$d_{4}$`],
+    bonne: 1,
+    explication: [
+      r`Pour reconnaître la droite, on détermine deux de ses points&nbsp;: on choisit $x = 0$, puis $y = 0$, et l'on résout l'équation obtenue.`,
+      r`Pour $x = 0$, l'équation devient $2y - 4 = 0$&nbsp;:`,
+      calcul(r`2y - 4 = 0`, r`& \iff 2y - 4 \op{+ 4} = 0 \op{+ 4}`, r`& \iff 2y = 4`, r`& \iff \dfrac{2y}{\op{2}} = \dfrac{4}{\op{2}}`, r`& \iff y = 2`),
+      r`Pour $y = 0$, l'équation devient $x - 4 = 0$&nbsp;:`,
+      calcul(r`x - 4 = 0`, r`& \iff x - 4 \op{+ 4} = 0 \op{+ 4}`, r`& \iff x = 4`),
+      repere(Object.assign({}, FIG.trace, { echelle: 1.15,
+        points: [{ x: 0, y: 2, classe: 'c-noir' }, { x: 4, y: 0, classe: 'c-noir' }],
+        label: 'La même figure : les points (0 ; 2) et (4 ; 0), marqués en noir, sont tous les deux sur la droite d2, en bleu.' })),
+      r`La droite qui passe par $(0\,;\,2)$ et par $(4\,;\,0)$ est <span class="resultat">$d_{2}$</span>. Attention&nbsp;: $d_{3}$ passe aussi par $(0\,;\,2)$, et $d_{4}$ par $(4\,;\,0)$&nbsp;; un seul point ne suffit pas. Autre méthode&nbsp;: l'équation réduite est $y = -\dfrac{1}{2}x + 2$.`],
+    revoir: r`méthode et capacité 1 du cours (question 3), exercice 1 de la fiche (question 3), exercice 16 p.&nbsp;192 du manuel, question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
+    variante: {
+      enonce: r`Dans le repère ci-dessous, quatre droites sont tracées. Laquelle a pour équation $3x + 2y - 6 = 0$&nbsp;?`
+        + repere(FIG.traceV),
+      bonne: 3,
+      explication: [
+        r`Pour reconnaître la droite, on détermine deux de ses points&nbsp;: on choisit $x = 0$, puis $y = 0$, et l'on résout l'équation obtenue.`,
+        r`Pour $x = 0$, l'équation devient $2y - 6 = 0$&nbsp;:`,
+        calcul(r`2y - 6 = 0`, r`& \iff 2y - 6 \op{+ 6} = 0 \op{+ 6}`, r`& \iff 2y = 6`, r`& \iff \dfrac{2y}{\op{2}} = \dfrac{6}{\op{2}}`, r`& \iff y = 3`),
+        r`Pour $y = 0$, l'équation devient $3x - 6 = 0$&nbsp;:`,
+        calcul(r`3x - 6 = 0`, r`& \iff 3x - 6 \op{+ 6} = 0 \op{+ 6}`, r`& \iff 3x = 6`, r`& \iff \dfrac{3x}{\op{3}} = \dfrac{6}{\op{3}}`, r`& \iff x = 2`),
+        repere(Object.assign({}, FIG.traceV, { echelle: 1.15,
+          points: [{ x: 0, y: 3, classe: 'c-noir' }, { x: 2, y: 0, classe: 'c-noir' }],
+          label: 'La même figure : les points (0 ; 3) et (2 ; 0), marqués en noir, sont tous les deux sur la droite d4, en violet.' })),
+        r`La droite qui passe par $(0\,;\,3)$ et par $(2\,;\,0)$ est <span class="resultat">$d_{4}$</span>. Attention&nbsp;: $d_{1}$ passe aussi par $(0\,;\,3)$, et $d_{3}$ par $(2\,;\,0)$&nbsp;; un seul point ne suffit pas. Autre méthode&nbsp;: l'équation réduite est $y = -\dfrac{3}{2}x + 3$.`] } },
+
+  { partie: 0, theme: 'Pente et équation réduite', type: 'qcm',
+    enonce: r`On donne les points $A(-3\,;\,-1)$ et $B(3\,;\,3)$. L'équation réduite de la droite $(AB)$ est&nbsp;:`,
+    choix: [r`$y = \dfrac{2}{3}x + 1$`, r`$y = \dfrac{3}{2}x - \dfrac{3}{2}$`, r`$y = \dfrac{1}{3}x + 2$`, r`$y = \dfrac{2}{3}x - 1$`],
+    bonne: 0,
+    explication: [
+      r`$x_{A} \ne x_{B}$&nbsp;: la pente est le quotient de la variation des ordonnées par celle des abscisses.`,
+      calcul(r`m & = \dfrac{y_{B} - y_{A}}{x_{B} - x_{A}}`, r`& = \dfrac{3 - (-1)}{3 - (-3)}`, r`& = \dfrac{3 + 1}{3 + 3}`, r`& = \dfrac{4}{6}`, r`& = \dfrac{2 \mul{\times 2}}{3 \mul{\times 2}}`, r`& = \dfrac{2}{3}`),
+      r`On trouve $p$ en écrivant que $B(3\,;\,3)$ est sur la droite&nbsp;: $y_{B} = mx_{B} + p$.`,
+      calcul(r`3 = \dfrac{2}{3} \times 3 + p`, r`& \iff 3 = 2 + p`, r`& \iff 3 \op{- 2} = 2 + p \op{- 2}`, r`& \iff p = 1`),
+      r`Donc <span class="resultat">$(AB) : y = \dfrac{2}{3}x + 1$</span>. Vérification avec $A$&nbsp;: $\dfrac{2}{3} \times (-3) + 1 = -2 + 1 = -1$. Attention&nbsp;: $3 - (-1) = 4$ et $3 - (-3) = 6$.`],
+    revoir: r`méthode et capacité 3 du cours (question 1), activité 2 (question 3), exercice 3 de la fiche (question 1), exercices 25 et 26 p.&nbsp;193 du manuel`,
+    variante: {
+      enonce: r`On donne les points $E(-3\,;\,4)$ et $F(3\,;\,0)$. L'équation réduite de la droite $(EF)$ est&nbsp;:`,
+      choix: [r`$y = -\dfrac{2}{3}x + 2$`, r`$y = -\dfrac{3}{2}x + \dfrac{9}{2}$`, r`$y = \dfrac{2}{3}x - 2$`, r`$y = -\dfrac{2}{3}x + 4$`],
+      bonne: 0,
+      explication: [
+        r`$x_{E} \ne x_{F}$&nbsp;: la pente est le quotient de la variation des ordonnées par celle des abscisses.`,
+        calcul(r`m & = \dfrac{y_{F} - y_{E}}{x_{F} - x_{E}}`, r`& = \dfrac{0 - 4}{3 - (-3)}`, r`& = \dfrac{-4}{3 + 3}`, r`& = \dfrac{-4}{6}`, r`& = -\dfrac{2 \mul{\times 2}}{3 \mul{\times 2}}`, r`& = -\dfrac{2}{3}`),
+        r`On trouve $p$ en écrivant que $F(3\,;\,0)$ est sur la droite&nbsp;: $y_{F} = mx_{F} + p$.`,
+        calcul(r`0 = -\dfrac{2}{3} \times 3 + p`, r`& \iff 0 = -2 + p`, r`& \iff 0 \op{+ 2} = -2 + p \op{+ 2}`, r`& \iff p = 2`),
+        r`Donc <span class="resultat">$(EF) : y = -\dfrac{2}{3}x + 2$</span>. Vérification avec $E$&nbsp;: $-\dfrac{2}{3} \times (-3) + 2 = 2 + 2 = 4$. Attention&nbsp;: la droite descend, sa pente est négative.`] } },
+
+  { partie: 0, theme: 'Équation cartésienne', type: 'qcm',
+    enonce: r`La droite $d$ passe par le point $A(2\,;\,-3)$ et a pour vecteur directeur $\vec{u}(1\,;\,4)$. Une équation cartésienne de $d$ est&nbsp;:`,
+    choix: [r`$4x - y - 11 = 0$`, r`$4x - y - 5 = 0$`, r`$x + 4y + 10 = 0$`, r`$x - 4y - 14 = 0$`],
+    bonne: 0,
+    explication: [
+      r`Par le déterminant&nbsp;: un point $M(x\,;\,y)$ appartient à $d$ si et seulement si $\mathrm{det}(\overrightarrow{AM}\,;\,\vec{u}) = 0$, avec $\overrightarrow{AM}(x - 2\,;\,y - (-3))$, soit $\overrightarrow{AM}(x - 2\,;\,y + 3)$, et $\vec{u}(1\,;\,4)$. On calcule ce déterminant (produits en croix), puis on développe et on réduit.`,
+      calcul(r`\mathrm{det}(\overrightarrow{AM}\,;\,\vec{u})`, r`& = (x - 2) \times 4 - 1 \times (y + 3)`, r`& = x \times 4 - 2 \times 4 - 1 \times y - 1 \times 3`,
+        r`& = 4x - 8 - y - 3`, r`& = 4x - y - 8 - 3`, r`& = 4x - y - 11`),
+      r`Une équation de $d$ est <span class="resultat">$4x - y - 11 = 0$</span>. Vérification avec $A$&nbsp;: $4 \times 2 - (-3) - 11 = 8 + 3 - 11 = 0$, et $(-b\,;\,a) = (1\,;\,4)$ est bien $\vec{u}$. Attention&nbsp;: $y - (-3) = y + 3$.`],
+    revoir: r`méthode et capacité 2 du cours (question 1), activité 1 (question 2), exercice 2 de la fiche (question 1), exercices 15 p.&nbsp;192 et 41 p.&nbsp;194 du manuel`,
+    variante: {
+      enonce: r`La droite $d$ passe par le point $A(-1\,;\,2)$ et a pour vecteur directeur $\vec{u}(2\,;\,3)$. Une équation cartésienne de $d$ est&nbsp;:`,
+      choix: [r`$3x - 2y + 7 = 0$`, r`$3x - 2y + 1 = 0$`, r`$2x + 3y - 4 = 0$`, r`$2x - 3y + 8 = 0$`],
+      bonne: 0,
+      explication: [
+        r`Par le déterminant&nbsp;: un point $M(x\,;\,y)$ appartient à $d$ si et seulement si $\mathrm{det}(\overrightarrow{AM}\,;\,\vec{u}) = 0$, avec $\overrightarrow{AM}(x - (-1)\,;\,y - 2)$, soit $\overrightarrow{AM}(x + 1\,;\,y - 2)$, et $\vec{u}(2\,;\,3)$. On calcule ce déterminant (produits en croix), puis on développe et on réduit.`,
+        calcul(r`\mathrm{det}(\overrightarrow{AM}\,;\,\vec{u})`, r`& = (x + 1) \times 3 - 2 \times (y - 2)`, r`& = x \times 3 + 1 \times 3 - 2 \times y - 2 \times (-2)`,
+          r`& = 3x + 3 - 2y + 4`, r`& = 3x - 2y + 3 + 4`, r`& = 3x - 2y + 7`),
+        r`Une équation de $d$ est <span class="resultat">$3x - 2y + 7 = 0$</span>. Vérification avec $A$&nbsp;: $3 \times (-1) - 2 \times 2 + 7 = -3 - 4 + 7 = 0$, et $(-b\,;\,a) = (2\,;\,3)$ est bien $\vec{u}$. Attention&nbsp;: $x - (-1) = x + 1$.`] } },
+
+  /* ----- Niveau 3 : plusieurs étapes, pièges et synthèse ----- */
+
   { partie: 0, theme: 'Alignement', type: 'vf',
     enonce: r`Les points $A(-2\,;\,-5)$, $B(1\,;\,1)$ et $C(4\,;\,8)$ sont alignés.`,
     bonne: false,
     explication: [
-      r`$A$, $B$ et $C$ sont alignés si et seulement si les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{AC}$ sont colinéaires, c'est-à-dire si leur déterminant est nul. Extrémité moins origine&nbsp;: $\overrightarrow{AB}(3\,;\,6)$ et $\overrightarrow{AC}(6\,;\,13)$.`,
+      r`$A$, $B$ et $C$ sont alignés si et seulement si les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{AC}$ sont colinéaires, c'est-à-dire si leur déterminant est nul.`,
+      r`Extrémité moins origine&nbsp;: $\overrightarrow{AB}(1 - (-2)\,;\,1 - (-5))$, soit $\overrightarrow{AB}(3\,;\,6)$, et $\overrightarrow{AC}(4 - (-2)\,;\,8 - (-5))$, soit $\overrightarrow{AC}(6\,;\,13)$.`,
       calcul(r`\mathrm{det}(\overrightarrow{AB}\,;\,\overrightarrow{AC})`, r`& = 3 \times 13 - 6 \times 6`, r`& = 39 - 36`, r`& = 3`),
       r`$3 \ne 0$&nbsp;: les points $A$, $B$ et $C$ ne sont pas alignés, l'affirmation est <span class="resultat">fausse</span>. Autre méthode&nbsp;: la droite $(AB)$ a pour équation réduite $y = 2x - 1$, et $2 \times 4 - 1 = 7 \ne 8$&nbsp;; le point $C$ est tout près de la droite $(AB)$, juste au-dessus, mais pas dessus.`],
     revoir: r`propriété «&nbsp;alignement de trois points&nbsp;» et capacité 5 du cours (question 1), exercices 4 (question 3) et 5 (question 1) de la fiche, exercice 104 p.&nbsp;196 du manuel, question 8 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
@@ -642,9 +615,50 @@ const QUIZ = {
       enonce: r`Les points $E(-3\,;\,7)$, $F(1\,;\,-1)$ et $G(3\,;\,-5)$ sont alignés.`,
       bonne: true,
       explication: [
-        r`$E$, $F$ et $G$ sont alignés si et seulement si les vecteurs $\overrightarrow{EF}$ et $\overrightarrow{EG}$ sont colinéaires, c'est-à-dire si leur déterminant est nul. Extrémité moins origine&nbsp;: $\overrightarrow{EF}(4\,;\,-8)$ et $\overrightarrow{EG}(6\,;\,-12)$.`,
+        r`$E$, $F$ et $G$ sont alignés si et seulement si les vecteurs $\overrightarrow{EF}$ et $\overrightarrow{EG}$ sont colinéaires, c'est-à-dire si leur déterminant est nul.`,
+        r`Extrémité moins origine&nbsp;: $\overrightarrow{EF}(1 - (-3)\,;\,-1 - 7)$, soit $\overrightarrow{EF}(4\,;\,-8)$, et $\overrightarrow{EG}(3 - (-3)\,;\,-5 - 7)$, soit $\overrightarrow{EG}(6\,;\,-12)$.`,
         calcul(r`\mathrm{det}(\overrightarrow{EF}\,;\,\overrightarrow{EG})`, r`& = 4 \times (-12) - 6 \times (-8)`, r`& = -48 + 48`, r`& = 0`),
         r`Le déterminant est nul&nbsp;: les points $E$, $F$ et $G$ sont alignés, l'affirmation est <span class="resultat">vraie</span>. Autre méthode&nbsp;: la droite $(EF)$ a pour équation réduite $y = -2x + 1$, et $-2 \times 3 + 1 = -5$&nbsp;: le point $G$ est bien sur $(EF)$.`] } },
+
+  { partie: 0, theme: 'Passer à l\'équation réduite', type: 'qcm',
+    enonce: r`L'équation réduite de la droite $d : 4x - 3y - 6 = 0$ est&nbsp;:`,
+    choix: [r`$y = \dfrac{4}{3}x - 2$`, r`$y = -\dfrac{4}{3}x + 2$`, r`$y = \dfrac{4}{3}x + 6$`, r`$y = \dfrac{4}{3}x + 2$`],
+    bonne: 0,
+    explication: [
+      r`On isole $y$&nbsp;: on passe les autres termes dans le second membre, puis on divise les deux membres par $-3$, le coefficient de $y$.`,
+      calcul(r`4x - 3y - 6 = 0`, r`& \iff 4x - 3y - 6 \op{- 4x} = 0 \op{- 4x}`, r`& \iff -3y - 6 = -4x`, r`& \iff -3y - 6 \op{+ 6} = -4x \op{+ 6}`,
+        r`& \iff -3y = -4x + 6`, r`& \iff \dfrac{-3y}{\op{-3}} = \dfrac{-4x + 6}{\op{-3}}`, r`& \iff y = \dfrac{-4x}{-3} + \dfrac{6}{-3}`, r`& \iff y = \dfrac{4}{3}x - 2`),
+      r`L'équation réduite de $d$ est <span class="resultat">$y = \dfrac{4}{3}x - 2$</span>, de pente $\dfrac{4}{3}$. Attention&nbsp;: diviser par $-3$ change les deux signes du second membre, et l'on divise les deux termes, $\dfrac{6}{-3} = -2$.`],
+    revoir: r`méthode et capacité 4 du cours (question 1), exercice 3 de la fiche (questions 4 et 5), exercice 27 p.&nbsp;193 du manuel`,
+    variante: {
+      enonce: r`L'équation réduite de la droite $d : 2x - 5y + 10 = 0$ est&nbsp;:`,
+      choix: [r`$y = \dfrac{2}{5}x + 2$`, r`$y = -\dfrac{2}{5}x - 2$`, r`$y = \dfrac{2}{5}x - 10$`, r`$y = \dfrac{2}{5}x - 2$`],
+      bonne: 0,
+      explication: [
+        r`On isole $y$&nbsp;: on passe les autres termes dans le second membre, puis on divise les deux membres par $-5$, le coefficient de $y$.`,
+        calcul(r`2x - 5y + 10 = 0`, r`& \iff 2x - 5y + 10 \op{- 2x} = 0 \op{- 2x}`, r`& \iff -5y + 10 = -2x`, r`& \iff -5y + 10 \op{- 10} = -2x \op{- 10}`,
+          r`& \iff -5y = -2x - 10`, r`& \iff \dfrac{-5y}{\op{-5}} = \dfrac{-2x - 10}{\op{-5}}`, r`& \iff y = \dfrac{-2x}{-5} + \dfrac{-10}{-5}`, r`& \iff y = \dfrac{2}{5}x + 2`),
+        r`L'équation réduite de $d$ est <span class="resultat">$y = \dfrac{2}{5}x + 2$</span>, de pente $\dfrac{2}{5}$. Attention&nbsp;: diviser par $-5$ change les deux signes du second membre, et l'on divise les deux termes, $\dfrac{-10}{-5} = 2$.`] } },
+
+  { partie: 0, theme: 'Droites parallèles', type: 'qcm',
+    enonce: r`Laquelle de ces droites, données par une équation, est parallèle à la droite $d : y = 2x - 3$&nbsp;?`,
+    choix: [r`$4x - 2y + 1 = 0$`, r`$2x + y - 3 = 0$`, r`$x - 2y + 3 = 0$`, r`$y = -2x - 3$`],
+    bonne: 0,
+    explication: [
+      r`Deux droites sont parallèles si et seulement si leurs vecteurs directeurs sont colinéaires. $d : y = 2x - 3$ est dirigée par $\vec{u}(1\,;\,2)$, le vecteur $(1\,;\,m)$&nbsp;; la droite $4x - 2y + 1 = 0$, où $a = 4$ et $b = -2$, est dirigée par $(-b\,;\,a)$, soit $\vec{v}(2\,;\,4)$.`,
+      calcul(r`\mathrm{det}(\vec{u}\,;\,\vec{v})`, r`& = 1 \times 4 - 2 \times 2`, r`& = 4 - 4`, r`& = 0`),
+      r`Les vecteurs sont colinéaires ($\vec{v} = 2\vec{u}$)&nbsp;: <span class="resultat">la droite d'équation $4x - 2y + 1 = 0$ est parallèle à $d$</span>. En isolant $y$, elle s'écrit $y = 2x + \dfrac{1}{2}$&nbsp;: même pente $2$, ordonnées à l'origine différentes, les deux droites sont strictement parallèles.`,
+      r`Les trois autres droites ont une pente différente de $2$&nbsp;: elles sont sécantes avec $d$. Attention&nbsp;: la pente n'est pas le coefficient de $x$&nbsp;; $2x + y - 3 = 0$ s'écrit $y = -2x + 3$, de pente $-2$. Et $y = -2x - 3$ a la même ordonnée à l'origine que $d$, mais pas la même pente.`],
+    revoir: r`propriété «&nbsp;droites parallèles, droites sécantes&nbsp;» et capacité 5 du cours (questions 2 et 3), exercice 5 de la fiche (question 2), exercice 130 p.&nbsp;198 du manuel, questions 6 et 7 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
+    variante: {
+      enonce: r`Laquelle de ces droites, données par une équation, est parallèle à la droite $d : y = -3x + 1$&nbsp;?`,
+      choix: [r`$6x + 2y - 5 = 0$`, r`$-3x + y + 2 = 0$`, r`$x + 3y - 2 = 0$`, r`$y = 3x + 1$`],
+      bonne: 0,
+      explication: [
+        r`Deux droites sont parallèles si et seulement si leurs vecteurs directeurs sont colinéaires. $d : y = -3x + 1$ est dirigée par $\vec{u}(1\,;\,-3)$, le vecteur $(1\,;\,m)$&nbsp;; la droite $6x + 2y - 5 = 0$, où $a = 6$ et $b = 2$, est dirigée par $(-b\,;\,a)$, soit $\vec{v}(-2\,;\,6)$.`,
+        calcul(r`\mathrm{det}(\vec{u}\,;\,\vec{v})`, r`& = 1 \times 6 - (-2) \times (-3)`, r`& = 6 - 6`, r`& = 0`),
+        r`Les vecteurs sont colinéaires ($\vec{v} = -2\vec{u}$)&nbsp;: <span class="resultat">la droite d'équation $6x + 2y - 5 = 0$ est parallèle à $d$</span>. En isolant $y$, elle s'écrit $y = -3x + \dfrac{5}{2}$&nbsp;: même pente $-3$, ordonnées à l'origine différentes, les deux droites sont strictement parallèles.`,
+        r`Les trois autres droites ont une pente différente de $-3$&nbsp;: elles sont sécantes avec $d$. Attention&nbsp;: la pente n'est pas le coefficient de $x$&nbsp;; $-3x + y + 2 = 0$ s'écrit $y = 3x - 2$, de pente $3$. Et $y = 3x + 1$ a la même ordonnée à l'origine que $d$, mais pas la même pente.`] } },
 
   { partie: 0, theme: 'Programme Python', type: 'qcm',
     enonce: r`La fonction Python ci-dessous, celle de l'activité 3, renvoie les coefficients $a$, $b$ et $c$ d'une équation cartésienne $ax + by + c = 0$ de la droite $(AB)$, pour deux points distincts $A(x_{A}\,;\,y_{A})$ et $B(x_{B}\,;\,y_{B})$.`
@@ -653,7 +667,7 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`La fonction applique la méthode du cours&nbsp;: $(-b\,;\,a) = (x_{B} - x_{A}\,;\,y_{B} - y_{A})$ est le vecteur $\overrightarrow{AB}$, qui dirige $(AB)$, et $c$ est calculé pour que $A$ soit sur la droite. On exécute ses lignes avec $x_{A} = 2$, $y_{A} = 1$, $x_{B} = 4$ et $y_{B} = 7$ (le signe <code>*</code> est la multiplication).`,
-      calcul(r`a & = 7 - 1 = 6`, r`b & = 2 - 4 = -2`, r`c & = -6 \times 2 - (-2) \times 1`, r`& = -12 + 2`, r`& = -10`),
+      calcul(r`a & = 7 - 1`, r`& = 6`, r`b & = 2 - 4`, r`& = -2`, r`c & = -6 \times 2 - (-2) \times 1`, r`& = -12 + 2`, r`& = -10`),
       r`La fonction renvoie <span class="resultat"><code>(6, -2, -10)</code></span>&nbsp;: $6x - 2y - 10 = 0$ est une équation de la droite passant par $A(2\,;\,1)$ et $B(4\,;\,7)$, ou, en divisant par $2$, $3x - y - 5 = 0$. Vérification avec $B$&nbsp;: $3 \times 4 - 7 - 5 = 0$. Attention&nbsp;: $-(-2) \times 1 = +2$.`],
     revoir: r`activité 3 (questions 1 et 2), méthode et capacité 2 du cours (question 2), question 1 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
     variante: {
@@ -663,7 +677,7 @@ const QUIZ = {
       bonne: 0,
       explication: [
         r`La fonction applique la méthode du cours&nbsp;: $(-b\,;\,a) = (x_{B} - x_{A}\,;\,y_{B} - y_{A})$ est le vecteur $\overrightarrow{AB}$, qui dirige $(AB)$, et $c$ est calculé pour que $A$ soit sur la droite. On exécute ses lignes avec $x_{A} = -1$, $y_{A} = 2$, $x_{B} = 2$ et $y_{B} = 8$ (le signe <code>*</code> est la multiplication).`,
-        calcul(r`a & = 8 - 2 = 6`, r`b & = -1 - 2 = -3`, r`c & = -6 \times (-1) - (-3) \times 2`, r`& = 6 + 6`, r`& = 12`),
+        calcul(r`a & = 8 - 2`, r`& = 6`, r`b & = -1 - 2`, r`& = -3`, r`c & = -6 \times (-1) - (-3) \times 2`, r`& = 6 + 6`, r`& = 12`),
         r`La fonction renvoie <span class="resultat"><code>(6, -3, 12)</code></span>&nbsp;: $6x - 3y + 12 = 0$ est une équation de la droite passant par $A(-1\,;\,2)$ et $B(2\,;\,8)$, ou, en divisant par $3$, $2x - y + 4 = 0$. Vérification avec $B$&nbsp;: $2 \times 2 - 8 + 4 = 0$. Attention&nbsp;: $-6 \times (-1) = +6$ et $-(-3) \times 2 = +6$.`] } }
   ]
 };

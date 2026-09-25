@@ -6,12 +6,14 @@
 <title>Entraînement Évaluation vecteurs</title>
 <!--
   Entraînement auto-corrigé à l'évaluation du chapitre 4 (Vecteurs, sans repère) - Seconde.
-  Une seule partie, sans automatismes (demande du professeur pour la Seconde), dans l'ordre
-  du cours : vecteurs égaux sur un quadrillage, vecteurs égaux et parallélogramme, image par
-  une translation, norme (théorème de Pythagore), somme de deux vecteurs (bout à bout, règle
-  du parallélogramme), relation de Chasles, différence, produit par un réel (point F tel que
-  DF = u - 2v), décomposition d'un vecteur sur un quadrillage, réduction et colinéarité,
-  parallélisme, alignement et milieu dans un parallélogramme (caractérisation vectorielle
+  Une seule partie, sans automatismes (demande du professeur pour la Seconde). Questions
+  rangées par difficulté croissante, en trois niveaux : lectures sur le quadrillage et
+  propriété du cours (vecteurs égaux, image par une translation, vecteurs égaux et
+  parallélogramme) ; méthodes du chapitre en deux ou trois étapes (norme par le théorème de
+  Pythagore, somme de deux vecteurs (bout à bout, règle du parallélogramme), relation de
+  Chasles, différence, point F tel que DF = u - 2v) ; calculs vectoriels en plusieurs étapes
+  et synthèse (décomposition d'un vecteur sur un quadrillage, réduction et colinéarité,
+  parallélisme, alignement et milieu dans un parallélogramme, caractérisation vectorielle
   du milieu). Sources : capacités 1 à 5 du cours, activités 1 et 2, fiche d'exercices
   (exercices 1 à 6), exercices du manuel cités dans le plan (16, 19 et 20 p. 134-135,
   67 p. 138, 68, 71 et 73 p. 139) et évaluation (sujets A et B, sans le QCM
@@ -410,7 +412,7 @@ const FIG = {
       { x: 9, y: 4, nom: 'M', pos: 'bd' }, { x: 6, y: 5, nom: 'N', pos: 'hg' },
       { x: 13, y: 5, nom: 'P', pos: 'hg' }, { x: 14, y: 2, nom: 'Q', pos: 'd' },
       { x: 1, y: 3, nom: 'R', pos: 'hg' }, { x: 7, y: 1, nom: 'S', pos: 'bd' }] },
-  // Question 2 : parallélogrammes (sans quadrillage), deux côtés opposés fléchés en rouge.
+  // Question 3 : parallélogrammes (sans quadrillage), deux côtés opposés fléchés en rouge.
   para: { l: 7.5, h: 3, grille: false,
     segments: [{ de: [0, 0], a: [1.5, 3] }, { de: [6, 0], a: [7.5, 3] }],
     vecteurs: [{ de: [0, 0], a: [6, 0] }, { de: [1.5, 3], a: [7.5, 3] }],
@@ -421,7 +423,7 @@ const FIG = {
     vecteurs: [{ de: [0, 0], a: [1.5, 3] }, { de: [6, 0], a: [7.5, 3] }],
     points: [{ x: 0, y: 0, nom: 'E' }, { x: 6, y: 0, nom: 'F', pos: 'bd' },
       { x: 7.5, y: 3, nom: 'G', pos: 'hd' }, { x: 1.5, y: 3, nom: 'H', pos: 'hg' }] },
-  // Question 3 : triangle ABC, vecteur u et quatre points candidats.
+  // Question 2 : triangle ABC, vecteur u et quatre points candidats.
   translation: { l: 15, h: 7,
     segments: [{ de: [3, 3], a: [6, 4] }, { de: [6, 4], a: [5, 2] }, { de: [5, 2], a: [3, 3] }],
     vecteurs: [{ de: [10, 5], a: [14, 6], nom: 'u' }],
@@ -494,7 +496,7 @@ const QUIZ = {
   parties: ['Vecteurs'],
   questions: [
 
-  /* ----- Partie 1 du cours : translation et vecteur ----- */
+  /* ----- Niveau 1 : lectures sur le quadrillage et propriété du cours ----- */
 
   { partie: 0, theme: 'Vecteurs égaux', type: 'qcm',
     enonce: r`Sur le quadrillage ci-dessous, quel vecteur est égal au vecteur $\vec{u}$&nbsp;?`
@@ -523,22 +525,6 @@ const QUIZ = {
           textes: [{ x: 2.5, y: 5.38, texte: '3' }, { x: 4.3, y: 4.5, texte: '1' }, { x: 11.5, y: 2.38, texte: '3' }, { x: 13.3, y: 1.5, texte: '1' }],
           label: 'Le même quadrillage, avec les lectures en tirets verts : u et KL font avancer de 3 carreaux vers la droite et de 1 vers le bas.' }),
         r`Les autres ne conviennent pas&nbsp;: $\overrightarrow{MN} = -\vec{u}$ (sens contraire), $\overrightarrow{RS} = 2\vec{u}$ (norme double) et $\overrightarrow{PQ}$ n'a pas la même direction.`] } },
-
-  { partie: 0, theme: 'Parallélogramme', type: 'vf',
-    enonce: r`$ABCD$ est un parallélogramme. Alors $\overrightarrow{AB} = \overrightarrow{CD}$.`,
-    bonne: false,
-    explication: [
-      r`D'après le cours, $\overrightarrow{AB} = \overrightarrow{DC}$ si et seulement si $ABCD$ est un parallélogramme&nbsp;: les flèches de $A$ vers $B$ et de $D$ vers $C$ ont la même direction, le même sens et la même longueur.`,
-      quadrillage(FIG.para, { label: 'Parallélogramme ABCD, avec les flèches de A vers B et de D vers C, parallèles et de même sens.' }),
-      r`La flèche de $C$ vers $D$ va dans le sens contraire&nbsp;: $\overrightarrow{CD} = -\overrightarrow{AB}$. L'égalité est donc <span class="resultat">fausse</span>&nbsp;; la bonne égalité est $\overrightarrow{AB} = \overrightarrow{DC}$.`],
-    revoir: r`propriété des vecteurs égaux et du parallélogramme (partie 1 du cours), exercice 1 de la fiche, exercice 19 p.&nbsp;134 du manuel`,
-    variante: {
-      enonce: r`$EFGH$ est un parallélogramme. Alors $\overrightarrow{EH} = \overrightarrow{FG}$.`,
-      bonne: true,
-      explication: [
-        r`D'après le cours, $\overrightarrow{EH} = \overrightarrow{FG}$ si et seulement si $EHGF$ est un parallélogramme. Or $EHGF$ est le parallélogramme $EFGH$, parcouru dans l'autre sens.`,
-        quadrillage(FIG.paraV, { label: 'Parallélogramme EFGH, avec les flèches de E vers H et de F vers G, parallèles et de même sens.' }),
-        r`Les flèches de $E$ vers $H$ et de $F$ vers $G$ ont bien la même direction, le même sens et la même longueur&nbsp;: l'égalité est <span class="resultat">vraie</span>.`] } },
 
   { partie: 0, theme: 'Translation', type: 'qcm',
     enonce: r`On construit l'image $A'B'C'$ du triangle $ABC$ par la translation de vecteur $\vec{u}$. Le point $C'$ est le point&nbsp;:`
@@ -570,6 +556,24 @@ const QUIZ = {
           label: 'Le même quadrillage : u fait avancer de 3 carreaux vers la droite et de 2 vers le bas ; le même déplacement, à partir de A, mène au point K (tirets verts).' }),
         r`De même, $B'$ et $C'$ sont à $3$ carreaux à droite et $2$ au-dessous de $B$ et de $C$.`] } },
 
+  { partie: 0, theme: 'Parallélogramme', type: 'vf',
+    enonce: r`$ABCD$ est un parallélogramme. Alors $\overrightarrow{AB} = \overrightarrow{CD}$.`,
+    bonne: false,
+    explication: [
+      r`D'après le cours, $\overrightarrow{AB} = \overrightarrow{DC}$ si et seulement si $ABCD$ est un parallélogramme&nbsp;: les flèches de $A$ vers $B$ et de $D$ vers $C$ ont la même direction, le même sens et la même longueur.`,
+      quadrillage(FIG.para, { label: 'Parallélogramme ABCD, avec les flèches de A vers B et de D vers C, parallèles et de même sens.' }),
+      r`La flèche de $C$ vers $D$ va dans le sens contraire&nbsp;: $\overrightarrow{CD} = -\overrightarrow{AB}$. L'égalité est donc <span class="resultat">fausse</span>&nbsp;; la bonne égalité est $\overrightarrow{AB} = \overrightarrow{DC}$.`],
+    revoir: r`propriété des vecteurs égaux et du parallélogramme (partie 1 du cours), exercice 1 de la fiche, exercice 19 p.&nbsp;134 du manuel`,
+    variante: {
+      enonce: r`$EFGH$ est un parallélogramme. Alors $\overrightarrow{EH} = \overrightarrow{FG}$.`,
+      bonne: true,
+      explication: [
+        r`D'après le cours, $\overrightarrow{EH} = \overrightarrow{FG}$ si et seulement si $EHGF$ est un parallélogramme. Or $EHGF$ est le parallélogramme $EFGH$, parcouru dans l'autre sens.`,
+        quadrillage(FIG.paraV, { label: 'Parallélogramme EFGH, avec les flèches de E vers H et de F vers G, parallèles et de même sens.' }),
+        r`Les flèches de $E$ vers $H$ et de $F$ vers $G$ ont bien la même direction, le même sens et la même longueur&nbsp;: l'égalité est <span class="resultat">vraie</span>.`] } },
+
+  /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
+
   { partie: 0, theme: 'Norme', type: 'qcm',
     enonce: r`L'unité de longueur est le côté d'un carreau. La norme du vecteur $\vec{u}$ est égale à&nbsp;:`
       + quadrillage(FIG.norme, { label: 'Quadrillage avec le vecteur u : 8 carreaux vers la droite et 6 vers le haut.' }),
@@ -582,7 +586,7 @@ const QUIZ = {
         label: 'Le même vecteur, hypoténuse d\'un triangle rectangle dont les côtés de l\'angle droit, en tirets verts, mesurent 8 et 6 carreaux.' }),
       r`D'après le théorème de Pythagore&nbsp;:`,
       calcul(r`\|\vec{u}\|^{2} & = 8^{2} + 6^{2}`, r`& = 64 + 36`, r`& = 100`),
-      r`Une norme est positive, donc <span class="resultat">$\|\vec{u}\| = 10$</span>.`],
+      r`Une norme est positive, donc $\|\vec{u}\| = \sqrt{100}$, soit <span class="resultat">$\|\vec{u}\| = 10$</span>.`],
     revoir: r`capacité 1 du cours (question 4), exercice 2 de la fiche`,
     variante: {
       enonce: r`L'unité de longueur est le côté d'un carreau. La norme du vecteur $\vec{u}$ est égale à&nbsp;:`
@@ -597,8 +601,6 @@ const QUIZ = {
         r`D'après le théorème de Pythagore&nbsp;:`,
         calcul(r`\|\vec{u}\|^{2} & = 2^{2} + 1^{2}`, r`& = 4 + 1`, r`& = 5`),
         r`Une norme est positive, donc <span class="resultat">$\|\vec{u}\| = \sqrt{5}$</span>.`] } },
-
-  /* ----- Partie 2 du cours : somme de deux vecteurs ----- */
 
   { partie: 0, theme: 'Somme de deux vecteurs', type: 'qcm',
     enonce: r`Parmi les points $K$, $L$, $M$ et $N$, lequel est le point $E$ tel que $\overrightarrow{DE} = \vec{u} + \vec{v}$&nbsp;?`
@@ -659,8 +661,6 @@ const QUIZ = {
         calcul(r`\overrightarrow{KL} - \overrightarrow{KM} & = \overrightarrow{KL} + \overrightarrow{MK}`, r`& = \overrightarrow{MK} + \overrightarrow{KL}`, r`& = \overrightarrow{ML}`),
         r`L'égalité est <span class="resultat">vraie</span>, pour tous points $K$, $L$ et $M$.`] } },
 
-  /* ----- Partie 3 du cours : produit d'un vecteur par un réel ----- */
-
   { partie: 0, theme: 'Produit par un réel', type: 'qcm',
     enonce: r`Parmi les points $K$, $L$, $M$ et $N$, lequel est le point $F$ tel que $\overrightarrow{DF} = \vec{u} - 2\vec{v}$&nbsp;?`
       + quadrillage(FIG.produit, { label: 'Quadrillage avec le point D, les vecteurs u (3 carreaux vers la droite et 1 vers le haut) et v (2 carreaux vers la droite et 1 vers le bas), et quatre points. À partir de D : K est à 1 carreau à gauche et 3 au-dessus, L à 7 carreaux à droite et 1 en dessous, M à 1 carreau à droite et 2 au-dessus, N à 1 carreau à droite et 3 en dessous.' }),
@@ -668,7 +668,7 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`$\vec{u} - 2\vec{v} = \vec{u} + (-2\vec{v})$. Le vecteur $-2\vec{v}$ a la même direction que $\vec{v}$, le sens contraire et une norme double.`,
-      r`On lit $\vec{u}$ ($3$ carreaux à droite, $1$ vers le haut) et $\vec{v}$ ($2$ carreaux à droite, $1$ vers le bas)&nbsp;: $-2\vec{v}$ fait avancer de $4$ carreaux vers la gauche et de $2$ vers le haut. À partir de $D$, on trace $\vec{u}$, puis $-2\vec{v}$, bout à bout (tirets).`,
+      r`On lit $\vec{u}$ ($3$ carreaux à droite, $1$ vers le haut) et $\vec{v}$ ($2$ carreaux à droite, $1$ vers le bas)&nbsp;: $-2\vec{v}$ fait avancer de $2 \times 2 = 4$ carreaux vers la gauche et de $2 \times 1 = 2$ vers le haut. À partir de $D$, on trace $\vec{u}$, puis $-2\vec{v}$, bout à bout (tirets).`,
       quadrillage(FIG.produit, { echelle: 1.15,
         vecteurs: FIG.produit.vecteurs.concat([{ de: [4, 4], a: [7, 5], tirets: true }, { de: [7, 5], a: [3, 7], classe: 'c-bleu', tirets: true },
           { de: [4, 4], a: [3, 7], classe: 'c-noir' }]),
@@ -682,12 +682,14 @@ const QUIZ = {
       bonne: 0,
       explication: [
         r`$\vec{u} - 2\vec{v} = \vec{u} + (-2\vec{v})$. Le vecteur $-2\vec{v}$ a la même direction que $\vec{v}$, le sens contraire et une norme double.`,
-        r`On lit $\vec{u}$ ($1$ carreau à droite, $2$ vers le haut) et $\vec{v}$ ($2$ carreaux à gauche, $1$ vers le haut)&nbsp;: $-2\vec{v}$ fait avancer de $4$ carreaux vers la droite et de $2$ vers le bas. À partir de $D$, on trace $\vec{u}$, puis $-2\vec{v}$, bout à bout (tirets).`,
+        r`On lit $\vec{u}$ ($1$ carreau à droite, $2$ vers le haut) et $\vec{v}$ ($2$ carreaux à gauche, $1$ vers le haut)&nbsp;: $-2\vec{v}$ fait avancer de $2 \times 2 = 4$ carreaux vers la droite et de $2 \times 1 = 2$ vers le bas. À partir de $D$, on trace $\vec{u}$, puis $-2\vec{v}$, bout à bout (tirets).`,
         quadrillage(FIG.produitV, { echelle: 1.15,
           vecteurs: FIG.produitV.vecteurs.concat([{ de: [6, 2], a: [7, 4], tirets: true }, { de: [7, 4], a: [11, 2], classe: 'c-bleu', tirets: true },
             { de: [6, 2], a: [11, 2], classe: 'c-noir' }]),
           label: 'Le même quadrillage : à partir de D, u puis moins 2 v mis bout à bout (tirets) mènent au point M.' }),
         r`Au total, $1 + 4 = 5$ carreaux vers la droite et $2 - 2 = 0$ vers le haut&nbsp;: <span class="resultat">$F$ est le point $M$</span>.`] } },
+
+  /* ----- Niveau 3 : calculs vectoriels en plusieurs étapes et synthèse ----- */
 
   { partie: 0, theme: 'Décomposer un vecteur', type: 'qcm',
     enonce: r`D'après le quadrillage ci-dessous, le vecteur $\vec{w}$ est égal à&nbsp;:`
@@ -701,7 +703,7 @@ const QUIZ = {
           { de: [8, 3], a: [11, 4], tirets: true }]),
         label: 'Le même quadrillage : de l\'origine à l\'extrémité de w, un chemin en tirets fait de moins v, puis deux fois u.' }),
       r`De l'origine à l'extrémité de $\vec{w}$&nbsp;: $-\vec{v}$, puis deux fois $\vec{u}$. Donc <span class="resultat">$\vec{w} = 2\vec{u} - \vec{v}$</span>.`,
-      r`Vérification&nbsp;: $2 \times 3 - 1 = 5$ carreaux vers la droite et $2 \times 1 - 2 = 0$ vers le haut, comme $\vec{w}$.`],
+      r`Vérification&nbsp;: $2 \times 3 - 1 = 6 - 1 = 5$ carreaux vers la droite et $2 \times 1 - 2 = 2 - 2 = 0$ vers le haut, comme $\vec{w}$.`],
     revoir: r`capacité 4 du cours (question 2), exercice 4 de la fiche`,
     variante: {
       enonce: r`D'après le quadrillage ci-dessous, le vecteur $\vec{w}$ est égal à&nbsp;:`
@@ -715,7 +717,7 @@ const QUIZ = {
             { de: [8, 1], a: [10, 2], tirets: true }]),
           label: 'Le même quadrillage : de l\'origine à l\'extrémité de w, un chemin en tirets fait de deux fois moins v, puis u.' }),
         r`De l'origine à l'extrémité de $\vec{w}$&nbsp;: deux fois $-\vec{v}$, puis $\vec{u}$. Donc <span class="resultat">$\vec{w} = \vec{u} - 2\vec{v}$</span>.`,
-        r`Vérification&nbsp;: $2 + 2 \times 1 = 4$ carreaux vers la droite et $1 - 2 \times 2 = -3$, soit $3$ carreaux vers le bas, comme $\vec{w}$.`] } },
+        r`Vérification&nbsp;: $2 + 2 \times 1 = 2 + 2 = 4$ carreaux vers la droite et $1 - 2 \times 2 = 1 - 4 = -3$, soit $3$ carreaux vers le bas, comme $\vec{w}$.`] } },
 
   { partie: 0, theme: 'Vecteurs colinéaires', type: 'qcm',
     enonce: r`$\vec{u}$ et $\vec{v}$ sont deux vecteurs. On pose $\vec{p} = 3(\vec{v} - 3\vec{u}) + 3\vec{u}$ et $\vec{q} = 2\vec{u} - \vec{v}$. Alors&nbsp;:`,
@@ -723,10 +725,10 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`On réduit d'abord $\vec{p}$&nbsp;: on développe, puis on regroupe les termes en $\vec{u}$, comme en calcul littéral.`,
-      calcul(r`\vec{p} & = 3\vec{v} - 9\vec{u} + 3\vec{u}`, r`& = -6\vec{u} + 3\vec{v}`),
+      calcul(r`\vec{p} & = 3(\vec{v} - 3\vec{u}) + 3\vec{u}`, r`& = 3 \times \vec{v} - 3 \times 3\vec{u} + 3\vec{u}`, r`& = 3\vec{v} - 9\vec{u} + 3\vec{u}`, r`& = (-9 + 3)\vec{u} + 3\vec{v}`, r`& = -6\vec{u} + 3\vec{v}`),
       r`On cherche ensuite un réel $k$ tel que $\vec{p} = k\vec{q}$&nbsp;: on met $-3$ en facteur, pour faire apparaître $2\vec{u} - \vec{v}$.`,
-      calcul(r`\vec{p} & = -6\vec{u} + 3\vec{v}`, r`& = -3 \times (2\vec{u} - \vec{v})`, r`& = \resultat{-3\vec{q}}`),
-      r`Les vecteurs $\vec{p}$ et $\vec{q}$ sont donc colinéaires. Vérification&nbsp;: $-3 \times 2\vec{u} = -6\vec{u}$ et $-3 \times (-\vec{v}) = 3\vec{v}$.`],
+      calcul(r`\vec{p} & = -6\vec{u} + 3\vec{v}`, r`& = (-3) \times 2\vec{u} + (-3) \times (-\vec{v})`, r`& = -3 \times (2\vec{u} - \vec{v})`, r`& = \resultat{-3\vec{q}}`),
+      r`Les vecteurs $\vec{p}$ et $\vec{q}$ sont donc colinéaires.`],
     revoir: r`capacité 4 du cours (question 3), exercice 4 de la fiche, exercice 73 p.&nbsp;139 du manuel`,
     variante: {
       enonce: r`$\vec{u}$ et $\vec{v}$ sont deux vecteurs. On pose $\vec{p} = 2(\vec{u} - 4\vec{v}) + 2\vec{u}$ et $\vec{q} = -\vec{u} + 2\vec{v}$. Alors&nbsp;:`,
@@ -734,20 +736,18 @@ const QUIZ = {
       bonne: 0,
       explication: [
         r`On réduit d'abord $\vec{p}$&nbsp;: on développe, puis on regroupe les termes en $\vec{u}$, comme en calcul littéral.`,
-        calcul(r`\vec{p} & = 2\vec{u} - 8\vec{v} + 2\vec{u}`, r`& = 4\vec{u} - 8\vec{v}`),
+        calcul(r`\vec{p} & = 2(\vec{u} - 4\vec{v}) + 2\vec{u}`, r`& = 2 \times \vec{u} - 2 \times 4\vec{v} + 2\vec{u}`, r`& = 2\vec{u} - 8\vec{v} + 2\vec{u}`, r`& = (2 + 2)\vec{u} - 8\vec{v}`, r`& = 4\vec{u} - 8\vec{v}`),
         r`On cherche ensuite un réel $k$ tel que $\vec{p} = k\vec{q}$&nbsp;: on met $-4$ en facteur, pour faire apparaître $-\vec{u} + 2\vec{v}$.`,
-        calcul(r`\vec{p} & = 4\vec{u} - 8\vec{v}`, r`& = -4 \times (-\vec{u} + 2\vec{v})`, r`& = \resultat{-4\vec{q}}`),
-        r`Les vecteurs $\vec{p}$ et $\vec{q}$ sont donc colinéaires. Vérification&nbsp;: $-4 \times (-\vec{u}) = 4\vec{u}$ et $-4 \times 2\vec{v} = -8\vec{v}$.`] } },
-
-  /* ----- Partie 4 du cours : parallélisme, alignement, milieu ----- */
+        calcul(r`\vec{p} & = 4\vec{u} - 8\vec{v}`, r`& = (-4) \times (-\vec{u}) + (-4) \times 2\vec{v}`, r`& = -4 \times (-\vec{u} + 2\vec{v})`, r`& = \resultat{-4\vec{q}}`),
+        r`Les vecteurs $\vec{p}$ et $\vec{q}$ sont donc colinéaires.`] } },
 
   { partie: 0, theme: 'Parallélisme', type: 'qcm',
     enonce: r`$ABC$ est un triangle&nbsp;; $M$ et $N$ sont les points tels que $\overrightarrow{AM} = 2\overrightarrow{AB}$ et $\overrightarrow{AN} = 2\overrightarrow{AC}$. Alors $\overrightarrow{MN}$ est égal à&nbsp;:`,
     choix: [r`$2\overrightarrow{BC}$`, r`$2\overrightarrow{CB}$`, r`$\overrightarrow{BC}$`, r`$\dfrac{1}{2}\overrightarrow{BC}$`],
     bonne: 0,
     explication: [
-      r`On décompose $\overrightarrow{MN}$ en passant par $A$ (relation de Chasles). Comme $\overrightarrow{AM} = 2\overrightarrow{AB}$, son opposé est $\overrightarrow{MA} = -2\overrightarrow{AB}$&nbsp;; enfin $\overrightarrow{BA} + \overrightarrow{AC} = \overrightarrow{BC}$.`,
-      calcul(r`\overrightarrow{MN} & = \overrightarrow{MA} + \overrightarrow{AN}`, r`& = -2\overrightarrow{AB} + 2\overrightarrow{AC}`, r`& = 2(\overrightarrow{BA} + \overrightarrow{AC})`, r`& = \resultat{2\overrightarrow{BC}}`),
+      r`On décompose $\overrightarrow{MN}$ en passant par $A$ (relation de Chasles). Comme $\overrightarrow{AM} = 2\overrightarrow{AB}$, son opposé est $\overrightarrow{MA} = -2\overrightarrow{AB}$. On met ensuite $2$ en facteur et on remplace $-\overrightarrow{AB}$ par $\overrightarrow{BA}$&nbsp;; enfin $\overrightarrow{BA} + \overrightarrow{AC} = \overrightarrow{BC}$.`,
+      calcul(r`\overrightarrow{MN} & = \overrightarrow{MA} + \overrightarrow{AN}`, r`& = -2\overrightarrow{AB} + 2\overrightarrow{AC}`, r`& = 2(-\overrightarrow{AB} + \overrightarrow{AC})`, r`& = 2(\overrightarrow{BA} + \overrightarrow{AC})`, r`& = \resultat{2\overrightarrow{BC}}`),
       r`Les vecteurs $\overrightarrow{MN}$ et $\overrightarrow{BC}$ sont colinéaires&nbsp;: les droites $(MN)$ et $(BC)$ sont parallèles.`,
       quadrillage(FIG.parallelisme, { label: 'Triangle ABC ; M sur la demi-droite [AB) avec AM = 2 AB, N sur la demi-droite [AC) avec AN = 2 AC ; les segments [BC] et [MN], en rouge, sont parallèles.' })],
     revoir: r`capacité 5 du cours (question 1), exercice 5 de la fiche`,
@@ -756,8 +756,8 @@ const QUIZ = {
       choix: [r`$\dfrac{1}{2}\overrightarrow{BC}$`, r`$\dfrac{1}{2}\overrightarrow{CB}$`, r`$\overrightarrow{BC}$`, r`$2\overrightarrow{BC}$`],
       bonne: 0,
       explication: [
-        r`On décompose $\overrightarrow{MN}$ en passant par $A$ (relation de Chasles). Comme $\overrightarrow{AM} = \dfrac{1}{2}\overrightarrow{AB}$, son opposé est $\overrightarrow{MA} = -\dfrac{1}{2}\overrightarrow{AB}$&nbsp;; enfin $\overrightarrow{BA} + \overrightarrow{AC} = \overrightarrow{BC}$.`,
-        calcul(r`\overrightarrow{MN} & = \overrightarrow{MA} + \overrightarrow{AN}`, r`& = -\dfrac{1}{2}\overrightarrow{AB} + \dfrac{1}{2}\overrightarrow{AC}`, r`& = \dfrac{1}{2}(\overrightarrow{BA} + \overrightarrow{AC})`, r`& = \resultat{\dfrac{1}{2}\overrightarrow{BC}}`),
+        r`On décompose $\overrightarrow{MN}$ en passant par $A$ (relation de Chasles). Comme $\overrightarrow{AM} = \dfrac{1}{2}\overrightarrow{AB}$, son opposé est $\overrightarrow{MA} = -\dfrac{1}{2}\overrightarrow{AB}$. On met ensuite $\dfrac{1}{2}$ en facteur et on remplace $-\overrightarrow{AB}$ par $\overrightarrow{BA}$&nbsp;; enfin $\overrightarrow{BA} + \overrightarrow{AC} = \overrightarrow{BC}$.`,
+        calcul(r`\overrightarrow{MN} & = \overrightarrow{MA} + \overrightarrow{AN}`, r`& = -\dfrac{1}{2}\overrightarrow{AB} + \dfrac{1}{2}\overrightarrow{AC}`, r`& = \dfrac{1}{2}(-\overrightarrow{AB} + \overrightarrow{AC})`, r`& = \dfrac{1}{2}(\overrightarrow{BA} + \overrightarrow{AC})`, r`& = \resultat{\dfrac{1}{2}\overrightarrow{BC}}`),
         r`Les vecteurs $\overrightarrow{MN}$ et $\overrightarrow{BC}$ sont colinéaires&nbsp;: les droites $(MN)$ et $(BC)$ sont parallèles. ($M$ et $N$ sont les milieux de $[AB]$ et de $[AC]$&nbsp;: on retrouve le théorème des milieux du collège.)`,
         quadrillage(FIG.parallelismeV, { label: 'Triangle ABC ; M milieu de [AB], N milieu de [AC] ; les segments [BC] et [MN], en rouge, sont parallèles.' })] } },
 
@@ -770,9 +770,9 @@ const QUIZ = {
       r`On exprime $\overrightarrow{DK}$ et $\overrightarrow{DG}$ en fonction de $\overrightarrow{AB}$ et de $\overrightarrow{AD}$ avec la relation de Chasles, en passant par $A$, puis par $C$.`,
       r`Comme $ABCD$ est un parallélogramme, $\overrightarrow{DC} = \overrightarrow{AB}$ et $\overrightarrow{CB} = \overrightarrow{DA} = -\overrightarrow{AD}$&nbsp;; comme $K$ est le milieu de $[AB]$, $\overrightarrow{AK} = \dfrac{1}{2}\overrightarrow{AB}$.`,
       calcul(r`\overrightarrow{DK} & = \overrightarrow{DA} + \overrightarrow{AK}`, r`& = -\overrightarrow{AD} + \dfrac{1}{2}\overrightarrow{AB}`),
-      calcul(r`\overrightarrow{DG} & = \overrightarrow{DC} + \overrightarrow{CG}`, r`& = \overrightarrow{AB} + 2\overrightarrow{CB}`, r`& = \overrightarrow{AB} - 2\overrightarrow{AD}`),
+      calcul(r`\overrightarrow{DG} & = \overrightarrow{DC} + \overrightarrow{CG}`, r`& = \overrightarrow{AB} + 2\overrightarrow{CB}`, r`& = \overrightarrow{AB} + 2 \times (-\overrightarrow{AD})`, r`& = \overrightarrow{AB} - 2\overrightarrow{AD}`),
       r`On compare $\overrightarrow{DG}$ au double de $\overrightarrow{DK}$.`,
-      calcul(r`2\overrightarrow{DK} & = -2\overrightarrow{AD} + \overrightarrow{AB}`, r`& = \overrightarrow{DG}`),
+      calcul(r`2\overrightarrow{DK} & = 2 \times (-\overrightarrow{AD}) + 2 \times \dfrac{1}{2}\overrightarrow{AB}`, r`& = -2\overrightarrow{AD} + \overrightarrow{AB}`, r`& = \overrightarrow{AB} - 2\overrightarrow{AD}`, r`& = \overrightarrow{DG}`),
       r`Ainsi $\overrightarrow{DG} = 2\overrightarrow{DK}$&nbsp;: ces vecteurs sont colinéaires et ont la même origine $D$, donc les points sont alignés. De plus $\overrightarrow{DK} = \dfrac{1}{2}\overrightarrow{DG}$&nbsp;: d'après la caractérisation vectorielle du milieu, <span class="resultat">$D$, $K$ et $G$ sont alignés et $K$ est le milieu de $[DG]$</span>.`,
       quadrillage(FIG.milieu, { label: 'Parallélogramme ABCD ; K milieu de [AB] ; G sur la droite (BC), avec B milieu de [CG] ; le segment [DG], en rouge, passe par K.' })],
     revoir: r`capacité 5 du cours (question 2), exercice 6 de la fiche`,
@@ -785,9 +785,9 @@ const QUIZ = {
         r`On exprime $\overrightarrow{BL}$ et $\overrightarrow{BH}$ en fonction de $\overrightarrow{AB}$ et de $\overrightarrow{AD}$ avec la relation de Chasles, en passant par $A$, puis par $C$.`,
         r`Comme $ABCD$ est un parallélogramme, $\overrightarrow{BC} = \overrightarrow{AD}$ et $\overrightarrow{CD} = \overrightarrow{BA} = -\overrightarrow{AB}$&nbsp;; comme $L$ est le milieu de $[AD]$, $\overrightarrow{AL} = \dfrac{1}{2}\overrightarrow{AD}$.`,
         calcul(r`\overrightarrow{BL} & = \overrightarrow{BA} + \overrightarrow{AL}`, r`& = -\overrightarrow{AB} + \dfrac{1}{2}\overrightarrow{AD}`),
-        calcul(r`\overrightarrow{BH} & = \overrightarrow{BC} + \overrightarrow{CH}`, r`& = \overrightarrow{AD} + 2\overrightarrow{CD}`, r`& = \overrightarrow{AD} - 2\overrightarrow{AB}`),
+        calcul(r`\overrightarrow{BH} & = \overrightarrow{BC} + \overrightarrow{CH}`, r`& = \overrightarrow{AD} + 2\overrightarrow{CD}`, r`& = \overrightarrow{AD} + 2 \times (-\overrightarrow{AB})`, r`& = \overrightarrow{AD} - 2\overrightarrow{AB}`),
         r`On compare $\overrightarrow{BH}$ au double de $\overrightarrow{BL}$.`,
-        calcul(r`2\overrightarrow{BL} & = -2\overrightarrow{AB} + \overrightarrow{AD}`, r`& = \overrightarrow{BH}`),
+        calcul(r`2\overrightarrow{BL} & = 2 \times (-\overrightarrow{AB}) + 2 \times \dfrac{1}{2}\overrightarrow{AD}`, r`& = -2\overrightarrow{AB} + \overrightarrow{AD}`, r`& = \overrightarrow{AD} - 2\overrightarrow{AB}`, r`& = \overrightarrow{BH}`),
         r`Ainsi $\overrightarrow{BH} = 2\overrightarrow{BL}$&nbsp;: ces vecteurs sont colinéaires et ont la même origine $B$, donc les points sont alignés. De plus $\overrightarrow{BL} = \dfrac{1}{2}\overrightarrow{BH}$&nbsp;: d'après la caractérisation vectorielle du milieu, <span class="resultat">$B$, $L$ et $H$ sont alignés et $L$ est le milieu de $[BH]$</span>.`,
         quadrillage(FIG.milieuV, { label: 'Parallélogramme ABCD ; L milieu de [AD] ; H sur la droite (CD), avec D milieu de [CH] ; le segment [BH], en rouge, passe par L.' })] } }
   ]

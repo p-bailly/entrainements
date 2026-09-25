@@ -6,24 +6,24 @@
 <title>Entraînement Évaluation arithmétique</title>
 <!--
   Entraînement auto-corrigé à l'évaluation du chapitre 8 (Arithmétique) - Seconde.
-  Une seule partie, douze questions, sans automatismes (demande du professeur), dans l'ordre
-  du cours et des séances du plan :
-    1 à 3    : multiples et diviseurs (critères de divisibilité par 4 et par 9, table d'un
-               nombre), liste des diviseurs, lecture des deux fonctions Python de la fiche
-               (est_multiple : reste a % b ; multiple_max : plus grand multiple de a
-               inférieur ou égal à b) ;
-    4 et 5   : démontrer avec des lettres (choisir la rédaction qui prouve qu'un nombre est
-               un multiple ; repérer l'étape fausse d'une rédaction d'élève : une même lettre
-               pour deux entiers quelconques, en parité puis pour la somme de deux multiples
-               de 7, démonstration du cours) ;
-    6 à 8    : nombre premier (tester les nombres premiers dont le carré ne dépasse pas
-               l'entier), décomposition en produit de facteurs premiers (échelle du cours),
-               fraction irréductible (facteurs premiers communs en violet) ;
-    9 et 10  : modéliser un problème (plus grand diviseur commun, plus petit multiple commun) ;
-    11 et 12 : une seule affirmation vraie parmi quatre, à justifier par un contre-exemple,
-               par l'absurde (6a + 14b impair impossible) ou par une démonstration, comme la
-               capacité 5 et l'exercice 3 de l'évaluation ; irrationalité de racine de 2
-               (étape manquante de la démonstration par l'absurde du cours).
+  Une seule partie, douze questions, sans automatismes (demande du professeur), rangées par
+  difficulté croissante, en trois niveaux :
+    1 à 3  : questions de cours et applications directes (liste des diviseurs ; multiples et
+             diviseurs : critères de divisibilité par 4 et par 9, table d'un nombre ; choisir
+             la rédaction qui prouve qu'un nombre est un multiple) ;
+    4 à 8  : méthodes du chapitre (décomposition en produit de facteurs premiers, échelle du
+             cours ; nombre premier : tester les nombres premiers dont le carré ne dépasse pas
+             l'entier ; plus petit multiple commun ; lecture des deux fonctions Python de la
+             fiche, est_multiple : reste a % b, multiple_max : plus grand multiple de a
+             inférieur ou égal à b ; fraction irréductible, facteurs premiers communs en
+             violet) ;
+    9 à 12 : problèmes, pièges et raisonnements (plus grand diviseur commun ; étape fausse
+             d'une rédaction d'élève : une même lettre pour deux entiers quelconques, en
+             parité puis pour la somme de deux multiples de 7, démonstration du cours ;
+             irrationalité de racine de 2, étape manquante de la démonstration par l'absurde
+             du cours ; une seule affirmation vraie parmi quatre, à justifier par un
+             contre-exemple, par l'absurde (6a + 14b impair impossible) ou par une
+             démonstration, comme la capacité 5 et l'exercice 3 de l'évaluation).
   Sources : capacités 1 à 5, méthodes et démonstrations du cours, activités 1 (somme de trois
   entiers consécutifs) et 2 (crible d'Ératosthène), fiche d'exercices (exercices 1 à 6, dont
   l'exercice 2 en Python), évaluation (sujets A et B, exercices 2 à 4 ; son QCM d'automatismes
@@ -331,7 +331,7 @@ function calcul(...lignes) {
 }
 
 /* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
-// Programme Python de la question 3, présenté comme dans la fiche d'exercices : police à chasse
+// Programme Python de la question 7, présenté comme dans la fiche d'exercices : police à chasse
 // fixe, fond gris clair, filet à gauche. Les signes <, > et & du code sont échappés ici.
 // Écrit par concaténation de chaînes, sans gabarit de chaîne.
 function programmePython(lignes) {
@@ -351,7 +351,7 @@ const FONCTIONS = programmePython([
   '        m = m + a',
   '    return m']);
 
-// Rédaction en étapes numérotées (questions 5 et 12) : une étape par ligne, en retrait derrière
+// Rédaction en étapes numérotées (questions 10 et 11) : une étape par ligne, en retrait derrière
 // un filet gris, comme sur une copie ; « …… » pour l'étape à compléter.
 function etapes(lignes) {
   return '<div style="margin:.5em 0 .7em 1.2em; padding-left:.8em; border-left:2px solid var(--filet)">'
@@ -359,7 +359,7 @@ function etapes(lignes) {
     + '</div>';
 }
 
-// Échelle de décomposition en facteurs premiers (question 7), comme \echelle dans le cours :
+// Échelle de décomposition en facteurs premiers (question 4), comme \echelle dans le cours :
 // quotients successifs à gauche, plus petit diviseur premier à droite, filet vertical, 1 en bas.
 //   echelle([[1400, 2], [700, 2], ...], label)
 function echelle(lignes, label) {
@@ -377,33 +377,7 @@ const QUIZ = {
   parties: ['Arithmétique'],
   questions: [
 
-  /* ----- Multiples et diviseurs (partie 1 du cours, capacité 1, exercices 1 et 2 de la fiche) ----- */
-
-  { partie: 0, theme: 'Multiples et diviseurs', type: 'qcm',
-    enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
-    choix: [r`$182$ est un multiple de $13$`, r`$4\,326$ est divisible par $9$`, r`$2\,538$ est divisible par $4$`, r`$7$ est un diviseur de $250$`],
-    bonne: 0,
-    explication: [
-      r`On justifie chaque affirmation par un critère de divisibilité ou par un calcul&nbsp;: $a$ est un multiple de $b$ s'il existe un entier $k$ tel que $a = k \times b$.`,
-      r`Critère de divisibilité par $9$&nbsp;: $4 + 3 + 2 + 6 = 15$ n'est pas un multiple de $9$, donc $4\,326$ n'est pas divisible par $9$.`,
-      r`Critère de divisibilité par $4$&nbsp;: les deux derniers chiffres de $2\,538$ forment $38 = 4 \times 9 + 2$, qui n'est pas un multiple de $4$, donc $2\,538$ n'est pas divisible par $4$.`,
-      r`$7 \times 35 = 245$ et $7 \times 36 = 252$&nbsp;: $250$ n'est pas dans la table de $7$.`,
-      r`On cherche $182$ dans la table de $13$&nbsp;:`,
-      calcul(r`13 \times 14 & = 130 + 52`, r`& = 182`),
-      r`$14$ est un entier&nbsp;: l'affirmation vraie est <span class="resultat">$182$ est un multiple de $13$</span>.`],
-    revoir: r`capacité 1 du cours (questions 1 à 4), exercice 1 de la fiche (questions 1 à 4), exercice 49 p.&nbsp;66 du manuel`,
-    variante: {
-      enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
-      choix: [r`$3\,582$ est divisible par $9$`, r`$1\,746$ est divisible par $4$`, r`$7$ est un diviseur de $180$`, r`$196$ est un multiple de $13$`],
-      bonne: 0,
-      explication: [
-        r`On justifie chaque affirmation par un critère de divisibilité ou par un calcul&nbsp;: $a$ est un multiple de $b$ s'il existe un entier $k$ tel que $a = k \times b$.`,
-        r`Critère de divisibilité par $4$&nbsp;: les deux derniers chiffres de $1\,746$ forment $46 = 4 \times 11 + 2$, qui n'est pas un multiple de $4$, donc $1\,746$ n'est pas divisible par $4$.`,
-        r`$7 \times 25 = 175$ et $7 \times 26 = 182$&nbsp;: $180$ n'est pas dans la table de $7$.`,
-        r`$13 \times 15 = 195$ et $13 \times 16 = 208$&nbsp;: $196$ n'est pas dans la table de $13$.`,
-        r`Critère de divisibilité par $9$&nbsp;: on calcule la somme des chiffres de $3\,582$.`,
-        calcul(r`3 + 5 + 8 + 2 & = 18`, r`& = 9 \times 2`),
-        r`$18$ est un multiple de $9$&nbsp;: l'affirmation vraie est <span class="resultat">$3\,582$ est divisible par $9$</span>. Vérification&nbsp;: $9 \times 398 = 3\,582$.`] } },
+  /* ----- Niveau 1 : questions de cours et applications directes ----- */
 
   { partie: 0, theme: 'Liste des diviseurs', type: 'qcm',
     enonce: r`La liste des diviseurs positifs de $56$ est&nbsp;:`,
@@ -423,31 +397,31 @@ const QUIZ = {
         calcul(r`88 & = 1 \times 88`, r`& = 2 \times 44`, r`& = 4 \times 22`, r`& = 8 \times 11`),
         r`Après $8 \times 11$, on retrouverait les mêmes produits. Les diviseurs positifs de $88$ sont <span class="resultat">$1$, $2$, $4$, $8$, $11$, $22$, $44$, $88$</span>.`] } },
 
-  { partie: 0, theme: 'Programme Python', type: 'qcm',
-    enonce: r`On considère les deux fonctions Python ci-dessous, où <code>a % b</code> est le reste de la division de $a$ par $b$.`
-      + FONCTIONS + r`Que renvoient <code>est_multiple(150, 12)</code> et <code>multiple_max(12, 150)</code>&nbsp;?`,
-    choix: [r`<code>False</code> et $144$`, r`$6$ et $144$`, r`<code>False</code> et $156$`, r`<code>False</code> et $12$`],
+  { partie: 0, theme: 'Multiples et diviseurs', type: 'qcm',
+    enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+    choix: [r`$182$ est un multiple de $13$`, r`$4\,326$ est divisible par $9$`, r`$2\,538$ est divisible par $4$`, r`$7$ est un diviseur de $250$`],
     bonne: 0,
     explication: [
-      r`<code>est_multiple(a, b)</code> renvoie <code>True</code> (vrai) si le reste de la division de $a$ par $b$ est nul, c'est-à-dire si $a$ est un multiple de $b$, et <code>False</code> (faux) sinon.`,
-      calcul(r`150 & = 12 \times 12 + 6 \quad \text{reste } 6`),
-      r`Le reste n'est pas nul&nbsp;: <code>est_multiple(150, 12)</code> renvoie <code>False</code>. Dans <code>multiple_max(12, 150)</code>, <code>m</code> prend les valeurs $0$, $12$, $24$… tant que <code>m + 12</code> ne dépasse pas $150$&nbsp;:`,
-      calcul(r`12 \times 12 & = 144 \le 150`, r`12 \times 13 & = 156 > 150`),
-      r`La boucle s'arrête avec <code>m</code> $= 144$, le plus grand multiple de $12$ inférieur ou égal à $150$. Les deux appels renvoient <span class="resultat"><code>False</code> et $144$</span>.`],
-    revoir: r`exercice 2 de la fiche, capacité 1 du cours (question 6)`,
+      r`On justifie chaque affirmation par un critère de divisibilité ou par un calcul&nbsp;: $a$ est un multiple de $b$ s'il existe un entier $k$ tel que $a = k \times b$.`,
+      r`Critère de divisibilité par $9$&nbsp;: $4 + 3 + 2 + 6 = 15$ n'est pas un multiple de $9$, donc $4\,326$ n'est pas divisible par $9$.`,
+      r`Critère de divisibilité par $4$&nbsp;: les deux derniers chiffres de $2\,538$ forment $38 = 4 \times 9 + 2$, qui n'est pas un multiple de $4$, donc $2\,538$ n'est pas divisible par $4$.`,
+      r`$7 \times 35 = 245$ et $7 \times 36 = 252$&nbsp;: $250$ n'est pas dans la table de $7$.`,
+      r`On cherche $182$ dans la table de $13$&nbsp;:`,
+      calcul(r`13 \times 14 & = 13 \times 10 + 13 \times 4`, r`& = 130 + 52`, r`& = 182`),
+      r`$14$ est un entier&nbsp;: l'affirmation vraie est <span class="resultat">$182$ est un multiple de $13$</span>.`],
+    revoir: r`capacité 1 du cours (questions 1 à 4), exercice 1 de la fiche (questions 1 à 4), exercice 49 p.&nbsp;66 du manuel`,
     variante: {
-      enonce: r`On considère les deux fonctions Python ci-dessous, où <code>a % b</code> est le reste de la division de $a$ par $b$.`
-        + FONCTIONS + r`Que renvoient <code>est_multiple(119, 7)</code> et <code>multiple_max(7, 100)</code>&nbsp;?`,
-      choix: [r`<code>True</code> et $98$`, r`$0$ et $98$`, r`<code>True</code> et $105$`, r`<code>True</code> et $14$`],
+      enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+      choix: [r`$3\,582$ est divisible par $9$`, r`$1\,746$ est divisible par $4$`, r`$7$ est un diviseur de $180$`, r`$196$ est un multiple de $13$`],
       bonne: 0,
       explication: [
-        r`<code>est_multiple(a, b)</code> renvoie <code>True</code> (vrai) si le reste de la division de $a$ par $b$ est nul, c'est-à-dire si $a$ est un multiple de $b$, et <code>False</code> (faux) sinon.`,
-        calcul(r`119 & = 7 \times 17 + 0 \quad \text{reste } 0`),
-        r`Le reste est nul&nbsp;: <code>est_multiple(119, 7)</code> renvoie <code>True</code>. Dans <code>multiple_max(7, 100)</code>, <code>m</code> prend les valeurs $0$, $7$, $14$… tant que <code>m + 7</code> ne dépasse pas $100$&nbsp;:`,
-        calcul(r`7 \times 14 & = 98 \le 100`, r`7 \times 15 & = 105 > 100`),
-        r`La boucle s'arrête avec <code>m</code> $= 98$, le plus grand multiple de $7$ inférieur ou égal à $100$. Les deux appels renvoient <span class="resultat"><code>True</code> et $98$</span>.`] } },
-
-  /* ----- Démontrer avec des lettres (parties 1 et 2 du cours, capacité 2, exercice 3 de la fiche) ----- */
+        r`On justifie chaque affirmation par un critère de divisibilité ou par un calcul&nbsp;: $a$ est un multiple de $b$ s'il existe un entier $k$ tel que $a = k \times b$.`,
+        r`Critère de divisibilité par $4$&nbsp;: les deux derniers chiffres de $1\,746$ forment $46 = 4 \times 11 + 2$, qui n'est pas un multiple de $4$, donc $1\,746$ n'est pas divisible par $4$.`,
+        r`$7 \times 25 = 175$ et $7 \times 26 = 182$&nbsp;: $180$ n'est pas dans la table de $7$.`,
+        r`$13 \times 15 = 195$ et $13 \times 16 = 208$&nbsp;: $196$ n'est pas dans la table de $13$.`,
+        r`Critère de divisibilité par $9$&nbsp;: on calcule la somme des chiffres de $3\,582$.`,
+        calcul(r`3 + 5 + 8 + 2 & = 18`, r`& = 9 \times 2`),
+        r`$18$ est un multiple de $9$&nbsp;: l'affirmation vraie est <span class="resultat">$3\,582$ est divisible par $9$</span>. Vérification&nbsp;: $9 \times 398 = 3\,582$.`] } },
 
   { partie: 0, theme: 'Démontrer avec des lettres', type: 'qcm',
     enonce: r`Soit $n$ un entier. Laquelle de ces rédactions démontre que $14n + 21$ est un multiple de $7$&nbsp;?`,
@@ -469,57 +443,7 @@ const QUIZ = {
         calcul(r`10n + 35 & = 5 \times 2n + 5 \times 7`, r`& = 5(2n + 7)`),
         r`$n$ est un entier, donc $2n + 7$ aussi&nbsp;: $10n + 35$ s'écrit $5 \times (\text{entier})$. La bonne rédaction est <span class="resultat">$10n + 35 = 5(2n + 7)$, et $2n + 7$ est un entier</span>.`] } },
 
-  { partie: 0, theme: 'Vérifier une démonstration', type: 'qcm', fixe: true,
-    enonce: r`Un élève veut démontrer que la somme de deux entiers impairs est paire. Voici sa rédaction.`
-      + etapes([
-        r`Soient $m$ et $n$ deux entiers impairs&nbsp;: $m = 2k + 1$ et $n = 2k + 1$, avec $k$ entier.`,
-        r`$m + n = 2k + 1 + 2k + 1 = 4k + 2$.`,
-        r`$4k + 2 = 2(2k + 1)$.`,
-        r`$2k + 1$ est un entier, donc $m + n$ est pair.`])
-      + r`Quelle étape est fausse&nbsp;?`,
-    choix: [r`L'étape 1`, r`L'étape 2`, r`L'étape 3`, r`L'étape 4`],
-    bonne: 0,
-    explication: [
-      r`Deux entiers impairs quelconques s'écrivent avec deux lettres différentes&nbsp;: $m = 2k + 1$ et $n = 2k' + 1$, avec $k$ et $k'$ entiers. Avec la même lettre $k$, l'élève suppose $m = n$&nbsp;: sa démonstration ne vaut que pour deux entiers égaux.`,
-      r`Démonstration correcte&nbsp;: on factorise la somme par $2$.`,
-      calcul(r`m + n & = 2k + 1 + 2k' + 1`, r`& = 2k + 2k' + 2`, r`& = 2(k + k' + 1)`),
-      r`$k + k' + 1$ est un entier, donc $m + n$ est pair. L'étape fausse est <span class="resultat">l'étape 1</span>.`],
-    revoir: r`démonstration de la partie 1, méthode de la partie 2 et capacité 2 du cours (question 2), exercice 3 de la fiche (question 3), exercice 78 p.&nbsp;67 et question 2 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73 du manuel`,
-    variante: {
-      enonce: r`Un élève veut démontrer que la somme de deux multiples de $7$ est un multiple de $7$. Voici sa rédaction.`
-        + etapes([
-          r`On choisit deux multiples de $7$, notés $m$ et $n$.`,
-          r`Il existe un entier $k$ tel que $m = 7k$ et $n = 7k$.`,
-          r`$m + n = 7k + 7k = 14k$.`,
-          r`$14k = 7 \times 2k$ et $2k$ est un entier, donc $m + n$ est un multiple de $7$.`])
-        + r`Quelle étape est fausse&nbsp;?`,
-      choix: [r`L'étape 1`, r`L'étape 2`, r`L'étape 3`, r`L'étape 4`],
-      bonne: 1,
-      explication: [
-        r`Deux multiples de $7$ quelconques s'écrivent avec deux lettres différentes&nbsp;: $m = 7k$ et $n = 7k'$, avec $k$ et $k'$ entiers. Avec la même lettre $k$, l'élève suppose $m = n$&nbsp;: sa démonstration ne vaut que pour deux multiples égaux.`,
-        r`Démonstration correcte (propriété de la partie 1 du cours)&nbsp;: on factorise la somme par $7$.`,
-        calcul(r`m + n & = 7k + 7k'`, r`& = 7(k + k')`),
-        r`$k + k'$ est un entier, donc $m + n$ est un multiple de $7$. L'étape fausse est <span class="resultat">l'étape 2</span>.`] } },
-
-  /* ----- Nombres premiers, fractions irréductibles (partie 3 du cours, capacité 3, exercice 4 de la fiche) ----- */
-
-  { partie: 0, theme: 'Nombre premier', type: 'vf',
-    enonce: r`Le nombre $187$ est premier.`,
-    bonne: false,
-    explication: [
-      r`Pour savoir si un entier est premier, on cherche un diviseur parmi les nombres premiers dont le carré ne dépasse pas l'entier&nbsp;: ici $2$, $3$, $5$, $7$, $11$ et $13$, car $13^{2} = 169 \le 187$ et $17^{2} = 289 > 187$.`,
-      r`$187$ est impair&nbsp;; $1 + 8 + 7 = 16$ n'est pas un multiple de $3$&nbsp;; il ne se termine ni par $0$ ni par $5$&nbsp;; $7 \times 26 = 182$ et $7 \times 27 = 189$. On essaie $11$&nbsp;:`,
-      calcul(r`11 \times 17 & = 110 + 77`, r`& = 187`),
-      r`$187 = 11 \times 17$ a d'autres diviseurs positifs que $1$ et lui-même&nbsp;: l'affirmation est <span class="resultat">fausse</span>.`],
-    revoir: r`méthode de la partie 3 et capacité 3 du cours (questions 1 et 2), activité 2, exercice 4 de la fiche (question 1), exercice 29 p.&nbsp;65 du manuel`,
-    variante: {
-      enonce: r`Le nombre $113$ est premier.`,
-      bonne: true,
-      explication: [
-        r`Pour savoir si un entier est premier, on cherche un diviseur parmi les nombres premiers dont le carré ne dépasse pas l'entier&nbsp;: ici $2$, $3$, $5$ et $7$, car $11^{2} = 121 > 113$.`,
-        r`$113$ est impair&nbsp;; $1 + 1 + 3 = 5$ n'est pas un multiple de $3$&nbsp;; il ne se termine ni par $0$ ni par $5$. Pour $7$, on encadre $113$ par deux multiples consécutifs de $7$&nbsp;:`,
-        calcul(r`7 \times 16 & = 112 < 113`, r`7 \times 17 & = 119 > 113`),
-        r`Aucun de ces nombres premiers ne divise $113$&nbsp;: l'affirmation est <span class="resultat">vraie</span>.`] } },
+  /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
 
   { partie: 0, theme: 'Décomposition en facteurs premiers', type: 'qcm',
     enonce: r`La décomposition de $1\,400$ en produit de facteurs premiers est&nbsp;:`,
@@ -543,43 +467,23 @@ const QUIZ = {
         calcul(r`980 & = 2 \times 2 \times 5 \times 7 \times 7`, r`& = \resultat{2^{2} \times 5 \times 7^{2}}`),
         r`Vérification&nbsp;: $4 \times 5 \times 49 = 20 \times 49 = 980$.`] } },
 
-  { partie: 0, theme: 'Fraction irréductible', type: 'qcm',
-    enonce: r`Sous forme de fraction irréductible, $\dfrac{98}{126}$ est égal à&nbsp;:`,
-    choix: [r`$\dfrac{7}{9}$`, r`$\dfrac{49}{63}$`, r`$\dfrac{9}{7}$`, r`$\dfrac{7}{18}$`],
-    bonne: 0,
+  { partie: 0, theme: 'Nombre premier', type: 'vf',
+    enonce: r`Le nombre $187$ est premier.`,
+    bonne: false,
     explication: [
-      r`On décompose le numérateur et le dénominateur, $98 = 2 \times 7 \times 7$ et $126 = 2 \times 3 \times 3 \times 7$, puis on simplifie par tous leurs facteurs premiers communs, $2 \times 7 = 14$.`,
-      calcul(r`\dfrac{98}{126} & = \dfrac{2 \times 7 \times 7}{2 \times 3 \times 3 \times 7}`, r`& = \dfrac{7 \mul{\times 2 \times 7}}{9 \mul{\times 2 \times 7}}`, r`& = \resultat{\dfrac{7}{9}}`),
-      r`$7$ et $9$ n'ont pas d'autre diviseur positif commun que $1$&nbsp;: la fraction est irréductible. Vérification&nbsp;: $14 \times 7 = 98$ et $14 \times 9 = 126$.`],
-    revoir: r`méthode de la partie 3 et capacité 3 du cours (questions 4 à 6), exercice 4 de la fiche (question 3), exercice 102 p.&nbsp;69 et question 4 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73 du manuel`,
+      r`Pour savoir si un entier est premier, on cherche un diviseur parmi les nombres premiers dont le carré ne dépasse pas l'entier&nbsp;: ici $2$, $3$, $5$, $7$, $11$ et $13$, car $13^{2} = 169 \le 187$ et $17^{2} = 289 > 187$.`,
+      r`$187$ est impair&nbsp;; $1 + 8 + 7 = 16$ n'est pas un multiple de $3$&nbsp;; il ne se termine ni par $0$ ni par $5$&nbsp;; $7 \times 26 = 182$ et $7 \times 27 = 189$. On essaie $11$&nbsp;:`,
+      calcul(r`11 \times 17 & = 11 \times 10 + 11 \times 7`, r`& = 110 + 77`, r`& = 187`),
+      r`$187 = 11 \times 17$ a d'autres diviseurs positifs que $1$ et lui-même&nbsp;: l'affirmation est <span class="resultat">fausse</span>.`],
+    revoir: r`méthode de la partie 3 et capacité 3 du cours (questions 1 et 2), activité 2, exercice 4 de la fiche (question 1), exercice 29 p.&nbsp;65 du manuel`,
     variante: {
-      enonce: r`Sous forme de fraction irréductible, $\dfrac{105}{165}$ est égal à&nbsp;:`,
-      choix: [r`$\dfrac{7}{11}$`, r`$\dfrac{21}{33}$`, r`$\dfrac{11}{7}$`, r`$\dfrac{7}{33}$`],
-      bonne: 0,
+      enonce: r`Le nombre $113$ est premier.`,
+      bonne: true,
       explication: [
-        r`On décompose le numérateur et le dénominateur, $105 = 3 \times 5 \times 7$ et $165 = 3 \times 5 \times 11$, puis on simplifie par tous leurs facteurs premiers communs, $3 \times 5 = 15$.`,
-        calcul(r`\dfrac{105}{165} & = \dfrac{3 \times 5 \times 7}{3 \times 5 \times 11}`, r`& = \dfrac{7 \mul{\times 3 \times 5}}{11 \mul{\times 3 \times 5}}`, r`& = \resultat{\dfrac{7}{11}}`),
-        r`$7$ et $11$ sont deux nombres premiers différents&nbsp;: la fraction est irréductible. Vérification&nbsp;: $15 \times 7 = 105$ et $15 \times 11 = 165$.`] } },
-
-  /* ----- Modéliser un problème (partie 4 du cours, capacité 4, exercice 5 de la fiche) ----- */
-
-  { partie: 0, theme: 'Diviseur commun', type: 'qcm',
-    enonce: r`Un professeur dispose de $72$ feutres et de $120$ crayons. Il veut faire des lots tous identiques (même nombre de feutres et même nombre de crayons dans chaque lot), en utilisant tout. Le plus grand nombre de lots possible est&nbsp;:`,
-    choix: [r`$24$`, r`$12$`, r`$360$`, r`$8$`],
-    bonne: 0,
-    explication: [
-      r`Les lots sont identiques et utilisent tout&nbsp;: le nombre de lots doit diviser $72$ et $120$. On cherche leur plus grand diviseur commun&nbsp;: on décompose, puis on garde les facteurs premiers communs.`,
-      calcul(r`72 & = 2 \times 2 \times 2 \times 3 \times 3`, r`120 & = 2 \times 2 \times 2 \times 3 \times 5`),
-      r`Facteurs communs&nbsp;: $2 \times 2 \times 2 \times 3 = 24$. Puis $72 = 24 \times 3$ et $120 = 24 \times 5$&nbsp;: au plus <span class="resultat">$24$ lots</span>, de $3$ feutres et $5$ crayons chacun.`],
-    revoir: r`méthode de la partie 4 et capacité 4 du cours (question 1), exercice 5 de la fiche (question 1)`,
-    variante: {
-      enonce: r`On veut couvrir un mur rectangulaire de $150$&nbsp;cm sur $90$&nbsp;cm avec des carreaux carrés tous identiques, sans découpe. Le plus grand côté possible d'un carreau est&nbsp;:`,
-      choix: [r`$30$&nbsp;cm`, r`$15$&nbsp;cm`, r`$450$&nbsp;cm`, r`$10$&nbsp;cm`],
-      bonne: 0,
-      explication: [
-        r`Sans découpe, le côté d'un carreau doit diviser la longueur et la largeur du mur&nbsp;: on cherche le plus grand diviseur commun de $150$ et $90$. On décompose, puis on garde les facteurs premiers communs.`,
-        calcul(r`150 & = 2 \times 3 \times 5 \times 5`, r`90 & = 2 \times 3 \times 3 \times 5`),
-        r`Facteurs communs&nbsp;: $2 \times 3 \times 5 = 30$. Puis $150 = 30 \times 5$ et $90 = 30 \times 3$&nbsp;: des carreaux de <span class="resultat">$30$&nbsp;cm</span> de côté, soit $5 \times 3 = 15$ carreaux.`] } },
+        r`Pour savoir si un entier est premier, on cherche un diviseur parmi les nombres premiers dont le carré ne dépasse pas l'entier&nbsp;: ici $2$, $3$, $5$ et $7$, car $11^{2} = 121 > 113$.`,
+        r`$113$ est impair&nbsp;; $1 + 1 + 3 = 5$ n'est pas un multiple de $3$&nbsp;; il ne se termine ni par $0$ ni par $5$. Pour $7$, on encadre $113$ par deux multiples consécutifs de $7$&nbsp;:`,
+        calcul(r`7 \times 16 & = 112 < 113`, r`7 \times 17 & = 119 > 113`),
+        r`Aucun de ces nombres premiers ne divise $113$&nbsp;: l'affirmation est <span class="resultat">vraie</span>.`] } },
 
   { partie: 0, theme: 'Multiple commun', type: 'qcm',
     enonce: r`Deux coureurs partent ensemble de la ligne de départ d'une piste à 10&nbsp;h. Le premier fait un tour en $9$ minutes, le second en $12$ minutes, toujours à la même allure. À quelle heure repasseront-ils ensemble sur la ligne pour la première fois&nbsp;?`,
@@ -599,39 +503,100 @@ const QUIZ = {
         calcul(r`25 \times 1 & = 25 \quad \text{pas un multiple de } 10`, r`25 \times 2 & = 50 = 10 \times 5 \quad \text{multiple de } 10`),
         r`Ils se déclenchent de nouveau ensemble $50$ minutes après 7&nbsp;h, soit à <span class="resultat">7&nbsp;h&nbsp;50</span>.`] } },
 
-  /* ----- Contre-exemple, raisonnement par l'absurde (partie 5 du cours, capacité 5, exercice 6 de la fiche) ----- */
-
-  { partie: 0, theme: 'Contre-exemple ou démonstration', type: 'qcm',
-    enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
-    choix: [r`La somme de trois entiers consécutifs est un multiple de $3$`,
-            r`Si un entier est divisible par $6$ et par $10$, alors il est divisible par $60$`,
-            r`Il existe des entiers $a$ et $b$ tels que $6a + 14b = 45$`,
-            r`Pour tout entier naturel $n$, le nombre $n^{2} + n + 5$ est premier`],
+  { partie: 0, theme: 'Programme Python', type: 'qcm',
+    enonce: r`On considère les deux fonctions Python ci-dessous, où <code>a % b</code> est le reste de la division de $a$ par $b$.`
+      + FONCTIONS + r`Que renvoient <code>est_multiple(150, 12)</code> et <code>multiple_max(12, 150)</code>&nbsp;?`,
+    choix: [r`<code>False</code> et $144$`, r`$6$ et $144$`, r`<code>False</code> et $156$`, r`<code>False</code> et $12$`],
     bonne: 0,
     explication: [
-      r`Pour montrer qu'une affirmation est fausse, un seul contre-exemple suffit&nbsp;; pour montrer qu'elle est vraie, il faut une démonstration valable pour tous les entiers.`,
-      r`$30 = 6 \times 5 = 10 \times 3$ est divisible par $6$ et par $10$, mais pas par $60$&nbsp;: c'est un contre-exemple, l'affirmation sur $60$ est fausse.`,
-      r`Par l'absurde&nbsp;: si $6a + 14b = 45$, alors $45 = 2(3a + 7b)$ serait pair, alors que $45 = 2 \times 22 + 1$ est impair. Cette contradiction montre que de tels entiers n'existent pas.`,
-      r`Pour $n = 4$, $4^{2} + 4 + 5 = 25 = 5 \times 5$ n'est pas premier&nbsp;: c'est un contre-exemple, l'affirmation sur $n^{2} + n + 5$ est fausse.`,
-      r`Trois entiers consécutifs s'écrivent $n$, $n + 1$ et $n + 2$, avec $n$ entier. On réduit leur somme, puis on la factorise par $3$&nbsp;:`,
-      calcul(r`n + (n + 1) + (n + 2) & = 3n + 3`, r`& = 3(n + 1)`),
-      r`$n + 1$ est un entier&nbsp;: <span class="resultat">la somme de trois entiers consécutifs est un multiple de $3$</span>.`],
-    revoir: r`méthodes de la partie 5 et capacité 5 du cours, activité 1, exercice 6 de la fiche (question 1), exercices 29 p.&nbsp;65 et 92 p.&nbsp;68 et question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73 du manuel`,
+      r`<code>est_multiple(a, b)</code> renvoie <code>True</code> (vrai) si le reste de la division de $a$ par $b$ est nul, c'est-à-dire si $a$ est un multiple de $b$, et <code>False</code> (faux) sinon.`,
+      calcul(r`150 & = 144 + 6`, r`& = 12 \times 12 + 6 \quad \text{reste } 6`),
+      r`Le reste n'est pas nul&nbsp;: <code>est_multiple(150, 12)</code> renvoie <code>False</code>. Dans <code>multiple_max(12, 150)</code>, <code>m</code> prend les valeurs $0$, $12$, $24$… tant que <code>m + 12</code> ne dépasse pas $150$&nbsp;:`,
+      calcul(r`12 \times 12 & = 144 \le 150`, r`12 \times 13 & = 156 > 150`),
+      r`La boucle s'arrête avec <code>m</code> $= 144$, le plus grand multiple de $12$ inférieur ou égal à $150$. Les deux appels renvoient <span class="resultat"><code>False</code> et $144$</span>.`],
+    revoir: r`exercice 2 de la fiche, capacité 1 du cours (question 6)`,
     variante: {
-      enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
-      choix: [r`Le produit de deux entiers pairs est un multiple de $4$`,
-              r`Si un entier est divisible par $4$ et par $14$, alors il est divisible par $56$`,
-              r`Il existe des entiers $a$ et $b$ tels que $10a + 4b = 27$`,
-              r`Si $p$ est un nombre premier, alors $p + 4$ est premier`],
+      enonce: r`On considère les deux fonctions Python ci-dessous, où <code>a % b</code> est le reste de la division de $a$ par $b$.`
+        + FONCTIONS + r`Que renvoient <code>est_multiple(119, 7)</code> et <code>multiple_max(7, 100)</code>&nbsp;?`,
+      choix: [r`<code>True</code> et $98$`, r`$0$ et $98$`, r`<code>True</code> et $105$`, r`<code>True</code> et $14$`],
       bonne: 0,
       explication: [
-        r`Pour montrer qu'une affirmation est fausse, un seul contre-exemple suffit&nbsp;; pour montrer qu'elle est vraie, il faut une démonstration valable pour tous les entiers.`,
-        r`$28 = 4 \times 7 = 14 \times 2$ est divisible par $4$ et par $14$, mais pas par $56$&nbsp;: c'est un contre-exemple, l'affirmation sur $56$ est fausse.`,
-        r`Par l'absurde&nbsp;: si $10a + 4b = 27$, alors $27 = 2(5a + 2b)$ serait pair, alors que $27 = 2 \times 13 + 1$ est impair. Cette contradiction montre que de tels entiers n'existent pas.`,
-        r`$5$ est premier, mais $5 + 4 = 9 = 3 \times 3$ ne l'est pas&nbsp;: c'est un contre-exemple, l'affirmation sur $p + 4$ est fausse.`,
-        r`Deux entiers pairs quelconques s'écrivent $2k$ et $2k'$, avec $k$ et $k'$ entiers. On calcule leur produit&nbsp;:`,
-        calcul(r`2k \times 2k' & = 4kk'`, r`& = 4 \times kk'`),
-        r`$kk'$ est un entier&nbsp;: <span class="resultat">le produit de deux entiers pairs est un multiple de $4$</span>.`] } },
+        r`<code>est_multiple(a, b)</code> renvoie <code>True</code> (vrai) si le reste de la division de $a$ par $b$ est nul, c'est-à-dire si $a$ est un multiple de $b$, et <code>False</code> (faux) sinon.`,
+        calcul(r`119 & = 70 + 49`, r`& = 7 \times 10 + 7 \times 7`, r`& = 7 \times 17 + 0 \quad \text{reste } 0`),
+        r`Le reste est nul&nbsp;: <code>est_multiple(119, 7)</code> renvoie <code>True</code>. Dans <code>multiple_max(7, 100)</code>, <code>m</code> prend les valeurs $0$, $7$, $14$… tant que <code>m + 7</code> ne dépasse pas $100$&nbsp;:`,
+        calcul(r`7 \times 14 & = 98 \le 100`, r`7 \times 15 & = 105 > 100`),
+        r`La boucle s'arrête avec <code>m</code> $= 98$, le plus grand multiple de $7$ inférieur ou égal à $100$. Les deux appels renvoient <span class="resultat"><code>True</code> et $98$</span>.`] } },
+
+  { partie: 0, theme: 'Fraction irréductible', type: 'qcm',
+    enonce: r`Sous forme de fraction irréductible, $\dfrac{98}{126}$ est égal à&nbsp;:`,
+    choix: [r`$\dfrac{7}{9}$`, r`$\dfrac{49}{63}$`, r`$\dfrac{9}{7}$`, r`$\dfrac{7}{18}$`],
+    bonne: 0,
+    explication: [
+      r`On décompose le numérateur et le dénominateur, $98 = 2 \times 7 \times 7$ et $126 = 2 \times 3 \times 3 \times 7$, puis on simplifie par tous leurs facteurs premiers communs, $2 \times 7 = 14$.`,
+      calcul(r`\dfrac{98}{126} & = \dfrac{2 \times 7 \times 7}{2 \times 3 \times 3 \times 7}`, r`& = \dfrac{7 \mul{\times 2 \times 7}}{3 \times 3 \mul{\times 2 \times 7}}`,
+        r`& = \dfrac{7}{3 \times 3}`, r`& = \resultat{\dfrac{7}{9}}`),
+      r`$7$ et $9$ n'ont pas d'autre diviseur positif commun que $1$&nbsp;: la fraction est irréductible. Vérification&nbsp;: $14 \times 7 = 98$ et $14 \times 9 = 126$.`],
+    revoir: r`méthode de la partie 3 et capacité 3 du cours (questions 4 à 6), exercice 4 de la fiche (question 3), exercice 102 p.&nbsp;69 et question 4 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73 du manuel`,
+    variante: {
+      enonce: r`Sous forme de fraction irréductible, $\dfrac{105}{165}$ est égal à&nbsp;:`,
+      choix: [r`$\dfrac{7}{11}$`, r`$\dfrac{21}{33}$`, r`$\dfrac{11}{7}$`, r`$\dfrac{7}{33}$`],
+      bonne: 0,
+      explication: [
+        r`On décompose le numérateur et le dénominateur, $105 = 3 \times 5 \times 7$ et $165 = 3 \times 5 \times 11$, puis on simplifie par tous leurs facteurs premiers communs, $3 \times 5 = 15$.`,
+        calcul(r`\dfrac{105}{165} & = \dfrac{3 \times 5 \times 7}{3 \times 5 \times 11}`, r`& = \dfrac{7 \mul{\times 3 \times 5}}{11 \mul{\times 3 \times 5}}`, r`& = \resultat{\dfrac{7}{11}}`),
+        r`$7$ et $11$ sont deux nombres premiers différents&nbsp;: la fraction est irréductible. Vérification&nbsp;: $15 \times 7 = 105$ et $15 \times 11 = 165$.`] } },
+
+  /* ----- Niveau 3 : problèmes, pièges et raisonnements ----- */
+
+  { partie: 0, theme: 'Diviseur commun', type: 'qcm',
+    enonce: r`Un professeur dispose de $72$ feutres et de $120$ crayons. Il veut faire des lots tous identiques (même nombre de feutres et même nombre de crayons dans chaque lot), en utilisant tout. Le plus grand nombre de lots possible est&nbsp;:`,
+    choix: [r`$24$`, r`$12$`, r`$360$`, r`$8$`],
+    bonne: 0,
+    explication: [
+      r`Les lots sont identiques et utilisent tout&nbsp;: le nombre de lots doit diviser $72$ et $120$. On cherche leur plus grand diviseur commun&nbsp;: on décompose, puis on garde les facteurs premiers communs.`,
+      calcul(r`72 & = 2 \times 2 \times 2 \times 3 \times 3`, r`120 & = 2 \times 2 \times 2 \times 3 \times 5`),
+      r`Facteurs communs&nbsp;: $2 \times 2 \times 2 \times 3 = 8 \times 3 = 24$. Puis $72 = 24 \times 3$ et $120 = 24 \times 5$&nbsp;: au plus <span class="resultat">$24$ lots</span>, de $3$ feutres et $5$ crayons chacun.`],
+    revoir: r`méthode de la partie 4 et capacité 4 du cours (question 1), exercice 5 de la fiche (question 1)`,
+    variante: {
+      enonce: r`On veut couvrir un mur rectangulaire de $150$&nbsp;cm sur $90$&nbsp;cm avec des carreaux carrés tous identiques, sans découpe. Le plus grand côté possible d'un carreau est&nbsp;:`,
+      choix: [r`$30$&nbsp;cm`, r`$15$&nbsp;cm`, r`$450$&nbsp;cm`, r`$10$&nbsp;cm`],
+      bonne: 0,
+      explication: [
+        r`Sans découpe, le côté d'un carreau doit diviser la longueur et la largeur du mur&nbsp;: on cherche le plus grand diviseur commun de $150$ et $90$. On décompose, puis on garde les facteurs premiers communs.`,
+        calcul(r`150 & = 2 \times 3 \times 5 \times 5`, r`90 & = 2 \times 3 \times 3 \times 5`),
+        r`Facteurs communs&nbsp;: $2 \times 3 \times 5 = 6 \times 5 = 30$. Puis $150 = 30 \times 5$ et $90 = 30 \times 3$&nbsp;: des carreaux de <span class="resultat">$30$&nbsp;cm</span> de côté, soit $5 \times 3 = 15$ carreaux.`] } },
+
+  { partie: 0, theme: 'Vérifier une démonstration', type: 'qcm', fixe: true,
+    enonce: r`Un élève veut démontrer que la somme de deux entiers impairs est paire. Voici sa rédaction.`
+      + etapes([
+        r`Soient $m$ et $n$ deux entiers impairs&nbsp;: $m = 2k + 1$ et $n = 2k + 1$, avec $k$ entier.`,
+        r`$m + n = 2k + 1 + 2k + 1 = 4k + 2$.`,
+        r`$4k + 2 = 2(2k + 1)$.`,
+        r`$2k + 1$ est un entier, donc $m + n$ est pair.`])
+      + r`Quelle étape est fausse&nbsp;?`,
+    choix: [r`L'étape 1`, r`L'étape 2`, r`L'étape 3`, r`L'étape 4`],
+    bonne: 0,
+    explication: [
+      r`Deux entiers impairs quelconques s'écrivent avec deux lettres différentes&nbsp;: $m = 2k + 1$ et $n = 2k' + 1$, avec $k$ et $k'$ entiers. Avec la même lettre $k$, l'élève suppose $m = n$&nbsp;: sa démonstration ne vaut que pour deux entiers égaux.`,
+      r`Démonstration correcte&nbsp;: on factorise la somme par $2$.`,
+      calcul(r`m + n & = 2k + 1 + 2k' + 1`, r`& = 2k + 2k' + 2`, r`& = 2 \times k + 2 \times k' + 2 \times 1`, r`& = 2(k + k' + 1)`),
+      r`$k + k' + 1$ est un entier, donc $m + n$ est pair. L'étape fausse est <span class="resultat">l'étape 1</span>.`],
+    revoir: r`démonstration de la partie 1, méthode de la partie 2 et capacité 2 du cours (question 2), exercice 3 de la fiche (question 3), exercice 78 p.&nbsp;67 et question 2 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73 du manuel`,
+    variante: {
+      enonce: r`Un élève veut démontrer que la somme de deux multiples de $7$ est un multiple de $7$. Voici sa rédaction.`
+        + etapes([
+          r`On choisit deux multiples de $7$, notés $m$ et $n$.`,
+          r`Il existe un entier $k$ tel que $m = 7k$ et $n = 7k$.`,
+          r`$m + n = 7k + 7k = 14k$.`,
+          r`$14k = 7 \times 2k$ et $2k$ est un entier, donc $m + n$ est un multiple de $7$.`])
+        + r`Quelle étape est fausse&nbsp;?`,
+      choix: [r`L'étape 1`, r`L'étape 2`, r`L'étape 3`, r`L'étape 4`],
+      bonne: 1,
+      explication: [
+        r`Deux multiples de $7$ quelconques s'écrivent avec deux lettres différentes&nbsp;: $m = 7k$ et $n = 7k'$, avec $k$ et $k'$ entiers. Avec la même lettre $k$, l'élève suppose $m = n$&nbsp;: sa démonstration ne vaut que pour deux multiples égaux.`,
+        r`Démonstration correcte (propriété de la partie 1 du cours)&nbsp;: on factorise la somme par $7$.`,
+        calcul(r`m + n & = 7k + 7k'`, r`& = 7(k + k')`),
+        r`$k + k'$ est un entier, donc $m + n$ est un multiple de $7$. L'étape fausse est <span class="resultat">l'étape 2</span>.`] } },
 
   { partie: 0, theme: "Démonstration par l'absurde", type: 'qcm',
     enonce: r`On démontre par l'absurde que $\sqrt{2}$ est irrationnel. On suppose que $\sqrt{2} = \dfrac{p}{q}$, avec $p$ et $q$ entiers naturels non nuls et la fraction $\dfrac{p}{q}$ irréductible.`
@@ -648,7 +613,7 @@ const QUIZ = {
     explication: [
       r`Dans un raisonnement par l'absurde, on suppose l'affirmation fausse, puis on en déduit une contradiction. Ici, on a choisi la fraction $\dfrac{p}{q}$ irréductible&nbsp;: $p$ et $q$ n'ont pas d'autre diviseur positif commun que $1$.`,
       r`D'après les étapes 1 et 2, $p = 2m$ et $q = 2m'$, avec $m$ et $m'$ entiers&nbsp;: la fraction se simplifie par $2$.`,
-      calcul(r`\dfrac{p}{q} & = \dfrac{m \mul{\times 2}}{m' \mul{\times 2}}`, r`& = \dfrac{m}{m'}`),
+      calcul(r`\dfrac{p}{q} & = \dfrac{2m}{2m'}`, r`& = \dfrac{m \mul{\times 2}}{m' \mul{\times 2}}`, r`& = \dfrac{m}{m'}`),
       r`C'est la contradiction cherchée&nbsp;: à l'étape 3, on écrit que <span class="resultat">$\dfrac{p}{q}$ se simplifie par $2$, alors qu'elle est irréductible</span>. L'hypothèse de départ est donc fausse&nbsp;: $\sqrt{2}$ est irrationnel.`],
     revoir: r`théorème et démonstration de la partie 5 du cours, exercice 6 de la fiche (question 2), exercice 82 p.&nbsp;67 du manuel`,
     variante: {
@@ -667,7 +632,39 @@ const QUIZ = {
       explication: [
         r`Dans un raisonnement par l'absurde, on suppose que l'affirmation à démontrer est fausse&nbsp;: ici, que $\sqrt{2}$ est rationnel, c'est-à-dire qu'il s'écrit $\dfrac{p}{q}$, avec $p$ et $q$ entiers.`,
         r`À l'étape 4, la contradiction vient de ce que $\dfrac{p}{q}$ se simplifie par $2$&nbsp;: il faut donc avoir choisi, à l'étape 1, une fraction irréductible (on peut toujours la simplifier jusqu'à ce qu'elle le soit).`,
-        r`L'étape 1 est&nbsp;: <span class="resultat">on suppose que $\sqrt{2} = \dfrac{p}{q}$, avec $p$ et $q$ entiers naturels non nuls et $\dfrac{p}{q}$ irréductible</span>.`] } }
+        r`L'étape 1 est&nbsp;: <span class="resultat">on suppose que $\sqrt{2} = \dfrac{p}{q}$, avec $p$ et $q$ entiers naturels non nuls et $\dfrac{p}{q}$ irréductible</span>.`] } },
+
+  { partie: 0, theme: 'Contre-exemple ou démonstration', type: 'qcm',
+    enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+    choix: [r`La somme de trois entiers consécutifs est un multiple de $3$`,
+            r`Si un entier est divisible par $6$ et par $10$, alors il est divisible par $60$`,
+            r`Il existe des entiers $a$ et $b$ tels que $6a + 14b = 45$`,
+            r`Pour tout entier naturel $n$, le nombre $n^{2} + n + 5$ est premier`],
+    bonne: 0,
+    explication: [
+      r`Pour montrer qu'une affirmation est fausse, un seul contre-exemple suffit&nbsp;; pour montrer qu'elle est vraie, il faut une démonstration valable pour tous les entiers.`,
+      r`$30 = 6 \times 5 = 10 \times 3$ est divisible par $6$ et par $10$, mais pas par $60$&nbsp;: c'est un contre-exemple, l'affirmation sur $60$ est fausse.`,
+      r`Par l'absurde&nbsp;: si $6a + 14b = 45$, alors $45 = 2(3a + 7b)$ serait pair, alors que $45 = 2 \times 22 + 1$ est impair. Cette contradiction montre que de tels entiers n'existent pas.`,
+      r`Pour $n = 4$, $4^{2} + 4 + 5 = 16 + 4 + 5 = 25 = 5 \times 5$ n'est pas premier&nbsp;: c'est un contre-exemple, l'affirmation sur $n^{2} + n + 5$ est fausse.`,
+      r`Trois entiers consécutifs s'écrivent $n$, $n + 1$ et $n + 2$, avec $n$ entier. On réduit leur somme, puis on la factorise par $3$&nbsp;:`,
+      calcul(r`n + (n + 1) + (n + 2) & = n + n + 1 + n + 2`, r`& = n + n + n + 1 + 2`, r`& = 3n + 3`, r`& = 3 \times n + 3 \times 1`, r`& = 3(n + 1)`),
+      r`$n + 1$ est un entier&nbsp;: <span class="resultat">la somme de trois entiers consécutifs est un multiple de $3$</span>.`],
+    revoir: r`méthodes de la partie 5 et capacité 5 du cours, activité 1, exercice 6 de la fiche (question 1), exercices 29 p.&nbsp;65 et 92 p.&nbsp;68 et question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73 du manuel`,
+    variante: {
+      enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+      choix: [r`Le produit de deux entiers pairs est un multiple de $4$`,
+              r`Si un entier est divisible par $4$ et par $14$, alors il est divisible par $56$`,
+              r`Il existe des entiers $a$ et $b$ tels que $10a + 4b = 27$`,
+              r`Si $p$ est un nombre premier, alors $p + 4$ est premier`],
+      bonne: 0,
+      explication: [
+        r`Pour montrer qu'une affirmation est fausse, un seul contre-exemple suffit&nbsp;; pour montrer qu'elle est vraie, il faut une démonstration valable pour tous les entiers.`,
+        r`$28 = 4 \times 7 = 14 \times 2$ est divisible par $4$ et par $14$, mais pas par $56$&nbsp;: c'est un contre-exemple, l'affirmation sur $56$ est fausse.`,
+        r`Par l'absurde&nbsp;: si $10a + 4b = 27$, alors $27 = 2(5a + 2b)$ serait pair, alors que $27 = 2 \times 13 + 1$ est impair. Cette contradiction montre que de tels entiers n'existent pas.`,
+        r`$5$ est premier, mais $5 + 4 = 9 = 3 \times 3$ ne l'est pas&nbsp;: c'est un contre-exemple, l'affirmation sur $p + 4$ est fausse.`,
+        r`Deux entiers pairs quelconques s'écrivent $2k$ et $2k'$, avec $k$ et $k'$ entiers. On calcule leur produit&nbsp;:`,
+        calcul(r`2k \times 2k' & = 2 \times 2 \times k \times k'`, r`& = 4 \times kk'`),
+        r`$kk'$ est un entier&nbsp;: <span class="resultat">le produit de deux entiers pairs est un multiple de $4$</span>.`] } }
   ]
 };
 

@@ -6,26 +6,34 @@
 <title>Entraînement Évaluation statistiques</title>
 <!--
   Entraînement auto-corrigé à l'évaluation du chapitre 12 (Statistiques) - Seconde.
-  Une seule partie, douze questions, sans automatismes (demande du professeur), dans l'ordre
-  du cours et des séances du plan :
-    1 à 6    : indicateurs d'une série (partie 1 du cours, séances 1 et 2) : moyenne pondérée,
-               médiane et quartiles par les effectifs cumulés croissants, linéarité de la
-               moyenne, note à obtenir pour atteindre une moyenne, effet de l'ajout ou de la
-               suppression d'une valeur extrême sur la moyenne et la médiane ; lecture d'une
-               fonction Python renvoyant une moyenne pondérée (activité 1, exercice 51 du
-               manuel) ;
-    7 et 8   : écart type et comparaison de deux séries (partie 2, séances 3 et 4) : écart type
-               donné, à interpréter seulement (et ce qu'il devient quand on ajoute un nombre à
-               toutes les valeurs ou qu'on les multiplie), différences entre deux séries avec
-               les couples (moyenne ; écart type) et (médiane ; écart interquartile), lus sur
-               des diagrammes en boîte ;
-    9 et 10  : séries regroupées en classes (partie 3, séance 5) : lecture d'un histogramme
-               et moyenne par les centres des classes, classe médiane et estimation de la
-               médiane par proportionnalité (polygone des fréquences cumulées et lecture
-               graphique dans la correction) ;
-    11 et 12 : croisement de deux variables qualitatives (partie 4, séances 6 et 7) : tableau
-               croisé à compléter à partir de pourcentages, puis fréquence marginale ;
-               fréquence conditionnelle et formulation d'un journal (population de référence).
+  Une seule partie, douze questions, sans automatismes (demande du professeur), sur tout le
+  chapitre (parties du cours et séances du plan) :
+    indicateurs d'une série (partie 1 du cours, séances 1 et 2) : moyenne pondérée, médiane
+      et quartiles par les effectifs cumulés croissants, linéarité de la moyenne, note à
+      obtenir pour atteindre une moyenne, effet de l'ajout ou de la suppression d'une valeur
+      extrême sur la moyenne et la médiane ; lecture d'une fonction Python renvoyant une
+      moyenne pondérée (activité 1, exercice 51 du manuel) ;
+    écart type et comparaison de deux séries (partie 2, séances 3 et 4) : écart type donné,
+      à interpréter seulement (et ce qu'il devient quand on ajoute un nombre à toutes les
+      valeurs ou qu'on les multiplie), différences entre deux séries avec les couples
+      (moyenne ; écart type) et (médiane ; écart interquartile), lus sur des diagrammes en
+      boîte ;
+    séries regroupées en classes (partie 3, séance 5) : lecture d'un histogramme et moyenne
+      par les centres des classes, classe médiane et estimation de la médiane par
+      proportionnalité (polygone des fréquences cumulées et lecture graphique dans la
+      correction) ;
+    croisement de deux variables qualitatives (partie 4, séances 6 et 7) : tableau croisé à
+      compléter à partir de pourcentages, puis fréquence marginale ; fréquence conditionnelle
+      et formulation d'un journal (population de référence).
+  Questions rangées par difficulté croissante, en trois niveaux : questions de cours et
+  applications directes (1 à 3 : écart type, linéarité de la moyenne, fréquence
+  conditionnelle) ; méthodes du chapitre, en deux ou trois étapes (4 à 8 : moyenne pondérée,
+  fonction Python, note à obtenir, comparaison de deux séries, moyenne d'une série regroupée
+  en classes) ; calculs en plusieurs étapes, pièges et synthèse (9 à 12 : médiane et
+  quartiles, valeur extrême, tableau croisé, estimation de la médiane d'une série regroupée
+  en classes).
+  Calculs en colonne détaillés, une transformation par ligne : somme écrite puis effectuée,
+  quotient écrit, simplification avec le facteur commun en violet, écriture décimale.
   Sources : capacités 1 à 6, définitions, propriétés, remarque et méthodes du cours,
   activités 1 (deux élèves, même moyenne ; fonction Python), 2 (temps de trajet) et 3
   (Titanic), fiche d'exercices (exercices 1 à 5), problème du Titanic, évaluation (sujets A et
@@ -357,7 +365,7 @@ function tableauStat(lignes, label, entete) {
 // Valeur trouvée par l'élève dans un tableau à compléter : en rouge dans la correction.
 const trouve = t => '<span style="color:var(--rouge)">' + t + '</span>';
 
-// Diagrammes en boîte horizontaux (question 8), comme \boite dans le cours : boîte de Q1 à Q3
+// Diagrammes en boîte horizontaux (question 7), comme \boite dans le cours : boîte de Q1 à Q3
 // coupée par la médiane, moustaches jusqu'au minimum et au maximum. Axe gradué de 1 en 1
 // (nombres écrits de grad en grad), quadrillage vertical gris clair, première série en rouge,
 // seconde en bleu ; avec lectures, lignes de lecture vertes des quartiles et de la médiane.
@@ -399,7 +407,7 @@ function diagrammesBoites(o) {
   return s + '</svg>';
 }
 
-// Série regroupée en classes (questions 9 et 10) : axes fléchés, quadrillage gris clair,
+// Série regroupée en classes (questions 8 et 12) : axes fléchés, quadrillage gris clair,
 // histogramme (barres [a, b, effectif], rectangles bleus) ou polygone des fréquences cumulées
 // croissantes (points [x, y] reliés en rouge) ; lectures en tirets verts, la valeur lue (lu)
 // étant écrite en vert sous l'axe des abscisses.
@@ -451,7 +459,7 @@ function graphique(o) {
   return s + '</svg>';
 }
 
-// Fonction Python de la question 6, présentée comme dans l'activité 1 : police à chasse fixe,
+// Fonction Python de la question 5, présentée comme dans l'activité 1 : police à chasse fixe,
 // fond gris clair, filet à gauche. Les signes <, > et & du code sont échappés ici.
 function programmePython(lignes) {
   const code = lignes.map(l => l.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')).join('\n');
@@ -465,7 +473,7 @@ const FONCTION = programmePython([
   '    s = n1*x1 + n2*x2 + n3*x3',
   '    return s / n']);
 
-// Figures des questions 8 à 10 (énoncé, puis correction avec les lignes de lecture).
+// Figures des questions 7, 8 et 12 (énoncé, puis correction avec les lignes de lecture).
 const CAISSES = { xmin: 0, xmax: 22, grad: 2, unite: 'min',
   series: [{ nom: 'Caisse A', v: [1, 5, 8, 13, 20] }, { nom: 'Caisse B', v: [7, 11, 12, 13, 17] }],
   label: "Diagrammes en boîte des temps d'attente, en minutes. Caisse A : minimum 1, premier quartile 5, médiane 8, troisième quartile 13, maximum 20. Caisse B : minimum 7, premier quartile 11, médiane 12, troisième quartile 13, maximum 17." };
@@ -492,151 +500,7 @@ const QUIZ = {
   parties: ['Statistiques'],
   questions: [
 
-  /* ----- Indicateurs d'une série (partie 1 du cours, capacités 1 et 2, exercices 1 et 2 de la fiche) ----- */
-
-  { partie: 0, theme: 'Moyenne pondérée', type: 'qcm',
-    enonce: r`Nombre de livres lus pendant l'été par les $20$ élèves d'une classe.`
-      + tableauStat([[r`Livres lus`, r`$0$`, r`$1$`, r`$2$`, r`$3$`, r`$4$`], [r`Effectif`, r`$3$`, r`$6$`, r`$5$`, r`$4$`, r`$2$`]],
-        'Livres lus : 0, 1, 2, 3, 4 ; effectifs : 3, 6, 5, 4, 2')
-      + r`Le nombre moyen de livres lus par élève est&nbsp;:`,
-    choix: [r`$1{,}8$`, r`$2$`, r`$7{,}2$`, r`$4$`],
-    bonne: 0,
-    explication: [
-      r`La moyenne pondérée s'obtient en multipliant chaque valeur par son effectif, en additionnant ces produits, puis en divisant par l'effectif total, $N = 3 + 6 + 5 + 4 + 2 = 20$.`,
-      calcul(r`m & = \dfrac{3 \times 0 + 6 \times 1 + 5 \times 2 + 4 \times 3 + 2 \times 4}{20}`, r`& = \dfrac{0 + 6 + 10 + 12 + 8}{20}`, r`& = \dfrac{36}{20}`,
-        r`& = \dfrac{18 \mul{\times 2}}{10 \mul{\times 2}}`, r`& = \dfrac{18}{10}`, r`& = \resultat{1{,}8}`),
-      r`Les élèves ont lu en moyenne $1{,}8$ livre pendant l'été.`],
-    revoir: r`capacité 1 du cours (question 1), exercices 14 p.&nbsp;310 et 38 p.&nbsp;313 et question 1 du «&nbsp;Faire le point&nbsp;» p.&nbsp;317 du manuel`,
-    variante: {
-      enonce: r`Nombre de frères et sœurs des $25$ élèves d'une classe.`
-        + tableauStat([[r`Frères et sœurs`, r`$0$`, r`$1$`, r`$2$`, r`$3$`, r`$4$`], [r`Effectif`, r`$4$`, r`$10$`, r`$6$`, r`$3$`, r`$2$`]],
-          'Frères et sœurs : 0, 1, 2, 3, 4 ; effectifs : 4, 10, 6, 3, 2')
-        + r`Le nombre moyen de frères et sœurs par élève est&nbsp;:`,
-      choix: [r`$1{,}56$`, r`$2$`, r`$7{,}8$`, r`$5$`],
-      bonne: 0,
-      explication: [
-        r`La moyenne pondérée s'obtient en multipliant chaque valeur par son effectif, en additionnant ces produits, puis en divisant par l'effectif total, $N = 4 + 10 + 6 + 3 + 2 = 25$. Pour diviser par $25$, on multiplie le numérateur et le dénominateur par $4$.`,
-        calcul(r`m & = \dfrac{4 \times 0 + 10 \times 1 + 6 \times 2 + 3 \times 3 + 2 \times 4}{25}`, r`& = \dfrac{0 + 10 + 12 + 9 + 8}{25}`, r`& = \dfrac{39}{25}`,
-          r`& = \dfrac{39 \mul{\times 4}}{25 \mul{\times 4}}`, r`& = \dfrac{156}{100}`, r`& = \resultat{1{,}56}`),
-        r`Les élèves ont en moyenne $1{,}56$ frère ou sœur.`] } },
-
-  { partie: 0, theme: 'Médiane et quartiles', type: 'qcm',
-    enonce: r`Notes sur $10$ des $23$ élèves d'une classe à une interrogation.`
-      + tableauStat([[r`Note`, r`$3$`, r`$4$`, r`$5$`, r`$6$`, r`$7$`, r`$8$`, r`$9$`, r`$10$`],
-        [r`Effectif`, r`$1$`, r`$1$`, r`$3$`, r`$4$`, r`$3$`, r`$5$`, r`$4$`, r`$2$`]],
-        'Notes : 3, 4, 5, 6, 7, 8, 9, 10 ; effectifs : 1, 1, 3, 4, 3, 5, 4, 2')
-      + r`Le premier quartile, la médiane et le troisième quartile de cette série sont&nbsp;:`,
-    choix: [r`$Q_{1} = 6$&nbsp;; $Me = 7$&nbsp;; $Q_{3} = 9$`, r`$Q_{1} = 5$&nbsp;; $Me = 7$&nbsp;; $Q_{3} = 8$`,
-            r`$Q_{1} = 6$&nbsp;; $Me = 8$&nbsp;; $Q_{3} = 9$`, r`$Q_{1} = 4$&nbsp;; $Me = 6{,}5$&nbsp;; $Q_{3} = 8$`],
-    bonne: 0,
-    explication: [
-      r`On calcule les effectifs cumulés croissants (en rouge) en additionnant les effectifs de gauche à droite&nbsp;: la valeur de rang $r$ est la première note dont l'effectif cumulé atteint ou dépasse $r$.`,
-      tableauStat([[r`Note`, r`$3$`, r`$4$`, r`$5$`, r`$6$`, r`$7$`, r`$8$`, r`$9$`, r`$10$`],
-        [r`Effectif`, r`$1$`, r`$1$`, r`$3$`, r`$4$`, r`$3$`, r`$5$`, r`$4$`, r`$2$`],
-        [r`Effectif cumulé croissant`, trouve(r`$1$`), trouve(r`$2$`), trouve(r`$5$`), trouve(r`$9$`), trouve(r`$12$`), trouve(r`$17$`), trouve(r`$21$`), trouve(r`$23$`)]],
-        'Effectifs cumulés croissants : 1, 2, 5, 9, 12, 17, 21, 23'),
-      r`$N = 23$ est impair&nbsp;: la médiane est la valeur de rang $\dfrac{N + 1}{2}$. Le rang de $Q_{1}$ est le plus petit entier supérieur ou égal à $\dfrac{N}{4}$, celui de $Q_{3}$ le plus petit entier supérieur ou égal à $\dfrac{3N}{4}$.`,
-      calcul(r`\dfrac{23 + 1}{2} & = 12 \qquad \text{rang de } Me`, r`\dfrac{23}{4} & = 5{,}75 \qquad \text{rang de } Q_{1} \text{ : } 6`,
-        r`\dfrac{3 \times 23}{4} & = 17{,}25 \qquad \text{rang de } Q_{3} \text{ : } 18`),
-      r`Le rang $6$ tombe à la note $6$ (l'effectif cumulé passe de $5$ à $9$), le rang $12$ à la note $7$ (il atteint $12$), le rang $18$ à la note $9$ (il passe de $17$ à $21$)&nbsp;: <span class="resultat">$Q_{1} = 6$&nbsp;; $Me = 7$&nbsp;; $Q_{3} = 9$</span>.`,
-      r`Au moins la moitié des élèves ont eu $7$ ou moins, et au moins la moitié $7$ ou plus.`],
-    revoir: r`définition de la partie 1 et capacité 1 du cours (question 2), exercice 1 de la fiche (question 1), exercice 27 p.&nbsp;311 et question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;317 du manuel`,
-    variante: {
-      enonce: r`Nombre d'heures de sport pratiquées en une semaine par les $27$ élèves d'une classe.`
-        + tableauStat([[r`Heures`, r`$0$`, r`$1$`, r`$2$`, r`$3$`, r`$4$`, r`$5$`, r`$6$`, r`$7$`],
-          [r`Effectif`, r`$2$`, r`$4$`, r`$4$`, r`$4$`, r`$6$`, r`$4$`, r`$2$`, r`$1$`]],
-          'Heures : 0, 1, 2, 3, 4, 5, 6, 7 ; effectifs : 2, 4, 4, 4, 6, 4, 2, 1')
-        + r`Le premier quartile, la médiane et le troisième quartile de cette série sont&nbsp;:`,
-      choix: [r`$Q_{1} = 2$&nbsp;; $Me = 3$&nbsp;; $Q_{3} = 5$`, r`$Q_{1} = 1$&nbsp;; $Me = 3$&nbsp;; $Q_{3} = 4$`,
-              r`$Q_{1} = 2$&nbsp;; $Me = 4$&nbsp;; $Q_{3} = 5$`, r`$Q_{1} = 1$&nbsp;; $Me = 3{,}5$&nbsp;; $Q_{3} = 5$`],
-      bonne: 0,
-      explication: [
-        r`On calcule les effectifs cumulés croissants (en rouge) en additionnant les effectifs de gauche à droite&nbsp;: la valeur de rang $r$ est la première valeur dont l'effectif cumulé atteint ou dépasse $r$.`,
-        tableauStat([[r`Heures`, r`$0$`, r`$1$`, r`$2$`, r`$3$`, r`$4$`, r`$5$`, r`$6$`, r`$7$`],
-          [r`Effectif`, r`$2$`, r`$4$`, r`$4$`, r`$4$`, r`$6$`, r`$4$`, r`$2$`, r`$1$`],
-          [r`Effectif cumulé croissant`, trouve(r`$2$`), trouve(r`$6$`), trouve(r`$10$`), trouve(r`$14$`), trouve(r`$20$`), trouve(r`$24$`), trouve(r`$26$`), trouve(r`$27$`)]],
-          'Effectifs cumulés croissants : 2, 6, 10, 14, 20, 24, 26, 27'),
-        r`$N = 27$ est impair&nbsp;: la médiane est la valeur de rang $\dfrac{N + 1}{2}$. Le rang de $Q_{1}$ est le plus petit entier supérieur ou égal à $\dfrac{N}{4}$, celui de $Q_{3}$ le plus petit entier supérieur ou égal à $\dfrac{3N}{4}$.`,
-        calcul(r`\dfrac{27 + 1}{2} & = 14 \qquad \text{rang de } Me`, r`\dfrac{27}{4} & = 6{,}75 \qquad \text{rang de } Q_{1} \text{ : } 7`,
-          r`\dfrac{3 \times 27}{4} & = 20{,}25 \qquad \text{rang de } Q_{3} \text{ : } 21`),
-        r`Le rang $7$ tombe à la valeur $2$ (l'effectif cumulé passe de $6$ à $10$), le rang $14$ à la valeur $3$ (il atteint $14$), le rang $21$ à la valeur $5$ (il passe de $20$ à $24$)&nbsp;: <span class="resultat">$Q_{1} = 2$&nbsp;; $Me = 3$&nbsp;; $Q_{3} = 5$</span>.`,
-        r`Au moins la moitié des élèves font $3$ heures de sport ou moins par semaine, et au moins la moitié $3$ heures ou plus.`] } },
-
-  { partie: 0, theme: 'Linéarité de la moyenne', type: 'qcm',
-    enonce: r`Un devoir noté sur $40$ a pour moyenne $24$. Le professeur ramène chaque note sur $20$ (il la divise par $2$), puis ajoute $1$ point à chaque note. La nouvelle moyenne de la classe est&nbsp;:`,
-    choix: [r`$13$`, r`$12{,}5$`, r`$12$`, r`$25$`],
-    bonne: 0,
-    explication: [
-      r`Chaque note $x$ devient $\dfrac{x}{2} + 1$&nbsp;: d'après la linéarité de la moyenne, la moyenne subit les mêmes opérations, dans le même ordre.`,
-      calcul(r`\dfrac{24}{2} + 1 & = 12 + 1`, r`& = \resultat{13}`),
-      r`La nouvelle moyenne est $13$ sur $20$, sans qu'il soit besoin de connaître les notes.`],
-    revoir: r`propriété de linéarité et capacité 2 du cours (questions 1 et 2), exercice 2 de la fiche (question 1), exercices 34 p.&nbsp;312 et 67 p.&nbsp;316 du manuel`,
-    variante: {
-      enonce: r`Dans une ville, la température moyenne relevée en juin est de $20$&nbsp;°C. On passe des degrés Celsius aux degrés Fahrenheit par la formule $F = 1{,}8\,C + 32$. En degrés Fahrenheit, la température moyenne est de&nbsp;:`,
-      choix: [r`$68$&nbsp;°F`, r`$36$&nbsp;°F`, r`$52$&nbsp;°F`, r`$93{,}6$&nbsp;°F`],
-      bonne: 0,
-      explication: [
-        r`Chaque température $C$ devient $1{,}8\,C + 32$&nbsp;: d'après la linéarité de la moyenne, la moyenne se transforme de la même façon, avec $a = 1{,}8$ et $b = 32$ (multiplication d'abord, addition ensuite).`,
-        calcul(r`1{,}8 \times 20 + 32 & = 36 + 32`, r`& = \resultat{68}`),
-        r`La température moyenne est de $68$&nbsp;°F.`] } },
-
-  { partie: 0, theme: 'Atteindre une moyenne', type: 'qcm',
-    enonce: r`Après $4$ contrôles, Nathan a $13$ de moyenne. Quelle note doit-il obtenir au cinquième contrôle pour avoir $14$ de moyenne&nbsp;?`,
-    choix: [r`$18$`, r`$15$`, r`$4$`, r`$14$`],
-    bonne: 0,
-    explication: [
-      r`La somme des $4$ premières notes est $4 \times 13 = 52$. On note $x$ la cinquième note&nbsp;: la moyenne des $5$ notes est $\dfrac{52 + x}{5}$, et on veut qu'elle vaille $14$. On multiplie les deux membres par $5$, puis on retire $52$.`,
-      calcul(r`\dfrac{52 + x}{5} = 14 & \iff \dfrac{52 + x}{5} \op{\times 5} = 14 \op{\times 5}`, r`& \iff 52 + x = 70`,
-        r`& \iff 52 + x \op{- 52} = 70 \op{- 52}`, r`& \iff \resultat{x = 18}`),
-      r`Nathan doit obtenir $18$. Vérification&nbsp;: $\dfrac{52 + 18}{5} = \dfrac{70}{5} = 14$.`],
-    revoir: r`capacité 2 du cours (question 3), exercice 2 de la fiche (question 2), exercice 33 p.&nbsp;312 du manuel`,
-    variante: {
-      enonce: r`Après $3$ contrôles, Lina a $12$ de moyenne. Quelle note doit-elle obtenir au quatrième contrôle pour avoir $13$ de moyenne&nbsp;?`,
-      choix: [r`$16$`, r`$14$`, r`$3$`, r`$13$`],
-      bonne: 0,
-      explication: [
-        r`La somme des $3$ premières notes est $3 \times 12 = 36$. On note $x$ la quatrième note&nbsp;: la moyenne des $4$ notes est $\dfrac{36 + x}{4}$, et on veut qu'elle vaille $13$. On multiplie les deux membres par $4$, puis on retire $36$.`,
-        calcul(r`\dfrac{36 + x}{4} = 13 & \iff \dfrac{36 + x}{4} \op{\times 4} = 13 \op{\times 4}`, r`& \iff 36 + x = 52`,
-          r`& \iff 36 + x \op{- 36} = 52 \op{- 36}`, r`& \iff \resultat{x = 16}`),
-        r`Lina doit obtenir $16$. Vérification&nbsp;: $\dfrac{36 + 16}{4} = \dfrac{52}{4} = 13$.`] } },
-
-  { partie: 0, theme: 'Valeur extrême', type: 'qcm',
-    enonce: r`Un magasin vend $9$ modèles de baskets, aux prix suivants, en euros&nbsp;: $40$&nbsp;; $45$&nbsp;; $50$&nbsp;; $55$&nbsp;; $60$&nbsp;; $70$&nbsp;; $70$&nbsp;; $75$&nbsp;; $75$. Leur prix moyen est $60$&nbsp;€. Le magasin ajoute un modèle de luxe à $160$&nbsp;€. Le nouveau prix moyen et le nouveau prix médian sont&nbsp;:`,
-    choix: [r`$70$&nbsp;€ et $65$&nbsp;€`, r`$70$&nbsp;€ et $60$&nbsp;€`, r`$110$&nbsp;€ et $65$&nbsp;€`, r`$70$&nbsp;€ et $70$&nbsp;€`],
-    bonne: 0,
-    explication: [
-      r`La somme des $9$ prix est $9 \times 60 = 540$&nbsp;€&nbsp;; avec le modèle de luxe, il y a $10$ prix. $N = 10$ est pair&nbsp;: la médiane est la demi-somme des valeurs de rangs $5$ et $6$, ici $60$ et $70$ (le nouveau prix se range en dernier).`,
-      calcul(r`m' & = \dfrac{540 + 160}{10}`, r`& = \dfrac{700}{10} = 70`, r`Me' & = \dfrac{60 + 70}{2} = 65`),
-      r`Le nouveau prix moyen et le nouveau prix médian sont <span class="resultat">$70$&nbsp;€ et $65$&nbsp;€</span>. Un seul prix extrême fait monter la moyenne de $10$&nbsp;€, la médiane (qui était $60$&nbsp;€) de $5$&nbsp;€ seulement.`],
-    revoir: r`propriété de l'ajout ou de la suppression d'une valeur et capacité 2 du cours (question 4), exercice 1 de la fiche (question 2), exercices 45 p.&nbsp;313, 60 p.&nbsp;315 et 78 p.&nbsp;321 du manuel`,
-    variante: {
-      enonce: r`Les temps, en minutes, de $10$ coureurs sur une course de $5$&nbsp;km sont&nbsp;: $21$&nbsp;; $23$&nbsp;; $24$&nbsp;; $25$&nbsp;; $26$&nbsp;; $27$&nbsp;; $28$&nbsp;; $29$&nbsp;; $31$&nbsp;; $46$. Leur moyenne est $28$&nbsp;min. On retire le temps de $46$&nbsp;min, celui d'un coureur blessé qui a fini en marchant. La nouvelle moyenne et la nouvelle médiane sont&nbsp;:`,
-      choix: [r`$26$&nbsp;min et $26$&nbsp;min`, r`$23{,}4$&nbsp;min et $26$&nbsp;min`, r`$26$&nbsp;min et $26{,}5$&nbsp;min`, r`$26$&nbsp;min et $27$&nbsp;min`],
-      bonne: 0,
-      explication: [
-        r`La somme des $10$ temps est $10 \times 28 = 280$&nbsp;min&nbsp;; sans le temps de $46$&nbsp;min, il reste $9$ temps. $N = 9$ est impair&nbsp;: la médiane est la valeur de rang $\dfrac{9 + 1}{2} = 5$, ici $26$.`,
-        calcul(r`m' & = \dfrac{280 - 46}{9}`, r`& = \dfrac{234}{9} = 26 \quad \text{car } 9 \times 26 = 234`, r`Me' & = 26`),
-        r`La nouvelle moyenne et la nouvelle médiane valent <span class="resultat">$26$&nbsp;min et $26$&nbsp;min</span>. Le temps extrême faisait monter la moyenne de $2$&nbsp;min, la médiane (qui était $\dfrac{26 + 27}{2} = 26{,}5$&nbsp;min) d'une demi-minute seulement.`] } },
-
-  { partie: 0, theme: 'Fonction Python', type: 'qcm',
-    enonce: r`On considère la fonction Python ci-dessous.` + FONCTION + r`Que renvoie <code>moyenne(8, 5, 12, 3, 16, 2)</code>&nbsp;?`,
-    choix: [r`<code>10.8</code>`, r`<code>108</code>`, r`<code>12.0</code>`, r`<code>36.0</code>`],
-    bonne: 0,
-    explication: [
-      r`On lit la fonction ligne par ligne&nbsp;: <code>n</code> contient l'effectif total, <code>s</code> la somme des produits valeur × effectif, et la fonction renvoie <code>s / n</code>, la moyenne pondérée des valeurs <code>x1</code>, <code>x2</code>, <code>x3</code> d'effectifs <code>n1</code>, <code>n2</code>, <code>n3</code>. Ici, les valeurs $8$, $12$ et $16$ ont pour effectifs $5$, $3$ et $2$.`,
-      calcul(r`n & = 5 + 3 + 2 = 10`, r`s & = 5 \times 8 + 3 \times 12 + 2 \times 16`, r`& = 40 + 36 + 32`, r`& = 108`, r`\dfrac{s}{n} & = \dfrac{108}{10} = 10{,}8`),
-      r`La fonction renvoie <span class="resultat"><code>10.8</code></span>, la moyenne pondérée de la série (Python écrit les nombres décimaux avec un point).`],
-    revoir: r`activité 1 (question 4), exercice 51 p.&nbsp;314 du manuel`,
-    variante: {
-      enonce: r`On considère la fonction Python ci-dessous.` + FONCTION + r`Que renvoie <code>moyenne(6, 4, 9, 3, 12, 3)</code>&nbsp;?`,
-      choix: [r`<code>8.7</code>`, r`<code>87</code>`, r`<code>9.0</code>`, r`<code>29.0</code>`],
-      bonne: 0,
-      explication: [
-        r`On lit la fonction ligne par ligne&nbsp;: <code>n</code> contient l'effectif total, <code>s</code> la somme des produits valeur × effectif, et la fonction renvoie <code>s / n</code>, la moyenne pondérée des valeurs <code>x1</code>, <code>x2</code>, <code>x3</code> d'effectifs <code>n1</code>, <code>n2</code>, <code>n3</code>. Ici, les valeurs $6$, $9$ et $12$ ont pour effectifs $4$, $3$ et $3$.`,
-        calcul(r`n & = 4 + 3 + 3 = 10`, r`s & = 4 \times 6 + 3 \times 9 + 3 \times 12`, r`& = 24 + 27 + 36`, r`& = 87`, r`\dfrac{s}{n} & = \dfrac{87}{10} = 8{,}7`),
-        r`La fonction renvoie <span class="resultat"><code>8.7</code></span>, la moyenne pondérée de la série (Python écrit les nombres décimaux avec un point).`] } },
-
-  /* ----- Écart type, comparaison de deux séries (partie 2 du cours, capacités 3 et 4, exercice 3 de la fiche) ----- */
+  /* ----- Niveau 1 : questions de cours et applications directes ----- */
 
   { partie: 0, theme: 'Écart type', type: 'qcm',
     enonce: r`Deux classes de Seconde ont eu la même moyenne, $11$, à un devoir commun. L'écart type des notes vaut $1{,}5$ dans la classe A et $4$ dans la classe B. Laquelle de ces affirmations est exacte&nbsp;?`,
@@ -664,6 +528,114 @@ const QUIZ = {
         r`Doubler tous les scores double aussi leurs écarts à la moyenne&nbsp;: l'écart type de Sami deviendrait $2 \times 2 = 4$.`,
         r`L'écart type de Sami, $2$, est plus petit que celui de Léo, $6$&nbsp;: <span class="resultat">Sami est le plus régulier</span>, ses scores sont plus regroupés autour de $15$ points.`] } },
 
+  { partie: 0, theme: 'Linéarité de la moyenne', type: 'qcm',
+    enonce: r`Un devoir noté sur $40$ a pour moyenne $24$. Le professeur ramène chaque note sur $20$ (il la divise par $2$), puis ajoute $1$ point à chaque note. La nouvelle moyenne de la classe est&nbsp;:`,
+    choix: [r`$13$`, r`$12{,}5$`, r`$12$`, r`$25$`],
+    bonne: 0,
+    explication: [
+      r`Chaque note $x$ devient $\dfrac{x}{2} + 1$&nbsp;: d'après la linéarité de la moyenne, la moyenne subit les mêmes opérations, dans le même ordre.`,
+      calcul(r`\dfrac{24}{2} + 1 & = 12 + 1`, r`& = \resultat{13}`),
+      r`La nouvelle moyenne est $13$ sur $20$, sans qu'il soit besoin de connaître les notes.`],
+    revoir: r`propriété de linéarité et capacité 2 du cours (questions 1 et 2), exercice 2 de la fiche (question 1), exercices 34 p.&nbsp;312 et 67 p.&nbsp;316 du manuel`,
+    variante: {
+      enonce: r`Dans une ville, la température moyenne relevée en juin est de $20$&nbsp;°C. On passe des degrés Celsius aux degrés Fahrenheit par la formule $F = 1{,}8\,C + 32$. En degrés Fahrenheit, la température moyenne est de&nbsp;:`,
+      choix: [r`$68$&nbsp;°F`, r`$36$&nbsp;°F`, r`$52$&nbsp;°F`, r`$93{,}6$&nbsp;°F`],
+      bonne: 0,
+      explication: [
+        r`Chaque température $C$ devient $1{,}8\,C + 32$&nbsp;: d'après la linéarité de la moyenne, la moyenne se transforme de la même façon, avec $a = 1{,}8$ et $b = 32$ (multiplication d'abord, addition ensuite).`,
+        calcul(r`1{,}8 \times 20 + 32 & = 36 + 32`, r`& = \resultat{68}`),
+        r`La température moyenne est de $68$&nbsp;°F.`] } },
+
+  { partie: 0, theme: 'Fréquence conditionnelle', type: 'vf',
+    enonce: r`Répartition des $600$ élèves d'un lycée selon le sexe et la pratique d'un sport en club.`
+      + tableauStat([[r``, r`Filles`, r`Garçons`, r`Total`], [r`Sport en club`, r`$150$`, r`$90$`, r`$240$`],
+        [r`Pas de sport en club`, r`$150$`, r`$210$`, r`$360$`], [r`Total`, r`$300$`, r`$300$`, r`$600$`]],
+        'Tableau croisé : sport en club, 150 filles, 90 garçons, 240 en tout ; pas de sport en club, 150 filles, 210 garçons, 360 en tout ; 300 filles, 300 garçons, 600 élèves', true)
+      + r`Le journal du lycée écrit&nbsp;: «&nbsp;$62{,}5\,\%$ des filles du lycée font du sport en club.&nbsp;» Cette affirmation est exacte.`,
+    bonne: false,
+    explication: [
+      r`La population de référence est celle des filles («&nbsp;des filles&nbsp;»)&nbsp;: on divise le nombre de filles qui font du sport en club par le nombre de filles, puis on se ramène au dénominateur $100$, car $300 = 3 \times 100$.`,
+      calcul(r`\dfrac{150}{300} & = \dfrac{50 \mul{\times 3}}{100 \mul{\times 3}}`, r`& = \dfrac{50}{100}`, r`& = 50\,\%`),
+      r`La moitié des filles font du sport en club&nbsp;: l'affirmation est <span class="resultat">fausse</span>. Le pourcentage $62{,}5\,\%$ est celui des filles parmi les élèves qui font du sport en club&nbsp;: $\dfrac{150}{240} = \dfrac{5 \mul{\times 30}}{8 \mul{\times 30}} = \dfrac{5}{8} = 0{,}625$.`],
+    revoir: r`définition de la partie 4 et capacité 6 du cours (questions 3 et 4), activité 3 (questions 2 et 3), exercice 5 de la fiche (question 3), problème du Titanic (question 4)`,
+    variante: {
+      enonce: r`Répartition des $400$ salariés d'une entreprise selon leur statut et la pratique du télétravail.`
+        + tableauStat([[r``, r`Cadres`, r`Non-cadres`, r`Total`], [r`Télétravail`, r`$120$`, r`$40$`, r`$160$`],
+          [r`Pas de télétravail`, r`$130$`, r`$110$`, r`$240$`], [r`Total`, r`$250$`, r`$150$`, r`$400$`]],
+          'Tableau croisé : télétravail, 120 cadres, 40 non-cadres, 160 en tout ; pas de télétravail, 130 cadres, 110 non-cadres, 240 en tout ; 250 cadres, 150 non-cadres, 400 salariés', true)
+        + r`Un article affirme&nbsp;: «&nbsp;$75\,\%$ des salariés en télétravail sont des cadres.&nbsp;» Cette affirmation est exacte.`,
+      bonne: true,
+      explication: [
+        r`La population de référence est celle des salariés en télétravail («&nbsp;des salariés en télétravail&nbsp;»)&nbsp;: on divise le nombre de cadres en télétravail par le nombre de salariés en télétravail.`,
+        calcul(r`\dfrac{120}{160} & = \dfrac{3 \mul{\times 40}}{4 \mul{\times 40}}`, r`& = \dfrac{3}{4}`, r`& = 0{,}75`, r`& = 75\,\%`),
+        r`Les trois quarts des salariés en télétravail sont des cadres&nbsp;: l'affirmation est <span class="resultat">vraie</span>. Parmi les cadres, en revanche, moins de la moitié font du télétravail&nbsp;: $120$ sur $250$.`] } },
+
+  /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
+
+  { partie: 0, theme: 'Moyenne pondérée', type: 'qcm',
+    enonce: r`Nombre de livres lus pendant l'été par les $20$ élèves d'une classe.`
+      + tableauStat([[r`Livres lus`, r`$0$`, r`$1$`, r`$2$`, r`$3$`, r`$4$`], [r`Effectif`, r`$3$`, r`$6$`, r`$5$`, r`$4$`, r`$2$`]],
+        'Livres lus : 0, 1, 2, 3, 4 ; effectifs : 3, 6, 5, 4, 2')
+      + r`Le nombre moyen de livres lus par élève est&nbsp;:`,
+    choix: [r`$1{,}8$`, r`$2$`, r`$7{,}2$`, r`$4$`],
+    bonne: 0,
+    explication: [
+      r`La moyenne pondérée s'obtient en multipliant chaque valeur par son effectif, en additionnant ces produits, puis en divisant par l'effectif total, $N = 3 + 6 + 5 + 4 + 2 = 20$.`,
+      calcul(r`m & = \dfrac{3 \times 0 + 6 \times 1 + 5 \times 2 + 4 \times 3 + 2 \times 4}{20}`, r`& = \dfrac{0 + 6 + 10 + 12 + 8}{20}`, r`& = \dfrac{36}{20}`,
+        r`& = \dfrac{18 \mul{\times 2}}{10 \mul{\times 2}}`, r`& = \dfrac{18}{10}`, r`& = \resultat{1{,}8}`),
+      r`Les élèves ont lu en moyenne $1{,}8$ livre pendant l'été.`],
+    revoir: r`capacité 1 du cours (question 1), exercices 14 p.&nbsp;310 et 38 p.&nbsp;313 et question 1 du «&nbsp;Faire le point&nbsp;» p.&nbsp;317 du manuel`,
+    variante: {
+      enonce: r`Nombre de frères et sœurs des $25$ élèves d'une classe.`
+        + tableauStat([[r`Frères et sœurs`, r`$0$`, r`$1$`, r`$2$`, r`$3$`, r`$4$`], [r`Effectif`, r`$4$`, r`$10$`, r`$6$`, r`$3$`, r`$2$`]],
+          'Frères et sœurs : 0, 1, 2, 3, 4 ; effectifs : 4, 10, 6, 3, 2')
+        + r`Le nombre moyen de frères et sœurs par élève est&nbsp;:`,
+      choix: [r`$1{,}56$`, r`$2$`, r`$7{,}8$`, r`$5$`],
+      bonne: 0,
+      explication: [
+        r`La moyenne pondérée s'obtient en multipliant chaque valeur par son effectif, en additionnant ces produits, puis en divisant par l'effectif total, $N = 4 + 10 + 6 + 3 + 2 = 25$. Pour diviser par $25$, on multiplie le numérateur et le dénominateur par $4$.`,
+        calcul(r`m & = \dfrac{4 \times 0 + 10 \times 1 + 6 \times 2 + 3 \times 3 + 2 \times 4}{25}`, r`& = \dfrac{0 + 10 + 12 + 9 + 8}{25}`, r`& = \dfrac{39}{25}`,
+          r`& = \dfrac{39 \mul{\times 4}}{25 \mul{\times 4}}`, r`& = \dfrac{156}{100}`, r`& = \resultat{1{,}56}`),
+        r`Les élèves ont en moyenne $1{,}56$ frère ou sœur.`] } },
+
+  { partie: 0, theme: 'Fonction Python', type: 'qcm',
+    enonce: r`On considère la fonction Python ci-dessous.` + FONCTION + r`Que renvoie <code>moyenne(8, 5, 12, 3, 16, 2)</code>&nbsp;?`,
+    choix: [r`<code>10.8</code>`, r`<code>108</code>`, r`<code>12.0</code>`, r`<code>36.0</code>`],
+    bonne: 0,
+    explication: [
+      r`On lit la fonction ligne par ligne&nbsp;: <code>n</code> contient l'effectif total, <code>s</code> la somme des produits valeur × effectif, et la fonction renvoie <code>s / n</code>, la moyenne pondérée des valeurs <code>x1</code>, <code>x2</code>, <code>x3</code> d'effectifs <code>n1</code>, <code>n2</code>, <code>n3</code>. Ici, les valeurs $8$, $12$ et $16$ ont pour effectifs $5$, $3$ et $2$.`,
+      calcul(r`n & = 5 + 3 + 2`, r`& = 10`, r`s & = 5 \times 8 + 3 \times 12 + 2 \times 16`, r`& = 40 + 36 + 32`, r`& = 108`, r`\dfrac{s}{n} & = \dfrac{108}{10}`, r`& = 10{,}8`),
+      r`La fonction renvoie <span class="resultat"><code>10.8</code></span>, la moyenne pondérée de la série (Python écrit les nombres décimaux avec un point).`],
+    revoir: r`activité 1 (question 4), exercice 51 p.&nbsp;314 du manuel`,
+    variante: {
+      enonce: r`On considère la fonction Python ci-dessous.` + FONCTION + r`Que renvoie <code>moyenne(6, 4, 9, 3, 12, 3)</code>&nbsp;?`,
+      choix: [r`<code>8.7</code>`, r`<code>87</code>`, r`<code>9.0</code>`, r`<code>29.0</code>`],
+      bonne: 0,
+      explication: [
+        r`On lit la fonction ligne par ligne&nbsp;: <code>n</code> contient l'effectif total, <code>s</code> la somme des produits valeur × effectif, et la fonction renvoie <code>s / n</code>, la moyenne pondérée des valeurs <code>x1</code>, <code>x2</code>, <code>x3</code> d'effectifs <code>n1</code>, <code>n2</code>, <code>n3</code>. Ici, les valeurs $6$, $9$ et $12$ ont pour effectifs $4$, $3$ et $3$.`,
+        calcul(r`n & = 4 + 3 + 3`, r`& = 10`, r`s & = 4 \times 6 + 3 \times 9 + 3 \times 12`, r`& = 24 + 27 + 36`, r`& = 87`, r`\dfrac{s}{n} & = \dfrac{87}{10}`, r`& = 8{,}7`),
+        r`La fonction renvoie <span class="resultat"><code>8.7</code></span>, la moyenne pondérée de la série (Python écrit les nombres décimaux avec un point).`] } },
+
+  { partie: 0, theme: 'Atteindre une moyenne', type: 'qcm',
+    enonce: r`Après $4$ contrôles, Nathan a $13$ de moyenne. Quelle note doit-il obtenir au cinquième contrôle pour avoir $14$ de moyenne&nbsp;?`,
+    choix: [r`$18$`, r`$15$`, r`$4$`, r`$14$`],
+    bonne: 0,
+    explication: [
+      r`La somme des $4$ premières notes est $4 \times 13 = 52$. On note $x$ la cinquième note&nbsp;: la moyenne des $5$ notes est $\dfrac{52 + x}{5}$, et on veut qu'elle vaille $14$. On multiplie les deux membres par $5$, puis on retire $52$.`,
+      calcul(r`\dfrac{52 + x}{5} = 14 & \iff \dfrac{52 + x}{5} \op{\times 5} = 14 \op{\times 5}`, r`& \iff 52 + x = 70`,
+        r`& \iff 52 + x \op{- 52} = 70 \op{- 52}`, r`& \iff \resultat{x = 18}`),
+      r`Nathan doit obtenir $18$. Vérification&nbsp;: $\dfrac{52 + 18}{5} = \dfrac{70}{5} = 14$.`],
+    revoir: r`capacité 2 du cours (question 3), exercice 2 de la fiche (question 2), exercice 33 p.&nbsp;312 du manuel`,
+    variante: {
+      enonce: r`Après $3$ contrôles, Lina a $12$ de moyenne. Quelle note doit-elle obtenir au quatrième contrôle pour avoir $13$ de moyenne&nbsp;?`,
+      choix: [r`$16$`, r`$14$`, r`$3$`, r`$13$`],
+      bonne: 0,
+      explication: [
+        r`La somme des $3$ premières notes est $3 \times 12 = 36$. On note $x$ la quatrième note&nbsp;: la moyenne des $4$ notes est $\dfrac{36 + x}{4}$, et on veut qu'elle vaille $13$. On multiplie les deux membres par $4$, puis on retire $36$.`,
+        calcul(r`\dfrac{36 + x}{4} = 13 & \iff \dfrac{36 + x}{4} \op{\times 4} = 13 \op{\times 4}`, r`& \iff 36 + x = 52`,
+          r`& \iff 36 + x \op{- 36} = 52 \op{- 36}`, r`& \iff \resultat{x = 16}`),
+        r`Lina doit obtenir $16$. Vérification&nbsp;: $\dfrac{36 + 16}{4} = \dfrac{52}{4} = 13$.`] } },
+
   { partie: 0, theme: 'Comparer deux séries', type: 'qcm',
     enonce: r`Temps d'attente, en minutes, des clients à deux caisses d'un supermarché, un samedi. Caisse A&nbsp;: moyenne $9$&nbsp;min, écart type $5$&nbsp;min. Caisse B&nbsp;: moyenne $12$&nbsp;min, écart type $2$&nbsp;min. Leurs diagrammes en boîte sont tracés ci-dessous.`
       + diagrammesBoites(CAISSES) + r`Laquelle de ces conclusions est exacte&nbsp;?`,
@@ -675,7 +647,7 @@ const QUIZ = {
     explication: [
       r`On compare un indicateur de position, puis un indicateur de dispersion. Sur un diagramme en boîte, la médiane est le trait qui coupe la boîte, les quartiles sont ses bords (lignes de lecture en vert).`,
       diagrammesBoites(Object.assign({}, CAISSES, { lectures: true })),
-      calcul(r`\text{Caisse A : } Q_{3} - Q_{1} & = 13 - 5 = 8`, r`\text{Caisse B : } Q_{3} - Q_{1} & = 13 - 11 = 2`),
+      calcul(r`\text{Caisse A : } Q_{3} - Q_{1} & = 13 - 5`, r`& = 8`, r`\text{Caisse B : } Q_{3} - Q_{1} & = 13 - 11`, r`& = 2`),
       r`Position&nbsp;: la moyenne et la médiane de la caisse B sont plus grandes, $12$ contre $9$ et $12$ contre $8$. Dispersion&nbsp;: son écart type et son écart interquartile sont plus petits, $2$ contre $5$ et $2$ contre $8$. Donc <span class="resultat">à la caisse B, l'attente est plus longue en général, mais plus régulière</span>.`,
       r`Attention&nbsp;: les deux boîtes s'arrêtent à $13$, qui est le troisième quartile des deux séries, pas leur médiane.`],
     revoir: r`méthode et capacité 4 du cours, exercice 3 de la fiche (question 2), exercice 63 p.&nbsp;315 et questions 10 et 11 du «&nbsp;Faire le point&nbsp;» p.&nbsp;317 du manuel`,
@@ -690,11 +662,9 @@ const QUIZ = {
       explication: [
         r`On compare un indicateur de position, puis un indicateur de dispersion. Sur un diagramme en boîte, la médiane est le trait qui coupe la boîte, les quartiles sont ses bords (lignes de lecture en vert).`,
         diagrammesBoites(Object.assign({}, VILLES, { lectures: true })),
-        calcul(r`\text{Ville A : } Q_{3} - Q_{1} & = 25 - 23 = 2`, r`\text{Ville B : } Q_{3} - Q_{1} & = 30 - 22 = 8`),
+        calcul(r`\text{Ville A : } Q_{3} - Q_{1} & = 25 - 23`, r`& = 2`, r`\text{Ville B : } Q_{3} - Q_{1} & = 30 - 22`, r`& = 8`),
         r`Position&nbsp;: la moyenne et la médiane de la ville B sont plus grandes, $26$ contre $24$ et $27$ contre $24$. Dispersion&nbsp;: son écart type et son écart interquartile sont plus grands, $5$ contre $2$ et $8$ contre $2$. Donc <span class="resultat">la ville B est plus chaude en général, mais plus irrégulière</span>.`,
         r`Attention&nbsp;: le bord droit de la boîte B, $30$&nbsp;°C, est son troisième quartile, pas sa médiane.`] } },
-
-  /* ----- Séries regroupées en classes (partie 3 du cours, capacité 5, exercice 4 de la fiche) ----- */
 
   { partie: 0, theme: 'Série regroupée en classes', type: 'qcm',
     enonce: r`L'histogramme ci-dessous donne le temps, en minutes, passé sur les réseaux sociaux un jour de semaine par $50$ élèves. On suppose la répartition uniforme dans chaque classe.`
@@ -723,40 +693,70 @@ const QUIZ = {
           [r`Effectif × centre`, trouve(r`$120$`), trouve(r`$150$`), trouve(r`$350$`), trouve(r`$540$`), trouve(r`$220$`)]],
           'Centres : 15, 25, 35, 45, 55 ; effectifs : 8, 6, 10, 12, 4 ; produits : 120, 150, 350, 540, 220'),
         calcul(r`m & \approx \dfrac{120 + 150 + 350 + 540 + 220}{40}`, r`& \approx \dfrac{1\,380}{40}`, r`& \approx \dfrac{138 \mul{\times 10}}{4 \mul{\times 10}}`,
-          r`& \approx \dfrac{138}{4}`, r`& \approx \resultat{34{,}5}`),
+          r`& \approx \dfrac{138}{4}`, r`& \approx \dfrac{69 \mul{\times 2}}{2 \mul{\times 2}}`, r`& \approx \dfrac{69}{2}`, r`& \approx \resultat{34{,}5}`),
         r`Les participants ont en moyenne environ $34{,}5$ ans.`] } },
 
-  { partie: 0, theme: 'Classe médiane', type: 'qcm',
-    enonce: r`Distance, en kilomètres, entre le domicile et le lieu de travail de $40$ salariés.`
-      + tableauStat([[r`Distance (km)`, r`$\left[0\,;\,10\right[$`, r`$\left[10\,;\,20\right[$`, r`$\left[20\,;\,30\right[$`, r`$\left[30\,;\,40\right[$`],
-        [r`Effectif`, r`$14$`, r`$10$`, r`$12$`, r`$4$`]],
-        'Distances en kilomètres : de 0 à 10, effectif 14 ; de 10 à 20, effectif 10 ; de 20 à 30, effectif 12 ; de 30 à 40, effectif 4')
-      + r`En supposant la répartition uniforme dans la classe médiane, une estimation de la distance médiane est&nbsp;:`,
-    choix: [r`$16$&nbsp;km`, r`$15$&nbsp;km`, r`$12{,}5$&nbsp;km`, r`$20$&nbsp;km`],
+  /* ----- Niveau 3 : calculs en plusieurs étapes, pièges et synthèse ----- */
+
+  { partie: 0, theme: 'Médiane et quartiles', type: 'qcm',
+    enonce: r`Notes sur $10$ des $23$ élèves d'une classe à une interrogation.`
+      + tableauStat([[r`Note`, r`$3$`, r`$4$`, r`$5$`, r`$6$`, r`$7$`, r`$8$`, r`$9$`, r`$10$`],
+        [r`Effectif`, r`$1$`, r`$1$`, r`$3$`, r`$4$`, r`$3$`, r`$5$`, r`$4$`, r`$2$`]],
+        'Notes : 3, 4, 5, 6, 7, 8, 9, 10 ; effectifs : 1, 1, 3, 4, 3, 5, 4, 2')
+      + r`Le premier quartile, la médiane et le troisième quartile de cette série sont&nbsp;:`,
+    choix: [r`$Q_{1} = 6$&nbsp;; $Me = 7$&nbsp;; $Q_{3} = 9$`, r`$Q_{1} = 5$&nbsp;; $Me = 7$&nbsp;; $Q_{3} = 8$`,
+            r`$Q_{1} = 6$&nbsp;; $Me = 8$&nbsp;; $Q_{3} = 9$`, r`$Q_{1} = 4$&nbsp;; $Me = 6{,}5$&nbsp;; $Q_{3} = 8$`],
     bonne: 0,
     explication: [
-      r`On calcule les effectifs cumulés, $14$&nbsp;; $24$&nbsp;; $36$&nbsp;; $40$, puis on les divise par $N = 40$&nbsp;: les fréquences cumulées croissantes sont $35\,\%$&nbsp;; $60\,\%$&nbsp;; $90\,\%$&nbsp;; $100\,\%$. La fréquence cumulée atteint $50\,\%$ dans la classe $\left[10\,;\,20\right[$&nbsp;: c'est la classe médiane.`,
-      r`Dans cette classe, la fréquence cumulée passe de $35\,\%$ à $60\,\%$, soit $25$ points pour $10$&nbsp;km. Pour atteindre $50\,\%$, il manque $15$ points sur $25$, c'est-à-dire les $\dfrac{3}{5}$ de la classe.`,
-      calcul(r`Me & \approx 10 + 10 \times \dfrac{15}{25}`, r`& \approx 10 + 10 \times \dfrac{3}{5}`, r`& \approx 10 + 6`, r`& \approx \resultat{16}`),
-      graphique(TRAJETS),
-      r`Sur le polygone des fréquences cumulées croissantes, le point d'ordonnée $50$ a bien pour abscisse $16$ environ (lecture en vert). La moitié des salariés habitent à moins de $16$&nbsp;km environ de leur travail.`],
-    revoir: r`propriété de la partie 3 et capacité 5 du cours (questions 2 et 3), activité 2 (questions 2 et 3), exercice 4 de la fiche (questions 2 et 3)`,
+      r`On calcule les effectifs cumulés croissants (en rouge) en additionnant les effectifs de gauche à droite&nbsp;: la valeur de rang $r$ est la première note dont l'effectif cumulé atteint ou dépasse $r$.`,
+      tableauStat([[r`Note`, r`$3$`, r`$4$`, r`$5$`, r`$6$`, r`$7$`, r`$8$`, r`$9$`, r`$10$`],
+        [r`Effectif`, r`$1$`, r`$1$`, r`$3$`, r`$4$`, r`$3$`, r`$5$`, r`$4$`, r`$2$`],
+        [r`Effectif cumulé croissant`, trouve(r`$1$`), trouve(r`$2$`), trouve(r`$5$`), trouve(r`$9$`), trouve(r`$12$`), trouve(r`$17$`), trouve(r`$21$`), trouve(r`$23$`)]],
+        'Effectifs cumulés croissants : 1, 2, 5, 9, 12, 17, 21, 23'),
+      r`$N = 23$ est impair&nbsp;: la médiane est la valeur de rang $\dfrac{N + 1}{2}$. Le rang de $Q_{1}$ est le plus petit entier supérieur ou égal à $\dfrac{N}{4}$, celui de $Q_{3}$ le plus petit entier supérieur ou égal à $\dfrac{3N}{4}$.`,
+      calcul(r`\dfrac{23 + 1}{2} & = \dfrac{24}{2}`, r`& = 12 \qquad \text{rang de } Me`, r`\dfrac{23}{4} & = 5{,}75 \qquad \text{rang de } Q_{1} \text{ : } 6`,
+        r`\dfrac{3 \times 23}{4} & = \dfrac{69}{4}`, r`& = 17{,}25 \qquad \text{rang de } Q_{3} \text{ : } 18`),
+      r`Le rang $6$ tombe à la note $6$ (l'effectif cumulé passe de $5$ à $9$), le rang $12$ à la note $7$ (il atteint $12$), le rang $18$ à la note $9$ (il passe de $17$ à $21$)&nbsp;: <span class="resultat">$Q_{1} = 6$&nbsp;; $Me = 7$&nbsp;; $Q_{3} = 9$</span>.`,
+      r`Au moins la moitié des élèves ont eu $7$ ou moins, et au moins la moitié $7$ ou plus.`],
+    revoir: r`définition de la partie 1 et capacité 1 du cours (question 2), exercice 1 de la fiche (question 1), exercice 27 p.&nbsp;311 et question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;317 du manuel`,
     variante: {
-      enonce: r`Temps, en minutes, consacré au sport pendant un week-end par $50$ élèves.`
-        + tableauStat([[r`Temps (min)`, r`$\left[0\,;\,20\right[$`, r`$\left[20\,;\,40\right[$`, r`$\left[40\,;\,60\right[$`, r`$\left[60\,;\,80\right[$`],
-          [r`Effectif`, r`$5$`, r`$10$`, r`$25$`, r`$10$`]],
-          'Temps en minutes : de 0 à 20, effectif 5 ; de 20 à 40, effectif 10 ; de 40 à 60, effectif 25 ; de 60 à 80, effectif 10')
-        + r`En supposant la répartition uniforme dans la classe médiane, une estimation du temps médian est&nbsp;:`,
-      choix: [r`$48$&nbsp;min`, r`$50$&nbsp;min`, r`$45$&nbsp;min`, r`$60$&nbsp;min`],
+      enonce: r`Nombre d'heures de sport pratiquées en une semaine par les $27$ élèves d'une classe.`
+        + tableauStat([[r`Heures`, r`$0$`, r`$1$`, r`$2$`, r`$3$`, r`$4$`, r`$5$`, r`$6$`, r`$7$`],
+          [r`Effectif`, r`$2$`, r`$4$`, r`$4$`, r`$4$`, r`$6$`, r`$4$`, r`$2$`, r`$1$`]],
+          'Heures : 0, 1, 2, 3, 4, 5, 6, 7 ; effectifs : 2, 4, 4, 4, 6, 4, 2, 1')
+        + r`Le premier quartile, la médiane et le troisième quartile de cette série sont&nbsp;:`,
+      choix: [r`$Q_{1} = 2$&nbsp;; $Me = 3$&nbsp;; $Q_{3} = 5$`, r`$Q_{1} = 1$&nbsp;; $Me = 3$&nbsp;; $Q_{3} = 4$`,
+              r`$Q_{1} = 2$&nbsp;; $Me = 4$&nbsp;; $Q_{3} = 5$`, r`$Q_{1} = 1$&nbsp;; $Me = 3{,}5$&nbsp;; $Q_{3} = 5$`],
       bonne: 0,
       explication: [
-        r`On calcule les effectifs cumulés, $5$&nbsp;; $15$&nbsp;; $40$&nbsp;; $50$, puis on les divise par $N = 50$&nbsp;: les fréquences cumulées croissantes sont $10\,\%$&nbsp;; $30\,\%$&nbsp;; $80\,\%$&nbsp;; $100\,\%$. La fréquence cumulée atteint $50\,\%$ dans la classe $\left[40\,;\,60\right[$&nbsp;: c'est la classe médiane.`,
-        r`Dans cette classe, la fréquence cumulée passe de $30\,\%$ à $80\,\%$, soit $50$ points pour $20$&nbsp;minutes. Pour atteindre $50\,\%$, il manque $20$ points sur $50$, c'est-à-dire les $\dfrac{2}{5}$ de la classe.`,
-        calcul(r`Me & \approx 40 + 20 \times \dfrac{20}{50}`, r`& \approx 40 + 20 \times \dfrac{2}{5}`, r`& \approx 40 + 8`, r`& \approx \resultat{48}`),
-        graphique(SPORT),
-        r`Sur le polygone des fréquences cumulées croissantes, le point d'ordonnée $50$ a bien pour abscisse $48$ environ (lecture en vert). La moitié des élèves consacrent moins de $48$ minutes environ au sport pendant le week-end.`] } },
+        r`On calcule les effectifs cumulés croissants (en rouge) en additionnant les effectifs de gauche à droite&nbsp;: la valeur de rang $r$ est la première valeur dont l'effectif cumulé atteint ou dépasse $r$.`,
+        tableauStat([[r`Heures`, r`$0$`, r`$1$`, r`$2$`, r`$3$`, r`$4$`, r`$5$`, r`$6$`, r`$7$`],
+          [r`Effectif`, r`$2$`, r`$4$`, r`$4$`, r`$4$`, r`$6$`, r`$4$`, r`$2$`, r`$1$`],
+          [r`Effectif cumulé croissant`, trouve(r`$2$`), trouve(r`$6$`), trouve(r`$10$`), trouve(r`$14$`), trouve(r`$20$`), trouve(r`$24$`), trouve(r`$26$`), trouve(r`$27$`)]],
+          'Effectifs cumulés croissants : 2, 6, 10, 14, 20, 24, 26, 27'),
+        r`$N = 27$ est impair&nbsp;: la médiane est la valeur de rang $\dfrac{N + 1}{2}$. Le rang de $Q_{1}$ est le plus petit entier supérieur ou égal à $\dfrac{N}{4}$, celui de $Q_{3}$ le plus petit entier supérieur ou égal à $\dfrac{3N}{4}$.`,
+        calcul(r`\dfrac{27 + 1}{2} & = \dfrac{28}{2}`, r`& = 14 \qquad \text{rang de } Me`, r`\dfrac{27}{4} & = 6{,}75 \qquad \text{rang de } Q_{1} \text{ : } 7`,
+          r`\dfrac{3 \times 27}{4} & = \dfrac{81}{4}`, r`& = 20{,}25 \qquad \text{rang de } Q_{3} \text{ : } 21`),
+        r`Le rang $7$ tombe à la valeur $2$ (l'effectif cumulé passe de $6$ à $10$), le rang $14$ à la valeur $3$ (il atteint $14$), le rang $21$ à la valeur $5$ (il passe de $20$ à $24$)&nbsp;: <span class="resultat">$Q_{1} = 2$&nbsp;; $Me = 3$&nbsp;; $Q_{3} = 5$</span>.`,
+        r`Au moins la moitié des élèves font $3$ heures de sport ou moins par semaine, et au moins la moitié $3$ heures ou plus.`] } },
 
-  /* ----- Croisement de deux variables qualitatives (partie 4 du cours, capacité 6, exercice 5 de la fiche) ----- */
+  { partie: 0, theme: 'Valeur extrême', type: 'qcm',
+    enonce: r`Un magasin vend $9$ modèles de baskets, aux prix suivants, en euros&nbsp;: $40$&nbsp;; $45$&nbsp;; $50$&nbsp;; $55$&nbsp;; $60$&nbsp;; $70$&nbsp;; $70$&nbsp;; $75$&nbsp;; $75$. Leur prix moyen est $60$&nbsp;€. Le magasin ajoute un modèle de luxe à $160$&nbsp;€. Le nouveau prix moyen et le nouveau prix médian sont&nbsp;:`,
+    choix: [r`$70$&nbsp;€ et $65$&nbsp;€`, r`$70$&nbsp;€ et $60$&nbsp;€`, r`$110$&nbsp;€ et $65$&nbsp;€`, r`$70$&nbsp;€ et $70$&nbsp;€`],
+    bonne: 0,
+    explication: [
+      r`La somme des $9$ prix est $9 \times 60 = 540$&nbsp;€&nbsp;; avec le modèle de luxe, il y a $10$ prix. $N = 10$ est pair&nbsp;: la médiane est la demi-somme des valeurs de rangs $5$ et $6$, ici $60$ et $70$ (le nouveau prix se range en dernier).`,
+      calcul(r`m' & = \dfrac{540 + 160}{10}`, r`& = \dfrac{700}{10}`, r`& = 70`, r`Me' & = \dfrac{60 + 70}{2}`, r`& = \dfrac{130}{2}`, r`& = 65`),
+      r`Le nouveau prix moyen et le nouveau prix médian sont <span class="resultat">$70$&nbsp;€ et $65$&nbsp;€</span>. Un seul prix extrême fait monter la moyenne de $10$&nbsp;€, la médiane (qui était $60$&nbsp;€) de $5$&nbsp;€ seulement.`],
+    revoir: r`propriété de l'ajout ou de la suppression d'une valeur et capacité 2 du cours (question 4), exercice 1 de la fiche (question 2), exercices 45 p.&nbsp;313, 60 p.&nbsp;315 et 78 p.&nbsp;321 du manuel`,
+    variante: {
+      enonce: r`Les temps, en minutes, de $10$ coureurs sur une course de $5$&nbsp;km sont&nbsp;: $21$&nbsp;; $23$&nbsp;; $24$&nbsp;; $25$&nbsp;; $26$&nbsp;; $27$&nbsp;; $28$&nbsp;; $29$&nbsp;; $31$&nbsp;; $46$. Leur moyenne est $28$&nbsp;min. On retire le temps de $46$&nbsp;min, celui d'un coureur blessé qui a fini en marchant. La nouvelle moyenne et la nouvelle médiane sont&nbsp;:`,
+      choix: [r`$26$&nbsp;min et $26$&nbsp;min`, r`$23{,}4$&nbsp;min et $26$&nbsp;min`, r`$26$&nbsp;min et $26{,}5$&nbsp;min`, r`$26$&nbsp;min et $27$&nbsp;min`],
+      bonne: 0,
+      explication: [
+        r`La somme des $10$ temps est $10 \times 28 = 280$&nbsp;min&nbsp;; sans le temps de $46$&nbsp;min, il reste $9$ temps. $N = 9$ est impair&nbsp;: la médiane est la valeur de rang $\dfrac{9 + 1}{2} = 5$, ici $26$.`,
+        calcul(r`m' & = \dfrac{280 - 46}{9}`, r`& = \dfrac{234}{9}`, r`& = 26 \quad \text{car } 9 \times 26 = 234`, r`Me' & = 26`),
+        r`La nouvelle moyenne et la nouvelle médiane valent <span class="resultat">$26$&nbsp;min et $26$&nbsp;min</span>. Le temps extrême faisait monter la moyenne de $2$&nbsp;min, la médiane (qui était $\dfrac{26 + 27}{2} = 26{,}5$&nbsp;min) d'une demi-minute seulement.`] } },
 
   { partie: 0, theme: 'Tableau croisé', type: 'qcm',
     enonce: r`Une salle de sport compte $300$ adhérents&nbsp;: $40\,\%$ sont des femmes&nbsp;; parmi les femmes, $75\,\%$ suivent des cours collectifs&nbsp;; $126$ hommes ne suivent pas de cours collectifs.`
@@ -769,12 +769,13 @@ const QUIZ = {
     explication: [
       r`On traduit chaque pourcentage en effectif&nbsp;: les femmes sont $40\,\%$ des $300$ adhérents, celles qui suivent des cours collectifs $75\,\%$ des femmes. On complète ensuite le tableau par différences et par sommes (en rouge).`,
       calcul(r`0{,}40 \times 300 & = 120 \quad \text{(femmes)}`, r`300 - 120 & = 180 \quad \text{(hommes)}`, r`0{,}75 \times 120 & = 90 \quad \text{(femmes en cours)}`,
-        r`180 - 126 & = 54 \quad \text{(hommes en cours)}`, r`90 + 54 & = 144 \quad \text{(total en cours)}`),
+        r`120 - 90 & = 30 \quad \text{(femmes sans cours)}`, r`180 - 126 & = 54 \quad \text{(hommes en cours)}`, r`90 + 54 & = 144 \quad \text{(total en cours)}`,
+        r`30 + 126 & = 156 \quad \text{(total sans cours)}`),
       tableauStat([[r``, r`Femmes`, r`Hommes`, r`Total`], [r`Cours collectifs`, trouve(r`$90$`), trouve(r`$54$`), trouve(r`$144$`)],
         [r`Pas de cours collectifs`, trouve(r`$30$`), r`$126$`, trouve(r`$156$`)], [r`Total`, trouve(r`$120$`), trouve(r`$180$`), r`$300$`]],
         'Tableau croisé complété : cours collectifs, 90 femmes, 54 hommes, 144 en tout ; pas de cours, 30 femmes, 126 hommes, 156 en tout ; 120 femmes, 180 hommes, 300 adhérents', true),
-      r`La fréquence marginale est l'effectif de la marge divisé par l'effectif total.`,
-      calcul(r`\dfrac{144}{300} & = \dfrac{48 \mul{\times 3}}{100 \mul{\times 3}}`, r`& = \dfrac{48}{100} = \resultat{48\,\%}`),
+      r`La fréquence marginale est l'effectif de la marge divisé par l'effectif total&nbsp;; on se ramène au dénominateur $100$, car $300 = 3 \times 100$.`,
+      calcul(r`\dfrac{144}{300} & = \dfrac{48 \mul{\times 3}}{100 \mul{\times 3}}`, r`& = \dfrac{48}{100}`, r`& = \resultat{48\,\%}`),
       r`$48\,\%$ des adhérents suivent des cours collectifs.`],
     revoir: r`méthode et capacité 6 du cours (questions 1 et 2), activité 3 (question 1), exercice 5 de la fiche (questions 1 et 2)`,
     variante: {
@@ -788,37 +789,44 @@ const QUIZ = {
       explication: [
         r`On traduit chaque pourcentage en effectif&nbsp;: les enfants sont $30\,\%$ des $400$ visiteurs, ceux qui ont acheté une photo $60\,\%$ des enfants. On complète ensuite le tableau par différences et par sommes (en rouge).`,
         calcul(r`0{,}30 \times 400 & = 120 \quad \text{(enfants)}`, r`400 - 120 & = 280 \quad \text{(adultes)}`, r`0{,}60 \times 120 & = 72 \quad \text{(enfants avec photo)}`,
-          r`280 - 224 & = 56 \quad \text{(adultes avec photo)}`, r`72 + 56 & = 128 \quad \text{(total avec photo)}`),
+          r`120 - 72 & = 48 \quad \text{(enfants sans photo)}`, r`280 - 224 & = 56 \quad \text{(adultes avec photo)}`, r`72 + 56 & = 128 \quad \text{(total avec photo)}`,
+          r`48 + 224 & = 272 \quad \text{(total sans photo)}`),
         tableauStat([[r``, r`Enfants`, r`Adultes`, r`Total`], [r`Photo achetée`, trouve(r`$72$`), trouve(r`$56$`), trouve(r`$128$`)],
           [r`Pas de photo`, trouve(r`$48$`), r`$224$`, trouve(r`$272$`)], [r`Total`, trouve(r`$120$`), trouve(r`$280$`), r`$400$`]],
           'Tableau croisé complété : photo achetée, 72 enfants, 56 adultes, 128 en tout ; pas de photo, 48 enfants, 224 adultes, 272 en tout ; 120 enfants, 280 adultes, 400 visiteurs', true),
-        r`La fréquence marginale est l'effectif de la marge divisé par l'effectif total.`,
-        calcul(r`\dfrac{128}{400} & = \dfrac{32 \mul{\times 4}}{100 \mul{\times 4}}`, r`& = \dfrac{32}{100} = \resultat{32\,\%}`),
+        r`La fréquence marginale est l'effectif de la marge divisé par l'effectif total&nbsp;; on se ramène au dénominateur $100$, car $400 = 4 \times 100$.`,
+        calcul(r`\dfrac{128}{400} & = \dfrac{32 \mul{\times 4}}{100 \mul{\times 4}}`, r`& = \dfrac{32}{100}`, r`& = \resultat{32\,\%}`),
         r`$32\,\%$ des visiteurs ont acheté une photo souvenir.`] } },
 
-  { partie: 0, theme: 'Fréquence conditionnelle', type: 'vf',
-    enonce: r`Répartition des $600$ élèves d'un lycée selon le sexe et la pratique d'un sport en club.`
-      + tableauStat([[r``, r`Filles`, r`Garçons`, r`Total`], [r`Sport en club`, r`$150$`, r`$90$`, r`$240$`],
-        [r`Pas de sport en club`, r`$150$`, r`$210$`, r`$360$`], [r`Total`, r`$300$`, r`$300$`, r`$600$`]],
-        'Tableau croisé : sport en club, 150 filles, 90 garçons, 240 en tout ; pas de sport en club, 150 filles, 210 garçons, 360 en tout ; 300 filles, 300 garçons, 600 élèves', true)
-      + r`Le journal du lycée écrit&nbsp;: «&nbsp;$62{,}5\,\%$ des filles du lycée font du sport en club.&nbsp;» Cette affirmation est exacte.`,
-    bonne: false,
+  { partie: 0, theme: 'Classe médiane', type: 'qcm',
+    enonce: r`Distance, en kilomètres, entre le domicile et le lieu de travail de $40$ salariés.`
+      + tableauStat([[r`Distance (km)`, r`$\left[0\,;\,10\right[$`, r`$\left[10\,;\,20\right[$`, r`$\left[20\,;\,30\right[$`, r`$\left[30\,;\,40\right[$`],
+        [r`Effectif`, r`$14$`, r`$10$`, r`$12$`, r`$4$`]],
+        'Distances en kilomètres : de 0 à 10, effectif 14 ; de 10 à 20, effectif 10 ; de 20 à 30, effectif 12 ; de 30 à 40, effectif 4')
+      + r`En supposant la répartition uniforme dans la classe médiane, une estimation de la distance médiane est&nbsp;:`,
+    choix: [r`$16$&nbsp;km`, r`$15$&nbsp;km`, r`$12{,}5$&nbsp;km`, r`$20$&nbsp;km`],
+    bonne: 0,
     explication: [
-      r`La population de référence est celle des filles («&nbsp;des filles&nbsp;»)&nbsp;: on divise le nombre de filles qui font du sport en club par le nombre de filles.`,
-      calcul(r`\dfrac{150}{300} & = 0{,}5`, r`& = 50\,\%`),
-      r`La moitié des filles font du sport en club&nbsp;: l'affirmation est <span class="resultat">fausse</span>. Le pourcentage $62{,}5\,\%$ est celui des filles parmi les élèves qui font du sport en club&nbsp;: $\dfrac{150}{240} = 0{,}625$.`],
-    revoir: r`définition de la partie 4 et capacité 6 du cours (questions 3 et 4), activité 3 (questions 2 et 3), exercice 5 de la fiche (question 3), problème du Titanic (question 4)`,
+      r`On additionne les effectifs de gauche à droite (effectifs cumulés $14$&nbsp;; $24$&nbsp;; $36$&nbsp;; $40$), puis on les divise par $N = 40$&nbsp;: les fréquences cumulées croissantes sont $\dfrac{14}{40} = 35\,\%$, $\dfrac{24}{40} = 60\,\%$, $\dfrac{36}{40} = 90\,\%$ et $100\,\%$. La fréquence cumulée atteint $50\,\%$ dans la classe $\left[10\,;\,20\right[$&nbsp;: c'est la classe médiane.`,
+      r`Dans cette classe, la fréquence cumulée passe de $35\,\%$ à $60\,\%$, soit $25$ points pour $10$&nbsp;km. Pour atteindre $50\,\%$, il manque $15$ points sur $25$&nbsp;: la médiane se trouve aux $\dfrac{15}{25}$ de la classe, en partant de $10$.`,
+      calcul(r`Me & \approx 10 + 10 \times \dfrac{15}{25}`, r`& \approx 10 + \dfrac{10 \times 15}{25}`, r`& \approx 10 + \dfrac{150}{25}`, r`& \approx 10 + 6`, r`& \approx \resultat{16}`),
+      graphique(TRAJETS),
+      r`Sur le polygone des fréquences cumulées croissantes, le point d'ordonnée $50$ a bien pour abscisse $16$ environ (lecture en vert). La moitié des salariés habitent à moins de $16$&nbsp;km environ de leur travail.`],
+    revoir: r`propriété de la partie 3 et capacité 5 du cours (questions 2 et 3), activité 2 (questions 2 et 3), exercice 4 de la fiche (questions 2 et 3)`,
     variante: {
-      enonce: r`Répartition des $400$ salariés d'une entreprise selon leur statut et la pratique du télétravail.`
-        + tableauStat([[r``, r`Cadres`, r`Non-cadres`, r`Total`], [r`Télétravail`, r`$120$`, r`$40$`, r`$160$`],
-          [r`Pas de télétravail`, r`$130$`, r`$110$`, r`$240$`], [r`Total`, r`$250$`, r`$150$`, r`$400$`]],
-          'Tableau croisé : télétravail, 120 cadres, 40 non-cadres, 160 en tout ; pas de télétravail, 130 cadres, 110 non-cadres, 240 en tout ; 250 cadres, 150 non-cadres, 400 salariés', true)
-        + r`Un article affirme&nbsp;: «&nbsp;$75\,\%$ des salariés en télétravail sont des cadres.&nbsp;» Cette affirmation est exacte.`,
-      bonne: true,
+      enonce: r`Temps, en minutes, consacré au sport pendant un week-end par $50$ élèves.`
+        + tableauStat([[r`Temps (min)`, r`$\left[0\,;\,20\right[$`, r`$\left[20\,;\,40\right[$`, r`$\left[40\,;\,60\right[$`, r`$\left[60\,;\,80\right[$`],
+          [r`Effectif`, r`$5$`, r`$10$`, r`$25$`, r`$10$`]],
+          'Temps en minutes : de 0 à 20, effectif 5 ; de 20 à 40, effectif 10 ; de 40 à 60, effectif 25 ; de 60 à 80, effectif 10')
+        + r`En supposant la répartition uniforme dans la classe médiane, une estimation du temps médian est&nbsp;:`,
+      choix: [r`$48$&nbsp;min`, r`$50$&nbsp;min`, r`$45$&nbsp;min`, r`$60$&nbsp;min`],
+      bonne: 0,
       explication: [
-        r`La population de référence est celle des salariés en télétravail («&nbsp;des salariés en télétravail&nbsp;»)&nbsp;: on divise le nombre de cadres en télétravail par le nombre de salariés en télétravail.`,
-        calcul(r`\dfrac{120}{160} & = \dfrac{3 \mul{\times 40}}{4 \mul{\times 40}}`, r`& = \dfrac{3}{4} = 0{,}75`, r`& = 75\,\%`),
-        r`Les trois quarts des salariés en télétravail sont des cadres&nbsp;: l'affirmation est <span class="resultat">vraie</span>. Parmi les cadres, en revanche, seuls $\dfrac{120}{250} = 48\,\%$ font du télétravail.`] } }
+        r`On additionne les effectifs de gauche à droite (effectifs cumulés $5$&nbsp;; $15$&nbsp;; $40$&nbsp;; $50$), puis on les divise par $N = 50$&nbsp;: les fréquences cumulées croissantes sont $\dfrac{5}{50} = 10\,\%$, $\dfrac{15}{50} = 30\,\%$, $\dfrac{40}{50} = 80\,\%$ et $100\,\%$. La fréquence cumulée atteint $50\,\%$ dans la classe $\left[40\,;\,60\right[$&nbsp;: c'est la classe médiane.`,
+        r`Dans cette classe, la fréquence cumulée passe de $30\,\%$ à $80\,\%$, soit $50$ points pour $20$&nbsp;minutes. Pour atteindre $50\,\%$, il manque $20$ points sur $50$&nbsp;: la médiane se trouve aux $\dfrac{20}{50}$ de la classe, en partant de $40$.`,
+        calcul(r`Me & \approx 40 + 20 \times \dfrac{20}{50}`, r`& \approx 40 + \dfrac{20 \times 20}{50}`, r`& \approx 40 + \dfrac{400}{50}`, r`& \approx 40 + 8`, r`& \approx \resultat{48}`),
+        graphique(SPORT),
+        r`Sur le polygone des fréquences cumulées croissantes, le point d'ordonnée $50$ a bien pour abscisse $48$ environ (lecture en vert). La moitié des élèves consacrent moins de $48$ minutes environ au sport pendant le week-end.`] } }
   ]
 };
 

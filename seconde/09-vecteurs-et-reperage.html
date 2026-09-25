@@ -6,24 +6,30 @@
 <title>Entraînement Évaluation vecteurs et repérage</title>
 <!--
   Entraînement auto-corrigé à l'évaluation du chapitre 9 (Vecteurs et repérage) - Seconde.
-  Une seule partie, douze questions, sans automatismes (demande du professeur), dans l'ordre
-  du cours et de l'évaluation : lire les coordonnées d'un vecteur dans un repère, représenter
-  un vecteur à partir d'un point, coordonnées du vecteur AB, produit par un réel et
-  différence de deux vecteurs, quatrième sommet d'un parallélogramme, distance entre deux
-  points (racine simplifiée), milieu d'un segment, colinéarité par le déterminant,
-  alignement, parallélisme, nature d'un triangle (réciproque du théorème de Pythagore),
-  nature d'un quadrilatère (parallélogramme, losange, rectangle, carré).
+  Une seule partie, douze questions, sans automatismes (demande du professeur), rangées par
+  difficulté croissante, en trois niveaux : lectures et formules appliquées directement
+  (lire les coordonnées d'un vecteur dans un repère, représenter un vecteur à partir d'un
+  point, coordonnées du vecteur AB, milieu d'un segment) ; méthodes en deux ou trois étapes
+  (colinéarité par le déterminant, produit par un réel et différence de deux vecteurs,
+  distance entre deux points avec racine simplifiée, parallélisme, alignement) ; plusieurs
+  étapes enchaînées (quatrième sommet d'un parallélogramme, nature d'un triangle par la
+  réciproque du théorème de Pythagore, nature d'un quadrilatère : parallélogramme, losange,
+  rectangle, carré).
   Sources : capacités 1 à 5 et méthodes du cours, activités 1 à 3, fiche d'exercices
   (exercices 1 à 6), exercices du manuel cités dans le plan (29 p. 135 ; 32, 33, 37 et 39
   p. 136 ; 80 et 81 p. 139 ; 83 et 89 p. 140 ; 106, 108, 115 et 117 p. 141 ; « Faire le
   point » p. 143, questions 6 à 12) et évaluation (sujets A et B, exercices 2 à 4, sans le
-  QCM d'automatismes). Les deux questions vrai ou faux (alignement, parallélisme) sont
-  celles de l'évaluation et du « Faire le point », avec d'autres valeurs ; dans la première,
-  le point est tout près de la droite, comme la cible de l'exercice 4 de la fiche.
+  QCM d'automatismes). Les deux questions vrai ou faux (parallélisme, alignement) sont
+  celles de l'évaluation et du « Faire le point », avec d'autres valeurs ; dans celle sur
+  l'alignement, le point est tout près de la droite, comme la cible de l'exercice 4 de la
+  fiche.
   Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres
   valeurs, sans calculatrice (carrés des longueurs comparés, racines simplifiées) ; ni
   équation de droite (chapitre 15), ni problème de recherche (réservé aux plus rapides).
   Coordonnées écrites en ligne, (x ; y), comme dans le cours, la fiche et l'évaluation.
+  Calculs détaillés, une transformation par ligne : coordonnées des vecteurs écrites
+  « extrémité moins origine » avant d'être calculées, produits puis règle des signes,
+  racine simplifiée par la règle du produit.
   Distracteurs : erreurs types (origine moins extrémité, coordonnées de l'extrémité prises
   pour celles du vecteur, abscisse et ordonnée échangées, signe de -(-a), sens contraire,
   sommets pris dans le mauvais ordre (AB = CD), racine d'une somme prise pour la somme des
@@ -433,7 +439,7 @@ const FIG = {
   representeV: { xmin: -2, xmax: 6, ymin: -2, ymax: 6, base: true,
     pts: [{ x: 2, y: 2, nom: 'D', pos: 'hg' }, { x: 1, y: 5, nom: 'K', pos: 'hd' }, { x: -1, y: 3, nom: 'L', pos: 'g' },
       { x: 5, y: 1, nom: 'M', pos: 'bd' }, { x: 3, y: -1, nom: 'N', pos: 'bd' }] },
-  // Question 5 : parallélogramme ABCD, vecteurs AB et DC en rouge, D (trouvé) en bleu.
+  // Question 10 : parallélogramme ABCD, vecteurs AB et DC en rouge, D (trouvé) en bleu.
   para: { xmin: -5, xmax: 4, ymin: -4, ymax: 3,
     segments: [{ de: [2, -3], a: [3, 1], classe: 'c-bleu' }, { de: [-4, -2], a: [-3, 2], classe: 'c-bleu' }],
     vecteurs: [{ de: [-4, -2], a: [2, -3] }, { de: [-3, 2], a: [3, 1] }],
@@ -471,7 +477,7 @@ const QUIZ = {
   parties: ['Vecteurs et repérage'],
   questions: [
 
-  /* ----- Partie 1 du cours : coordonnées d'un vecteur ----- */
+  /* ----- Niveau 1 : lectures et formules du cours appliquées directement ----- */
 
   { partie: 0, theme: 'Lire les coordonnées d\'un vecteur', type: 'qcm',
     enonce: r`Dans le repère orthonormé $(O\,;\,\vec{i}\,;\,\vec{j})$ ci-dessous, le vecteur $\vec{u}$ a pour coordonnées&nbsp;:`
@@ -527,8 +533,6 @@ const QUIZ = {
           label: r`Le même repère : à partir de D, 3 carreaux vers la droite puis 1 vers le bas (tirets verts) mènent au point M ; le vecteur w est tracé en bleu de D à M.` }),
         r`On lit $D(2\,;\,2)$&nbsp;; on arrive au point de coordonnées $(2 + 3\,;\,2 - 1)$, soit $(5\,;\,1)$&nbsp;: <span class="resultat">l'extrémité est le point $M$</span>.`] } },
 
-  /* ----- Partie 2 du cours : calculs sur les coordonnées ----- */
-
   { partie: 0, theme: 'Coordonnées du vecteur AB', type: 'qcm',
     enonce: r`On donne les points $A(-2\,;\,5)$ et $B(3\,;\,-1)$. Le vecteur $\overrightarrow{AB}$ a pour coordonnées&nbsp;:`,
     choix: [r`$(5\,;\,-6)$`, r`$(-5\,;\,6)$`, r`$(1\,;\,4)$`, r`$(1\,;\,-6)$`],
@@ -547,73 +551,13 @@ const QUIZ = {
         calcul(r`x_{B} - x_{A} & = -2 - 4`, r`& = -6`, r`y_{B} - y_{A} & = 1 - (-3)`, r`& = 1 + 3`, r`& = 4`),
         r`Donc <span class="resultat">$\overrightarrow{AB}(-6\,;\,4)$</span>&nbsp;: pour aller de $A$ à $B$, on se déplace de $6$ unités vers la gauche et de $4$ vers le haut.`] } },
 
-  { partie: 0, theme: 'Produit par un réel, différence', type: 'qcm',
-    enonce: r`On donne les vecteurs $\vec{u}(4\,;\,-1)$ et $\vec{v}(1\,;\,-2)$. Le vecteur $2\vec{u} - 3\vec{v}$ a pour coordonnées&nbsp;:`,
-    choix: [r`$(5\,;\,4)$`, r`$(11\,;\,-8)$`, r`$(5\,;\,-8)$`, r`$(3\,;\,1)$`],
-    bonne: 0,
-    explication: [
-      r`On multiplie chaque coordonnée de $\vec{u}$ par $2$ et chaque coordonnée de $\vec{v}$ par $3$, puis on soustrait les abscisses entre elles et les ordonnées entre elles.`,
-      calcul(r`2 \times 4 - 3 \times 1 & = 8 - 3`, r`& = 5`, r`2 \times (-1) - 3 \times (-2) & = -2 + 6`, r`& = 4`),
-      r`Donc <span class="resultat">$2\vec{u} - 3\vec{v}\,(5\,;\,4)$</span>.`],
-    revoir: r`capacité 2 du cours (question 2), activité 1 (questions 1 et 2), exercice 2 de la fiche (question 1), exercices 32 et 33 p.&nbsp;136 du manuel`,
-    variante: {
-      enonce: r`On donne les vecteurs $\vec{u}(-1\,;\,2)$ et $\vec{v}(2\,;\,-3)$. Le vecteur $3\vec{u} - 2\vec{v}$ a pour coordonnées&nbsp;:`,
-      choix: [r`$(-7\,;\,12)$`, r`$(1\,;\,0)$`, r`$(-7\,;\,0)$`, r`$(-3\,;\,5)$`],
-      bonne: 0,
-      explication: [
-        r`On multiplie chaque coordonnée de $\vec{u}$ par $3$ et chaque coordonnée de $\vec{v}$ par $2$, puis on soustrait les abscisses entre elles et les ordonnées entre elles.`,
-        calcul(r`3 \times (-1) - 2 \times 2 & = -3 - 4`, r`& = -7`, r`3 \times 2 - 2 \times (-3) & = 6 + 6`, r`& = 12`),
-        r`Donc <span class="resultat">$3\vec{u} - 2\vec{v}\,(-7\,;\,12)$</span>.`] } },
-
-  { partie: 0, theme: 'Quatrième sommet d\'un parallélogramme', type: 'qcm',
-    enonce: r`On donne les points $A(-4\,;\,-2)$, $B(2\,;\,-3)$ et $C(3\,;\,1)$. Le point $D$ tel que $ABCD$ soit un parallélogramme a pour coordonnées&nbsp;:`,
-    choix: [r`$(-3\,;\,2)$`, r`$(9\,;\,0)$`, r`$(-5\,;\,-6)$`, r`$(3\,;\,-2)$`],
-    bonne: 0,
-    explication: [
-      r`$ABCD$ est un parallélogramme si et seulement si $\overrightarrow{AB} = \overrightarrow{DC}$, les sommets étant pris dans l'ordre $A$, $B$, $C$, $D$. On note $D(x\,;\,y)$&nbsp;: $\overrightarrow{DC}(3 - x\,;\,1 - y)$ doit avoir les coordonnées de $\overrightarrow{AB}(6\,;\,-1)$.`,
-      calcul(r`3 - x = 6 & \iff 3 - x \op{- 3} = 6 \op{- 3}`, r`& \iff -x = 3`, r`& \iff x = -3`),
-      calcul(r`1 - y = -1 & \iff 1 - y \op{- 1} = -1 \op{- 1}`, r`& \iff -y = -2`, r`& \iff y = 2`),
-      r`Donc <span class="resultat">$D(-3\,;\,2)$</span>. Sur la figure, les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{DC}$ (en rouge) ont bien la même direction, le même sens et la même longueur.`,
-      repereVecteurs(FIG.para, { echelle: 1.15,
-        label: r`Repère orthonormé avec le parallélogramme ABCD : A (−4 ; −2), B (2 ; −3), C (3 ; 1) et D (−3 ; 2) ; les vecteurs AB et DC, en rouge, sont égaux.` })],
-    revoir: r`méthode et capacité 2 du cours (question 4), exercice 2 de la fiche (question 2), exercice 89 p.&nbsp;140 du manuel`,
-    variante: {
-      enonce: r`On donne les points $A(-3\,;\,5)$, $B(-7\,;\,3)$ et $C(-6\,;\,1)$. Le point $D$ tel que $ABCD$ soit un parallélogramme a pour coordonnées&nbsp;:`,
-      choix: [r`$(-2\,;\,3)$`, r`$(-10\,;\,-1)$`, r`$(-4\,;\,7)$`, r`$(2\,;\,-3)$`],
-      bonne: 0,
-      explication: [
-        r`$ABCD$ est un parallélogramme si et seulement si $\overrightarrow{AB} = \overrightarrow{DC}$, les sommets étant pris dans l'ordre $A$, $B$, $C$, $D$. On note $D(x\,;\,y)$&nbsp;: $\overrightarrow{DC}(-6 - x\,;\,1 - y)$ doit avoir les coordonnées de $\overrightarrow{AB}(-4\,;\,-2)$.`,
-        calcul(r`-6 - x = -4 & \iff -6 - x \op{+ 6} = -4 \op{+ 6}`, r`& \iff -x = 2`, r`& \iff x = -2`),
-        calcul(r`1 - y = -2 & \iff 1 - y \op{- 1} = -2 \op{- 1}`, r`& \iff -y = -3`, r`& \iff y = 3`),
-        r`Donc <span class="resultat">$D(-2\,;\,3)$</span>. Sur la figure, les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{DC}$ (en rouge) ont bien la même direction, le même sens et la même longueur.`,
-        repereVecteurs(FIG.paraV, { echelle: 1.15,
-          label: r`Repère orthonormé avec le parallélogramme ABCD : A (−3 ; 5), B (−7 ; 3), C (−6 ; 1) et D (−2 ; 3) ; les vecteurs AB et DC, en rouge, sont égaux.` })] } },
-
-  /* ----- Partie 3 du cours : norme, distance et milieu ----- */
-
-  { partie: 0, theme: 'Distance entre deux points', type: 'qcm',
-    enonce: r`Dans un repère orthonormé, on donne les points $A(-3\,;\,2)$ et $B(3\,;\,-1)$. La distance $AB$ est égale à&nbsp;:`,
-    choix: [r`$3\sqrt{5}$`, r`$3\sqrt{3}$`, r`$9$`, r`$5\sqrt{3}$`],
-    bonne: 0,
-    explication: [
-      r`Dans un repère orthonormé, $AB = \sqrt{(x_{B} - x_{A})^{2} + (y_{B} - y_{A})^{2}}$. Les coordonnées de $\overrightarrow{AB}$ sont $(3 - (-3)\,;\,-1 - 2)$, soit $(6\,;\,-3)$&nbsp;; on calcule sa norme, puis on simplifie la racine en extrayant le plus grand carré parfait, $9$.`,
-      calcul(r`AB & = \sqrt{6^{2} + (-3)^{2}}`, r`& = \sqrt{36 + 9}`, r`& = \sqrt{45}`, r`& = \sqrt{9 \times 5}`, r`& = \resultat{3\sqrt{5}}`)],
-    revoir: r`capacité 3 du cours (question 2), activité 2, exercice 3 de la fiche, exercices 37 et 39 p.&nbsp;136 du manuel`,
-    variante: {
-      enonce: r`Dans un repère orthonormé, on donne les points $A(3\,;\,-2)$ et $B(-1\,;\,4)$. La distance $AB$ est égale à&nbsp;:`,
-      choix: [r`$2\sqrt{13}$`, r`$2\sqrt{5}$`, r`$10$`, r`$13\sqrt{2}$`],
-      bonne: 0,
-      explication: [
-        r`Dans un repère orthonormé, $AB = \sqrt{(x_{B} - x_{A})^{2} + (y_{B} - y_{A})^{2}}$. Les coordonnées de $\overrightarrow{AB}$ sont $(-1 - 3\,;\,4 - (-2))$, soit $(-4\,;\,6)$&nbsp;; on calcule sa norme, puis on simplifie la racine en extrayant le plus grand carré parfait, $4$.`,
-        calcul(r`AB & = \sqrt{(-4)^{2} + 6^{2}}`, r`& = \sqrt{16 + 36}`, r`& = \sqrt{52}`, r`& = \sqrt{4 \times 13}`, r`& = \resultat{2\sqrt{13}}`)] } },
-
   { partie: 0, theme: 'Milieu d\'un segment', type: 'qcm',
     enonce: r`On donne les points $A(-5\,;\,3)$ et $C(1\,;\,-1)$. Le milieu $K$ du segment $[AC]$ a pour coordonnées&nbsp;:`,
     choix: [r`$(-2\,;\,1)$`, r`$(-4\,;\,2)$`, r`$(3\,;\,-2)$`, r`$(-2\,;\,2)$`],
     bonne: 0,
     explication: [
       r`Les coordonnées du milieu d'un segment sont les moyennes des coordonnées de ses extrémités&nbsp;: $x_{K} = \dfrac{x_{A} + x_{C}}{2}$ et $y_{K} = \dfrac{y_{A} + y_{C}}{2}$.`,
-      calcul(r`x_{K} & = \dfrac{-5 + 1}{2}`, r`& = \dfrac{-4}{2}`, r`& = -2`, r`y_{K} & = \dfrac{3 + (-1)}{2}`, r`& = \dfrac{2}{2}`, r`& = 1`),
+      calcul(r`x_{K} & = \dfrac{-5 + 1}{2}`, r`& = \dfrac{-4}{2}`, r`& = -2`, r`y_{K} & = \dfrac{3 + (-1)}{2}`, r`& = \dfrac{3 - 1}{2}`, r`& = \dfrac{2}{2}`, r`& = 1`),
       r`Donc <span class="resultat">$K(-2\,;\,1)$</span>.`],
     revoir: r`capacité 3 du cours (question 3), exercice 3 de la fiche (question 2), exercice 37 p.&nbsp;136 du manuel (question 2)`,
     variante: {
@@ -625,7 +569,7 @@ const QUIZ = {
         calcul(r`x_{K} & = \dfrac{-3 + 5}{2}`, r`& = \dfrac{2}{2}`, r`& = 1`, r`y_{K} & = \dfrac{-4 + 2}{2}`, r`& = \dfrac{-2}{2}`, r`& = -1`),
         r`Donc <span class="resultat">$K(1\,;\,-1)$</span>.`] } },
 
-  /* ----- Partie 4 du cours : déterminant et colinéarité ----- */
+  /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
 
   { partie: 0, theme: 'Colinéarité', type: 'qcm',
     enonce: r`Les vecteurs $\vec{u}(4\,;\,-6)$ et $\vec{v}(-6\,;\,9)$&nbsp;:`,
@@ -651,27 +595,45 @@ const QUIZ = {
         calcul(r`\mathrm{det}(\vec{u}\,;\,\vec{v}) & = (-3) \times (-10) - 6 \times 5`, r`& = 30 - 30`, r`& = 0`),
         r`Le déterminant est nul&nbsp;: <span class="resultat">$\vec{u}$ et $\vec{v}$ sont colinéaires</span>. En effet, $\vec{v} = -2\vec{u}$&nbsp;: $-2 \times (-3) = 6$ et $-2 \times 5 = -10$.`] } },
 
-  { partie: 0, theme: 'Alignement', type: 'vf',
-    enonce: r`Les points $A(-1\,;\,-2)$, $B(1\,;\,1)$ et $C(7\,;\,11)$ sont alignés.`,
-    bonne: false,
+  { partie: 0, theme: 'Produit par un réel, différence', type: 'qcm',
+    enonce: r`On donne les vecteurs $\vec{u}(4\,;\,-1)$ et $\vec{v}(1\,;\,-2)$. Le vecteur $2\vec{u} - 3\vec{v}$ a pour coordonnées&nbsp;:`,
+    choix: [r`$(5\,;\,4)$`, r`$(11\,;\,-8)$`, r`$(5\,;\,-8)$`, r`$(3\,;\,1)$`],
+    bonne: 0,
     explication: [
-      r`$A$, $B$ et $C$ sont alignés si et seulement si les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{AC}$ sont colinéaires, c'est-à-dire si leur déterminant est nul. Extrémité moins origine&nbsp;: $\overrightarrow{AB}(2\,;\,3)$ et $\overrightarrow{AC}(8\,;\,13)$.`,
-      calcul(r`\mathrm{det}(\overrightarrow{AB}\,;\,\overrightarrow{AC}) & = 2 \times 13 - 8 \times 3`, r`& = 26 - 24`, r`& = 2`),
-      r`$2 \ne 0$&nbsp;: les points $A$, $B$ et $C$ ne sont pas alignés, l'affirmation est <span class="resultat">fausse</span>. Le point $C$ est tout près de la droite $(AB)$, mais pas dessus&nbsp;: le point de cette droite d'abscisse $7$ est $C'(7\,;\,10)$, car $\overrightarrow{AC'}(8\,;\,12)$ et $\overrightarrow{AC'} = 4\overrightarrow{AB}$.`],
-    revoir: r`capacité 4 du cours (question 3), exercice 4 de la fiche, exercice 115 p.&nbsp;141 du manuel, question 11 du «&nbsp;Faire le point&nbsp;» p.&nbsp;143`,
+      r`On multiplie chaque coordonnée de $\vec{u}$ par $2$ et chaque coordonnée de $\vec{v}$ par $3$, puis on soustrait les abscisses entre elles et les ordonnées entre elles.`,
+      calcul(r`2 \times 4 - 3 \times 1 & = 8 - 3`, r`& = 5`, r`2 \times (-1) - 3 \times (-2) & = -2 - (-6)`, r`& = -2 + 6`, r`& = 4`),
+      r`Donc <span class="resultat">$2\vec{u} - 3\vec{v}\,(5\,;\,4)$</span>.`],
+    revoir: r`capacité 2 du cours (question 2), activité 1 (questions 1 et 2), exercice 2 de la fiche (question 1), exercices 32 et 33 p.&nbsp;136 du manuel`,
     variante: {
-      enonce: r`Les points $E(-3\,;\,4)$, $F(1\,;\,2)$ et $G(9\,;\,-2)$ sont alignés.`,
-      bonne: true,
+      enonce: r`On donne les vecteurs $\vec{u}(-1\,;\,2)$ et $\vec{v}(2\,;\,-3)$. Le vecteur $3\vec{u} - 2\vec{v}$ a pour coordonnées&nbsp;:`,
+      choix: [r`$(-7\,;\,12)$`, r`$(1\,;\,0)$`, r`$(-7\,;\,0)$`, r`$(-3\,;\,5)$`],
+      bonne: 0,
       explication: [
-        r`$E$, $F$ et $G$ sont alignés si et seulement si les vecteurs $\overrightarrow{EF}$ et $\overrightarrow{EG}$ sont colinéaires, c'est-à-dire si leur déterminant est nul. Extrémité moins origine&nbsp;: $\overrightarrow{EF}(4\,;\,-2)$ et $\overrightarrow{EG}(12\,;\,-6)$.`,
-        calcul(r`\mathrm{det}(\overrightarrow{EF}\,;\,\overrightarrow{EG}) & = 4 \times (-6) - 12 \times (-2)`, r`& = -24 + 24`, r`& = 0`),
-        r`Le déterminant est nul&nbsp;: $\overrightarrow{EF}$ et $\overrightarrow{EG}$ sont colinéaires, donc les points $E$, $F$ et $G$ sont alignés. L'affirmation est <span class="resultat">vraie</span>. En effet, $\overrightarrow{EG} = 3\overrightarrow{EF}$.`] } },
+        r`On multiplie chaque coordonnée de $\vec{u}$ par $3$ et chaque coordonnée de $\vec{v}$ par $2$, puis on soustrait les abscisses entre elles et les ordonnées entre elles.`,
+        calcul(r`3 \times (-1) - 2 \times 2 & = -3 - 4`, r`& = -7`, r`3 \times 2 - 2 \times (-3) & = 6 - (-6)`, r`& = 6 + 6`, r`& = 12`),
+        r`Donc <span class="resultat">$3\vec{u} - 2\vec{v}\,(-7\,;\,12)$</span>.`] } },
+
+  { partie: 0, theme: 'Distance entre deux points', type: 'qcm',
+    enonce: r`Dans un repère orthonormé, on donne les points $A(-3\,;\,2)$ et $B(3\,;\,-1)$. La distance $AB$ est égale à&nbsp;:`,
+    choix: [r`$3\sqrt{5}$`, r`$3\sqrt{3}$`, r`$9$`, r`$5\sqrt{3}$`],
+    bonne: 0,
+    explication: [
+      r`Dans un repère orthonormé, $AB = \sqrt{(x_{B} - x_{A})^{2} + (y_{B} - y_{A})^{2}}$. Les coordonnées de $\overrightarrow{AB}$ sont $(3 - (-3)\,;\,-1 - 2)$, soit $(6\,;\,-3)$&nbsp;; on calcule sa norme, puis on simplifie la racine en extrayant le plus grand carré parfait, $9$.`,
+      calcul(r`AB & = \sqrt{6^{2} + (-3)^{2}}`, r`& = \sqrt{36 + 9}`, r`& = \sqrt{45}`, r`& = \sqrt{9 \times 5}`, r`& = \sqrt{9} \times \sqrt{5}`, r`& = \resultat{3\sqrt{5}}`)],
+    revoir: r`capacité 3 du cours (question 2), activité 2, exercice 3 de la fiche, exercices 37 et 39 p.&nbsp;136 du manuel`,
+    variante: {
+      enonce: r`Dans un repère orthonormé, on donne les points $A(3\,;\,-2)$ et $B(-1\,;\,4)$. La distance $AB$ est égale à&nbsp;:`,
+      choix: [r`$2\sqrt{13}$`, r`$2\sqrt{5}$`, r`$10$`, r`$13\sqrt{2}$`],
+      bonne: 0,
+      explication: [
+        r`Dans un repère orthonormé, $AB = \sqrt{(x_{B} - x_{A})^{2} + (y_{B} - y_{A})^{2}}$. Les coordonnées de $\overrightarrow{AB}$ sont $(-1 - 3\,;\,4 - (-2))$, soit $(-4\,;\,6)$&nbsp;; on calcule sa norme, puis on simplifie la racine en extrayant le plus grand carré parfait, $4$.`,
+        calcul(r`AB & = \sqrt{(-4)^{2} + 6^{2}}`, r`& = \sqrt{16 + 36}`, r`& = \sqrt{52}`, r`& = \sqrt{4 \times 13}`, r`& = \sqrt{4} \times \sqrt{13}`, r`& = \resultat{2\sqrt{13}}`)] } },
 
   { partie: 0, theme: 'Parallélisme', type: 'vf',
     enonce: r`On donne les points $A(-3\,;\,1)$, $B(1\,;\,4)$, $C(2\,;\,-2)$ et $D(10\,;\,4)$. Les droites $(AB)$ et $(CD)$ sont parallèles.`,
     bonne: true,
     explication: [
-      r`Les droites $(AB)$ et $(CD)$ sont parallèles si et seulement si les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{CD}$ sont colinéaires. Extrémité moins origine&nbsp;: $\overrightarrow{AB}(4\,;\,3)$ et $\overrightarrow{CD}(8\,;\,6)$.`,
+      r`Les droites $(AB)$ et $(CD)$ sont parallèles si et seulement si les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{CD}$ sont colinéaires. Extrémité moins origine&nbsp;: $\overrightarrow{AB}(1 - (-3)\,;\,4 - 1)$, soit $\overrightarrow{AB}(4\,;\,3)$, et $\overrightarrow{CD}(10 - 2\,;\,4 - (-2))$, soit $\overrightarrow{CD}(8\,;\,6)$.`,
       calcul(r`\mathrm{det}(\overrightarrow{AB}\,;\,\overrightarrow{CD}) & = 4 \times 6 - 8 \times 3`, r`& = 24 - 24`, r`& = 0`),
       r`Le déterminant est nul&nbsp;: $\overrightarrow{AB}$ et $\overrightarrow{CD}$ sont colinéaires, donc les droites $(AB)$ et $(CD)$ sont parallèles. L'affirmation est <span class="resultat">vraie</span>. En effet, $\overrightarrow{CD} = 2\overrightarrow{AB}$.`],
     revoir: r`capacité 4 du cours (question 4), exercice 5 de la fiche, exercice 117 p.&nbsp;141 du manuel, question 12 du «&nbsp;Faire le point&nbsp;» p.&nbsp;143`,
@@ -679,19 +641,59 @@ const QUIZ = {
       enonce: r`On donne les points $E(-2\,;\,3)$, $F(4\,;\,-1)$, $G(0\,;\,5)$ et $H(9\,;\,0)$. Les droites $(EF)$ et $(GH)$ sont parallèles.`,
       bonne: false,
       explication: [
-        r`Les droites $(EF)$ et $(GH)$ sont parallèles si et seulement si les vecteurs $\overrightarrow{EF}$ et $\overrightarrow{GH}$ sont colinéaires. Extrémité moins origine&nbsp;: $\overrightarrow{EF}(6\,;\,-4)$ et $\overrightarrow{GH}(9\,;\,-5)$.`,
-        calcul(r`\mathrm{det}(\overrightarrow{EF}\,;\,\overrightarrow{GH}) & = 6 \times (-5) - 9 \times (-4)`, r`& = -30 + 36`, r`& = 6`),
+        r`Les droites $(EF)$ et $(GH)$ sont parallèles si et seulement si les vecteurs $\overrightarrow{EF}$ et $\overrightarrow{GH}$ sont colinéaires. Extrémité moins origine&nbsp;: $\overrightarrow{EF}(4 - (-2)\,;\,-1 - 3)$, soit $\overrightarrow{EF}(6\,;\,-4)$, et $\overrightarrow{GH}(9 - 0\,;\,0 - 5)$, soit $\overrightarrow{GH}(9\,;\,-5)$.`,
+        calcul(r`\mathrm{det}(\overrightarrow{EF}\,;\,\overrightarrow{GH}) & = 6 \times (-5) - 9 \times (-4)`, r`& = -30 - (-36)`, r`& = -30 + 36`, r`& = 6`),
         r`$6 \ne 0$&nbsp;: les vecteurs $\overrightarrow{EF}$ et $\overrightarrow{GH}$ ne sont pas colinéaires, donc les droites $(EF)$ et $(GH)$ ne sont pas parallèles. L'affirmation est <span class="resultat">fausse</span>.`] } },
 
-  /* ----- Partie 5 du cours : nature d'un triangle ou d'un quadrilatère ----- */
+  { partie: 0, theme: 'Alignement', type: 'vf',
+    enonce: r`Les points $A(-1\,;\,-2)$, $B(1\,;\,1)$ et $C(7\,;\,11)$ sont alignés.`,
+    bonne: false,
+    explication: [
+      r`$A$, $B$ et $C$ sont alignés si et seulement si les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{AC}$ sont colinéaires, c'est-à-dire si leur déterminant est nul. Extrémité moins origine&nbsp;: $\overrightarrow{AB}(1 - (-1)\,;\,1 - (-2))$, soit $\overrightarrow{AB}(2\,;\,3)$, et $\overrightarrow{AC}(7 - (-1)\,;\,11 - (-2))$, soit $\overrightarrow{AC}(8\,;\,13)$.`,
+      calcul(r`\mathrm{det}(\overrightarrow{AB}\,;\,\overrightarrow{AC}) & = 2 \times 13 - 8 \times 3`, r`& = 26 - 24`, r`& = 2`),
+      r`$2 \ne 0$&nbsp;: les points $A$, $B$ et $C$ ne sont pas alignés, l'affirmation est <span class="resultat">fausse</span>. Le point $C$ est tout près de la droite $(AB)$, mais pas dessus&nbsp;: le point de cette droite d'abscisse $7$ est $C'(7\,;\,10)$, car $\overrightarrow{AC'}(8\,;\,12)$ et $\overrightarrow{AC'} = 4\overrightarrow{AB}$.`],
+    revoir: r`capacité 4 du cours (question 3), exercice 4 de la fiche, exercice 115 p.&nbsp;141 du manuel, question 11 du «&nbsp;Faire le point&nbsp;» p.&nbsp;143`,
+    variante: {
+      enonce: r`Les points $E(-3\,;\,4)$, $F(1\,;\,2)$ et $G(9\,;\,-2)$ sont alignés.`,
+      bonne: true,
+      explication: [
+        r`$E$, $F$ et $G$ sont alignés si et seulement si les vecteurs $\overrightarrow{EF}$ et $\overrightarrow{EG}$ sont colinéaires, c'est-à-dire si leur déterminant est nul. Extrémité moins origine&nbsp;: $\overrightarrow{EF}(1 - (-3)\,;\,2 - 4)$, soit $\overrightarrow{EF}(4\,;\,-2)$, et $\overrightarrow{EG}(9 - (-3)\,;\,-2 - 4)$, soit $\overrightarrow{EG}(12\,;\,-6)$.`,
+        calcul(r`\mathrm{det}(\overrightarrow{EF}\,;\,\overrightarrow{EG}) & = 4 \times (-6) - 12 \times (-2)`, r`& = -24 - (-24)`, r`& = -24 + 24`, r`& = 0`),
+        r`Le déterminant est nul&nbsp;: $\overrightarrow{EF}$ et $\overrightarrow{EG}$ sont colinéaires, donc les points $E$, $F$ et $G$ sont alignés. L'affirmation est <span class="resultat">vraie</span>. En effet, $\overrightarrow{EG} = 3\overrightarrow{EF}$.`] } },
+
+  /* ----- Niveau 3 : plusieurs étapes enchaînées, nature d'une figure ----- */
+
+  { partie: 0, theme: 'Quatrième sommet d\'un parallélogramme', type: 'qcm',
+    enonce: r`On donne les points $A(-4\,;\,-2)$, $B(2\,;\,-3)$ et $C(3\,;\,1)$. Le point $D$ tel que $ABCD$ soit un parallélogramme a pour coordonnées&nbsp;:`,
+    choix: [r`$(-3\,;\,2)$`, r`$(9\,;\,0)$`, r`$(-5\,;\,-6)$`, r`$(3\,;\,-2)$`],
+    bonne: 0,
+    explication: [
+      r`$ABCD$ est un parallélogramme si et seulement si $\overrightarrow{AB} = \overrightarrow{DC}$, les sommets étant pris dans l'ordre $A$, $B$, $C$, $D$. On note $D(x\,;\,y)$&nbsp;: $\overrightarrow{DC}(3 - x\,;\,1 - y)$ doit avoir les coordonnées de $\overrightarrow{AB}(2 - (-4)\,;\,-3 - (-2))$, soit $(6\,;\,-1)$.`,
+      calcul(r`3 - x = 6 & \iff 3 - x \op{- 3} = 6 \op{- 3}`, r`& \iff -x = 3`, r`& \iff x = -3`),
+      calcul(r`1 - y = -1 & \iff 1 - y \op{- 1} = -1 \op{- 1}`, r`& \iff -y = -2`, r`& \iff y = 2`),
+      r`Donc <span class="resultat">$D(-3\,;\,2)$</span>. Sur la figure, les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{DC}$ (en rouge) ont bien la même direction, le même sens et la même longueur.`,
+      repereVecteurs(FIG.para, { echelle: 1.15,
+        label: r`Repère orthonormé avec le parallélogramme ABCD : A (−4 ; −2), B (2 ; −3), C (3 ; 1) et D (−3 ; 2) ; les vecteurs AB et DC, en rouge, sont égaux.` })],
+    revoir: r`méthode et capacité 2 du cours (question 4), exercice 2 de la fiche (question 2), exercice 89 p.&nbsp;140 du manuel`,
+    variante: {
+      enonce: r`On donne les points $A(-3\,;\,5)$, $B(-7\,;\,3)$ et $C(-6\,;\,1)$. Le point $D$ tel que $ABCD$ soit un parallélogramme a pour coordonnées&nbsp;:`,
+      choix: [r`$(-2\,;\,3)$`, r`$(-10\,;\,-1)$`, r`$(-4\,;\,7)$`, r`$(2\,;\,-3)$`],
+      bonne: 0,
+      explication: [
+        r`$ABCD$ est un parallélogramme si et seulement si $\overrightarrow{AB} = \overrightarrow{DC}$, les sommets étant pris dans l'ordre $A$, $B$, $C$, $D$. On note $D(x\,;\,y)$&nbsp;: $\overrightarrow{DC}(-6 - x\,;\,1 - y)$ doit avoir les coordonnées de $\overrightarrow{AB}(-7 - (-3)\,;\,3 - 5)$, soit $(-4\,;\,-2)$.`,
+        calcul(r`-6 - x = -4 & \iff -6 - x \op{+ 6} = -4 \op{+ 6}`, r`& \iff -x = 2`, r`& \iff x = -2`),
+        calcul(r`1 - y = -2 & \iff 1 - y \op{- 1} = -2 \op{- 1}`, r`& \iff -y = -3`, r`& \iff y = 3`),
+        r`Donc <span class="resultat">$D(-2\,;\,3)$</span>. Sur la figure, les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{DC}$ (en rouge) ont bien la même direction, le même sens et la même longueur.`,
+        repereVecteurs(FIG.paraV, { echelle: 1.15,
+          label: r`Repère orthonormé avec le parallélogramme ABCD : A (−3 ; 5), B (−7 ; 3), C (−6 ; 1) et D (−2 ; 3) ; les vecteurs AB et DC, en rouge, sont égaux.` })] } },
 
   { partie: 0, theme: 'Nature d\'un triangle', type: 'qcm',
     enonce: r`On donne les points $A(-6\,;\,1)$, $B(-2\,;\,3)$ et $C(-3\,;\,5)$. Le triangle $ABC$ est&nbsp;:`,
     choix: [r`rectangle en $B$, mais pas isocèle`, r`rectangle et isocèle en $B$`, r`isocèle en $B$, mais pas rectangle`, r`ni rectangle, ni isocèle`],
     bonne: 0,
     explication: [
-      r`On calcule les carrés des longueurs des trois côtés, à partir des coordonnées des vecteurs (extrémité moins origine)&nbsp;: $\overrightarrow{AB}(4\,;\,2)$, $\overrightarrow{BC}(-1\,;\,2)$ et $\overrightarrow{AC}(3\,;\,4)$.`,
-      calcul(r`AB^{2} & = 4^{2} + 2^{2} = 16 + 4 = 20`, r`BC^{2} & = (-1)^{2} + 2^{2} = 1 + 4 = 5`, r`AC^{2} & = 3^{2} + 4^{2} = 9 + 16 = 25`),
+      r`On calcule les carrés des longueurs des trois côtés, à partir des coordonnées des vecteurs (extrémité moins origine)&nbsp;: $\overrightarrow{AB}(-2 - (-6)\,;\,3 - 1)$, soit $(4\,;\,2)$&nbsp;; $\overrightarrow{BC}(-3 - (-2)\,;\,5 - 3)$, soit $(-1\,;\,2)$&nbsp;; $\overrightarrow{AC}(-3 - (-6)\,;\,5 - 1)$, soit $(3\,;\,4)$.`,
+      calcul(r`AB^{2} & = 4^{2} + 2^{2}`, r`& = 16 + 4`, r`& = 20`, r`BC^{2} & = (-1)^{2} + 2^{2}`, r`& = 1 + 4`, r`& = 5`, r`AC^{2} & = 3^{2} + 4^{2}`, r`& = 9 + 16`, r`& = 25`),
       r`Le plus grand côté est $[AC]$&nbsp;: on compare le carré de sa longueur à la somme des carrés des longueurs des deux autres côtés.`,
       calcul(r`AB^{2} + BC^{2} & = 20 + 5`, r`& = 25`, r`& = AC^{2}`),
       r`D'après la réciproque du théorème de Pythagore, le triangle est rectangle en $B$&nbsp;; ses trois côtés ont des longueurs différentes. Donc <span class="resultat">$ABC$ est rectangle en $B$, mais pas isocèle</span>.`,
@@ -703,8 +705,8 @@ const QUIZ = {
       choix: [r`rectangle et isocèle en $F$`, r`rectangle en $F$, mais pas isocèle`, r`isocèle en $F$, mais pas rectangle`, r`ni rectangle, ni isocèle`],
       bonne: 0,
       explication: [
-        r`On calcule les carrés des longueurs des trois côtés, à partir des coordonnées des vecteurs (extrémité moins origine)&nbsp;: $\overrightarrow{EF}(4\,;\,-1)$, $\overrightarrow{FG}(1\,;\,4)$ et $\overrightarrow{EG}(5\,;\,3)$.`,
-        calcul(r`EF^{2} & = 4^{2} + (-1)^{2} = 16 + 1 = 17`, r`FG^{2} & = 1^{2} + 4^{2} = 1 + 16 = 17`, r`EG^{2} & = 5^{2} + 3^{2} = 25 + 9 = 34`),
+        r`On calcule les carrés des longueurs des trois côtés, à partir des coordonnées des vecteurs (extrémité moins origine)&nbsp;: $\overrightarrow{EF}(-3 - (-7)\,;\,-5 - (-4))$, soit $(4\,;\,-1)$&nbsp;; $\overrightarrow{FG}(-2 - (-3)\,;\,-1 - (-5))$, soit $(1\,;\,4)$&nbsp;; $\overrightarrow{EG}(-2 - (-7)\,;\,-1 - (-4))$, soit $(5\,;\,3)$.`,
+        calcul(r`EF^{2} & = 4^{2} + (-1)^{2}`, r`& = 16 + 1`, r`& = 17`, r`FG^{2} & = 1^{2} + 4^{2}`, r`& = 1 + 16`, r`& = 17`, r`EG^{2} & = 5^{2} + 3^{2}`, r`& = 25 + 9`, r`& = 34`),
         r`Le plus grand côté est $[EG]$&nbsp;: on compare le carré de sa longueur à la somme des carrés des longueurs des deux autres côtés.`,
         calcul(r`EF^{2} + FG^{2} & = 17 + 17`, r`& = 34`, r`& = EG^{2}`),
         r`D'après la réciproque du théorème de Pythagore, le triangle est rectangle en $F$&nbsp;; de plus, $EF = FG$. Donc <span class="resultat">$EFG$ est rectangle et isocèle en $F$</span>.`,
@@ -716,10 +718,12 @@ const QUIZ = {
     choix: [r`un rectangle qui n'est pas un carré`, r`un losange qui n'est pas un carré`, r`un carré`, r`un parallélogramme qui n'est ni un rectangle, ni un losange`],
     bonne: 0,
     explication: [
-      r`$EFGH$ est un parallélogramme&nbsp;: $\overrightarrow{EF}(4\,;\,-2)$ et $\overrightarrow{HG}(4\,;\,-2)$ (extrémité moins origine), donc $\overrightarrow{EF} = \overrightarrow{HG}$.`,
-      r`On compare deux côtés consécutifs (losange&nbsp;?), puis les diagonales (rectangle&nbsp;?), avec $\overrightarrow{FG}(1\,;\,2)$, $\overrightarrow{EG}(5\,;\,0)$ et $\overrightarrow{FH}(-3\,;\,4)$.`,
-      calcul(r`EF^{2} & = 4^{2} + (-2)^{2} = 16 + 4 = 20`, r`FG^{2} & = 1^{2} + 2^{2} = 1 + 4 = 5`, r`EG^{2} & = 5^{2} + 0^{2} = 25`, r`FH^{2} & = (-3)^{2} + 4^{2} = 9 + 16 = 25`),
-      r`$EF \ne FG$&nbsp;: ce n'est pas un losange. $EG = FH$&nbsp;: les diagonales ont la même longueur, c'est un rectangle. Donc <span class="resultat">$EFGH$ est un rectangle qui n'est pas un carré</span>.`,
+      r`$EFGH$ est un parallélogramme&nbsp;: $\overrightarrow{EF}(-3 - (-7)\,;\,1 - 3)$, soit $(4\,;\,-2)$, et $\overrightarrow{HG}(-2 - (-6)\,;\,3 - 5)$, soit $(4\,;\,-2)$ (extrémité moins origine), donc $\overrightarrow{EF} = \overrightarrow{HG}$.`,
+      r`On compare deux côtés consécutifs (losange&nbsp;?), avec $\overrightarrow{FG}(-2 - (-3)\,;\,3 - 1)$, soit $(1\,;\,2)$.`,
+      calcul(r`EF^{2} & = 4^{2} + (-2)^{2}`, r`& = 16 + 4`, r`& = 20`, r`FG^{2} & = 1^{2} + 2^{2}`, r`& = 1 + 4`, r`& = 5`),
+      r`$EF \ne FG$&nbsp;: ce n'est pas un losange. On compare ensuite les diagonales (rectangle&nbsp;?), avec $\overrightarrow{EG}(-2 - (-7)\,;\,3 - 3)$, soit $(5\,;\,0)$, et $\overrightarrow{FH}(-6 - (-3)\,;\,5 - 1)$, soit $(-3\,;\,4)$.`,
+      calcul(r`EG^{2} & = 5^{2} + 0^{2}`, r`& = 25 + 0`, r`& = 25`, r`FH^{2} & = (-3)^{2} + 4^{2}`, r`& = 9 + 16`, r`& = 25`),
+      r`$EG = FH$&nbsp;: les diagonales ont la même longueur, c'est un rectangle. Donc <span class="resultat">$EFGH$ est un rectangle qui n'est pas un carré</span>.`,
       repereVecteurs(FIG.quadri, { echelle: 1.15,
         label: r`Repère orthonormé avec le rectangle EFGH : E (−7 ; 3), F (−3 ; 1), G (−2 ; 3) et H (−6 ; 5), et ses diagonales de même longueur, en tirets.` })],
     revoir: r`méthode et capacité 5 du cours (question 2), exercice 6 de la fiche (question 2), exercice 106 p.&nbsp;141 du manuel`,
@@ -728,10 +732,12 @@ const QUIZ = {
       choix: [r`un losange qui n'est pas un carré`, r`un rectangle qui n'est pas un carré`, r`un carré`, r`un parallélogramme qui n'est ni un rectangle, ni un losange`],
       bonne: 0,
       explication: [
-        r`$EFGH$ est un parallélogramme&nbsp;: $\overrightarrow{EF}(4\,;\,1)$ et $\overrightarrow{HG}(4\,;\,1)$ (extrémité moins origine), donc $\overrightarrow{EF} = \overrightarrow{HG}$.`,
-        r`On compare deux côtés consécutifs (losange&nbsp;?), puis les diagonales (rectangle&nbsp;?), avec $\overrightarrow{FG}(1\,;\,4)$, $\overrightarrow{EG}(5\,;\,5)$ et $\overrightarrow{FH}(-3\,;\,3)$.`,
-        calcul(r`EF^{2} & = 4^{2} + 1^{2} = 16 + 1 = 17`, r`FG^{2} & = 1^{2} + 4^{2} = 1 + 16 = 17`, r`EG^{2} & = 5^{2} + 5^{2} = 25 + 25 = 50`, r`FH^{2} & = (-3)^{2} + 3^{2} = 9 + 9 = 18`),
-        r`$EF = FG$&nbsp;: deux côtés consécutifs ont la même longueur, c'est un losange. $EG \ne FH$&nbsp;: les diagonales n'ont pas la même longueur, ce n'est pas un rectangle. Donc <span class="resultat">$EFGH$ est un losange qui n'est pas un carré</span>.`,
+        r`$EFGH$ est un parallélogramme&nbsp;: $\overrightarrow{EF}(5 - 1\,;\,-5 - (-6))$, soit $(4\,;\,1)$, et $\overrightarrow{HG}(6 - 2\,;\,-1 - (-2))$, soit $(4\,;\,1)$ (extrémité moins origine), donc $\overrightarrow{EF} = \overrightarrow{HG}$.`,
+        r`On compare deux côtés consécutifs (losange&nbsp;?), avec $\overrightarrow{FG}(6 - 5\,;\,-1 - (-5))$, soit $(1\,;\,4)$.`,
+        calcul(r`EF^{2} & = 4^{2} + 1^{2}`, r`& = 16 + 1`, r`& = 17`, r`FG^{2} & = 1^{2} + 4^{2}`, r`& = 1 + 16`, r`& = 17`),
+        r`$EF = FG$&nbsp;: deux côtés consécutifs ont la même longueur, c'est un losange. On compare ensuite les diagonales (rectangle&nbsp;?), avec $\overrightarrow{EG}(6 - 1\,;\,-1 - (-6))$, soit $(5\,;\,5)$, et $\overrightarrow{FH}(2 - 5\,;\,-2 - (-5))$, soit $(-3\,;\,3)$.`,
+        calcul(r`EG^{2} & = 5^{2} + 5^{2}`, r`& = 25 + 25`, r`& = 50`, r`FH^{2} & = (-3)^{2} + 3^{2}`, r`& = 9 + 9`, r`& = 18`),
+        r`$EG \ne FH$&nbsp;: les diagonales n'ont pas la même longueur, ce n'est pas un rectangle. Donc <span class="resultat">$EFGH$ est un losange qui n'est pas un carré</span>.`,
         repereVecteurs(FIG.quadriV, { echelle: 1.15,
           label: r`Repère orthonormé avec le losange EFGH : E (1 ; −6), F (5 ; −5), G (6 ; −1) et H (2 ; −2), et ses diagonales, en tirets.` })] } }
   ]

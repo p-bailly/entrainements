@@ -6,18 +6,19 @@
 <title>Entraînement Évaluation fonctions de référence</title>
 <!--
   Entraînement auto-corrigé à l'évaluation du chapitre 11 (Fonctions de référence) - Seconde.
-  Une seule partie, douze questions, sans automatismes (demande du professeur), dans l'ordre
-  du cours : reconnaître la courbe d'une fonction de référence ; fonction carré (nombre de
-  solutions de x^2 = k selon le signe de k, inéquation x^2 >= k lue sur la parabole et
-  surlignée, inéquation résolue par le calcul après avoir isolé x^2) ; fonction inverse
-  (1/x = k avec k négatif, inéquation 1/x < k lue sur l'hyperbole : toute la branche de
-  gauche est solution) ; racine carrée (équation et inéquation, nombres négatifs exclus de
-  l'ensemble de définition) ; cube (équation et inéquation, un cube peut être négatif) ;
-  valeur absolue (|x| = k et |x| <= k, sur la courbe en V) ; comparer des images (parabole
-  sur les négatifs, hyperbole, cube, nombres de signes contraires) ; position relative des
-  courbes d'équations y = x et y = x^2 sur [0 ; +infini[ (affirmation de l'activité 3), puis
-  de la parabole y = x^2 et d'une droite y = ax (capacité 5, question 7, exercice 4 de
-  l'évaluation).
+  Une seule partie, douze questions, sans automatismes (demande du professeur), rangées par
+  difficulté croissante, en trois niveaux : questions de cours et applications directes
+  (reconnaître la courbe d'une fonction de référence, nombre de solutions de x^2 = k selon le
+  signe de k, 1/x = k avec k négatif, |x| = k et |x| <= k sur la courbe en V) ; méthodes en
+  deux ou trois étapes (racine carrée : équation et inéquation, nombres négatifs exclus de
+  l'ensemble de définition ; cube : équation et inéquation, un cube peut être négatif ;
+  inéquation x^2 >= k lue sur la parabole et surlignée ; position relative des courbes
+  d'équations y = x et y = x^2 sur [0 ; +infini[, affirmation de l'activité 3) ; pièges,
+  calculs en plusieurs étapes et synthèse (inéquation 1/x < k lue sur l'hyperbole : toute la
+  branche de gauche est solution ; inéquation résolue par le calcul après avoir isolé x^2 ;
+  comparer des images : parabole sur les négatifs, hyperbole, cube, nombres de signes
+  contraires ; position relative de la parabole y = x^2 et d'une droite y = ax, capacité 5,
+  question 7, exercice 4 de l'évaluation).
   Sources : propriétés, méthodes, démonstration et capacités 1 à 5 du cours, activités 1 à 3,
   fiche d'exercices (exercices 1 à 6), évaluation (sujets A et B, exercices 2 à 4, sans le
   QCM d'automatismes) et exercices du manuel cités dans le plan (10, 11 et 16 p. 228 ; 20 et
@@ -27,12 +28,13 @@
   Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs,
   sans calculatrice : carrés, cubes et inverses connus, racines carrées gardées telles
   quelles ; la notation de la racine cubique du cours est rappelée dans la question sur le
-  cube. Distracteurs : erreurs types (solution négative oubliée, -5^2 confondu avec (-5)^2,
-  racine carrée oubliée, intérieur et extérieur confondus, crochets, branche de gauche de
-  l'hyperbole oubliée, valeur interdite 0 incluse, inverse et opposé confondus, nombres
-  négatifs gardés sous la racine, cube traité comme un carré, |x| confondu avec x, ordre des
-  nombres gardé là où la courbe descend, droite y = ax confondue avec y = x, ordonnée d'un
-  point commun).
+  cube. Calculs détaillés, une transformation par ligne (inverse d'un nombre négatif : le
+  signe, puis la valeur). Distracteurs : erreurs types (solution négative oubliée, -5^2
+  confondu avec (-5)^2, racine carrée oubliée, intérieur et extérieur confondus, crochets,
+  branche de gauche de l'hyperbole oubliée, valeur interdite 0 incluse, inverse et opposé
+  confondus, nombres négatifs gardés sous la racine, cube traité comme un carré, |x| confondu
+  avec x, ordre des nombres gardé là où la courbe descend, droite y = ax confondue avec y = x,
+  ordonnée d'un point commun).
   Figures : repere du gabarit, courbes exactes des fonctions de référence ; les lectures
   tombent sur le quadrillage ou à mi-carreau. repereSol (repris du chapitre 6) surligne
   plusieurs intervalles solutions.
@@ -372,7 +374,7 @@ const QUIZ = {
   parties: ['Fonctions de référence'],
   questions: [
 
-  /* ----- Courbes des fonctions de référence (parties 1 à 4 du cours) ----- */
+  /* ----- Niveau 1 : questions de cours et applications directes ----- */
 
   { partie: 0, theme: 'Reconnaître une courbe', type: 'qcm',
     enonce: r`Dans le repère ci-dessous, la courbe $\mathscr{C}$ représente l'une des fonctions de référence du chapitre. C'est la courbe de&nbsp;:`
@@ -400,8 +402,6 @@ const QUIZ = {
             label: 'La même courbe, avec les points (0 ; 0), (1 ; 1) et (4 ; 2) marqués en noir' })),
         r`Ces points vérifient $y = \sqrt{x}$&nbsp;: $\sqrt{0} = 0$, $\sqrt{1} = 1$ et $\sqrt{4} = 2$. La parabole de la fonction carré passerait par $(2\,;\,4)$, et non par $(4\,;\,2)$&nbsp;; les courbes des fonctions cube et inverse existent aussi pour $x < 0$. C'est la courbe de <span class="resultat">la fonction racine carrée</span>.`] } },
 
-  /* ----- La fonction carré (partie 1 du cours) ----- */
-
   { partie: 0, theme: 'Équation x² = k', type: 'qcm',
     enonce: r`Dans $\R$, les équations $x^{2} = 25$, $x^{2} = 0$ et $x^{2} = -25$ ont respectivement&nbsp;:`,
     choix: [r`$2$, $1$ et $0$ solutions`, r`$1$, $1$ et $0$ solutions`, r`$2$, $1$ et $1$ solutions`, r`$2$, $1$ et $2$ solutions`],
@@ -420,63 +420,13 @@ const QUIZ = {
         calcul(r`x^{2} = 81 & \iff x = -\sqrt{81} \text{ ou } x = \sqrt{81}`, r`& \iff x = -9 \text{ ou } x = 9`),
         r`L'équation $x^{2} = -36$ n'a aucune solution, et $x^{2} = 0$ a pour seule solution $0$. Les trois équations ont respectivement <span class="resultat">$0$, $2$ et $1$ solutions</span>. Attention&nbsp;: $-6$ n'est pas solution de $x^{2} = -36$, car $(-6)^{2} = 36$.`] } },
 
-  { partie: 0, theme: 'Inéquation, lecture sur la parabole', type: 'qcm',
-    enonce: r`Dans le repère ci-dessous, on a tracé la parabole $\mathscr{C}_{f}$, courbe de la fonction carré, définie sur $\R$. L'ensemble des solutions de l'inéquation $x^{2} \ge 9$ est&nbsp;:`
-      + repere(FIGP),
-    choix: [r`$\left]-\infty\,;\,-3\right] ∪ \left[3\,;\,+\infty\right[$`, r`$\left[-3\,;\,3\right]$`,
-            r`$\left[3\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,-3\right[ ∪ \left]3\,;\,+\infty\right[$`],
-    bonne: 0,
-    explication: [
-      r`On résout d'abord l'équation $x^{2} = 9$&nbsp;: la droite horizontale d'ordonnée $9$ coupe la parabole en deux points, d'abscisses $-3$ et $3$ (tirets verts). Puis on lit où la parabole est au-dessus de cette droite, ou sur elle.`,
-      repereSol(Object.assign({}, FIGP, { echelle: 1.15,
-          lectures: [[[0, 9], [-3, 9], [-3, 0]], [[0, 9], [3, 9], [3, 0]]],
-          surlignes: [{ x1: null, x2: -3 }, { x1: 3, x2: null }],
-          label: 'La même parabole, avec les lignes de lecture de l\'ordonnée 9 vers les abscisses −3 et 3, et les solutions surlignées en orange sur l\'axe des abscisses : à gauche de −3 et à droite de 3' })),
-      r`La parabole est au-dessus de la droite à gauche de $-3$ et à droite de $3$ (en orange), et elle continue de monter au-delà du graphique. L'inégalité est large&nbsp;: $-3$ et $3$ sont solutions, car $(-3)^{2} = 3^{2} = 9$. L'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-3\right] ∪ \left[3\,;\,+\infty\right[$</span>.`],
-    revoir: r`méthode et capacité 1 du cours (questions 1 et 2), exercices 35 p.&nbsp;230 et 138 p.&nbsp;239 du manuel, question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
-    variante: {
-      enonce: r`Dans le repère ci-dessous, on a tracé la parabole $\mathscr{C}_{f}$, courbe de la fonction carré, définie sur $\R$. L'ensemble des solutions de l'inéquation $x^{2} > 6{,}25$ est&nbsp;:`
-        + repere(FIGP),
-      choix: [r`$\left]-\infty\,;\,-2{,}5\right[ ∪ \left]2{,}5\,;\,+\infty\right[$`, r`$\left]-2{,}5\,;\,2{,}5\right[$`,
-              r`$\left]2{,}5\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,-2{,}5\right] ∪ \left[2{,}5\,;\,+\infty\right[$`],
-      bonne: 0,
-      explication: [
-        r`On résout d'abord l'équation $x^{2} = 6{,}25$&nbsp;: la droite horizontale d'ordonnée $6{,}25$ coupe la parabole en deux points, d'abscisses $-2{,}5$ et $2{,}5$ (tirets verts), car $2{,}5^{2} = 6{,}25$. Puis on lit où la parabole est strictement au-dessus de cette droite.`,
-        repereSol(Object.assign({}, FIGP, { echelle: 1.15,
-            lectures: [[[0, 6.25], [-2.5, 6.25], [-2.5, 0]], [[0, 6.25], [2.5, 6.25], [2.5, 0]]],
-            surlignes: [{ x1: null, x2: -2.5 }, { x1: 2.5, x2: null }],
-            label: 'La même parabole, avec les lignes de lecture de l\'ordonnée 6,25 vers les abscisses −2,5 et 2,5, et les solutions surlignées en orange sur l\'axe des abscisses : à gauche de −2,5 et à droite de 2,5' })),
-        r`La parabole est strictement au-dessus de la droite à gauche de $-2{,}5$ et à droite de $2{,}5$ (en orange), et elle continue de monter au-delà du graphique. L'inégalité est stricte&nbsp;: $-2{,}5$ et $2{,}5$ sont exclus. L'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-2{,}5\right[ ∪ \left]2{,}5\,;\,+\infty\right[$</span>.`] } },
-
-  { partie: 0, theme: 'Inéquation avec un carré', type: 'qcm',
-    enonce: r`L'ensemble des solutions dans $\R$ de l'inéquation $3x^{2} - 1 \le 20$ est&nbsp;:`,
-    choix: [r`$\left[-\sqrt{7}\,;\,\sqrt{7}\right]$`, r`$\left]-\infty\,;\,\sqrt{7}\right]$`,
-            r`$\left[-7\,;\,7\right]$`, r`$\left]-\infty\,;\,-\sqrt{7}\right] ∪ \left[\sqrt{7}\,;\,+\infty\right[$`],
-    bonne: 0,
-    explication: [
-      r`On isole d'abord $x^{2}$&nbsp;: on ajoute $1$ aux deux membres, puis on les divise par $3$, qui est positif&nbsp;: le sens de l'inégalité ne change pas.`,
-      calcul(r`3x^{2} - 1 \le 20 & \iff 3x^{2} - 1 \op{+ 1} \le 20 \op{+ 1}`, r`& \iff 3x^{2} \le 21`, r`& \iff \dfrac{3x^{2}}{\op{3}} \le \dfrac{21}{\op{3}}`, r`& \iff x^{2} \le 7`),
-      r`L'équation $x^{2} = 7$ a deux solutions, $-\sqrt{7}$ et $\sqrt{7}$ ($7$ n'est pas un carré parfait&nbsp;: on garde les racines carrées). La parabole est au-dessous de la droite d'équation $y = 7$, ou sur elle, entre ces deux valeurs&nbsp;: l'ensemble des solutions est <span class="resultat">$\left[-\sqrt{7}\,;\,\sqrt{7}\right]$</span>.`],
-    revoir: r`propriété «&nbsp;inéquation $x^{2} < k$&nbsp;» et capacité 1 du cours (question 3, d et e), exercice 1 de la fiche (questions 4 à 6), exercices 39 et 41 p.&nbsp;230 et 52 p.&nbsp;231 du manuel, question 6 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
-    variante: {
-      enonce: r`L'ensemble des solutions dans $\R$ de l'inéquation $2x^{2} + 3 < 13$ est&nbsp;:`,
-      choix: [r`$\left]-\sqrt{5}\,;\,\sqrt{5}\right[$`, r`$\left]-\infty\,;\,\sqrt{5}\right[$`,
-              r`$\left]-5\,;\,5\right[$`, r`$\left]-\infty\,;\,-\sqrt{5}\right[ ∪ \left]\sqrt{5}\,;\,+\infty\right[$`],
-      bonne: 0,
-      explication: [
-        r`On isole d'abord $x^{2}$&nbsp;: on retire $3$ aux deux membres, puis on les divise par $2$, qui est positif&nbsp;: le sens de l'inégalité ne change pas.`,
-        calcul(r`2x^{2} + 3 < 13 & \iff 2x^{2} + 3 \op{- 3} < 13 \op{- 3}`, r`& \iff 2x^{2} < 10`, r`& \iff \dfrac{2x^{2}}{\op{2}} < \dfrac{10}{\op{2}}`, r`& \iff x^{2} < 5`),
-        r`L'équation $x^{2} = 5$ a deux solutions, $-\sqrt{5}$ et $\sqrt{5}$. La parabole est strictement au-dessous de la droite d'équation $y = 5$ entre ces deux valeurs, bornes exclues&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\sqrt{5}\,;\,\sqrt{5}\right[$</span>.`] } },
-
-  /* ----- La fonction inverse (partie 2 du cours) ----- */
-
   { partie: 0, theme: 'Équation avec l\'inverse', type: 'qcm',
     enonce: r`On résout dans $\R^{*}$ l'équation $\dfrac{1}{x} = -4$. On obtient&nbsp;:`,
     choix: [r`$x = -0{,}25$`, r`$x = 4$`, r`$x = 0{,}25$`, r`aucune solution`],
     bonne: 0,
     explication: [
       r`Deux nombres non nuls sont égaux si et seulement si leurs inverses sont égaux&nbsp;: on prend l'inverse des deux membres. Comme $\dfrac{1}{x}$ a le signe de $x$, la solution est négative.`,
-      calcul(r`\dfrac{1}{x} = -4 & \iff x = \dfrac{1}{-4}`, r`& \iff \resultat{x = -0{,}25}`),
+      calcul(r`\dfrac{1}{x} = -4 & \iff x = \dfrac{1}{-4}`, r`& \iff x = -\dfrac{1}{4}`, r`& \iff \resultat{x = -0{,}25}`),
       r`Vérification&nbsp;: $\dfrac{1}{-0{,}25} = -4$, car $0{,}25 \times 4 = 1$. Attention&nbsp;: l'inverse de $-4$ est $-\dfrac{1}{4}$, et non $4$, qui est son opposé.`],
     revoir: r`propriété «&nbsp;équation $\dfrac{1}{x} = k$&nbsp;» et capacité 2 du cours (question 3, a à c), activité 2, exercice 2 de la fiche (question 1, a et b), exercice 76 p.&nbsp;232 du manuel`,
     variante: {
@@ -485,38 +435,42 @@ const QUIZ = {
       bonne: 0,
       explication: [
         r`Deux nombres non nuls sont égaux si et seulement si leurs inverses sont égaux&nbsp;: on prend l'inverse des deux membres. Comme $\dfrac{1}{x}$ a le signe de $x$, la solution est négative.`,
-        calcul(r`\dfrac{1}{x} = -0{,}5 & \iff x = \dfrac{1}{-0{,}5}`, r`& \iff \resultat{x = -2}`),
+        calcul(r`\dfrac{1}{x} = -0{,}5 & \iff x = \dfrac{1}{-0{,}5}`, r`& \iff x = -\dfrac{1}{0{,}5}`, r`& \iff \resultat{x = -2}`),
         r`En effet, $0{,}5 \times 2 = 1$&nbsp;: l'inverse de $0{,}5$ est $2$. Vérification&nbsp;: $\dfrac{1}{-2} = -0{,}5$. Attention&nbsp;: l'inverse de $-0{,}5$ est $-2$, et non $0{,}5$, qui est son opposé.`] } },
 
-  { partie: 0, theme: 'Inéquation, lecture sur l\'hyperbole', type: 'qcm',
-    enonce: r`Dans le repère ci-dessous, on a tracé l'hyperbole $\mathscr{C}_{f}$, courbe de la fonction inverse. L'ensemble des solutions de l'inéquation $\dfrac{1}{x} < 0{,}5$ est&nbsp;:`
-      + repere(FIGH),
-    choix: [r`$\left]-\infty\,;\,0\right[ ∪ \left]2\,;\,+\infty\right[$`, r`$\left]2\,;\,+\infty\right[$`,
-            r`$\left]0\,;\,2\right[$`, r`$\left]-\infty\,;\,0\right] ∪ \left]2\,;\,+\infty\right[$`],
+  { partie: 0, theme: 'Valeur absolue', type: 'qcm',
+    enonce: r`On résout dans $\R$ l'équation $\left|x\right| = 3{,}5$ et l'inéquation $\left|x\right| \le 3{,}5$. On obtient&nbsp;:`,
+    choix: [r`équation&nbsp;: $x = -3{,}5$ ou $x = 3{,}5$&nbsp;; inéquation&nbsp;: $\left[-3{,}5\,;\,3{,}5\right]$`,
+            r`équation&nbsp;: $x = 3{,}5$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,3{,}5\right]$`,
+            r`équation&nbsp;: $x = -3{,}5$ ou $x = 3{,}5$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,-3{,}5\right] ∪ \left[3{,}5\,;\,+\infty\right[$`,
+            r`équation&nbsp;: $x = -3{,}5$ ou $x = 3{,}5$&nbsp;; inéquation&nbsp;: $\left]-3{,}5\,;\,3{,}5\right[$`],
     bonne: 0,
     explication: [
-      r`On résout d'abord l'équation $\dfrac{1}{x} = 0{,}5$&nbsp;: la droite horizontale d'ordonnée $0{,}5$ coupe l'hyperbole en un seul point, d'abscisse $2$ (tirets verts), car $\dfrac{1}{2} = 0{,}5$. Puis on lit où l'hyperbole est strictement au-dessous de cette droite.`,
-      repereSol(Object.assign({}, FIGH, { echelle: 1.15,
-          lectures: [[[0, 0.5], [2, 0.5], [2, 0]]],
-          surlignes: [{ x1: null, x2: 0 }, { x1: 2, x2: null }],
-          label: 'La même hyperbole, avec la ligne de lecture de l\'ordonnée 0,5 vers l\'abscisse 2, et les solutions surlignées en orange sur l\'axe des abscisses : tous les nombres négatifs, et les nombres plus grands que 2' })),
-      r`Sur la branche de droite, l'hyperbole descend&nbsp;: elle est au-dessous de la droite pour $x > 2$. Sur la branche de gauche, $\dfrac{1}{x}$ est négatif, donc inférieur à $0{,}5$&nbsp;: tous les nombres négatifs sont solutions (en orange). $2$ est exclu (inégalité stricte) et $0$ est une valeur interdite&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,0\right[ ∪ \left]2\,;\,+\infty\right[$</span>.`],
-    revoir: r`méthode et capacité 2 du cours (questions 1, 2 et 3 d), exercice 2 de la fiche (questions 1 c, 1 d et 2), exercices 20 p.&nbsp;229, 76 p.&nbsp;232 et 132 p.&nbsp;236 du manuel, question 4 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
+      r`$\left|x\right|$ est la distance entre $x$ et $0$&nbsp;: les nombres à la distance $3{,}5$ de $0$ sont $-3{,}5$ et $3{,}5$, et ceux à une distance au plus égale à $3{,}5$ sont entre $-3{,}5$ et $3{,}5$.`,
+      calcul(r`\left|x\right| = 3{,}5 & \iff x = -3{,}5 \text{ ou } x = 3{,}5`, r`\left|x\right| \le 3{,}5 & \iff -3{,}5 \le x \le 3{,}5`),
+      repere(Object.assign({}, FIGV, { echelle: 1.15,
+          lectures: [[[0, 3.5], [-3.5, 3.5], [-3.5, 0]], [[0, 3.5], [3.5, 3.5], [3.5, 0]]],
+          surligne: { x1: -3.5, x2: 3.5 },
+          label: 'La courbe en V, avec les lignes de lecture de l\'ordonnée 3,5 vers les abscisses −3,5 et 3,5, et les solutions de l\'inéquation surlignées en orange sur l\'axe des abscisses, de −3,5 à 3,5' })),
+      r`Sur la courbe en «&nbsp;V&nbsp;», la droite d'ordonnée $3{,}5$ coupe la courbe en $-3{,}5$ et en $3{,}5$&nbsp;; la courbe est au-dessous de cette droite, ou sur elle, entre ces deux valeurs (en orange), bornes comprises. Donc <span class="resultat">équation&nbsp;: $x = -3{,}5$ ou $x = 3{,}5$&nbsp;; inéquation&nbsp;: $\left[-3{,}5\,;\,3{,}5\right]$</span>.`],
+    revoir: r`propriété «&nbsp;équation $\left|x\right| = k$, inéquation $\left|x\right| \le k$&nbsp;» et capacité 4 du cours, exercice 4 de la fiche`,
     variante: {
-      enonce: r`Dans le repère ci-dessous, on a tracé l'hyperbole $\mathscr{C}_{f}$, courbe de la fonction inverse. L'ensemble des solutions de l'inéquation $\dfrac{1}{x} \ge -0{,}5$ est&nbsp;:`
-        + repere(FIGH),
-      choix: [r`$\left]-\infty\,;\,-2\right] ∪ \left]0\,;\,+\infty\right[$`, r`$\left]0\,;\,+\infty\right[$`,
-              r`$\left[-2\,;\,0\right[$`, r`$\left]-\infty\,;\,-2\right] ∪ \left[0\,;\,+\infty\right[$`],
+      enonce: r`On résout dans $\R$ l'équation $\left|x\right| = 4{,}5$ et l'inéquation $\left|x\right| < 4{,}5$. On obtient&nbsp;:`,
+      choix: [r`équation&nbsp;: $x = -4{,}5$ ou $x = 4{,}5$&nbsp;; inéquation&nbsp;: $\left]-4{,}5\,;\,4{,}5\right[$`,
+              r`équation&nbsp;: $x = 4{,}5$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,4{,}5\right[$`,
+              r`équation&nbsp;: $x = -4{,}5$ ou $x = 4{,}5$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,-4{,}5\right[ ∪ \left]4{,}5\,;\,+\infty\right[$`,
+              r`équation&nbsp;: $x = -4{,}5$ ou $x = 4{,}5$&nbsp;; inéquation&nbsp;: $\left[-4{,}5\,;\,4{,}5\right]$`],
       bonne: 0,
       explication: [
-        r`On résout d'abord l'équation $\dfrac{1}{x} = -0{,}5$&nbsp;: la droite horizontale d'ordonnée $-0{,}5$ coupe l'hyperbole en un seul point, d'abscisse $-2$ (tirets verts), car $\dfrac{1}{-2} = -0{,}5$. Puis on lit où l'hyperbole est au-dessus de cette droite, ou sur elle.`,
-        repereSol(Object.assign({}, FIGH, { echelle: 1.15,
-            lectures: [[[0, -0.5], [-2, -0.5], [-2, 0]]],
-            surlignes: [{ x1: null, x2: -2 }, { x1: 0, x2: null }],
-            label: 'La même hyperbole, avec la ligne de lecture de l\'ordonnée −0,5 vers l\'abscisse −2, et les solutions surlignées en orange sur l\'axe des abscisses : les nombres plus petits que −2, et tous les nombres positifs' })),
-        r`Sur la branche de gauche, l'hyperbole descend&nbsp;: elle est au-dessus de la droite, ou sur elle, pour $x \le -2$. Sur la branche de droite, $\dfrac{1}{x}$ est positif, donc supérieur à $-0{,}5$&nbsp;: tous les nombres positifs non nuls sont solutions (en orange). $-2$ est compris (inégalité large) et $0$ est une valeur interdite&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-2\right] ∪ \left]0\,;\,+\infty\right[$</span>.`] } },
+        r`$\left|x\right|$ est la distance entre $x$ et $0$&nbsp;: les nombres à la distance $4{,}5$ de $0$ sont $-4{,}5$ et $4{,}5$, et ceux à une distance strictement inférieure à $4{,}5$ sont strictement entre $-4{,}5$ et $4{,}5$.`,
+        calcul(r`\left|x\right| = 4{,}5 & \iff x = -4{,}5 \text{ ou } x = 4{,}5`, r`\left|x\right| < 4{,}5 & \iff -4{,}5 < x < 4{,}5`),
+        repere(Object.assign({}, FIGV, { echelle: 1.15,
+            lectures: [[[0, 4.5], [-4.5, 4.5], [-4.5, 0]], [[0, 4.5], [4.5, 4.5], [4.5, 0]]],
+            surligne: { x1: -4.5, x2: 4.5 },
+            label: 'La courbe en V, avec les lignes de lecture de l\'ordonnée 4,5 vers les abscisses −4,5 et 4,5, et les solutions de l\'inéquation surlignées en orange sur l\'axe des abscisses, de −4,5 à 4,5' })),
+        r`Sur la courbe en «&nbsp;V&nbsp;», la droite d'ordonnée $4{,}5$ coupe la courbe en $-4{,}5$ et en $4{,}5$&nbsp;; la courbe est strictement au-dessous de cette droite entre ces deux valeurs (en orange), bornes exclues. Donc <span class="resultat">équation&nbsp;: $x = -4{,}5$ ou $x = 4{,}5$&nbsp;; inéquation&nbsp;: $\left]-4{,}5\,;\,4{,}5\right[$</span>.`] } },
 
-  /* ----- Les fonctions racine carrée et cube (partie 3 du cours) ----- */
+  /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
 
   { partie: 0, theme: 'Racine carrée', type: 'qcm',
     enonce: r`On résout l'équation $\sqrt{x} = 8$ et l'inéquation $\sqrt{x} < 8$. On obtient&nbsp;:`,
@@ -566,41 +520,99 @@ const QUIZ = {
         calcul(r`(-10)^{3} & = (-10) \times (-10) \times (-10)`, r`& = 100 \times (-10)`, r`& = -1\,000`),
         r`Donc $x^{3} = -1\,000 \iff x = -10$. La courbe de la fonction cube monte&nbsp;: elle est au-dessous de la droite d'équation $y = -1\,000$, ou sur elle, pour $x \le -10$. Donc <span class="resultat">équation&nbsp;: $x = -10$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,-10\right]$</span>. Attention&nbsp;: contrairement à un carré, un cube peut être négatif, et $10$ n'est pas solution, car $10^{3} = 1\,000$.`] } },
 
-  /* ----- La fonction valeur absolue (partie 4 du cours) ----- */
-
-  { partie: 0, theme: 'Valeur absolue', type: 'qcm',
-    enonce: r`On résout dans $\R$ l'équation $\left|x\right| = 3{,}5$ et l'inéquation $\left|x\right| \le 3{,}5$. On obtient&nbsp;:`,
-    choix: [r`équation&nbsp;: $x = -3{,}5$ ou $x = 3{,}5$&nbsp;; inéquation&nbsp;: $\left[-3{,}5\,;\,3{,}5\right]$`,
-            r`équation&nbsp;: $x = 3{,}5$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,3{,}5\right]$`,
-            r`équation&nbsp;: $x = -3{,}5$ ou $x = 3{,}5$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,-3{,}5\right] ∪ \left[3{,}5\,;\,+\infty\right[$`,
-            r`équation&nbsp;: $x = -3{,}5$ ou $x = 3{,}5$&nbsp;; inéquation&nbsp;: $\left]-3{,}5\,;\,3{,}5\right[$`],
+  { partie: 0, theme: 'Inéquation, lecture sur la parabole', type: 'qcm',
+    enonce: r`Dans le repère ci-dessous, on a tracé la parabole $\mathscr{C}_{f}$, courbe de la fonction carré, définie sur $\R$. L'ensemble des solutions de l'inéquation $x^{2} \ge 9$ est&nbsp;:`
+      + repere(FIGP),
+    choix: [r`$\left]-\infty\,;\,-3\right] ∪ \left[3\,;\,+\infty\right[$`, r`$\left[-3\,;\,3\right]$`,
+            r`$\left[3\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,-3\right[ ∪ \left]3\,;\,+\infty\right[$`],
     bonne: 0,
     explication: [
-      r`$\left|x\right|$ est la distance entre $x$ et $0$&nbsp;: les nombres à la distance $3{,}5$ de $0$ sont $-3{,}5$ et $3{,}5$, et ceux à une distance au plus égale à $3{,}5$ sont entre $-3{,}5$ et $3{,}5$.`,
-      calcul(r`\left|x\right| = 3{,}5 & \iff x = -3{,}5 \text{ ou } x = 3{,}5`, r`\left|x\right| \le 3{,}5 & \iff -3{,}5 \le x \le 3{,}5`),
-      repere(Object.assign({}, FIGV, { echelle: 1.15,
-          lectures: [[[0, 3.5], [-3.5, 3.5], [-3.5, 0]], [[0, 3.5], [3.5, 3.5], [3.5, 0]]],
-          surligne: { x1: -3.5, x2: 3.5 },
-          label: 'La courbe en V, avec les lignes de lecture de l\'ordonnée 3,5 vers les abscisses −3,5 et 3,5, et les solutions de l\'inéquation surlignées en orange sur l\'axe des abscisses, de −3,5 à 3,5' })),
-      r`Sur la courbe en «&nbsp;V&nbsp;», la droite d'ordonnée $3{,}5$ coupe la courbe en $-3{,}5$ et en $3{,}5$&nbsp;; la courbe est au-dessous de cette droite, ou sur elle, entre ces deux valeurs (en orange), bornes comprises. Donc <span class="resultat">équation&nbsp;: $x = -3{,}5$ ou $x = 3{,}5$&nbsp;; inéquation&nbsp;: $\left[-3{,}5\,;\,3{,}5\right]$</span>.`],
-    revoir: r`propriété «&nbsp;équation $\left|x\right| = k$, inéquation $\left|x\right| \le k$&nbsp;» et capacité 4 du cours, exercice 4 de la fiche`,
+      r`On résout d'abord l'équation $x^{2} = 9$&nbsp;: la droite horizontale d'ordonnée $9$ coupe la parabole en deux points, d'abscisses $-3$ et $3$ (tirets verts). Puis on lit où la parabole est au-dessus de cette droite, ou sur elle.`,
+      repereSol(Object.assign({}, FIGP, { echelle: 1.15,
+          lectures: [[[0, 9], [-3, 9], [-3, 0]], [[0, 9], [3, 9], [3, 0]]],
+          surlignes: [{ x1: null, x2: -3 }, { x1: 3, x2: null }],
+          label: 'La même parabole, avec les lignes de lecture de l\'ordonnée 9 vers les abscisses −3 et 3, et les solutions surlignées en orange sur l\'axe des abscisses : à gauche de −3 et à droite de 3' })),
+      r`La parabole est au-dessus de la droite à gauche de $-3$ et à droite de $3$ (en orange), et elle continue de monter au-delà du graphique. L'inégalité est large&nbsp;: $-3$ et $3$ sont solutions, car $(-3)^{2} = 3^{2} = 9$. L'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-3\right] ∪ \left[3\,;\,+\infty\right[$</span>.`],
+    revoir: r`méthode et capacité 1 du cours (questions 1 et 2), exercices 35 p.&nbsp;230 et 138 p.&nbsp;239 du manuel, question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
     variante: {
-      enonce: r`On résout dans $\R$ l'équation $\left|x\right| = 4{,}5$ et l'inéquation $\left|x\right| < 4{,}5$. On obtient&nbsp;:`,
-      choix: [r`équation&nbsp;: $x = -4{,}5$ ou $x = 4{,}5$&nbsp;; inéquation&nbsp;: $\left]-4{,}5\,;\,4{,}5\right[$`,
-              r`équation&nbsp;: $x = 4{,}5$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,4{,}5\right[$`,
-              r`équation&nbsp;: $x = -4{,}5$ ou $x = 4{,}5$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,-4{,}5\right[ ∪ \left]4{,}5\,;\,+\infty\right[$`,
-              r`équation&nbsp;: $x = -4{,}5$ ou $x = 4{,}5$&nbsp;; inéquation&nbsp;: $\left[-4{,}5\,;\,4{,}5\right]$`],
+      enonce: r`Dans le repère ci-dessous, on a tracé la parabole $\mathscr{C}_{f}$, courbe de la fonction carré, définie sur $\R$. L'ensemble des solutions de l'inéquation $x^{2} > 6{,}25$ est&nbsp;:`
+        + repere(FIGP),
+      choix: [r`$\left]-\infty\,;\,-2{,}5\right[ ∪ \left]2{,}5\,;\,+\infty\right[$`, r`$\left]-2{,}5\,;\,2{,}5\right[$`,
+              r`$\left]2{,}5\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,-2{,}5\right] ∪ \left[2{,}5\,;\,+\infty\right[$`],
       bonne: 0,
       explication: [
-        r`$\left|x\right|$ est la distance entre $x$ et $0$&nbsp;: les nombres à la distance $4{,}5$ de $0$ sont $-4{,}5$ et $4{,}5$, et ceux à une distance strictement inférieure à $4{,}5$ sont strictement entre $-4{,}5$ et $4{,}5$.`,
-        calcul(r`\left|x\right| = 4{,}5 & \iff x = -4{,}5 \text{ ou } x = 4{,}5`, r`\left|x\right| < 4{,}5 & \iff -4{,}5 < x < 4{,}5`),
-        repere(Object.assign({}, FIGV, { echelle: 1.15,
-            lectures: [[[0, 4.5], [-4.5, 4.5], [-4.5, 0]], [[0, 4.5], [4.5, 4.5], [4.5, 0]]],
-            surligne: { x1: -4.5, x2: 4.5 },
-            label: 'La courbe en V, avec les lignes de lecture de l\'ordonnée 4,5 vers les abscisses −4,5 et 4,5, et les solutions de l\'inéquation surlignées en orange sur l\'axe des abscisses, de −4,5 à 4,5' })),
-        r`Sur la courbe en «&nbsp;V&nbsp;», la droite d'ordonnée $4{,}5$ coupe la courbe en $-4{,}5$ et en $4{,}5$&nbsp;; la courbe est strictement au-dessous de cette droite entre ces deux valeurs (en orange), bornes exclues. Donc <span class="resultat">équation&nbsp;: $x = -4{,}5$ ou $x = 4{,}5$&nbsp;; inéquation&nbsp;: $\left]-4{,}5\,;\,4{,}5\right[$</span>.`] } },
+        r`On résout d'abord l'équation $x^{2} = 6{,}25$&nbsp;: la droite horizontale d'ordonnée $6{,}25$ coupe la parabole en deux points, d'abscisses $-2{,}5$ et $2{,}5$ (tirets verts), car $2{,}5^{2} = 6{,}25$. Puis on lit où la parabole est strictement au-dessus de cette droite.`,
+        repereSol(Object.assign({}, FIGP, { echelle: 1.15,
+            lectures: [[[0, 6.25], [-2.5, 6.25], [-2.5, 0]], [[0, 6.25], [2.5, 6.25], [2.5, 0]]],
+            surlignes: [{ x1: null, x2: -2.5 }, { x1: 2.5, x2: null }],
+            label: 'La même parabole, avec les lignes de lecture de l\'ordonnée 6,25 vers les abscisses −2,5 et 2,5, et les solutions surlignées en orange sur l\'axe des abscisses : à gauche de −2,5 et à droite de 2,5' })),
+        r`La parabole est strictement au-dessus de la droite à gauche de $-2{,}5$ et à droite de $2{,}5$ (en orange), et elle continue de monter au-delà du graphique. L'inégalité est stricte&nbsp;: $-2{,}5$ et $2{,}5$ sont exclus. L'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-2{,}5\right[ ∪ \left]2{,}5\,;\,+\infty\right[$</span>.`] } },
 
-  /* ----- Comparer des images, position relative de deux courbes (partie 5 du cours) ----- */
+  { partie: 0, theme: 'Comparer x² et x', type: 'vf',
+    enonce: r`Léa affirme&nbsp;: «&nbsp;Le carré d'un nombre positif est toujours supérieur ou égal à ce nombre&nbsp;: pour tout réel $x \ge 0$, $x^{2} \ge x$.&nbsp;» Cette affirmation est exacte.`,
+    bonne: false,
+    explication: [
+      r`Pour comparer $x^{2}$ et $x$, on étudie le signe de leur différence, que l'on factorise par $x$.`,
+      calcul(r`x^{2} - x & = x \times x - x \times 1`, r`& = x(x - 1)`),
+      r`Si $0 < x < 1$&nbsp;: $x > 0$ et $x - 1 < 0$&nbsp;; le produit d'un nombre positif et d'un nombre négatif est négatif, donc $x^{2} - x < 0$, soit $x^{2} < x$. Contre-exemple&nbsp;: $0{,}5^{2} = 0{,}25$, qui est plus petit que $0{,}5$. L'affirmation est <span class="resultat">fausse</span>&nbsp;: sur $\left[0\,;\,1\right]$, la parabole d'équation $y = x^{2}$ est au-dessous de la droite d'équation $y = x$.`],
+    revoir: r`propriété «&nbsp;position relative des courbes d'équations $y = x$ et $y = x^{2}$&nbsp;» et sa démonstration (partie 5 du cours), activité 3`,
+    variante: {
+      enonce: r`Tom affirme&nbsp;: «&nbsp;Pour tout réel $x$ de l'intervalle $\left[0\,;\,1\right]$, $x^{2} \le x$.&nbsp;» Cette affirmation est exacte.`,
+      bonne: true,
+      explication: [
+        r`Pour comparer $x^{2}$ et $x$, on étudie le signe de leur différence, que l'on factorise par $x$.`,
+        calcul(r`x^{2} - x & = x \times x - x \times 1`, r`& = x(x - 1)`),
+        r`Si $0 \le x \le 1$&nbsp;: $x \ge 0$ et $x - 1 \le 0$&nbsp;; le produit d'un nombre positif et d'un nombre négatif est négatif, donc $x^{2} - x \le 0$, soit $x^{2} \le x$. L'affirmation est <span class="resultat">vraie</span>&nbsp;: sur $\left[0\,;\,1\right]$, la parabole d'équation $y = x^{2}$ est au-dessous de la droite d'équation $y = x$, et elles se coupent en $O(0\,;\,0)$ et $A(1\,;\,1)$.`] } },
+
+  /* ----- Niveau 3 : pièges, calculs en plusieurs étapes et synthèse ----- */
+
+  { partie: 0, theme: 'Inéquation, lecture sur l\'hyperbole', type: 'qcm',
+    enonce: r`Dans le repère ci-dessous, on a tracé l'hyperbole $\mathscr{C}_{f}$, courbe de la fonction inverse. L'ensemble des solutions de l'inéquation $\dfrac{1}{x} < 0{,}5$ est&nbsp;:`
+      + repere(FIGH),
+    choix: [r`$\left]-\infty\,;\,0\right[ ∪ \left]2\,;\,+\infty\right[$`, r`$\left]2\,;\,+\infty\right[$`,
+            r`$\left]0\,;\,2\right[$`, r`$\left]-\infty\,;\,0\right] ∪ \left]2\,;\,+\infty\right[$`],
+    bonne: 0,
+    explication: [
+      r`On résout d'abord l'équation $\dfrac{1}{x} = 0{,}5$&nbsp;: la droite horizontale d'ordonnée $0{,}5$ coupe l'hyperbole en un seul point, d'abscisse $2$ (tirets verts), car $\dfrac{1}{2} = 0{,}5$. Puis on lit où l'hyperbole est strictement au-dessous de cette droite.`,
+      repereSol(Object.assign({}, FIGH, { echelle: 1.15,
+          lectures: [[[0, 0.5], [2, 0.5], [2, 0]]],
+          surlignes: [{ x1: null, x2: 0 }, { x1: 2, x2: null }],
+          label: 'La même hyperbole, avec la ligne de lecture de l\'ordonnée 0,5 vers l\'abscisse 2, et les solutions surlignées en orange sur l\'axe des abscisses : tous les nombres négatifs, et les nombres plus grands que 2' })),
+      r`Sur la branche de droite, l'hyperbole descend&nbsp;: elle est au-dessous de la droite pour $x > 2$. Sur la branche de gauche, $\dfrac{1}{x}$ est négatif, donc inférieur à $0{,}5$&nbsp;: tous les nombres négatifs sont solutions (en orange). $2$ est exclu (inégalité stricte) et $0$ est une valeur interdite&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,0\right[ ∪ \left]2\,;\,+\infty\right[$</span>.`],
+    revoir: r`méthode et capacité 2 du cours (questions 1, 2 et 3 d), exercice 2 de la fiche (questions 1 c, 1 d et 2), exercices 20 p.&nbsp;229, 76 p.&nbsp;232 et 132 p.&nbsp;236 du manuel, question 4 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
+    variante: {
+      enonce: r`Dans le repère ci-dessous, on a tracé l'hyperbole $\mathscr{C}_{f}$, courbe de la fonction inverse. L'ensemble des solutions de l'inéquation $\dfrac{1}{x} \ge -0{,}5$ est&nbsp;:`
+        + repere(FIGH),
+      choix: [r`$\left]-\infty\,;\,-2\right] ∪ \left]0\,;\,+\infty\right[$`, r`$\left]0\,;\,+\infty\right[$`,
+              r`$\left[-2\,;\,0\right[$`, r`$\left]-\infty\,;\,-2\right] ∪ \left[0\,;\,+\infty\right[$`],
+      bonne: 0,
+      explication: [
+        r`On résout d'abord l'équation $\dfrac{1}{x} = -0{,}5$&nbsp;: la droite horizontale d'ordonnée $-0{,}5$ coupe l'hyperbole en un seul point, d'abscisse $-2$ (tirets verts), car $\dfrac{1}{-2} = -0{,}5$. Puis on lit où l'hyperbole est au-dessus de cette droite, ou sur elle.`,
+        repereSol(Object.assign({}, FIGH, { echelle: 1.15,
+            lectures: [[[0, -0.5], [-2, -0.5], [-2, 0]]],
+            surlignes: [{ x1: null, x2: -2 }, { x1: 0, x2: null }],
+            label: 'La même hyperbole, avec la ligne de lecture de l\'ordonnée −0,5 vers l\'abscisse −2, et les solutions surlignées en orange sur l\'axe des abscisses : les nombres plus petits que −2, et tous les nombres positifs' })),
+        r`Sur la branche de gauche, l'hyperbole descend&nbsp;: elle est au-dessus de la droite, ou sur elle, pour $x \le -2$. Sur la branche de droite, $\dfrac{1}{x}$ est positif, donc supérieur à $-0{,}5$&nbsp;: tous les nombres positifs non nuls sont solutions (en orange). $-2$ est compris (inégalité large) et $0$ est une valeur interdite&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-2\right] ∪ \left]0\,;\,+\infty\right[$</span>.`] } },
+
+  { partie: 0, theme: 'Inéquation avec un carré', type: 'qcm',
+    enonce: r`L'ensemble des solutions dans $\R$ de l'inéquation $3x^{2} - 1 \le 20$ est&nbsp;:`,
+    choix: [r`$\left[-\sqrt{7}\,;\,\sqrt{7}\right]$`, r`$\left]-\infty\,;\,\sqrt{7}\right]$`,
+            r`$\left[-7\,;\,7\right]$`, r`$\left]-\infty\,;\,-\sqrt{7}\right] ∪ \left[\sqrt{7}\,;\,+\infty\right[$`],
+    bonne: 0,
+    explication: [
+      r`On isole d'abord $x^{2}$&nbsp;: on ajoute $1$ aux deux membres, puis on les divise par $3$, qui est positif&nbsp;: le sens de l'inégalité ne change pas.`,
+      calcul(r`3x^{2} - 1 \le 20 & \iff 3x^{2} - 1 \op{+ 1} \le 20 \op{+ 1}`, r`& \iff 3x^{2} \le 21`, r`& \iff \dfrac{3x^{2}}{\op{3}} \le \dfrac{21}{\op{3}}`, r`& \iff x^{2} \le 7`),
+      r`L'équation $x^{2} = 7$ a deux solutions, $-\sqrt{7}$ et $\sqrt{7}$ ($7$ n'est pas un carré parfait&nbsp;: on garde les racines carrées). La parabole est au-dessous de la droite d'équation $y = 7$, ou sur elle, entre ces deux valeurs&nbsp;: l'ensemble des solutions est <span class="resultat">$\left[-\sqrt{7}\,;\,\sqrt{7}\right]$</span>.`],
+    revoir: r`propriété «&nbsp;inéquation $x^{2} < k$&nbsp;» et capacité 1 du cours (question 3, d et e), exercice 1 de la fiche (questions 4 à 6), exercices 39 et 41 p.&nbsp;230 et 52 p.&nbsp;231 du manuel, question 6 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
+    variante: {
+      enonce: r`L'ensemble des solutions dans $\R$ de l'inéquation $2x^{2} + 3 < 13$ est&nbsp;:`,
+      choix: [r`$\left]-\sqrt{5}\,;\,\sqrt{5}\right[$`, r`$\left]-\infty\,;\,\sqrt{5}\right[$`,
+              r`$\left]-5\,;\,5\right[$`, r`$\left]-\infty\,;\,-\sqrt{5}\right[ ∪ \left]\sqrt{5}\,;\,+\infty\right[$`],
+      bonne: 0,
+      explication: [
+        r`On isole d'abord $x^{2}$&nbsp;: on retire $3$ aux deux membres, puis on les divise par $2$, qui est positif&nbsp;: le sens de l'inégalité ne change pas.`,
+        calcul(r`2x^{2} + 3 < 13 & \iff 2x^{2} + 3 \op{- 3} < 13 \op{- 3}`, r`& \iff 2x^{2} < 10`, r`& \iff \dfrac{2x^{2}}{\op{2}} < \dfrac{10}{\op{2}}`, r`& \iff x^{2} < 5`),
+        r`L'équation $x^{2} = 5$ a deux solutions, $-\sqrt{5}$ et $\sqrt{5}$. La parabole est strictement au-dessous de la droite d'équation $y = 5$ entre ces deux valeurs, bornes exclues&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\sqrt{5}\,;\,\sqrt{5}\right[$</span>.`] } },
 
   { partie: 0, theme: 'Comparer des images', type: 'qcm',
     enonce: r`Sans calculatrice, laquelle de ces quatre inégalités est vraie&nbsp;?`,
@@ -622,22 +634,6 @@ const QUIZ = {
         r`$-5$ et $-2$ sont négatifs, et la branche de gauche de l'hyperbole descend sur $\left]-\infty\,;\,0\right[$&nbsp;: l'ordre est inversé, $-5 < -2$ donne $\dfrac{1}{-5} > \dfrac{1}{-2}$. Vérification&nbsp;: $-0{,}2 > -0{,}5$.`,
         r`Les trois autres inégalités sont fausses. La parabole descend sur $\left]-\infty\,;\,0\right]$&nbsp;: $-1{,}4 < -1{,}1$ donne $(-1{,}4)^{2} > (-1{,}1)^{2}$. La courbe de la fonction cube monte sur $\R$&nbsp;: $-2 < -1{,}8$ donne $(-2)^{3} < (-1{,}8)^{3}$. Enfin, $\dfrac{1}{-4}$ est négatif et $\dfrac{1}{7}$ positif, donc $\dfrac{1}{-4} < \dfrac{1}{7}$.`,
         r`L'inégalité vraie est <span class="resultat">$\dfrac{1}{-5} > \dfrac{1}{-2}$</span>.`] } },
-
-  { partie: 0, theme: 'Comparer x² et x', type: 'vf',
-    enonce: r`Léa affirme&nbsp;: «&nbsp;Le carré d'un nombre positif est toujours supérieur ou égal à ce nombre&nbsp;: pour tout réel $x \ge 0$, $x^{2} \ge x$.&nbsp;» Cette affirmation est exacte.`,
-    bonne: false,
-    explication: [
-      r`Pour comparer $x^{2}$ et $x$, on étudie le signe de leur différence, que l'on factorise par $x$.`,
-      calcul(r`x^{2} - x & = x \times x - x \times 1`, r`& = x(x - 1)`),
-      r`Si $0 < x < 1$&nbsp;: $x > 0$ et $x - 1 < 0$&nbsp;; le produit d'un nombre positif et d'un nombre négatif est négatif, donc $x^{2} - x < 0$, soit $x^{2} < x$. Contre-exemple&nbsp;: $0{,}5^{2} = 0{,}25$, qui est plus petit que $0{,}5$. L'affirmation est <span class="resultat">fausse</span>&nbsp;: sur $\left[0\,;\,1\right]$, la parabole d'équation $y = x^{2}$ est au-dessous de la droite d'équation $y = x$.`],
-    revoir: r`propriété «&nbsp;position relative des courbes d'équations $y = x$ et $y = x^{2}$&nbsp;» et sa démonstration (partie 5 du cours), activité 3`,
-    variante: {
-      enonce: r`Tom affirme&nbsp;: «&nbsp;Pour tout réel $x$ de l'intervalle $\left[0\,;\,1\right]$, $x^{2} \le x$.&nbsp;» Cette affirmation est exacte.`,
-      bonne: true,
-      explication: [
-        r`Pour comparer $x^{2}$ et $x$, on étudie le signe de leur différence, que l'on factorise par $x$.`,
-        calcul(r`x^{2} - x & = x \times x - x \times 1`, r`& = x(x - 1)`),
-        r`Si $0 \le x \le 1$&nbsp;: $x \ge 0$ et $x - 1 \le 0$&nbsp;; le produit d'un nombre positif et d'un nombre négatif est négatif, donc $x^{2} - x \le 0$, soit $x^{2} \le x$. L'affirmation est <span class="resultat">vraie</span>&nbsp;: sur $\left[0\,;\,1\right]$, la parabole d'équation $y = x^{2}$ est au-dessous de la droite d'équation $y = x$, et elles se coupent en $O(0\,;\,0)$ et $A(1\,;\,1)$.`] } },
 
   { partie: 0, theme: 'Position relative', type: 'qcm',
     enonce: r`Soit $\mathscr{P}$ la parabole d'équation $y = x^{2}$ et $\mathscr{D}$ la droite d'équation $y = 6x$. Sur $\left[0\,;\,+\infty\right[$&nbsp;:`,

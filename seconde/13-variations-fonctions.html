@@ -6,23 +6,21 @@
 <title>Entraînement Évaluation variations d'une fonction</title>
 <!--
   Entraînement auto-corrigé à l'évaluation du chapitre 13 (Variations d'une fonction) - Seconde.
-  Une seule partie, douze questions, sans automatismes (demande du professeur), dans l'ordre
-  du cours et des séances du plan :
-    1 et 2   : sens de variation lu sur une courbe (intervalles lus sur l'axe des abscisses),
-               tableau de variations d'une courbe, à choisir parmi quatre (capacité 1) ;
-    3 à 5    : du tableau à la courbe (quatre courbes : points du tableau et variations à
-               respecter), comparer deux images dans un intervalle où la fonction est
-               monotone, peut-on comparer deux images prises dans deux intervalles différents
-               (on ne peut pas conclure ; variante : on peut, par une chaîne d'inégalités)
-               (capacité 2) ;
-    6 et 7   : maximum et minimum, valeur et abscisse, lus sur une courbe sur un
-               sous-intervalle (extremum atteint à une borne), puis dans un tableau
-               (capacité 3) ;
-    8 à 10   : variations des fonctions de référence (carré, inverse sur chacun de ses deux
-               intervalles, racine carrée, cube ; affine en variante), comparer deux images
-               sans calculer, encadrer (capacité 4) ;
-    11 et 12 : optimisation (enclos adossé à un mur : tableau de valeurs, puis pas de 1 autour
-               du maximum), lecture de la fonction Python de balayage du problème (capacité 5).
+  Une seule partie, douze questions, sans automatismes (demande du professeur), rangées par
+  difficulté croissante, en trois niveaux :
+    1 à 3  : lectures directes et cours : sens de variation lu sur une courbe (capacité 1),
+             maximum et minimum lus dans un tableau (capacité 3), variations des fonctions de
+             référence (carré, inverse, racine carrée, cube ; affine en variante) ;
+    4 à 8  : méthodes en deux ou trois étapes : de la courbe au tableau de variations
+             (capacité 1), du tableau à la courbe, parmi quatre courbes (capacité 2),
+             extremums sur un sous-intervalle, atteints à une borne (capacité 3), comparer
+             deux images dans un intervalle où la fonction est monotone (capacité 2), comparer
+             sans calculer (capacité 4) ;
+    9 à 12 : plusieurs étapes et pièges : encadrer (capacité 4), peut-on comparer deux images
+             prises dans deux intervalles différents (on ne peut pas conclure ; variante : on
+             peut, par une chaîne d'inégalités), optimisation (enclos adossé à un mur :
+             tableau de valeurs, puis pas de 1 autour du maximum ; capacité 5), lecture de la
+             fonction Python de balayage du problème.
   Sources : définitions, méthodes, démonstrations et capacités 1 à 5 du cours, activités 1 (la
   randonnée), 2 (l'enclos) et 3 (carrés et inverses), fiche d'exercices (exercices 1 à 4),
   problème « la plus grande boîte » (balayage en Python), évaluation (sujets A et B, exercices
@@ -417,7 +415,7 @@ function tableauValeurs(nomx, nomy, xs, ys, label) {
     + '" style="border-collapse:collapse; margin:0 auto">' + ligne(nomx, xs) + ligne(nomy, ys) + '</table></div>';
 }
 
-// Courbe d'un choix de réponse (question 3) : petit repère, extrémités marquées d'un point rouge.
+// Courbe d'un choix de réponse (question 5) : petit repère, extrémités marquées d'un point rouge.
 // L'enveloppe (span en bloc, attribut data-courbe propre à chaque courbe) distingue les quatre
 // choix, même pour le contrôle de structure, qui remplace chaque repère par la même figure vide.
 function petiteCourbe(xmin, xmax, ymin, ymax, f, bouts, label) {
@@ -467,7 +465,7 @@ const F2v = lisse(-3, [-2, 0, 1, 2, 0, -1, -3, -1]);
 const FIG2v = { xmin: -3, xmax: 4, ymin: -4, ymax: 3, courbes: [{ f: F2v }],
   points: [{ x: -3, y: -2 }, { x: 4, y: -1 }], noms: [{ x: -2.8, y: 1.6, texte: 'C', indice: 'f' }],
   label: 'Repère avec la courbe de f, tracée de x = −3 à x = 4 : elle passe par les points (−3 ; −2), (−2 ; 0), (−1 ; 1), (0 ; 2), (1 ; 0), (2 ; −1), (3 ; −3) et (4 ; −1)' };
-// Question 3 : quatre courbes pour le tableau de g (la première convient), puis pour celui de h.
+// Question 5 : quatre courbes pour le tableau de g (la première convient), puis pour celui de h.
 const G3 = [
   lisse(-3, [1, -1, -2, 0, 2, 3, 2, 0]),           // convient
   lisse(-3, [1, -1, -2, 1, 0, 3, 2, 0]),           // bons points, mais redescend entre -1 et 2
@@ -492,7 +490,7 @@ const QUIZ = {
   parties: ["Variations d'une fonction"],
   questions: [
 
-  /* ----- Sens de variation, tableau de variations (parties 1 et 2 du cours, capacité 1) ----- */
+  /* ----- Niveau 1 : lectures directes et propriétés du cours ----- */
 
   { partie: 0, theme: 'Sens de variation', type: 'qcm',
     enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-4\,;\,3\right]$. La fonction $f$ est croissante sur&nbsp;:`
@@ -523,6 +521,62 @@ const QUIZ = {
             label: 'La même courbe, avec les points où elle change de sens, (−1 ; −2) et (2 ; 3), et les lignes de lecture vers les abscisses −1 et 2' })),
         r`La courbe descend de $x = -3$ à $x = -1$, monte de $-1$ à $2$, puis redescend de $2$ à $4$. Donc $f$ est décroissante sur <span class="resultat">$\left[-3\,;\,-1\right]$ et sur $\left[2\,;\,4\right]$</span>, et croissante sur $\left[-1\,;\,2\right]$.`,
         r`Attention&nbsp;: ce sont des valeurs de $x$, lues sur l'axe des abscisses&nbsp;; $\left[-2\,;\,2\right]$ est l'intervalle des valeurs prises par $f(x)$ pendant la première descente.`] } },
+
+  { partie: 0, theme: 'Extremums dans un tableau', type: 'qcm',
+    enonce: r`On donne le tableau de variations d'une fonction $f$ définie sur $\left[-3\,;\,5\right]$.`
+      + tableauVar('f', [-3, 0, 2, 5], [-4, 2, -1, 3]) + r`Sur $\left[-3\,;\,5\right]$&nbsp;:`,
+    choix: [r`le maximum de $f$ est $3$, atteint en $5$&nbsp;; le minimum est $-4$, atteint en $-3$`,
+            r`le maximum de $f$ est $2$, atteint en $0$&nbsp;; le minimum est $-1$, atteint en $2$`,
+            r`le maximum de $f$ est $5$, atteint en $3$&nbsp;; le minimum est $-3$, atteint en $-4$`,
+            r`le maximum de $f$ est $3$, atteint en $5$&nbsp;; le minimum est $-1$, atteint en $2$`],
+    bonne: 0,
+    explication: [
+      r`Dans un tableau de variations, le maximum est la plus grande des valeurs écrites au bout des flèches, et le minimum la plus petite&nbsp;; la valeur de $x$ où chacun est atteint est au-dessus, sur la première ligne.`,
+      r`Les valeurs au bout des flèches sont $-4$, $2$, $-1$ et $3$&nbsp;: la plus grande est $3$, sous $x = 5$, et la plus petite est $-4$, sous $x = -3$.`,
+      r`Donc <span class="resultat">le maximum est $3$, atteint en $5$&nbsp;; le minimum est $-4$, atteint en $-3$</span>. Attention&nbsp;: ici, les deux extremums sont atteints aux bornes&nbsp;; $2$ n'est pas le maximum, car $3 > 2$, et le maximum est une image ($3$), pas l'abscisse où il est atteint ($5$).`],
+    revoir: r`définition du maximum et du minimum, capacité 3 du cours (question 2), exercice 2 de la fiche (question 1), exercice 53 p.&nbsp;259 du manuel, question 4 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263`,
+    variante: {
+      enonce: r`On donne le tableau de variations d'une fonction $g$ définie sur $\left[-2\,;\,6\right]$.`
+        + tableauVar('g', [-2, 1, 4, 6], [2, -3, 1, -4]) + r`Sur $\left[-2\,;\,6\right]$&nbsp;:`,
+      choix: [r`le maximum de $g$ est $2$, atteint en $-2$&nbsp;; le minimum est $-4$, atteint en $6$`,
+              r`le maximum de $g$ est $1$, atteint en $4$&nbsp;; le minimum est $-3$, atteint en $1$`,
+              r`le maximum de $g$ est $-2$, atteint en $2$&nbsp;; le minimum est $6$, atteint en $-4$`,
+              r`le maximum de $g$ est $2$, atteint en $-2$&nbsp;; le minimum est $-3$, atteint en $1$`],
+      bonne: 0,
+      explication: [
+        r`Dans un tableau de variations, le maximum est la plus grande des valeurs écrites au bout des flèches, et le minimum la plus petite&nbsp;; la valeur de $x$ où chacun est atteint est au-dessus, sur la première ligne.`,
+        r`Les valeurs au bout des flèches sont $2$, $-3$, $1$ et $-4$&nbsp;: la plus grande est $2$, sous $x = -2$, et la plus petite est $-4$, sous $x = 6$.`,
+        r`Donc <span class="resultat">le maximum est $2$, atteint en $-2$&nbsp;; le minimum est $-4$, atteint en $6$</span>. Attention&nbsp;: ici, les deux extremums sont atteints aux bornes&nbsp;; $-3$ n'est pas le minimum, car $-4 < -3$, et le minimum est une image ($-4$), pas l'abscisse où il est atteint ($6$).`] } },
+
+  { partie: 0, theme: 'Fonctions de référence', type: 'qcm',
+    enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+    choix: [r`La fonction inverse est décroissante sur $\left]-\infty\,;\,0\right[$ et décroissante sur $\left]0\,;\,+\infty\right[$`,
+            r`La fonction carré est croissante sur $\R$`,
+            r`La fonction racine carrée est décroissante sur $\left[0\,;\,+\infty\right[$`,
+            r`La fonction cube est décroissante sur $\left]-\infty\,;\,0\right]$`],
+    bonne: 0,
+    explication: [
+      r`On utilise les propriétés du cours&nbsp;: la fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$&nbsp;; la fonction inverse est décroissante sur chacun des intervalles $\left]-\infty\,;\,0\right[$ et $\left]0\,;\,+\infty\right[$&nbsp;; la fonction racine carrée est croissante sur $\left[0\,;\,+\infty\right[$ et la fonction cube sur $\R$. Pour une affirmation fausse, un contre-exemple suffit.`,
+      r`Carré&nbsp;: $-3 < 1$, mais $(-3)^{2} = 9$ est plus grand que $1^{2} = 1$&nbsp;; elle n'est pas croissante sur $\R$.`,
+      r`Racine carrée&nbsp;: $1 < 4$ et $\sqrt{1} = 1 < 2 = \sqrt{4}$&nbsp;; l'ordre est conservé, elle n'est pas décroissante.`,
+      r`Cube&nbsp;: $-2 < -1$ et $(-2)^{3} = -8 < -1 = (-1)^{3}$&nbsp;; l'ordre est conservé, elle n'est pas décroissante sur $\left]-\infty\,;\,0\right]$.`,
+      r`L'affirmation vraie est <span class="resultat">la fonction inverse est décroissante sur $\left]-\infty\,;\,0\right[$ et décroissante sur $\left]0\,;\,+\infty\right[$</span>, comme le montre la démonstration du cours.`],
+    revoir: r`propriétés et démonstrations de la partie 4 du cours (fonctions carré, inverse, racine carrée, cube), activité 3, exercice 29 p.&nbsp;257 du manuel`,
+    variante: {
+      enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+      choix: [r`La fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$`,
+              r`La fonction inverse est décroissante sur $\left]-\infty\,;\,0\right[ ∪ \left]0\,;\,+\infty\right[$`,
+              r`La fonction cube est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$`,
+              r`La fonction $x \mapsto 6 - 2x$ est croissante sur $\R$`],
+      bonne: 0,
+      explication: [
+        r`On utilise les propriétés du cours&nbsp;: la fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$&nbsp;; la fonction inverse est décroissante sur chacun des intervalles $\left]-\infty\,;\,0\right[$ et $\left]0\,;\,+\infty\right[$&nbsp;; la fonction cube est croissante sur $\R$&nbsp;; une fonction affine $x \mapsto mx + p$ est croissante si $m > 0$, décroissante si $m < 0$. Pour une affirmation fausse, un contre-exemple suffit.`,
+        r`Inverse&nbsp;: $-1 < 1$ et $\dfrac{1}{-1} = -1 < 1 = \dfrac{1}{1}$&nbsp;; l'ordre est conservé&nbsp;: elle est décroissante sur chacun des deux intervalles, mais pas sur leur réunion.`,
+        r`Cube&nbsp;: $-2 < -1$ et $(-2)^{3} = -8 < -1 = (-1)^{3}$&nbsp;; l'ordre est conservé, elle n'est pas décroissante sur $\left]-\infty\,;\,0\right]$, contrairement à la fonction carré.`,
+        r`Affine&nbsp;: $6 - 2x = -2x + 6$, de coefficient directeur $m = -2 < 0$&nbsp;; elle est décroissante sur $\R$ (par exemple, $0 < 1$ et $6 > 4$).`,
+        r`L'affirmation vraie est <span class="resultat">la fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$</span>, comme le montre la démonstration du cours.`] } },
+
+  /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
 
   { partie: 0, theme: 'Tableau de variations', type: 'qcm',
     enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-4\,;\,3\right]$. Son tableau de variations est&nbsp;:`
@@ -555,8 +609,6 @@ const QUIZ = {
         tableauVar('f', [-3, 0, 3, 4], [-2, 2, -3, -1]),
         r`Attention&nbsp;: la première ligne porte des abscisses, dont les deux bornes, et la seconde leurs images.`] } },
 
-  /* ----- Du tableau à la courbe, comparer des images (partie 2 du cours, capacité 2) ----- */
-
   { partie: 0, theme: 'Du tableau à la courbe', type: 'qcm',
     enonce: r`On donne le tableau de variations d'une fonction $g$ définie sur $\left[-3\,;\,4\right]$.`
       + tableauVar('g', [-3, -1, 2, 4], [1, -2, 3, 0]) + r`Laquelle de ces courbes peut représenter $g$&nbsp;?`,
@@ -588,53 +640,6 @@ const QUIZ = {
             label: 'La courbe qui convient, avec les quatre points du tableau marqués en noir : (−4 ; 1), (−2 ; −3), (1 ; 2) et (3 ; −1)' }),
         r`La courbe qui convient <span class="resultat">descend de $(-4\,;\,1)$ à $(-2\,;\,-3)$, monte jusqu'à $(1\,;\,2)$, puis redescend jusqu'à $(3\,;\,-1)$</span>. D'autres courbes conviendraient, pourvu qu'elles passent par ces points avec ces variations.`,
         r`Attention&nbsp;: passer par les quatre points ne suffit pas. $h$ est croissante sur tout l'intervalle $\left[-2\,;\,1\right]$&nbsp;: la courbe ne redescend pas entre $-2$ et $1$.`] } },
-
-  { partie: 0, theme: 'Comparer des images', type: 'qcm',
-    enonce: r`On donne le tableau de variations d'une fonction $f$ définie sur $\left[-4\,;\,4\right]$.`
-      + tableauVar('f', [-4, -1, 2, 4], [2, -3, 4, 1]) + r`On peut affirmer que&nbsp;:`,
-    choix: [r`$f(-3) > f(-2)$ et $f(0{,}5) < f(1{,}5)$`, r`$f(-3) < f(-2)$ et $f(0{,}5) < f(1{,}5)$`,
-            r`$f(-3) > f(-2)$ et $f(0{,}5) > f(1{,}5)$`, r`$f(-3) < f(-2)$ et $f(0{,}5) > f(1{,}5)$`],
-    bonne: 0,
-    explication: [
-      r`Si deux nombres sont dans un même intervalle où $f$ est monotone, le sens de variation range leurs images&nbsp;: une fonction croissante conserve l'ordre, une fonction décroissante le change.`,
-      r`$-3$ et $-2$ sont dans $\left[-4\,;\,-1\right]$, où $f$ est décroissante&nbsp;: elle change l'ordre. Comme $-3 < -2$, on a $f(-3) > f(-2)$.`,
-      r`$0{,}5$ et $1{,}5$ sont dans $\left[-1\,;\,2\right]$, où $f$ est croissante&nbsp;: elle conserve l'ordre. Comme $0{,}5 < 1{,}5$, on a $f(0{,}5) < f(1{,}5)$.`,
-      r`Donc <span class="resultat">$f(-3) > f(-2)$ et $f(0{,}5) < f(1{,}5)$</span>. Attention&nbsp;: sur $\left[-4\,;\,-1\right]$, le plus petit nombre, $-3$, a la plus grande image.`],
-    revoir: r`méthode «&nbsp;comparer $f(a)$ et $f(b)$&nbsp;» et capacité 2 du cours (question 2), activité 1 (question 2), exercice 2 de la fiche (question 3)`,
-    variante: {
-      enonce: r`On donne le tableau de variations d'une fonction $g$ définie sur $\left[-3\,;\,5\right]$.`
-        + tableauVar('g', [-3, 0, 3, 5], [-2, 3, -1, 2]) + r`On peut affirmer que&nbsp;:`,
-      choix: [r`$g(-2) < g(-1)$ et $g(1{,}5) > g(2{,}5)$`, r`$g(-2) > g(-1)$ et $g(1{,}5) > g(2{,}5)$`,
-              r`$g(-2) < g(-1)$ et $g(1{,}5) < g(2{,}5)$`, r`$g(-2) > g(-1)$ et $g(1{,}5) < g(2{,}5)$`],
-      bonne: 0,
-      explication: [
-        r`Si deux nombres sont dans un même intervalle où $g$ est monotone, le sens de variation range leurs images&nbsp;: une fonction croissante conserve l'ordre, une fonction décroissante le change.`,
-        r`$-2$ et $-1$ sont dans $\left[-3\,;\,0\right]$, où $g$ est croissante&nbsp;: elle conserve l'ordre. Comme $-2 < -1$, on a $g(-2) < g(-1)$.`,
-        r`$1{,}5$ et $2{,}5$ sont dans $\left[0\,;\,3\right]$, où $g$ est décroissante&nbsp;: elle change l'ordre. Comme $1{,}5 < 2{,}5$, on a $g(1{,}5) > g(2{,}5)$.`,
-        r`Donc <span class="resultat">$g(-2) < g(-1)$ et $g(1{,}5) > g(2{,}5)$</span>. Attention&nbsp;: sur $\left[0\,;\,3\right]$, le plus petit nombre, $1{,}5$, a la plus grande image.`] } },
-
-  { partie: 0, theme: 'Peut-on comparer ?', type: 'qcm', fixe: true,
-    enonce: r`On donne le tableau de variations d'une fonction $h$ définie sur $\left[-3\,;\,4\right]$.`
-      + tableauVar('h', [-3, -1, 1, 4], [-1, 4, 0, 3]) + r`Que peut-on dire de $h(0)$ et de $h(3)$&nbsp;?`,
-    choix: [r`$h(0) < h(3)$`, r`$h(0) = h(3)$`, r`$h(0) > h(3)$`, r`on ne peut pas les comparer avec ce tableau`],
-    bonne: 3,
-    explication: [
-      r`Le sens de variation ne range deux images que si les deux nombres sont dans un même intervalle où la fonction est monotone. Ici, $0$ et $3$ ne le sont pas&nbsp;: on cherche entre quelles valeurs chaque image est comprise.`,
-      r`$0$ est dans $\left[-1\,;\,1\right]$, où $h$ descend de $4$ à $0$&nbsp;: $h(0)$ est entre $0$ et $4$. $3$ est dans $\left[1\,;\,4\right]$, où $h$ monte de $0$ à $3$&nbsp;: $h(3)$ est entre $0$ et $3$.`,
-      r`Les deux cas sont possibles&nbsp;: si $h(0) = 3{,}5$ et $h(3) = 1$, alors $h(0) > h(3)$&nbsp;; si $h(0) = 0{,}5$ et $h(3) = 2$, alors $h(0) < h(3)$. Donc <span class="resultat">on ne peut pas conclure</span>.`],
-    revoir: r`méthode «&nbsp;comparer $f(a)$ et $f(b)$&nbsp;» et capacité 2 du cours (question 3), exercice 2 de la fiche (question 4)`,
-    variante: {
-      enonce: r`On donne le tableau de variations d'une fonction $k$ définie sur $\left[-2\,;\,5\right]$.`
-        + tableauVar('k', [-2, 1, 3, 5], [1, -3, 4, 2]) + r`Que peut-on dire de $k(0)$ et de $k(4)$&nbsp;?`,
-      choix: [r`$k(0) < k(4)$`, r`$k(0) = k(4)$`, r`$k(0) > k(4)$`, r`on ne peut pas les comparer avec ce tableau`],
-      bonne: 0,
-      explication: [
-        r`Le sens de variation ne range deux images que si les deux nombres sont dans un même intervalle où la fonction est monotone. Ici, $0$ et $4$ ne le sont pas&nbsp;: on cherche entre quelles valeurs chaque image est comprise.`,
-        r`$0$ est dans $\left[-2\,;\,1\right]$, où $k$ descend de $1$ à $-3$&nbsp;: $k(0) < 1$. $4$ est dans $\left[3\,;\,5\right]$, où $k$ descend de $4$ à $2$&nbsp;: $k(4) > 2$.`,
-        calcul(r`k(0) & < 1`, r`& < 2`, r`& < k(4)`),
-        r`Donc <span class="resultat">$k(0) < k(4)$</span>. On peut conclure, car toutes les images de $\left[-2\,;\,1\right]$ sont au plus égales à $1$, et toutes celles de $\left[3\,;\,5\right]$ au moins égales à $2$.`] } },
-
-  /* ----- Maximum et minimum (partie 3 du cours, capacité 3) ----- */
 
   { partie: 0, theme: 'Maximum et minimum', type: 'qcm',
     enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-3\,;\,4\right]$. Sur l'intervalle $\left[0\,;\,4\right]$&nbsp;:`
@@ -670,61 +675,29 @@ const QUIZ = {
         r`Sur $\left[1\,;\,5\right]$, la courbe monte de $(1\,;\,-2)$ à $(3\,;\,2)$, puis redescend jusqu'à $(5\,;\,-1)$. Le point le plus bas est $(1\,;\,-2)$, car $f(5) = -1 > -2$&nbsp;; le plus haut est $(3\,;\,2)$.`,
         r`Donc <span class="resultat">le maximum est $2$, atteint en $3$&nbsp;; le minimum est $-2$, atteint en $1$</span>. Attention&nbsp;: le point $(0\,;\,-3)$ n'est pas dans cette partie de la courbe, et un extremum peut être atteint à une borne de l'intervalle.`] } },
 
-  { partie: 0, theme: 'Extremums dans un tableau', type: 'qcm',
-    enonce: r`On donne le tableau de variations d'une fonction $f$ définie sur $\left[-3\,;\,5\right]$.`
-      + tableauVar('f', [-3, 0, 2, 5], [-4, 2, -1, 3]) + r`Sur $\left[-3\,;\,5\right]$&nbsp;:`,
-    choix: [r`le maximum de $f$ est $3$, atteint en $5$&nbsp;; le minimum est $-4$, atteint en $-3$`,
-            r`le maximum de $f$ est $2$, atteint en $0$&nbsp;; le minimum est $-1$, atteint en $2$`,
-            r`le maximum de $f$ est $5$, atteint en $3$&nbsp;; le minimum est $-3$, atteint en $-4$`,
-            r`le maximum de $f$ est $3$, atteint en $5$&nbsp;; le minimum est $-1$, atteint en $2$`],
+  { partie: 0, theme: 'Comparer des images', type: 'qcm',
+    enonce: r`On donne le tableau de variations d'une fonction $f$ définie sur $\left[-4\,;\,4\right]$.`
+      + tableauVar('f', [-4, -1, 2, 4], [2, -3, 4, 1]) + r`On peut affirmer que&nbsp;:`,
+    choix: [r`$f(-3) > f(-2)$ et $f(0{,}5) < f(1{,}5)$`, r`$f(-3) < f(-2)$ et $f(0{,}5) < f(1{,}5)$`,
+            r`$f(-3) > f(-2)$ et $f(0{,}5) > f(1{,}5)$`, r`$f(-3) < f(-2)$ et $f(0{,}5) > f(1{,}5)$`],
     bonne: 0,
     explication: [
-      r`Dans un tableau de variations, le maximum est la plus grande des valeurs écrites au bout des flèches, et le minimum la plus petite&nbsp;; la valeur de $x$ où chacun est atteint est au-dessus, sur la première ligne.`,
-      r`Les valeurs au bout des flèches sont $-4$, $2$, $-1$ et $3$&nbsp;: la plus grande est $3$, sous $x = 5$, et la plus petite est $-4$, sous $x = -3$.`,
-      r`Donc <span class="resultat">le maximum est $3$, atteint en $5$&nbsp;; le minimum est $-4$, atteint en $-3$</span>. Attention&nbsp;: ici, les deux extremums sont atteints aux bornes&nbsp;; $2$ n'est pas le maximum, car $3 > 2$, et le maximum est une image ($3$), pas l'abscisse où il est atteint ($5$).`],
-    revoir: r`définition du maximum et du minimum, capacité 3 du cours (question 2), exercice 2 de la fiche (question 1), exercice 53 p.&nbsp;259 du manuel, question 4 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263`,
+      r`Si deux nombres sont dans un même intervalle où $f$ est monotone, le sens de variation range leurs images&nbsp;: une fonction croissante conserve l'ordre, une fonction décroissante le change.`,
+      r`$-3$ et $-2$ sont dans $\left[-4\,;\,-1\right]$, où $f$ est décroissante&nbsp;: elle change l'ordre. Comme $-3 < -2$, on a $f(-3) > f(-2)$.`,
+      r`$0{,}5$ et $1{,}5$ sont dans $\left[-1\,;\,2\right]$, où $f$ est croissante&nbsp;: elle conserve l'ordre. Comme $0{,}5 < 1{,}5$, on a $f(0{,}5) < f(1{,}5)$.`,
+      r`Donc <span class="resultat">$f(-3) > f(-2)$ et $f(0{,}5) < f(1{,}5)$</span>. Attention&nbsp;: sur $\left[-4\,;\,-1\right]$, le plus petit nombre, $-3$, a la plus grande image.`],
+    revoir: r`méthode «&nbsp;comparer $f(a)$ et $f(b)$&nbsp;» et capacité 2 du cours (question 2), activité 1 (question 2), exercice 2 de la fiche (question 3)`,
     variante: {
-      enonce: r`On donne le tableau de variations d'une fonction $g$ définie sur $\left[-2\,;\,6\right]$.`
-        + tableauVar('g', [-2, 1, 4, 6], [2, -3, 1, -4]) + r`Sur $\left[-2\,;\,6\right]$&nbsp;:`,
-      choix: [r`le maximum de $g$ est $2$, atteint en $-2$&nbsp;; le minimum est $-4$, atteint en $6$`,
-              r`le maximum de $g$ est $1$, atteint en $4$&nbsp;; le minimum est $-3$, atteint en $1$`,
-              r`le maximum de $g$ est $-2$, atteint en $2$&nbsp;; le minimum est $6$, atteint en $-4$`,
-              r`le maximum de $g$ est $2$, atteint en $-2$&nbsp;; le minimum est $-3$, atteint en $1$`],
+      enonce: r`On donne le tableau de variations d'une fonction $g$ définie sur $\left[-3\,;\,5\right]$.`
+        + tableauVar('g', [-3, 0, 3, 5], [-2, 3, -1, 2]) + r`On peut affirmer que&nbsp;:`,
+      choix: [r`$g(-2) < g(-1)$ et $g(1{,}5) > g(2{,}5)$`, r`$g(-2) > g(-1)$ et $g(1{,}5) > g(2{,}5)$`,
+              r`$g(-2) < g(-1)$ et $g(1{,}5) < g(2{,}5)$`, r`$g(-2) > g(-1)$ et $g(1{,}5) < g(2{,}5)$`],
       bonne: 0,
       explication: [
-        r`Dans un tableau de variations, le maximum est la plus grande des valeurs écrites au bout des flèches, et le minimum la plus petite&nbsp;; la valeur de $x$ où chacun est atteint est au-dessus, sur la première ligne.`,
-        r`Les valeurs au bout des flèches sont $2$, $-3$, $1$ et $-4$&nbsp;: la plus grande est $2$, sous $x = -2$, et la plus petite est $-4$, sous $x = 6$.`,
-        r`Donc <span class="resultat">le maximum est $2$, atteint en $-2$&nbsp;; le minimum est $-4$, atteint en $6$</span>. Attention&nbsp;: ici, les deux extremums sont atteints aux bornes&nbsp;; $-3$ n'est pas le minimum, car $-4 < -3$, et le minimum est une image ($-4$), pas l'abscisse où il est atteint ($6$).`] } },
-
-  /* ----- Variations des fonctions de référence (partie 4 du cours, capacité 4) ----- */
-
-  { partie: 0, theme: 'Fonctions de référence', type: 'qcm',
-    enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
-    choix: [r`La fonction inverse est décroissante sur $\left]-\infty\,;\,0\right[$ et décroissante sur $\left]0\,;\,+\infty\right[$`,
-            r`La fonction carré est croissante sur $\R$`,
-            r`La fonction racine carrée est décroissante sur $\left[0\,;\,+\infty\right[$`,
-            r`La fonction cube est décroissante sur $\left]-\infty\,;\,0\right]$`],
-    bonne: 0,
-    explication: [
-      r`On utilise les propriétés du cours&nbsp;: la fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$&nbsp;; la fonction inverse est décroissante sur chacun des intervalles $\left]-\infty\,;\,0\right[$ et $\left]0\,;\,+\infty\right[$&nbsp;; la fonction racine carrée est croissante sur $\left[0\,;\,+\infty\right[$ et la fonction cube sur $\R$. Pour une affirmation fausse, un contre-exemple suffit.`,
-      r`Carré&nbsp;: $-3 < 1$, mais $(-3)^{2} = 9$ est plus grand que $1^{2} = 1$&nbsp;; elle n'est pas croissante sur $\R$.`,
-      r`Racine carrée&nbsp;: $1 < 4$ et $\sqrt{1} = 1 < 2 = \sqrt{4}$&nbsp;; l'ordre est conservé, elle n'est pas décroissante.`,
-      r`Cube&nbsp;: $-2 < -1$ et $(-2)^{3} = -8 < -1 = (-1)^{3}$&nbsp;; l'ordre est conservé, elle n'est pas décroissante sur $\left]-\infty\,;\,0\right]$.`,
-      r`L'affirmation vraie est <span class="resultat">la fonction inverse est décroissante sur $\left]-\infty\,;\,0\right[$ et décroissante sur $\left]0\,;\,+\infty\right[$</span>, comme le montre la démonstration du cours.`],
-    revoir: r`propriétés et démonstrations de la partie 4 du cours (fonctions carré, inverse, racine carrée, cube), activité 3, exercice 29 p.&nbsp;257 du manuel`,
-    variante: {
-      enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
-      choix: [r`La fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$`,
-              r`La fonction inverse est décroissante sur $\left]-\infty\,;\,0\right[ ∪ \left]0\,;\,+\infty\right[$`,
-              r`La fonction cube est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$`,
-              r`La fonction $x \mapsto 6 - 2x$ est croissante sur $\R$`],
-      bonne: 0,
-      explication: [
-        r`On utilise les propriétés du cours&nbsp;: la fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$&nbsp;; la fonction inverse est décroissante sur chacun des intervalles $\left]-\infty\,;\,0\right[$ et $\left]0\,;\,+\infty\right[$&nbsp;; la fonction cube est croissante sur $\R$&nbsp;; une fonction affine $x \mapsto mx + p$ est croissante si $m > 0$, décroissante si $m < 0$. Pour une affirmation fausse, un contre-exemple suffit.`,
-        r`Inverse&nbsp;: $-1 < 1$ et $\dfrac{1}{-1} = -1 < 1 = \dfrac{1}{1}$&nbsp;; l'ordre est conservé&nbsp;: elle est décroissante sur chacun des deux intervalles, mais pas sur leur réunion.`,
-        r`Cube&nbsp;: $-2 < -1$ et $(-2)^{3} = -8 < -1 = (-1)^{3}$&nbsp;; l'ordre est conservé, elle n'est pas décroissante sur $\left]-\infty\,;\,0\right]$, contrairement à la fonction carré.`,
-        r`Affine&nbsp;: $6 - 2x = -2x + 6$, de coefficient directeur $m = -2 < 0$&nbsp;; elle est décroissante sur $\R$ (par exemple, $0 < 1$ et $6 > 4$).`,
-        r`L'affirmation vraie est <span class="resultat">la fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$</span>, comme le montre la démonstration du cours.`] } },
+        r`Si deux nombres sont dans un même intervalle où $g$ est monotone, le sens de variation range leurs images&nbsp;: une fonction croissante conserve l'ordre, une fonction décroissante le change.`,
+        r`$-2$ et $-1$ sont dans $\left[-3\,;\,0\right]$, où $g$ est croissante&nbsp;: elle conserve l'ordre. Comme $-2 < -1$, on a $g(-2) < g(-1)$.`,
+        r`$1{,}5$ et $2{,}5$ sont dans $\left[0\,;\,3\right]$, où $g$ est décroissante&nbsp;: elle change l'ordre. Comme $1{,}5 < 2{,}5$, on a $g(1{,}5) > g(2{,}5)$.`,
+        r`Donc <span class="resultat">$g(-2) < g(-1)$ et $g(1{,}5) > g(2{,}5)$</span>. Attention&nbsp;: sur $\left[0\,;\,3\right]$, le plus petit nombre, $1{,}5$, a la plus grande image.`] } },
 
   { partie: 0, theme: 'Comparer sans calculer', type: 'qcm',
     enonce: r`Sans calculer, laquelle de ces quatre inégalités est vraie&nbsp;?`,
@@ -748,7 +721,9 @@ const QUIZ = {
         r`Fonction carré, croissante sur $\left[0\,;\,+\infty\right[$&nbsp;: $4{,}03 < 4{,}30$ donne $4{,}03^{2} < 4{,}3^{2}$.`,
         r`Fonction carré, décroissante sur $\left]-\infty\,;\,0\right]$&nbsp;: $-1{,}4 < -1{,}2$ donne $(-1{,}4)^{2} > (-1{,}2)^{2}$.`,
         r`Fonction racine carrée, croissante sur $\left[0\,;\,+\infty\right[$&nbsp;: $0{,}49 < 0{,}50$ donne $\sqrt{0{,}49} < \sqrt{0{,}5}$.`,
-        r`L'inégalité vraie est <span class="resultat">$\dfrac{1}{-4} > \dfrac{1}{-2{,}5}$</span>. Vérification&nbsp;: $-0{,}25 > -0{,}4$&nbsp;; les deux inverses sont négatifs.`] } },
+        r`L'inégalité vraie est <span class="resultat">$\dfrac{1}{-4} > \dfrac{1}{-2{,}5}$</span>. Vérification&nbsp;: $\dfrac{1}{-4} = -0{,}25$ et $\dfrac{1}{-2{,}5} = -0{,}4$ (car $2{,}5 \times 0{,}4 = 1$)&nbsp;; on a bien $-0{,}25 > -0{,}4$.`] } },
+
+  /* ----- Niveau 3 : plusieurs étapes, pièges et problèmes ----- */
 
   { partie: 0, theme: 'Encadrer', type: 'qcm',
     enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
@@ -778,7 +753,26 @@ const QUIZ = {
         r`Racine carrée, croissante&nbsp;: si $9 \le x \le 25$, alors $\sqrt{9} \le \sqrt{x} \le \sqrt{25}$, soit $3 \le \sqrt{x} \le 5$. Contre-exemple&nbsp;: $\sqrt{9} = 3 < 4{,}5$.`,
         r`L'affirmation vraie est <span class="resultat">si $2 \le x \le 10$, alors $0{,}1 \le \dfrac{1}{x} \le 0{,}5$</span>. Attention&nbsp;: la racine carrée d'un nombre n'est pas sa moitié.`] } },
 
-  /* ----- Problèmes d'optimisation (partie 5 du cours, capacité 5, problème de recherche) ----- */
+  { partie: 0, theme: 'Peut-on comparer ?', type: 'qcm', fixe: true,
+    enonce: r`On donne le tableau de variations d'une fonction $h$ définie sur $\left[-3\,;\,4\right]$.`
+      + tableauVar('h', [-3, -1, 1, 4], [-1, 4, 0, 3]) + r`Que peut-on dire de $h(0)$ et de $h(3)$&nbsp;?`,
+    choix: [r`$h(0) < h(3)$`, r`$h(0) = h(3)$`, r`$h(0) > h(3)$`, r`on ne peut pas les comparer avec ce tableau`],
+    bonne: 3,
+    explication: [
+      r`Le sens de variation ne range deux images que si les deux nombres sont dans un même intervalle où la fonction est monotone. Ici, $0$ et $3$ ne le sont pas&nbsp;: on cherche entre quelles valeurs chaque image est comprise.`,
+      r`$0$ est dans $\left[-1\,;\,1\right]$, où $h$ descend de $4$ à $0$&nbsp;: $h(0)$ est entre $0$ et $4$. $3$ est dans $\left[1\,;\,4\right]$, où $h$ monte de $0$ à $3$&nbsp;: $h(3)$ est entre $0$ et $3$.`,
+      r`Les deux cas sont possibles&nbsp;: si $h(0) = 3{,}5$ et $h(3) = 1$, alors $h(0) > h(3)$&nbsp;; si $h(0) = 0{,}5$ et $h(3) = 2$, alors $h(0) < h(3)$. Donc <span class="resultat">on ne peut pas conclure</span>.`],
+    revoir: r`méthode «&nbsp;comparer $f(a)$ et $f(b)$&nbsp;» et capacité 2 du cours (question 3), exercice 2 de la fiche (question 4)`,
+    variante: {
+      enonce: r`On donne le tableau de variations d'une fonction $k$ définie sur $\left[-2\,;\,5\right]$.`
+        + tableauVar('k', [-2, 1, 3, 5], [1, -3, 4, 2]) + r`Que peut-on dire de $k(0)$ et de $k(4)$&nbsp;?`,
+      choix: [r`$k(0) < k(4)$`, r`$k(0) = k(4)$`, r`$k(0) > k(4)$`, r`on ne peut pas les comparer avec ce tableau`],
+      bonne: 0,
+      explication: [
+        r`Le sens de variation ne range deux images que si les deux nombres sont dans un même intervalle où la fonction est monotone. Ici, $0$ et $4$ ne le sont pas&nbsp;: on cherche entre quelles valeurs chaque image est comprise.`,
+        r`$0$ est dans $\left[-2\,;\,1\right]$, où $k$ descend de $1$ à $-3$&nbsp;: $k(0) < 1$. $4$ est dans $\left[3\,;\,5\right]$, où $k$ descend de $4$ à $2$&nbsp;: $k(4) > 2$.`,
+        calcul(r`k(0) & < 1`, r`& < 2`, r`& < k(4)`),
+        r`Donc <span class="resultat">$k(0) < k(4)$</span>. On peut conclure, car toutes les images de $\left[-2\,;\,1\right]$ sont au plus égales à $1$, et toutes celles de $\left[3\,;\,5\right]$ au moins égales à $2$.`] } },
 
   { partie: 0, theme: 'Optimisation', type: 'qcm',
     enonce: r`Avec $40$&nbsp;m de grillage, on construit un enclos rectangulaire adossé à un mur&nbsp;: le mur forme un côté, les trois autres sont grillagés. On note $x$ la longueur, en mètres, de chacun des deux côtés perpendiculaires au mur&nbsp;: le côté parallèle au mur mesure $40 - 2x$, et l'aire de l'enclos est $A(x) = x(40 - 2x)$, pour $x$ dans $\left[0\,;\,20\right]$. Voici un tableau de valeurs de $A$.`
@@ -789,7 +783,9 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`On cherche le maximum de $A$ par balayage&nbsp;: les aires augmentent, puis diminuent, et $A(8) = A(12) = 192$&nbsp;; le maximum semble atteint entre $8$ et $12$, vers le milieu, $10$. On affine avec un pas de $1$ autour de $10$&nbsp;:`,
-      calcul(r`A(9) & = 9 \times 22 = 198`, r`A(10) & = 10 \times 20 = 200`, r`A(11) & = 11 \times 18 = 198`),
+      calcul(r`A(9) & = 9 \times (40 - 2 \times 9)`, r`& = 9 \times 22`, r`& = 198`,
+        r`A(10) & = 10 \times (40 - 2 \times 10)`, r`& = 10 \times 20`, r`& = 200`,
+        r`A(11) & = 11 \times (40 - 2 \times 11)`, r`& = 11 \times 18`, r`& = 198`),
       r`L'aire semble maximale <span class="resultat">pour $x = 10$&nbsp;; elle vaut alors $200$&nbsp;m²</span>&nbsp;: l'enclos mesure $10$&nbsp;m sur $40 - 2 \times 10 = 20$&nbsp;m. Ce n'est pas un carré&nbsp;: le mur remplace un côté de grillage. Tableau de variations conjecturé de $A$&nbsp;:`,
       tableauVar('A', [0, 10, 20], [0, 200, 0]),
       r`Attention&nbsp;: $192$ n'est que la plus grande valeur du tableau&nbsp;; avec un pas de $4$, le tableau ne passe pas par le maximum.`],
@@ -803,7 +799,9 @@ const QUIZ = {
       bonne: 0,
       explication: [
         r`On cherche le maximum de $A$ par balayage&nbsp;: les aires augmentent, puis diminuent, et $A(12) = A(18) = 432$&nbsp;; le maximum semble atteint entre $12$ et $18$, vers le milieu, $15$. On affine avec un pas de $1$ autour de $15$&nbsp;:`,
-        calcul(r`A(14) & = 14 \times 32 = 448`, r`A(15) & = 15 \times 30 = 450`, r`A(16) & = 16 \times 28 = 448`),
+        calcul(r`A(14) & = 14 \times (60 - 2 \times 14)`, r`& = 14 \times 32`, r`& = 448`,
+          r`A(15) & = 15 \times (60 - 2 \times 15)`, r`& = 15 \times 30`, r`& = 450`,
+          r`A(16) & = 16 \times (60 - 2 \times 16)`, r`& = 16 \times 28`, r`& = 448`),
         r`L'aire semble maximale <span class="resultat">pour $x = 15$&nbsp;; elle vaut alors $450$&nbsp;m²</span>&nbsp;: l'enclos mesure $15$&nbsp;m sur $60 - 2 \times 15 = 30$&nbsp;m. Ce n'est pas un carré&nbsp;: le mur remplace un côté de grillage. Tableau de variations conjecturé de $A$&nbsp;:`,
         tableauVar('A', [0, 15, 30], [0, 450, 0]),
         r`Attention&nbsp;: $432$ n'est que la plus grande valeur du tableau&nbsp;; avec un pas de $6$, le tableau ne passe pas par le maximum.`] } },
@@ -815,9 +813,13 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`La boucle essaie $x = 0$, $1$, $2$… jusqu'à $11$. La variable <code>xmax</code> garde la valeur de $x$ qui a donné la plus grande image jusque-là&nbsp;: elle ne change que si $f(x)$ est strictement plus grand que $f(\text{xmax})$. On calcule les images autour du sommet&nbsp;:`,
-      calcul(r`f(4) & = 4 \times 7 = 28`, r`f(5) & = 5 \times 6 = 30`, r`f(6) & = 6 \times 5 = 30`, r`f(7) & = 7 \times 4 = 28`),
-      r`Les images augmentent jusqu'à $x = 5$&nbsp;: <code>xmax</code> prend la valeur $5$. Pour $x = 6$, $f(6) = 30$ n'est pas strictement plus grand que $f(5) = 30$&nbsp;: <code>xmax</code> reste $5$, puis les images diminuent. <code>balayage(0, 11, 1)</code> renvoie <span class="resultat"><code>5</code></span>.`,
-      r`Attention&nbsp;: la fonction renvoie une valeur de $x$, et non la plus grande image, $30$. Le maximum exact est atteint en $5{,}5$, que le pas de $1$ n'essaie pas&nbsp;: $f(5{,}5) = 5{,}5 \times 5{,}5 = 30{,}25$&nbsp;; un balayage plus fin, entre $5$ et $6$, s'en approcherait.`],
+      calcul(r`f(4) & = 4 \times (11 - 4)`, r`& = 4 \times 7`, r`& = 28`,
+        r`f(5) & = 5 \times (11 - 5)`, r`& = 5 \times 6`, r`& = 30`),
+      r`Les images augmentent jusqu'à $x = 5$&nbsp;: <code>xmax</code> prend la valeur $5$. Ensuite&nbsp;:`,
+      calcul(r`f(6) & = 6 \times (11 - 6)`, r`& = 6 \times 5`, r`& = 30`,
+        r`f(7) & = 7 \times (11 - 7)`, r`& = 7 \times 4`, r`& = 28`),
+      r`Pour $x = 6$, $f(6) = 30$ n'est pas strictement plus grand que $f(5) = 30$&nbsp;: <code>xmax</code> reste $5$, puis les images diminuent. <code>balayage(0, 11, 1)</code> renvoie <span class="resultat"><code>5</code></span>.`,
+      r`Attention&nbsp;: la fonction renvoie une valeur de $x$, et non la plus grande image, $30$. Avec un pas de $1$, $x$ ne prend que des valeurs entières&nbsp;: elle ne peut pas renvoyer $5{,}5$, où le maximum exact est atteint&nbsp;; un balayage plus fin, entre $5$ et $6$, s'en approcherait.`],
     revoir: r`problème «&nbsp;la plus grande boîte&nbsp;» (questions 4 et 5), méthode de la partie 5 du cours (balayage)`,
     variante: {
       enonce: r`Dans le problème «&nbsp;la plus grande boîte&nbsp;», la fonction <code>balayage(a, b, pas)</code> essaie les valeurs $a$, $a + \text{pas}$, $a + 2 \times \text{pas}$… jusqu'à $b$. On l'utilise ici avec la fonction $f$ définie par $f(x) = x(9 - x)$&nbsp;:`
@@ -826,9 +828,13 @@ const QUIZ = {
       bonne: 0,
       explication: [
         r`La boucle essaie $x = 0$, $1$, $2$… jusqu'à $9$. La variable <code>xmax</code> garde la valeur de $x$ qui a donné la plus grande image jusque-là&nbsp;: elle ne change que si $f(x)$ est strictement plus grand que $f(\text{xmax})$. On calcule les images autour du sommet&nbsp;:`,
-        calcul(r`f(3) & = 3 \times 6 = 18`, r`f(4) & = 4 \times 5 = 20`, r`f(5) & = 5 \times 4 = 20`, r`f(6) & = 6 \times 3 = 18`),
-        r`Les images augmentent jusqu'à $x = 4$&nbsp;: <code>xmax</code> prend la valeur $4$. Pour $x = 5$, $f(5) = 20$ n'est pas strictement plus grand que $f(4) = 20$&nbsp;: <code>xmax</code> reste $4$, puis les images diminuent. <code>balayage(0, 9, 1)</code> renvoie <span class="resultat"><code>4</code></span>.`,
-        r`Attention&nbsp;: la fonction renvoie une valeur de $x$, et non la plus grande image, $20$. Le maximum exact est atteint en $4{,}5$, que le pas de $1$ n'essaie pas&nbsp;: $f(4{,}5) = 4{,}5 \times 4{,}5 = 20{,}25$&nbsp;; un balayage plus fin, entre $4$ et $5$, s'en approcherait.`] } }
+        calcul(r`f(3) & = 3 \times (9 - 3)`, r`& = 3 \times 6`, r`& = 18`,
+          r`f(4) & = 4 \times (9 - 4)`, r`& = 4 \times 5`, r`& = 20`),
+        r`Les images augmentent jusqu'à $x = 4$&nbsp;: <code>xmax</code> prend la valeur $4$. Ensuite&nbsp;:`,
+        calcul(r`f(5) & = 5 \times (9 - 5)`, r`& = 5 \times 4`, r`& = 20`,
+          r`f(6) & = 6 \times (9 - 6)`, r`& = 6 \times 3`, r`& = 18`),
+        r`Pour $x = 5$, $f(5) = 20$ n'est pas strictement plus grand que $f(4) = 20$&nbsp;: <code>xmax</code> reste $4$, puis les images diminuent. <code>balayage(0, 9, 1)</code> renvoie <span class="resultat"><code>4</code></span>.`,
+        r`Attention&nbsp;: la fonction renvoie une valeur de $x$, et non la plus grande image, $20$. Avec un pas de $1$, $x$ ne prend que des valeurs entières&nbsp;: elle ne peut pas renvoyer $4{,}5$, où le maximum exact est atteint&nbsp;; un balayage plus fin, entre $4$ et $5$, s'en approcherait.`] } }
   ]
 };
 

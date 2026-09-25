@@ -6,25 +6,27 @@
 <title>Entraînement Évaluation équations</title>
 <!--
   Entraînement auto-corrigé à l'évaluation du chapitre 10 (Équations) - Seconde.
-  Une seule partie, douze questions, sans automatismes (demande du professeur), dans l'ordre
-  du cours et des séances du plan :
-    1 à 3    : équation du premier degré ax + b = cx + d (division par un coefficient
-               négatif), équation sans solution après développement (variante : tout réel
-               est solution), mise en équation d'une comparaison de deux tarifs ;
-    4 à 7    : équation produit nul, équation x^2 = kx (vrai ou faux sur la rédaction d'un
-               élève qui divise par x), factorisation par un facteur commun, puis par
-               l'identité a^2 - b^2, avant le produit nul ;
-    8        : équations x^2 = a, avec a positif, nul ou négatif (une seule affirmation
-               vraie parmi quatre) ;
-    9 et 10  : équation quotient (valeur interdite écartée, en vrai ou faux ; A/B = k) ;
-    11 et 12 : isoler une variable (h dans V = pi r^2 h, puis calcul, comme à l'évaluation ;
-               y dans une relation ax + by = c).
+  Une seule partie, douze questions, sans automatismes (demande du professeur), rangées par
+  difficulté croissante, en trois niveaux :
+    - niveau 1, questions de cours et applications directes : un nombre est-il solution
+      (vrai ou faux), équation produit nul déjà factorisée, équations x^2 = a (une seule
+      affirmation vraie parmi quatre) ;
+    - niveau 2, méthodes en deux ou trois étapes : premier degré ax + b = cx + d (division par
+      un coefficient négatif), équation sans solution après développement (variante : tout
+      réel est solution), équation x^2 = kx (vrai ou faux sur la rédaction d'un élève qui
+      divise par x), isoler y dans ax + by = c, isoler h dans V = pi r^2 h puis calculer ;
+    - niveau 3, plusieurs étapes et pièges : mise en équation d'une comparaison de deux
+      tarifs, équation quotient nul (valeur interdite écartée, en vrai ou faux), factorisation
+      par un facteur commun puis produit nul, équation quotient A/B = k.
+  La question de cours « un nombre est-il solution ? » (partie 1 du cours, exercice 26 p. 99)
+  remplace l'ancienne équation (x - 2)^2 - 49 = 0 (factorisation par a^2 - b^2, puis produit
+  nul), redondante avec la question du facteur commun (même démarche : factoriser, puis
+  produit nul) et absente de l'évaluation.
   Sources : capacités 1 à 5 et méthodes du cours, activités 1 (le nombre caché) et 2 (les
-  dimensions d'un rectangle), fiche d'exercices (exercices 1 à 6), problème du carré
-  d'Al-Khwarizmi, évaluation (sujets A et B, exercices 2 à 4 ; son QCM d'automatismes n'est
-  pas repris) et exercices du manuel cités dans le plan, hors « Plus rapides » (26 et 27
-  p. 99 ; 111, 113, 115, 117, 120, 123 et 124 p. 104 ; 127, 128 et 130 p. 105 ; « Faire le
-  point » p. 107, questions 9 à 11).
+  dimensions d'un rectangle), fiche d'exercices (exercices 1 à 6), évaluation (sujets A et B,
+  exercices 2 à 4 ; son QCM d'automatismes n'est pas repris) et exercices du manuel cités dans
+  le plan, hors « Plus rapides » (26 et 27 p. 99 ; 111, 113, 115, 117, 120 et 124 p. 104 ;
+  127, 128 et 130 p. 105 ; « Faire le point » p. 107, questions 9 à 11).
   Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs,
   calculables de tête (calculatrice interdite, comme à l'évaluation). Ni inéquation ni tableau
   de signes (chapitre 14) ; pas d'équation à coefficients fractionnaires (fiche, exercice 1,
@@ -33,11 +35,12 @@
   retranché au lieu de diviser, x = 0 conclu quand les termes en x disparaissent, un des deux
   prix oublié dans l'équation des tarifs, 4x = 3 non divisé ou fraction inversée, solution 0
   perdue en divisant par x, signe - non distribué dans la parenthèse, division par le facteur
-  commun, (x - 2)^2 développé en x^2 - 4, oubli de la solution négative, carré égal à un nombre
-  négatif, valeur interdite gardée, facteur non distribué dans A = kB, rayon non élevé au
-  carré, un seul terme divisé).
+  commun, oubli de la solution négative, carré égal à un nombre négatif, valeur interdite
+  gardée, facteur non distribué dans A = kB, rayon non élevé au carré, un seul terme divisé).
   Calculs en colonne : l'équation de départ seule sur la première ligne, puis une étape par
-  ligne, pour que chaque ligne tienne sans se couper sur un écran de téléphone (375 pixels).
+  ligne, pour que chaque ligne tienne sans se couper sur un écran de téléphone (375 pixels) ;
+  une opération par ligne (en rouge), puis la ligne simplifiée ; chaque produit de la
+  distributivité écrit avant d'être calculé.
   Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
   questions manquées.
 
@@ -335,63 +338,23 @@ const QUIZ = {
   parties: ['Équations'],
   questions: [
 
-  /* ----- Équations du premier degré (partie 2 du cours, capacité 1, activité 1, exercices 1 et 2 de la fiche) ----- */
+  /* ----- Niveau 1 : questions de cours et applications directes ----- */
 
-  { partie: 0, theme: 'Premier degré', type: 'qcm',
-    enonce: r`La solution de l'équation $3x + 7 = 8x - 13$ est&nbsp;:`,
-    choix: [r`$4$`, r`$-4$`, r`$\dfrac{6}{5}$`, r`$-15$`],
-    bonne: 0,
+  { partie: 0, theme: "Solution d'une équation", type: 'vf',
+    enonce: r`Le nombre $4$ est une solution de l'équation $3x - 5 = x + 3$.`,
+    bonne: true,
     explication: [
-      r`On regroupe les termes en $x$ dans le membre de gauche et les nombres dans celui de droite, en retranchant le même terme aux deux membres, puis on divise par le coefficient de $x$.`,
-      calcul(r`3x + 7 = 8x - 13`, r`& \iff 3x + 7 \op{- 8x} = 8x - 13 \op{- 8x}`, r`& \iff -5x + 7 \op{- 7} = -13 \op{- 7}`, r`& \iff -5x = -20`, r`& \iff \dfrac{-5x}{\op{-5}} = \dfrac{-20}{\op{-5}}`, r`& \iff \resultat{x = 4}`),
-      r`Vérification&nbsp;: $3 \times 4 + 7 = 19$ et $8 \times 4 - 13 = 19$. Attention&nbsp;: on divise par $-5$ (on ne retranche pas $-5$), et le quotient de deux nombres négatifs est positif.`],
-    revoir: r`capacité 1 du cours, exercice 1 de la fiche (questions 1 à 3), activité 1, exercices 27 p.&nbsp;99 et 115 p.&nbsp;104 du manuel`,
+      r`Un nombre est solution d'une équation si l'égalité est vraie lorsqu'on remplace $x$ par ce nombre&nbsp;: on calcule chaque membre pour $x = 4$.`,
+      calcul(r`3 \times 4 - 5 & = 12 - 5`, r`& = 7`, r`4 + 3 & = 7`),
+      r`Les deux membres valent $7$&nbsp;: l'égalité est vraie pour $x = 4$, l'affirmation est <span class="resultat">vraie</span>.`],
+    revoir: r`définition d'une solution (partie 1 du cours), exercice 26 p.&nbsp;99 du manuel`,
     variante: {
-      enonce: r`La solution de l'équation $4x + 5 = 7x - 16$ est&nbsp;:`,
-      choix: [r`$7$`, r`$-7$`, r`$\dfrac{11}{3}$`, r`$-18$`],
-      bonne: 0,
+      enonce: r`Le nombre $-2$ est une solution de l'équation $5x + 4 = 2x - 3$.`,
+      bonne: false,
       explication: [
-        r`On regroupe les termes en $x$ dans le membre de gauche et les nombres dans celui de droite, en retranchant le même terme aux deux membres, puis on divise par le coefficient de $x$.`,
-        calcul(r`4x + 5 = 7x - 16`, r`& \iff 4x + 5 \op{- 7x} = 7x - 16 \op{- 7x}`, r`& \iff -3x + 5 \op{- 5} = -16 \op{- 5}`, r`& \iff -3x = -21`, r`& \iff \dfrac{-3x}{\op{-3}} = \dfrac{-21}{\op{-3}}`, r`& \iff \resultat{x = 7}`),
-        r`Vérification&nbsp;: $4 \times 7 + 5 = 33$ et $7 \times 7 - 16 = 33$. Attention&nbsp;: on divise par $-3$ (on ne retranche pas $-3$), et le quotient de deux nombres négatifs est positif.`] } },
-
-  { partie: 0, theme: 'Aucune solution ou tout réel', type: 'qcm',
-    enonce: r`L'ensemble des solutions de l'équation $4(x - 2) = 4x + 5$ est&nbsp;:`,
-    choix: [r`$∅$`, r`$\R$`, r`$\{0\}$`, r`$\{13\}$`],
-    bonne: 0,
-    explication: [
-      r`On développe le membre de gauche, puis on retranche $4x$ aux deux membres pour regrouper les termes en $x$.`,
-      calcul(r`4(x - 2) = 4x + 5`, r`& \iff 4x - 8 = 4x + 5`, r`& \iff 4x - 8 \op{- 4x} = 4x + 5 \op{- 4x}`, r`& \iff -8 = 5`),
-      r`L'égalité $-8 = 5$ est fausse, quelle que soit la valeur de $x$&nbsp;: l'équation n'a aucune solution, l'ensemble des solutions est <span class="resultat">$∅$</span>. Attention&nbsp;: les termes en $x$ ont disparu, il ne faut pas conclure $x = 0$.`],
-    revoir: r`capacité 1 du cours (question 6), exercice 1 de la fiche (questions 5 et 6), activité 1 (question 3)`,
-    variante: {
-      enonce: r`L'ensemble des solutions de l'équation $2(x + 3) + x = 3x + 6$ est&nbsp;:`,
-      choix: [r`$\R$`, r`$∅$`, r`$\{0\}$`, r`$\{6\}$`],
-      bonne: 0,
-      explication: [
-        r`On développe et on réduit le membre de gauche, puis on retranche $3x$ aux deux membres pour regrouper les termes en $x$.`,
-        calcul(r`2(x + 3) + x = 3x + 6`, r`& \iff 2x + 6 + x = 3x + 6`, r`& \iff 3x + 6 = 3x + 6`, r`& \iff 3x + 6 \op{- 3x} = 3x + 6 \op{- 3x}`, r`& \iff 6 = 6`),
-        r`L'égalité $6 = 6$ est vraie, quelle que soit la valeur de $x$&nbsp;: tout réel est solution, l'ensemble des solutions est <span class="resultat">$\R$</span>. Attention&nbsp;: les termes en $x$ ont disparu, il ne faut conclure ni $x = 0$ ni $x = 6$.`] } },
-
-  { partie: 0, theme: 'Mettre en équation', type: 'qcm',
-    enonce: r`Une piscine propose deux tarifs&nbsp;: le tarif A, à $6$&nbsp;€ l'entrée&nbsp;; le tarif B, avec une carte à $24$&nbsp;€ par an, puis $4$&nbsp;€ l'entrée. On note $x$ le nombre d'entrées dans l'année. Les deux tarifs coûtent le même prix pour&nbsp;:`,
-    choix: [r`$12$ entrées`, r`$4$ entrées`, r`$6$ entrées`, r`$2{,}4$ entrées`],
-    bonne: 0,
-    explication: [
-      r`On exprime les deux prix en fonction de $x$&nbsp;: $6x$ euros avec le tarif A, $24 + 4x$ euros avec le tarif B. Les deux tarifs coûtent le même prix lorsque $6x = 24 + 4x$.`,
-      calcul(r`6x = 24 + 4x`, r`& \iff 6x \op{- 4x} = 24 + 4x \op{- 4x}`, r`& \iff 2x = 24`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{24}{\op{2}}`, r`& \iff x = 12`),
-      r`$12$ est bien un nombre entier&nbsp;: les deux tarifs coûtent le même prix pour <span class="resultat">$12$ entrées</span>. Vérification&nbsp;: $6 \times 12 = 72$ et $24 + 4 \times 12 = 72$.`],
-    revoir: r`méthode «&nbsp;mettre un problème en équation&nbsp;» (partie 2 du cours), exercice 2 de la fiche, exercices 127 et 128 p.&nbsp;105 du manuel`,
-    variante: {
-      enonce: r`Un club de tennis propose deux formules&nbsp;: sans adhésion, $5$&nbsp;€ l'heure de court&nbsp;; avec une adhésion à $30$&nbsp;€ par an, $3$&nbsp;€ l'heure. On note $x$ le nombre d'heures de jeu dans l'année. Les deux formules coûtent le même prix pour&nbsp;:`,
-      choix: [r`$15$ heures`, r`$6$ heures`, r`$10$ heures`, r`$3{,}75$ heures`],
-      bonne: 0,
-      explication: [
-        r`On exprime les deux prix en fonction de $x$&nbsp;: $5x$ euros sans adhésion, $30 + 3x$ euros avec l'adhésion. Les deux formules coûtent le même prix lorsque $5x = 30 + 3x$.`,
-        calcul(r`5x = 30 + 3x`, r`& \iff 5x \op{- 3x} = 30 + 3x \op{- 3x}`, r`& \iff 2x = 30`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{30}{\op{2}}`, r`& \iff x = 15`),
-        r`Les deux formules coûtent le même prix pour <span class="resultat">$15$ heures</span> de jeu. Vérification&nbsp;: $5 \times 15 = 75$ et $30 + 3 \times 15 = 75$.`] } },
-
-  /* ----- Équation produit nul (partie 3 du cours, capacité 2, activité 2, exercice 3 de la fiche) ----- */
+        r`Un nombre est solution d'une équation si l'égalité est vraie lorsqu'on remplace $x$ par ce nombre&nbsp;: on calcule chaque membre pour $x = -2$.`,
+        calcul(r`5 \times (-2) + 4 & = -10 + 4`, r`& = -6`, r`2 \times (-2) - 3 & = -4 - 3`, r`& = -7`),
+        r`$-6 \ne -7$&nbsp;: l'égalité est fausse pour $x = -2$, l'affirmation est <span class="resultat">fausse</span>.`] } },
 
   { partie: 0, theme: 'Produit nul', type: 'qcm',
     enonce: r`L'ensemble des solutions de l'équation $(4x - 3)(x + 2) = 0$ est&nbsp;:`,
@@ -410,68 +373,6 @@ const QUIZ = {
         r`Un produit est nul si et seulement si l'un au moins de ses facteurs est nul&nbsp;: on résout $2x = 0$ et $9 - 4x = 0$.`,
         calcul(r`2x(9 - 4x) = 0`, r`& \iff 2x = 0 \text{ ou } 9 - 4x = 0`, r`& \iff x = 0 \text{ ou } 9 - 4x \op{- 9} = 0 \op{- 9}`, r`& \iff x = 0 \text{ ou } -4x = -9`, r`& \iff x = 0 \text{ ou } \dfrac{-4x}{\op{-4}} = \dfrac{-9}{\op{-4}}`, r`& \iff x = 0 \text{ ou } x = \dfrac{9}{4}`),
         r`L'ensemble des solutions est <span class="resultat">$\left\{0\,;\,\dfrac{9}{4}\right\}$</span>. Attention&nbsp;: $2x = 0$ donne $x = 0$, et $\dfrac{-9}{-4} = \dfrac{9}{4}$ est positif.`] } },
-
-  { partie: 0, theme: 'Factoriser par x', type: 'vf',
-    enonce: r`Pour résoudre l'équation $x^{2} = 8x$, Léo divise les deux membres par $x$&nbsp;: il obtient $x = 8$ et conclut que l'ensemble des solutions est $\{8\}$. Sa conclusion est exacte.`,
-    bonne: false,
-    explication: [
-      r`On ne divise pas les deux membres par $x$, qui peut être nul&nbsp;: on regroupe tout dans le membre de gauche, on factorise par $x$, puis on applique la propriété du produit nul.`,
-      calcul(r`x^{2} = 8x`, r`& \iff x^{2} \op{- 8x} = 8x \op{- 8x}`, r`& \iff x(x - 8) = 0`, r`& \iff x = 0 \text{ ou } x - 8 = 0`, r`& \iff x = 0 \text{ ou } x = 8`),
-      r`L'ensemble des solutions est $\{0\,;\,8\}$&nbsp;: en divisant par $x$, Léo a perdu la solution $0$ (en effet, $0^{2} = 8 \times 0$). Sa conclusion est <span class="resultat">fausse</span>.`],
-    revoir: r`méthode de la partie 3 et capacité 2 du cours (question 3), exercice 3 de la fiche (questions 2 et 3), exercice 120 p.&nbsp;104 du manuel`,
-    variante: {
-      enonce: r`Pour résoudre l'équation $3x^{2} = 12x$, Inès retranche $12x$ aux deux membres, factorise par $3x$ et conclut que l'ensemble des solutions est $\{0\,;\,4\}$. Sa conclusion est exacte.`,
-      bonne: true,
-      explication: [
-        r`On ne divise pas les deux membres par $x$, qui peut être nul&nbsp;: on regroupe tout dans le membre de gauche, on factorise par $3x$ (car $3x^{2} = 3x \times x$ et $12x = 3x \times 4$), puis on applique la propriété du produit nul.`,
-        calcul(r`3x^{2} = 12x`, r`& \iff 3x^{2} \op{- 12x} = 12x \op{- 12x}`, r`& \iff 3x(x - 4) = 0`, r`& \iff 3x = 0 \text{ ou } x - 4 = 0`, r`& \iff x = 0 \text{ ou } x = 4`),
-        r`L'ensemble des solutions est bien $\{0\,;\,4\}$&nbsp;: la conclusion d'Inès est <span class="resultat">vraie</span>. Vérification&nbsp;: $3 \times 4^{2} = 48$ et $12 \times 4 = 48$.`] } },
-
-  { partie: 0, theme: 'Facteur commun', type: 'qcm',
-    enonce: r`L'ensemble des solutions de l'équation $(x - 3)(2x + 1) - (x - 3)(x + 5) = 0$ est&nbsp;:`,
-    choix: [r`$\{3\,;\,4\}$`, r`$\{-6\,;\,3\}$`, r`$\{4\}$`, r`$\{-4\,;\,-3\}$`],
-    bonne: 0,
-    explication: [
-      r`On factorise le membre de gauche par le facteur commun $x - 3$&nbsp;; le signe $-$ porte sur toute la parenthèse $(x + 5)$.`,
-      calcul(r`(x - 3)(2x + 1) - (x - 3)(x + 5)`, r`& = (x - 3)\left[(2x + 1) - (x + 5)\right]`, r`& = (x - 3)(2x + 1 - x - 5)`, r`& = (x - 3)(x - 4)`),
-      r`On résout l'équation produit nul obtenue.`,
-      calcul(r`(x - 3)(x - 4) = 0`, r`& \iff x - 3 = 0 \text{ ou } x - 4 = 0`, r`& \iff x = 3 \text{ ou } x = 4`),
-      r`L'ensemble des solutions est <span class="resultat">$\{3\,;\,4\}$</span>. Attention&nbsp;: diviser les deux membres par $x - 3$ ferait perdre la solution $3$.`],
-    revoir: r`capacité 2 du cours (question 4), exercice 3 de la fiche (question 4)`,
-    variante: {
-      enonce: r`L'ensemble des solutions de l'équation $(x + 2)(3x - 1) - (x + 2)(2x + 2) = 0$ est&nbsp;:`,
-      choix: [r`$\{-2\,;\,3\}$`, r`$\{-2\,;\,-1\}$`, r`$\{3\}$`, r`$\{-3\,;\,2\}$`],
-      bonne: 0,
-      explication: [
-        r`On factorise le membre de gauche par le facteur commun $x + 2$&nbsp;; le signe $-$ porte sur toute la parenthèse $(2x + 2)$.`,
-        calcul(r`(x + 2)(3x - 1) - (x + 2)(2x + 2)`, r`& = (x + 2)\left[(3x - 1) - (2x + 2)\right]`, r`& = (x + 2)(3x - 1 - 2x - 2)`, r`& = (x + 2)(x - 3)`),
-        r`On résout l'équation produit nul obtenue.`,
-        calcul(r`(x + 2)(x - 3) = 0`, r`& \iff x + 2 = 0 \text{ ou } x - 3 = 0`, r`& \iff x = -2 \text{ ou } x = 3`),
-        r`L'ensemble des solutions est <span class="resultat">$\{-2\,;\,3\}$</span>. Attention&nbsp;: diviser les deux membres par $x + 2$ ferait perdre la solution $-2$.`] } },
-
-  { partie: 0, theme: 'Identité remarquable', type: 'qcm',
-    enonce: r`L'ensemble des solutions de l'équation $(x - 2)^{2} - 49 = 0$ est&nbsp;:`,
-    choix: [r`$\{-5\,;\,9\}$`, r`$\{9\}$`, r`$\{-9\,;\,5\}$`, r`$\left\{-\sqrt{53}\,;\,\sqrt{53}\right\}$`],
-    bonne: 0,
-    explication: [
-      r`On reconnaît $a^{2} - b^{2} = (a - b)(a + b)$ avec $a = x - 2$ et $b = 7$, car $49 = 7^{2}$&nbsp;: on factorise, puis on applique la propriété du produit nul.`,
-      calcul(r`(x - 2)^{2} - 49 & = (x - 2)^{2} - 7^{2}`, r`& = (x - 2 - 7)(x - 2 + 7)`, r`& = (x - 9)(x + 5)`),
-      r`On résout l'équation produit nul obtenue.`,
-      calcul(r`(x - 9)(x + 5) = 0`, r`& \iff x - 9 = 0 \text{ ou } x + 5 = 0`, r`& \iff x = 9 \text{ ou } x = -5`),
-      r`L'ensemble des solutions est <span class="resultat">$\{-5\,;\,9\}$</span>. Autre méthode&nbsp;: $(x - 2)^{2} = 49$, donc $x - 2 = 7$ ou $x - 2 = -7$&nbsp;; sans la seconde égalité, on perdrait la solution $-5$.`],
-    revoir: r`capacité 2 du cours (questions 5 et 6), exercice 3 de la fiche (questions 5 et 6), exercice 123 p.&nbsp;104 du manuel, problème du carré d'Al-Khwarizmi`,
-    variante: {
-      enonce: r`L'ensemble des solutions de l'équation $(x + 1)^{2} - 36 = 0$ est&nbsp;:`,
-      choix: [r`$\{-7\,;\,5\}$`, r`$\{5\}$`, r`$\{-5\,;\,7\}$`, r`$\left\{-\sqrt{35}\,;\,\sqrt{35}\right\}$`],
-      bonne: 0,
-      explication: [
-        r`On reconnaît $a^{2} - b^{2} = (a - b)(a + b)$ avec $a = x + 1$ et $b = 6$, car $36 = 6^{2}$&nbsp;: on factorise, puis on applique la propriété du produit nul.`,
-        calcul(r`(x + 1)^{2} - 36 & = (x + 1)^{2} - 6^{2}`, r`& = (x + 1 - 6)(x + 1 + 6)`, r`& = (x - 5)(x + 7)`),
-        r`On résout l'équation produit nul obtenue.`,
-        calcul(r`(x - 5)(x + 7) = 0`, r`& \iff x - 5 = 0 \text{ ou } x + 7 = 0`, r`& \iff x = 5 \text{ ou } x = -7`),
-        r`L'ensemble des solutions est <span class="resultat">$\{-7\,;\,5\}$</span>. Autre méthode&nbsp;: $(x + 1)^{2} = 36$, donc $x + 1 = 6$ ou $x + 1 = -6$&nbsp;; sans la seconde égalité, on perdrait la solution $-7$.`] } },
-
-  /* ----- Équations x^2 = a (partie 4 du cours, capacité 3, exercice 4 de la fiche) ----- */
 
   { partie: 0, theme: 'Équation x² = a', type: 'qcm',
     enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
@@ -499,7 +400,119 @@ const QUIZ = {
         calcul(r`3x^{2} = 48`, r`& \iff \dfrac{3x^{2}}{\op{3}} = \dfrac{48}{\op{3}}`, r`& \iff x^{2} = 16`, r`& \iff x = -4 \text{ ou } x = 4`),
         r`L'affirmation vraie est <span class="resultat">$3x^{2} = 48$ a pour solutions $-4$ et $4$</span>.`] } },
 
-  /* ----- Équation quotient (partie 5 du cours, capacité 4, exercice 5 de la fiche) ----- */
+  /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
+
+  { partie: 0, theme: 'Premier degré', type: 'qcm',
+    enonce: r`La solution de l'équation $3x + 7 = 8x - 13$ est&nbsp;:`,
+    choix: [r`$4$`, r`$-4$`, r`$\dfrac{6}{5}$`, r`$-15$`],
+    bonne: 0,
+    explication: [
+      r`On regroupe les termes en $x$ dans le membre de gauche et les nombres dans celui de droite, en retranchant le même terme aux deux membres, puis on divise par le coefficient de $x$.`,
+      calcul(r`3x + 7 = 8x - 13`, r`& \iff 3x + 7 \op{- 8x} = 8x - 13 \op{- 8x}`, r`& \iff -5x + 7 = -13`, r`& \iff -5x + 7 \op{- 7} = -13 \op{- 7}`, r`& \iff -5x = -20`, r`& \iff \dfrac{-5x}{\op{-5}} = \dfrac{-20}{\op{-5}}`, r`& \iff \resultat{x = 4}`),
+      r`Vérification&nbsp;: $3 \times 4 + 7 = 19$ et $8 \times 4 - 13 = 19$. Attention&nbsp;: on divise par $-5$ (on ne retranche pas $-5$), et le quotient de deux nombres négatifs est positif.`],
+    revoir: r`capacité 1 du cours, exercice 1 de la fiche (questions 1 à 3), activité 1, exercices 27 p.&nbsp;99 et 115 p.&nbsp;104 du manuel`,
+    variante: {
+      enonce: r`La solution de l'équation $4x + 5 = 7x - 16$ est&nbsp;:`,
+      choix: [r`$7$`, r`$-7$`, r`$\dfrac{11}{3}$`, r`$-18$`],
+      bonne: 0,
+      explication: [
+        r`On regroupe les termes en $x$ dans le membre de gauche et les nombres dans celui de droite, en retranchant le même terme aux deux membres, puis on divise par le coefficient de $x$.`,
+        calcul(r`4x + 5 = 7x - 16`, r`& \iff 4x + 5 \op{- 7x} = 7x - 16 \op{- 7x}`, r`& \iff -3x + 5 = -16`, r`& \iff -3x + 5 \op{- 5} = -16 \op{- 5}`, r`& \iff -3x = -21`, r`& \iff \dfrac{-3x}{\op{-3}} = \dfrac{-21}{\op{-3}}`, r`& \iff \resultat{x = 7}`),
+        r`Vérification&nbsp;: $4 \times 7 + 5 = 33$ et $7 \times 7 - 16 = 33$. Attention&nbsp;: on divise par $-3$ (on ne retranche pas $-3$), et le quotient de deux nombres négatifs est positif.`] } },
+
+  { partie: 0, theme: 'Aucune solution ou tout réel', type: 'qcm',
+    enonce: r`L'ensemble des solutions de l'équation $4(x - 2) = 4x + 5$ est&nbsp;:`,
+    choix: [r`$∅$`, r`$\R$`, r`$\{0\}$`, r`$\{13\}$`],
+    bonne: 0,
+    explication: [
+      r`On développe le membre de gauche, puis on retranche $4x$ aux deux membres pour regrouper les termes en $x$.`,
+      calcul(r`4(x - 2) = 4x + 5`, r`& \iff 4 \times x - 4 \times 2 = 4x + 5`, r`& \iff 4x - 8 = 4x + 5`, r`& \iff 4x - 8 \op{- 4x} = 4x + 5 \op{- 4x}`, r`& \iff -8 = 5`),
+      r`L'égalité $-8 = 5$ est fausse, quelle que soit la valeur de $x$&nbsp;: l'équation n'a aucune solution, l'ensemble des solutions est <span class="resultat">$∅$</span>. Attention&nbsp;: les termes en $x$ ont disparu, il ne faut pas conclure $x = 0$.`],
+    revoir: r`capacité 1 du cours (question 6), exercice 1 de la fiche (questions 5 et 6), activité 1 (question 3)`,
+    variante: {
+      enonce: r`L'ensemble des solutions de l'équation $2(x + 3) + x = 3x + 6$ est&nbsp;:`,
+      choix: [r`$\R$`, r`$∅$`, r`$\{0\}$`, r`$\{6\}$`],
+      bonne: 0,
+      explication: [
+        r`On développe et on réduit le membre de gauche, puis on retranche $3x$ aux deux membres pour regrouper les termes en $x$.`,
+        calcul(r`2(x + 3) + x = 3x + 6`, r`& \iff 2 \times x + 2 \times 3 + x = 3x + 6`, r`& \iff 2x + 6 + x = 3x + 6`, r`& \iff 2x + x + 6 = 3x + 6`, r`& \iff 3x + 6 = 3x + 6`, r`& \iff 3x + 6 \op{- 3x} = 3x + 6 \op{- 3x}`, r`& \iff 6 = 6`),
+        r`L'égalité $6 = 6$ est vraie, quelle que soit la valeur de $x$&nbsp;: tout réel est solution, l'ensemble des solutions est <span class="resultat">$\R$</span>. Attention&nbsp;: les termes en $x$ ont disparu, il ne faut conclure ni $x = 0$ ni $x = 6$.`] } },
+
+  { partie: 0, theme: 'Factoriser par x', type: 'vf',
+    enonce: r`Pour résoudre l'équation $x^{2} = 8x$, Léo divise les deux membres par $x$&nbsp;: il obtient $x = 8$ et conclut que l'ensemble des solutions est $\{8\}$. Sa conclusion est exacte.`,
+    bonne: false,
+    explication: [
+      r`On ne divise pas les deux membres par $x$, qui peut être nul&nbsp;: on regroupe tout dans le membre de gauche, on factorise par $x$ (car $x^{2} = x \times x$ et $8x = 8 \times x$), puis on applique la propriété du produit nul.`,
+      calcul(r`x^{2} = 8x`, r`& \iff x^{2} \op{- 8x} = 8x \op{- 8x}`, r`& \iff x^{2} - 8x = 0`, r`& \iff x \times x - 8 \times x = 0`, r`& \iff x(x - 8) = 0`, r`& \iff x = 0 \text{ ou } x - 8 = 0`, r`& \iff x = 0 \text{ ou } x = 8`),
+      r`L'ensemble des solutions est $\{0\,;\,8\}$&nbsp;: en divisant par $x$, Léo a perdu la solution $0$ (en effet, $0^{2} = 8 \times 0$). Sa conclusion est <span class="resultat">fausse</span>.`],
+    revoir: r`méthode de la partie 3 et capacité 2 du cours (question 3), exercice 3 de la fiche (questions 2 et 3), exercice 120 p.&nbsp;104 du manuel`,
+    variante: {
+      enonce: r`Pour résoudre l'équation $3x^{2} = 12x$, Inès retranche $12x$ aux deux membres, factorise par $3x$ et conclut que l'ensemble des solutions est $\{0\,;\,4\}$. Sa conclusion est exacte.`,
+      bonne: true,
+      explication: [
+        r`On ne divise pas les deux membres par $x$, qui peut être nul&nbsp;: on regroupe tout dans le membre de gauche, on factorise par $3x$ (car $3x^{2} = 3x \times x$ et $12x = 3x \times 4$), puis on applique la propriété du produit nul.`,
+        calcul(r`3x^{2} = 12x`, r`& \iff 3x^{2} \op{- 12x} = 12x \op{- 12x}`, r`& \iff 3x^{2} - 12x = 0`, r`& \iff 3x \times x - 3x \times 4 = 0`, r`& \iff 3x(x - 4) = 0`, r`& \iff 3x = 0 \text{ ou } x - 4 = 0`, r`& \iff x = 0 \text{ ou } x = 4`),
+        r`L'ensemble des solutions est bien $\{0\,;\,4\}$&nbsp;: la conclusion d'Inès est <span class="resultat">vraie</span>. Vérification&nbsp;: $3 \times 4^{2} = 48$ et $12 \times 4 = 48$.`] } },
+
+  { partie: 0, theme: 'Relation ax + by = c', type: 'qcm',
+    enonce: r`On donne la relation $10x + 2y = 8$. L'expression de $y$ en fonction de $x$ est&nbsp;:`,
+    choix: [r`$y = 4 - 5x$`, r`$y = 5x - 4$`, r`$y = 4 - 10x$`, r`$y = 6 - 10x$`],
+    bonne: 0,
+    explication: [
+      r`On isole $y$ comme l'inconnue d'une équation, $x$ jouant le rôle d'un nombre connu&nbsp;: on retranche $10x$ aux deux membres, puis on les divise par $2$, en divisant chacun des deux termes $8$ et $-10x$.`,
+      calcul(r`10x + 2y = 8`, r`& \iff 10x + 2y \op{- 10x} = 8 \op{- 10x}`, r`& \iff 2y = 8 - 10x`, r`& \iff \dfrac{2y}{\op{2}} = \dfrac{8 - 10x}{\op{2}}`, r`& \iff y = \dfrac{8}{2} - \dfrac{10x}{2}`, r`& \iff \resultat{y = 4 - 5x}`),
+      r`Vérification&nbsp;: pour $x = 1$, $y = -1$ et $10 \times 1 + 2 \times (-1) = 8$.`],
+    revoir: r`capacité 5 du cours (question 5), exercice 6 de la fiche (question 3)`,
+    variante: {
+      enonce: r`On donne la relation $12x + 4y = 20$. L'expression de $y$ en fonction de $x$ est&nbsp;:`,
+      choix: [r`$y = 5 - 3x$`, r`$y = 3x - 5$`, r`$y = 5 - 12x$`, r`$y = 16 - 12x$`],
+      bonne: 0,
+      explication: [
+        r`On isole $y$ comme l'inconnue d'une équation, $x$ jouant le rôle d'un nombre connu&nbsp;: on retranche $12x$ aux deux membres, puis on les divise par $4$, en divisant chacun des deux termes $20$ et $-12x$.`,
+        calcul(r`12x + 4y = 20`, r`& \iff 12x + 4y \op{- 12x} = 20 \op{- 12x}`, r`& \iff 4y = 20 - 12x`, r`& \iff \dfrac{4y}{\op{4}} = \dfrac{20 - 12x}{\op{4}}`, r`& \iff y = \dfrac{20}{4} - \dfrac{12x}{4}`, r`& \iff \resultat{y = 5 - 3x}`),
+        r`Vérification&nbsp;: pour $x = 1$, $y = 2$ et $12 \times 1 + 4 \times 2 = 20$.`] } },
+
+  { partie: 0, theme: 'Isoler une variable', type: 'qcm',
+    enonce: r`Le volume d'un cylindre de rayon $r$ et de hauteur $h$ est $V = \pi r^{2}h$. Pour $V = 72\pi$&nbsp;cm³ et $r = 3$&nbsp;cm, la hauteur $h$ est égale à&nbsp;:`,
+    choix: [r`$8$&nbsp;cm`, r`$24$&nbsp;cm`, r`$12$&nbsp;cm`, r`$8\pi$&nbsp;cm`],
+    bonne: 0,
+    explication: [
+      r`On isole $h$ comme l'inconnue d'une équation&nbsp;: $h$ est multiplié par $\pi r^{2}$, on divise les deux membres par $\pi r^{2}$, qui n'est pas nul.`,
+      calcul(r`V = \pi r^{2}h`, r`& \iff \dfrac{V}{\op{\pi r^{2}}} = \dfrac{\pi r^{2}h}{\op{\pi r^{2}}}`, r`& \iff h = \dfrac{V}{\pi r^{2}}`),
+      r`On remplace $V$ par $72\pi$ et $r$ par $3$, on calcule le carré, puis on simplifie par $\pi$.`,
+      calcul(r`h & = \dfrac{72\pi}{\pi \times 3^{2}}`, r`& = \dfrac{72 \mul{\times \pi}}{9 \mul{\times \pi}}`, r`& = \dfrac{72}{9}`, r`& = \resultat{8}`),
+      r`La hauteur du cylindre est de $8$&nbsp;cm. Attention&nbsp;: le rayon est au carré, $\pi r^{2} = \pi \times 3^{2} = 9\pi$.`],
+    revoir: r`capacité 5 du cours (questions 1 à 4), exercice 6 de la fiche (questions 1 et 2), exercices 111 et 113 p.&nbsp;104 du manuel, question 11 du «&nbsp;Faire le point&nbsp;» p.&nbsp;107`,
+    variante: {
+      enonce: r`Une boîte de conserve cylindrique a pour rayon $r = 4$&nbsp;cm et pour volume $V = 80\pi$&nbsp;cm³. Sachant que $V = \pi r^{2}h$, sa hauteur $h$ est égale à&nbsp;:`,
+      choix: [r`$5$&nbsp;cm`, r`$20$&nbsp;cm`, r`$10$&nbsp;cm`, r`$5\pi$&nbsp;cm`],
+      bonne: 0,
+      explication: [
+        r`On isole $h$ comme l'inconnue d'une équation&nbsp;: $h$ est multiplié par $\pi r^{2}$, on divise les deux membres par $\pi r^{2}$, qui n'est pas nul.`,
+        calcul(r`V = \pi r^{2}h`, r`& \iff \dfrac{V}{\op{\pi r^{2}}} = \dfrac{\pi r^{2}h}{\op{\pi r^{2}}}`, r`& \iff h = \dfrac{V}{\pi r^{2}}`),
+        r`On remplace $V$ par $80\pi$ et $r$ par $4$, on calcule le carré, puis on simplifie par $\pi$&nbsp;; enfin, $80 = 5 \times 16$.`,
+        calcul(r`h & = \dfrac{80\pi}{\pi \times 4^{2}}`, r`& = \dfrac{80 \mul{\times \pi}}{16 \mul{\times \pi}}`, r`& = \dfrac{80}{16}`, r`& = \resultat{5}`),
+        r`La boîte mesure $5$&nbsp;cm de haut. Attention&nbsp;: le rayon est au carré, $\pi r^{2} = \pi \times 4^{2} = 16\pi$.`] } },
+
+  /* ----- Niveau 3 : plusieurs étapes, pièges et synthèse ----- */
+
+  { partie: 0, theme: 'Mettre en équation', type: 'qcm',
+    enonce: r`Une piscine propose deux tarifs&nbsp;: le tarif A, à $6$&nbsp;€ l'entrée&nbsp;; le tarif B, avec une carte à $24$&nbsp;€ par an, puis $4$&nbsp;€ l'entrée. On note $x$ le nombre d'entrées dans l'année. Les deux tarifs coûtent le même prix pour&nbsp;:`,
+    choix: [r`$12$ entrées`, r`$4$ entrées`, r`$6$ entrées`, r`$2{,}4$ entrées`],
+    bonne: 0,
+    explication: [
+      r`On exprime les deux prix en fonction de $x$&nbsp;: $6x$ euros avec le tarif A, $24 + 4x$ euros avec le tarif B. Les deux tarifs coûtent le même prix lorsque $6x = 24 + 4x$.`,
+      calcul(r`6x = 24 + 4x`, r`& \iff 6x \op{- 4x} = 24 + 4x \op{- 4x}`, r`& \iff 2x = 24`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{24}{\op{2}}`, r`& \iff x = 12`),
+      r`$12$ est bien un nombre entier&nbsp;: les deux tarifs coûtent le même prix pour <span class="resultat">$12$ entrées</span>. Vérification&nbsp;: $6 \times 12 = 72$ et $24 + 4 \times 12 = 72$.`],
+    revoir: r`méthode «&nbsp;mettre un problème en équation&nbsp;» (partie 2 du cours), exercice 2 de la fiche, exercices 127 et 128 p.&nbsp;105 du manuel`,
+    variante: {
+      enonce: r`Un club de tennis propose deux formules&nbsp;: sans adhésion, $5$&nbsp;€ l'heure de court&nbsp;; avec une adhésion à $30$&nbsp;€ par an, $3$&nbsp;€ l'heure. On note $x$ le nombre d'heures de jeu dans l'année. Les deux formules coûtent le même prix pour&nbsp;:`,
+      choix: [r`$15$ heures`, r`$6$ heures`, r`$10$ heures`, r`$3{,}75$ heures`],
+      bonne: 0,
+      explication: [
+        r`On exprime les deux prix en fonction de $x$&nbsp;: $5x$ euros sans adhésion, $30 + 3x$ euros avec l'adhésion. Les deux formules coûtent le même prix lorsque $5x = 30 + 3x$.`,
+        calcul(r`5x = 30 + 3x`, r`& \iff 5x \op{- 3x} = 30 + 3x \op{- 3x}`, r`& \iff 2x = 30`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{30}{\op{2}}`, r`& \iff x = 15`),
+        r`Les deux formules coûtent le même prix pour <span class="resultat">$15$ heures</span> de jeu. Vérification&nbsp;: $5 \times 15 = 75$ et $30 + 3 \times 15 = 75$.`] } },
 
   { partie: 0, theme: 'Valeur interdite', type: 'vf',
     enonce: r`L'ensemble des solutions de l'équation $\dfrac{x^{2} - 16}{x - 4} = 0$ est $\{-4\,;\,4\}$.`,
@@ -517,13 +530,37 @@ const QUIZ = {
         calcul(r`\dfrac{x^{2} - 25}{x + 5} = 0`, r`& \iff x^{2} - 25 = 0`, r`& \iff x^{2} - 25 \op{+ 25} = 0 \op{+ 25}`, r`& \iff x^{2} = 25`, r`& \iff x = -5 \text{ ou } x = 5`),
         r`$-5$ est la valeur interdite, on l'écarte&nbsp;: l'ensemble des solutions est bien $\{5\}$, l'affirmation est <span class="resultat">vraie</span>.`] } },
 
+  { partie: 0, theme: 'Facteur commun', type: 'qcm',
+    enonce: r`L'ensemble des solutions de l'équation $(x - 3)(2x + 1) - (x - 3)(x + 5) = 0$ est&nbsp;:`,
+    choix: [r`$\{3\,;\,4\}$`, r`$\{-6\,;\,3\}$`, r`$\{4\}$`, r`$\{-4\,;\,-3\}$`],
+    bonne: 0,
+    explication: [
+      r`On factorise le membre de gauche par le facteur commun $x - 3$&nbsp;; le signe $-$ porte sur toute la parenthèse $(x + 5)$. Puis on regroupe les termes en $x$, puis les nombres.`,
+      calcul(r`(x - 3)(2x + 1) - (x - 3)(x + 5)`, r`& = (x - 3)\left[(2x + 1) - (x + 5)\right]`, r`& = (x - 3)(2x + 1 - x - 5)`, r`& = (x - 3)(2x - x + 1 - 5)`, r`& = (x - 3)(x - 4)`),
+      r`On résout l'équation produit nul obtenue.`,
+      calcul(r`(x - 3)(x - 4) = 0`, r`& \iff x - 3 = 0 \text{ ou } x - 4 = 0`, r`& \iff x = 3 \text{ ou } x = 4`),
+      r`L'ensemble des solutions est <span class="resultat">$\{3\,;\,4\}$</span>. Attention&nbsp;: diviser les deux membres par $x - 3$ ferait perdre la solution $3$.`],
+    revoir: r`capacité 2 du cours (question 4), exercice 3 de la fiche (question 4)`,
+    variante: {
+      enonce: r`L'ensemble des solutions de l'équation $(x + 2)(3x - 1) - (x + 2)(2x + 2) = 0$ est&nbsp;:`,
+      choix: [r`$\{-2\,;\,3\}$`, r`$\{-2\,;\,-1\}$`, r`$\{3\}$`, r`$\{-3\,;\,2\}$`],
+      bonne: 0,
+      explication: [
+        r`On factorise le membre de gauche par le facteur commun $x + 2$&nbsp;; le signe $-$ porte sur toute la parenthèse $(2x + 2)$. Puis on regroupe les termes en $x$, puis les nombres.`,
+        calcul(r`(x + 2)(3x - 1) - (x + 2)(2x + 2)`, r`& = (x + 2)\left[(3x - 1) - (2x + 2)\right]`, r`& = (x + 2)(3x - 1 - 2x - 2)`, r`& = (x + 2)(3x - 2x - 1 - 2)`, r`& = (x + 2)(x - 3)`),
+        r`On résout l'équation produit nul obtenue.`,
+        calcul(r`(x + 2)(x - 3) = 0`, r`& \iff x + 2 = 0 \text{ ou } x - 3 = 0`, r`& \iff x = -2 \text{ ou } x = 3`),
+        r`L'ensemble des solutions est <span class="resultat">$\{-2\,;\,3\}$</span>. Attention&nbsp;: diviser les deux membres par $x + 2$ ferait perdre la solution $-2$.`] } },
+
   { partie: 0, theme: 'Équation quotient', type: 'qcm',
     enonce: r`La solution de l'équation $\dfrac{x + 8}{x - 2} = 3$ est&nbsp;:`,
     choix: [r`$7$`, r`$5$`, r`$-7$`, r`$-5$`],
     bonne: 0,
     explication: [
-      r`Valeur interdite&nbsp;: $x - 2 = 0$ pour $x = 2$. Pour $x \ne 2$, $\dfrac{A}{B} = 3$ équivaut à $A = 3 \times B$&nbsp;: on multiplie les deux membres par $x - 2$, puis on résout l'équation du premier degré obtenue.`,
-      calcul(r`\dfrac{x + 8}{x - 2} = 3`, r`& \iff x + 8 = 3(x - 2)`, r`& \iff x + 8 = 3x - 6`, r`& \iff x + 8 \op{- x} = 3x - 6 \op{- x}`, r`& \iff 8 \op{+ 6} = 2x - 6 \op{+ 6}`, r`& \iff 14 = 2x`, r`& \iff \dfrac{14}{\op{2}} = \dfrac{2x}{\op{2}}`, r`& \iff \resultat{x = 7}`),
+      r`Valeur interdite&nbsp;: $x - 2 = 0$ pour $x = 2$. Pour $x \ne 2$, $\dfrac{A}{B} = 3$ équivaut à $A = 3 \times B$&nbsp;: on multiplie les deux membres par $x - 2$, puis on développe.`,
+      calcul(r`\dfrac{x + 8}{x - 2} = 3`, r`& \iff x + 8 = 3(x - 2)`, r`& \iff x + 8 = 3 \times x - 3 \times 2`, r`& \iff x + 8 = 3x - 6`),
+      r`On résout l'équation du premier degré obtenue.`,
+      calcul(r`x + 8 = 3x - 6`, r`& \iff x + 8 \op{- x} = 3x - 6 \op{- x}`, r`& \iff 8 = 2x - 6`, r`& \iff 8 \op{+ 6} = 2x - 6 \op{+ 6}`, r`& \iff 14 = 2x`, r`& \iff \dfrac{14}{\op{2}} = \dfrac{2x}{\op{2}}`, r`& \iff \resultat{x = 7}`),
       r`$7 \ne 2$&nbsp;; vérification&nbsp;: $\dfrac{7 + 8}{7 - 2} = \dfrac{15}{5} = 3$. Attention&nbsp;: le $3$ multiplie tout le dénominateur, $3(x - 2) = 3x - 6$.`],
     revoir: r`capacité 4 du cours (questions 3 et 4), exercice 5 de la fiche (questions 3 et 4), exercice 124 p.&nbsp;104 du manuel`,
     variante: {
@@ -531,51 +568,11 @@ const QUIZ = {
       choix: [r`$8$`, r`$4$`, r`$-8$`, r`$-2$`],
       bonne: 0,
       explication: [
-        r`Valeur interdite&nbsp;: $x - 3 = 0$ pour $x = 3$. Pour $x \ne 3$, $\dfrac{A}{B} = 5$ équivaut à $A = 5 \times B$&nbsp;: on multiplie les deux membres par $x - 3$, puis on résout l'équation du premier degré obtenue.`,
-        calcul(r`\dfrac{2x + 9}{x - 3} = 5`, r`& \iff 2x + 9 = 5(x - 3)`, r`& \iff 2x + 9 = 5x - 15`, r`& \iff 2x + 9 \op{- 2x} = 5x - 15 \op{- 2x}`, r`& \iff 9 \op{+ 15} = 3x - 15 \op{+ 15}`, r`& \iff 24 = 3x`, r`& \iff \dfrac{24}{\op{3}} = \dfrac{3x}{\op{3}}`, r`& \iff \resultat{x = 8}`),
-        r`$8 \ne 3$&nbsp;; vérification&nbsp;: $\dfrac{2 \times 8 + 9}{8 - 3} = \dfrac{25}{5} = 5$. Attention&nbsp;: le $5$ multiplie tout le dénominateur, $5(x - 3) = 5x - 15$.`] } },
-
-  /* ----- Isoler une variable (partie 6 du cours, capacité 5, exercice 6 de la fiche) ----- */
-
-  { partie: 0, theme: 'Isoler une variable', type: 'qcm',
-    enonce: r`Le volume d'un cylindre de rayon $r$ et de hauteur $h$ est $V = \pi r^{2}h$. Pour $V = 72\pi$&nbsp;cm³ et $r = 3$&nbsp;cm, la hauteur $h$ est égale à&nbsp;:`,
-    choix: [r`$8$&nbsp;cm`, r`$24$&nbsp;cm`, r`$12$&nbsp;cm`, r`$8\pi$&nbsp;cm`],
-    bonne: 0,
-    explication: [
-      r`On isole $h$ comme l'inconnue d'une équation&nbsp;: $h$ est multiplié par $\pi r^{2}$, on divise les deux membres par $\pi r^{2}$, qui n'est pas nul.`,
-      calcul(r`V = \pi r^{2}h`, r`& \iff \dfrac{V}{\op{\pi r^{2}}} = \dfrac{\pi r^{2}h}{\op{\pi r^{2}}}`, r`& \iff h = \dfrac{V}{\pi r^{2}}`),
-      r`On remplace $V$ par $72\pi$ et $r$ par $3$.`,
-      calcul(r`h & = \dfrac{72\pi}{\pi \times 3^{2}}`, r`& = \dfrac{72\pi}{9\pi}`, r`& = \resultat{8}`),
-      r`La hauteur du cylindre est de $8$&nbsp;cm. Attention&nbsp;: le rayon est au carré, $\pi r^{2} = \pi \times 3^{2} = 9\pi$.`],
-    revoir: r`capacité 5 du cours (questions 1 à 4), exercice 6 de la fiche (questions 1 et 2), exercices 111 et 113 p.&nbsp;104 du manuel, question 11 du «&nbsp;Faire le point&nbsp;» p.&nbsp;107`,
-    variante: {
-      enonce: r`Une boîte de conserve cylindrique a pour rayon $r = 4$&nbsp;cm et pour volume $V = 80\pi$&nbsp;cm³. Sachant que $V = \pi r^{2}h$, sa hauteur $h$ est égale à&nbsp;:`,
-      choix: [r`$5$&nbsp;cm`, r`$20$&nbsp;cm`, r`$10$&nbsp;cm`, r`$5\pi$&nbsp;cm`],
-      bonne: 0,
-      explication: [
-        r`On isole $h$ comme l'inconnue d'une équation&nbsp;: $h$ est multiplié par $\pi r^{2}$, on divise les deux membres par $\pi r^{2}$, qui n'est pas nul.`,
-        calcul(r`V = \pi r^{2}h`, r`& \iff \dfrac{V}{\op{\pi r^{2}}} = \dfrac{\pi r^{2}h}{\op{\pi r^{2}}}`, r`& \iff h = \dfrac{V}{\pi r^{2}}`),
-        r`On remplace $V$ par $80\pi$ et $r$ par $4$.`,
-        calcul(r`h & = \dfrac{80\pi}{\pi \times 4^{2}}`, r`& = \dfrac{80\pi}{16\pi}`, r`& = \resultat{5}`),
-        r`La boîte mesure $5$&nbsp;cm de haut. Attention&nbsp;: le rayon est au carré, $\pi r^{2} = \pi \times 4^{2} = 16\pi$.`] } },
-
-  { partie: 0, theme: 'Relation ax + by = c', type: 'qcm',
-    enonce: r`On donne la relation $10x + 2y = 8$. L'expression de $y$ en fonction de $x$ est&nbsp;:`,
-    choix: [r`$y = 4 - 5x$`, r`$y = 5x - 4$`, r`$y = 4 - 10x$`, r`$y = 6 - 10x$`],
-    bonne: 0,
-    explication: [
-      r`On isole $y$ comme l'inconnue d'une équation, $x$ jouant le rôle d'un nombre connu&nbsp;: on retranche $10x$ aux deux membres, puis on les divise par $2$.`,
-      calcul(r`10x + 2y = 8`, r`& \iff 10x + 2y \op{- 10x} = 8 \op{- 10x}`, r`& \iff 2y = 8 - 10x`, r`& \iff \dfrac{2y}{\op{2}} = \dfrac{8 - 10x}{\op{2}}`, r`& \iff \resultat{y = 4 - 5x}`),
-      r`On divise chacun des deux termes, $8$ et $-10x$, par $2$. Vérification&nbsp;: pour $x = 1$, $y = -1$ et $10 \times 1 + 2 \times (-1) = 8$.`],
-    revoir: r`capacité 5 du cours (question 5), exercice 6 de la fiche (question 3)`,
-    variante: {
-      enonce: r`On donne la relation $12x + 4y = 20$. L'expression de $y$ en fonction de $x$ est&nbsp;:`,
-      choix: [r`$y = 5 - 3x$`, r`$y = 3x - 5$`, r`$y = 5 - 12x$`, r`$y = 16 - 12x$`],
-      bonne: 0,
-      explication: [
-        r`On isole $y$ comme l'inconnue d'une équation, $x$ jouant le rôle d'un nombre connu&nbsp;: on retranche $12x$ aux deux membres, puis on les divise par $4$.`,
-        calcul(r`12x + 4y = 20`, r`& \iff 12x + 4y \op{- 12x} = 20 \op{- 12x}`, r`& \iff 4y = 20 - 12x`, r`& \iff \dfrac{4y}{\op{4}} = \dfrac{20 - 12x}{\op{4}}`, r`& \iff \resultat{y = 5 - 3x}`),
-        r`On divise chacun des deux termes, $20$ et $-12x$, par $4$. Vérification&nbsp;: pour $x = 1$, $y = 2$ et $12 \times 1 + 4 \times 2 = 20$.`] } }
+        r`Valeur interdite&nbsp;: $x - 3 = 0$ pour $x = 3$. Pour $x \ne 3$, $\dfrac{A}{B} = 5$ équivaut à $A = 5 \times B$&nbsp;: on multiplie les deux membres par $x - 3$, puis on développe.`,
+        calcul(r`\dfrac{2x + 9}{x - 3} = 5`, r`& \iff 2x + 9 = 5(x - 3)`, r`& \iff 2x + 9 = 5 \times x - 5 \times 3`, r`& \iff 2x + 9 = 5x - 15`),
+        r`On résout l'équation du premier degré obtenue.`,
+        calcul(r`2x + 9 = 5x - 15`, r`& \iff 2x + 9 \op{- 2x} = 5x - 15 \op{- 2x}`, r`& \iff 9 = 3x - 15`, r`& \iff 9 \op{+ 15} = 3x - 15 \op{+ 15}`, r`& \iff 24 = 3x`, r`& \iff \dfrac{24}{\op{3}} = \dfrac{3x}{\op{3}}`, r`& \iff \resultat{x = 8}`),
+        r`$8 \ne 3$&nbsp;; vérification&nbsp;: $\dfrac{2 \times 8 + 9}{8 - 3} = \dfrac{25}{5} = 5$. Attention&nbsp;: le $5$ multiplie tout le dénominateur, $5(x - 3) = 5x - 15$.`] } }
   ]
 };
 
