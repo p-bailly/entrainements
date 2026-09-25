@@ -502,7 +502,7 @@ const QUIZ = {
       calcul(r`4 - 2x = 0 & \iff -2x = -4`, r`& \iff \dfrac{-2x}{\op{-2}} = \dfrac{-4}{\op{-2}}`, r`& \iff x = 2`, r`x + 3 = 0 & \iff x = -3`),
       r`$4 - 2x$ a pour coefficient $m = -2$, négatif&nbsp;: il est positif à gauche de $2$, négatif à droite. $x + 3$ a pour coefficient $1$, positif&nbsp;: il est négatif à gauche de $-3$, positif à droite. Dans la ligne de $x$, on range les valeurs dans l'ordre croissant&nbsp;: $-3 < 2$.`,
       tableauSignes(['−3', '2'], [['4 - 2x', '+t+z-'], ['x + 3', '-z+t+'], ['A(x)', '-z+z-']]),
-      r`La ligne de $A(x)$ porte <span class="resultat">$-$, $0$ en $-3$, $+$, $0$ en $2$, $-$</span>. Attention&nbsp;: la ligne de $4 - 2x$ commence par $+$, car son coefficient est négatif.`],
+      r`La ligne de $A(x)$ porte <span class="resultat">$-$, $0$ en $-3$, $+$, $0$ en $2$, $-$</span>.`],
     revoir: r`méthode «&nbsp;dresser le tableau de signes d'un produit&nbsp;» et capacité 1 du cours (question 2), exercice 1 de la fiche (question 2), exercice 101 p.&nbsp;233 du manuel`,
     variante: {
       enonce: r`Le tableau de signes de $B(x) = (1 - x)(2x + 8)$ est&nbsp;:`,
@@ -516,7 +516,7 @@ const QUIZ = {
         calcul(r`1 - x = 0 & \iff x = 1`, r`2x + 8 = 0 & \iff 2x = -8`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{-8}{\op{2}}`, r`& \iff x = -4`),
         r`$1 - x$ a pour coefficient $m = -1$, négatif&nbsp;: il est positif à gauche de $1$, négatif à droite. $2x + 8$ a pour coefficient $2$, positif&nbsp;: il est négatif à gauche de $-4$, positif à droite. Dans la ligne de $x$, on range les valeurs dans l'ordre croissant&nbsp;: $-4 < 1$.`,
         tableauSignes(['−4', '1'], [['1 - x', '+t+z-'], ['2x + 8', '-z+t+'], ['B(x)', '-z+z-']]),
-        r`La ligne de $B(x)$ porte <span class="resultat">$-$, $0$ en $-4$, $+$, $0$ en $1$, $-$</span>. Attention&nbsp;: la ligne de $1 - x$ commence par $+$, car son coefficient est négatif.`] } },
+        r`La ligne de $B(x)$ porte <span class="resultat">$-$, $0$ en $-4$, $+$, $0$ en $1$, $-$</span>.`] } },
 
   { partie: 0, theme: 'Signe d\'un quotient', type: 'vf',
     enonce: r`Pour tout réel $x < 1$, le quotient $R(x) = \dfrac{-3}{x - 1}$ est strictement positif.`,
@@ -550,7 +550,7 @@ const QUIZ = {
       calcul(r`6 - 2x = 0 & \iff -2x = -6`, r`& \iff \dfrac{-2x}{\op{-2}} = \dfrac{-6}{\op{-2}}`, r`& \iff x = 3`, r`x + 4 = 0 & \iff x = -4`),
       r`La valeur interdite est $3$. Le dénominateur $6 - 2x$ a pour coefficient $-2$, négatif&nbsp;: il est positif à gauche de $3$, négatif à droite. Le numérateur $x + 4$ a pour coefficient $1$, positif&nbsp;: il est négatif à gauche de $-4$, positif à droite.`,
       tableauSignes(['−4', '3'], [['x + 4', '-z+t+'], ['6 - 2x', '+t+z-'], ['Q(x)', '-z+d-']]),
-      r`La ligne de $Q(x)$ porte <span class="resultat">$-$, $0$ en $-4$, $+$, une double barre en $3$, $-$</span>. Attention&nbsp;: en $3$, on met une double barre et non un $0$, car on ne divise pas par $0$.`],
+      r`La ligne de $Q(x)$ porte <span class="resultat">$-$, $0$ en $-4$, $+$, une double barre en $3$, $-$</span>.`],
     revoir: r`méthode «&nbsp;dresser le tableau de signes d'un quotient&nbsp;» et capacité 2 du cours (questions 1 et 2), exercice 2 de la fiche (questions 1 et 2), exercice 112 p.&nbsp;234 et question 7 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237 du manuel`,
     variante: {
       enonce: r`On pose $R(x) = \dfrac{3 - x}{2x + 4}$. Le tableau de signes de $R(x)$ est&nbsp;:`,
@@ -564,7 +564,7 @@ const QUIZ = {
         calcul(r`2x + 4 = 0 & \iff 2x = -4`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{-4}{\op{2}}`, r`& \iff x = -2`, r`3 - x = 0 & \iff x = 3`),
         r`La valeur interdite est $-2$. Le dénominateur $2x + 4$ a pour coefficient $2$, positif&nbsp;: il est négatif à gauche de $-2$, positif à droite. Le numérateur $3 - x$ a pour coefficient $-1$, négatif&nbsp;: il est positif à gauche de $3$, négatif à droite.`,
         tableauSignes(['−2', '3'], [['3 - x', '+t+z-'], ['2x + 4', '-z+t+'], ['R(x)', '-d+z-']]),
-        r`La ligne de $R(x)$ porte <span class="resultat">$-$, une double barre en $-2$, $+$, $0$ en $3$, $-$</span>. Attention&nbsp;: en $-2$, on met une double barre et non un $0$, car on ne divise pas par $0$.`] } },
+        r`La ligne de $R(x)$ porte <span class="resultat">$-$, une double barre en $-2$, $+$, $0$ en $3$, $-$</span>.`] } },
 
   { partie: 0, theme: 'Tableau de signes et courbe', type: 'qcm',
     enonce: r`La fonction $f$ est définie sur $\R$ par $f(x) = (x + 3)(1 - x)$. Une partie de sa courbe $\mathscr{C}_{f}$ est tracée ci-dessous. L'ensemble des solutions de l'inéquation $f(x) \le 0$ est&nbsp;:`
@@ -580,7 +580,7 @@ const QUIZ = {
       r`Le tableau de signes démontre la conjecture pour tout réel $x$. $x + 3$ a pour coefficient $1$, positif&nbsp;; $1 - x$ a pour coefficient $-1$, négatif.`,
       calcul(r`x + 3 = 0 & \iff x = -3`, r`1 - x = 0 & \iff x = 1`),
       tableauSignes(['−3', '1'], [['x + 3', '-z+t+'], ['1 - x', '+t+z-'], ['f(x)', '-z+z-']]),
-      r`On lit les signes $-$ et, l'inégalité étant large, les $0$ de la dernière ligne&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-3\right] ∪ \left[1\,;\,+\infty\right[$</span>. Attention&nbsp;: $f$ est définie sur $\R$, les solutions ne s'arrêtent pas au bord de la figure.`],
+      r`On lit les signes $-$ et, l'inégalité étant large, les $0$ de la dernière ligne&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-3\right] ∪ \left[1\,;\,+\infty\right[$</span>.`],
     revoir: r`méthode «&nbsp;dresser le tableau de signes d'un produit&nbsp;» (partie 1 du cours), exercice 4 de la fiche`,
     variante: {
       enonce: r`La fonction $f$ est définie sur $\R$ par $f(x) = (x + 1)(3 - x)$. Une partie de sa courbe $\mathscr{C}_{f}$ est tracée ci-dessous. L'ensemble des solutions de l'inéquation $f(x) < 0$ est&nbsp;:`
@@ -596,7 +596,7 @@ const QUIZ = {
         r`Le tableau de signes démontre la conjecture pour tout réel $x$. $x + 1$ a pour coefficient $1$, positif&nbsp;; $3 - x$ a pour coefficient $-1$, négatif.`,
         calcul(r`x + 1 = 0 & \iff x = -1`, r`3 - x = 0 & \iff x = 3`),
         tableauSignes(['−1', '3'], [['x + 1', '-z+t+'], ['3 - x', '+t+z-'], ['f(x)', '-z+z-']]),
-        r`On lit les signes $-$, sans les $0$, car l'inégalité est stricte&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-1\right[ ∪ \left]3\,;\,+\infty\right[$</span>. Attention&nbsp;: $f$ est définie sur $\R$, les solutions ne s'arrêtent pas au bord de la figure.`] } },
+        r`On lit les signes $-$, sans les $0$, car l'inégalité est stricte&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-1\right[ ∪ \left]3\,;\,+\infty\right[$</span>.`] } },
 
   { partie: 0, theme: 'Inéquation produit', type: 'qcm',
     enonce: r`L'ensemble des solutions de l'inéquation $(8 - 2x)(3 - x) < 0$ est&nbsp;:`,
@@ -608,7 +608,7 @@ const QUIZ = {
       calcul(r`8 - 2x = 0 & \iff -2x = -8`, r`& \iff \dfrac{-2x}{\op{-2}} = \dfrac{-8}{\op{-2}}`, r`& \iff x = 4`, r`3 - x = 0 & \iff x = 3`),
       r`Les coefficients de $x$, $-2$ et $-1$, sont négatifs&nbsp;: chaque facteur est positif à gauche de la valeur qui l'annule, négatif à droite. Dans la ligne de $x$&nbsp;: $3 < 4$.`,
       tableauSignes(['3', '4'], [['8 - 2x', '+t+z-'], ['3 - x', '+z-t-'], ['P(x)', '+z-z+']]),
-      r`On lit les signes $-$, sans les $0$, car l'inégalité est stricte&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]3\,;\,4\right[$</span>. Attention&nbsp;: pour $x > 4$, les deux facteurs sont négatifs, et leur produit est positif.`],
+      r`On lit les signes $-$, sans les $0$, car l'inégalité est stricte&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]3\,;\,4\right[$</span>.`],
     revoir: r`méthode «&nbsp;résoudre une inéquation à l'aide d'un tableau de signes&nbsp;» et capacité 3 du cours (question 1), exercice 3 de la fiche (question 1), exercices 104 p.&nbsp;233 (question 1), 139 et 141 p.&nbsp;239, question 8&nbsp;a du «&nbsp;Faire le point&nbsp;» p.&nbsp;237 du manuel`,
     variante: {
       enonce: r`L'ensemble des solutions de l'inéquation $(12 - 3x)(1 - x) \ge 0$ est&nbsp;:`,
@@ -620,7 +620,7 @@ const QUIZ = {
         calcul(r`12 - 3x = 0 & \iff -3x = -12`, r`& \iff \dfrac{-3x}{\op{-3}} = \dfrac{-12}{\op{-3}}`, r`& \iff x = 4`, r`1 - x = 0 & \iff x = 1`),
         r`Les coefficients de $x$, $-3$ et $-1$, sont négatifs&nbsp;: chaque facteur est positif à gauche de la valeur qui l'annule, négatif à droite. Dans la ligne de $x$&nbsp;: $1 < 4$.`,
         tableauSignes(['1', '4'], [['12 - 3x', '+t+z-'], ['1 - x', '+z-t-'], ['P(x)', '+z-z+']]),
-        r`On lit les signes $+$ et, l'inégalité étant large, les $0$&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,1\right] ∪ \left[4\,;\,+\infty\right[$</span>. Attention&nbsp;: pour $x > 4$, les deux facteurs sont négatifs, et leur produit est positif.`] } },
+        r`On lit les signes $+$ et, l'inégalité étant large, les $0$&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,1\right] ∪ \left[4\,;\,+\infty\right[$</span>.`] } },
 
   /* ----- Niveau 3 : plusieurs étapes, pièges et synthèse ----- */
 
@@ -634,7 +634,7 @@ const QUIZ = {
       calcul(r`x^{2} \ge 7x`, r`& \iff x^{2} \op{- 7x} \ge 7x \op{- 7x}`, r`& \iff x^{2} - 7x \ge 0`, r`& \iff x(x - 7) \ge 0`),
       r`Le facteur $x$ s'annule en $0$, le facteur $x - 7$ en $7$&nbsp;; leurs coefficients de $x$ sont positifs.`,
       tableauSignes(['0', '7'], [['x', '-z+t+'], ['x - 7', '-t-z+'], ['x(x - 7)', '+z-z+']]),
-      r`On lit les signes $+$ et, l'inégalité étant large, les $0$&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,0\right] ∪ \left[7\,;\,+\infty\right[$</span>. Attention&nbsp;: diviser par $x$ donnerait $x \ge 7$ et ferait perdre les solutions négatives ou nulles, comme $-1$&nbsp;: $(-1)^{2} = 1$ est supérieur à $7 \times (-1) = -7$.`],
+      r`On lit les signes $+$ et, l'inégalité étant large, les $0$&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,0\right] ∪ \left[7\,;\,+\infty\right[$</span>.`],
     revoir: r`méthode «&nbsp;résoudre une inéquation à l'aide d'un tableau de signes&nbsp;» et capacité 3 du cours (question 2), exercice 3 de la fiche (question 2), exercice 115 p.&nbsp;234 du manuel`,
     variante: {
       enonce: r`L'ensemble des solutions de l'inéquation $x^{2} \le 8x$ est&nbsp;:`,
@@ -646,7 +646,7 @@ const QUIZ = {
         calcul(r`x^{2} \le 8x`, r`& \iff x^{2} \op{- 8x} \le 8x \op{- 8x}`, r`& \iff x^{2} - 8x \le 0`, r`& \iff x(x - 8) \le 0`),
         r`Le facteur $x$ s'annule en $0$, le facteur $x - 8$ en $8$&nbsp;; leurs coefficients de $x$ sont positifs.`,
         tableauSignes(['0', '8'], [['x', '-z+t+'], ['x - 8', '-t-z+'], ['x(x - 8)', '+z-z+']]),
-        r`On lit le signe $-$ et, l'inégalité étant large, les $0$&nbsp;: l'ensemble des solutions est <span class="resultat">$\left[0\,;\,8\right]$</span>. Attention&nbsp;: diviser par $x$ donnerait $x \le 8$, qui contient à tort les nombres négatifs, comme $-1$&nbsp;: $(-1)^{2} = 1$ n'est pas inférieur ou égal à $8 \times (-1) = -8$.`] } },
+        r`On lit le signe $-$ et, l'inégalité étant large, les $0$&nbsp;: l'ensemble des solutions est <span class="resultat">$\left[0\,;\,8\right]$</span>.`] } },
 
   { partie: 0, theme: 'Factoriser, identité remarquable', type: 'qcm',
     enonce: r`L'ensemble des solutions de l'inéquation $(x + 1)^{2} - 9 < 0$ est&nbsp;:`,
@@ -658,7 +658,7 @@ const QUIZ = {
       calcul(r`(x + 1)^{2} - 9 & = (x + 1)^{2} - 3^{2}`, r`& = (x + 1 - 3)(x + 1 + 3)`, r`& = (x - 2)(x + 4)`),
       r`On note $P(x) = (x - 2)(x + 4)$. Le facteur $x - 2$ s'annule en $2$, le facteur $x + 4$ en $-4$&nbsp;; leurs coefficients de $x$ sont positifs.`,
       tableauSignes(['−4', '2'], [['x - 2', '-t-z+'], ['x + 4', '-z+t+'], ['P(x)', '+z-z+']]),
-      r`On lit le signe $-$, sans les $0$, car l'inégalité est stricte&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-4\,;\,2\right[$</span>. Attention&nbsp;: $(x + 1)^{2} < 9$ n'équivaut pas à $x + 1 < 3$&nbsp;; par exemple, $-5 + 1 < 3$, mais $(-5 + 1)^{2} = 16$.`],
+      r`On lit le signe $-$, sans les $0$, car l'inégalité est stricte&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-4\,;\,2\right[$</span>.`],
     revoir: r`méthode «&nbsp;résoudre une inéquation à l'aide d'un tableau de signes&nbsp;» (partie 3 du cours, étape 2&nbsp;: factoriser), exercice 3 de la fiche (question 5), exercice 5 de la fiche (question 1)`,
     variante: {
       enonce: r`L'ensemble des solutions de l'inéquation $(x - 2)^{2} - 25 \ge 0$ est&nbsp;:`,
@@ -670,7 +670,7 @@ const QUIZ = {
         calcul(r`(x - 2)^{2} - 25 & = (x - 2)^{2} - 5^{2}`, r`& = (x - 2 - 5)(x - 2 + 5)`, r`& = (x - 7)(x + 3)`),
         r`On note $P(x) = (x - 7)(x + 3)$. Le facteur $x - 7$ s'annule en $7$, le facteur $x + 3$ en $-3$&nbsp;; leurs coefficients de $x$ sont positifs.`,
         tableauSignes(['−3', '7'], [['x - 7', '-t-z+'], ['x + 3', '-z+t+'], ['P(x)', '+z-z+']]),
-        r`On lit les signes $+$ et, l'inégalité étant large, les $0$&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-3\right] ∪ \left[7\,;\,+\infty\right[$</span>. Attention&nbsp;: $(x - 2)^{2} \ge 25$ n'équivaut pas à $x - 2 \ge 5$&nbsp;; par exemple, $-4 - 2 < 5$, mais $(-4 - 2)^{2} = 36$.`] } },
+        r`On lit les signes $+$ et, l'inégalité étant large, les $0$&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-3\right] ∪ \left[7\,;\,+\infty\right[$</span>.`] } },
 
   { partie: 0, theme: 'Choisir la forme adaptée', type: 'qcm',
     enonce: r`Pour tout réel $x$, $g(x) = (x - 3)^{2} - 4$. On admet que $g(x) = x^{2} - 6x + 5$ (forme développée) et que $g(x) = (x - 1)(x - 5)$ (forme factorisée). En choisissant la forme adaptée, l'ensemble des solutions de l'inéquation $g(x) \ge 5$ est&nbsp;:`,
@@ -682,7 +682,7 @@ const QUIZ = {
       calcul(r`g(x) \ge 5`, r`& \iff x^{2} - 6x + 5 \ge 5`, r`& \iff x^{2} - 6x + 5 \op{- 5} \ge 5 \op{- 5}`, r`& \iff x^{2} - 6x \ge 0`, r`& \iff x(x - 6) \ge 0`),
       r`Le facteur $x$ s'annule en $0$, le facteur $x - 6$ en $6$&nbsp;; leurs coefficients de $x$ sont positifs.`,
       tableauSignes(['0', '6'], [['x', '-z+t+'], ['x - 6', '-t-z+'], ['x(x - 6)', '+z-z+']]),
-      r`On lit les signes $+$ et, l'inégalité étant large, les $0$&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,0\right] ∪ \left[6\,;\,+\infty\right[$</span>. Attention&nbsp;: la forme factorisée donnerait $(x - 1)(x - 5) \ge 5$, que le tableau de signes ne résout pas, car on ne compare pas à $0$.`],
+      r`On lit les signes $+$ et, l'inégalité étant large, les $0$&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,0\right] ∪ \left[6\,;\,+\infty\right[$</span>.`],
     revoir: r`méthode «&nbsp;résoudre une inéquation à l'aide d'un tableau de signes&nbsp;» (partie 3 du cours), exercice 5 de la fiche`,
     variante: {
       enonce: r`Pour tout réel $x$, $g(x) = (x + 2)^{2} - 1$. On admet que $g(x) = x^{2} + 4x + 3$ (forme développée) et que $g(x) = (x + 1)(x + 3)$ (forme factorisée). En choisissant la forme adaptée, l'ensemble des solutions de l'inéquation $g(x) < 3$ est&nbsp;:`,
@@ -694,7 +694,7 @@ const QUIZ = {
         calcul(r`g(x) < 3`, r`& \iff x^{2} + 4x + 3 < 3`, r`& \iff x^{2} + 4x + 3 \op{- 3} < 3 \op{- 3}`, r`& \iff x^{2} + 4x < 0`, r`& \iff x(x + 4) < 0`),
         r`Le facteur $x$ s'annule en $0$, le facteur $x + 4$ en $-4$&nbsp;; leurs coefficients de $x$ sont positifs.`,
         tableauSignes(['−4', '0'], [['x', '-t-z+'], ['x + 4', '-z+t+'], ['x(x + 4)', '+z-z+']]),
-        r`On lit le signe $-$, sans les $0$, car l'inégalité est stricte&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-4\,;\,0\right[$</span>. Attention&nbsp;: la forme factorisée donnerait $(x + 1)(x + 3) < 3$, que le tableau de signes ne résout pas, car on ne compare pas à $0$.`] } },
+        r`On lit le signe $-$, sans les $0$, car l'inégalité est stricte&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-4\,;\,0\right[$</span>.`] } },
 
   { partie: 0, theme: 'Inéquation quotient', type: 'qcm',
     enonce: r`L'ensemble des solutions de l'inéquation $\dfrac{2x + 7}{x + 3} \ge 1$ est&nbsp;:`,
@@ -708,7 +708,7 @@ const QUIZ = {
         r`& \iff \dfrac{2x + 7 - (x + 3)}{x + 3} \ge 0`, r`& \iff \dfrac{2x + 7 - x - 3}{x + 3} \ge 0`, r`& \iff \dfrac{x + 4}{x + 3} \ge 0`),
       r`On note $Q(x) = \dfrac{x + 4}{x + 3}$. Le numérateur $x + 4$ s'annule en $-4$&nbsp;; la valeur interdite $-3$ porte une double barre. Les deux coefficients de $x$ sont positifs.`,
       tableauSignes(['−4', '−3'], [['x + 4', '-z+t+'], ['x + 3', '-t-z+'], ['Q(x)', '+z-d+']]),
-      r`On lit les signes $+$ et, l'inégalité étant large, le $0$&nbsp;: $-4$ est solution, mais pas la valeur interdite $-3$. L'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-4\right] ∪ \left]-3\,;\,+\infty\right[$</span>. Attention&nbsp;: multiplier les deux membres par $x + 3$ donnerait $2x + 7 \ge x + 3$, soit $x \ge -4$&nbsp;; c'est faux, car $x + 3$ est négatif pour $x < -3$, et le sens devrait alors changer.`],
+      r`On lit les signes $+$ et, l'inégalité étant large, le $0$&nbsp;: $-4$ est solution, mais pas la valeur interdite $-3$. L'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-4\right] ∪ \left]-3\,;\,+\infty\right[$</span>.`],
     revoir: r`méthode «&nbsp;résoudre une inéquation à l'aide d'un tableau de signes&nbsp;» et capacité 3 du cours (questions 3 et 4), exercice 3 de la fiche (questions 3 et 4), exercice 104 p.&nbsp;233 (question 2&nbsp;b) et question 8&nbsp;b du «&nbsp;Faire le point&nbsp;» p.&nbsp;237 du manuel`,
     variante: {
       enonce: r`L'ensemble des solutions de l'inéquation $\dfrac{3x - 2}{x + 2} \le 1$ est&nbsp;:`,
@@ -722,7 +722,7 @@ const QUIZ = {
           r`& \iff \dfrac{3x - 2 - (x + 2)}{x + 2} \le 0`, r`& \iff \dfrac{3x - 2 - x - 2}{x + 2} \le 0`, r`& \iff \dfrac{2x - 4}{x + 2} \le 0`),
         r`On note $Q(x) = \dfrac{2x - 4}{x + 2}$. Le numérateur $2x - 4$ s'annule en $2$, car $2x - 4 = 0 \iff 2x = 4 \iff x = \dfrac{4}{2} = 2$&nbsp;; la valeur interdite $-2$ porte une double barre. Les deux coefficients de $x$ sont positifs.`,
         tableauSignes(['−2', '2'], [['2x - 4', '-t-z+'], ['x + 2', '-z+t+'], ['Q(x)', '+d-z+']]),
-        r`On lit le signe $-$ et, l'inégalité étant large, le $0$&nbsp;: $2$ est solution, mais pas la valeur interdite $-2$. L'ensemble des solutions est <span class="resultat">$\left]-2\,;\,2\right]$</span>. Attention&nbsp;: multiplier les deux membres par $x + 2$ donnerait $3x - 2 \le x + 2$, soit $x \le 2$&nbsp;; c'est faux, car $x + 2$ est négatif pour $x < -2$, et le sens devrait alors changer.`] } }
+        r`On lit le signe $-$ et, l'inégalité étant large, le $0$&nbsp;: $2$ est solution, mais pas la valeur interdite $-2$. L'ensemble des solutions est <span class="resultat">$\left]-2\,;\,2\right]$</span>.`] } }
   ]
 };
 

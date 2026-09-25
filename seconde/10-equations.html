@@ -372,7 +372,7 @@ const QUIZ = {
       explication: [
         r`Un produit est nul si et seulement si l'un au moins de ses facteurs est nul&nbsp;: on résout $2x = 0$ et $9 - 4x = 0$.`,
         calcul(r`2x(9 - 4x) = 0`, r`& \iff 2x = 0 \text{ ou } 9 - 4x = 0`, r`& \iff x = 0 \text{ ou } 9 - 4x \op{- 9} = 0 \op{- 9}`, r`& \iff x = 0 \text{ ou } -4x = -9`, r`& \iff x = 0 \text{ ou } \dfrac{-4x}{\op{-4}} = \dfrac{-9}{\op{-4}}`, r`& \iff x = 0 \text{ ou } x = \dfrac{9}{4}`),
-        r`L'ensemble des solutions est <span class="resultat">$\left\{0\,;\,\dfrac{9}{4}\right\}$</span>. Attention&nbsp;: $2x = 0$ donne $x = 0$, et $\dfrac{-9}{-4} = \dfrac{9}{4}$ est positif.`] } },
+        r`L'ensemble des solutions est <span class="resultat">$\left\{0\,;\,\dfrac{9}{4}\right\}$</span>.`] } },
 
   { partie: 0, theme: 'Équation x² = a', type: 'qcm',
     enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
@@ -409,7 +409,7 @@ const QUIZ = {
     explication: [
       r`On regroupe les termes en $x$ dans le membre de gauche et les nombres dans celui de droite, en retranchant le même terme aux deux membres, puis on divise par le coefficient de $x$.`,
       calcul(r`3x + 7 = 8x - 13`, r`& \iff 3x + 7 \op{- 8x} = 8x - 13 \op{- 8x}`, r`& \iff -5x + 7 = -13`, r`& \iff -5x + 7 \op{- 7} = -13 \op{- 7}`, r`& \iff -5x = -20`, r`& \iff \dfrac{-5x}{\op{-5}} = \dfrac{-20}{\op{-5}}`, r`& \iff \resultat{x = 4}`),
-      r`Vérification&nbsp;: $3 \times 4 + 7 = 19$ et $8 \times 4 - 13 = 19$. Attention&nbsp;: on divise par $-5$ (on ne retranche pas $-5$), et le quotient de deux nombres négatifs est positif.`],
+      r`Vérification&nbsp;: $3 \times 4 + 7 = 19$ et $8 \times 4 - 13 = 19$.`],
     revoir: r`capacité 1 du cours, exercice 1 de la fiche (questions 1 à 3), activité 1, exercices 27 p.&nbsp;99 et 115 p.&nbsp;104 du manuel`,
     variante: {
       enonce: r`La solution de l'équation $4x + 5 = 7x - 16$ est&nbsp;:`,
@@ -418,7 +418,7 @@ const QUIZ = {
       explication: [
         r`On regroupe les termes en $x$ dans le membre de gauche et les nombres dans celui de droite, en retranchant le même terme aux deux membres, puis on divise par le coefficient de $x$.`,
         calcul(r`4x + 5 = 7x - 16`, r`& \iff 4x + 5 \op{- 7x} = 7x - 16 \op{- 7x}`, r`& \iff -3x + 5 = -16`, r`& \iff -3x + 5 \op{- 5} = -16 \op{- 5}`, r`& \iff -3x = -21`, r`& \iff \dfrac{-3x}{\op{-3}} = \dfrac{-21}{\op{-3}}`, r`& \iff \resultat{x = 7}`),
-        r`Vérification&nbsp;: $4 \times 7 + 5 = 33$ et $7 \times 7 - 16 = 33$. Attention&nbsp;: on divise par $-3$ (on ne retranche pas $-3$), et le quotient de deux nombres négatifs est positif.`] } },
+        r`Vérification&nbsp;: $4 \times 7 + 5 = 33$ et $7 \times 7 - 16 = 33$.`] } },
 
   { partie: 0, theme: 'Aucune solution ou tout réel', type: 'qcm',
     enonce: r`L'ensemble des solutions de l'équation $4(x - 2) = 4x + 5$ est&nbsp;:`,
@@ -427,7 +427,7 @@ const QUIZ = {
     explication: [
       r`On développe le membre de gauche, puis on retranche $4x$ aux deux membres pour regrouper les termes en $x$.`,
       calcul(r`4(x - 2) = 4x + 5`, r`& \iff 4 \times x - 4 \times 2 = 4x + 5`, r`& \iff 4x - 8 = 4x + 5`, r`& \iff 4x - 8 \op{- 4x} = 4x + 5 \op{- 4x}`, r`& \iff -8 = 5`),
-      r`L'égalité $-8 = 5$ est fausse, quelle que soit la valeur de $x$&nbsp;: l'équation n'a aucune solution, l'ensemble des solutions est <span class="resultat">$∅$</span>. Attention&nbsp;: les termes en $x$ ont disparu, il ne faut pas conclure $x = 0$.`],
+      r`L'égalité $-8 = 5$ est fausse, quelle que soit la valeur de $x$&nbsp;: l'équation n'a aucune solution, l'ensemble des solutions est <span class="resultat">$∅$</span>.`],
     revoir: r`capacité 1 du cours (question 6), exercice 1 de la fiche (questions 5 et 6), activité 1 (question 3)`,
     variante: {
       enonce: r`L'ensemble des solutions de l'équation $2(x + 3) + x = 3x + 6$ est&nbsp;:`,
@@ -436,21 +436,21 @@ const QUIZ = {
       explication: [
         r`On développe et on réduit le membre de gauche, puis on retranche $3x$ aux deux membres pour regrouper les termes en $x$.`,
         calcul(r`2(x + 3) + x = 3x + 6`, r`& \iff 2 \times x + 2 \times 3 + x = 3x + 6`, r`& \iff 2x + 6 + x = 3x + 6`, r`& \iff 2x + x + 6 = 3x + 6`, r`& \iff 3x + 6 = 3x + 6`, r`& \iff 3x + 6 \op{- 3x} = 3x + 6 \op{- 3x}`, r`& \iff 6 = 6`),
-        r`L'égalité $6 = 6$ est vraie, quelle que soit la valeur de $x$&nbsp;: tout réel est solution, l'ensemble des solutions est <span class="resultat">$\R$</span>. Attention&nbsp;: les termes en $x$ ont disparu, il ne faut conclure ni $x = 0$ ni $x = 6$.`] } },
+        r`L'égalité $6 = 6$ est vraie, quelle que soit la valeur de $x$&nbsp;: tout réel est solution, l'ensemble des solutions est <span class="resultat">$\R$</span>.`] } },
 
   { partie: 0, theme: 'Factoriser par x', type: 'vf',
     enonce: r`Pour résoudre l'équation $x^{2} = 8x$, Léo divise les deux membres par $x$&nbsp;: il obtient $x = 8$ et conclut que l'ensemble des solutions est $\{8\}$. Sa conclusion est exacte.`,
     bonne: false,
     explication: [
-      r`On ne divise pas les deux membres par $x$, qui peut être nul&nbsp;: on regroupe tout dans le membre de gauche, on factorise par $x$ (car $x^{2} = x \times x$ et $8x = 8 \times x$), puis on applique la propriété du produit nul.`,
+      r`Comme $x$ peut être nul, on regroupe tout dans le membre de gauche, on factorise par $x$ (car $x^{2} = x \times x$ et $8x = 8 \times x$), puis on applique la propriété du produit nul.`,
       calcul(r`x^{2} = 8x`, r`& \iff x^{2} \op{- 8x} = 8x \op{- 8x}`, r`& \iff x^{2} - 8x = 0`, r`& \iff x \times x - 8 \times x = 0`, r`& \iff x(x - 8) = 0`, r`& \iff x = 0 \text{ ou } x - 8 = 0`, r`& \iff x = 0 \text{ ou } x = 8`),
-      r`L'ensemble des solutions est $\{0\,;\,8\}$&nbsp;: en divisant par $x$, Léo a perdu la solution $0$ (en effet, $0^{2} = 8 \times 0$). Sa conclusion est <span class="resultat">fausse</span>.`],
+      r`L'ensemble des solutions est $\{0\,;\,8\}$&nbsp;: $0$ est aussi solution (en effet, $0^{2} = 8 \times 0$). La conclusion de Léo est <span class="resultat">fausse</span>.`],
     revoir: r`méthode de la partie 3 et capacité 2 du cours (question 3), exercice 3 de la fiche (questions 2 et 3), exercice 120 p.&nbsp;104 du manuel`,
     variante: {
       enonce: r`Pour résoudre l'équation $3x^{2} = 12x$, Inès retranche $12x$ aux deux membres, factorise par $3x$ et conclut que l'ensemble des solutions est $\{0\,;\,4\}$. Sa conclusion est exacte.`,
       bonne: true,
       explication: [
-        r`On ne divise pas les deux membres par $x$, qui peut être nul&nbsp;: on regroupe tout dans le membre de gauche, on factorise par $3x$ (car $3x^{2} = 3x \times x$ et $12x = 3x \times 4$), puis on applique la propriété du produit nul.`,
+        r`Comme $x$ peut être nul, on regroupe tout dans le membre de gauche, on factorise par $3x$ (car $3x^{2} = 3x \times x$ et $12x = 3x \times 4$), puis on applique la propriété du produit nul.`,
         calcul(r`3x^{2} = 12x`, r`& \iff 3x^{2} \op{- 12x} = 12x \op{- 12x}`, r`& \iff 3x^{2} - 12x = 0`, r`& \iff 3x \times x - 3x \times 4 = 0`, r`& \iff 3x(x - 4) = 0`, r`& \iff 3x = 0 \text{ ou } x - 4 = 0`, r`& \iff x = 0 \text{ ou } x = 4`),
         r`L'ensemble des solutions est bien $\{0\,;\,4\}$&nbsp;: la conclusion d'Inès est <span class="resultat">vraie</span>. Vérification&nbsp;: $3 \times 4^{2} = 48$ et $12 \times 4 = 48$.`] } },
 
@@ -481,7 +481,7 @@ const QUIZ = {
       calcul(r`V = \pi r^{2}h`, r`& \iff \dfrac{V}{\op{\pi r^{2}}} = \dfrac{\pi r^{2}h}{\op{\pi r^{2}}}`, r`& \iff h = \dfrac{V}{\pi r^{2}}`),
       r`On remplace $V$ par $72\pi$ et $r$ par $3$, on calcule le carré, puis on simplifie par $\pi$.`,
       calcul(r`h & = \dfrac{72\pi}{\pi \times 3^{2}}`, r`& = \dfrac{72 \mul{\times \pi}}{9 \mul{\times \pi}}`, r`& = \dfrac{72}{9}`, r`& = \resultat{8}`),
-      r`La hauteur du cylindre est de $8$&nbsp;cm. Attention&nbsp;: le rayon est au carré, $\pi r^{2} = \pi \times 3^{2} = 9\pi$.`],
+      r`La hauteur du cylindre est de $8$&nbsp;cm.`],
     revoir: r`capacité 5 du cours (questions 1 à 4), exercice 6 de la fiche (questions 1 et 2), exercices 111 et 113 p.&nbsp;104 du manuel, question 11 du «&nbsp;Faire le point&nbsp;» p.&nbsp;107`,
     variante: {
       enonce: r`Une boîte de conserve cylindrique a pour rayon $r = 4$&nbsp;cm et pour volume $V = 80\pi$&nbsp;cm³. Sachant que $V = \pi r^{2}h$, sa hauteur $h$ est égale à&nbsp;:`,
@@ -492,7 +492,7 @@ const QUIZ = {
         calcul(r`V = \pi r^{2}h`, r`& \iff \dfrac{V}{\op{\pi r^{2}}} = \dfrac{\pi r^{2}h}{\op{\pi r^{2}}}`, r`& \iff h = \dfrac{V}{\pi r^{2}}`),
         r`On remplace $V$ par $80\pi$ et $r$ par $4$, on calcule le carré, puis on simplifie par $\pi$&nbsp;; enfin, $80 = 5 \times 16$.`,
         calcul(r`h & = \dfrac{80\pi}{\pi \times 4^{2}}`, r`& = \dfrac{80 \mul{\times \pi}}{16 \mul{\times \pi}}`, r`& = \dfrac{80}{16}`, r`& = \resultat{5}`),
-        r`La boîte mesure $5$&nbsp;cm de haut. Attention&nbsp;: le rayon est au carré, $\pi r^{2} = \pi \times 4^{2} = 16\pi$.`] } },
+        r`La boîte mesure $5$&nbsp;cm de haut.`] } },
 
   /* ----- Niveau 3 : plusieurs étapes, pièges et synthèse ----- */
 
@@ -539,7 +539,7 @@ const QUIZ = {
       calcul(r`(x - 3)(2x + 1) - (x - 3)(x + 5)`, r`& = (x - 3)\left[(2x + 1) - (x + 5)\right]`, r`& = (x - 3)(2x + 1 - x - 5)`, r`& = (x - 3)(2x - x + 1 - 5)`, r`& = (x - 3)(x - 4)`),
       r`On résout l'équation produit nul obtenue.`,
       calcul(r`(x - 3)(x - 4) = 0`, r`& \iff x - 3 = 0 \text{ ou } x - 4 = 0`, r`& \iff x = 3 \text{ ou } x = 4`),
-      r`L'ensemble des solutions est <span class="resultat">$\{3\,;\,4\}$</span>. Attention&nbsp;: diviser les deux membres par $x - 3$, qui peut être nul, ferait perdre la solution $3$.`],
+      r`L'ensemble des solutions est <span class="resultat">$\{3\,;\,4\}$</span>.`],
     revoir: r`capacité 2 du cours (question 4), exercice 3 de la fiche (question 4)`,
     variante: {
       enonce: r`L'ensemble des solutions de l'équation $(x + 2)(3x - 1) - (x + 2)(2x + 2) = 0$ est&nbsp;:`,
@@ -550,7 +550,7 @@ const QUIZ = {
         calcul(r`(x + 2)(3x - 1) - (x + 2)(2x + 2)`, r`& = (x + 2)\left[(3x - 1) - (2x + 2)\right]`, r`& = (x + 2)(3x - 1 - 2x - 2)`, r`& = (x + 2)(3x - 2x - 1 - 2)`, r`& = (x + 2)(x - 3)`),
         r`On résout l'équation produit nul obtenue.`,
         calcul(r`(x + 2)(x - 3) = 0`, r`& \iff x + 2 = 0 \text{ ou } x - 3 = 0`, r`& \iff x = -2 \text{ ou } x = 3`),
-        r`L'ensemble des solutions est <span class="resultat">$\{-2\,;\,3\}$</span>. Attention&nbsp;: diviser les deux membres par $x + 2$, qui peut être nul, ferait perdre la solution $-2$.`] } },
+        r`L'ensemble des solutions est <span class="resultat">$\{-2\,;\,3\}$</span>.`] } },
 
   { partie: 0, theme: 'Équation quotient', type: 'qcm',
     enonce: r`La solution de l'équation $\dfrac{x + 8}{x - 2} = 3$ est&nbsp;:`,
@@ -561,7 +561,7 @@ const QUIZ = {
       calcul(r`\dfrac{x + 8}{x - 2} = 3`, r`& \iff x + 8 = 3(x - 2)`, r`& \iff x + 8 = 3 \times x - 3 \times 2`, r`& \iff x + 8 = 3x - 6`),
       r`On résout l'équation du premier degré obtenue.`,
       calcul(r`x + 8 = 3x - 6`, r`& \iff x + 8 \op{- x} = 3x - 6 \op{- x}`, r`& \iff 8 = 2x - 6`, r`& \iff 8 \op{+ 6} = 2x - 6 \op{+ 6}`, r`& \iff 14 = 2x`, r`& \iff \dfrac{14}{\op{2}} = \dfrac{2x}{\op{2}}`, r`& \iff \resultat{x = 7}`),
-      r`$7 \ne 2$&nbsp;; vérification&nbsp;: $\dfrac{7 + 8}{7 - 2} = \dfrac{15}{5} = 3$. Attention&nbsp;: le $3$ multiplie tout le dénominateur, $3(x - 2) = 3x - 6$.`],
+      r`$7 \ne 2$&nbsp;; vérification&nbsp;: $\dfrac{7 + 8}{7 - 2} = \dfrac{15}{5} = 3$.`],
     revoir: r`capacité 4 du cours (questions 3 et 4), exercice 5 de la fiche (questions 3 et 4), exercice 124 p.&nbsp;104 du manuel`,
     variante: {
       enonce: r`La solution de l'équation $\dfrac{2x + 9}{x - 3} = 5$ est&nbsp;:`,
@@ -572,7 +572,7 @@ const QUIZ = {
         calcul(r`\dfrac{2x + 9}{x - 3} = 5`, r`& \iff 2x + 9 = 5(x - 3)`, r`& \iff 2x + 9 = 5 \times x - 5 \times 3`, r`& \iff 2x + 9 = 5x - 15`),
         r`On résout l'équation du premier degré obtenue.`,
         calcul(r`2x + 9 = 5x - 15`, r`& \iff 2x + 9 \op{- 2x} = 5x - 15 \op{- 2x}`, r`& \iff 9 = 3x - 15`, r`& \iff 9 \op{+ 15} = 3x - 15 \op{+ 15}`, r`& \iff 24 = 3x`, r`& \iff \dfrac{24}{\op{3}} = \dfrac{3x}{\op{3}}`, r`& \iff \resultat{x = 8}`),
-        r`$8 \ne 3$&nbsp;; vérification&nbsp;: $\dfrac{2 \times 8 + 9}{8 - 3} = \dfrac{25}{5} = 5$. Attention&nbsp;: le $5$ multiplie tout le dénominateur, $5(x - 3) = 5x - 15$.`] } }
+        r`$8 \ne 3$&nbsp;; vérification&nbsp;: $\dfrac{2 \times 8 + 9}{8 - 3} = \dfrac{25}{5} = 5$.`] } }
   ]
 };
 

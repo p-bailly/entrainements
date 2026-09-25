@@ -4,7 +4,7 @@
 - Chapitre 2 : [Puissances, racines carrées et fractions](https://p-bailly.github.io/entrainements/seconde/02-puissances-racines-fractions.html)
 - Chapitre 3 : [Nombres réels](https://p-bailly.github.io/entrainements/seconde/03-nombres-reels-1.html)
 - Chapitre 4 : [Vecteurs](https://p-bailly.github.io/entrainements/seconde/04-vecteurs.html)
-- Chapitre 5 : [Nombres réels (partie 2)](https://p-bailly.github.io/entrainements/seconde/05-nombres-reels-2.html)
+- Chapitre 5 : [Inégalités, intervalles et inéquations](https://p-bailly.github.io/entrainements/seconde/05-nombres-reels-2.html)
 - Chapitre 6 : [Généralités sur les fonctions, fonctions affines](https://p-bailly.github.io/entrainements/seconde/06-fonctions-generalites-affines.html)
 - Chapitre 7 : [Information chiffrée](https://p-bailly.github.io/entrainements/seconde/07-information-chiffree.html)
 - Chapitre 8 : [Arithmétique](https://p-bailly.github.io/entrainements/seconde/08-arithmetique.html)

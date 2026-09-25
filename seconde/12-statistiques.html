@@ -511,7 +511,7 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`L'écart type mesure la dispersion des valeurs autour de la moyenne&nbsp;: plus il est petit, plus les valeurs sont regroupées autour de la moyenne. Il ne dit rien du niveau, que mesure la moyenne.`,
-      r`Les deux classes ont la même moyenne, $11$&nbsp;: elles ont le même niveau moyen, et un écart type plus grand ne signifie pas de meilleurs résultats.`,
+      r`Les deux classes ont la même moyenne, $11$&nbsp;: elles ont le même niveau moyen.`,
       r`Ajouter $1$ point à chaque note décale toutes les notes sans les écarter davantage les unes des autres&nbsp;: la moyenne augmente de $1$, mais l'écart type reste égal à $4$.`,
       r`L'écart type de la classe A, $1{,}5$, est plus petit que celui de la classe B, $4$&nbsp;: <span class="resultat">les notes de la classe A sont plus regroupées autour de $11$</span>, la classe A est plus homogène.`],
     revoir: r`définition et remarque de la partie 2, capacité 3 du cours (question 3), activité 1, exercices 19 p.&nbsp;311 et 67 p.&nbsp;316 du manuel`,
@@ -556,7 +556,7 @@ const QUIZ = {
     explication: [
       r`On cherche la fréquence conditionnelle de la modalité «&nbsp;sport en club&nbsp;» parmi les filles («&nbsp;des filles&nbsp;»)&nbsp;: la population de référence est celle des filles, d'effectif $300$ (non nul). On divise l'effectif de «&nbsp;fille et sport en club&nbsp;» par l'effectif des filles, puis on se ramène au dénominateur $100$, car $300 = 3 \times 100$.`,
       calcul(r`\dfrac{150}{300} & = \dfrac{50 \mul{\times 3}}{100 \mul{\times 3}}`, r`& = \dfrac{50}{100}`, r`& = 50\,\%`),
-      r`La moitié des filles font du sport en club&nbsp;: l'affirmation est <span class="resultat">fausse</span>. Le pourcentage $62{,}5\,\%$ est la fréquence conditionnelle des filles parmi les élèves qui font du sport en club&nbsp;: $\dfrac{150}{240} = \dfrac{5 \mul{\times 30}}{8 \mul{\times 30}} = \dfrac{5}{8} = 0{,}625$.`],
+      r`La moitié des filles font du sport en club&nbsp;: l'affirmation est <span class="resultat">fausse</span>.`],
     revoir: r`définition de la partie 4 et capacité 6 du cours (questions 3 et 4), activité 3 (questions 2 et 3), exercice 5 de la fiche (question 3), problème du Titanic (question 4)`,
     variante: {
       enonce: r`Répartition des $400$ salariés d'une entreprise selon leur statut et la pratique du télétravail.`
@@ -568,7 +568,7 @@ const QUIZ = {
       explication: [
         r`On cherche la fréquence conditionnelle de la modalité «&nbsp;cadre&nbsp;» parmi les salariés en télétravail («&nbsp;des salariés en télétravail&nbsp;»)&nbsp;: la population de référence est celle des salariés en télétravail, d'effectif $160$ (non nul). On divise l'effectif de «&nbsp;cadre et télétravail&nbsp;» par l'effectif des salariés en télétravail.`,
         calcul(r`\dfrac{120}{160} & = \dfrac{3 \mul{\times 40}}{4 \mul{\times 40}}`, r`& = \dfrac{3}{4}`, r`& = 0{,}75`, r`& = 75\,\%`),
-        r`Les trois quarts des salariés en télétravail sont des cadres&nbsp;: l'affirmation est <span class="resultat">vraie</span>. Parmi les cadres, en revanche, moins de la moitié font du télétravail&nbsp;: $120$ sur $250$.`] } },
+        r`Les trois quarts des salariés en télétravail sont des cadres&nbsp;: l'affirmation est <span class="resultat">vraie</span>.`] } },
 
   /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
 
@@ -648,8 +648,7 @@ const QUIZ = {
       r`On compare un indicateur de position, puis un indicateur de dispersion. Sur un diagramme en boîte, la médiane est le trait qui coupe la boîte, les quartiles sont ses bords (lignes de lecture en vert).`,
       diagrammesBoites(Object.assign({}, CAISSES, { lectures: true })),
       calcul(r`\text{Caisse A : } Q_{3} - Q_{1} & = 13 - 5`, r`& = 8`, r`\text{Caisse B : } Q_{3} - Q_{1} & = 13 - 11`, r`& = 2`),
-      r`Position&nbsp;: la moyenne et la médiane de la caisse B sont plus grandes, $12$ contre $9$ et $12$ contre $8$. Dispersion&nbsp;: son écart type et son écart interquartile sont plus petits, $2$ contre $5$ et $2$ contre $8$. Donc <span class="resultat">à la caisse B, l'attente est plus longue en général, mais plus régulière</span>.`,
-      r`Attention&nbsp;: les deux boîtes s'arrêtent à $13$, qui est le troisième quartile des deux séries, pas leur médiane.`],
+      r`Position&nbsp;: la moyenne et la médiane de la caisse B sont plus grandes, $12$ contre $9$ et $12$ contre $8$. Dispersion&nbsp;: son écart type et son écart interquartile sont plus petits, $2$ contre $5$ et $2$ contre $8$. Donc <span class="resultat">à la caisse B, l'attente est plus longue en général, mais plus régulière</span>.`],
     revoir: r`méthode et capacité 4 du cours, exercice 3 de la fiche (question 2), exercice 63 p.&nbsp;315 et questions 10 et 11 du «&nbsp;Faire le point&nbsp;» p.&nbsp;317 du manuel`,
     variante: {
       enonce: r`Températures maximales, en degrés Celsius, relevées chaque jour de juillet dans deux villes. Ville A&nbsp;: moyenne $24$&nbsp;°C, écart type $2$&nbsp;°C. Ville B&nbsp;: moyenne $26$&nbsp;°C, écart type $5$&nbsp;°C. Leurs diagrammes en boîte sont tracés ci-dessous.`
@@ -663,8 +662,7 @@ const QUIZ = {
         r`On compare un indicateur de position, puis un indicateur de dispersion. Sur un diagramme en boîte, la médiane est le trait qui coupe la boîte, les quartiles sont ses bords (lignes de lecture en vert).`,
         diagrammesBoites(Object.assign({}, VILLES, { lectures: true })),
         calcul(r`\text{Ville A : } Q_{3} - Q_{1} & = 25 - 23`, r`& = 2`, r`\text{Ville B : } Q_{3} - Q_{1} & = 30 - 22`, r`& = 8`),
-        r`Position&nbsp;: la moyenne et la médiane de la ville B sont plus grandes, $26$ contre $24$ et $27$ contre $24$. Dispersion&nbsp;: son écart type et son écart interquartile sont plus grands, $5$ contre $2$ et $8$ contre $2$. Donc <span class="resultat">la ville B est plus chaude en général, mais plus irrégulière</span>.`,
-        r`Attention&nbsp;: le bord droit de la boîte B, $30$&nbsp;°C, est son troisième quartile, pas sa médiane.`] } },
+        r`Position&nbsp;: la moyenne et la médiane de la ville B sont plus grandes, $26$ contre $24$ et $27$ contre $24$. Dispersion&nbsp;: son écart type et son écart interquartile sont plus grands, $5$ contre $2$ et $8$ contre $2$. Donc <span class="resultat">la ville B est plus chaude en général, mais plus irrégulière</span>.`] } },
 
   { partie: 0, theme: 'Série regroupée en classes', type: 'qcm',
     enonce: r`L'histogramme ci-dessous donne le temps, en minutes, passé sur les réseaux sociaux un jour de semaine par $50$ élèves. On suppose la répartition uniforme dans chaque classe.`

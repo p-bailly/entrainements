@@ -3,24 +3,61 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Entraînement Évaluation intervalles et valeur absolue</title>
+<title>Entraînement Évaluation inégalités, intervalles et inéquations</title>
 <!--
-  Entraînement auto-corrigé à l'évaluation du chapitre 5 (Nombres réels, partie 2) - Seconde.
-  Une seule partie, douze questions, sans automatismes (demande du professeur), dans l'ordre
-  du cours : intervalles (notation, représentation, appartenance), inéquations, intersection
-  et réunion, valeur absolue (signe de l'intérieur, racine carrée d'un carré, distance entre
-  deux réels, |x - a| = r, |x - a| <= r, centre et rayon d'un intervalle). Sources :
-  capacités 1 à 5 du cours, fiche d'exercices (exercices 1 à 6), évaluation (sujets A et B),
-  exercices du manuel cités dans le plan (41 p. 65 ; 135, 150, 154 et 157 p. 71 ; 161 et 163
-  p. 72 ; « Faire le point » p. 73) et leur corrigé dans Livre/.
-  Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
-  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
-  questions manquées.
+  Entraînement auto-corrigé à l'évaluation du chapitre 5 (Inégalités, intervalles et
+  inéquations) - Seconde. Une seule partie, douze questions, sans automatismes (demande du
+  professeur), deux par capacité du cours, rangées par difficulté croissante, en trois
+  niveaux :
+    1 à 3  : questions de cours et applications directes : traduire x ∈ ]-5 ; 2] par une
+             inégalité, avec sa représentation (capacité 2, activité 2) ; distance entre deux
+             réels, |b - a| (capacité 5, activité 3) ; intersection de deux intervalles qui
+             ont une borne commune, réduite à un point et non vide (vrai ou faux ; variante :
+             vide, la borne étant exclue de l'un des deux ; capacité 4, fiche ex. 4) ;
+    4 à 8  : méthodes du chapitre, en deux ou trois étapes : appartenance d'une borne, d'une
+             fraction et de racines carrées (capacité 2) ; encadrer 5 - 4x, produit par un
+             réel strictement négatif (capacité 1) ; valeur absolue, signe de l'intérieur et
+             racine carrée d'un carré (une seule égalité vraie parmi quatre, capacité 5) ;
+             intersection et réunion (capacité 4) ; comparer deux fractions par le signe de
+             leur différence (capacité 1) ;
+    9 à 12 : plusieurs étapes, pièges et synthèse : centre et rayon d'un intervalle de
+             tolérance, |v - a| <= r (capacité 6) ; |x + 4| = 3 et |x + 4| <= 3, distance à
+             -4 (capacité 6) ; inéquation du premier degré avec développement et division
+             par un réel strictement négatif (capacité 3) ; modéliser par une inéquation,
+             deux tarifs, conclusion par un entier (capacité 3, activité 1).
+  Sources : cours (ordre, règles sur les inégalités, méthode « encadrer, comparer »,
+  intervalles, appartenance, inéquations, intersection et réunion, valeur absolue, distance à
+  un réel), capacités 1 à 6, activités 1 à 3, fiche d'exercices (exercices 1 à 6), évaluation
+  (sujets A et B, exercices 2 à 4 ; son QCM d'automatismes n'est pas repris) et exercices du
+  manuel cités dans le plan (41 p. 65 ; 133 p. 70 ; 150, 154 et 157 p. 71 ; 161 et 163 p. 72 ;
+  « Faire le point » p. 73, questions 8 et 11 à 14 ; 34 p. 99 ; 82 p. 102 ; 133, 138 et 140
+  p. 105), avec leur corrigé dans Livre/.
+  Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs,
+  calculables de tête (calculatrice interdite, comme à l'évaluation). Travaillés en classe
+  mais absents de l'évaluation, laissés de côté faute de place : encadrer x - y (encadrer -y,
+  puis additionner), comparer par le quotient, inéquation à coefficients fractionnaires,
+  inéquation dont les termes en x disparaissent (tout réel solution).
+  Distracteurs : erreurs types (borne comprise et borne exclue confondues, distance négative,
+  intersection jugée vide quand deux intervalles ont une borne commune, sens non changé en
+  multipliant ou en divisant par un réel strictement négatif, signe de l'intérieur d'une
+  valeur absolue non étudié, racine carrée d'un carré négative, numérateurs et dénominateurs
+  soustraits entre eux, bornes de l'intersection ou de la réunion mal choisies, rayon pris
+  égal à la longueur de l'intervalle, distance à 4 au lieu de -4, valeur absolue oubliée, cas
+  d'égalité pris pour une solution d'une inéquation stricte).
+  Calculs en colonne : l'inégalité de départ seule sur la première ligne, puis une opération
+  par ligne, faite des deux côtés (en rouge), puis la ligne simplifiée ; la division par un
+  réel strictement négatif, qui change le sens, annoncée dans la phrase de méthode ; chaque
+  produit de la distributivité écrit avant d'être calculé ; mise au même dénominateur avec
+  les facteurs en violet, puis le numérateur commun.
   Écriture des formules : crochets d'intervalle et barres de valeur absolue avec \left et
   \right, pour que KaTeX espace bien « x ∈ ]-5 ; 2] » (sinon le crochet se colle au signe ∈
-  et le signe moins devient celui d'une soustraction) et ne coupe pas |x + 1| en fin de
-  ligne ; ∩ et ∪ écrits directement, car le mini-LaTeX de secours ne connaît ni \cap ni \cup.
+  et le signe moins devient celui d'une soustraction) et ne coupe pas |x + 4| en fin de
+  ligne ; ∩, ∪ et ∅ écrits directement, car le mini-LaTeX de secours ne connaît ni \cap, ni
+  \cup, ni \emptyset ; « l'ensemble des solutions » en toutes lettres (la lettre S ronde du
+  cours, \mathcal, est inconnue du mini-LaTeX).
   Droites graduées dessinées par droiteGraduee (ci-dessous), même allure que repere.
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
 
   Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
   entrainement-05-nombres-reels-2-questions.js (même dossier) ; moteur et mise en page :
@@ -216,9 +253,9 @@ table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
 <main class="feuille">
   <header>
     <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
-    <div class="entete"><span>Seconde</span><span>M. Bailly</span><span>Chapitre 5 · Nombres réels (partie 2)</span></div>
-    <h1>Entraînement Évaluation intervalles et valeur absolue</h1>
-    <p class="consigne">Douze questions sur les intervalles, les inéquations et la valeur absolue. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="entete"><span>Seconde</span><span>M. Bailly</span><span>Chapitre 5 · Inégalités, intervalles et inéquations</span></div>
+    <h1>Entraînement Évaluation inégalités, intervalles et inéquations</h1>
+    <p class="consigne">Douze questions sur les inégalités, les intervalles, les inéquations et la valeur absolue. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
     <div class="filet" role="presentation"></div>
   </header>
   <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
@@ -372,10 +409,10 @@ function droiteGraduee(o) {
 
 const QUIZ = {
   id: '2de-05-nombres-reels-2-entrainement',
-  parties: ['Intervalles et valeur absolue'],
+  parties: ['Inégalités, intervalles et inéquations'],
   questions: [
 
-  /* ----- Intervalles de R (partie 1 du cours) ----- */
+  /* ----- Niveau 1 : questions de cours et applications directes ----- */
 
   { partie: 0, theme: 'Intervalle et inégalité', type: 'qcm',
     enonce: r`On considère l'intervalle $I = \left]-5\,;\,2\right]$. Dire que $x \in I$, c'est dire que&nbsp;:`,
@@ -383,101 +420,124 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`Un crochet tourné vers le nombre signale une borne comprise, traduite par $\le$&nbsp;; un crochet tourné vers l'extérieur signale une borne exclue, traduite par $<$.`,
-      r`Dans $\left]-5\,;\,2\right]$, le crochet est tourné vers l'extérieur en $-5$&nbsp;: cette borne est exclue. Il est tourné vers le nombre en $2$&nbsp;: cette borne est comprise.`,
-      r`Donc $x \in \left]-5\,;\,2\right]$ signifie <span class="resultat">$-5 < x \le 2$</span>.`],
-    revoir: r`partie 1 du cours (les huit types d'intervalles), exercice 1 de la fiche`,
+      droiteGraduee({ xmin: -6, xmax: 3, intervalles: [{ a: -5, b: 2, fa: false, fb: true }],
+          notes: [{ x: -5, texte: 'exclu' }, { x: 2, texte: 'compris' }],
+          label: 'Droite graduée de −6 à 3 : en rouge, l\'intervalle I, de −5 à 2 ; en −5, le crochet est tourné vers l\'extérieur, −5 est exclu ; en 2, il est tourné vers le nombre, 2 est compris' }),
+      r`En $-5$, le crochet est tourné vers l'extérieur&nbsp;: $-5$ est exclu. En $2$, il est tourné vers le nombre&nbsp;: $2$ est compris. Donc $x \in \left]-5\,;\,2\right]$ signifie <span class="resultat">$-5 < x \le 2$</span>.`],
+    revoir: r`capacité 2 du cours (question 1), activité 2, exercice 2 de la fiche (question 1), exercice 41 p.&nbsp;65 du manuel, question 11 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73`,
     variante: {
       enonce: r`On considère l'intervalle $J = \left[-1\,;\,6\right[$. Dire que $x \in J$, c'est dire que&nbsp;:`,
       choix: [r`$-1 \le x < 6$`, r`$-1 < x \le 6$`, r`$-1 \le x \le 6$`, r`$-1 < x < 6$`],
       bonne: 0,
       explication: [
         r`Un crochet tourné vers le nombre signale une borne comprise, traduite par $\le$&nbsp;; un crochet tourné vers l'extérieur signale une borne exclue, traduite par $<$.`,
-        r`Dans $\left[-1\,;\,6\right[$, le crochet est tourné vers le nombre en $-1$&nbsp;: cette borne est comprise. Il est tourné vers l'extérieur en $6$&nbsp;: cette borne est exclue.`,
-        r`Donc $x \in \left[-1\,;\,6\right[$ signifie <span class="resultat">$-1 \le x < 6$</span>.`] } },
+        droiteGraduee({ xmin: -2, xmax: 7, intervalles: [{ a: -1, b: 6, fa: true, fb: false }],
+            notes: [{ x: -1, texte: 'compris' }, { x: 6, texte: 'exclu' }],
+            label: 'Droite graduée de −2 à 7 : en rouge, l\'intervalle J, de −1 à 6 ; en −1, le crochet est tourné vers le nombre, −1 est compris ; en 6, il est tourné vers l\'extérieur, 6 est exclu' }),
+        r`En $-1$, le crochet est tourné vers le nombre&nbsp;: $-1$ est compris. En $6$, il est tourné vers l'extérieur&nbsp;: $6$ est exclu. Donc $x \in \left[-1\,;\,6\right[$ signifie <span class="resultat">$-1 \le x < 6$</span>.`] } },
 
-  { partie: 0, theme: 'Représenter un intervalle', type: 'qcm',
-    enonce: r`On a représenté en rouge un intervalle sur la droite graduée ci-dessous. Cet intervalle est&nbsp;:`
-      + droiteGraduee({ xmin: -4, xmax: 5, intervalles: [{ a: -2, b: 3, fa: false, fb: true }],
-          label: 'Droite graduée de −4 à 5. Un trait rouge va de −2 à 3 ; en −2, le crochet est tourné vers l\'extérieur du trait ; en 3, il est tourné vers l\'intérieur' }),
-    choix: [r`$\left]-2\,;\,3\right]$`, r`$\left[-2\,;\,3\right[$`, r`$\left[-2\,;\,3\right]$`, r`$\left]-2\,;\,3\right[$`],
+  { partie: 0, theme: 'Distance entre deux réels', type: 'qcm',
+    enonce: r`La distance entre les réels $-7$ et $2$ est égale à&nbsp;:`,
+    choix: [r`$9$`, r`$5$`, r`$-9$`, r`$-5$`],
     bonne: 0,
     explication: [
-      r`On lit les bornes du trait rouge, puis le sens de chaque crochet&nbsp;: tourné vers l'intérieur du trait, la borne est comprise&nbsp;; tourné vers l'extérieur, elle est exclue.`,
-      droiteGraduee({ xmin: -4, xmax: 5, intervalles: [{ a: -2, b: 3, fa: false, fb: true }],
-          notes: [{ x: -2, texte: 'exclu' }, { x: 3, texte: 'compris' }],
-          label: 'La même droite graduée : en −2, le crochet est tourné vers l\'extérieur, −2 est exclu ; en 3, il est tourné vers l\'intérieur, 3 est compris' }),
-      r`En $-2$, le crochet est tourné vers l'extérieur&nbsp;: $-2$ est exclu. En $3$, il est tourné vers l'intérieur&nbsp;: $3$ est compris. L'intervalle est <span class="resultat">$\left]-2\,;\,3\right]$</span>, l'ensemble des réels $x$ tels que $-2 < x \le 3$.`],
-    revoir: r`capacité 1 du cours, exercice 41 p.&nbsp;65 du manuel`,
+      r`La distance entre deux réels $a$ et $b$ est $\left|b - a\right|$&nbsp;: on soustrait, puis on prend la valeur absolue, car une distance n'est jamais négative. Soustraire $-7$, c'est ajouter $7$.`,
+      calcul(r`\left|2 - (-7)\right| & = \left|2 + 7\right|`, r`& = \resultat{9}`)],
+    revoir: r`propriété «&nbsp;distance entre deux réels&nbsp;» (partie 4 du cours), capacité 5 du cours (question 3), activité 3, exercice 5 de la fiche (question 2), exercice 154 p.&nbsp;71 du manuel`,
     variante: {
-      enonce: r`On a représenté en rouge un intervalle sur la droite graduée ci-dessous. Cet intervalle est&nbsp;:`
-        + droiteGraduee({ xmin: -4, xmax: 5, intervalles: [{ a: null, b: 2, fb: true }],
-            label: 'Droite graduée de −4 à 5. Un trait rouge part du bord gauche de la droite et va jusqu\'à 2 ; en 2, le crochet est tourné vers l\'intérieur du trait' }),
-      choix: [r`$\left]-\infty\,;\,2\right]$`, r`$\left]-\infty\,;\,2\right[$`, r`$\left[-\infty\,;\,2\right]$`, r`$\left[2\,;\,+\infty\right[$`],
+      enonce: r`La distance entre les réels $-8$ et $-3$ est égale à&nbsp;:`,
+      choix: [r`$5$`, r`$11$`, r`$-5$`, r`$-11$`],
       bonne: 0,
       explication: [
-        r`On lit les bornes du trait rouge, puis le sens de chaque crochet&nbsp;: tourné vers l'intérieur du trait, la borne est comprise&nbsp;; tourné vers l'extérieur, elle est exclue. Un trait sans fin vers la gauche va jusqu'à $-\infty$, où le crochet est toujours tourné vers l'extérieur.`,
-        droiteGraduee({ xmin: -4, xmax: 5, intervalles: [{ a: null, b: 2, fb: true }],
-            notes: [{ x: 2, texte: 'compris' }],
-            label: 'La même droite graduée : le trait continue sans fin vers la gauche ; en 2, le crochet est tourné vers l\'intérieur, 2 est compris' }),
-        r`Le trait continue sans fin vers la gauche&nbsp;: la borne de gauche est $-\infty$. En $2$, le crochet est tourné vers l'intérieur&nbsp;: $2$ est compris. L'intervalle est <span class="resultat">$\left]-\infty\,;\,2\right]$</span>, l'ensemble des réels $x$ tels que $x \le 2$.`] } },
+        r`La distance entre deux réels $a$ et $b$ est $\left|b - a\right|$&nbsp;: on soustrait, puis on prend la valeur absolue, car une distance n'est jamais négative. Soustraire $-8$, c'est ajouter $8$.`,
+        calcul(r`\left|-3 - (-8)\right| & = \left|-3 + 8\right|`, r`& = \resultat{5}`)] } },
+
+  { partie: 0, theme: 'Intersection de deux intervalles', type: 'vf',
+    enonce: r`L'intersection des intervalles $I = \left[-3\,;\,1\right]$ et $J = \left[1\,;\,4\right]$ est l'ensemble vide.`,
+    bonne: false,
+    explication: [
+      r`L'intersection $I ∩ J$ est l'ensemble des réels qui appartiennent à $I$ <b>et</b> à $J$&nbsp;; l'ensemble vide, noté $∅$, ne contient aucun élément. On représente $I$ en rouge et $J$ en bleu au-dessus d'une même droite graduée.`,
+      droiteGraduee({ xmin: -4, xmax: 5,
+          intervalles: [{ a: -3, b: 1, fa: true, fb: true, nom: 'I', niveau: 1 }, { a: 1, b: 4, fa: true, fb: true, classe: 'c-bleu', nom: 'J', niveau: 2 }],
+          notes: [{ x: 1, texte: 'commun' }],
+          label: 'Droite graduée de −4 à 5. Au-dessus, I en rouge, de −3 compris à 1 compris ; plus haut, J en bleu, de 1 compris à 4 compris : les deux tracés se rejoignent en 1' }),
+      r`Les deux tracés se rejoignent en $1$, qui appartient à $I$ et à $J$&nbsp;: les deux crochets sont tournés vers le nombre. Aucun autre réel n'est dans les deux. Donc $I ∩ J = \{1\}$&nbsp;: l'intersection est réduite à un point, elle n'est pas vide. L'affirmation est <span class="resultat">fausse</span>.`],
+    revoir: r`méthode «&nbsp;intersection et réunion de deux intervalles&nbsp;» (partie 3 du cours), capacité 4 du cours (question 2), exercice 4 de la fiche (questions 3 et 4)`,
+    variante: {
+      enonce: r`L'intersection des intervalles $I = \left[-2\,;\,3\right[$ et $J = \left[3\,;\,5\right]$ est l'ensemble vide.`,
+      bonne: true,
+      explication: [
+        r`L'intersection $I ∩ J$ est l'ensemble des réels qui appartiennent à $I$ <b>et</b> à $J$&nbsp;; l'ensemble vide, noté $∅$, ne contient aucun élément. On représente $I$ en rouge et $J$ en bleu au-dessus d'une même droite graduée.`,
+        droiteGraduee({ xmin: -3, xmax: 6,
+            intervalles: [{ a: -2, b: 3, fa: true, fb: false, nom: 'I', niveau: 1 }, { a: 3, b: 5, fa: true, fb: true, classe: 'c-bleu', nom: 'J', niveau: 2 }],
+            notes: [{ x: 3, texte: 'exclu de I' }],
+            label: 'Droite graduée de −3 à 6. Au-dessus, I en rouge, de −2 compris à 3 exclu ; plus haut, J en bleu, de 3 compris à 5 compris : 3 est exclu de I' }),
+        r`Les deux tracés se rejoignent en $3$, mais $3$ n'appartient pas à $I$&nbsp;: le crochet est tourné vers l'extérieur. Un réel de $I$ est strictement inférieur à $3$, un réel de $J$ est supérieur ou égal à $3$&nbsp;: aucun réel n'est dans les deux. Donc $I ∩ J = ∅$, l'affirmation est <span class="resultat">vraie</span>.`] } },
+
+  /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
 
   { partie: 0, theme: 'Appartenance à un intervalle', type: 'qcm',
     enonce: r`Lequel de ces quatre nombres appartient à l'intervalle $I = \left]-1\,;\,3\right]$&nbsp;?`,
     choix: [r`$\sqrt{8}$`, r`$-1$`, r`$\sqrt{10}$`, r`$\dfrac{7}{2}$`],
     bonne: 0,
     explication: [
-      r`On compare chaque nombre aux bornes $-1$ et $3$&nbsp;; s'il est égal à une borne, le sens du crochet décide. Une fraction se compare par son écriture décimale, une racine carrée en comparant les carrés.`,
+      r`On compare chaque nombre aux bornes $-1$ et $3$&nbsp;; s'il est égal à une borne, le sens du crochet décide. Une fraction se compare grâce à son écriture décimale&nbsp;; deux nombres positifs sont rangés dans le même ordre que leurs carrés.`,
       r`$-1$ est exclu, car le crochet est tourné vers l'extérieur en $-1$. Et $\dfrac{7}{2} = 3{,}5$, qui dépasse $3$.`,
       r`Pour les racines carrées&nbsp;: $2^{2} = 4 < 8 < 9 = 3^{2}$, donc $2 < \sqrt{8} < 3$&nbsp;; et $3^{2} = 9 < 10$, donc $3 < \sqrt{10}$.`,
       r`Ainsi $-1 < \sqrt{8} \le 3$&nbsp;: le nombre qui appartient à $I$ est <span class="resultat">$\sqrt{8}$</span>.`],
-    revoir: r`capacité 1 du cours, exercice 2 de la fiche, exercice 135 p.&nbsp;71 du manuel`,
+    revoir: r`méthode «&nbsp;déterminer si un réel appartient à un intervalle&nbsp;» (partie 2 du cours), capacité 2 du cours (question 2), exercice 2 de la fiche (question 2), exercice 133 p.&nbsp;70 du manuel, question 8 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73`,
     variante: {
       enonce: r`Lequel de ces quatre nombres appartient à l'intervalle $J = \left[-4\,;\,2\right[$&nbsp;?`,
       choix: [r`$-4$`, r`$2$`, r`$\sqrt{5}$`, r`$-\dfrac{9}{2}$`],
       bonne: 0,
       explication: [
-        r`On compare chaque nombre aux bornes $-4$ et $2$&nbsp;; s'il est égal à une borne, le sens du crochet décide. Une fraction se compare par son écriture décimale, une racine carrée en comparant les carrés.`,
+        r`On compare chaque nombre aux bornes $-4$ et $2$&nbsp;; s'il est égal à une borne, le sens du crochet décide. Une fraction se compare grâce à son écriture décimale&nbsp;; deux nombres positifs sont rangés dans le même ordre que leurs carrés.`,
         r`$2$ est exclu, car le crochet est tourné vers l'extérieur en $2$. Et $-\dfrac{9}{2} = -4{,}5$, qui est plus petit que $-4$.`,
-        r`Pour la racine carrée&nbsp;: $2^{2} = 4 < 5$, donc $2 < \sqrt{5}$.`,
+        r`Pour la racine carrée&nbsp;: $2^{2} = 4 < 5$, donc $2 < \sqrt{5}$&nbsp;: $\sqrt{5}$ dépasse $2$.`,
         r`En revanche, le crochet est tourné vers le nombre en $-4$&nbsp;: $-4$ est compris. Le nombre qui appartient à $J$ est <span class="resultat">$-4$</span>.`] } },
 
-  /* ----- Inéquations, intersection et réunion (partie 2 du cours) ----- */
-
-  { partie: 0, theme: 'Inéquation', type: 'qcm',
-    enonce: r`L'ensemble des solutions de l'inéquation $3x - 4 > 5$ est&nbsp;:`,
-    choix: [r`$\left]3\,;\,+\infty\right[$`, r`$\left[3\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,3\right[$`, r`$\left]\dfrac{1}{3}\,;\,+\infty\right[$`],
+  { partie: 0, theme: 'Encadrer une expression', type: 'qcm',
+    enonce: r`Sachant que $-2 \le x \le 1$, un encadrement de $5 - 4x$ est&nbsp;:`,
+    choix: [r`$1 \le 5 - 4x \le 13$`, r`$13 \le 5 - 4x \le 1$`, r`$-3 \le 5 - 4x \le 9$`, r`$-4 \le 5 - 4x \le 8$`],
     bonne: 0,
     explication: [
-      r`On isole $x$ comme dans une équation&nbsp;: on ajoute $4$ aux deux membres, puis on les divise par $3$, qui est positif&nbsp;: le sens de l'inégalité ne change pas.`,
-      calcul(r`3x - 4 > 5 & \iff 3x - 4 \op{+ 4} > 5 \op{+ 4}`, r`& \iff 3x > 9`, r`& \iff \dfrac{3x}{\op{3}} > \dfrac{9}{\op{3}}`, r`& \iff x > 3`),
-      r`L'inégalité est stricte&nbsp;: $3$ est exclu. L'ensemble des solutions est <span class="resultat">$\left]3\,;\,+\infty\right[$</span>.`],
-    revoir: r`capacité 2 du cours, exercice 3 de la fiche`,
+      r`On refait le calcul de $5 - 4x$, étape par étape, sur les trois membres&nbsp;: on multiplie par $-4$, strictement négatif, ce qui change le sens des deux inégalités&nbsp;; puis on ajoute $5$, ce qui conserve l'ordre.`,
+      calcul(r`-2 \le x \le 1`, r`& \iff -2 \op{\times (-4)} \ge x \op{\times (-4)} \ge 1 \op{\times (-4)}`, r`& \iff 8 \ge -4x \ge -4`, r`& \iff 8 \op{+ 5} \ge -4x \op{+ 5} \ge -4 \op{+ 5}`, r`& \iff 13 \ge 5 - 4x \ge 1`),
+      r`On l'écrit du plus petit au plus grand nombre&nbsp;: <span class="resultat">$1 \le 5 - 4x \le 13$</span>.`],
+    revoir: r`règles sur les inégalités et méthode «&nbsp;encadrer, comparer&nbsp;» (partie 1 du cours), capacité 1 du cours (questions 1 et 2), exercice 1 de la fiche (question 1), exercices 34 p.&nbsp;99 et 133 p.&nbsp;105 du manuel`,
     variante: {
-      enonce: r`L'ensemble des solutions de l'inéquation $2x + 7 \le 1$ est&nbsp;:`,
-      choix: [r`$\left]-\infty\,;\,-3\right]$`, r`$\left]-\infty\,;\,-3\right[$`, r`$\left[-3\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,4\right]$`],
+      enonce: r`Sachant que $1 \le x \le 3$, un encadrement de $2 - 5x$ est&nbsp;:`,
+      choix: [r`$-13 \le 2 - 5x \le -3$`, r`$-3 \le 2 - 5x \le -13$`, r`$7 \le 2 - 5x \le 17$`, r`$-15 \le 2 - 5x \le -5$`],
       bonne: 0,
       explication: [
-        r`On isole $x$ comme dans une équation&nbsp;: on retire $7$ aux deux membres, puis on les divise par $2$, qui est positif&nbsp;: le sens de l'inégalité ne change pas.`,
-        calcul(r`2x + 7 \le 1 & \iff 2x + 7 \op{- 7} \le 1 \op{- 7}`, r`& \iff 2x \le -6`, r`& \iff \dfrac{2x}{\op{2}} \le \dfrac{-6}{\op{2}}`, r`& \iff x \le -3`),
-        r`L'inégalité est large&nbsp;: $-3$ est compris. L'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-3\right]$</span>.`] } },
+        r`On refait le calcul de $2 - 5x$, étape par étape, sur les trois membres&nbsp;: on multiplie par $-5$, strictement négatif, ce qui change le sens des deux inégalités&nbsp;; puis on ajoute $2$, ce qui conserve l'ordre.`,
+        calcul(r`1 \le x \le 3`, r`& \iff 1 \op{\times (-5)} \ge x \op{\times (-5)} \ge 3 \op{\times (-5)}`, r`& \iff -5 \ge -5x \ge -15`, r`& \iff -5 \op{+ 2} \ge -5x \op{+ 2} \ge -15 \op{+ 2}`, r`& \iff -3 \ge 2 - 5x \ge -13`),
+        r`On l'écrit du plus petit au plus grand nombre&nbsp;: <span class="resultat">$-13 \le 2 - 5x \le -3$</span>.`] } },
 
-  { partie: 0, theme: 'Inéquation, changement de sens', type: 'qcm',
-    enonce: r`L'ensemble des solutions de l'inéquation $x + 8 \ge 4x - 1$ est&nbsp;:`,
-    choix: [r`$\left]-\infty\,;\,3\right]$`, r`$\left[3\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,3\right[$`, r`$\left]-\infty\,;\,-3\right]$`],
+  { partie: 0, theme: 'Valeur absolue', type: 'qcm',
+    enonce: r`Une seule de ces égalités est vraie. Laquelle&nbsp;?`,
+    choix: [r`$\left|\sqrt{7} - 3\right| = 3 - \sqrt{7}$`, r`$\left|\sqrt{5} - 2\right| = 2 - \sqrt{5}$`, r`$\left|\pi - 4\right| = \pi - 4$`, r`$\sqrt{(-5)^{2}} = -5$`],
     bonne: 0,
     explication: [
-      r`On regroupe les termes en $x$&nbsp;: on retire $4x$, puis $8$, aux deux membres. On divise enfin par $-3$, qui est négatif&nbsp;: le sens de l'inégalité change.`,
-      calcul(r`x + 8 \ge 4x - 1 & \iff x + 8 \op{- 4x} \ge 4x - 1 \op{- 4x}`, r`& \iff -3x + 8 \ge -1`, r`& \iff -3x + 8 \op{- 8} \ge -1 \op{- 8}`, r`& \iff -3x \ge -9`, r`& \iff \dfrac{-3x}{\op{-3}} \le \dfrac{-9}{\op{-3}}`, r`& \iff x \le 3`),
-      r`L'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,3\right]$</span>. Vérification avec $x = 0$, qui est bien solution&nbsp;: $0 + 8 \ge 4 \times 0 - 1$, soit $8 \ge -1$.`],
-    revoir: r`capacité 2 du cours, exercice 3 de la fiche`,
+      r`Pour une valeur absolue, on cherche d'abord le signe de l'intérieur&nbsp;: $\left|A\right| = A$ si $A \ge 0$, et $\left|A\right| = -A$ si $A < 0$&nbsp;; deux nombres positifs sont rangés dans le même ordre que leurs carrés. Pour une racine carrée, $\sqrt{a^{2}} = \left|a\right|$.`,
+      r`$\sqrt{(-5)^{2}} = \sqrt{25} = 5$&nbsp;: une racine carrée n'est jamais négative.`,
+      r`$\pi \approx 3{,}14$, donc $\pi - 4 < 0$&nbsp;: $\left|\pi - 4\right| = -(\pi - 4) = 4 - \pi$.`,
+      r`$2^{2} = 4 < 5$ donne $2 < \sqrt{5}$, donc $\sqrt{5} - 2 > 0$&nbsp;: $\left|\sqrt{5} - 2\right| = \sqrt{5} - 2$.`,
+      r`Enfin, $7 < 9 = 3^{2}$ donne $\sqrt{7} < 3$, donc $\sqrt{7} - 3 < 0$&nbsp;:`,
+      calcul(r`\left|\sqrt{7} - 3\right| & = -\left(\sqrt{7} - 3\right)`, r`& = 3 - \sqrt{7}`),
+      r`L'égalité vraie est <span class="resultat">$\left|\sqrt{7} - 3\right| = 3 - \sqrt{7}$</span>.`],
+    revoir: r`définition de la valeur absolue et propriété «&nbsp;racine carrée d'un carré&nbsp;» (partie 4 du cours), capacité 5 du cours (questions 1 et 2), exercice 5 de la fiche (question 1)`,
     variante: {
-      enonce: r`L'ensemble des solutions de l'inéquation $2x - 1 < 5x + 8$ est&nbsp;:`,
-      choix: [r`$\left]-3\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,-3\right[$`, r`$\left[-3\,;\,+\infty\right[$`, r`$\left]3\,;\,+\infty\right[$`],
+      enonce: r`Une seule de ces égalités est vraie. Laquelle&nbsp;?`,
+      choix: [r`$\left|\sqrt{10} - 3\right| = \sqrt{10} - 3$`, r`$\left|1 - \sqrt{3}\right| = 1 - \sqrt{3}$`, r`$\left|3 - \pi\right| = 3 - \pi$`, r`$\sqrt{(-6)^{2}} = -6$`],
       bonne: 0,
       explication: [
-        r`On regroupe les termes en $x$&nbsp;: on retire $5x$ aux deux membres, puis on leur ajoute $1$. On divise enfin par $-3$, qui est négatif&nbsp;: le sens de l'inégalité change.`,
-        calcul(r`2x - 1 < 5x + 8 & \iff 2x - 1 \op{- 5x} < 5x + 8 \op{- 5x}`, r`& \iff -3x - 1 < 8`, r`& \iff -3x - 1 \op{+ 1} < 8 \op{+ 1}`, r`& \iff -3x < 9`, r`& \iff \dfrac{-3x}{\op{-3}} > \dfrac{9}{\op{-3}}`, r`& \iff x > -3`),
-        r`L'ensemble des solutions est <span class="resultat">$\left]-3\,;\,+\infty\right[$</span>. Vérification avec $x = 0$, qui est bien solution&nbsp;: $2 \times 0 - 1 < 5 \times 0 + 8$, soit $-1 < 8$.`] } },
+        r`Pour une valeur absolue, on cherche d'abord le signe de l'intérieur&nbsp;: $\left|A\right| = A$ si $A \ge 0$, et $\left|A\right| = -A$ si $A < 0$&nbsp;; deux nombres positifs sont rangés dans le même ordre que leurs carrés. Pour une racine carrée, $\sqrt{a^{2}} = \left|a\right|$.`,
+        r`$\sqrt{(-6)^{2}} = \sqrt{36} = 6$&nbsp;: une racine carrée n'est jamais négative.`,
+        r`$\pi \approx 3{,}14$, donc $3 - \pi < 0$&nbsp;: $\left|3 - \pi\right| = -(3 - \pi) = \pi - 3$.`,
+        r`$1^{2} = 1 < 3$ donne $1 < \sqrt{3}$, donc $1 - \sqrt{3} < 0$&nbsp;: $\left|1 - \sqrt{3}\right| = -\left(1 - \sqrt{3}\right) = \sqrt{3} - 1$.`,
+        r`Enfin, $3^{2} = 9 < 10$ donne $3 < \sqrt{10}$, donc $\sqrt{10} - 3 > 0$&nbsp;: la valeur absolue d'un nombre positif est ce nombre lui-même.`,
+        r`L'égalité vraie est <span class="resultat">$\left|\sqrt{10} - 3\right| = \sqrt{10} - 3$</span>.`] } },
 
   { partie: 0, theme: 'Intersection et réunion', type: 'qcm',
     enonce: r`On considère les intervalles $I = \left[-2\,;\,4\right[$ et $J = \left]1\,;\,+\infty\right[$. L'intersection $I ∩ J$ et la réunion $I ∪ J$ sont&nbsp;:`,
@@ -487,13 +547,13 @@ const QUIZ = {
             r`$I ∩ J = \left]1\,;\,4\right[$ et $I ∪ J = \left]-2\,;\,+\infty\right[$`],
     bonne: 0,
     explication: [
-      r`On représente $I$ en rouge et $J$ en bleu au-dessus d'une même droite graduée. $I ∩ J$ est la zone commune aux deux tracés, $I ∪ J$ la zone couverte par l'un au moins des deux. Une borne est dans $I ∩ J$ si elle est dans $I$ <b>et</b> dans $J$, dans $I ∪ J$ si elle est dans $I$ <b>ou</b> dans $J$.`,
+      r`On représente $I$ en rouge et $J$ en bleu au-dessus d'une même droite graduée. $I ∩ J$ est la zone commune aux deux tracés, $I ∪ J$ la zone couverte par l'un au moins des deux. Une borne appartient à $I ∩ J$ si elle appartient à $I$ <b>et</b> à $J$, à $I ∪ J$ si elle appartient à $I$ <b>ou</b> à $J$.`,
       droiteGraduee({ xmin: -3, xmax: 6,
           intervalles: [{ a: -2, b: 4, fa: true, fb: false, nom: 'I', niveau: 1 }, { a: 1, b: null, fa: false, classe: 'c-bleu', nom: 'J', niveau: 2 }],
           label: 'Droite graduée de −3 à 6. Au-dessus, I en rouge, de −2 compris à 4 exclu ; plus haut, J en bleu, à partir de 1 exclu, sans fin vers la droite' }),
-      r`Zone commune de $1$ à $4$, deux bornes exclues&nbsp;: $1$ n'est pas dans $J$ et $4$ n'est pas dans $I$. Zone couverte à partir de $-2$, compris car $-2$ est dans $I$, sans fin vers la droite.`,
+      r`Zone commune de $1$ à $4$, deux bornes exclues&nbsp;: $1$ n'appartient pas à $J$ et $4$ n'appartient pas à $I$. Zone couverte à partir de $-2$, compris car $-2$ appartient à $I$, sans fin vers la droite.`,
       r`Donc <span class="resultat">$I ∩ J = \left]1\,;\,4\right[$ et $I ∪ J = \left[-2\,;\,+\infty\right[$</span>.`],
-    revoir: r`capacité 3 du cours, exercice 4 de la fiche, exercices 161 et 163 p.&nbsp;72 du manuel`,
+    revoir: r`méthode «&nbsp;intersection et réunion de deux intervalles&nbsp;» (partie 3 du cours), capacité 4 du cours (question 1), exercice 4 de la fiche (questions 1 et 2), exercices 161 et 163 p.&nbsp;72 du manuel, question 14 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73`,
     variante: {
       enonce: r`On considère les intervalles $I = \left[-1\,;\,5\right]$ et $J = \left]-\infty\,;\,2\right[$. L'intersection $I ∩ J$ et la réunion $I ∪ J$ sont&nbsp;:`,
       choix: [r`$I ∩ J = \left[-1\,;\,2\right[$ et $I ∪ J = \left]-\infty\,;\,5\right]$`,
@@ -502,126 +562,124 @@ const QUIZ = {
               r`$I ∩ J = \left[-1\,;\,2\right[$ et $I ∪ J = \left]-\infty\,;\,5\right[$`],
       bonne: 0,
       explication: [
-        r`On représente $I$ en rouge et $J$ en bleu au-dessus d'une même droite graduée. $I ∩ J$ est la zone commune aux deux tracés, $I ∪ J$ la zone couverte par l'un au moins des deux. Une borne est dans $I ∩ J$ si elle est dans $I$ <b>et</b> dans $J$, dans $I ∪ J$ si elle est dans $I$ <b>ou</b> dans $J$.`,
+        r`On représente $I$ en rouge et $J$ en bleu au-dessus d'une même droite graduée. $I ∩ J$ est la zone commune aux deux tracés, $I ∪ J$ la zone couverte par l'un au moins des deux. Une borne appartient à $I ∩ J$ si elle appartient à $I$ <b>et</b> à $J$, à $I ∪ J$ si elle appartient à $I$ <b>ou</b> à $J$.`,
         droiteGraduee({ xmin: -3, xmax: 6,
             intervalles: [{ a: -1, b: 5, fa: true, fb: true, nom: 'I', niveau: 1 }, { a: null, b: 2, fb: false, classe: 'c-bleu', nom: 'J', niveau: 2 }],
             label: 'Droite graduée de −3 à 6. Au-dessus, I en rouge, de −1 compris à 5 compris ; plus haut, J en bleu, sans fin vers la gauche, jusqu\'à 2 exclu' }),
-        r`Zone commune de $-1$, compris car $-1$ est dans $I$ et dans $J$, à $2$, exclu car $2$ n'est pas dans $J$. Zone couverte sans fin vers la gauche, jusqu'à $5$, compris car $5$ est dans $I$.`,
+        r`Zone commune de $-1$, compris car $-1$ appartient à $I$ et à $J$, à $2$, exclu car $2$ n'appartient pas à $J$. Zone couverte sans fin vers la gauche, jusqu'à $5$, compris car $5$ appartient à $I$.`,
         r`Donc <span class="resultat">$I ∩ J = \left[-1\,;\,2\right[$ et $I ∪ J = \left]-\infty\,;\,5\right]$</span>.`] } },
 
-  /* ----- Valeur absolue d'un réel (partie 3 du cours) ----- */
-
-  { partie: 0, theme: 'Valeur absolue', type: 'qcm',
-    enonce: r`Le nombre $\left|\sqrt{7} - 3\right|$ est égal à&nbsp;:`,
-    choix: [r`$3 - \sqrt{7}$`, r`$\sqrt{7} - 3$`, r`$\sqrt{7} + 3$`, r`$-\sqrt{7} - 3$`],
+  { partie: 0, theme: 'Comparer par la différence', type: 'qcm',
+    enonce: r`On compare $\dfrac{5}{8}$ et $\dfrac{7}{11}$ à l'aide de leur différence. On obtient&nbsp;:`,
+    choix: [r`$\dfrac{5}{8} - \dfrac{7}{11} = -\dfrac{1}{88}$, donc $\dfrac{5}{8} < \dfrac{7}{11}$`,
+            r`$\dfrac{5}{8} - \dfrac{7}{11} = \dfrac{1}{88}$, donc $\dfrac{5}{8} > \dfrac{7}{11}$`,
+            r`$\dfrac{5}{8} - \dfrac{7}{11} = -\dfrac{1}{88}$, donc $\dfrac{5}{8} > \dfrac{7}{11}$`,
+            r`$\dfrac{5}{8} - \dfrac{7}{11} = \dfrac{2}{3}$, donc $\dfrac{5}{8} > \dfrac{7}{11}$`],
     bonne: 0,
     explication: [
-      r`On cherche d'abord le signe de l'intérieur&nbsp;: $|A| = A$ si $A \ge 0$, et $|A| = -A$ si $A < 0$. Or $7 < 9$ donne $\sqrt{7} < 3$, donc $\sqrt{7} - 3 < 0$.`,
-      calcul(r`\left|\sqrt{7} - 3\right| & = -(\sqrt{7} - 3)`, r`& = \resultat{3 - \sqrt{7}}`)],
-    revoir: r`capacité 4 du cours, exercice 5 de la fiche`,
+      r`Pour comparer deux nombres, on étudie le signe de leur différence&nbsp;: $a - b < 0 \iff a < b$. On met les deux fractions au même dénominateur, $8 \times 11 = 88$.`,
+      calcul(r`\dfrac{5}{8} - \dfrac{7}{11} & = \dfrac{5 \mul{\times 11}}{8 \mul{\times 11}} - \dfrac{7 \mul{\times 8}}{11 \mul{\times 8}}`, r`& = \dfrac{55}{88} - \dfrac{56}{88}`, r`& = \dfrac{55 - 56}{88}`, r`& = -\dfrac{1}{88}`),
+      r`La différence est strictement négative&nbsp;: <span class="resultat">$\dfrac{5}{8} < \dfrac{7}{11}$</span>.`],
+    revoir: r`méthode «&nbsp;encadrer, comparer&nbsp;» (partie 1 du cours), capacité 1 du cours (question 4), exercice 1 de la fiche (question 4), exercice 82 p.&nbsp;102 du manuel`,
     variante: {
-      enonce: r`Le nombre $\left|\sqrt{10} - 3\right|$ est égal à&nbsp;:`,
-      choix: [r`$\sqrt{10} - 3$`, r`$3 - \sqrt{10}$`, r`$\sqrt{10} + 3$`, r`$-\sqrt{10} - 3$`],
+      enonce: r`On compare $\dfrac{3}{7}$ et $\dfrac{5}{12}$ à l'aide de leur différence. On obtient&nbsp;:`,
+      choix: [r`$\dfrac{3}{7} - \dfrac{5}{12} = \dfrac{1}{84}$, donc $\dfrac{3}{7} > \dfrac{5}{12}$`,
+              r`$\dfrac{3}{7} - \dfrac{5}{12} = -\dfrac{1}{84}$, donc $\dfrac{3}{7} < \dfrac{5}{12}$`,
+              r`$\dfrac{3}{7} - \dfrac{5}{12} = \dfrac{1}{84}$, donc $\dfrac{3}{7} < \dfrac{5}{12}$`,
+              r`$\dfrac{3}{7} - \dfrac{5}{12} = \dfrac{2}{5}$, donc $\dfrac{3}{7} > \dfrac{5}{12}$`],
       bonne: 0,
       explication: [
-        r`On cherche d'abord le signe de l'intérieur&nbsp;: $|A| = A$ si $A \ge 0$, et $|A| = -A$ si $A < 0$. Or $10 > 9$ donne $\sqrt{10} > 3$, donc $\sqrt{10} - 3 > 0$.`,
-        calcul(r`\left|\sqrt{10} - 3\right| & = \resultat{\sqrt{10} - 3}`)] } },
+        r`Pour comparer deux nombres, on étudie le signe de leur différence&nbsp;: $a - b > 0 \iff a > b$. On met les deux fractions au même dénominateur, $7 \times 12 = 84$.`,
+        calcul(r`\dfrac{3}{7} - \dfrac{5}{12} & = \dfrac{3 \mul{\times 12}}{7 \mul{\times 12}} - \dfrac{5 \mul{\times 7}}{12 \mul{\times 7}}`, r`& = \dfrac{36}{84} - \dfrac{35}{84}`, r`& = \dfrac{36 - 35}{84}`, r`& = \dfrac{1}{84}`),
+        r`La différence est strictement positive&nbsp;: <span class="resultat">$\dfrac{3}{7} > \dfrac{5}{12}$</span>.`] } },
 
-  { partie: 0, theme: 'Racine carrée d\'un carré', type: 'vf',
-    enonce: r`L'égalité $\sqrt{(-9)^{2}} = -9$ est vraie.`,
-    bonne: false,
-    explication: [
-      r`Pour tout réel $a$, $\sqrt{a^{2}} = |a|$&nbsp;: une racine carrée n'est jamais négative. On calcule d'abord le carré.`,
-      calcul(r`\sqrt{(-9)^{2}} & = \sqrt{81}`, r`& = 9`),
-      r`Ainsi $\sqrt{(-9)^{2}} = \left|-9\right| = 9$, et $9 \ne -9$&nbsp;: l'égalité est <span class="resultat">fausse</span>.`],
-    revoir: r`propriété $\sqrt{a^{2}} = |a|$ (partie 3 du cours), capacité 4 du cours`,
-    variante: {
-      enonce: r`L'égalité $\sqrt{(-12)^{2}} = 12$ est vraie.`,
-      bonne: true,
-      explication: [
-        r`Pour tout réel $a$, $\sqrt{a^{2}} = |a|$&nbsp;: une racine carrée n'est jamais négative. On calcule d'abord le carré.`,
-        calcul(r`\sqrt{(-12)^{2}} & = \sqrt{144}`, r`& = 12`),
-        r`Ainsi $\sqrt{(-12)^{2}} = \left|-12\right| = 12$&nbsp;: l'égalité est <span class="resultat">vraie</span>.`] } },
-
-  { partie: 0, theme: 'Distance entre deux réels', type: 'qcm',
-    enonce: r`La distance entre les réels $-7$ et $2$ est égale à&nbsp;:`,
-    choix: [r`$9$`, r`$5$`, r`$-9$`, r`$-5$`],
-    bonne: 0,
-    explication: [
-      r`La distance entre deux réels $a$ et $b$ est $\left|b - a\right|$&nbsp;: on soustrait, puis on prend la valeur absolue. Une distance n'est jamais négative.`,
-      calcul(r`\left|2 - (-7)\right| & = \left|2 + 7\right|`, r`& = \resultat{9}`)],
-    revoir: r`capacité 4 du cours, exercice 5 de la fiche, exercice 154 p.&nbsp;71 du manuel`,
-    variante: {
-      enonce: r`La distance entre les réels $-8$ et $-3$ est égale à&nbsp;:`,
-      choix: [r`$5$`, r`$11$`, r`$-5$`, r`$-11$`],
-      bonne: 0,
-      explication: [
-        r`La distance entre deux réels $a$ et $b$ est $\left|b - a\right|$&nbsp;: on soustrait, puis on prend la valeur absolue. Une distance n'est jamais négative.`,
-        calcul(r`\left|-3 - (-8)\right| & = \left|-3 + 8\right|`, r`& = \resultat{5}`)] } },
-
-  { partie: 0, theme: 'Distance à un réel, égalité', type: 'qcm',
-    enonce: r`Les solutions de l'équation $\left|x + 5\right| = 2$ sont&nbsp;:`,
-    choix: [r`$x = -7$ ou $x = -3$`, r`$x = 3$ ou $x = 7$`, r`$x = -3$ seulement`, r`$x = -2$ ou $x = 2$`],
-    bonne: 0,
-    explication: [
-      r`Une somme s'écrit d'abord comme une différence&nbsp;: $\left|x + 5\right| = \left|x - (-5)\right|$ est la distance entre $x$ et $-5$. On cherche donc les réels à distance $2$ de $-5$, un de chaque côté.`,
-      droiteGraduee({ xmin: -8, xmax: 1, points: [{ x: -5, classe: 'vert' }, { x: -7 }, { x: -3 }], arcs: { centre: -5, rayon: 2, texte: '2' },
-          label: 'Droite graduée de −8 à 1 : le centre −5 en vert et, à distance 2 de part et d\'autre, les points −7 et −3 en rouge' }),
-      calcul(r`-5 - 2 & = -7`, r`-5 + 2 & = -3`),
-      r`Les solutions sont <span class="resultat">$x = -7$ ou $x = -3$</span>.`],
-    revoir: r`capacité 5 du cours, exercice 6 de la fiche, exercice 157 p.&nbsp;71 du manuel`,
-    variante: {
-      enonce: r`Les solutions de l'équation $\left|x + 3\right| = 5$ sont&nbsp;:`,
-      choix: [r`$x = -8$ ou $x = 2$`, r`$x = -2$ ou $x = 8$`, r`$x = 2$ seulement`, r`$x = -5$ ou $x = 5$`],
-      bonne: 0,
-      explication: [
-        r`Une somme s'écrit d'abord comme une différence&nbsp;: $\left|x + 3\right| = \left|x - (-3)\right|$ est la distance entre $x$ et $-3$. On cherche donc les réels à distance $5$ de $-3$, un de chaque côté.`,
-        droiteGraduee({ xmin: -9, xmax: 3, points: [{ x: -3, classe: 'vert' }, { x: -8 }, { x: 2 }], arcs: { centre: -3, rayon: 5, texte: '5' },
-            label: 'Droite graduée de −9 à 3 : le centre −3 en vert et, à distance 5 de part et d\'autre, les points −8 et 2 en rouge' }),
-        calcul(r`-3 - 5 & = -8`, r`-3 + 5 & = 2`),
-        r`Les solutions sont <span class="resultat">$x = -8$ ou $x = 2$</span>.`] } },
-
-  { partie: 0, theme: 'Distance à un réel, inégalité', type: 'qcm',
-    enonce: r`L'ensemble des solutions de l'inéquation $\left|x + 4\right| \le 3$ est&nbsp;:`,
-    choix: [r`$\left[-7\,;\,-1\right]$`, r`$\left[1\,;\,7\right]$`, r`$\left]-\infty\,;\,-1\right]$`, r`$\left]-7\,;\,-1\right[$`],
-    bonne: 0,
-    explication: [
-      r`$\left|x + 4\right| = \left|x - (-4)\right|$ est la distance entre $x$ et $-4$&nbsp;: $\left|x + 4\right| \le 3$ signifie que cette distance est au plus $3$. Les solutions forment l'intervalle de centre $-4$ et de rayon $3$.`,
-      calcul(r`\left|x + 4\right| \le 3 & \iff -4 - 3 \le x \le -4 + 3`, r`& \iff -7 \le x \le -1`),
-      droiteGraduee({ xmin: -8, xmax: 1, intervalles: [{ a: -7, b: -1, fa: true, fb: true }], points: [{ x: -4, classe: 'vert' }],
-          arcs: { centre: -4, rayon: 3, texte: '3' },
-          label: 'Droite graduée de −8 à 1 : en rouge, l\'intervalle de −7 à −1, bornes comprises, de centre −4 en vert et de rayon 3' }),
-      r`L'inégalité est large, les bornes sont comprises&nbsp;: l'ensemble des solutions est <span class="resultat">$\left[-7\,;\,-1\right]$</span>.`],
-    revoir: r`capacité 5 du cours, exercice 6 de la fiche, exercice 150 p.&nbsp;71 du manuel`,
-    variante: {
-      enonce: r`L'ensemble des solutions de l'inéquation $\left|x + 1\right| \le 5$ est&nbsp;:`,
-      choix: [r`$\left[-6\,;\,4\right]$`, r`$\left[-4\,;\,6\right]$`, r`$\left]-\infty\,;\,4\right]$`, r`$\left]-6\,;\,4\right[$`],
-      bonne: 0,
-      explication: [
-        r`$\left|x + 1\right| = \left|x - (-1)\right|$ est la distance entre $x$ et $-1$&nbsp;: $\left|x + 1\right| \le 5$ signifie que cette distance est au plus $5$. Les solutions forment l'intervalle de centre $-1$ et de rayon $5$.`,
-        calcul(r`\left|x + 1\right| \le 5 & \iff -1 - 5 \le x \le -1 + 5`, r`& \iff -6 \le x \le 4`),
-        droiteGraduee({ xmin: -7, xmax: 5, intervalles: [{ a: -6, b: 4, fa: true, fb: true }], points: [{ x: -1, classe: 'vert' }],
-            arcs: { centre: -1, rayon: 5, texte: '5' },
-            label: 'Droite graduée de −7 à 5 : en rouge, l\'intervalle de −6 à 4, bornes comprises, de centre −1 en vert et de rayon 5' }),
-        r`L'inégalité est large, les bornes sont comprises&nbsp;: l'ensemble des solutions est <span class="resultat">$\left[-6\,;\,4\right]$</span>.`] } },
+  /* ----- Niveau 3 : plusieurs étapes, pièges et synthèse ----- */
 
   { partie: 0, theme: 'Centre et rayon', type: 'qcm',
     enonce: r`Une machine remplit des flacons. Un flacon est accepté si son volume $v$, en mL, appartient à l'intervalle $\left[248\,;\,252\right]$. Cette condition s'écrit&nbsp;:`,
     choix: [r`$\left|v - 250\right| \le 2$`, r`$\left|v - 250\right| \le 4$`, r`$\left|v - 2\right| \le 250$`, r`$\left|v + 250\right| \le 2$`],
     bonne: 0,
     explication: [
-      r`Le centre $a$ de l'intervalle est le milieu des bornes, le rayon $r$ la distance du centre à une borne. Alors $v \in \left[a - r\,;\,a + r\right]$ s'écrit $\left|v - a\right| \le r$.`,
-      calcul(r`a & = \dfrac{248 + 252}{2}`, r`& = 250`, r`r & = 252 - 250`, r`& = 2`),
-      r`La distance entre $v$ et $250$ est au plus $2$&nbsp;: la condition s'écrit <span class="resultat">$\left|v - 250\right| \le 2$</span>, soit un volume de $250$ mL à $2$ mL près.`],
-    revoir: r`capacité 5 du cours (questions 3 et 4), exercice 6 de la fiche (questions 3 et 4)`,
+      r`L'intervalle $\left[a - r\,;\,a + r\right]$ a pour centre $a$, milieu des bornes, et pour rayon $r$, distance du centre à une borne&nbsp;; $v \in \left[a - r\,;\,a + r\right]$ s'écrit $\left|v - a\right| \le r$&nbsp;: la distance entre $v$ et $a$ est au plus $r$. On calcule le centre, puis le rayon.`,
+      calcul(r`a & = \dfrac{248 + 252}{2}`, r`& = \dfrac{500}{2}`, r`& = 250`, r`r & = 252 - 250`, r`& = 2`),
+      droiteGraduee({ xmin: 247, xmax: 253, intervalles: [{ a: 248, b: 252, fa: true, fb: true }], points: [{ x: 250, classe: 'vert' }],
+          arcs: { centre: 250, rayon: 2, texte: '2' },
+          label: 'Droite graduée de 247 à 253 : en rouge, l\'intervalle de 248 à 252, bornes comprises, de centre 250 en vert et de rayon 2' }),
+      r`La distance entre $v$ et $250$ est au plus $2$&nbsp;: la condition s'écrit <span class="resultat">$\left|v - 250\right| \le 2$</span>, soit un volume de $250$&nbsp;mL à $2$&nbsp;mL près.`],
+    revoir: r`propriété «&nbsp;distance à un réel&nbsp;» (partie 4 du cours), capacité 6 du cours (questions 3 et 4), exercice 6 de la fiche (questions 3 et 4), question 13 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73 du manuel`,
     variante: {
-      enonce: r`La masse $m$ d'un paquet de riz, en grammes, doit appartenir à l'intervalle $\left[990\,;\,1\,010\right]$. Cette condition s'écrit&nbsp;:`,
-      choix: [r`$\left|m - 1\,000\right| \le 10$`, r`$\left|m - 1\,000\right| \le 20$`, r`$\left|m - 10\right| \le 1\,000$`, r`$\left|m + 1\,000\right| \le 10$`],
+      enonce: r`La température $T$ de l'eau d'un aquarium, en °C, doit appartenir à l'intervalle $\left[22\,;\,28\right]$. Cette condition s'écrit&nbsp;:`,
+      choix: [r`$\left|T - 25\right| \le 3$`, r`$\left|T - 25\right| \le 6$`, r`$\left|T - 3\right| \le 25$`, r`$\left|T + 25\right| \le 3$`],
       bonne: 0,
       explication: [
-        r`Le centre $a$ de l'intervalle est le milieu des bornes, le rayon $r$ la distance du centre à une borne. Alors $m \in \left[a - r\,;\,a + r\right]$ s'écrit $\left|m - a\right| \le r$.`,
-        calcul(r`a & = \dfrac{990 + 1\,010}{2}`, r`& = 1\,000`, r`r & = 1\,010 - 1\,000`, r`& = 10`),
-        r`La distance entre $m$ et $1\,000$ est au plus $10$&nbsp;: la condition s'écrit <span class="resultat">$\left|m - 1\,000\right| \le 10$</span>, soit une masse de $1\,000$ g à $10$ g près.`] } }
+        r`L'intervalle $\left[a - r\,;\,a + r\right]$ a pour centre $a$, milieu des bornes, et pour rayon $r$, distance du centre à une borne&nbsp;; $T \in \left[a - r\,;\,a + r\right]$ s'écrit $\left|T - a\right| \le r$&nbsp;: la distance entre $T$ et $a$ est au plus $r$. On calcule le centre, puis le rayon.`,
+        calcul(r`a & = \dfrac{22 + 28}{2}`, r`& = \dfrac{50}{2}`, r`& = 25`, r`r & = 28 - 25`, r`& = 3`),
+        droiteGraduee({ xmin: 21, xmax: 29, intervalles: [{ a: 22, b: 28, fa: true, fb: true }], points: [{ x: 25, classe: 'vert' }],
+            arcs: { centre: 25, rayon: 3, texte: '3' },
+            label: 'Droite graduée de 21 à 29 : en rouge, l\'intervalle de 22 à 28, bornes comprises, de centre 25 en vert et de rayon 3' }),
+        r`La distance entre $T$ et $25$ est au plus $3$&nbsp;: la condition s'écrit <span class="resultat">$\left|T - 25\right| \le 3$</span>, soit une température de $25$&nbsp;°C à $3$&nbsp;°C près.`] } },
+
+  { partie: 0, theme: 'Distance à un réel', type: 'qcm',
+    enonce: r`On considère l'équation $\left|x + 4\right| = 3$ et l'inéquation $\left|x + 4\right| \le 3$. Leurs solutions sont, dans cet ordre&nbsp;:`,
+    choix: [r`$x = -7$ ou $x = -1$&nbsp;; $\left[-7\,;\,-1\right]$`, r`$x = 1$ ou $x = 7$&nbsp;; $\left[1\,;\,7\right]$`, r`$x = -1$ seulement&nbsp;; $\left]-\infty\,;\,-1\right]$`, r`$x = -7$ ou $x = -1$&nbsp;; $\left]-7\,;\,-1\right[$`],
+    bonne: 0,
+    explication: [
+      r`Une somme s'écrit d'abord comme une différence&nbsp;: $\left|x + 4\right| = \left|x - (-4)\right|$ est la distance entre $x$ et $-4$. Comme $3$ est strictement positif, l'équation a pour solutions les deux réels à la distance $3$ de $-4$, un de chaque côté&nbsp;; l'inéquation, les réels à une distance au plus $3$ de $-4$, qui forment l'intervalle de centre $-4$ et de rayon $3$.`,
+      calcul(r`-4 - 3 & = -7`, r`-4 + 3 & = -1`),
+      droiteGraduee({ xmin: -8, xmax: 1, intervalles: [{ a: -7, b: -1, fa: true, fb: true }], points: [{ x: -4, classe: 'vert' }, { x: -7 }, { x: -1 }],
+          arcs: { centre: -4, rayon: 3, texte: '3' },
+          label: 'Droite graduée de −8 à 1 : le centre −4 en vert ; à la distance 3 de part et d\'autre, les points −7 et −1 ; en rouge, l\'intervalle de −7 à −1, bornes comprises' }),
+      r`L'inégalité est large&nbsp;: les bornes $-7$ et $-1$ sont comprises. Les solutions sont, dans l'ordre, <span class="resultat">$x = -7$ ou $x = -1$&nbsp;; $\left[-7\,;\,-1\right]$</span>.`],
+    revoir: r`propriété «&nbsp;distance à un réel&nbsp;» (partie 4 du cours), capacité 6 du cours (questions 1 et 2), exercice 6 de la fiche (questions 1 et 2), exercices 150 et 157 p.&nbsp;71 du manuel, question 12 du «&nbsp;Faire le point&nbsp;» p.&nbsp;73`,
+    variante: {
+      enonce: r`On considère l'équation $\left|x + 1\right| = 5$ et l'inéquation $\left|x + 1\right| \le 5$. Leurs solutions sont, dans cet ordre&nbsp;:`,
+      choix: [r`$x = -6$ ou $x = 4$&nbsp;; $\left[-6\,;\,4\right]$`, r`$x = -4$ ou $x = 6$&nbsp;; $\left[-4\,;\,6\right]$`, r`$x = 4$ seulement&nbsp;; $\left]-\infty\,;\,4\right]$`, r`$x = -6$ ou $x = 4$&nbsp;; $\left]-6\,;\,4\right[$`],
+      bonne: 0,
+      explication: [
+        r`Une somme s'écrit d'abord comme une différence&nbsp;: $\left|x + 1\right| = \left|x - (-1)\right|$ est la distance entre $x$ et $-1$. Comme $5$ est strictement positif, l'équation a pour solutions les deux réels à la distance $5$ de $-1$, un de chaque côté&nbsp;; l'inéquation, les réels à une distance au plus $5$ de $-1$, qui forment l'intervalle de centre $-1$ et de rayon $5$.`,
+        calcul(r`-1 - 5 & = -6`, r`-1 + 5 & = 4`),
+        droiteGraduee({ xmin: -7, xmax: 5, intervalles: [{ a: -6, b: 4, fa: true, fb: true }], points: [{ x: -1, classe: 'vert' }, { x: -6 }, { x: 4 }],
+            arcs: { centre: -1, rayon: 5, texte: '5' },
+            label: 'Droite graduée de −7 à 5 : le centre −1 en vert ; à la distance 5 de part et d\'autre, les points −6 et 4 ; en rouge, l\'intervalle de −6 à 4, bornes comprises' }),
+        r`L'inégalité est large&nbsp;: les bornes $-6$ et $4$ sont comprises. Les solutions sont, dans l'ordre, <span class="resultat">$x = -6$ ou $x = 4$&nbsp;; $\left[-6\,;\,4\right]$</span>.`] } },
+
+  { partie: 0, theme: 'Inéquation du premier degré', type: 'qcm',
+    enonce: r`L'ensemble des solutions de l'inéquation $2(x + 5) > 6x - 2$ est&nbsp;:`,
+    choix: [r`$\left]-\infty\,;\,3\right[$`, r`$\left]3\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,3\right]$`, r`$\left]-\infty\,;\,-3\right[$`],
+    bonne: 0,
+    explication: [
+      r`On développe, on regroupe les termes en $x$ dans le membre de gauche et les nombres dans celui de droite, puis on divise les deux membres par $-4$, strictement négatif&nbsp;: le sens de l'inégalité change.`,
+      calcul(r`2(x + 5) > 6x - 2`, r`& \iff 2 \times x + 2 \times 5 > 6x - 2`, r`& \iff 2x + 10 > 6x - 2`, r`& \iff 2x + 10 \op{- 6x} > 6x - 2 \op{- 6x}`, r`& \iff -4x + 10 > -2`, r`& \iff -4x + 10 \op{- 10} > -2 \op{- 10}`, r`& \iff -4x > -12`, r`& \iff \dfrac{-4x}{\op{-4}} < \dfrac{-12}{\op{-4}}`, r`& \iff x < 3`),
+      r`L'inégalité est stricte, $3$ est exclu&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,3\right[$</span>. Vérification avec $x = 0$, qui est bien solution&nbsp;: $2 \times 5 = 10$ et $6 \times 0 - 2 = -2$&nbsp;; on a bien $10 > -2$.`],
+    revoir: r`propriété «&nbsp;inéquations équivalentes&nbsp;» et méthode «&nbsp;résoudre une inéquation, modéliser un problème&nbsp;» (partie 3 du cours), capacité 3 du cours (questions 1 à 3), exercice 3 de la fiche (questions 1 et 2), exercice 138 p.&nbsp;105 du manuel`,
+    variante: {
+      enonce: r`L'ensemble des solutions de l'inéquation $5(x - 1) \le 8x + 7$ est&nbsp;:`,
+      choix: [r`$\left[-4\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,-4\right]$`, r`$\left]-4\,;\,+\infty\right[$`, r`$\left[4\,;\,+\infty\right[$`],
+      bonne: 0,
+      explication: [
+        r`On développe, on regroupe les termes en $x$ dans le membre de gauche et les nombres dans celui de droite, puis on divise les deux membres par $-3$, strictement négatif&nbsp;: le sens de l'inégalité change.`,
+        calcul(r`5(x - 1) \le 8x + 7`, r`& \iff 5 \times x - 5 \times 1 \le 8x + 7`, r`& \iff 5x - 5 \le 8x + 7`, r`& \iff 5x - 5 \op{- 8x} \le 8x + 7 \op{- 8x}`, r`& \iff -3x - 5 \le 7`, r`& \iff -3x - 5 \op{+ 5} \le 7 \op{+ 5}`, r`& \iff -3x \le 12`, r`& \iff \dfrac{-3x}{\op{-3}} \ge \dfrac{12}{\op{-3}}`, r`& \iff x \ge -4`),
+        r`L'inégalité est large, $-4$ est compris&nbsp;: l'ensemble des solutions est <span class="resultat">$\left[-4\,;\,+\infty\right[$</span>. Vérification avec $x = 0$, qui est bien solution&nbsp;: $5 \times (-1) = -5$ et $8 \times 0 + 7 = 7$&nbsp;; on a bien $-5 \le 7$.`] } },
+
+  { partie: 0, theme: 'Modéliser par une inéquation', type: 'qcm',
+    enonce: r`Une salle d'escalade propose deux tarifs&nbsp;: $12$&nbsp;€ l'entrée, ou une carte à $40$&nbsp;€ par an, puis $7$&nbsp;€ l'entrée. On note $n$ le nombre d'entrées dans l'année. Avec la carte, on paie moins cher à partir de&nbsp;:`,
+    choix: [r`$9$ entrées`, r`$8$ entrées`, r`$4$ entrées`, r`$3$ entrées`],
+    bonne: 0,
+    explication: [
+      r`On choisit l'inconnue et ses valeurs possibles&nbsp;: $n$ est un entier naturel. Sans la carte, on paie $12n$ euros&nbsp;; avec la carte, $40 + 7n$ euros. On paie moins cher avec la carte lorsque $40 + 7n < 12n$.`,
+      r`On retire $7n$ aux deux membres, puis on les divise par $5$, strictement positif&nbsp;: le sens ne change pas.`,
+      calcul(r`40 + 7n < 12n`, r`& \iff 40 + 7n \op{- 7n} < 12n \op{- 7n}`, r`& \iff 40 < 5n`, r`& \iff \dfrac{40}{\op{5}} < \dfrac{5n}{\op{5}}`, r`& \iff 8 < n`),
+      r`$n$ est un entier strictement supérieur à $8$&nbsp;: avec la carte, on paie moins cher à partir de <span class="resultat">$9$ entrées</span>. Vérification&nbsp;: pour $8$ entrées, $12 \times 8 = 96$ et $40 + 7 \times 8 = 96$, les deux tarifs sont égaux&nbsp;; pour $9$ entrées, $12 \times 9 = 108$ et $40 + 7 \times 9 = 103$.`],
+    revoir: r`méthode «&nbsp;résoudre une inéquation, modéliser un problème&nbsp;» (partie 3 du cours), capacité 3 du cours (question 6), activité 1, exercice 3 de la fiche (question 4), exercice 140 p.&nbsp;105 du manuel`,
+    variante: {
+      enonce: r`Une patinoire propose deux tarifs&nbsp;: $8$&nbsp;€ l'entrée, ou une carte à $30$&nbsp;€ par trimestre, puis $5$&nbsp;€ l'entrée. On note $n$ le nombre d'entrées dans le trimestre. Avec la carte, on paie moins cher à partir de&nbsp;:`,
+      choix: [r`$11$ entrées`, r`$10$ entrées`, r`$4$ entrées`, r`$3$ entrées`],
+      bonne: 0,
+      explication: [
+        r`On choisit l'inconnue et ses valeurs possibles&nbsp;: $n$ est un entier naturel. Sans la carte, on paie $8n$ euros&nbsp;; avec la carte, $30 + 5n$ euros. On paie moins cher avec la carte lorsque $30 + 5n < 8n$.`,
+        r`On retire $5n$ aux deux membres, puis on les divise par $3$, strictement positif&nbsp;: le sens ne change pas.`,
+        calcul(r`30 + 5n < 8n`, r`& \iff 30 + 5n \op{- 5n} < 8n \op{- 5n}`, r`& \iff 30 < 3n`, r`& \iff \dfrac{30}{\op{3}} < \dfrac{3n}{\op{3}}`, r`& \iff 10 < n`),
+        r`$n$ est un entier strictement supérieur à $10$&nbsp;: avec la carte, on paie moins cher à partir de <span class="resultat">$11$ entrées</span>. Vérification&nbsp;: pour $10$ entrées, $8 \times 10 = 80$ et $30 + 5 \times 10 = 80$, les deux tarifs sont égaux&nbsp;; pour $11$ entrées, $8 \times 11 = 88$ et $30 + 5 \times 11 = 85$.`] } }
   ]
 };
 

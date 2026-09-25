@@ -488,7 +488,7 @@ const QUIZ = {
     explication: [
       r`On écrit la liste des issues de chaque événement. $A ∪ B$ («&nbsp;$A$ ou $B$&nbsp;») est formé des issues qui sont dans $A$, dans $B$, ou dans les deux, chacune écrite une seule fois.`,
       calcul(r`A & = \{1\,;\,3\,;\,5\,;\,7\,;\,9\}`, r`B & = \{1\,;\,2\,;\,3\,;\,4\}`, r`A ∪ B & = \resultat{\{1\,;\,2\,;\,3\,;\,4\,;\,5\,;\,7\,;\,9\}}`),
-      r`$A ∪ B$ se traduit par «&nbsp;le numéro est impair ou inférieur ou égal à $4$&nbsp;». Attention&nbsp;: $1$ et $3$, qui sont dans $A$ et dans $B$, font partie de $A ∪ B$&nbsp;; l'intersection $A ∩ B = \{1\,;\,3\}$ ne contient que les issues communes.`],
+      r`$A ∪ B$ se traduit par «&nbsp;le numéro est impair ou inférieur ou égal à $4$&nbsp;».`],
     revoir: r`définition de la partie 1 et capacité 1 du cours (questions 1 et 2), exercices 24 p.&nbsp;341 et 42 p.&nbsp;343 du manuel`,
     variante: {
       enonce: r`Un sac contient douze jetons numérotés de $1$ à $12$&nbsp;; on en tire un au hasard. On note $A$&nbsp;: «&nbsp;le numéro est un multiple de $3$&nbsp;» et $B$&nbsp;: «&nbsp;le numéro est supérieur ou égal à $10$&nbsp;». L'événement $A ∪ B$ est&nbsp;:`,
@@ -497,7 +497,7 @@ const QUIZ = {
       explication: [
         r`On écrit la liste des issues de chaque événement. $A ∪ B$ («&nbsp;$A$ ou $B$&nbsp;») est formé des issues qui sont dans $A$, dans $B$, ou dans les deux, chacune écrite une seule fois.`,
         calcul(r`A & = \{3\,;\,6\,;\,9\,;\,12\}`, r`B & = \{10\,;\,11\,;\,12\}`, r`A ∪ B & = \resultat{\{3\,;\,6\,;\,9\,;\,10\,;\,11\,;\,12\}}`),
-        r`$A ∪ B$ se traduit par «&nbsp;le numéro est un multiple de $3$ ou supérieur ou égal à $10$&nbsp;». Attention&nbsp;: $12$, qui est dans $A$ et dans $B$, fait partie de $A ∪ B$ (écrit une seule fois)&nbsp;; l'intersection $A ∩ B = \{12\}$ ne contient que les issues communes.`] } },
+        r`$A ∪ B$ se traduit par «&nbsp;le numéro est un multiple de $3$ ou supérieur ou égal à $10$&nbsp;».`] } },
 
   { partie: 0, theme: 'Traduire une phrase', type: 'qcm',
     enonce: r`Dans un club de sport, on choisit un adhérent au hasard. On note $N$&nbsp;: «&nbsp;il fait de la natation&nbsp;» et $T$&nbsp;: «&nbsp;il joue au tennis&nbsp;». L'événement «&nbsp;l'adhérent fait de la natation mais ne joue pas au tennis&nbsp;» s'écrit&nbsp;:`,
@@ -505,8 +505,7 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`On traduit la phrase morceau par morceau&nbsp;: «&nbsp;fait de la natation&nbsp;» est l'événement $N$&nbsp;; «&nbsp;ne joue pas au tennis&nbsp;» est l'événement contraire de $T$, noté $\overline{T}$&nbsp;; «&nbsp;mais&nbsp;» a ici le sens de «&nbsp;et&nbsp;», qui se traduit par $∩$.`,
-      r`L'événement s'écrit <span class="resultat">$N ∩ \overline{T}$</span>&nbsp;: il est formé des adhérents qui font de la natation sans jouer au tennis.`,
-      r`Attention&nbsp;: $\overline{N ∩ T}$ est le contraire de «&nbsp;l'adhérent pratique les deux sports&nbsp;»&nbsp;; il contient aussi les adhérents qui ne font ni natation, ni tennis.`],
+      r`L'événement s'écrit <span class="resultat">$N ∩ \overline{T}$</span>&nbsp;: il est formé des adhérents qui font de la natation sans jouer au tennis.`],
     revoir: r`capacité 1 du cours (question 3), exercice 2 de la fiche (question 1), exercices 28 p.&nbsp;341 et 60 p.&nbsp;345 du manuel`,
     variante: {
       enonce: r`À l'entrée d'un stade, on choisit un spectateur au hasard. On note $A$&nbsp;: «&nbsp;il est abonné au club&nbsp;» et $M$&nbsp;: «&nbsp;il a moins de $18$ ans&nbsp;». L'événement «&nbsp;le spectateur n'est pas abonné ou il a moins de $18$ ans&nbsp;» s'écrit&nbsp;:`,
@@ -514,8 +513,7 @@ const QUIZ = {
       bonne: 0,
       explication: [
         r`On traduit la phrase morceau par morceau&nbsp;: «&nbsp;n'est pas abonné&nbsp;» est l'événement contraire de $A$, noté $\overline{A}$&nbsp;; «&nbsp;a moins de $18$ ans&nbsp;» est l'événement $M$&nbsp;; «&nbsp;ou&nbsp;» se traduit par $∪$ (l'un, l'autre ou les deux).`,
-        r`L'événement s'écrit <span class="resultat">$\overline{A} ∪ M$</span>&nbsp;: il est formé de tous les spectateurs non abonnés et de tous les spectateurs de moins de $18$ ans.`,
-        r`Attention&nbsp;: $\overline{A} ∩ M$ ne contient que les spectateurs qui sont à la fois non abonnés et âgés de moins de $18$ ans.`] } },
+        r`L'événement s'écrit <span class="resultat">$\overline{A} ∪ M$</span>&nbsp;: il est formé de tous les spectateurs non abonnés et de tous les spectateurs de moins de $18$ ans.`] } },
 
   { partie: 0, theme: 'Formule de la réunion', type: 'qcm',
     enonce: r`Dans un lycée, $45\,\%$ des élèves sont inscrits à l'association sportive, $30\,\%$ à l'atelier théâtre et $10\,\%$ aux deux. On choisit un élève au hasard&nbsp;; on note $S$&nbsp;: «&nbsp;il est inscrit à l'association sportive&nbsp;» et $T$&nbsp;: «&nbsp;il est inscrit à l'atelier théâtre&nbsp;». La probabilité que l'élève soit inscrit à l'association sportive ou à l'atelier théâtre est&nbsp;:`,
@@ -524,7 +522,7 @@ const QUIZ = {
     explication: [
       r`L'élève est choisi au hasard&nbsp;: les proportions sont des probabilités, $P(S) = 0{,}45$, $P(T) = 0{,}3$ et $P(S ∩ T) = 0{,}1$. On cherche $P(S ∪ T)$&nbsp;: d'après la formule $P(S ∪ T) + P(S ∩ T) = P(S) + P(T)$, on retire $P(S ∩ T)$ à la somme $P(S) + P(T)$.`,
       calcul(r`P(S ∪ T) & = P(S) + P(T) - P(S ∩ T)`, r`& = 0{,}45 + 0{,}3 - 0{,}1`, r`& = 0{,}75 - 0{,}1`, r`& = \resultat{0{,}65}`),
-      r`$65\,\%$ des élèves sont inscrits à l'association sportive ou à l'atelier théâtre. Attention&nbsp;: dans $P(S) + P(T) = 0{,}75$, les élèves inscrits aux deux sont comptés deux fois&nbsp;; on les retire une fois.`],
+      r`$65\,\%$ des élèves sont inscrits à l'association sportive ou à l'atelier théâtre.`],
     revoir: r`règles de calcul de la partie 2 et capacité 2 du cours (questions 3 et 4), exercice 2 de la fiche (question 2), exercices 29 p.&nbsp;341, 58 p.&nbsp;344 et 71 p.&nbsp;346, question 8 du «&nbsp;Faire le point&nbsp;» p.&nbsp;347 du manuel`,
     variante: {
       enonce: r`Dans une boulangerie, on choisit un client au hasard. On note $B$&nbsp;: «&nbsp;il achète une baguette&nbsp;» et $V$&nbsp;: «&nbsp;il achète une viennoiserie&nbsp;». On sait que $P(B) = 0{,}6$, $P(V) = 0{,}35$ et $P(B ∪ V) = 0{,}8$. La probabilité que le client achète une baguette et une viennoiserie est&nbsp;:`,
@@ -549,7 +547,7 @@ const QUIZ = {
       r`Le bouchon n'est pas symétrique&nbsp;: rien ne permet de supposer que ses deux issues ont la même probabilité. On construit donc le modèle à partir des fréquences observées sur un grand nombre de lancers&nbsp;: d'après la loi des grands nombres, lorsque le nombre de lancers est grand, sauf exception, la fréquence observée est proche de la probabilité.`,
       r`Ici, la fréquence varie beaucoup au début ($0{,}55$, puis $0{,}66$), puis ne bouge presque plus à partir de $1\,000$ lancers&nbsp;: elle se stabilise autour de $0{,}7$. Les probabilités des deux issues ont pour somme $1$.`,
       calcul(r`P(\text{endroit}) & = 1 - P(\text{côté})`, r`& = 1 - 0{,}7`, r`& = 0{,}3`),
-      r`On peut choisir le modèle <span class="resultat">$P(\text{côté}) = 0{,}7$ et $P(\text{endroit}) = 0{,}3$</span>. Ce n'est qu'un modèle&nbsp;: la probabilité exacte reste inconnue, et le nombre de chutes sur le côté en $100$ nouveaux lancers variera d'une série à l'autre.`],
+      r`On peut choisir le modèle <span class="resultat">$P(\text{côté}) = 0{,}7$ et $P(\text{endroit}) = 0{,}3$</span>.`],
     revoir: r`remarque «&nbsp;modèle et réalité&nbsp;» et loi des grands nombres (partie 3 du cours), activités 1 et 2, exercice 1 de la fiche (question 1), exercices 37 p.&nbsp;342 et 49 p.&nbsp;343, question 4 du «&nbsp;Faire le point&nbsp;» p.&nbsp;347 du manuel`,
     variante: {
       enonce: r`La fonction Python ci-dessous simule $n$ lancers d'une pièce de monnaie équilibrée (<code>randint(0,&nbsp;1)</code> renvoie $0$ ou $1$ au hasard, $1$ représentant «&nbsp;pile&nbsp;») et renvoie la fréquence des «&nbsp;pile&nbsp;».`
@@ -567,7 +565,7 @@ const QUIZ = {
         r`La fonction compte dans <code>nb</code> les «&nbsp;pile&nbsp;» obtenus en $n$ lancers simulés, puis renvoie leur fréquence <code>nb&nbsp;/&nbsp;n</code>. La pièce est équilibrée&nbsp;: on choisit l'équiprobabilité, $P(\text{pile}) = \dfrac{1}{2} = 0{,}5$. Cette probabilité ne change pas&nbsp;; c'est la fréquence observée qui varie d'une exécution à l'autre.`,
         r`On mesure, pour chaque valeur de $n$, le plus grand écart entre une fréquence obtenue et $0{,}5$.`,
         calcul(r`n = 10 & : \quad 0{,}5 - 0{,}3 = 0{,}2`, r`n = 100 & : \quad 0{,}55 - 0{,}5 = 0{,}05`, r`n = 10\,000 & : \quad 0{,}5 - 0{,}496\,8 = 0{,}003\,2`),
-        r`D'après la loi des grands nombres, lorsque $n$ est grand, sauf exception, la fréquence observée est proche de la probabilité&nbsp;: <span class="resultat">plus $n$ est grand, plus les fréquences sont proches de $0{,}5$</span>. Même pour $n = 10\,000$, elles ne sont pas exactement égales à $0{,}5$&nbsp;; et $3$ «&nbsp;pile&nbsp;» sur $10$ lancers n'a rien d'exceptionnel pour une pièce équilibrée.`] } },
+        r`D'après la loi des grands nombres, lorsque $n$ est grand, sauf exception, la fréquence observée est proche de la probabilité&nbsp;: <span class="resultat">plus $n$ est grand, plus les fréquences sont proches de $0{,}5$</span>.`] } },
 
   /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
 
@@ -595,7 +593,7 @@ const QUIZ = {
         r`La somme des probabilités des six issues vaut $1$. On note $p$ la probabilité commune des faces $5$ et $6$, puis on isole $p$&nbsp;: on retire $0{,}6$ aux deux membres, puis on les divise par $2$.`,
         calcul(r`0{,}15 + 0{,}1 + 0{,}2 + 0{,}15 + p + p = 1`, r`& \iff 2p + 0{,}6 = 1`, r`& \iff 2p + 0{,}6 \op{- 0{,}6} = 1 \op{- 0{,}6}`, r`& \iff 2p = 0{,}4`,
           r`& \iff \dfrac{2p}{\op{2}} = \dfrac{0{,}4}{\op{2}}`, r`& \iff \resultat{p = 0{,}2}`),
-        r`Les faces $5$ et $6$ ont chacune la probabilité $0{,}2$. Vérification&nbsp;: $0{,}15 + 0{,}1 + 0{,}2 + 0{,}15 + 0{,}2 + 0{,}2 = 1$. Attention&nbsp;: le dé est truqué, on ne peut pas supposer ses six faces équiprobables.`] } },
+        r`Les faces $5$ et $6$ ont chacune la probabilité $0{,}2$. Vérification&nbsp;: $0{,}15 + 0{,}1 + 0{,}2 + 0{,}15 + 0{,}2 + 0{,}2 = 1$.`] } },
 
   { partie: 0, theme: 'Événement contraire', type: 'qcm',
     enonce: r`On lance un dé à six faces truqué, dont voici la loi de probabilité.`
@@ -608,7 +606,7 @@ const QUIZ = {
     explication: [
       r`«&nbsp;Au moins $3$&nbsp;» signifie $3$, $4$, $5$ ou $6$&nbsp;: $A = \{3\,;\,4\,;\,5\,;\,6\}$. Son contraire est formé des autres issues, $\overline{A} = \{1\,;\,2\}$, c'est-à-dire «&nbsp;obtenir au plus $2$&nbsp;». On additionne les probabilités des issues de $A$, puis on utilise $P(\overline{A}) = 1 - P(A)$.`,
       calcul(r`P(A) & = 0{,}1 + 0{,}2 + 0{,}15 + 0{,}3`, r`& = 0{,}75`, r`P(\overline{A}) & = 1 - 0{,}75`, r`& = 0{,}25`),
-      r`L'événement contraire est <span class="resultat">$\overline{A}$&nbsp;: «&nbsp;obtenir au plus $2$&nbsp;», de probabilité $0{,}25$</span>. Vérification&nbsp;: les issues $1$ et $2$ ont pour probabilités $0{,}1$ et $0{,}15$, de somme $0{,}25$. Attention&nbsp;: le contraire de «&nbsp;au moins $3$&nbsp;» est «&nbsp;au plus $2$&nbsp;», et non «&nbsp;au plus $3$&nbsp;».`],
+      r`L'événement contraire est <span class="resultat">$\overline{A}$&nbsp;: «&nbsp;obtenir au plus $2$&nbsp;», de probabilité $0{,}25$</span>. Vérification&nbsp;: les issues $1$ et $2$ ont pour probabilités $0{,}1$ et $0{,}15$, de somme $0{,}25$.`],
     revoir: r`règles de calcul de la partie 2 et capacité 2 du cours (question 2), exercice 1 de la fiche (question 2), exercices 27 p.&nbsp;341 et 58 p.&nbsp;344, questions 5 et 7 du «&nbsp;Faire le point&nbsp;» p.&nbsp;347 du manuel`,
     variante: {
       enonce: r`On lance un dé à six faces truqué, dont voici la loi de probabilité.`
@@ -621,7 +619,7 @@ const QUIZ = {
       explication: [
         r`«&nbsp;Au plus $4$&nbsp;» signifie $1$, $2$, $3$ ou $4$&nbsp;: $A = \{1\,;\,2\,;\,3\,;\,4\}$. Son contraire est formé des autres issues, $\overline{A} = \{5\,;\,6\}$, c'est-à-dire «&nbsp;obtenir au moins $5$&nbsp;». On additionne les probabilités des issues de $A$, puis on utilise $P(\overline{A}) = 1 - P(A)$.`,
         calcul(r`P(A) & = 0{,}25 + 0{,}2 + 0{,}15 + 0{,}1`, r`& = 0{,}7`, r`P(\overline{A}) & = 1 - 0{,}7`, r`& = 0{,}3`),
-        r`L'événement contraire est <span class="resultat">$\overline{A}$&nbsp;: «&nbsp;obtenir au moins $5$&nbsp;», de probabilité $0{,}3$</span>. Vérification&nbsp;: les issues $5$ et $6$ ont pour probabilités $0{,}1$ et $0{,}2$, de somme $0{,}3$. Attention&nbsp;: le contraire de «&nbsp;au plus $4$&nbsp;» est «&nbsp;au moins $5$&nbsp;», et non «&nbsp;au moins $4$&nbsp;».`] } },
+        r`L'événement contraire est <span class="resultat">$\overline{A}$&nbsp;: «&nbsp;obtenir au moins $5$&nbsp;», de probabilité $0{,}3$</span>. Vérification&nbsp;: les issues $5$ et $6$ ont pour probabilités $0{,}1$ et $0{,}2$, de somme $0{,}3$.`] } },
 
   { partie: 0, theme: 'Équiprobabilité', type: 'qcm',
     enonce: r`On lance deux dés équilibrés à six faces, un rouge et un vert, et on additionne les deux nombres obtenus. On note $S$&nbsp;: «&nbsp;la somme vaut $10$&nbsp;». La probabilité $P(S)$ est égale à&nbsp;:`,
@@ -630,8 +628,7 @@ const QUIZ = {
     explication: [
       r`Les dés sont équilibrés&nbsp;: on choisit le modèle où les $6 \times 6 = 36$ couples (dé rouge&nbsp;; dé vert), c'est-à-dire les $36$ cases du tableau des sommes, sont équiprobables. On compte les cases de somme $10$ (en rouge)&nbsp;: $(4\,;\,6)$, $(5\,;\,5)$ et $(6\,;\,4)$.`,
       tableSommes(6, 10),
-      calcul(r`P(S) & = \dfrac{\text{Card}(S)}{\text{Card}(Ω)}`, r`& = \dfrac{3}{36}`, r`& = \dfrac{1 \mul{\times 3}}{12 \mul{\times 3}}`, r`& = \resultat{\dfrac{1}{12}}`),
-      r`Attention&nbsp;: les onze sommes, de $2$ à $12$, ne sont pas équiprobables&nbsp;: la somme $10$ est obtenue par trois cases, la somme $2$ par une seule. Et l'expérience a $6 \times 6 = 36$ issues, pas $6 + 6 = 12$.`],
+      calcul(r`P(S) & = \dfrac{\text{Card}(S)}{\text{Card}(Ω)}`, r`& = \dfrac{3}{36}`, r`& = \dfrac{1 \mul{\times 3}}{12 \mul{\times 3}}`, r`& = \resultat{\dfrac{1}{12}}`)],
     revoir: r`propriété d'équiprobabilité (partie 3) et capacité 3 du cours (questions 1 et 2), exercices 32 p.&nbsp;341 et 72 p.&nbsp;346 du manuel`,
     variante: {
       enonce: r`On lance deux dés équilibrés à quatre faces numérotées de $1$ à $4$ (dés tétraédriques), un rouge et un vert, et on additionne les deux nombres obtenus. On note $S$&nbsp;: «&nbsp;la somme vaut $5$&nbsp;». La probabilité $P(S)$ est égale à&nbsp;:`,
@@ -640,8 +637,7 @@ const QUIZ = {
       explication: [
         r`Les dés sont équilibrés&nbsp;: on choisit le modèle où les $4 \times 4 = 16$ couples (dé rouge&nbsp;; dé vert), c'est-à-dire les $16$ cases du tableau des sommes, sont équiprobables. On compte les cases de somme $5$ (en rouge)&nbsp;: $(1\,;\,4)$, $(2\,;\,3)$, $(3\,;\,2)$ et $(4\,;\,1)$.`,
         tableSommes(4, 5),
-        calcul(r`P(S) & = \dfrac{\text{Card}(S)}{\text{Card}(Ω)}`, r`& = \dfrac{4}{16}`, r`& = \dfrac{1 \mul{\times 4}}{4 \mul{\times 4}}`, r`& = \resultat{\dfrac{1}{4}}`),
-        r`Attention&nbsp;: les sept sommes, de $2$ à $8$, ne sont pas équiprobables&nbsp;: la somme $5$ est obtenue par quatre cases, la somme $2$ par une seule. Et l'expérience a $4 \times 4 = 16$ issues, pas $4 + 4 = 8$.`] } },
+        calcul(r`P(S) & = \dfrac{\text{Card}(S)}{\text{Card}(Ω)}`, r`& = \dfrac{4}{16}`, r`& = \dfrac{1 \mul{\times 4}}{4 \mul{\times 4}}`, r`& = \resultat{\dfrac{1}{4}}`)] } },
 
   { partie: 0, theme: 'Probabilité conditionnelle', type: 'qcm',
     enonce: r`Répartition des $250$ élèves de Seconde d'un lycée selon le sexe et l'étude du latin. On choisit un élève au hasard&nbsp;; on note $F$&nbsp;: «&nbsp;c'est une fille&nbsp;» et $L$&nbsp;: «&nbsp;l'élève étudie le latin&nbsp;».`
@@ -654,7 +650,7 @@ const QUIZ = {
     explication: [
       r`L'élève est choisi au hasard&nbsp;: $P_{F}(L)$, probabilité de $L$ sachant $F$, est la proportion d'élèves qui étudient le latin parmi les filles. La population de référence est celle des $150$ filles, dont $45$ étudient le latin.`,
       calcul(r`P_{F}(L) & = \dfrac{\text{Card}(F ∩ L)}{\text{Card}(F)}`, r`& = \dfrac{45}{150}`, r`& = \dfrac{3 \mul{\times 15}}{10 \mul{\times 15}}`, r`& = \dfrac{3}{10}`, r`& = \resultat{0{,}3}`),
-      r`Parmi les filles, $30\,\%$ étudient le latin. Attention&nbsp;: la population de référence n'est ni celle des $60$ latinistes, ni celle des $250$ élèves.`],
+      r`Parmi les filles, $30\,\%$ étudient le latin.`],
     revoir: r`définition et propriété de la partie 4, capacité 4 du cours (questions 1 et 2), activité 3, exercice 3 de la fiche (question 1), exercices 66 p.&nbsp;345 et 78 p.&nbsp;349 du manuel`,
     variante: {
       enonce: r`Répartition des $400$ spectateurs d'un concert selon leur âge et leur place. On choisit un spectateur au hasard&nbsp;; on note $J$&nbsp;: «&nbsp;il a moins de $25$ ans&nbsp;» et $F$&nbsp;: «&nbsp;il est dans la fosse&nbsp;».`
@@ -667,7 +663,7 @@ const QUIZ = {
       explication: [
         r`Le spectateur est choisi au hasard&nbsp;: $P_{F}(J)$, probabilité de $J$ sachant $F$, est la proportion de spectateurs de moins de $25$ ans parmi ceux de la fosse. La population de référence est celle des $160$ spectateurs de la fosse, dont $120$ ont moins de $25$ ans.`,
         calcul(r`P_{F}(J) & = \dfrac{\text{Card}(F ∩ J)}{\text{Card}(F)}`, r`& = \dfrac{120}{160}`, r`& = \dfrac{3 \mul{\times 40}}{4 \mul{\times 40}}`, r`& = \dfrac{3}{4}`, r`& = \resultat{0{,}75}`),
-        r`Parmi les spectateurs de la fosse, $75\,\%$ ont moins de $25$ ans. Attention&nbsp;: la population de référence n'est ni celle des $200$ spectateurs de moins de $25$ ans, ni celle des $400$ spectateurs.`] } },
+        r`Parmi les spectateurs de la fosse, $75\,\%$ ont moins de $25$ ans.`] } },
 
   { partie: 0, theme: 'Arbre pondéré', type: 'qcm',
     enonce: r`Dans un magasin, $60\,\%$ des clients paient par carte bancaire&nbsp;; parmi eux, $30\,\%$ ont la carte de fidélité du magasin, contre $25\,\%$ des autres clients. On choisit un client au hasard&nbsp;; on note $C$&nbsp;: «&nbsp;il paie par carte bancaire&nbsp;» et $F$&nbsp;: «&nbsp;il a la carte de fidélité&nbsp;».`
@@ -680,7 +676,7 @@ const QUIZ = {
       calcul(r`P(\overline{C}) & = 1 - 0{,}6`, r`& = 0{,}4`, r`P_{\overline{C}}(\overline{F}) & = 1 - 0{,}25`, r`& = 0{,}75`, r`P(\overline{C} ∩ \overline{F}) & = P(\overline{C}) \times P_{\overline{C}}(\overline{F})`,
         r`& = 0{,}4 \times 0{,}75`, r`& = \dfrac{4 \times 0{,}75}{10}`, r`& = \dfrac{3}{10}`, r`& = \resultat{0{,}3}`),
       arbre({ a: 'C', b: 'F', poids: ['0,6', '0,4', '0,3', '0,7', '0,25', '0,75'], rouges: [1, 3, 5], chemins: [[3, '0,3']] }),
-      r`$30\,\%$ des clients ne paient pas par carte bancaire et n'ont pas la carte de fidélité. Attention&nbsp;: $0{,}75$, écrit sur la branche, est la probabilité conditionnelle $P_{\overline{C}}(\overline{F})$, et non $P(\overline{C} ∩ \overline{F})$.`],
+      r`$30\,\%$ des clients ne paient pas par carte bancaire et n'ont pas la carte de fidélité.`],
     revoir: r`propriété de la partie 5 et capacité 5 du cours (questions 2 et 3), exercice 4 de la fiche, exercice 91 p.&nbsp;351 du manuel`,
     variante: {
       enonce: r`À un festival de musique, $70\,\%$ des festivaliers viennent en train&nbsp;; parmi eux, $20\,\%$ restent tout le week-end, contre $40\,\%$ des autres festivaliers. On choisit un festivalier au hasard&nbsp;; on note $T$&nbsp;: «&nbsp;il vient en train&nbsp;» et $R$&nbsp;: «&nbsp;il reste tout le week-end&nbsp;».`
@@ -693,7 +689,7 @@ const QUIZ = {
         calcul(r`P(\overline{T}) & = 1 - 0{,}7`, r`& = 0{,}3`, r`P_{\overline{T}}(\overline{R}) & = 1 - 0{,}4`, r`& = 0{,}6`, r`P(\overline{T} ∩ \overline{R}) & = P(\overline{T}) \times P_{\overline{T}}(\overline{R})`,
           r`& = 0{,}3 \times 0{,}6`, r`& = \resultat{0{,}18}`),
         arbre({ a: 'T', b: 'R', poids: ['0,7', '0,3', '0,2', '0,8', '0,4', '0,6'], rouges: [1, 3, 5], chemins: [[3, '0,18']] }),
-        r`$18\,\%$ des festivaliers ne viennent pas en train et ne restent pas tout le week-end. Attention&nbsp;: $0{,}6$, écrit sur la branche, est la probabilité conditionnelle $P_{\overline{T}}(\overline{R})$, et non $P(\overline{T} ∩ \overline{R})$.`] } },
+        r`$18\,\%$ des festivaliers ne viennent pas en train et ne restent pas tout le week-end.`] } },
 
   /* ----- Niveau 3 : pièges et questions longues de l'évaluation ----- */
 
@@ -708,7 +704,7 @@ const QUIZ = {
       r`«&nbsp;De nos clients satisfaits&nbsp;»&nbsp;: la population de référence est celle des $160$ clients satisfaits, et la proportion cherchée est $P_{S}(E)$. On simplifie par $8$, puis on écrit la fraction sur $100$.`,
       calcul(r`P_{S}(E) & = \dfrac{\text{Card}(S ∩ E)}{\text{Card}(S)}`, r`& = \dfrac{72}{160}`, r`& = \dfrac{9 \mul{\times 8}}{20 \mul{\times 8}}`, r`& = \dfrac{9}{20}`,
         r`& = \dfrac{9 \mul{\times 5}}{20 \mul{\times 5}}`, r`& = \dfrac{45}{100}`, r`& = 0{,}45`),
-      r`Parmi les clients satisfaits, $45\,\%$ seulement sont partis à l'étranger&nbsp;: l'affirmation est <span class="resultat">fausse</span>. Elle confond $P_{S}(E)$ et $P_{E}(S) = \dfrac{72}{80} = \dfrac{9 \mul{\times 8}}{10 \mul{\times 8}} = 0{,}9$&nbsp;: ce sont $90\,\%$ des clients partis à l'étranger qui sont satisfaits.`],
+      r`Parmi les clients satisfaits, $45\,\%$ seulement sont partis à l'étranger&nbsp;: l'affirmation est <span class="resultat">fausse</span>.`],
     revoir: r`remarque de la partie 4 et capacité 4 du cours (questions 2 et 4), exercice 3 de la fiche (question 2), exercice 66 p.&nbsp;345 du manuel (questions 3 et 4)`,
     variante: {
       enonce: r`Répartition des $300$ adhérents d'un club de natation selon leur âge et leur pratique. On choisit un adhérent au hasard&nbsp;; on note $C$&nbsp;: «&nbsp;il nage en compétition&nbsp;» et $J$&nbsp;: «&nbsp;il a moins de $18$ ans&nbsp;».`
@@ -720,7 +716,7 @@ const QUIZ = {
       explication: [
         r`«&nbsp;De nos nageurs en compétition&nbsp;»&nbsp;: la population de référence est celle des $120$ nageurs en compétition, et la proportion cherchée est $P_{C}(J)$. On simplifie par $12$.`,
         calcul(r`P_{C}(J) & = \dfrac{\text{Card}(C ∩ J)}{\text{Card}(C)}`, r`& = \dfrac{96}{120}`, r`& = \dfrac{8 \mul{\times 12}}{10 \mul{\times 12}}`, r`& = \dfrac{8}{10}`, r`& = 0{,}8`),
-        r`Parmi les nageurs en compétition, $80\,\%$ ont moins de $18$ ans&nbsp;: l'affirmation est <span class="resultat">vraie</span>. Attention&nbsp;: $P_{J}(C) = \dfrac{96}{160} = \dfrac{6 \mul{\times 16}}{10 \mul{\times 16}} = 0{,}6$ est différente&nbsp;: $60\,\%$ seulement des adhérents de moins de $18$ ans nagent en compétition.`] } },
+        r`Parmi les nageurs en compétition, $80\,\%$ ont moins de $18$ ans&nbsp;: l'affirmation est <span class="resultat">vraie</span>.`] } },
 
   { partie: 0, theme: 'Faux positif', type: 'qcm',
     enonce: r`Une maladie touche $5\,\%$ d'une population. Un test de dépistage a une sensibilité de $80\,\%$ et une spécificité de $90\,\%$. On choisit une personne au hasard et on la teste&nbsp;; on note $M$&nbsp;: «&nbsp;la personne est malade&nbsp;» et $T$&nbsp;: «&nbsp;le test est positif&nbsp;».`
@@ -732,7 +728,7 @@ const QUIZ = {
       r`Les données se traduisent par $P(M) = 0{,}05$, $P_{M}(T) = 0{,}8$ (sensibilité) et $P_{\overline{M}}(\overline{T}) = 0{,}9$ (spécificité)&nbsp;; on complète l'arbre, les branches issues d'un même nœud ayant pour somme $1$ (poids calculés en rouge). Un faux positif est une personne non malade dont le test est positif&nbsp;: c'est le chemin $\overline{M}$, puis $T$ (en vert), et on multiplie les probabilités de ses branches.`,
       calcul(r`P(\overline{M}) & = 1 - 0{,}05`, r`& = 0{,}95`, r`P_{\overline{M}}(T) & = 1 - 0{,}9`, r`& = 0{,}1`, r`P(\overline{M} ∩ T) & = P(\overline{M}) \times P_{\overline{M}}(T)`, r`& = 0{,}95 \times 0{,}1`, r`& = \resultat{0{,}095}`),
       arbre({ a: 'M', b: 'T', poids: ['0,05', '0,95', '0,8', '0,2', '0,1', '0,9'], rouges: [1, 3, 4], chemins: [[2, '0,095']] }),
-      r`La personne choisie est un faux positif avec une probabilité de $0{,}095$, soit $9{,}5\,\%$. Attention&nbsp;: $0{,}1$, écrit sur la branche, est $P_{\overline{M}}(T)$, la proportion de tests positifs parmi les personnes non malades.`],
+      r`La personne choisie est un faux positif avec une probabilité de $0{,}095$, soit $9{,}5\,\%$.`],
     revoir: r`définition du test de dépistage (partie 5) et capacité 5 du cours (questions 1 à 3), exercice 5 de la fiche (question 1)`,
     variante: {
       enonce: r`Une maladie touche $10\,\%$ d'une population. Un test de dépistage a une sensibilité de $90\,\%$ et une spécificité de $80\,\%$. On choisit une personne au hasard et on la teste&nbsp;; on note $M$&nbsp;: «&nbsp;la personne est malade&nbsp;» et $T$&nbsp;: «&nbsp;le test est positif&nbsp;».`
@@ -744,7 +740,7 @@ const QUIZ = {
         r`Les données se traduisent par $P(M) = 0{,}1$, $P_{M}(T) = 0{,}9$ (sensibilité) et $P_{\overline{M}}(\overline{T}) = 0{,}8$ (spécificité)&nbsp;; on complète l'arbre, les branches issues d'un même nœud ayant pour somme $1$ (poids calculés en rouge). Un faux positif est une personne non malade dont le test est positif&nbsp;: c'est le chemin $\overline{M}$, puis $T$ (en vert), et on multiplie les probabilités de ses branches.`,
         calcul(r`P(\overline{M}) & = 1 - 0{,}1`, r`& = 0{,}9`, r`P_{\overline{M}}(T) & = 1 - 0{,}8`, r`& = 0{,}2`, r`P(\overline{M} ∩ T) & = P(\overline{M}) \times P_{\overline{M}}(T)`, r`& = 0{,}9 \times 0{,}2`, r`& = \resultat{0{,}18}`),
         arbre({ a: 'M', b: 'T', poids: ['0,1', '0,9', '0,9', '0,1', '0,2', '0,8'], rouges: [1, 3, 4], chemins: [[2, '0,18']] }),
-        r`La personne choisie est un faux positif avec une probabilité de $0{,}18$, soit $18\,\%$. Attention&nbsp;: $0{,}2$, écrit sur la branche, est $P_{\overline{M}}(T)$, la proportion de tests positifs parmi les personnes non malades.`] } },
+        r`La personne choisie est un faux positif avec une probabilité de $0{,}18$, soit $18\,\%$.`] } },
 
   { partie: 0, theme: 'Test positif', type: 'qcm',
     enonce: r`Une maladie touche $10\,\%$ d'une population. Un test de dépistage a une sensibilité de $90\,\%$ et une spécificité de $70\,\%$. On choisit une personne au hasard et on la teste&nbsp;; on note $M$&nbsp;: «&nbsp;la personne est malade&nbsp;» et $T$&nbsp;: «&nbsp;le test est positif&nbsp;». L'arbre pondéré ci-dessous décrit la situation.`
@@ -758,7 +754,7 @@ const QUIZ = {
       arbre({ a: 'M', b: 'T', poids: ['0,1', '0,9', '0,9', '0,1', '0,3', '0,7'], chemins: [[0, '0,09'], [2, '0,27']] }),
       r`On applique ensuite la définition de $P_{T}(M)$&nbsp;: on multiplie le numérateur et le dénominateur par $100$, puis on simplifie par $9$.`,
       calcul(r`P_{T}(M) & = \dfrac{P(T ∩ M)}{P(T)}`, r`& = \dfrac{0{,}09}{0{,}36}`, r`& = \dfrac{0{,}09 \mul{\times 100}}{0{,}36 \mul{\times 100}}`, r`& = \dfrac{9}{36}`, r`& = \dfrac{1 \mul{\times 9}}{4 \mul{\times 9}}`, r`& = \dfrac{1}{4}`, r`& = \resultat{0{,}25}`),
-      r`Parmi les personnes dont le test est positif, une sur quatre seulement est malade. Attention&nbsp;: la sensibilité $P_{M}(T) = 0{,}9$ n'est pas $P_{T}(M)$&nbsp;; ici, les faux positifs ($0{,}27$) sont trois fois plus probables que les vrais positifs ($0{,}09$).`],
+      r`Parmi les personnes dont le test est positif, une sur quatre seulement est malade.`],
     revoir: r`définition du test de dépistage (partie 5) et capacité 5 du cours (question 4), exercice 4 de la fiche (question 2), exercice 5 de la fiche (question 2)`,
     variante: {
       enonce: r`Une maladie touche $20\,\%$ d'une population. Un test de dépistage a une sensibilité de $80\,\%$ et une spécificité de $80\,\%$. On choisit une personne au hasard et on la teste&nbsp;; on note $M$&nbsp;: «&nbsp;la personne est malade&nbsp;» et $T$&nbsp;: «&nbsp;le test est positif&nbsp;». L'arbre pondéré ci-dessous décrit la situation.`
@@ -772,7 +768,7 @@ const QUIZ = {
         arbre({ a: 'M', b: 'T', poids: ['0,2', '0,8', '0,8', '0,2', '0,2', '0,8'], chemins: [[0, '0,16'], [2, '0,16']] }),
         r`On applique ensuite la définition de $P_{T}(M)$&nbsp;: on multiplie le numérateur et le dénominateur par $100$, puis on simplifie par $16$.`,
         calcul(r`P_{T}(M) & = \dfrac{P(T ∩ M)}{P(T)}`, r`& = \dfrac{0{,}16}{0{,}32}`, r`& = \dfrac{0{,}16 \mul{\times 100}}{0{,}32 \mul{\times 100}}`, r`& = \dfrac{16}{32}`, r`& = \dfrac{1 \mul{\times 16}}{2 \mul{\times 16}}`, r`& = \dfrac{1}{2}`, r`& = \resultat{0{,}5}`),
-        r`Parmi les personnes dont le test est positif, une sur deux seulement est malade. Attention&nbsp;: la sensibilité $P_{M}(T) = 0{,}8$ n'est pas $P_{T}(M)$&nbsp;; ici, les faux positifs sont aussi probables que les vrais positifs ($0{,}16$ chacun).`] } }
+        r`Parmi les personnes dont le test est positif, une sur deux seulement est malade.`] } }
   ]
 };
 

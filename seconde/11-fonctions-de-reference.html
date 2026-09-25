@@ -411,7 +411,7 @@ const QUIZ = {
     explication: [
       r`Soit $k$ un réel. Si $k > 0$, l'équation $x^{2} = k$ a deux solutions, $-\sqrt{k}$ et $\sqrt{k}$&nbsp;; si $k = 0$, une seule, $0$&nbsp;; si $k < 0$, aucune&nbsp;: un carré n'est jamais négatif. Graphiquement, c'est le nombre de points communs à la parabole et à la droite d'équation $y = k$.`,
       calcul(r`x^{2} = 25 & \iff x = -\sqrt{25} \text{ ou } x = \sqrt{25}`, r`& \iff x = -5 \text{ ou } x = 5`),
-      r`L'équation $x^{2} = 0$ a pour seule solution $0$, et $x^{2} = -25$ n'a aucune solution. Les trois équations ont respectivement <span class="resultat">$2$, $1$ et $0$ solutions</span>. Attention&nbsp;: $-5$ n'est pas solution de $x^{2} = -25$, car $(-5)^{2} = 25$.`],
+      r`L'équation $x^{2} = 0$ a pour seule solution $0$, et $x^{2} = -25$ n'a aucune solution. Les trois équations ont respectivement <span class="resultat">$2$, $1$ et $0$ solutions</span>.`],
     revoir: r`propriété «&nbsp;équation $x^{2} = k$&nbsp;» et capacité 1 du cours (question 3, a à c), activité 1 (question 3), exercice 1 de la fiche (questions 1 à 3), exercice 11 p.&nbsp;228 du manuel`,
     variante: {
       enonce: r`Dans $\R$, les équations $x^{2} = -36$, $x^{2} = 81$ et $x^{2} = 0$ ont respectivement&nbsp;:`,
@@ -420,7 +420,7 @@ const QUIZ = {
       explication: [
         r`Soit $k$ un réel. Si $k > 0$, l'équation $x^{2} = k$ a deux solutions, $-\sqrt{k}$ et $\sqrt{k}$&nbsp;; si $k = 0$, une seule, $0$&nbsp;; si $k < 0$, aucune&nbsp;: un carré n'est jamais négatif. Graphiquement, c'est le nombre de points communs à la parabole et à la droite d'équation $y = k$.`,
         calcul(r`x^{2} = 81 & \iff x = -\sqrt{81} \text{ ou } x = \sqrt{81}`, r`& \iff x = -9 \text{ ou } x = 9`),
-        r`L'équation $x^{2} = -36$ n'a aucune solution, et $x^{2} = 0$ a pour seule solution $0$. Les trois équations ont respectivement <span class="resultat">$0$, $2$ et $1$ solutions</span>. Attention&nbsp;: $-6$ n'est pas solution de $x^{2} = -36$, car $(-6)^{2} = 36$.`] } },
+        r`L'équation $x^{2} = -36$ n'a aucune solution, et $x^{2} = 0$ a pour seule solution $0$. Les trois équations ont respectivement <span class="resultat">$0$, $2$ et $1$ solutions</span>.`] } },
 
   { partie: 0, theme: 'Équation avec l\'inverse', type: 'qcm',
     enonce: r`On résout dans $\R^{*}$ l'équation $\dfrac{1}{x} = -4$. On obtient&nbsp;:`,
@@ -429,7 +429,7 @@ const QUIZ = {
     explication: [
       r`Deux nombres non nuls sont égaux si et seulement si leurs inverses sont égaux&nbsp;: on prend l'inverse des deux membres. Comme $\dfrac{1}{x}$ a le signe de $x$, la solution est négative.`,
       calcul(r`\dfrac{1}{x} = -4 & \iff x = \dfrac{1}{-4}`, r`& \iff x = -\dfrac{1}{4}`, r`& \iff \resultat{x = -0{,}25}`),
-      r`Vérification&nbsp;: $\dfrac{1}{-0{,}25} = -4$, car $0{,}25 \times 4 = 1$. Attention&nbsp;: l'inverse de $-4$ est $-\dfrac{1}{4}$, et non $4$, qui est son opposé.`],
+      r`Vérification&nbsp;: $\dfrac{1}{-0{,}25} = -4$, car $0{,}25 \times 4 = 1$.`],
     revoir: r`propriété «&nbsp;équation $\dfrac{1}{x} = k$&nbsp;» et capacité 2 du cours (question 3, a à c), activité 2, exercice 2 de la fiche (question 1, a et b), exercice 76 p.&nbsp;232 du manuel`,
     variante: {
       enonce: r`On résout dans $\R^{*}$ l'équation $\dfrac{1}{x} = -0{,}5$. On obtient&nbsp;:`,
@@ -438,7 +438,7 @@ const QUIZ = {
       explication: [
         r`Deux nombres non nuls sont égaux si et seulement si leurs inverses sont égaux&nbsp;: on prend l'inverse des deux membres. Comme $\dfrac{1}{x}$ a le signe de $x$, la solution est négative.`,
         calcul(r`\dfrac{1}{x} = -0{,}5 & \iff x = \dfrac{1}{-0{,}5}`, r`& \iff x = -\dfrac{1}{0{,}5}`, r`& \iff \resultat{x = -2}`),
-        r`En effet, $0{,}5 \times 2 = 1$&nbsp;: l'inverse de $0{,}5$ est $2$. Vérification&nbsp;: $\dfrac{1}{-2} = -0{,}5$. Attention&nbsp;: l'inverse de $-0{,}5$ est $-2$, et non $0{,}5$, qui est son opposé.`] } },
+        r`En effet, $0{,}5 \times 2 = 1$&nbsp;: l'inverse de $0{,}5$ est $2$. Vérification&nbsp;: $\dfrac{1}{-2} = -0{,}5$.`] } },
 
   { partie: 0, theme: 'Valeur absolue', type: 'qcm',
     enonce: r`On résout dans $\R$ l'équation $\left|x\right| = 3{,}5$ et l'inéquation $\left|x\right| \le 3{,}5$. On obtient&nbsp;:`,
@@ -484,7 +484,7 @@ const QUIZ = {
     explication: [
       r`Si $k \ge 0$, l'équation $\sqrt{x} = k$ a une seule solution, $k^{2}$. La fonction racine carrée est définie sur $\left[0\,;\,+\infty\right[$&nbsp;: un nombre négatif n'a pas de racine carrée.`,
       calcul(r`\sqrt{x} = 8 & \iff x = 8^{2}`, r`& \iff x = 64`),
-      r`La fonction racine carrée est strictement croissante&nbsp;: sa courbe monte, et elle est au-dessous de la droite d'équation $y = 8$ pour $x < 64$&nbsp;; de plus, $\sqrt{x}$ n'existe que pour $x \ge 0$. Donc <span class="resultat">équation&nbsp;: $x = 64$&nbsp;; inéquation&nbsp;: $\left[0\,;\,64\right[$</span>. Attention&nbsp;: les nombres négatifs ne sont pas solutions de $\sqrt{x} < 8$, car ils n'ont pas de racine carrée.`],
+      r`La fonction racine carrée est strictement croissante&nbsp;: sa courbe monte, et elle est au-dessous de la droite d'équation $y = 8$ pour $x < 64$&nbsp;; de plus, $\sqrt{x}$ n'existe que pour $x \ge 0$. Donc <span class="resultat">équation&nbsp;: $x = 64$&nbsp;; inéquation&nbsp;: $\left[0\,;\,64\right[$</span>.`],
     revoir: r`propriétés «&nbsp;courbes, signes, variations&nbsp;» et «&nbsp;équations et inéquations&nbsp;», capacité 3 du cours (questions 1 à 3), exercice 3 de la fiche (question 1, a à c), exercices 23 p.&nbsp;229 et 132 p.&nbsp;236 du manuel, question 6 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
     variante: {
       enonce: r`On résout l'équation $\sqrt{x} = 10$ et l'inéquation $\sqrt{x} \le 10$. On obtient&nbsp;:`,
@@ -496,7 +496,7 @@ const QUIZ = {
       explication: [
         r`Si $k \ge 0$, l'équation $\sqrt{x} = k$ a une seule solution, $k^{2}$. La fonction racine carrée est définie sur $\left[0\,;\,+\infty\right[$&nbsp;: un nombre négatif n'a pas de racine carrée.`,
         calcul(r`\sqrt{x} = 10 & \iff x = 10^{2}`, r`& \iff x = 100`),
-        r`La fonction racine carrée est strictement croissante&nbsp;: sa courbe monte, et elle est au-dessous de la droite d'équation $y = 10$, ou sur elle, pour $x \le 100$&nbsp;; de plus, $\sqrt{x}$ n'existe que pour $x \ge 0$. Donc <span class="resultat">équation&nbsp;: $x = 100$&nbsp;; inéquation&nbsp;: $\left[0\,;\,100\right]$</span>. Attention&nbsp;: les nombres négatifs ne sont pas solutions de $\sqrt{x} \le 10$, car ils n'ont pas de racine carrée.`] } },
+        r`La fonction racine carrée est strictement croissante&nbsp;: sa courbe monte, et elle est au-dessous de la droite d'équation $y = 10$, ou sur elle, pour $x \le 100$&nbsp;; de plus, $\sqrt{x}$ n'existe que pour $x \ge 0$. Donc <span class="resultat">équation&nbsp;: $x = 100$&nbsp;; inéquation&nbsp;: $\left[0\,;\,100\right]$</span>.`] } },
 
   { partie: 0, theme: 'Fonction cube', type: 'qcm',
     enonce: r`On résout dans $\R$ l'équation $x^{3} = -125$ et l'inéquation $x^{3} > -125$. On obtient&nbsp;:`,
@@ -508,7 +508,7 @@ const QUIZ = {
     explication: [
       r`Pour tout réel $k$, l'équation $x^{3} = k$ a une seule solution, la racine cubique de $k$, notée $∛k$&nbsp;; la fonction cube est strictement croissante sur $\R$ (sa courbe monte). On cherche le nombre dont le cube vaut $-125$&nbsp;:`,
       calcul(r`(-5)^{3} & = (-5) \times (-5) \times (-5)`, r`& = 25 \times (-5)`, r`& = -125`),
-      r`Donc $x^{3} = -125 \iff x = -5$. La courbe de la fonction cube monte&nbsp;: elle est au-dessus de la droite d'équation $y = -125$ pour $x > -5$. Donc <span class="resultat">équation&nbsp;: $x = -5$&nbsp;; inéquation&nbsp;: $\left]-5\,;\,+\infty\right[$</span>. Attention&nbsp;: contrairement à un carré, un cube peut être négatif, et $5$ n'est pas solution, car $5^{3} = 125$.`],
+      r`Donc $x^{3} = -125 \iff x = -5$. La courbe de la fonction cube monte&nbsp;: elle est au-dessus de la droite d'équation $y = -125$ pour $x > -5$. Donc <span class="resultat">équation&nbsp;: $x = -5$&nbsp;; inéquation&nbsp;: $\left]-5\,;\,+\infty\right[$</span>.`],
     revoir: r`propriétés «&nbsp;courbes, signes, variations&nbsp;» et «&nbsp;équations et inéquations&nbsp;», capacité 3 du cours (questions 4 et 5), exercice 3 de la fiche (questions 1 d, 1 e et 2), exercices 16 p.&nbsp;228, 38 p.&nbsp;230 et 138 p.&nbsp;239 du manuel, question 6 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
     variante: {
       enonce: r`On résout dans $\R$ l'équation $x^{3} = -1\,000$ et l'inéquation $x^{3} \le -1\,000$. On obtient&nbsp;:`,
@@ -520,7 +520,7 @@ const QUIZ = {
       explication: [
         r`Pour tout réel $k$, l'équation $x^{3} = k$ a une seule solution, la racine cubique de $k$, notée $∛k$&nbsp;; la fonction cube est strictement croissante sur $\R$ (sa courbe monte). On cherche le nombre dont le cube vaut $-1\,000$&nbsp;:`,
         calcul(r`(-10)^{3} & = (-10) \times (-10) \times (-10)`, r`& = 100 \times (-10)`, r`& = -1\,000`),
-        r`Donc $x^{3} = -1\,000 \iff x = -10$. La courbe de la fonction cube monte&nbsp;: elle est au-dessous de la droite d'équation $y = -1\,000$, ou sur elle, pour $x \le -10$. Donc <span class="resultat">équation&nbsp;: $x = -10$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,-10\right]$</span>. Attention&nbsp;: contrairement à un carré, un cube peut être négatif, et $10$ n'est pas solution, car $10^{3} = 1\,000$.`] } },
+        r`Donc $x^{3} = -1\,000 \iff x = -10$. La courbe de la fonction cube monte&nbsp;: elle est au-dessous de la droite d'équation $y = -1\,000$, ou sur elle, pour $x \le -10$. Donc <span class="resultat">équation&nbsp;: $x = -10$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,-10\right]$</span>.`] } },
 
   { partie: 0, theme: 'Inéquation, lecture sur la parabole', type: 'qcm',
     enonce: r`Dans le repère ci-dessous, on a tracé la parabole $\mathscr{C}_{f}$, courbe de la fonction carré, définie sur $\R$. L'ensemble des solutions de l'inéquation $x^{2} \ge 9$ est&nbsp;:`

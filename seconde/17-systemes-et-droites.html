@@ -395,7 +395,7 @@ const QUIZ = {
     explication: [
       r`Un couple est solution du système s'il vérifie les deux équations à la fois&nbsp;: on remplace $x$ et $y$ par ses valeurs dans chacune des deux équations. Pour le couple $(4\,;\,-1)$&nbsp;:`,
       calcul(r`2x + y & = 2 \times 4 + (-1)`, r`& = 8 - 1`, r`& = 7`, r`x - 3y & = 4 - 3 \times (-1)`, r`& = 4 + 3`, r`& = 7`),
-      r`Les deux égalités sont vraies&nbsp;: <span class="resultat">$(4\,;\,-1)$</span> est solution de $(S)$. Attention&nbsp;: $(3\,;\,1)$ vérifie la première équation ($2 \times 3 + 1 = 7$), mais pas la deuxième ($3 - 3 \times 1 = 0 \ne 7$)&nbsp;; $(1\,;\,-2)$ vérifie seulement la deuxième. Une seule équation ne suffit pas.`],
+      r`Les deux égalités sont vraies&nbsp;: <span class="resultat">$(4\,;\,-1)$</span> est solution de $(S)$.`],
     revoir: r`définition «&nbsp;système, couple solution&nbsp;» et capacité 1 du cours (question 1), exercice 1 de la fiche (question 1), activité 2 (question 1), exercice 114 p.&nbsp;197 du manuel`,
     variante: {
       enonce: r`On considère le système $(S)$&nbsp;:` + systBloc(r`3x - y = 5`, r`x + 2y = 4`)
@@ -405,7 +405,7 @@ const QUIZ = {
       explication: [
         r`Un couple est solution du système s'il vérifie les deux équations à la fois&nbsp;: on remplace $x$ et $y$ par ses valeurs dans chacune des deux équations. Pour le couple $(2\,;\,1)$&nbsp;:`,
         calcul(r`3x - y & = 3 \times 2 - 1`, r`& = 6 - 1`, r`& = 5`, r`x + 2y & = 2 + 2 \times 1`, r`& = 2 + 2`, r`& = 4`),
-        r`Les deux égalités sont vraies&nbsp;: <span class="resultat">$(2\,;\,1)$</span> est solution de $(S)$. Attention&nbsp;: $(1\,;\,-2)$ vérifie la première équation ($3 \times 1 - (-2) = 5$), mais pas la deuxième ($1 + 2 \times (-2) = -3 \ne 4$)&nbsp;; $(4\,;\,0)$ vérifie seulement la deuxième. Une seule équation ne suffit pas.`] } },
+        r`Les deux égalités sont vraies&nbsp;: <span class="resultat">$(2\,;\,1)$</span> est solution de $(S)$.`] } },
 
   { partie: 0, theme: 'Lecture graphique', type: 'qcm',
     enonce: r`On considère le système $(S)$&nbsp;:` + systBloc(r`x + 2y = 7`, r`3x - y = 7`)
@@ -418,7 +418,7 @@ const QUIZ = {
       repere(Object.assign({}, FIG2, { echelle: 1.15, points: [{ x: 3, y: 2, classe: 'c-noir' }],
           lectures: [[[3, 2], [3, 0]], [[3, 2], [0, 2]]],
           label: r`La même figure : les deux droites se coupent au point de coordonnées (3 ; 2) ; les tirets verts vont de ce point à l'abscisse 3 et à l'ordonnée 2` })),
-      r`Les droites sont sécantes au point de coordonnées $(3\,;\,2)$. Vérification&nbsp;: $3 + 2 \times 2 = 7$ et $3 \times 3 - 2 = 7$. Le système a une seule solution&nbsp;: l'ensemble des solutions est <span class="resultat">$\{(3\,;\,2)\}$</span>. Attention&nbsp;: une solution est un couple $(x\,;\,y)$, et non un seul nombre&nbsp;; chaque droite a une infinité de points, mais deux droites sécantes n'en ont qu'un en commun.`],
+      r`Les droites sont sécantes au point de coordonnées $(3\,;\,2)$. Vérification&nbsp;: $3 + 2 \times 2 = 7$ et $3 \times 3 - 2 = 7$. Le système a une seule solution&nbsp;: l'ensemble des solutions est <span class="resultat">$\{(3\,;\,2)\}$</span>.`],
     revoir: r`propriété «&nbsp;interprétation graphique, nombre de solutions&nbsp;» et capacité 1 du cours (question 2), activité 1 (question 2), exercice 2 de la fiche (question 1), exercice 39 p.&nbsp;193 du manuel`,
     variante: {
       enonce: r`On considère le système $(S)$&nbsp;:` + systBloc(r`2x + y = 5`, r`x - y = -2`)
@@ -431,7 +431,7 @@ const QUIZ = {
         repere(Object.assign({}, FIG2v, { echelle: 1.15, points: [{ x: 1, y: 3, classe: 'c-noir' }],
             lectures: [[[1, 3], [1, 0]], [[1, 3], [0, 3]]],
             label: r`La même figure : les deux droites se coupent au point de coordonnées (1 ; 3) ; les tirets verts vont de ce point à l'abscisse 1 et à l'ordonnée 3` })),
-        r`Les droites sont sécantes au point de coordonnées $(1\,;\,3)$. Vérification&nbsp;: $2 \times 1 + 3 = 5$ et $1 - 3 = -2$. Le système a une seule solution&nbsp;: l'ensemble des solutions est <span class="resultat">$\{(1\,;\,3)\}$</span>. Attention&nbsp;: une solution est un couple $(x\,;\,y)$, et non un seul nombre&nbsp;; chaque droite a une infinité de points, mais deux droites sécantes n'en ont qu'un en commun.`] } },
+        r`Les droites sont sécantes au point de coordonnées $(1\,;\,3)$. Vérification&nbsp;: $2 \times 1 + 3 = 5$ et $1 - 3 = -2$. Le système a une seule solution&nbsp;: l'ensemble des solutions est <span class="resultat">$\{(1\,;\,3)\}$</span>.`] } },
 
   { partie: 0, theme: 'Mettre en système', type: 'qcm',
     enonce: r`Un musée a vendu $180$ billets, à $12$&nbsp;€ le plein tarif et $8$&nbsp;€ le tarif réduit&nbsp;; la recette est de $1\,840$&nbsp;€. On note $x$ le nombre de billets plein tarif et $y$ le nombre de billets à tarif réduit. Le système qui traduit l'énoncé est&nbsp;:`,
@@ -441,7 +441,7 @@ const QUIZ = {
     explication: [
       r`On traduit chaque information de l'énoncé par une équation. Le nombre de billets vendus donne $x + y = 180$. La recette est la somme des prix payés&nbsp;: $12x$ euros pour les $x$ billets plein tarif et $8y$ euros pour les $y$ billets à tarif réduit, donc $12x + 8y = 1\,840$.`,
       r`Le système est <span class="resultat">` + syst(r`x + y = 180`, r`12x + 8y = 1\,840`) + r`</span>.`,
-      r`On le résout ensuite par substitution, avec $y = 180 - x$&nbsp;: on trouve $x = 100$, puis $y = 180 - 100 = 80$. Vérification&nbsp;: $12 \times 100 + 8 \times 80 = 1\,200 + 640 = 1\,840$. Attention&nbsp;: chaque prix multiplie le nombre de billets de son tarif.`],
+      r`On le résout ensuite par substitution, avec $y = 180 - x$&nbsp;: on trouve $x = 100$, puis $y = 180 - 100 = 80$. Vérification&nbsp;: $12 \times 100 + 8 \times 80 = 1\,200 + 640 = 1\,840$.`],
     revoir: r`méthode «&nbsp;résoudre un problème à l'aide d'un système&nbsp;» et capacité 5 du cours (question 2), activité 2 (question 1), exercice 5 de la fiche, exercice 128 p.&nbsp;198 du manuel`,
     variante: {
       enonce: r`Dans un enclos, il y a des poules et des lapins&nbsp;: on compte $26$ têtes et $76$ pattes. On note $x$ le nombre de poules et $y$ le nombre de lapins. Le système qui traduit l'énoncé est&nbsp;:`,
@@ -451,7 +451,7 @@ const QUIZ = {
       explication: [
         r`On traduit chaque information de l'énoncé par une équation. Chaque animal a une tête&nbsp;: $x + y = 26$. Une poule a $2$ pattes et un lapin $4$&nbsp;: les $x$ poules ont $2x$ pattes et les $y$ lapins $4y$ pattes, donc $2x + 4y = 76$.`,
         r`Le système est <span class="resultat">` + syst(r`x + y = 26`, r`2x + 4y = 76`) + r`</span>.`,
-        r`On le résout ensuite comme dans l'activité 2&nbsp;: en divisant par $2$ les deux membres de la deuxième équation, $x + 2y = 38$&nbsp;; on lui retranche la première, membre à membre&nbsp;: $y = 38 - 26 = 12$, puis $x = 26 - 12 = 14$. Vérification&nbsp;: $2 \times 14 + 4 \times 12 = 28 + 48 = 76$. Attention&nbsp;: le nombre de pattes d'un animal multiplie le nombre d'animaux de son espèce.`] } },
+        r`On le résout ensuite comme dans l'activité 2&nbsp;: en divisant par $2$ les deux membres de la deuxième équation, $x + 2y = 38$&nbsp;; on lui retranche la première, membre à membre&nbsp;: $y = 38 - 26 = 12$, puis $x = 26 - 12 = 14$. Vérification&nbsp;: $2 \times 14 + 4 \times 12 = 28 + 48 = 76$.`] } },
 
   /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
 
@@ -466,7 +466,7 @@ const QUIZ = {
       r`On remplace $y$ par $5x - 3$, entre parenthèses, dans la deuxième équation&nbsp;: on obtient <span class="resultat">$2x + 3(5x - 3) = 25$</span>, qui n'a plus que l'inconnue $x$. On la résout.`,
       calcul(r`2x + 3(5x - 3) = 25`, r`& \iff 2x + 3 \times 5x - 3 \times 3 = 25`, r`& \iff 2x + 15x - 9 = 25`, r`& \iff 17x - 9 = 25`,
         r`& \iff 17x - 9 \op{+ 9} = 25 \op{+ 9}`, r`& \iff 17x = 34`, r`& \iff \dfrac{17x}{\op{17}} = \dfrac{34}{\op{17}}`, r`& \iff x = 2`),
-      r`On reporte&nbsp;: $y = 5 \times 2 - 3 = 10 - 3 = 7$&nbsp;; vérification&nbsp;: $2 \times 2 + 3 \times 7 = 4 + 21 = 25$. L'ensemble des solutions est $\{(2\,;\,7)\}$. Attention&nbsp;: le $3$ multiplie toute la parenthèse, $3(5x - 3) = 15x - 9$.`],
+      r`On reporte&nbsp;: $y = 5 \times 2 - 3 = 10 - 3 = 7$&nbsp;; vérification&nbsp;: $2 \times 2 + 3 \times 7 = 4 + 21 = 25$. L'ensemble des solutions est $\{(2\,;\,7)\}$.`],
     revoir: r`méthode de substitution et capacité 3 du cours (question 3), exercice 3 de la fiche`,
     variante: {
       enonce: r`On veut résoudre par substitution le système $(S)$&nbsp;:` + systBloc(r`3x - y = 4`, r`5x + 2y = 25`)
@@ -479,7 +479,7 @@ const QUIZ = {
         r`On remplace $y$ par $3x - 4$, entre parenthèses, dans la deuxième équation&nbsp;: on obtient <span class="resultat">$5x + 2(3x - 4) = 25$</span>, qui n'a plus que l'inconnue $x$. On la résout.`,
         calcul(r`5x + 2(3x - 4) = 25`, r`& \iff 5x + 2 \times 3x - 2 \times 4 = 25`, r`& \iff 5x + 6x - 8 = 25`, r`& \iff 11x - 8 = 25`,
           r`& \iff 11x - 8 \op{+ 8} = 25 \op{+ 8}`, r`& \iff 11x = 33`, r`& \iff \dfrac{11x}{\op{11}} = \dfrac{33}{\op{11}}`, r`& \iff x = 3`),
-        r`On reporte&nbsp;: $y = 3 \times 3 - 4 = 9 - 4 = 5$&nbsp;; vérification&nbsp;: $5 \times 3 + 2 \times 5 = 15 + 10 = 25$. L'ensemble des solutions est $\{(3\,;\,5)\}$. Attention&nbsp;: le $2$ multiplie toute la parenthèse, $2(3x - 4) = 6x - 8$.`] } },
+        r`On reporte&nbsp;: $y = 3 \times 3 - 4 = 9 - 4 = 5$&nbsp;; vérification&nbsp;: $5 \times 3 + 2 \times 5 = 15 + 10 = 25$. L'ensemble des solutions est $\{(3\,;\,5)\}$.`] } },
 
   { partie: 0, theme: 'Point d\'intersection', type: 'qcm',
     enonce: r`Les droites d'équations $y = 3x + 2$ et $y = -2x - 8$ sont&nbsp;:`,
@@ -489,7 +489,7 @@ const QUIZ = {
       r`Les pentes $3$ et $-2$ sont différentes&nbsp;: les droites sont sécantes. En leur point d'intersection, les deux ordonnées sont égales&nbsp;: on résout $3x + 2 = -2x - 8$.`,
       calcul(r`3x + 2 = -2x - 8`, r`& \iff 3x + 2 \op{+ 2x} = -2x - 8 \op{+ 2x}`, r`& \iff 5x + 2 = -8`, r`& \iff 5x + 2 \op{- 2} = -8 \op{- 2}`, r`& \iff 5x = -10`,
         r`& \iff \dfrac{5x}{\op{5}} = \dfrac{-10}{\op{5}}`, r`& \iff x = -2`),
-      r`Ordonnée&nbsp;: $y = 3 \times (-2) + 2 = -6 + 2 = -4$&nbsp;; vérification avec l'autre équation&nbsp;: $-2 \times (-2) - 8 = 4 - 8 = -4$. Les droites sont <span class="resultat">sécantes en $(-2\,;\,-4)$</span>. Attention&nbsp;: $-8 - 2 = -10$, et l'abscisse s'écrit en premier.`],
+      r`Ordonnée&nbsp;: $y = 3 \times (-2) + 2 = -6 + 2 = -4$&nbsp;; vérification avec l'autre équation&nbsp;: $-2 \times (-2) - 8 = 4 - 8 = -4$. Les droites sont <span class="resultat">sécantes en $(-2\,;\,-4)$</span>.`],
     revoir: r`propriété «&nbsp;point d'intersection&nbsp;» et capacité 2 du cours (questions 1 et 2), activité 1 (question 3), exercice 2 de la fiche (question 2), question 5 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201 du manuel`,
     variante: {
       enonce: r`Les droites d'équations $y = -x + 6$ et $y = 3x - 2$ sont&nbsp;:`,
@@ -499,7 +499,7 @@ const QUIZ = {
         r`Les pentes $-1$ et $3$ sont différentes&nbsp;: les droites sont sécantes. En leur point d'intersection, les deux ordonnées sont égales&nbsp;: on résout $-x + 6 = 3x - 2$.`,
         calcul(r`-x + 6 = 3x - 2`, r`& \iff -x + 6 \op{- 3x} = 3x - 2 \op{- 3x}`, r`& \iff -4x + 6 = -2`, r`& \iff -4x + 6 \op{- 6} = -2 \op{- 6}`, r`& \iff -4x = -8`,
           r`& \iff \dfrac{-4x}{\op{-4}} = \dfrac{-8}{\op{-4}}`, r`& \iff x = 2`),
-        r`Ordonnée&nbsp;: $y = -2 + 6 = 4$&nbsp;; vérification avec l'autre équation&nbsp;: $3 \times 2 - 2 = 6 - 2 = 4$. Les droites sont <span class="resultat">sécantes en $(2\,;\,4)$</span>. Attention&nbsp;: le quotient de deux nombres négatifs est positif, $\dfrac{-8}{-4} = 2$.`] } },
+        r`Ordonnée&nbsp;: $y = -2 + 6 = 4$&nbsp;; vérification avec l'autre équation&nbsp;: $3 \times 2 - 2 = 6 - 2 = 4$. Les droites sont <span class="resultat">sécantes en $(2\,;\,4)$</span>.`] } },
 
   { partie: 0, theme: 'Choisir les multiplicateurs', type: 'vf',
     enonce: r`Pour résoudre par combinaison le système $(S)$&nbsp;:` + systBloc(r`2x + 3y = 7`, r`3x - 2y = 4`)
@@ -523,7 +523,7 @@ const QUIZ = {
         calcul(r`2x + 5y = 9`, r`& \iff (2x + 5y) \op{\times 3} = 9 \op{\times 3}`, r`& \iff 6x + 15y = 27`),
         r`Les coefficients de $x$, $6$ et $6$, sont égaux et non opposés&nbsp;: en ajoutant membre à membre, $x$ ne disparaît pas.`,
         calcul(r`(6x + 4y) + (6x + 15y) = 16 + 27`, r`& \iff 12x + 19y = 43`),
-        r`Tom n'obtient pas $19y = 43$&nbsp;: l'affirmation est <span class="resultat">fausse</span>. Il fallait multiplier la deuxième équation par $-3$&nbsp;: $-6x - 15y = -27$&nbsp;; en ajoutant membre à membre, $-11y = -11$, d'où $y = 1$, puis $3x + 2 \times 1 = 8$, soit $3x = 6$ et $x = 2$.`] } },
+        r`Tom n'obtient pas $19y = 43$&nbsp;: l'affirmation est <span class="resultat">fausse</span>. Pour que les coefficients de $x$ deviennent $6$ et $-6$, opposés, on multiplie les deux membres de la deuxième équation par $-3$&nbsp;: $-6x - 15y = -27$&nbsp;; en ajoutant membre à membre, $-11y = -11$, d'où $y = 1$, puis $3x + 2 \times 1 = 8$, soit $3x = 6$ et $x = 2$.`] } },
 
   { partie: 0, theme: 'Équation à réduire', type: 'qcm',
     enonce: r`Les droites $d : y = 2x + 3$ et $d' : 2x + y = -5$&nbsp;:`,
@@ -535,7 +535,7 @@ const QUIZ = {
       r`Les pentes $2$ et $-2$ sont différentes&nbsp;: les droites sont sécantes. En leur point d'intersection, les deux ordonnées sont égales.`,
       calcul(r`2x + 3 = -2x - 5`, r`& \iff 2x + 3 \op{+ 2x} = -2x - 5 \op{+ 2x}`, r`& \iff 4x + 3 = -5`, r`& \iff 4x + 3 \op{- 3} = -5 \op{- 3}`, r`& \iff 4x = -8`,
         r`& \iff \dfrac{4x}{\op{4}} = \dfrac{-8}{\op{4}}`, r`& \iff x = -2`),
-      r`Ordonnée&nbsp;: $y = 2 \times (-2) + 3 = -4 + 3 = -1$&nbsp;; vérification avec l'équation de départ de $d'$&nbsp;: $2 \times (-2) + (-1) = -4 - 1 = -5$. Les droites <span class="resultat">sont sécantes en $(-2\,;\,-1)$</span>. Attention&nbsp;: $2x + y = -5$ donne $y = -2x - 5$, et non $y = 2x - 5$&nbsp;; la pente de $d'$ est $-2$.`],
+      r`Ordonnée&nbsp;: $y = 2 \times (-2) + 3 = -4 + 3 = -1$&nbsp;; vérification avec l'équation de départ de $d'$&nbsp;: $2 \times (-2) + (-1) = -4 - 1 = -5$. Les droites <span class="resultat">sont sécantes en $(-2\,;\,-1)$</span>.`],
     revoir: r`propriété «&nbsp;point d'intersection&nbsp;» et capacité 2 du cours (questions 3 et 4), exercice 139 p.&nbsp;199 du manuel`,
     variante: {
       enonce: r`Les droites $d : y = x - 4$ et $d' : x + y = 2$&nbsp;:`,
@@ -547,7 +547,7 @@ const QUIZ = {
         r`Les pentes $1$ et $-1$ sont différentes&nbsp;: les droites sont sécantes. En leur point d'intersection, les deux ordonnées sont égales.`,
         calcul(r`x - 4 = -x + 2`, r`& \iff x - 4 \op{+ x} = -x + 2 \op{+ x}`, r`& \iff 2x - 4 = 2`, r`& \iff 2x - 4 \op{+ 4} = 2 \op{+ 4}`, r`& \iff 2x = 6`,
           r`& \iff \dfrac{2x}{\op{2}} = \dfrac{6}{\op{2}}`, r`& \iff x = 3`),
-        r`Ordonnée&nbsp;: $y = 3 - 4 = -1$&nbsp;; vérification avec l'équation de départ de $d'$&nbsp;: $3 + (-1) = 2$. Les droites <span class="resultat">sont sécantes en $(3\,;\,-1)$</span>. Attention&nbsp;: $x + y = 2$ donne $y = -x + 2$, et non $y = x + 2$&nbsp;; la pente de $d'$ est $-1$.`] } },
+        r`Ordonnée&nbsp;: $y = 3 - 4 = -1$&nbsp;; vérification avec l'équation de départ de $d'$&nbsp;: $3 + (-1) = 2$. Les droites <span class="resultat">sont sécantes en $(3\,;\,-1)$</span>.`] } },
 
   { partie: 0, theme: 'Nombre de solutions', type: 'qcm',
     enonce: r`Sans résoudre les systèmes, une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
@@ -611,7 +611,7 @@ const QUIZ = {
         calcul(r`5 \times 3 + 2y = 9`, r`& \iff 15 + 2y = 9`, r`& \iff 15 + 2y \op{- 15} = 9 \op{- 15}`, r`& \iff 2y = -6`, r`& \iff \dfrac{2y}{\op{2}} = \dfrac{-6}{\op{2}}`, r`& \iff y = -3`),
         r`Pour $(S_{2})$&nbsp;:`,
         calcul(r`(x + y) + (x - y) = 0 + 4`, r`& \iff 2x = 4`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{4}{\op{2}}`, r`& \iff x = 2`),
-        r`On remplace $x$ par $2$ dans $x + y = 0$&nbsp;: $2 + y = 0$, d'où $y = 0 - 2 = -2$. Le couple solution de $(S_{1})$ est $(3\,;\,-3)$, celui de $(S_{2})$ est $(2\,;\,-2)$&nbsp;: l'affirmation est <span class="resultat">fausse</span>. Attention&nbsp;: $(3\,;\,-3)$ vérifie la première équation de $(S_{2})$, $3 + (-3) = 0$, mais pas la deuxième, $3 - (-3) = 6 \ne 4$.`] } },
+        r`On remplace $x$ par $2$ dans $x + y = 0$&nbsp;: $2 + y = 0$, d'où $y = 0 - 2 = -2$. Le couple solution de $(S_{1})$ est $(3\,;\,-3)$, celui de $(S_{2})$ est $(2\,;\,-2)$&nbsp;: l'affirmation est <span class="resultat">fausse</span>.`] } },
 
   { partie: 0, theme: 'Substitution', type: 'qcm',
     enonce: r`On résout par substitution le système $(S)$&nbsp;:` + systBloc(r`x + 3y = 5`, r`2x - y = 17`)
@@ -624,7 +624,7 @@ const QUIZ = {
       r`On résout l'équation obtenue, qui n'a plus que l'inconnue $y$.`,
       calcul(r`2(5 - 3y) - y = 17`, r`& \iff 2 \times 5 - 2 \times 3y - y = 17`, r`& \iff 10 - 6y - y = 17`, r`& \iff 10 - 7y = 17`,
         r`& \iff 10 - 7y \op{- 10} = 17 \op{- 10}`, r`& \iff -7y = 7`, r`& \iff \dfrac{-7y}{\op{-7}} = \dfrac{7}{\op{-7}}`, r`& \iff y = -1`),
-      r`On reporte&nbsp;: $x = 5 - 3 \times (-1) = 5 + 3 = 8$. Vérification&nbsp;: $8 + 3 \times (-1) = 8 - 3 = 5$ et $2 \times 8 - (-1) = 16 + 1 = 17$. L'ensemble des solutions est <span class="resultat">$\{(8\,;\,-1)\}$</span>. Attention&nbsp;: $\dfrac{7}{-7} = -1$, et $-3 \times (-1) = 3$.`],
+      r`On reporte&nbsp;: $x = 5 - 3 \times (-1) = 5 + 3 = 8$. Vérification&nbsp;: $8 + 3 \times (-1) = 8 - 3 = 5$ et $2 \times 8 - (-1) = 16 + 1 = 17$. L'ensemble des solutions est <span class="resultat">$\{(8\,;\,-1)\}$</span>.`],
     revoir: r`méthode de substitution et capacité 3 du cours (question 2), exercice 3 de la fiche (question 2), exercice 34 p.&nbsp;193 du manuel`,
     variante: {
       enonce: r`On résout par substitution le système $(S)$&nbsp;:` + systBloc(r`x + 4y = 2`, r`3x - y = 19`)
@@ -637,7 +637,7 @@ const QUIZ = {
         r`On résout l'équation obtenue, qui n'a plus que l'inconnue $y$.`,
         calcul(r`3(2 - 4y) - y = 19`, r`& \iff 3 \times 2 - 3 \times 4y - y = 19`, r`& \iff 6 - 12y - y = 19`, r`& \iff 6 - 13y = 19`,
           r`& \iff 6 - 13y \op{- 6} = 19 \op{- 6}`, r`& \iff -13y = 13`, r`& \iff \dfrac{-13y}{\op{-13}} = \dfrac{13}{\op{-13}}`, r`& \iff y = -1`),
-        r`On reporte&nbsp;: $x = 2 - 4 \times (-1) = 2 + 4 = 6$. Vérification&nbsp;: $6 + 4 \times (-1) = 6 - 4 = 2$ et $3 \times 6 - (-1) = 18 + 1 = 19$. L'ensemble des solutions est <span class="resultat">$\{(6\,;\,-1)\}$</span>. Attention&nbsp;: $\dfrac{13}{-13} = -1$, et $-4 \times (-1) = 4$.`] } },
+        r`On reporte&nbsp;: $x = 2 - 4 \times (-1) = 2 + 4 = 6$. Vérification&nbsp;: $6 + 4 \times (-1) = 6 - 4 = 2$ et $3 \times 6 - (-1) = 18 + 1 = 19$. L'ensemble des solutions est <span class="resultat">$\{(6\,;\,-1)\}$</span>.`] } },
 
   { partie: 0, theme: 'Multiplier une équation', type: 'qcm',
     enonce: r`On résout par combinaison le système $(S)$&nbsp;:` + systBloc(r`3x + 2y = -1`, r`7x - 4y = 15`)
@@ -651,7 +651,7 @@ const QUIZ = {
       calcul(r`(6x + 4y) + (7x - 4y) = -2 + 15`, r`& \iff 13x = 13`, r`& \iff \dfrac{13x}{\op{13}} = \dfrac{13}{\op{13}}`, r`& \iff x = 1`),
       r`On remplace $x$ par $1$ dans la première équation de départ.`,
       calcul(r`3 \times 1 + 2y = -1`, r`& \iff 3 + 2y = -1`, r`& \iff 3 + 2y \op{- 3} = -1 \op{- 3}`, r`& \iff 2y = -4`, r`& \iff \dfrac{2y}{\op{2}} = \dfrac{-4}{\op{2}}`, r`& \iff y = -2`),
-      r`Vérification avec la deuxième équation&nbsp;: $7 \times 1 - 4 \times (-2) = 7 + 8 = 15$. L'ensemble des solutions est <span class="resultat">$\{(1\,;\,-2)\}$</span>. Attention&nbsp;: on multiplie par $2$ les deux membres, le second membre compris, et $-1 - 3 = -4$.`],
+      r`Vérification avec la deuxième équation&nbsp;: $7 \times 1 - 4 \times (-2) = 7 + 8 = 15$. L'ensemble des solutions est <span class="resultat">$\{(1\,;\,-2)\}$</span>.`],
     revoir: r`méthode de combinaison et capacité 4 du cours (question 3), exercice 4 de la fiche, question 10 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201 du manuel`,
     variante: {
       enonce: r`On résout par combinaison le système $(S)$&nbsp;:` + systBloc(r`3x + 4y = 10`, r`5x - 8y = -42`)
@@ -665,7 +665,7 @@ const QUIZ = {
         calcul(r`(6x + 8y) + (5x - 8y) = 20 - 42`, r`& \iff 11x = -22`, r`& \iff \dfrac{11x}{\op{11}} = \dfrac{-22}{\op{11}}`, r`& \iff x = -2`),
         r`On remplace $x$ par $-2$ dans la première équation de départ.`,
         calcul(r`3 \times (-2) + 4y = 10`, r`& \iff -6 + 4y = 10`, r`& \iff -6 + 4y \op{+ 6} = 10 \op{+ 6}`, r`& \iff 4y = 16`, r`& \iff \dfrac{4y}{\op{4}} = \dfrac{16}{\op{4}}`, r`& \iff y = 4`),
-        r`Vérification avec la deuxième équation&nbsp;: $5 \times (-2) - 8 \times 4 = -10 - 32 = -42$. L'ensemble des solutions est <span class="resultat">$\{(-2\,;\,4)\}$</span>. Attention&nbsp;: pour isoler $4y$ dans $-6 + 4y = 10$, on ajoute $6$ aux deux membres.`] } },
+        r`Vérification avec la deuxième équation&nbsp;: $5 \times (-2) - 8 \times 4 = -10 - 32 = -42$. L'ensemble des solutions est <span class="resultat">$\{(-2\,;\,4)\}$</span>.`] } },
 
   { partie: 0, theme: 'Résoudre un problème', type: 'qcm',
     enonce: r`Au marché, $2$&nbsp;kg de pommes et $3$&nbsp;kg de poires coûtent $13$&nbsp;€&nbsp;; $4$&nbsp;kg de pommes et $5$&nbsp;kg de poires coûtent $23$&nbsp;€. Le prix d'un kilogramme de chaque fruit est&nbsp;:`,
@@ -679,7 +679,7 @@ const QUIZ = {
       calcul(r`(-4x - 6y) + (4x + 5y) = -26 + 23`, r`& \iff -y = -3`, r`& \iff \dfrac{-y}{\op{-1}} = \dfrac{-3}{\op{-1}}`, r`& \iff y = 3`),
       r`On remplace $y$ par $3$ dans la première équation de départ.`,
       calcul(r`2x + 3 \times 3 = 13`, r`& \iff 2x + 9 = 13`, r`& \iff 2x + 9 \op{- 9} = 13 \op{- 9}`, r`& \iff 2x = 4`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{4}{\op{2}}`, r`& \iff x = 2`),
-      r`Vérification&nbsp;: $4 \times 2 + 5 \times 3 = 8 + 15 = 23$. <span class="resultat">Un kilogramme de pommes coûte $2$&nbsp;€, un kilogramme de poires $3$&nbsp;€</span>. Attention&nbsp;: $5$&nbsp;€ et $1$&nbsp;€ conviennent pour le premier achat ($10 + 3 = 13$), mais pas pour le second ($20 + 5 = 25 \ne 23$).`],
+      r`Vérification&nbsp;: $4 \times 2 + 5 \times 3 = 8 + 15 = 23$. <span class="resultat">Un kilogramme de pommes coûte $2$&nbsp;€, un kilogramme de poires $3$&nbsp;€</span>.`],
     revoir: r`méthode et capacité 5 du cours (question 1), exercice 6 de la fiche, exercice 124 p.&nbsp;198 du manuel, question 11 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
     variante: {
       enonce: r`Au cinéma, $3$ places adulte et $2$ places enfant coûtent $38$&nbsp;€&nbsp;; $5$ places adulte et $4$ places enfant coûtent $66$&nbsp;€. Le prix d'une place de chaque sorte est&nbsp;:`,
@@ -693,7 +693,7 @@ const QUIZ = {
         calcul(r`(-6x - 4y) + (5x + 4y) = -76 + 66`, r`& \iff -x = -10`, r`& \iff \dfrac{-x}{\op{-1}} = \dfrac{-10}{\op{-1}}`, r`& \iff x = 10`),
         r`On remplace $x$ par $10$ dans la première équation de départ.`,
         calcul(r`3 \times 10 + 2y = 38`, r`& \iff 30 + 2y = 38`, r`& \iff 30 + 2y \op{- 30} = 38 \op{- 30}`, r`& \iff 2y = 8`, r`& \iff \dfrac{2y}{\op{2}} = \dfrac{8}{\op{2}}`, r`& \iff y = 4`),
-        r`Vérification&nbsp;: $5 \times 10 + 4 \times 4 = 50 + 16 = 66$. <span class="resultat">Une place adulte coûte $10$&nbsp;€, une place enfant $4$&nbsp;€</span>. Attention&nbsp;: $8$&nbsp;€ et $7$&nbsp;€ conviennent pour le premier achat ($24 + 14 = 38$), mais pas pour le second ($40 + 28 = 68 \ne 66$).`] } }
+        r`Vérification&nbsp;: $5 \times 10 + 4 \times 4 = 50 + 16 = 66$. <span class="resultat">Une place adulte coûte $10$&nbsp;€, une place enfant $4$&nbsp;€</span>.`] } }
   ]
 };
 
