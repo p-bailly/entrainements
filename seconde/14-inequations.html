@@ -1,0 +1,1101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement Évaluation inéquations et tableaux de signes</title>
+<!--
+  Entraînement auto-corrigé à l'évaluation du chapitre 14 (Inéquations et tableaux de signes)
+  - Seconde. Une seule partie, douze questions, sans automatismes (demande du professeur),
+  dans l'ordre du cours et des séances du plan, comme les exercices 2 à 4 de l'évaluation :
+    1 à 4    : inégalités (partie 1 du cours, capacité 1) : encadrer une expression en
+               multipliant par un nombre négatif, puis en ajoutant ; comparer deux fractions
+               par leur différence ; deux produits de puissances par leur quotient ;
+               interpréter l'évolution d'un prix par la différence et le quotient (vrai ou
+               faux) ;
+    5 à 7    : inéquations du premier degré (partie 2, capacité 2) : développer, regrouper,
+               diviser par un nombre négatif (le sens change) ; inéquation à dénominateurs
+               (multiplier par un multiple commun) ; modéliser la comparaison de deux tarifs ;
+    8 et 9   : signe d'un produit (partie 3, capacité 3) : signe de mx + p (vrai ou faux sur
+               le tableau d'un élève, coefficient négatif) ; tableau de signes d'un produit à
+               choisir parmi quatre ;
+    10       : tableau de signes d'un quotient (partie 4, capacité 4) : valeur interdite,
+               double barre ;
+    11 et 12 : inéquations produit ou quotient (partie 5, capacité 5) : x^2 >= kx (se ramener
+               à 0, factoriser par x, ne pas diviser par x) ; inéquation quotient comparée à 0,
+               valeur interdite exclue.
+  Sources : capacités 1 à 5 et méthodes du cours, activités 1 (deux tarifs de cinéma) et 2 (le
+  signe d'un produit), fiche d'exercices (exercices 1 à 6), évaluation (sujets A et B,
+  exercices 2 à 4 ; son QCM d'automatismes n'est pas repris) et exercices du manuel cités dans
+  le plan, hors « Plus rapides » (82 et 84 p. 102 ; 138 et 140 p. 105 ; 112 et 115 p. 234 ;
+  « Faire le point » p. 107, question 13, et p. 237, questions 7 et 8).
+  Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs,
+  calculables de tête (calculatrice interdite, comme à l'évaluation). Ni encadrement de x + y
+  ou de x - y, ni inéquation dont les termes en x disparaissent, ni inéquation quotient
+  comparée à un nombre non nul, absents de l'évaluation ; pas de problème du chocolatier
+  (étape « Plus rapides », calculatrice autorisée).
+  Distracteurs : erreurs types (sens non changé en multipliant ou en divisant par un nombre
+  négatif, signe du coefficient oublié, 7 - 4x réduit en 3x, numérateurs et dénominateurs
+  soustraits entre eux, conclusion inversée, puissances simplifiées à tort, pourcentage
+  calculé sur le prix d'arrivée, facteur non distribué, terme non multiplié, crochet fermé
+  pour une inégalité stricte ou ouvert pour une large, borne donnée au lieu du premier entier,
+  prix oublié dans la mise en inéquation, signes d'un facteur à coefficient négatif inversés,
+  valeurs de x non rangées dans l'ordre croissant, règle des signes mal appliquée, 0 au lieu
+  d'une double barre, division par x, crochet fermé en la valeur interdite).
+  Figures : tableauSignes (ci-dessous) dessine les tableaux de signes comme ceux du cours
+  (tkz-tab) : traits pointillés sous les valeurs, 0 posé sur le trait, double barre en une
+  valeur interdite.
+  Calculs en colonne : l'inéquation de départ seule sur la première ligne, puis une étape par
+  ligne, pour que chaque ligne tienne sur un écran de téléphone.
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
+
+  Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
+  entrainement-14-inequations-questions.js (même dossier) ; moteur et mise en page :
+  Commun aux cours/entrainement/gabarit.html (format des questions en tête).
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/seconde/14-inequations.html
+  (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&display=swap">
+<!-- KaTeX, chargé sans bloquer la page (réseau du lycée parfois filtré) : les formules s'affichent
+     d'abord en mini-LaTeX, puis KaTeX les recompose sur place dès que sa feuille et son script sont là. -->
+<link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css" integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous" media="print" onload="this.media='all'; if (window.katexPret) katexPret()">
+<script async src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js" integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj" crossorigin="anonymous" onload="if (window.katexPret) katexPret()"></script>
+<style>
+:root{
+  --papier:#FCFBF7; --encre:#161616; --gris:#6B6A66; --filet:#C4BFB3; --filet-clair:#E4E0D6; --case:#F0EDE5;
+  --stylo:#1E3D96; --rouge:#CE2029; --vert:#2A7A36; --orange:#E8940A; --violet:#7A3E9D;
+  --serif:"Old Standard TT","Times New Roman",Times,serif;
+  --main:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --mono:ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 var(--serif); min-height:100vh}
+.feuille{max-width:720px; margin:0 auto; padding:34px 40px 60px}
+
+/* Retour à la liste des entraînements */
+.retour{margin:0 0 14px; font-size:.95rem}
+.retour a{color:var(--stylo); text-decoration:none; border-bottom:1px solid var(--filet)}
+.retour a:hover,.retour a:focus-visible{border-bottom-color:var(--stylo)}
+
+/* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
+.mul{color:#9C27B0}
+/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
+.op{color:var(--rouge)}
+
+/* En-tête de la copie */
+.entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
+h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
+.consigne{margin:0 0 12px; font-style:italic}
+.filet{height:4px; border-top:1px solid var(--encre); border-bottom:1px solid var(--encre); margin:8px 0 20px}
+
+/* Grilles de réponses, une par partie */
+.progression{display:flex; flex-wrap:wrap; gap:10px 28px; margin:0 0 24px; scroll-margin-top:12px}
+.bloc-grille{max-width:100%; overflow-x:auto}
+.nom-partie{margin:0 0 3px; font-style:italic; font-size:.9rem; white-space:nowrap}
+.grille-reponses{border-collapse:collapse; font-size:.9rem}
+.grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
+.grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
+.grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
+.grille-reponses td[data-q],.grille-reponses td[data-r]{cursor:pointer}
+.grille-reponses td.ici{background:var(--filet-clair)}
+.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
+.grille-reponses button.aller:hover{text-decoration:underline}
+.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
+.grille-reponses td.juste{color:var(--vert)}
+.grille-reponses td.erreur{color:var(--rouge)}
+
+/* Marques au stylo : croix et coche dessinées en CSS */
+.marque{position:relative; display:inline-block; width:18px; height:18px; vertical-align:-4px; color:inherit}
+.marque::before,.marque::after{content:""; position:absolute; width:2px; background:currentColor; border-radius:1px; display:none}
+.marque.croix::before,.marque.croix::after{display:block; left:8px; top:-2px; height:22px}
+.marque.croix::before{transform:rotate(43deg)}
+.marque.croix::after{transform:rotate(-47deg)}
+.marque.coche::before,.marque.coche::after{display:block}
+.marque.coche::before{left:3px; top:8px; height:8px; transform:rotate(-42deg)}
+.marque.coche::after{left:10px; top:-2px; height:20px; transform:rotate(38deg)}
+
+/* Question et réponses */
+.partie{margin:0 0 2px; font-variant:small-caps; letter-spacing:.03em}
+.question{margin:0 0 6px}
+.question i{color:var(--gris)}
+.enonce{margin:0 0 14px}
+.reponses{display:grid; gap:6px; margin:0 0 18px}
+.reponses.vf{display:flex; gap:12px 40px; flex-wrap:wrap}
+.choix{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; padding:5px 4px; border:0; border-radius:0; background:transparent; color:var(--encre); font:inherit; line-height:1.45; cursor:pointer}
+.reponses.vf .choix{width:auto; padding-right:12px}
+.choix:disabled{cursor:default}
+.choix .boite{flex:none; position:relative; width:18px; height:18px; margin-top:5px; border:1px solid var(--encre); background:var(--papier)}
+.choix .boite .marque{position:absolute; left:-1px; top:-1px}
+.choix:hover:not(:disabled) .boite{box-shadow:0 0 0 1px var(--encre)}
+.choix .lettre{flex:none; width:1.3em; color:var(--gris)}
+.choix .texte{flex:1; min-width:0}
+.choix.choisi .marque{color:var(--stylo)}
+.choix.juste .marque{color:var(--vert)}
+.choix.erreur .marque{color:var(--rouge)}
+.choix.terne{color:var(--gris)}
+.actions{display:flex; gap:12px 18px; flex-wrap:wrap; align-items:center}
+.bouton{font:inherit; font-variant:small-caps; letter-spacing:.04em; font-size:1rem; padding:5px 18px; border:1px solid var(--encre); border-radius:0; background:var(--papier); color:var(--encre); cursor:pointer}
+.bouton:hover:not(:disabled){background:var(--encre); color:var(--papier)}
+.bouton:disabled{opacity:.4; cursor:default}
+.bouton.discret{border-color:var(--filet)}
+
+/* Correction du professeur */
+.correction{margin:20px 0 0; padding:2px 0 2px 16px; border-left:2px solid var(--rouge)}
+.correction.juste{border-left-color:var(--vert)}
+.verdict{font:600 1.7rem/1.1 var(--main); color:var(--rouge); margin:0 0 6px}
+.correction.juste .verdict{color:var(--vert)}
+.explication{margin:0; font-size:1rem; line-height:1.55}
+.explication p{margin:0 0 .55em}
+.explication p:last-child{margin-bottom:0}
+.explication .revoir{font-style:italic; color:var(--gris)}
+.explication .fig{margin:8px auto 12px}
+/* Calcul en colonne : une étape par ligne, alignées sur le signe = ou ⇔ (comme dans les PDF) */
+.calcul{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.45em .4em; align-items:baseline; margin:.3em 0 .5em 1.4em; padding:.2em 0 .3em; overflow-x:auto; overflow-y:hidden}
+.calcul .g{justify-self:end}
+.resultat{display:inline-block; border:1px solid currentColor; padding:.05em .4em; line-height:1.35}
+code{font-family:var(--mono); font-size:.88em}
+
+/* Figures dans les énoncés et les corrections */
+.fig{display:block; width:100%; height:auto; margin:12px auto 4px}
+.fig .grille{stroke:var(--filet); stroke-width:.7; fill:none}
+.fig .axe{stroke:var(--encre); stroke-width:1.1; fill:none}
+.fig .fleche{fill:var(--encre)}
+.fig .tick{font:10.5px var(--serif); fill:var(--encre); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .courbe{stroke:currentColor; stroke-width:2.2; fill:none}
+.fig .lab{font:italic 13px var(--serif); fill:currentColor; paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .pt{fill:currentColor}
+.fig .lecture{stroke:var(--vert); stroke-width:1.5; stroke-dasharray:5 3; fill:none}
+.fig .pointe{fill:var(--vert)}
+.fig .note{font:italic 11.5px var(--serif); fill:var(--vert); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .surligne{stroke:var(--orange); stroke-width:9; opacity:.6; fill:none}
+.fig .c-rouge{color:var(--rouge)}
+.fig .c-bleu{color:var(--stylo)}
+.fig .c-noir{color:var(--encre)}
+.fig .c-violet{color:var(--violet)}
+
+/* Résultat */
+.note{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:6px 0 2px; color:var(--rouge)}
+.note .grand{font:700 3.6rem/1 var(--main)}
+.note .sur{font:400 1.5rem/1 var(--main)}
+.appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
+.bilan-parties{margin:0 0 6px}
+.bilan-parties span{white-space:nowrap}
+.bilan-reprise{margin:0 0 10px}
+.reprise-info{margin:0 0 10px; font-style:italic}
+.a-revoir{margin:0 0 16px}
+.a-revoir ul{margin:4px 0 0; padding-left:1.3em}
+.titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
+.revue{list-style:none; padding:0; margin:8px 0 0; border-top:1px solid var(--encre)}
+.revue li{padding:14px 0; border-bottom:1px solid var(--filet)}
+.revue .enonce{margin-bottom:10px}
+.revue .bilan{margin:6px 0 8px; font-style:italic}
+.revue li.juste .bilan{color:var(--vert)}
+.revue li.erreur .bilan{color:var(--rouge)}
+.revue .explication{font-size:1rem}
+.liste-choix{margin:0 0 8px; padding-left:1.6em}
+.liste-choix li{border:0; padding:1px 0}
+.liste-choix li.bonne{color:var(--vert)}
+.variante{margin:14px 0 0; padding:0 0 0 14px; border-left:1px dashed var(--filet)}
+.pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
+.pied p{margin:0 0 4px}
+.pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
+
+/* Formules : KaTeX (réduit de 1,21 à 1,1 em pour s'accorder au texte), sinon mini-LaTeX (.m) */
+.katex{font-size:1.1em}
+.m{font-family:var(--serif); white-space:nowrap}
+.m.m-long{white-space:normal}
+.m i{font-style:italic}
+.m .rm{font-style:normal}
+.m sub,.m sup{font-size:.8em; line-height:0; white-space:nowrap}
+.m .prime{display:inline-block; margin-left:.08em; font-size:1.2em; line-height:0}
+.m sub{vertical-align:-.25em}
+.m sup{vertical-align:.55em}
+.frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; font-size:.92em; line-height:1.2; margin:0 .15em}
+.frac .num{border-bottom:1px solid currentColor; padding:0 .25em .04em}
+.frac .den{padding:.04em .25em 0}
+.sqrt .rad{border-top:1px solid currentColor; padding:0 .12em}
+
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important; scroll-behavior:auto !important}}
+@media (max-width:520px){
+  body{font-size:17px}
+  .feuille{padding:22px 16px 48px}
+  .entete{font-size:.9rem}
+  h1{font-size:1.7rem}
+  .reponses.vf{gap:8px 24px}
+}
+@media print{
+  .actions,.pied,.progression{display:none}
+  .revue li{break-inside:avoid}
+}
+/* Feuille de calcul */
+table.tableur{border-collapse:collapse; margin:10px auto 4px; font:400 .88rem "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+table.tableur th{background:var(--case); color:var(--gris); font-weight:400; border:1px solid var(--filet); padding:2px 10px; text-align:center; min-width:2.2em}
+table.tableur td{border:1px solid var(--filet); padding:2px 10px; min-width:5em; height:1.9em; background:#FFFFFF; text-align:center}
+table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
+</style>
+</head>
+<body>
+<main class="feuille">
+  <header>
+    <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
+    <div class="entete"><span>Seconde</span><span>M. Bailly</span><span>Chapitre 14 · Inéquations et tableaux de signes</span></div>
+    <h1>Entraînement Évaluation inéquations et tableaux de signes</h1>
+    <p class="consigne">Douze questions sur les inéquations et les tableaux de signes. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="filet" role="presentation"></div>
+  </header>
+  <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
+  <section id="quiz" aria-live="polite"></section>
+  <footer class="pied">
+    <p><button type="button" id="reinitialiser">Recommencer depuis le début</button></p>
+  </footer>
+</main>
+<script>
+(function () {
+'use strict';
+const r = String.raw;
+
+/* ---------- Figures (SVG généré) ---------- */
+const arrondi = x => Math.round(x * 10) / 10;
+const fr = x => String(x).replace('.', ',');
+const moins = n => String(n).replace('-', '−');
+function fleche(x, y, sens) {
+  return sens === 'droite'
+    ? `<path class="fleche" d="M${x} ${y} l-7 -3.5 v7 z"/>`
+    : `<path class="fleche" d="M${x} ${y} l-3.5 7 h7 z"/>`;
+}
+// Repère orthonormé quadrillé et gradué de 1 en 1. o = {xmin, xmax, ymin, ymax, label, echelle} et, au choix :
+//   courbes  : [{f: x => ..., classe, x1, x2}]        classe = c-rouge (défaut), c-bleu, c-noir, c-violet
+//   noms     : [{x, y, texte, indice, apres, classe, ancre}]   nom d'une courbe, dans sa couleur
+//   lectures : [[[x, y], [x, y], ...], ...]            lignes de lecture en tirets verts, flèche au bout
+//   textes   : [{x, y, texte, ancre}]                  annotations vertes des lectures (+1, +3...)
+//   points   : [{x, y, classe}]
+//   surligne : {x1, x2}                                partie de l'axe des abscisses surlignée en orange (null = bord du repère)
+let numeroFigure = 0;
+function repere(o) {
+  const u = 26, m = 17;
+  const W = (o.xmax - o.xmin) * u + 2 * m, H = (o.ymax - o.ymin) * u + 2 * m;
+  const X = x => arrondi(m + (x - o.xmin) * u), Y = y => arrondi(m + (o.ymax - y) * u);
+  const cadre = 'cadre-' + (++numeroFigure);
+  const xfin = X(o.xmax) + 12, yhaut = Y(o.ymax) - 12;
+  let s = `<svg class="fig" viewBox="0 0 ${W} ${H}" style="max-width:${Math.round(W * (o.echelle || 1.3))}px" role="img" aria-label="${o.label}">`;
+  s += `<defs><clipPath id="${cadre}"><rect x="${X(o.xmin)}" y="${Y(o.ymax)}" width="${(o.xmax - o.xmin) * u}" height="${(o.ymax - o.ymin) * u}"/></clipPath></defs>`;
+  for (let x = o.xmin; x <= o.xmax; x++) s += `<line class="grille" x1="${X(x)}" y1="${Y(o.ymin)}" x2="${X(x)}" y2="${Y(o.ymax)}"/>`;
+  for (let y = o.ymin; y <= o.ymax; y++) s += `<line class="grille" x1="${X(o.xmin)}" y1="${Y(y)}" x2="${X(o.xmax)}" y2="${Y(y)}"/>`;
+  if (o.surligne) {
+    const x1 = o.surligne.x1 === null ? o.xmin : o.surligne.x1, x2 = o.surligne.x2 === null ? o.xmax : o.surligne.x2;
+    s += `<line class="surligne" x1="${X(x1)}" y1="${Y(0)}" x2="${X(x2)}" y2="${Y(0)}"/>`;
+  }
+  s += `<line class="axe" x1="${X(o.xmin)}" y1="${Y(0)}" x2="${xfin}" y2="${Y(0)}"/>${fleche(xfin, Y(0), 'droite')}`;
+  s += `<line class="axe" x1="${X(0)}" y1="${Y(o.ymin)}" x2="${X(0)}" y2="${yhaut}"/>${fleche(X(0), yhaut, 'haut')}`;
+  (o.courbes || []).forEach(c => {
+    const x1 = c.x1 === undefined ? o.xmin : c.x1, x2 = c.x2 === undefined ? o.xmax : c.x2, n = 80;
+    let d = '';
+    for (let k = 0; k <= n; k++) { const x = x1 + (x2 - x1) * k / n; d += (k ? ' L' : 'M') + X(x) + ' ' + Y(c.f(x)); }
+    s += `<path class="courbe ${c.classe || 'c-rouge'}" clip-path="url(#${cadre})" d="${d}"/>`;
+  });
+  (o.lectures || []).forEach(pts => {
+    const P = pts.map(p => [X(p[0]), Y(p[1])]);
+    const a = P[P.length - 2], b = P[P.length - 1];
+    const L = Math.hypot(b[0] - a[0], b[1] - a[1]), ux = (b[0] - a[0]) / L, uy = (b[1] - a[1]) / L;
+    s += `<polyline class="lecture" points="${P.map(p => p.join(',')).join(' ')}"/>`;
+    s += `<path class="pointe" d="M${b[0]} ${b[1]} L${arrondi(b[0] - 7 * ux + 3.2 * uy)} ${arrondi(b[1] - 7 * uy - 3.2 * ux)} L${arrondi(b[0] - 7 * ux - 3.2 * uy)} ${arrondi(b[1] - 7 * uy + 3.2 * ux)} z"/>`;
+  });
+  // Graduations sur fond papier, par-dessus les courbes et les lectures : elles restent lisibles.
+  for (let x = o.xmin; x <= o.xmax; x++) if (x !== 0) s += `<text class="tick" x="${X(x)}" y="${Y(0) + 13}" text-anchor="middle">${moins(x)}</text>`;
+  for (let y = o.ymin; y <= o.ymax; y++) if (y !== 0) s += `<text class="tick" x="${X(0) - 5}" y="${Y(y) + 3.5}" text-anchor="end">${moins(y)}</text>`;
+  s += `<text class="tick" x="${X(0) - 5}" y="${Y(0) + 13}" text-anchor="end">0</text>`;
+  (o.points || []).forEach(p => { s += `<circle class="pt ${p.classe || 'c-rouge'}" cx="${X(p.x)}" cy="${Y(p.y)}" r="3.3"/>`; });
+  (o.textes || []).forEach(t => { s += `<text class="note" x="${X(t.x)}" y="${Y(t.y)}" text-anchor="${t.ancre || 'middle'}">${t.texte}</text>`; });
+  (o.noms || []).forEach(n => {
+    const indice = n.indice ? `<tspan dy="3" font-size="9.5">${n.indice}</tspan>` + (n.apres ? `<tspan dy="-3">${n.apres}</tspan>` : '') : '';
+    s += `<text class="lab ${n.classe || 'c-rouge'}" x="${X(n.x)}" y="${Y(n.y)}" text-anchor="${n.ancre || 'start'}">${n.texte}${indice}</text>`;
+  });
+  return s + '</svg>';
+}
+// Feuille de calcul (question sur le tableur) : lignes = [[A, B], ...] à partir de la ligne 1 ;
+// la cellule '#sel' est la cellule sélectionnée, laissée vide.
+function tableur(lignes, label) {
+  const cellule = c => c === '#sel' ? '<td class="sel"></td>' : `<td>${c}</td>`;
+  return `<table class="tableur" aria-label="${label}"><tr><th></th><th>A</th><th>B</th></tr>`
+    + lignes.map((l, k) => `<tr><th>${k + 1}</th>${cellule(l[0])}${cellule(l[1])}</tr>`).join('')
+    + '</table>';
+}
+
+// Calcul en colonne, comme l'environnement calcul des PDF : une étape par ligne, alignées sur le
+// signe placé après & (formules écrites sans les dollars). Le résultat s'encadre avec \resultat{...}.
+//   calcul(r`A & = x - 4(3x + 2)`, r`& = x - 12x - 8`, r`& = \resultat{-11x - 8}`)
+function calcul(...lignes) {
+  return '<div class="calcul">' + lignes.map(l => {
+    const k = l.indexOf('&');
+    const gauche = k < 0 ? '' : l.slice(0, k).trim(), droite = (k < 0 ? l : l.slice(k + 1)).trim();
+    return '<span class="g">' + (gauche ? '$' + gauche + '$' : '') + '</span><span class="d">$' + droite + '$</span>';
+  }).join('') + '</div>';
+}
+
+/* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
+// Expression écrite dans une figure : lettres en italique, signe moins typographique.
+function expr(t) {
+  return t.replace(/-/g, '−').replace(/[A-Za-z]/g, l => '<tspan font-style="italic">' + l + '</tspan>');
+}
+
+// Tableau de signes comme ceux du cours (tkz-tab) : une ligne pour x (−∞, les valeurs, +∞),
+// puis une ligne par expression.
+//   tableauSignes(valeurs, lignes)
+//   valeurs : textes des valeurs de x, de gauche à droite ('−3', '2') ;
+//   lignes  : [[nom, cases], ...] ; nom : l'expression, écrite en texte ('4 - 2x', 'A(x)') ;
+//             cases : comme \tkzTabLine, un caractère par case, de gauche à droite : '+' ou '-'
+//             entre deux valeurs, et sous chaque valeur 'z' (0 sur un trait pointillé), 't'
+//             (trait pointillé seul) ou 'd' (double barre : valeur interdite).
+// Le texte lu par les lecteurs d'écran (aria-label) est tiré des mêmes données.
+function tableauSignes(valeurs, lignes) {
+  const c = 66, pas = 60, h = 26;        // première colonne, écart entre deux valeurs, hauteur d'une ligne
+  const W = c + pas * (valeurs.length + 1), H = h * (lignes.length + 1);
+  const X = k => c + pas * k;             // abscisse de la k-ième valeur (0 : trait de la première colonne)
+  const trait = (x1, y1, x2, y2, pointille) => '<line class="axe" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2
+    + '" y2="' + y2 + '"' + (pointille ? ' style="stroke-width:.8; stroke-dasharray:1.5 2.5"' : '') + '/>';
+  const texte = (x, y, t, taille) => '<text class="tick" x="' + x + '" y="' + y
+    + '" text-anchor="middle" style="font-size:' + taille + 'px">' + t + '</text>';
+  const mots = { '+': 'plus', '-': 'moins', z: 'zéro', t: '', d: 'double barre' };
+  const label = 'Tableau de signes. x : moins l’infini, ' + valeurs.join(', ') + ', plus l’infini. '
+    + lignes.map(l => l[0].replace(/-/g, '−') + ' : ' + [...l[1]].map(ch => mots[ch]).filter(Boolean).join(', ')).join('. ');
+  let s = '<svg class="fig" viewBox="0 0 ' + W + ' ' + H + '" style="max-width:' + Math.round(W * 1.25)
+    + 'px" role="img" aria-label="' + label + '">'
+    + '<rect class="axe" x="0.5" y="0.5" width="' + (W - 1) + '" height="' + (H - 1) + '"/>'
+    + trait(c, 0.5, c, H - 0.5);
+  for (let r = 1; r <= lignes.length; r++) s += trait(0.5, h * r, W - 0.5, h * r);
+  s += texte(c / 2, 18, expr('x'), 14) + texte(c + 15, 18, '−∞', 13) + texte(W - 15, 18, '+∞', 13);
+  valeurs.forEach((v, k) => { s += texte(X(k + 1), 18, v, 13); });
+  lignes.forEach((l, r) => {
+    const y0 = h * (r + 1), y1 = y0 + h, yt = y0 + 18;
+    s += texte(c / 2, yt, expr(l[0]), 14);
+    [...l[1]].forEach((ch, j) => {
+      if (j % 2 === 0) s += texte((X(j / 2) + X(j / 2 + 1)) / 2, yt + 1, ch === '-' ? '−' : '+', 17);
+      else {
+        const x = X((j + 1) / 2);
+        if (ch === 'd') s += trait(x - 2, y0, x - 2, y1) + trait(x + 2, y0, x + 2, y1);
+        else s += trait(x, y0, x, y1, true) + (ch === 'z' ? texte(x, yt, '0', 13) : '');
+      }
+    });
+  });
+  return s + '</svg>';
+}
+
+const QUIZ = {
+  id: '2de-14-inequations-entrainement',
+  parties: ['Inéquations, tableaux de signes'],
+  questions: [
+
+  /* ----- Inégalités (partie 1 du cours, capacité 1, exercices 1 et 2 de la fiche) ----- */
+
+  { partie: 0, theme: 'Encadrer', type: 'qcm',
+    enonce: r`Sachant que $-2 \le x \le 1$, un encadrement de $7 - 4x$ est&nbsp;:`,
+    choix: [r`$3 \le 7 - 4x \le 15$`, r`$15 \le 7 - 4x \le 3$`, r`$-1 \le 7 - 4x \le 11$`, r`$-6 \le 7 - 4x \le 3$`],
+    bonne: 0,
+    explication: [
+      r`On multiplie les trois membres par $-4$, un nombre négatif&nbsp;: les deux inégalités changent de sens. Puis on ajoute $7$ aux trois membres, ce qui conserve l'ordre.`,
+      calcul(r`-2 \le x \le 1`, r`& \iff -2 \op{\times (-4)} \ge x \op{\times (-4)} \ge 1 \op{\times (-4)}`, r`& \iff 8 \ge -4x \ge -4`, r`& \iff 8 \op{+ 7} \ge -4x \op{+ 7} \ge -4 \op{+ 7}`, r`& \iff 15 \ge 7 - 4x \ge 3`),
+      r`On l'écrit du plus petit au plus grand nombre&nbsp;: <span class="resultat">$3 \le 7 - 4x \le 15$</span>. Vérification&nbsp;: pour $x = -2$, $7 - 4 \times (-2) = 15$&nbsp;; pour $x = 1$, $7 - 4 \times 1 = 3$. Attention&nbsp;: sans changer le sens, on écrirait $15 \le 7 - 4x \le 3$, ce qui est impossible.`],
+    revoir: r`propriété «&nbsp;règles sur les inégalités&nbsp;», méthode «&nbsp;encadrer&nbsp;» et capacité 1 du cours (questions 1 et 2), exercice 1 de la fiche (questions 1 et 2)`,
+    variante: {
+      enonce: r`Sachant que $-3 \le x \le 2$, un encadrement de $1 - 2x$ est&nbsp;:`,
+      choix: [r`$-3 \le 1 - 2x \le 7$`, r`$7 \le 1 - 2x \le -3$`, r`$-5 \le 1 - 2x \le 5$`, r`$-2 \le 1 - 2x \le 3$`],
+      bonne: 0,
+      explication: [
+        r`On multiplie les trois membres par $-2$, un nombre négatif&nbsp;: les deux inégalités changent de sens. Puis on ajoute $1$ aux trois membres, ce qui conserve l'ordre.`,
+        calcul(r`-3 \le x \le 2`, r`& \iff -3 \op{\times (-2)} \ge x \op{\times (-2)} \ge 2 \op{\times (-2)}`, r`& \iff 6 \ge -2x \ge -4`, r`& \iff 6 \op{+ 1} \ge -2x \op{+ 1} \ge -4 \op{+ 1}`, r`& \iff 7 \ge 1 - 2x \ge -3`),
+        r`On l'écrit du plus petit au plus grand nombre&nbsp;: <span class="resultat">$-3 \le 1 - 2x \le 7$</span>. Vérification&nbsp;: pour $x = -3$, $1 - 2 \times (-3) = 7$&nbsp;; pour $x = 2$, $1 - 2 \times 2 = -3$. Attention&nbsp;: sans changer le sens, on écrirait $7 \le 1 - 2x \le -3$, ce qui est impossible.`] } },
+
+  { partie: 0, theme: 'Comparer par la différence', type: 'qcm',
+    enonce: r`On compare les nombres $\dfrac{5}{8}$ et $\dfrac{7}{11}$ à l'aide de leur différence. On obtient&nbsp;:`,
+    choix: [r`$\dfrac{5}{8} - \dfrac{7}{11} = -\dfrac{1}{88}$, donc $\dfrac{5}{8} < \dfrac{7}{11}$`,
+            r`$\dfrac{5}{8} - \dfrac{7}{11} = -\dfrac{1}{88}$, donc $\dfrac{5}{8} > \dfrac{7}{11}$`,
+            r`$\dfrac{5}{8} - \dfrac{7}{11} = \dfrac{1}{88}$, donc $\dfrac{5}{8} > \dfrac{7}{11}$`,
+            r`$\dfrac{5}{8} - \dfrac{7}{11} = \dfrac{2}{3}$, donc $\dfrac{5}{8} > \dfrac{7}{11}$`],
+    bonne: 0,
+    explication: [
+      r`On met les deux fractions au même dénominateur, $88 = 8 \times 11$, puis on étudie le signe de leur différence&nbsp;: si elle est négative, le premier nombre est le plus petit.`,
+      calcul(r`\dfrac{5}{8} - \dfrac{7}{11}`, r`& = \dfrac{5 \mul{\times 11}}{8 \mul{\times 11}} - \dfrac{7 \mul{\times 8}}{11 \mul{\times 8}}`, r`& = \dfrac{55}{88} - \dfrac{56}{88}`, r`& = -\dfrac{1}{88}`),
+      r`La différence est strictement négative&nbsp;: <span class="resultat">$\dfrac{5}{8} < \dfrac{7}{11}$</span>. Attention&nbsp;: on ne soustrait pas les numérateurs entre eux et les dénominateurs entre eux.`],
+    revoir: r`méthode «&nbsp;comparer par la différence&nbsp;» et capacité 1 du cours (question 4), exercice 2 de la fiche (question 1), exercice 82 p.&nbsp;102 du manuel`,
+    variante: {
+      enonce: r`On compare les nombres $\dfrac{4}{9}$ et $\dfrac{5}{11}$ à l'aide de leur différence. On obtient&nbsp;:`,
+      choix: [r`$\dfrac{4}{9} - \dfrac{5}{11} = -\dfrac{1}{99}$, donc $\dfrac{4}{9} < \dfrac{5}{11}$`,
+              r`$\dfrac{4}{9} - \dfrac{5}{11} = -\dfrac{1}{99}$, donc $\dfrac{4}{9} > \dfrac{5}{11}$`,
+              r`$\dfrac{4}{9} - \dfrac{5}{11} = \dfrac{1}{99}$, donc $\dfrac{4}{9} > \dfrac{5}{11}$`,
+              r`$\dfrac{4}{9} - \dfrac{5}{11} = \dfrac{1}{2}$, donc $\dfrac{4}{9} > \dfrac{5}{11}$`],
+      bonne: 0,
+      explication: [
+        r`On met les deux fractions au même dénominateur, $99 = 9 \times 11$, puis on étudie le signe de leur différence&nbsp;: si elle est négative, le premier nombre est le plus petit.`,
+        calcul(r`\dfrac{4}{9} - \dfrac{5}{11}`, r`& = \dfrac{4 \mul{\times 11}}{9 \mul{\times 11}} - \dfrac{5 \mul{\times 9}}{11 \mul{\times 9}}`, r`& = \dfrac{44}{99} - \dfrac{45}{99}`, r`& = -\dfrac{1}{99}`),
+        r`La différence est strictement négative&nbsp;: <span class="resultat">$\dfrac{4}{9} < \dfrac{5}{11}$</span>. Attention&nbsp;: on ne soustrait pas les numérateurs entre eux et les dénominateurs entre eux.`] } },
+
+  { partie: 0, theme: 'Comparer par le quotient', type: 'qcm',
+    enonce: r`On compare les nombres $A = 3^{7} \times 5$ et $B = 3^{6} \times 14$ à l'aide de leur quotient. On obtient&nbsp;:`,
+    choix: [r`$\dfrac{A}{B} = \dfrac{15}{14}$, donc $A > B$`, r`$\dfrac{A}{B} = \dfrac{15}{14}$, donc $A < B$`,
+            r`$\dfrac{A}{B} = \dfrac{5}{42}$, donc $A < B$`, r`$\dfrac{A}{B} = \dfrac{5}{14}$, donc $A < B$`],
+    bonne: 0,
+    explication: [
+      r`$A$ et $B$ sont strictement positifs&nbsp;: on compare leur quotient à $1$. On simplifie les puissances de $3$&nbsp;: $\dfrac{3^{7}}{3^{6}} = 3^{7 - 6} = 3$.`,
+      calcul(r`\dfrac{A}{B}`, r`& = \dfrac{3^{7} \times 5}{3^{6} \times 14}`, r`& = \dfrac{3 \times 5}{14}`, r`& = \dfrac{15}{14}`),
+      r`$\dfrac{15}{14} > 1$, donc <span class="resultat">$A > B$</span>&nbsp;: il faut multiplier $B$ par $\dfrac{15}{14}$ pour obtenir $A$. Attention&nbsp;: comparer $5$ et $14$ ne suffit pas, car les puissances de $3$ ne sont pas les mêmes.`],
+    revoir: r`méthode «&nbsp;comparer par le quotient&nbsp;» et capacité 1 du cours (question 5), exercice 2 de la fiche (question 2), exercice 84 p.&nbsp;102 du manuel`,
+    variante: {
+      enonce: r`On compare les nombres $A = 2^{9} \times 7$ et $B = 2^{11} \times 3$ à l'aide de leur quotient. On obtient&nbsp;:`,
+      choix: [r`$\dfrac{A}{B} = \dfrac{7}{12}$, donc $A < B$`, r`$\dfrac{A}{B} = \dfrac{7}{12}$, donc $A > B$`,
+              r`$\dfrac{A}{B} = \dfrac{28}{3}$, donc $A > B$`, r`$\dfrac{A}{B} = \dfrac{7}{3}$, donc $A > B$`],
+      bonne: 0,
+      explication: [
+        r`$A$ et $B$ sont strictement positifs&nbsp;: on compare leur quotient à $1$. On simplifie les puissances de $2$&nbsp;: $\dfrac{2^{9}}{2^{11}} = \dfrac{1}{2^{11 - 9}} = \dfrac{1}{2^{2}}$.`,
+        calcul(r`\dfrac{A}{B}`, r`& = \dfrac{2^{9} \times 7}{2^{11} \times 3}`, r`& = \dfrac{7}{2^{2} \times 3}`, r`& = \dfrac{7}{12}`),
+        r`$\dfrac{7}{12} < 1$, donc <span class="resultat">$A < B$</span>&nbsp;: il faut multiplier $B$ par $\dfrac{7}{12}$ pour obtenir $A$. Attention&nbsp;: comparer $7$ et $3$ ne suffit pas, car les puissances de $2$ ne sont pas les mêmes.`] } },
+
+  { partie: 0, theme: 'Évolution d\'un prix', type: 'vf',
+    enonce: r`Le prix d'un casque audio passe de $50$&nbsp;€ à $40$&nbsp;€. Il a donc baissé de $10$&nbsp;€, c'est-à-dire de $25\,\%$.`,
+    bonne: false,
+    explication: [
+      r`La différence donne l'évolution en euros&nbsp;; le quotient du nouveau prix par l'ancien donne le coefficient multiplicateur $C$, et le taux d'évolution est $t = C - 1$.`,
+      calcul(r`40 - 50 & = -10`, r`\dfrac{40}{50} & = \dfrac{4 \mul{\times 10}}{5 \mul{\times 10}}`, r`& = \dfrac{4}{5} = 0{,}8`),
+      r`Le prix a bien baissé de $10$&nbsp;€, mais il a été multiplié par $0{,}8$&nbsp;: $t = 0{,}8 - 1 = -0{,}2$, il a baissé de $20\,\%$, et non de $25\,\%$. L'affirmation est <span class="resultat">fausse</span>. Attention&nbsp;: le pourcentage se calcule par rapport au prix de départ, $\dfrac{10}{50} = 0{,}2$&nbsp;; $\dfrac{10}{40} = 0{,}25$ le calcule par rapport au prix d'arrivée.`],
+    revoir: r`méthode «&nbsp;comparer par la différence, par le quotient&nbsp;» et capacité 1 du cours (question 6), exercice 2 de la fiche (question 4)`,
+    variante: {
+      enonce: r`Le prix d'un abonnement passe de $20$&nbsp;€ à $25$&nbsp;€. Il a donc augmenté de $5$&nbsp;€, c'est-à-dire de $25\,\%$.`,
+      bonne: true,
+      explication: [
+        r`La différence donne l'évolution en euros&nbsp;; le quotient du nouveau prix par l'ancien donne le coefficient multiplicateur $C$, et le taux d'évolution est $t = C - 1$.`,
+        calcul(r`25 - 20 & = 5`, r`\dfrac{25}{20} & = \dfrac{5 \mul{\times 5}}{4 \mul{\times 5}}`, r`& = \dfrac{5}{4} = 1{,}25`),
+        r`Le prix a augmenté de $5$&nbsp;€ et il a été multiplié par $1{,}25$&nbsp;: $t = 1{,}25 - 1 = 0{,}25$, il a augmenté de $25\,\%$. L'affirmation est <span class="resultat">vraie</span>. Le pourcentage se calcule par rapport au prix de départ&nbsp;: $\dfrac{5}{20} = 0{,}25$.`] } },
+
+  /* ----- Inéquations du premier degré (partie 2 du cours, capacité 2, activité 1, exercice 3 de la fiche) ----- */
+
+  { partie: 0, theme: 'Inéquation du premier degré', type: 'qcm',
+    enonce: r`L'ensemble des solutions de l'inéquation $2(3x - 4) \ge 9x + 7$ est&nbsp;:`,
+    choix: [r`$\left]-\infty\,;\,-5\right]$`, r`$\left[-5\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,-5\right[$`, r`$\left]-\infty\,;\,-\dfrac{11}{3}\right]$`],
+    bonne: 0,
+    explication: [
+      r`On isole $x$&nbsp;: on développe, on regroupe les termes en $x$ dans le membre de gauche et les nombres dans celui de droite, puis on divise par le coefficient de $x$.`,
+      calcul(r`2(3x - 4) \ge 9x + 7`, r`& \iff 6x - 8 \ge 9x + 7`, r`& \iff 6x - 8 \op{- 9x} \ge 9x + 7 \op{- 9x}`, r`& \iff -3x - 8 \op{+ 8} \ge 7 \op{+ 8}`, r`& \iff -3x \ge 15`, r`& \iff \dfrac{-3x}{\op{-3}} \le \dfrac{15}{\op{-3}}`, r`& \iff x \le -5`),
+      r`On divise par $-3$, un nombre négatif&nbsp;: le sens de l'inégalité change. L'inégalité est large, $-5$ est solution&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-5\right]$</span>. Vérification avec $x = -6$&nbsp;: $2 \times (-22) = -44$ et $9 \times (-6) + 7 = -47$&nbsp;; on a bien $-44 \ge -47$.`],
+    revoir: r`propriété «&nbsp;inéquations équivalentes&nbsp;» et capacité 2 du cours (question 1), exercice 3 de la fiche (questions 1 et 2), exercice 138 p.&nbsp;105 du manuel`,
+    variante: {
+      enonce: r`L'ensemble des solutions de l'inéquation $3(x - 2) < 7x + 10$ est&nbsp;:`,
+      choix: [r`$\left]-4\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,-4\right[$`, r`$\left[-4\,;\,+\infty\right[$`, r`$\left]-3\,;\,+\infty\right[$`],
+      bonne: 0,
+      explication: [
+        r`On isole $x$&nbsp;: on développe, on regroupe les termes en $x$ dans le membre de gauche et les nombres dans celui de droite, puis on divise par le coefficient de $x$.`,
+        calcul(r`3(x - 2) < 7x + 10`, r`& \iff 3x - 6 < 7x + 10`, r`& \iff 3x - 6 \op{- 7x} < 7x + 10 \op{- 7x}`, r`& \iff -4x - 6 \op{+ 6} < 10 \op{+ 6}`, r`& \iff -4x < 16`, r`& \iff \dfrac{-4x}{\op{-4}} > \dfrac{16}{\op{-4}}`, r`& \iff x > -4`),
+        r`On divise par $-4$, un nombre négatif&nbsp;: le sens de l'inégalité change. L'inégalité est stricte, $-4$ n'est pas solution&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-4\,;\,+\infty\right[$</span>. Vérification avec $x = 0$&nbsp;: $3 \times (-2) = -6$ et $7 \times 0 + 10 = 10$&nbsp;; on a bien $-6 < 10$.`] } },
+
+  { partie: 0, theme: 'Inéquation avec des fractions', type: 'qcm',
+    enonce: r`L'ensemble des solutions de l'inéquation $\dfrac{x}{2} + 3 < \dfrac{2x + 1}{3}$ est&nbsp;:`,
+    choix: [r`$\left]16\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,16\right[$`, r`$\left]1\,;\,+\infty\right[$`, r`$\left]17\,;\,+\infty\right[$`],
+    bonne: 0,
+    explication: [
+      r`On multiplie les deux membres par $6$, multiple commun de $2$ et de $3$, positif&nbsp;: le sens ne change pas. On multiplie chaque terme, le $3$ compris.`,
+      calcul(r`\dfrac{x}{2} + 3 < \dfrac{2x + 1}{3}`, r`& \iff \left(\dfrac{x}{2} + 3\right) \op{\times 6} < \dfrac{2x + 1}{3} \op{\times 6}`, r`& \iff 3x + 18 < 4x + 2`, r`& \iff 3x + 18 \op{- 4x} < 4x + 2 \op{- 4x}`, r`& \iff -x + 18 \op{- 18} < 2 \op{- 18}`, r`& \iff -x < -16`, r`& \iff -x \op{\times (-1)} > -16 \op{\times (-1)}`, r`& \iff x > 16`),
+      r`On multiplie par $-1$, un nombre négatif&nbsp;: le sens change. L'inégalité est stricte&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]16\,;\,+\infty\right[$</span>. Attention&nbsp;: $3 \times 6 = 18$ et $\dfrac{2x + 1}{3} \times 6 = 2(2x + 1) = 4x + 2$.`],
+    revoir: r`capacité 2 du cours (question 2), exercice 3 de la fiche (question 3), question 13 du «&nbsp;Faire le point&nbsp;» p.&nbsp;107 du manuel`,
+    variante: {
+      enonce: r`L'ensemble des solutions de l'inéquation $\dfrac{x}{4} + 2 \ge \dfrac{x + 3}{2}$ est&nbsp;:`,
+      choix: [r`$\left]-\infty\,;\,2\right]$`, r`$\left[2\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,-4\right]$`, r`$\left]-\infty\,;\,5\right]$`],
+      bonne: 0,
+      explication: [
+        r`On multiplie les deux membres par $4$, multiple commun de $4$ et de $2$, positif&nbsp;: le sens ne change pas. On multiplie chaque terme, le $2$ compris.`,
+        calcul(r`\dfrac{x}{4} + 2 \ge \dfrac{x + 3}{2}`, r`& \iff \left(\dfrac{x}{4} + 2\right) \op{\times 4} \ge \dfrac{x + 3}{2} \op{\times 4}`, r`& \iff x + 8 \ge 2x + 6`, r`& \iff x + 8 \op{- 2x} \ge 2x + 6 \op{- 2x}`, r`& \iff -x + 8 \op{- 8} \ge 6 \op{- 8}`, r`& \iff -x \ge -2`, r`& \iff -x \op{\times (-1)} \le -2 \op{\times (-1)}`, r`& \iff x \le 2`),
+        r`On multiplie par $-1$, un nombre négatif&nbsp;: le sens change. L'inégalité est large&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,2\right]$</span>. Attention&nbsp;: $2 \times 4 = 8$ et $\dfrac{x + 3}{2} \times 4 = 2(x + 3) = 2x + 6$.`] } },
+
+  { partie: 0, theme: 'Modéliser par une inéquation', type: 'qcm',
+    enonce: r`Une médiathèque loue des films&nbsp;: $3$&nbsp;€ le film sans abonnement, ou un abonnement de $20$&nbsp;€ par an, puis $1$&nbsp;€ le film. On note $n$ le nombre de films loués dans l'année. L'abonnement est plus avantageux&nbsp;:`,
+    choix: [r`à partir de $11$ films`, r`à partir de $10$ films`, r`à partir de $7$ films`, r`pour moins de $10$ films`],
+    bonne: 0,
+    explication: [
+      r`On exprime les deux prix en fonction de $n$&nbsp;: $3n$ euros sans abonnement, $20 + n$ euros avec l'abonnement. L'abonnement est plus avantageux lorsqu'il coûte moins cher&nbsp;: $20 + n < 3n$.`,
+      calcul(r`20 + n < 3n`, r`& \iff 20 + n \op{- n} < 3n \op{- n}`, r`& \iff 20 < 2n`, r`& \iff \dfrac{20}{\op{2}} < \dfrac{2n}{\op{2}}`, r`& \iff 10 < n`),
+      r`Le nombre de films est un entier strictement supérieur à $10$&nbsp;: l'abonnement est plus avantageux <span class="resultat">à partir de $11$ films</span>. Pour $10$ films, les deux formules coûtent $30$&nbsp;€.`],
+    revoir: r`méthode «&nbsp;modéliser un problème par une inéquation&nbsp;» et capacité 2 du cours (question 4), activité 1, exercice 3 de la fiche (question 5), exercice 140 p.&nbsp;105 du manuel`,
+    variante: {
+      enonce: r`Une salle d'escalade propose deux formules&nbsp;: $12$&nbsp;€ la séance sans carte, ou une carte de $60$&nbsp;€ par an, puis $7$&nbsp;€ la séance. On note $n$ le nombre de séances dans l'année. La carte est plus avantageuse&nbsp;:`,
+      choix: [r`à partir de $13$ séances`, r`à partir de $12$ séances`, r`à partir de $6$ séances`, r`pour moins de $12$ séances`],
+      bonne: 0,
+      explication: [
+        r`On exprime les deux prix en fonction de $n$&nbsp;: $12n$ euros sans carte, $60 + 7n$ euros avec la carte. La carte est plus avantageuse lorsqu'elle coûte moins cher&nbsp;: $60 + 7n < 12n$.`,
+        calcul(r`60 + 7n < 12n`, r`& \iff 60 + 7n \op{- 7n} < 12n \op{- 7n}`, r`& \iff 60 < 5n`, r`& \iff \dfrac{60}{\op{5}} < \dfrac{5n}{\op{5}}`, r`& \iff 12 < n`),
+        r`Le nombre de séances est un entier strictement supérieur à $12$&nbsp;: la carte est plus avantageuse <span class="resultat">à partir de $13$ séances</span>. Pour $12$ séances, les deux formules coûtent $144$&nbsp;€.`] } },
+
+  /* ----- Signe d'un produit (partie 3 du cours, capacité 3, activité 2, exercice 4 de la fiche) ----- */
+
+  { partie: 0, theme: 'Signe d\'une fonction affine', type: 'vf',
+    enonce: r`Pour étudier le signe de $10 - 2x$, Léo écrit $10 - 2x = 0 \iff x = 5$, puis il dresse le tableau ci-dessous. Son tableau est juste.`
+      + tableauSignes(['5'], [['10 - 2x', '-z+']]),
+    bonne: false,
+    explication: [
+      r`$10 - 2x = -2x + 10$ s'annule bien en $5$, mais son coefficient $m = -2$ est négatif&nbsp;: à droite de $5$, l'expression est du signe de $m$, négative&nbsp;; à gauche, elle est positive. Vérification&nbsp;: pour $x = 0$, à gauche de $5$, $10 - 2 \times 0 = 10$ est positif.`,
+      tableauSignes(['5'], [['10 - 2x', '+z-']]),
+      r`Les signes de Léo sont inversés&nbsp;: l'affirmation est <span class="resultat">fausse</span>.`],
+    revoir: r`propriété «&nbsp;signe de $mx + p$&nbsp;» (partie 3 du cours), capacité 3 du cours (question 2), exercice 4 de la fiche (questions 2 et 3), exercice 112 p.&nbsp;234 du manuel`,
+    variante: {
+      enonce: r`Pour étudier le signe de $3x + 6$, Inès écrit $3x + 6 = 0 \iff x = -2$, puis elle dresse le tableau ci-dessous. Son tableau est juste.`
+        + tableauSignes(['−2'], [['3x + 6', '-z+']]),
+      bonne: true,
+      explication: [
+        r`$3x + 6$ s'annule bien en $-2$, et son coefficient $m = 3$ est positif&nbsp;: à droite de $-2$, l'expression est du signe de $m$, positive&nbsp;; à gauche, elle est négative. Vérification&nbsp;: pour $x = 0$, à droite de $-2$, $3 \times 0 + 6 = 6$ est positif.`,
+        tableauSignes(['−2'], [['3x + 6', '-z+']]),
+        r`Le tableau d'Inès est juste&nbsp;: l'affirmation est <span class="resultat">vraie</span>.`] } },
+
+  { partie: 0, theme: 'Tableau de signes d\'un produit', type: 'qcm',
+    enonce: r`Le tableau de signes de $A(x) = (4 - 2x)(x + 3)$ est&nbsp;:`,
+    choix: [tableauSignes(['−3', '2'], [['4 - 2x', '+t+z-'], ['x + 3', '-z+t+'], ['A(x)', '-z+z-']]),
+            tableauSignes(['−3', '2'], [['4 - 2x', '-t-z+'], ['x + 3', '-z+t+'], ['A(x)', '+z-z+']]),
+            tableauSignes(['2', '−3'], [['4 - 2x', '+z-t-'], ['x + 3', '-t-z+'], ['A(x)', '-z+z-']]),
+            tableauSignes(['−3', '2'], [['4 - 2x', '+t+z-'], ['x + 3', '-z+t+'], ['A(x)', '+z-z+']])],
+    bonne: 0,
+    explication: [
+      r`Pour chaque facteur, on cherche la valeur qui l'annule et le signe de son coefficient $m$&nbsp;: à droite de cette valeur, le facteur a le signe de $m$, à gauche le signe contraire.`,
+      calcul(r`4 - 2x = 0 & \iff -2x = -4`, r`& \iff x = 2`, r`x + 3 = 0 & \iff x = -3`),
+      r`$4 - 2x$ a pour coefficient $-2$, négatif&nbsp;: il est positif à gauche de $2$, négatif à droite. $x + 3$ a pour coefficient $1$, positif&nbsp;: il est négatif à gauche de $-3$, positif à droite. On range les valeurs dans l'ordre croissant, $-3 < 2$, puis on applique la règle des signes, colonne par colonne.`,
+      tableauSignes(['−3', '2'], [['4 - 2x', '+t+z-'], ['x + 3', '-z+t+'], ['A(x)', '-z+z-']]),
+      r`La ligne de $A(x)$ porte <span class="resultat">$-$, $0$ en $-3$, $+$, $0$ en $2$, $-$</span>&nbsp;: par exemple, $A(x) > 0$ pour $-3 < x < 2$. Attention&nbsp;: la ligne de $4 - 2x$ commence par $+$, car son coefficient est négatif.`],
+    revoir: r`méthode «&nbsp;dresser le tableau de signes d'un produit&nbsp;» et capacité 3 du cours, activité 2, exercice 4 de la fiche`,
+    variante: {
+      enonce: r`Le tableau de signes de $B(x) = (1 - x)(2x + 8)$ est&nbsp;:`,
+      choix: [tableauSignes(['−4', '1'], [['1 - x', '+t+z-'], ['2x + 8', '-z+t+'], ['B(x)', '-z+z-']]),
+              tableauSignes(['−4', '1'], [['1 - x', '-t-z+'], ['2x + 8', '-z+t+'], ['B(x)', '+z-z+']]),
+              tableauSignes(['1', '−4'], [['1 - x', '+z-t-'], ['2x + 8', '-t-z+'], ['B(x)', '-z+z-']]),
+              tableauSignes(['−4', '1'], [['1 - x', '+t+z-'], ['2x + 8', '-z+t+'], ['B(x)', '+z-z+']])],
+      bonne: 0,
+      explication: [
+        r`Pour chaque facteur, on cherche la valeur qui l'annule et le signe de son coefficient $m$&nbsp;: à droite de cette valeur, le facteur a le signe de $m$, à gauche le signe contraire.`,
+        calcul(r`1 - x = 0 & \iff x = 1`, r`2x + 8 = 0 & \iff 2x = -8`, r`& \iff x = -4`),
+        r`$1 - x$ a pour coefficient $-1$, négatif&nbsp;: il est positif à gauche de $1$, négatif à droite. $2x + 8$ a pour coefficient $2$, positif&nbsp;: il est négatif à gauche de $-4$, positif à droite. On range les valeurs dans l'ordre croissant, $-4 < 1$, puis on applique la règle des signes, colonne par colonne.`,
+        tableauSignes(['−4', '1'], [['1 - x', '+t+z-'], ['2x + 8', '-z+t+'], ['B(x)', '-z+z-']]),
+        r`La ligne de $B(x)$ porte <span class="resultat">$-$, $0$ en $-4$, $+$, $0$ en $1$, $-$</span>&nbsp;: par exemple, $B(x) > 0$ pour $-4 < x < 1$. Attention&nbsp;: la ligne de $1 - x$ commence par $+$, car son coefficient est négatif.`] } },
+
+  /* ----- Signe d'un quotient (partie 4 du cours, capacité 4, exercice 5 de la fiche) ----- */
+
+  { partie: 0, theme: 'Tableau de signes d\'un quotient', type: 'qcm',
+    enonce: r`On pose $Q(x) = \dfrac{x + 4}{6 - 2x}$. Le tableau de signes de $Q(x)$ est&nbsp;:`,
+    choix: [tableauSignes(['−4', '3'], [['x + 4', '-z+t+'], ['6 - 2x', '+t+z-'], ['Q(x)', '-z+d-']]),
+            tableauSignes(['−4', '3'], [['x + 4', '-z+t+'], ['6 - 2x', '+t+z-'], ['Q(x)', '-z+z-']]),
+            tableauSignes(['−4', '3'], [['x + 4', '-z+t+'], ['6 - 2x', '-t-z+'], ['Q(x)', '+z-d+']]),
+            tableauSignes(['−4', '3'], [['x + 4', '-z+t+'], ['6 - 2x', '+t+z-'], ['Q(x)', '-d+z-']])],
+    bonne: 0,
+    explication: [
+      r`La valeur interdite annule le dénominateur&nbsp;: $Q(x)$ n'y existe pas, on la marque d'une double barre. Ailleurs, le quotient suit la même règle des signes que le produit, et il est nul là où son numérateur est nul.`,
+      calcul(r`6 - 2x = 0 & \iff -2x = -6`, r`& \iff x = 3`, r`x + 4 = 0 & \iff x = -4`),
+      r`La valeur interdite est $3$. Le dénominateur $6 - 2x$ a pour coefficient $-2$, négatif&nbsp;: il est positif à gauche de $3$, négatif à droite. Le numérateur $x + 4$ s'annule en $-4$, avec un coefficient positif.`,
+      tableauSignes(['−4', '3'], [['x + 4', '-z+t+'], ['6 - 2x', '+t+z-'], ['Q(x)', '-z+d-']]),
+      r`La ligne de $Q(x)$ porte <span class="resultat">$-$, $0$ en $-4$, $+$, une double barre en $3$, $-$</span>. Attention&nbsp;: en $3$, on met une double barre et non un $0$, car on ne divise pas par $0$.`],
+    revoir: r`propriété «&nbsp;signe d'un quotient&nbsp;» et capacité 4 du cours, exercice 5 de la fiche, exercice 112 p.&nbsp;234 et question 7 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237 du manuel`,
+    variante: {
+      enonce: r`On pose $R(x) = \dfrac{3 - x}{2x + 4}$. Le tableau de signes de $R(x)$ est&nbsp;:`,
+      choix: [tableauSignes(['−2', '3'], [['3 - x', '+t+z-'], ['2x + 4', '-z+t+'], ['R(x)', '-d+z-']]),
+              tableauSignes(['−2', '3'], [['3 - x', '+t+z-'], ['2x + 4', '-z+t+'], ['R(x)', '-z+z-']]),
+              tableauSignes(['−2', '3'], [['3 - x', '-t-z+'], ['2x + 4', '-z+t+'], ['R(x)', '+d-z+']]),
+              tableauSignes(['−2', '3'], [['3 - x', '+t+z-'], ['2x + 4', '-z+t+'], ['R(x)', '-z+d-']])],
+      bonne: 0,
+      explication: [
+        r`La valeur interdite annule le dénominateur&nbsp;: $R(x)$ n'y existe pas, on la marque d'une double barre. Ailleurs, le quotient suit la même règle des signes que le produit, et il est nul là où son numérateur est nul.`,
+        calcul(r`2x + 4 = 0 & \iff 2x = -4`, r`& \iff x = -2`, r`3 - x = 0 & \iff x = 3`),
+        r`La valeur interdite est $-2$&nbsp;; le dénominateur $2x + 4$ a pour coefficient $2$, positif. Le numérateur $3 - x$ s'annule en $3$ et a pour coefficient $-1$, négatif&nbsp;: il est positif à gauche de $3$, négatif à droite.`,
+        tableauSignes(['−2', '3'], [['3 - x', '+t+z-'], ['2x + 4', '-z+t+'], ['R(x)', '-d+z-']]),
+        r`La ligne de $R(x)$ porte <span class="resultat">$-$, une double barre en $-2$, $+$, $0$ en $3$, $-$</span>. Attention&nbsp;: en $-2$, on met une double barre et non un $0$, car on ne divise pas par $0$.`] } },
+
+  /* ----- Inéquations produit ou quotient (partie 5 du cours, capacité 5, exercice 6 de la fiche) ----- */
+
+  { partie: 0, theme: 'Inéquation produit', type: 'qcm',
+    enonce: r`L'ensemble des solutions de l'inéquation $x^{2} \ge 7x$ est&nbsp;:`,
+    choix: [r`$\left]-\infty\,;\,0\right] ∪ \left[7\,;\,+\infty\right[$`, r`$\left[7\,;\,+\infty\right[$`,
+            r`$\left]-\infty\,;\,0\right[ ∪ \left]7\,;\,+\infty\right[$`, r`$\left[0\,;\,7\right]$`],
+    bonne: 0,
+    explication: [
+      r`On ne divise pas par $x$, dont le signe dépend de $x$&nbsp;: on se ramène à une comparaison avec $0$ en retranchant $7x$ aux deux membres, puis on factorise par $x$.`,
+      calcul(r`x^{2} \ge 7x`, r`& \iff x^{2} \op{- 7x} \ge 7x \op{- 7x}`, r`& \iff x^{2} - 7x \ge 0`, r`& \iff x(x - 7) \ge 0`),
+      r`Le facteur $x$ s'annule en $0$, le facteur $x - 7$ en $7$&nbsp;; leurs coefficients sont positifs. On dresse le tableau de signes du produit.`,
+      tableauSignes(['0', '7'], [['x', '-z+t+'], ['x - 7', '-t-z+'], ['x(x - 7)', '+z-z+']]),
+      r`On garde les colonnes où le produit est positif et, l'inégalité étant large, les valeurs où il est nul&nbsp;: l'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,0\right] ∪ \left[7\,;\,+\infty\right[$</span>. Attention&nbsp;: diviser par $x$ donnerait $x \ge 7$ et ferait perdre les solutions négatives ou nulles, comme $-1$&nbsp;: $(-1)^{2} = 1 \ge -7$.`],
+    revoir: r`méthode «&nbsp;résoudre une inéquation à l'aide d'un tableau de signes&nbsp;» et capacité 5 du cours (questions 1 et 2), exercice 6 de la fiche (questions 1, 2 et 5), exercice 115 p.&nbsp;234 et question 8&nbsp;a du «&nbsp;Faire le point&nbsp;» p.&nbsp;237 du manuel`,
+    variante: {
+      enonce: r`L'ensemble des solutions de l'inéquation $x^{2} \le 6x$ est&nbsp;:`,
+      choix: [r`$\left[0\,;\,6\right]$`, r`$\left]-\infty\,;\,6\right]$`, r`$\left]0\,;\,6\right[$`, r`$\left]-\infty\,;\,0\right] ∪ \left[6\,;\,+\infty\right[$`],
+      bonne: 0,
+      explication: [
+        r`On ne divise pas par $x$, dont le signe dépend de $x$&nbsp;: on se ramène à une comparaison avec $0$ en retranchant $6x$ aux deux membres, puis on factorise par $x$.`,
+        calcul(r`x^{2} \le 6x`, r`& \iff x^{2} \op{- 6x} \le 6x \op{- 6x}`, r`& \iff x^{2} - 6x \le 0`, r`& \iff x(x - 6) \le 0`),
+        r`Le facteur $x$ s'annule en $0$, le facteur $x - 6$ en $6$&nbsp;; leurs coefficients sont positifs. On dresse le tableau de signes du produit.`,
+        tableauSignes(['0', '6'], [['x', '-z+t+'], ['x - 6', '-t-z+'], ['x(x - 6)', '+z-z+']]),
+        r`On garde la colonne où le produit est négatif et, l'inégalité étant large, les valeurs où il est nul&nbsp;: l'ensemble des solutions est <span class="resultat">$\left[0\,;\,6\right]$</span>. Attention&nbsp;: diviser par $x$ donnerait $x \le 6$, qui contient à tort les nombres négatifs, comme $-1$&nbsp;: $(-1)^{2} = 1$ n'est pas inférieur ou égal à $-6$.`] } },
+
+  { partie: 0, theme: 'Inéquation quotient', type: 'qcm',
+    enonce: r`L'ensemble des solutions de l'inéquation $\dfrac{6 - 3x}{x + 1} \ge 0$ est&nbsp;:`,
+    choix: [r`$\left]-1\,;\,2\right]$`, r`$\left[-1\,;\,2\right]$`, r`$\left]-\infty\,;\,-1\right[ ∪ \left[2\,;\,+\infty\right[$`, r`$\left]-1\,;\,2\right[$`],
+    bonne: 0,
+    explication: [
+      r`On cherche la valeur interdite, qui annule le dénominateur, et la valeur qui annule le numérateur&nbsp;; puis on dresse le tableau de signes du quotient, noté $Q(x)$, comme pour un produit.`,
+      calcul(r`x + 1 = 0 & \iff x = -1`, r`6 - 3x = 0 & \iff -3x = -6`, r`& \iff x = 2`),
+      r`La valeur interdite est $-1$&nbsp;: double barre. Le numérateur $6 - 3x$ a pour coefficient $-3$, négatif&nbsp;: il est positif à gauche de $2$, négatif à droite. Le dénominateur $x + 1$ a pour coefficient $1$, positif.`,
+      tableauSignes(['−1', '2'], [['6 - 3x', '+t+z-'], ['x + 1', '-z+t+'], ['Q(x)', '-d+z-']]),
+      r`On garde la colonne où le quotient est positif et, l'inégalité étant large, la valeur $2$, où il est nul&nbsp;; la valeur interdite $-1$ n'est jamais solution. L'ensemble des solutions est <span class="resultat">$\left]-1\,;\,2\right]$</span>. Attention&nbsp;: le crochet est toujours ouvert du côté d'une valeur interdite.`],
+    revoir: r`méthode «&nbsp;résoudre une inéquation à l'aide d'un tableau de signes&nbsp;» et capacité 5 du cours (question 3), exercice 6 de la fiche (question 3), question 8&nbsp;b du «&nbsp;Faire le point&nbsp;» p.&nbsp;237 du manuel`,
+    variante: {
+      enonce: r`L'ensemble des solutions de l'inéquation $\dfrac{x + 3}{8 - 2x} \le 0$ est&nbsp;:`,
+      choix: [r`$\left]-\infty\,;\,-3\right] ∪ \left]4\,;\,+\infty\right[$`, r`$\left]-\infty\,;\,-3\right] ∪ \left[4\,;\,+\infty\right[$`,
+              r`$\left[-3\,;\,4\right[$`, r`$\left]-\infty\,;\,-3\right[ ∪ \left]4\,;\,+\infty\right[$`],
+      bonne: 0,
+      explication: [
+        r`On cherche la valeur interdite, qui annule le dénominateur, et la valeur qui annule le numérateur&nbsp;; puis on dresse le tableau de signes du quotient, noté $Q(x)$, comme pour un produit.`,
+        calcul(r`8 - 2x = 0 & \iff -2x = -8`, r`& \iff x = 4`, r`x + 3 = 0 & \iff x = -3`),
+        r`La valeur interdite est $4$&nbsp;: double barre. Le dénominateur $8 - 2x$ a pour coefficient $-2$, négatif&nbsp;: il est positif à gauche de $4$, négatif à droite. Le numérateur $x + 3$ a pour coefficient $1$, positif.`,
+        tableauSignes(['−3', '4'], [['x + 3', '-z+t+'], ['8 - 2x', '+t+z-'], ['Q(x)', '-z+d-']]),
+        r`On garde les colonnes où le quotient est négatif et, l'inégalité étant large, la valeur $-3$, où il est nul&nbsp;; la valeur interdite $4$ n'est jamais solution. L'ensemble des solutions est <span class="resultat">$\left]-\infty\,;\,-3\right] ∪ \left]4\,;\,+\infty\right[$</span>. Attention&nbsp;: le crochet est toujours ouvert du côté d'une valeur interdite.`] } }
+  ]
+};
+
+/* ---------- Conversion des formules ($...$, mini-LaTeX) en HTML ---------- */
+const SYM = {
+  times: '×', cdot: '·', dots: '…', ldots: '…', cdots: '…', ne: '≠', neq: '≠', le: '≤', leq: '≤',
+  ge: '≥', geq: '≥', approx: '≈', infty: '∞', forall: '∀', in: '∈', N: 'ℕ', R: 'ℝ', Z: 'ℤ',
+  pm: '±', Delta: 'Δ', sum: 'Σ', pi: 'π', alpha: 'α', mapsto: '↦', to: '→', iff: '⇔',
+  Longleftrightarrow: '⇔', Leftrightarrow: '⇔', Rightarrow: '⇒', implies: '⇒',
+  quad: ' ', qquad: '  ', displaystyle: '', left: '', right: ''
+};
+const SYM1 = { ',': ' ', ';': ' ', ' ': ' ', '{': '{', '}': '}', '%': '%', '_': '_', '&': '&amp;', '$': '$', '\\': '<br>' };
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function math(s) {
+  let i = 0;
+  const skip = () => { while (i < s.length && s[i] === ' ') i++; };
+  function raw() {            // contenu brut d'un {groupe}, sans mise en italique
+    skip();
+    if (s[i] !== '{') return esc(s[i++] || '');
+    let prof = 0, out = '';
+    for (; i < s.length; i++) {
+      const c = s[i];
+      if (c === '{') { prof++; if (prof === 1) continue; }
+      if (c === '}') { prof--; if (prof === 0) { i++; break; } }
+      out += c;
+    }
+    return esc(out);
+  }
+  function group() { i++; let out = ''; while (i < s.length && s[i] !== '}') out += atom(); i++; return out; }
+  function arg() { skip(); if (s[i] === '{') return group(); return atom(); }
+  const frac = (a, b) => `<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`;
+  function atom() {
+    if (i >= s.length) return '';
+    const c = s[i];
+    if (c === '{') return group();
+    if (c === '}') { i++; return ''; }
+    if (c === '\\') {
+      const n = s[i + 1];
+      if (n === undefined) { i++; return ''; }
+      if (!/[a-zA-Z]/.test(n)) { i += 2; return SYM1[n] !== undefined ? SYM1[n] : esc(n); }
+      let j = i + 1;
+      while (j < s.length && /[a-zA-Z]/.test(s[j])) j++;
+      const nom = s.slice(i + 1, j); i = j;
+      if (nom === 'frac' || nom === 'dfrac' || nom === 'tfrac') { const a = arg(); const b = arg(); return frac(a, b); }
+      if (nom === 'mathrm' || nom === 'text') return `<span class="rm">${raw()}</span>`;
+      if (nom === 'textbf') return `<b class="rm">${raw()}</b>`;
+      if (nom === 'mathscr') return `<i>${raw()}</i>`;
+      if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
+      if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
+      if (nom === 'op') return `<span class="op">${arg()}</span>`;
+      if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
+      return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
+    }
+    if (c === '_' || c === '^') { i++; const a = arg(); return c === '_' ? `<sub>${a}</sub>` : `<sup>${a}</sup>`; }
+    i++;
+    if (/[a-zA-Z]/.test(c)) return `<i>${c}</i>`;
+    if (c === '-') return '−';
+    if (c === '*') return '×';
+    if (c === "'") return '<span class="prime">′</span>';
+    return esc(c);
+  }
+  let out = '';
+  while (i < s.length) out += atom();
+  return out;
+}
+// Une formule : KaTeX s'il est chargé, sinon (pas encore là, hors ligne, CDN filtré, commande qu'il
+// refuse) le mini-LaTeX, qui garde la source dans data-tex pour que katexPret() la recompose.
+// (## : signe # d'une couleur dans une macro, # seul désignant un argument)
+const MACROS = { '\\mul': '\\textcolor{##9C27B0}{#1}', '\\op': '\\textcolor{##CE2029}{#1}', '\\resultat': '\\boxed{#1}' };
+function katexDispo() {
+  const feuille = document.getElementById('katex-css');
+  return !!window.katex && !!feuille && feuille.media === 'all';
+}
+function katexHTML(f) {
+  try { return katex.renderToString(f, { macros: Object.assign({}, MACROS), throwOnError: true, strict: false }); }
+  catch (e) { return null; }
+}
+function formule(f) {
+  const k = katexDispo() ? katexHTML(f) : null;
+  return k || `<span class="m${f.length > 42 ? ' m-long' : ''}" data-tex="${esc(f).replace(/"/g, '&quot;')}">${math(f)}</span>`;
+}
+window.katexPret = function () {
+  if (!katexDispo()) return;
+  document.querySelectorAll('.m[data-tex]').forEach(e => {
+    const k = katexHTML(e.dataset.tex);
+    if (k) e.outerHTML = k;
+  });
+};
+function tex(src) {
+  return String(src).split(/(\$[^$]*\$)/).map(p =>
+    (p.length >= 2 && p[0] === '$' && p[p.length - 1] === '$') ? formule(p.slice(1, -1)) : p
+  ).join('');
+}
+
+/* ---------- État (enregistré sur l'appareil, pour reprendre plus tard) ---------- */
+const N = QUIZ.questions.length;
+const CLE = 'quiz-' + QUIZ.id;
+const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length
+  + (q.variante ? '~' + q.variante.enonce.length : '')).join('|');
+const MODE_CORRIGE = /(\?|&|#)corrige/.test(location.search + location.hash);
+// La question i dans sa variante : les champs que la variante ne donne pas viennent de la question.
+const variante = i => Object.assign({}, QUIZ.questions[i], QUIZ.questions[i].variante);
+
+function melange(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const ordreDe = q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k));
+// reprise : null, ou la reprise des questions manquées { rangs (questions d'origine), ordre, reponses, courant }.
+function nouvelEtat() {
+  return {
+    signature: SIGNATURE,
+    ordre: QUIZ.questions.map(ordreDe),
+    reponses: Array(N).fill(null),
+    courant: 0,
+    reprise: null
+  };
+}
+function repriseValide(R) {
+  return !!R && Array.isArray(R.rangs) && R.rangs.length > 0 && Array.isArray(R.ordre) && Array.isArray(R.reponses)
+    && R.ordre.length === R.rangs.length && R.reponses.length === R.rangs.length
+    && R.rangs.every(i => QUIZ.questions[i] && QUIZ.questions[i].variante);
+}
+function charger() {
+  try {
+    const s = JSON.parse(localStorage.getItem(CLE));
+    if (s && s.signature === SIGNATURE && Array.isArray(s.reponses) && s.reponses.length === N && Array.isArray(s.ordre)) {
+      s.courant = Math.min(Math.max(0, s.courant | 0), N);
+      if (repriseValide(s.reprise)) s.reprise.courant = Math.min(Math.max(0, s.reprise.courant | 0), s.reprise.rangs.length);
+      else s.reprise = null;
+      return s;
+    }
+  } catch (e) { /* stockage indisponible : on repart de zéro */ }
+  return null;
+}
+function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* sans importance */ } }
+
+let etat = charger() || nouvelEtat();
+let selection = null;
+
+const $ = sel => document.querySelector(sel);
+const zoneProg = $('#progression');
+const zoneQuiz = $('#quiz');
+const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
+// Une seule partie : aucun nom de partie n'est affiché (grille, question, corrigé, note).
+const UNE_PARTIE = QUIZ.parties.length === 1;
+const questionsDe = p => QUIZ.questions.map((q, i) => q.partie === p ? i : -1).filter(i => i >= 0);
+
+/* ---------- Affichage ---------- */
+// Explication : un texte, ou une liste de blocs (paragraphes, calculs en colonne, figures).
+function explicationHTML(q) {
+  const blocs = Array.isArray(q.explication) ? q.explication : [q.explication];
+  return blocs.map(b => /^<(div|svg)\b/.test(b) ? tex(b) : '<p>' + tex(b) + '</p>').join('');
+}
+
+function reponseTexte(q, choix) {
+  if (q.type === 'vf') return choix ? 'Vrai' : 'Faux';
+  return '« ' + tex(q.choix[choix]) + ' »';
+}
+
+// Tour en cours : le premier passage (les questions du fichier), ou la reprise des questions
+// manquées (leurs variantes). Chacun a ses réponses, l'ordre de ses choix et sa question courante k ;
+// le numéro affiché est toujours celui de la question d'origine.
+function tourCourant() {
+  const R = etat.reprise;
+  if (R && R.courant < R.rangs.length)
+    return { reprise: true, etat: R, total: R.rangs.length, question: k => variante(R.rangs[k]), numero: k => R.rangs[k] + 1 };
+  return { reprise: false, etat: etat, total: N, question: k => QUIZ.questions[k], numero: k => k + 1 };
+}
+
+// Une grille de réponses. items = [{cle, numero, rep}] ; attr = data-q (premier passage) ou data-r (reprise).
+function grille(nom, items, courant, attr) {
+  const faites = items.filter(it => it.rep).length;
+  let nums = '', marques = '';
+  items.forEach(it => {
+    const ici = it.cle === courant;
+    nums += `<td class="${ici ? 'ici' : ''}"><button type="button" class="aller" ${attr}="${it.cle}" aria-label="Aller à la question ${it.numero}">${it.numero}</button></td>`;
+    marques += it.rep
+      ? `<td class="${it.rep.ok ? 'juste' : 'erreur'}${ici ? ' courant' : ''}" ${attr}="${it.cle}"><span class="marque ${it.rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`
+      : `<td class="${ici ? 'courant' : ''}" ${attr}="${it.cle}"></td>`;
+  });
+  return `<div class="bloc-grille">${nom ? `<p class="nom-partie">${nom}</p>` : ''}
+    <table class="grille-reponses" aria-label="${nom || 'Réponses'} : ${faites} question${faites > 1 ? 's' : ''} sur ${items.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+}
+
+function rendreProgression() {
+  if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
+  const T = tourCourant(), R = etat.reprise;
+  zoneProg.innerHTML = T.reprise
+    ? grille('Reprise des questions manquées', R.rangs.map((i, k) => ({ cle: k, numero: i + 1, rep: R.reponses[k] })), R.courant, 'data-r')
+    : QUIZ.parties.map((nom, p) => grille(UNE_PARTIE ? '' : nomPartie(p),
+        questionsDe(p).map(i => ({ cle: i, numero: i + 1, rep: etat.reponses[i] })), etat.courant, 'data-q')).join('');
+}
+
+function rendre() {
+  rendreProgression();
+  if (MODE_CORRIGE) return rendreCorrige();
+  const T = tourCourant();
+  if (T.etat.courant >= T.total) rendreResultat(); else rendreQuestion(T, T.etat.courant);
+}
+
+function boite(marque) {
+  return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
+}
+
+function rendreQuestion(T, k) {
+  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = k === T.total - 1;
+  const changePartie = !T.reprise && !derniere && QUIZ.questions[k + 1].partie !== q.partie;
+  const tete = T.reprise ? `Reprise des questions manquées · ${k + 1} sur ${T.total}` : UNE_PARTIE ? '' : nomPartie(q.partie);
+  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir ma note') : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante';
+  let options;
+  if (q.type === 'vf') {
+    options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (val === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (val === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
+    }).join('');
+  } else {
+    options = ordre.map((orig, j) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[j]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
+    }).join('');
+  }
+  const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
+  const correction = rep ? `<div class="correction ${rep.ok ? 'juste' : 'erreur'}" role="status">
+      <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
+      <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
+  const bouton = rep
+    ? `<button type="button" class="bouton" id="suivant">${suite}</button>`
+    : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
+  zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
+    ${tete ? `<p class="partie">${tete}</p>` : ''}
+    <p class="question" id="titre-q"><b>Question ${T.numero(k)}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
+    <div class="actions">${bouton}</div>
+    ${correction}
+  </article>`;
+  selection = null;
+  if (!rep) {
+    zoneQuiz.querySelectorAll('.choix').forEach(b => b.addEventListener('click', () => choisir(b, q)));
+    $('#valider').addEventListener('click', valider);
+  } else {
+    $('#suivant').addEventListener('click', suivant);
+  }
+}
+
+function choisir(b, q) {
+  zoneQuiz.querySelectorAll('.choix').forEach(o => {
+    const actif = o === b;
+    o.classList.toggle('choisi', actif);
+    o.setAttribute('aria-pressed', actif ? 'true' : 'false');
+    o.querySelector('.marque').className = actif ? 'marque croix' : 'marque';
+  });
+  selection = q.type === 'vf' ? b.dataset.val === 'true' : Number(b.dataset.val);
+  $('#valider').disabled = false;
+}
+
+function valider() {
+  const T = tourCourant(), k = T.etat.courant, q = T.question(k);
+  if (selection === null || T.etat.reponses[k]) return;
+  T.etat.reponses[k] = { choix: selection, ok: selection === q.bonne };
+  sauver();
+  rendre();
+  const suivantBtn = $('#suivant');
+  if (suivantBtn) suivantBtn.focus({ preventScroll: true });
+  const correction = $('.correction');
+  if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
+}
+
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question
+// (data-q : premier passage ; data-r : reprise des questions manquées).
+function aller(cible) {
+  if (cible.dataset.r !== undefined) etat.reprise.courant = Number(cible.dataset.r);
+  else etat.courant = Number(cible.dataset.q);
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function suivant() {
+  const T = tourCourant();
+  T.etat.courant = Math.min(T.etat.courant + 1, T.total);
+  selection = null;
+  sauver();
+  rendre();
+  // On remonte aux grilles de réponses, pas tout en haut : sur téléphone, l'en-tête occupe un écran.
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function recommencer() {
+  etat = nouvelEtat();
+  selection = null;
+  sauver();
+  rendre();
+  window.scrollTo({ top: 0, behavior: motion() });
+}
+// Deux clics pour tout effacer : le premier transforme le bouton en demande de confirmation.
+function demanderRecommencer(btn) {
+  const entame = etat.courant > 0 || etat.reponses.some(Boolean);
+  if (btn.dataset.minuteur) {
+    clearTimeout(Number(btn.dataset.minuteur));
+    btn.textContent = btn.dataset.texte;
+    delete btn.dataset.minuteur;
+    recommencer();
+  } else if (!entame) {
+    recommencer();
+  } else {
+    btn.dataset.texte = btn.textContent;
+    btn.textContent = 'Confirmer : effacer mes réponses';
+    btn.dataset.minuteur = String(setTimeout(() => { btn.textContent = btn.dataset.texte; delete btn.dataset.minuteur; }, 4000));
+  }
+}
+
+// Questions regroupées par partie : un titre, puis la liste produite par item(q, i).
+function listeParParties(item) {
+  return QUIZ.parties.map((nom, p) =>
+    `${UNE_PARTIE ? '' : `<h2 class="titre-partie">${nomPartie(p)}</h2>`}<ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
+  ).join('');
+}
+
+// Une question de la copie : énoncé, réponse donnée, explication.
+function itemRevue(q, rep, numero) {
+  const ok = !!(rep && rep.ok);
+  let bilan;
+  if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
+  else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  return `<li class="${ok ? 'juste' : 'erreur'}">
+    <p class="question"><b>Question ${numero}.</b> <i>${q.theme}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <p class="bilan">${bilan}</p>
+    <div class="explication">${explicationHTML(q)}</div>
+  </li>`;
+}
+
+function revueHTML() {
+  return listeParParties((q, i) => itemRevue(q, etat.reponses[i], i + 1));
+}
+
+function revueRepriseHTML() {
+  const R = etat.reprise;
+  return `<h2 class="titre-partie">Reprise des questions manquées</h2><ol class="revue">${R.rangs.map((i, k) => itemRevue(variante(i), R.reponses[k], i + 1)).join('')}</ol>`;
+}
+
+// Bouton qui montre ou cache une copie.
+function bascule(idBouton, idListe, texte) {
+  $('#' + idBouton).addEventListener('click', () => {
+    const liste = $('#' + idListe), btn = $('#' + idBouton);
+    liste.hidden = !liste.hidden;
+    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
+    btn.textContent = (liste.hidden ? 'Revoir ' : 'Masquer ') + texte;
+  });
+}
+
+// Reprise des questions manquées qui ont une variante : nouveau tour, noté à part.
+function reprendre(rangs) {
+  etat.reprise = { rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 };
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function rendreResultat() {
+  const juste = i => !!(etat.reponses[i] && etat.reponses[i].ok);
+  const score = QUIZ.questions.filter((q, i) => juste(i)).length;
+  const appreciation = score >= 0.75 * N
+    ? 'C\'est solide. Relis quand même les explications des questions manquées.'
+    : score >= 0.5 * N
+      ? 'L\'essentiel est là. Reprends les points listés ci-dessous, puis refais cet entraînement.'
+      : 'À retravailler avant l\'évaluation : reprends le cours et la fiche d\'exercices, puis refais cet entraînement.';
+  const sur20 = N === 20 ? '' : `<span class="sur">soit ${fr(Math.round(score * 20 / N * 2) / 2)} / 20</span>`;
+  const parties = QUIZ.parties.map((nom, p) => {
+    const rangs = questionsDe(p);
+    return `<span>${nomPartie(p)}&nbsp;: <b>${rangs.filter(juste).length} / ${rangs.length}</b></span>`;
+  }).join(' &emsp; ');
+  const aRevoir = [];
+  QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
+  const revoir = aRevoir.length
+    ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
+  // Questions manquées qui ont une variante, et reprise déjà faite (on n'arrive ici qu'une fois finie).
+  const manquees = QUIZ.questions.map((q, i) => i).filter(i => !juste(i) && QUIZ.questions[i].variante);
+  const R = etat.reprise, nm = manquees.length;
+  const bilanReprise = R
+    ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(x => x && x.ok).length} / ${R.rangs.length}</b></p>` : '';
+  const infoReprise = nm && !R
+    ? `<p class="reprise-info">Tu peux refaire ${nm > 1 ? 'les ' + nm + ' questions manquées' : 'la question manquée'}, un peu ${nm > 1 ? 'modifiées' : 'modifiée'}&nbsp;: mêmes notions, autres valeurs.</p>` : '';
+  zoneQuiz.innerHTML = `<article class="page-note" aria-labelledby="titre-r">
+    <p class="question" id="titre-r"><b>Note.</b></p>
+    <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
+    <p class="appreciation">${appreciation}</p>
+    ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
+    ${bilanReprise}
+    ${revoir}
+    ${infoReprise}
+    <div class="actions">
+      ${nm ? `<button type="button" class="bouton" id="reprendre">${R ? 'Refaire la reprise' : 'Refaire les questions manquées'}</button>` : ''}
+      <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
+      ${R ? '<button type="button" class="bouton" id="revoir-reprise" aria-expanded="false" aria-controls="revue-reprise">Revoir la reprise</button>' : ''}
+      <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
+    </div>
+    <div id="revue" hidden>${revueHTML()}</div>
+    ${R ? `<div id="revue-reprise" hidden>${revueRepriseHTML()}</div>` : ''}
+  </article>`;
+  bascule('revoir', 'revue', 'la copie');
+  if (R) bascule('revoir-reprise', 'revue-reprise', 'la reprise');
+  if (nm) $('#reprendre').addEventListener('click', () => reprendre(manquees));
+  $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+}
+
+function rendreCorrige() {
+  // Énoncé, choix (bonne réponse en vert), explication.
+  const corps = q => `<div class="enonce">${tex(q.enonce)}</div>
+      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
+      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
+      <div class="explication">${explicationHTML(q)}</div>`;
+  zoneQuiz.innerHTML = `<article>
+    <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
+    ${listeParParties((q, i) => `<li class="juste">
+      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
+      ${corps(q)}
+      ${q.variante ? `<div class="variante"><p class="question"><b>Variante</b> <i>(reprise des questions manquées)</i></p>${corps(variante(i))}</div>` : ''}
+    </li>`)}
+  </article>`;
+}
+
+/* ---------- Démarrage ---------- */
+$('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+zoneProg.addEventListener('click', e => {
+  const cible = e.target.closest('[data-q],[data-r]');
+  if (cible) aller(cible);
+});
+rendre();
+})();
+</script>
+</body>
+</html>
