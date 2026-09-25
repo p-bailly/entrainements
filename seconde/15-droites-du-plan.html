@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement Évaluation droites du plan</title>
+<!--
+  Entraînement auto-corrigé à l'évaluation du chapitre 15 (Droites du plan) - Seconde.
+  Une seule partie, douze questions, sans automatismes (demande du professeur), dans l'ordre
+  du cours et des séances du plan, comme les exercices 2 à 4 de l'évaluation :
+    1 à 4    : équation cartésienne (parties 1 et 2 du cours, capacités 1 et 2) : un point
+               appartient-il à une droite (vrai ou faux), vecteur directeur (-b ; a) lu sur
+               une équation, équation cartésienne par un point et un vecteur directeur (avec
+               le déterminant), droite tracée à reconnaître parmi quatre (deux de ses points) ;
+    5 à 8    : équation réduite et pente (partie 3, capacités 3 et 4) : pente et équation
+               réduite par deux points, lecture graphique (ordonnée à l'origine, pente
+               fractionnaire), droite parallèle à l'axe des ordonnées (x = c, pas de pente),
+               passer de ax + by + c = 0 à y = mx + p (division par un coefficient négatif) ;
+    9 à 11   : parallélisme et alignement (partie 4, capacité 5) : droite parallèle à une
+               droite donnée, à choisir parmi quatre (les trois autres sont sécantes avec
+               elle), parallèle passant par un point, trois points alignés ou non (vrai ou
+               faux ; dans la question, le point est tout près de la droite) ;
+    12       : lecture de la fonction Python equation de l'activité 3 (coefficients d'une
+               équation de la droite (AB)).
+  Sources : théorème, méthodes et capacités 1 à 5 du cours (et leurs versions imprimées),
+  activités 1 (une droite et son équation), 2 (la pente d'une route) et 3 (programmer une
+  équation de droite), fiche d'exercices (exercices 1 à 5), évaluation (sujets A et B,
+  exercices 2 à 4 ; son QCM d'automatismes n'est pas repris) et exercices du manuel cités
+  dans le plan, hors « Plus rapides » (14, 15 et 16 p. 192 ; 25, 26, 27 et 31 p. 193 ; 41
+  p. 194 ; 96 et 104 p. 196 ; 130 p. 198 ; 151 p. 200, questions 1 à 3 ; « Faire le point »
+  p. 201, questions 1 à 4 et 6 à 8) ; la question 4 reprend aussi l'idée de l'exercice 93
+  p. 196 (des plus rapides).
+  Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs,
+  calculables de tête (calculatrice interdite, comme à l'évaluation). Ni point
+  d'intersection de deux droites sécantes ni système (chapitre 17) ; ni pente en pourcentage
+  (activité 2, exercice 4 de la fiche), ni problème « 64 = 65 ? » (étape « Plus rapides »),
+  absents de l'évaluation.
+  Distracteurs : erreurs types (-2 x (-5) calculé -10, coefficients (a ; b) ou (b ; a) pris
+  pour un vecteur directeur, y - (-3) écrit y - 3, (a ; b) de l'équation pris égal au
+  vecteur directeur, produits en croix du déterminant mal appariés, coordonnées des points
+  échangées ou signe perdu en traçant, pente inversée (variation des abscisses sur celle des
+  ordonnées), ordonnée d'un point donné prise pour p, abscisse du point d'intersection avec
+  l'axe des abscisses prise pour p, droite verticale dite de pente 0 ou confondue avec
+  y = c, signes non changés en passant un terme dans l'autre membre, un seul terme divisé,
+  signe perdu en divisant par un nombre négatif, coefficient de x pris pour la pente, même
+  ordonnée à l'origine prise pour un parallélisme, p non recalculé ou mal isolé, pente
+  opposée, b = xB - xA dans le programme, signe de c).
+  Figures : repere du gabarit (droites, lectures en tirets verts), complété par
+  repereDroites (droite parallèle à l'axe des ordonnées, que repere ne trace pas) ;
+  programmePython (repris du chapitre 8) pour la fonction de l'activité 3.
+  Calculs en colonne : l'équation ou l'expression de départ seule sur la première ligne,
+  puis une étape par ligne, pour que chaque ligne tienne sur un écran de téléphone.
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
+
+  Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
+  entrainement-15-droites-du-plan-questions.js (même dossier) ; moteur et mise en page :
+  Commun aux cours/entrainement/gabarit.html (format des questions en tête).
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/seconde/15-droites-du-plan.html
+  (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&display=swap">
+<!-- KaTeX, chargé sans bloquer la page (réseau du lycée parfois filtré) : les formules s'affichent
+     d'abord en mini-LaTeX, puis KaTeX les recompose sur place dès que sa feuille et son script sont là. -->
+<link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css" integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous" media="print" onload="this.media='all'; if (window.katexPret) katexPret()">
+<script async src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js" integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj" crossorigin="anonymous" onload="if (window.katexPret) katexPret()"></script>
+<style>
+:root{
+  --papier:#FCFBF7; --encre:#161616; --gris:#6B6A66; --filet:#C4BFB3; --filet-clair:#E4E0D6; --case:#F0EDE5;
+  --stylo:#1E3D96; --rouge:#CE2029; --vert:#2A7A36; --orange:#E8940A; --violet:#7A3E9D;
+  --serif:"Old Standard TT","Times New Roman",Times,serif;
+  --main:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --mono:ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 var(--serif); min-height:100vh}
+.feuille{max-width:720px; margin:0 auto; padding:34px 40px 60px}
+
+/* Retour à la liste des entraînements */
+.retour{margin:0 0 14px; font-size:.95rem}
+.retour a{color:var(--stylo); text-decoration:none; border-bottom:1px solid var(--filet)}
+.retour a:hover,.retour a:focus-visible{border-bottom-color:var(--stylo)}
+
+/* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
+.mul{color:#9C27B0}
+/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
+.op{color:var(--rouge)}
+
+/* En-tête de la copie */
+.entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
+h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
+.consigne{margin:0 0 12px; font-style:italic}
+.filet{height:4px; border-top:1px solid var(--encre); border-bottom:1px solid var(--encre); margin:8px 0 20px}
+
+/* Grilles de réponses, une par partie */
+.progression{display:flex; flex-wrap:wrap; gap:10px 28px; margin:0 0 24px; scroll-margin-top:12px}
+.bloc-grille{max-width:100%; overflow-x:auto}
+.nom-partie{margin:0 0 3px; font-style:italic; font-size:.9rem; white-space:nowrap}
+.grille-reponses{border-collapse:collapse; font-size:.9rem}
+.grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
+.grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
+.grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
+.grille-reponses td[data-q],.grille-reponses td[data-r]{cursor:pointer}
+.grille-reponses td.ici{background:var(--filet-clair)}
+.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
+.grille-reponses button.aller:hover{text-decoration:underline}
+.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
+.grille-reponses td.juste{color:var(--vert)}
+.grille-reponses td.erreur{color:var(--rouge)}
+
+/* Marques au stylo : croix et coche dessinées en CSS */
+.marque{position:relative; display:inline-block; width:18px; height:18px; vertical-align:-4px; color:inherit}
+.marque::before,.marque::after{content:""; position:absolute; width:2px; background:currentColor; border-radius:1px; display:none}
+.marque.croix::before,.marque.croix::after{display:block; left:8px; top:-2px; height:22px}
+.marque.croix::before{transform:rotate(43deg)}
+.marque.croix::after{transform:rotate(-47deg)}
+.marque.coche::before,.marque.coche::after{display:block}
+.marque.coche::before{left:3px; top:8px; height:8px; transform:rotate(-42deg)}
+.marque.coche::after{left:10px; top:-2px; height:20px; transform:rotate(38deg)}
+
+/* Question et réponses */
+.partie{margin:0 0 2px; font-variant:small-caps; letter-spacing:.03em}
+.question{margin:0 0 6px}
+.question i{color:var(--gris)}
+.enonce{margin:0 0 14px}
+.reponses{display:grid; gap:6px; margin:0 0 18px}
+.reponses.vf{display:flex; gap:12px 40px; flex-wrap:wrap}
+.choix{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; padding:5px 4px; border:0; border-radius:0; background:transparent; color:var(--encre); font:inherit; line-height:1.45; cursor:pointer}
+.reponses.vf .choix{width:auto; padding-right:12px}
+.choix:disabled{cursor:default}
+.choix .boite{flex:none; position:relative; width:18px; height:18px; margin-top:5px; border:1px solid var(--encre); background:var(--papier)}
+.choix .boite .marque{position:absolute; left:-1px; top:-1px}
+.choix:hover:not(:disabled) .boite{box-shadow:0 0 0 1px var(--encre)}
+.choix .lettre{flex:none; width:1.3em; color:var(--gris)}
+.choix .texte{flex:1; min-width:0}
+.choix.choisi .marque{color:var(--stylo)}
+.choix.juste .marque{color:var(--vert)}
+.choix.erreur .marque{color:var(--rouge)}
+.choix.terne{color:var(--gris)}
+.actions{display:flex; gap:12px 18px; flex-wrap:wrap; align-items:center}
+.bouton{font:inherit; font-variant:small-caps; letter-spacing:.04em; font-size:1rem; padding:5px 18px; border:1px solid var(--encre); border-radius:0; background:var(--papier); color:var(--encre); cursor:pointer}
+.bouton:hover:not(:disabled){background:var(--encre); color:var(--papier)}
+.bouton:disabled{opacity:.4; cursor:default}
+.bouton.discret{border-color:var(--filet)}
+
+/* Correction du professeur */
+.correction{margin:20px 0 0; padding:2px 0 2px 16px; border-left:2px solid var(--rouge)}
+.correction.juste{border-left-color:var(--vert)}
+.verdict{font:600 1.7rem/1.1 var(--main); color:var(--rouge); margin:0 0 6px}
+.correction.juste .verdict{color:var(--vert)}
+.explication{margin:0; font-size:1rem; line-height:1.55}
+.explication p{margin:0 0 .55em}
+.explication p:last-child{margin-bottom:0}
+.explication .revoir{font-style:italic; color:var(--gris)}
+.explication .fig{margin:8px auto 12px}
+/* Calcul en colonne : une étape par ligne, alignées sur le signe = ou ⇔ (comme dans les PDF) */
+.calcul{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.45em .4em; align-items:baseline; margin:.3em 0 .5em 1.4em; padding:.2em 0 .3em; overflow-x:auto; overflow-y:hidden}
+.calcul .g{justify-self:end}
+.resultat{display:inline-block; border:1px solid currentColor; padding:.05em .4em; line-height:1.35}
+code{font-family:var(--mono); font-size:.88em}
+
+/* Figures dans les énoncés et les corrections */
+.fig{display:block; width:100%; height:auto; margin:12px auto 4px}
+.fig .grille{stroke:var(--filet); stroke-width:.7; fill:none}
+.fig .axe{stroke:var(--encre); stroke-width:1.1; fill:none}
+.fig .fleche{fill:var(--encre)}
+.fig .tick{font:10.5px var(--serif); fill:var(--encre); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .courbe{stroke:currentColor; stroke-width:2.2; fill:none}
+.fig .lab{font:italic 13px var(--serif); fill:currentColor; paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .pt{fill:currentColor}
+.fig .lecture{stroke:var(--vert); stroke-width:1.5; stroke-dasharray:5 3; fill:none}
+.fig .pointe{fill:var(--vert)}
+.fig .note{font:italic 11.5px var(--serif); fill:var(--vert); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .surligne{stroke:var(--orange); stroke-width:9; opacity:.6; fill:none}
+.fig .c-rouge{color:var(--rouge)}
+.fig .c-bleu{color:var(--stylo)}
+.fig .c-noir{color:var(--encre)}
+.fig .c-violet{color:var(--violet)}
+
+/* Résultat */
+.note{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:6px 0 2px; color:var(--rouge)}
+.note .grand{font:700 3.6rem/1 var(--main)}
+.note .sur{font:400 1.5rem/1 var(--main)}
+.appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
+.bilan-parties{margin:0 0 6px}
+.bilan-parties span{white-space:nowrap}
+.bilan-reprise{margin:0 0 10px}
+.reprise-info{margin:0 0 10px; font-style:italic}
+.a-revoir{margin:0 0 16px}
+.a-revoir ul{margin:4px 0 0; padding-left:1.3em}
+.titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
+.revue{list-style:none; padding:0; margin:8px 0 0; border-top:1px solid var(--encre)}
+.revue li{padding:14px 0; border-bottom:1px solid var(--filet)}
+.revue .enonce{margin-bottom:10px}
+.revue .bilan{margin:6px 0 8px; font-style:italic}
+.revue li.juste .bilan{color:var(--vert)}
+.revue li.erreur .bilan{color:var(--rouge)}
+.revue .explication{font-size:1rem}
+.liste-choix{margin:0 0 8px; padding-left:1.6em}
+.liste-choix li{border:0; padding:1px 0}
+.liste-choix li.bonne{color:var(--vert)}
+.variante{margin:14px 0 0; padding:0 0 0 14px; border-left:1px dashed var(--filet)}
+.pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
+.pied p{margin:0 0 4px}
+.pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
+
+/* Formules : KaTeX (réduit de 1,21 à 1,1 em pour s'accorder au texte), sinon mini-LaTeX (.m) */
+.katex{font-size:1.1em}
+.m{font-family:var(--serif); white-space:nowrap}
+.m.m-long{white-space:normal}
+.m i{font-style:italic}
+.m .rm{font-style:normal}
+.m sub,.m sup{font-size:.8em; line-height:0; white-space:nowrap}
+.m .prime{display:inline-block; margin-left:.08em; font-size:1.2em; line-height:0}
+.m sub{vertical-align:-.25em}
+.m sup{vertical-align:.55em}
+.frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; font-size:.92em; line-height:1.2; margin:0 .15em}
+.frac .num{border-bottom:1px solid currentColor; padding:0 .25em .04em}
+.frac .den{padding:.04em .25em 0}
+.sqrt .rad{border-top:1px solid currentColor; padding:0 .12em}
+
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important; scroll-behavior:auto !important}}
+@media (max-width:520px){
+  body{font-size:17px}
+  .feuille{padding:22px 16px 48px}
+  .entete{font-size:.9rem}
+  h1{font-size:1.7rem}
+  .reponses.vf{gap:8px 24px}
+}
+@media print{
+  .actions,.pied,.progression{display:none}
+  .revue li{break-inside:avoid}
+}
+/* Feuille de calcul */
+table.tableur{border-collapse:collapse; margin:10px auto 4px; font:400 .88rem "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+table.tableur th{background:var(--case); color:var(--gris); font-weight:400; border:1px solid var(--filet); padding:2px 10px; text-align:center; min-width:2.2em}
+table.tableur td{border:1px solid var(--filet); padding:2px 10px; min-width:5em; height:1.9em; background:#FFFFFF; text-align:center}
+table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
+</style>
+</head>
+<body>
+<main class="feuille">
+  <header>
+    <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
+    <div class="entete"><span>Seconde</span><span>M. Bailly</span><span>Chapitre 15 · Droites du plan</span></div>
+    <h1>Entraînement Évaluation droites du plan</h1>
+    <p class="consigne">Douze questions sur les droites du plan. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="filet" role="presentation"></div>
+  </header>
+  <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
+  <section id="quiz" aria-live="polite"></section>
+  <footer class="pied">
+    <p><button type="button" id="reinitialiser">Recommencer depuis le début</button></p>
+  </footer>
+</main>
+<script>
+(function () {
+'use strict';
+const r = String.raw;
+
+/* ---------- Figures (SVG généré) ---------- */
+const arrondi = x => Math.round(x * 10) / 10;
+const fr = x => String(x).replace('.', ',');
+const moins = n => String(n).replace('-', '−');
+function fleche(x, y, sens) {
+  return sens === 'droite'
+    ? `<path class="fleche" d="M${x} ${y} l-7 -3.5 v7 z"/>`
+    : `<path class="fleche" d="M${x} ${y} l-3.5 7 h7 z"/>`;
+}
+// Repère orthonormé quadrillé et gradué de 1 en 1. o = {xmin, xmax, ymin, ymax, label, echelle} et, au choix :
+//   courbes  : [{f: x => ..., classe, x1, x2}]        classe = c-rouge (défaut), c-bleu, c-noir, c-violet
+//   noms     : [{x, y, texte, indice, apres, classe, ancre}]   nom d'une courbe, dans sa couleur
+//   lectures : [[[x, y], [x, y], ...], ...]            lignes de lecture en tirets verts, flèche au bout
+//   textes   : [{x, y, texte, ancre}]                  annotations vertes des lectures (+1, +3...)
+//   points   : [{x, y, classe}]
+//   surligne : {x1, x2}                                partie de l'axe des abscisses surlignée en orange (null = bord du repère)
+let numeroFigure = 0;
+function repere(o) {
+  const u = 26, m = 17;
+  const W = (o.xmax - o.xmin) * u + 2 * m, H = (o.ymax - o.ymin) * u + 2 * m;
+  const X = x => arrondi(m + (x - o.xmin) * u), Y = y => arrondi(m + (o.ymax - y) * u);
+  const cadre = 'cadre-' + (++numeroFigure);
+  const xfin = X(o.xmax) + 12, yhaut = Y(o.ymax) - 12;
+  let s = `<svg class="fig" viewBox="0 0 ${W} ${H}" style="max-width:${Math.round(W * (o.echelle || 1.3))}px" role="img" aria-label="${o.label}">`;
+  s += `<defs><clipPath id="${cadre}"><rect x="${X(o.xmin)}" y="${Y(o.ymax)}" width="${(o.xmax - o.xmin) * u}" height="${(o.ymax - o.ymin) * u}"/></clipPath></defs>`;
+  for (let x = o.xmin; x <= o.xmax; x++) s += `<line class="grille" x1="${X(x)}" y1="${Y(o.ymin)}" x2="${X(x)}" y2="${Y(o.ymax)}"/>`;
+  for (let y = o.ymin; y <= o.ymax; y++) s += `<line class="grille" x1="${X(o.xmin)}" y1="${Y(y)}" x2="${X(o.xmax)}" y2="${Y(y)}"/>`;
+  if (o.surligne) {
+    const x1 = o.surligne.x1 === null ? o.xmin : o.surligne.x1, x2 = o.surligne.x2 === null ? o.xmax : o.surligne.x2;
+    s += `<line class="surligne" x1="${X(x1)}" y1="${Y(0)}" x2="${X(x2)}" y2="${Y(0)}"/>`;
+  }
+  s += `<line class="axe" x1="${X(o.xmin)}" y1="${Y(0)}" x2="${xfin}" y2="${Y(0)}"/>${fleche(xfin, Y(0), 'droite')}`;
+  s += `<line class="axe" x1="${X(0)}" y1="${Y(o.ymin)}" x2="${X(0)}" y2="${yhaut}"/>${fleche(X(0), yhaut, 'haut')}`;
+  (o.courbes || []).forEach(c => {
+    const x1 = c.x1 === undefined ? o.xmin : c.x1, x2 = c.x2 === undefined ? o.xmax : c.x2, n = 80;
+    let d = '';
+    for (let k = 0; k <= n; k++) { const x = x1 + (x2 - x1) * k / n; d += (k ? ' L' : 'M') + X(x) + ' ' + Y(c.f(x)); }
+    s += `<path class="courbe ${c.classe || 'c-rouge'}" clip-path="url(#${cadre})" d="${d}"/>`;
+  });
+  (o.lectures || []).forEach(pts => {
+    const P = pts.map(p => [X(p[0]), Y(p[1])]);
+    const a = P[P.length - 2], b = P[P.length - 1];
+    const L = Math.hypot(b[0] - a[0], b[1] - a[1]), ux = (b[0] - a[0]) / L, uy = (b[1] - a[1]) / L;
+    s += `<polyline class="lecture" points="${P.map(p => p.join(',')).join(' ')}"/>`;
+    s += `<path class="pointe" d="M${b[0]} ${b[1]} L${arrondi(b[0] - 7 * ux + 3.2 * uy)} ${arrondi(b[1] - 7 * uy - 3.2 * ux)} L${arrondi(b[0] - 7 * ux - 3.2 * uy)} ${arrondi(b[1] - 7 * uy + 3.2 * ux)} z"/>`;
+  });
+  // Graduations sur fond papier, par-dessus les courbes et les lectures : elles restent lisibles.
+  for (let x = o.xmin; x <= o.xmax; x++) if (x !== 0) s += `<text class="tick" x="${X(x)}" y="${Y(0) + 13}" text-anchor="middle">${moins(x)}</text>`;
+  for (let y = o.ymin; y <= o.ymax; y++) if (y !== 0) s += `<text class="tick" x="${X(0) - 5}" y="${Y(y) + 3.5}" text-anchor="end">${moins(y)}</text>`;
+  s += `<text class="tick" x="${X(0) - 5}" y="${Y(0) + 13}" text-anchor="end">0</text>`;
+  (o.points || []).forEach(p => { s += `<circle class="pt ${p.classe || 'c-rouge'}" cx="${X(p.x)}" cy="${Y(p.y)}" r="3.3"/>`; });
+  (o.textes || []).forEach(t => { s += `<text class="note" x="${X(t.x)}" y="${Y(t.y)}" text-anchor="${t.ancre || 'middle'}">${t.texte}</text>`; });
+  (o.noms || []).forEach(n => {
+    const indice = n.indice ? `<tspan dy="3" font-size="9.5">${n.indice}</tspan>` + (n.apres ? `<tspan dy="-3">${n.apres}</tspan>` : '') : '';
+    s += `<text class="lab ${n.classe || 'c-rouge'}" x="${X(n.x)}" y="${Y(n.y)}" text-anchor="${n.ancre || 'start'}">${n.texte}${indice}</text>`;
+  });
+  return s + '</svg>';
+}
+// Feuille de calcul (question sur le tableur) : lignes = [[A, B], ...] à partir de la ligne 1 ;
+// la cellule '#sel' est la cellule sélectionnée, laissée vide.
+function tableur(lignes, label) {
+  const cellule = c => c === '#sel' ? '<td class="sel"></td>' : `<td>${c}</td>`;
+  return `<table class="tableur" aria-label="${label}"><tr><th></th><th>A</th><th>B</th></tr>`
+    + lignes.map((l, k) => `<tr><th>${k + 1}</th>${cellule(l[0])}${cellule(l[1])}</tr>`).join('')
+    + '</table>';
+}
+
+// Calcul en colonne, comme l'environnement calcul des PDF : une étape par ligne, alignées sur le
+// signe placé après & (formules écrites sans les dollars). Le résultat s'encadre avec \resultat{...}.
+//   calcul(r`A & = x - 4(3x + 2)`, r`& = x - 12x - 8`, r`& = \resultat{-11x - 8}`)
+function calcul(...lignes) {
+  return '<div class="calcul">' + lignes.map(l => {
+    const k = l.indexOf('&');
+    const gauche = k < 0 ? '' : l.slice(0, k).trim(), droite = (k < 0 ? l : l.slice(k + 1)).trim();
+    return '<span class="g">' + (gauche ? '$' + gauche + '$' : '') + '</span><span class="d">$' + droite + '$</span>';
+  }).join('') + '</div>';
+}
+
+/* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
+// Droite parallèle à l'axe des ordonnées, d'équation x = k : repere ne la trace pas (ses
+// courbes sont des fonctions de x). repereDroites(o) trace le repère de o (mêmes options que
+// repere), puis ajoute les droites o.verticales = [{k, classe}] (classe c-rouge par défaut),
+// avec le trait des courbes, sous les graduations, qui restent lisibles. Unité et marge : celles
+// de repere (26 et 17 pixels).
+function repereDroites(o) {
+  const u = 26, m = 17;
+  const X = x => Math.round((m + (x - o.xmin) * u) * 10) / 10;
+  const traits = (o.verticales || []).map(v => '<line class="courbe ' + (v.classe || 'c-rouge')
+    + '" x1="' + X(v.k) + '" y1="' + m + '" x2="' + X(v.k) + '" y2="' + (m + (o.ymax - o.ymin) * u) + '"/>').join('');
+  const svg = repere(o), k = svg.indexOf('<text class="tick"');
+  const i = k < 0 ? svg.lastIndexOf('</svg>') : k;
+  return svg.slice(0, i) + traits + svg.slice(i);
+}
+
+// Programme Python de la question 12, présenté comme dans l'activité 3 (et la fiche d'exercices
+// du chapitre 8) : police à chasse fixe, fond gris clair, filet à gauche. Les signes <, > et &
+// du code sont échappés ici. Écrit par concaténation de chaînes, sans gabarit de chaîne.
+function programmePython(lignes) {
+  const code = lignes.map(l => l.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')).join('\n');
+  return '<pre style="margin:.5em 0 .8em 1.2em; padding:.45em .9em; background:var(--case);'
+    + ' border-left:2px solid var(--filet); font-family:var(--mono); font-size:.85em;'
+    + ' line-height:1.45; overflow-x:auto">' + code + '</pre>';
+}
+// La fonction equation de l'activité 3.
+const EQUATION = programmePython([
+  'def equation(xA, yA, xB, yB):',
+  '    a = yB - yA',
+  '    b = xA - xB',
+  '    c = -a*xA - b*yA',
+  '    return a, b, c']);
+
+// Figures des énoncés et des corrections (les corrections y ajoutent points et lectures).
+const FIG = {
+  // Question 4 : x + 2y - 4 = 0 est d2 (en bleu), qui passe par (0 ; 2) et (4 ; 0) ; d3 passe
+  // aussi par (0 ; 2), d4 aussi par (4 ; 0), d1 par (2 ; 0) et (0 ; 4) (coordonnées échangées).
+  trace: { xmin: -5, xmax: 5, ymin: -3, ymax: 5,
+    courbes: [{ f: x => -2 * x + 4 }, { f: x => -x / 2 + 2, classe: 'c-bleu' },
+      { f: x => x / 2 + 2, classe: 'c-violet' }, { f: x => x / 2 - 2, classe: 'c-noir' }],
+    noms: [{ x: 3.7, y: -2.75, texte: 'd', indice: '1' }, { x: -4.5, y: 4.5, texte: 'd', indice: '2', classe: 'c-bleu' },
+      { x: 3.9, y: 4.55, texte: 'd', indice: '3', classe: 'c-violet' }, { x: 4.2, y: 0.75, texte: 'd', indice: '4', classe: 'c-noir' }],
+    label: 'Repère avec quatre droites. d1, en rouge, passe par (0 ; 4) et (2 ; 0). d2, en bleu, passe par (−2 ; 3), (0 ; 2) et (4 ; 0). d3, en violet, passe par (−4 ; 0) et (0 ; 2). d4, en noir, passe par (0 ; −2) et (4 ; 0).' },
+  // Variante : 3x + 2y - 6 = 0 est d4 (en violet), qui passe par (0 ; 3) et (2 ; 0).
+  traceV: { xmin: -4, xmax: 5, ymin: -4, ymax: 5,
+    courbes: [{ f: x => 1.5 * x + 3 }, { f: x => -2 * x / 3 + 2, classe: 'c-bleu' },
+      { f: x => 1.5 * x - 3, classe: 'c-noir' }, { f: x => -1.5 * x + 3, classe: 'c-violet' }],
+    noms: [{ x: 1.5, y: 4.45, texte: 'd', indice: '1' }, { x: -3.9, y: 3.75, texte: 'd', indice: '2', classe: 'c-bleu' },
+      { x: 4, y: 3.4, texte: 'd', indice: '3', classe: 'c-noir', ancre: 'end' }, { x: 4.65, y: -3.55, texte: 'd', indice: '4', classe: 'c-violet' }],
+    label: 'Repère avec quatre droites. d1, en rouge, passe par (−2 ; 0) et (0 ; 3). d2, en bleu, passe par (0 ; 2) et (3 ; 0). d3, en noir, passe par (0 ; −3) et (2 ; 0). d4, en violet, passe par (0 ; 3), (2 ; 0) et (4 ; −3).' },
+  // Question 6 : d : y = 3x/4 - 3, puis, en variante, d : y = -4x/3 + 4.
+  lecture: { xmin: -2, xmax: 6, ymin: -4, ymax: 2, courbes: [{ f: x => 0.75 * x - 3 }],
+    noms: [{ x: 4.9, y: 1.1, texte: 'd' }],
+    label: 'Repère avec une droite d qui monte : elle passe par les points (0 ; −3) et (4 ; 0).' },
+  lectureV: { xmin: -2, xmax: 5, ymin: -2, ymax: 6, courbes: [{ f: x => -4 * x / 3 + 4 }],
+    noms: [{ x: 4.3, y: -1.2, texte: 'd' }],
+    label: 'Repère avec une droite d qui descend : elle passe par les points (0 ; 4) et (3 ; 0).' },
+  // Question 7 (corrections) : la droite (EF), verticale, puis la droite (GH).
+  verticale: { xmin: -2, xmax: 5, ymin: -3, ymax: 6, verticales: [{ k: 3 }],
+    points: [{ x: 3, y: 5, classe: 'c-noir' }, { x: 3, y: -2, classe: 'c-noir' }],
+    noms: [{ x: 3.25, y: 5.15, texte: 'E', classe: 'c-noir' }, { x: 3.25, y: -2.45, texte: 'F', classe: 'c-noir' },
+      { x: 2.8, y: 1.6, texte: '(EF)', ancre: 'end' }],
+    label: 'Repère avec la droite (EF), parallèle à l\'axe des ordonnées : elle passe par E (3 ; 5) et F (3 ; −2), et tous ses points ont pour abscisse 3.' },
+  verticaleV: { xmin: -4, xmax: 3, ymin: -2, ymax: 5, verticales: [{ k: -2 }],
+    points: [{ x: -2, y: 4, classe: 'c-noir' }, { x: -2, y: -1, classe: 'c-noir' }],
+    noms: [{ x: -1.75, y: 4.15, texte: 'G', classe: 'c-noir' }, { x: -1.75, y: -1.45, texte: 'H', classe: 'c-noir' },
+      { x: -2.2, y: 1.6, texte: '(GH)', ancre: 'end' }],
+    label: 'Repère avec la droite (GH), parallèle à l\'axe des ordonnées : elle passe par G (−2 ; 4) et H (−2 ; −1), et tous ses points ont pour abscisse −2.' }
+};
+
+const QUIZ = {
+  id: '2de-15-droites-du-plan-entrainement',
+  parties: ['Droites du plan'],
+  questions: [
+
+  /* ----- Équation cartésienne (parties 1 et 2 du cours, capacités 1 et 2, exercices 1 et 2 de la fiche) ----- */
+
+  { partie: 0, theme: 'Point d\'une droite', type: 'vf',
+    enonce: r`Le point $A(2\,;\,-5)$ appartient à la droite $d : 3x - 2y + 4 = 0$.`,
+    bonne: false,
+    explication: [
+      r`Un point appartient à une droite si et seulement si ses coordonnées vérifient son équation&nbsp;: on remplace $x$ par $2$ et $y$ par $-5$, et l'on regarde si l'on obtient $0$.`,
+      calcul(r`3 \times 2 - 2 \times (-5) + 4`, r`& = 6 + 10 + 4`, r`& = 20`),
+      r`$20 \ne 0$&nbsp;: le point $A$ n'appartient pas à $d$, l'affirmation est <span class="resultat">fausse</span>. Attention&nbsp;: $-2 \times (-5) = +10$. Le point $(2\,;\,5)$, lui, est sur $d$, car $6 - 10 + 4 = 0$.`],
+    revoir: r`capacité 1 du cours (question 2), activité 1 (question 3), exercice 1 de la fiche (question 2), exercices 14 et 16 p.&nbsp;192 du manuel`,
+    variante: {
+      enonce: r`Le point $B(-3\,;\,-2)$ appartient à la droite $d : 4x - 3y + 6 = 0$.`,
+      bonne: true,
+      explication: [
+        r`Un point appartient à une droite si et seulement si ses coordonnées vérifient son équation&nbsp;: on remplace $x$ par $-3$ et $y$ par $-2$, et l'on regarde si l'on obtient $0$.`,
+        calcul(r`4 \times (-3) - 3 \times (-2) + 6`, r`& = -12 + 6 + 6`, r`& = 0`),
+        r`On obtient $0$&nbsp;: le point $B$ appartient à $d$, l'affirmation est <span class="resultat">vraie</span>. Attention&nbsp;: $-3 \times (-2) = +6$.`] } },
+
+  { partie: 0, theme: 'Vecteur directeur', type: 'qcm',
+    enonce: r`Un vecteur directeur de la droite $d : 5x - 2y + 1 = 0$ est&nbsp;:`,
+    choix: [r`$\vec{u}(2\,;\,5)$`, r`$\vec{u}(5\,;\,-2)$`, r`$\vec{u}(-2\,;\,5)$`, r`$\vec{u}(5\,;\,2)$`],
+    bonne: 0,
+    explication: [
+      r`Pour une droite d'équation $ax + by + c = 0$, le vecteur $(-b\,;\,a)$ est un vecteur directeur&nbsp;: on lit $a$ et $b$ avec leur signe. Ici, $a = 5$ et $b = -2$.`,
+      calcul(r`-b & = -(-2) = 2`, r`a & = 5`),
+      r`Donc <span class="resultat">$\vec{u}(2\,;\,5)$</span> est un vecteur directeur de $d$&nbsp;; tout vecteur non nul colinéaire à $\vec{u}$, comme $(4\,;\,10)$, en est un aussi. Vérification&nbsp;: le point $(1\,;\,3)$ est sur $d$ ($5 - 6 + 1 = 0$)&nbsp;; en se déplaçant de $\vec{u}$, on arrive en $(3\,;\,8)$, lui aussi sur $d$ ($15 - 16 + 1 = 0$).`],
+    revoir: r`méthode et capacité 1 du cours (question 1), exercice 1 de la fiche (question 1), exercice 14 p.&nbsp;192 du manuel, question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
+    variante: {
+      enonce: r`Un vecteur directeur de la droite $d : 3x - 4y + 2 = 0$ est&nbsp;:`,
+      choix: [r`$\vec{u}(4\,;\,3)$`, r`$\vec{u}(3\,;\,-4)$`, r`$\vec{u}(-4\,;\,3)$`, r`$\vec{u}(3\,;\,4)$`],
+      bonne: 0,
+      explication: [
+        r`Pour une droite d'équation $ax + by + c = 0$, le vecteur $(-b\,;\,a)$ est un vecteur directeur&nbsp;: on lit $a$ et $b$ avec leur signe. Ici, $a = 3$ et $b = -4$.`,
+        calcul(r`-b & = -(-4) = 4`, r`a & = 3`),
+        r`Donc <span class="resultat">$\vec{u}(4\,;\,3)$</span> est un vecteur directeur de $d$&nbsp;; tout vecteur non nul colinéaire à $\vec{u}$, comme $(8\,;\,6)$, en est un aussi. Vérification&nbsp;: le point $(2\,;\,2)$ est sur $d$ ($6 - 8 + 2 = 0$)&nbsp;; en se déplaçant de $\vec{u}$, on arrive en $(6\,;\,5)$, lui aussi sur $d$ ($18 - 20 + 2 = 0$).`] } },
+
+  { partie: 0, theme: 'Équation cartésienne', type: 'qcm',
+    enonce: r`La droite $d$ passe par le point $A(2\,;\,-3)$ et a pour vecteur directeur $\vec{u}(1\,;\,4)$. Une équation cartésienne de $d$ est&nbsp;:`,
+    choix: [r`$4x - y - 11 = 0$`, r`$4x - y - 5 = 0$`, r`$x + 4y + 10 = 0$`, r`$x - 4y - 14 = 0$`],
+    bonne: 0,
+    explication: [
+      r`Par le déterminant&nbsp;: un point $M(x\,;\,y)$ appartient à $d$ si et seulement si $\mathrm{det}(\overrightarrow{AM}\,;\,\vec{u}) = 0$, avec $\overrightarrow{AM}(x - 2\,;\,y + 3)$ et $\vec{u}(1\,;\,4)$. On calcule ce déterminant (produits en croix), puis on développe et on réduit.`,
+      calcul(r`\mathrm{det}(\overrightarrow{AM}\,;\,\vec{u})`, r`& = (x - 2) \times 4 - 1 \times (y + 3)`, r`& = 4x - 8 - y - 3`, r`& = 4x - y - 11`),
+      r`Une équation de $d$ est <span class="resultat">$4x - y - 11 = 0$</span>. Vérification avec $A$&nbsp;: $4 \times 2 - (-3) - 11 = 8 + 3 - 11 = 0$, et $(-b\,;\,a) = (1\,;\,4)$ est bien $\vec{u}$. Attention&nbsp;: $y - (-3) = y + 3$.`],
+    revoir: r`méthode et capacité 2 du cours (question 1), activité 1 (question 2), exercice 2 de la fiche (question 1), exercices 15 p.&nbsp;192 et 41 p.&nbsp;194 du manuel`,
+    variante: {
+      enonce: r`La droite $d$ passe par le point $A(-1\,;\,2)$ et a pour vecteur directeur $\vec{u}(2\,;\,3)$. Une équation cartésienne de $d$ est&nbsp;:`,
+      choix: [r`$3x - 2y + 7 = 0$`, r`$3x - 2y + 1 = 0$`, r`$2x + 3y - 4 = 0$`, r`$2x - 3y + 8 = 0$`],
+      bonne: 0,
+      explication: [
+        r`Par le déterminant&nbsp;: un point $M(x\,;\,y)$ appartient à $d$ si et seulement si $\mathrm{det}(\overrightarrow{AM}\,;\,\vec{u}) = 0$, avec $\overrightarrow{AM}(x + 1\,;\,y - 2)$ et $\vec{u}(2\,;\,3)$. On calcule ce déterminant (produits en croix), puis on développe et on réduit.`,
+        calcul(r`\mathrm{det}(\overrightarrow{AM}\,;\,\vec{u})`, r`& = (x + 1) \times 3 - 2 \times (y - 2)`, r`& = 3x + 3 - 2y + 4`, r`& = 3x - 2y + 7`),
+        r`Une équation de $d$ est <span class="resultat">$3x - 2y + 7 = 0$</span>. Vérification avec $A$&nbsp;: $3 \times (-1) - 2 \times 2 + 7 = -3 - 4 + 7 = 0$, et $(-b\,;\,a) = (2\,;\,3)$ est bien $\vec{u}$. Attention&nbsp;: $x - (-1) = x + 1$.`] } },
+
+  { partie: 0, theme: 'Reconnaître une droite', type: 'qcm', fixe: true,
+    enonce: r`Dans le repère ci-dessous, quatre droites sont tracées. Laquelle a pour équation $x + 2y - 4 = 0$&nbsp;?`
+      + repere(FIG.trace),
+    choix: [r`$d_{1}$`, r`$d_{2}$`, r`$d_{3}$`, r`$d_{4}$`],
+    bonne: 1,
+    explication: [
+      r`Pour reconnaître la droite, on détermine deux de ses points&nbsp;: on choisit $x = 0$, puis $y = 0$, et l'on résout l'équation obtenue.`,
+      calcul(r`x = 0 & : \ 2y - 4 = 0 \iff y = 2`, r`y = 0 & : \ x - 4 = 0 \iff x = 4`),
+      repere(Object.assign({}, FIG.trace, { echelle: 1.15,
+        points: [{ x: 0, y: 2, classe: 'c-noir' }, { x: 4, y: 0, classe: 'c-noir' }],
+        label: 'La même figure : les points (0 ; 2) et (4 ; 0), marqués en noir, sont tous les deux sur la droite d2, en bleu.' })),
+      r`La droite qui passe par $(0\,;\,2)$ et par $(4\,;\,0)$ est <span class="resultat">$d_{2}$</span>. Attention&nbsp;: $d_{3}$ passe aussi par $(0\,;\,2)$, et $d_{4}$ par $(4\,;\,0)$&nbsp;; un seul point ne suffit pas. Autre méthode&nbsp;: l'équation réduite est $y = -\dfrac{1}{2}x + 2$.`],
+    revoir: r`méthode et capacité 1 du cours (question 3), exercice 1 de la fiche (question 3), exercice 16 p.&nbsp;192 du manuel, question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
+    variante: {
+      enonce: r`Dans le repère ci-dessous, quatre droites sont tracées. Laquelle a pour équation $3x + 2y - 6 = 0$&nbsp;?`
+        + repere(FIG.traceV),
+      bonne: 3,
+      explication: [
+        r`Pour reconnaître la droite, on détermine deux de ses points&nbsp;: on choisit $x = 0$, puis $y = 0$, et l'on résout l'équation obtenue.`,
+        calcul(r`x = 0 & : \ 2y - 6 = 0 \iff y = 3`, r`y = 0 & : \ 3x - 6 = 0 \iff x = 2`),
+        repere(Object.assign({}, FIG.traceV, { echelle: 1.15,
+          points: [{ x: 0, y: 3, classe: 'c-noir' }, { x: 2, y: 0, classe: 'c-noir' }],
+          label: 'La même figure : les points (0 ; 3) et (2 ; 0), marqués en noir, sont tous les deux sur la droite d4, en violet.' })),
+        r`La droite qui passe par $(0\,;\,3)$ et par $(2\,;\,0)$ est <span class="resultat">$d_{4}$</span>. Attention&nbsp;: $d_{1}$ passe aussi par $(0\,;\,3)$, et $d_{3}$ par $(2\,;\,0)$&nbsp;; un seul point ne suffit pas. Autre méthode&nbsp;: l'équation réduite est $y = -\dfrac{3}{2}x + 3$.`] } },
+
+  /* ----- Équation réduite et pente (partie 3 du cours, capacités 3 et 4, activité 2, exercice 3 de la fiche) ----- */
+
+  { partie: 0, theme: 'Pente et équation réduite', type: 'qcm',
+    enonce: r`On donne les points $A(-3\,;\,-1)$ et $B(3\,;\,3)$. L'équation réduite de la droite $(AB)$ est&nbsp;:`,
+    choix: [r`$y = \dfrac{2}{3}x + 1$`, r`$y = \dfrac{3}{2}x - \dfrac{3}{2}$`, r`$y = \dfrac{1}{3}x + 2$`, r`$y = \dfrac{2}{3}x - 1$`],
+    bonne: 0,
+    explication: [
+      r`$x_{A} \ne x_{B}$&nbsp;: la pente est le quotient de la variation des ordonnées par celle des abscisses.`,
+      calcul(r`m & = \dfrac{y_{B} - y_{A}}{x_{B} - x_{A}}`, r`& = \dfrac{3 - (-1)}{3 - (-3)}`, r`& = \dfrac{4}{6}`, r`& = \dfrac{2 \mul{\times 2}}{3 \mul{\times 2}}`, r`& = \dfrac{2}{3}`),
+      r`On trouve $p$ en écrivant que $B(3\,;\,3)$ est sur la droite&nbsp;: $y_{B} = mx_{B} + p$.`,
+      calcul(r`3 = \dfrac{2}{3} \times 3 + p`, r`& \iff 3 = 2 + p`, r`& \iff 3 \op{- 2} = 2 + p \op{- 2}`, r`& \iff p = 1`),
+      r`Donc <span class="resultat">$(AB) : y = \dfrac{2}{3}x + 1$</span>. Vérification avec $A$&nbsp;: $\dfrac{2}{3} \times (-3) + 1 = -2 + 1 = -1$. Attention&nbsp;: $3 - (-1) = 4$ et $3 - (-3) = 6$.`],
+    revoir: r`méthode et capacité 3 du cours (question 1), activité 2 (question 3), exercice 3 de la fiche (question 1), exercices 25 et 26 p.&nbsp;193 du manuel`,
+    variante: {
+      enonce: r`On donne les points $E(-3\,;\,4)$ et $F(3\,;\,0)$. L'équation réduite de la droite $(EF)$ est&nbsp;:`,
+      choix: [r`$y = -\dfrac{2}{3}x + 2$`, r`$y = -\dfrac{3}{2}x + \dfrac{9}{2}$`, r`$y = \dfrac{2}{3}x - 2$`, r`$y = -\dfrac{2}{3}x + 4$`],
+      bonne: 0,
+      explication: [
+        r`$x_{E} \ne x_{F}$&nbsp;: la pente est le quotient de la variation des ordonnées par celle des abscisses.`,
+        calcul(r`m & = \dfrac{y_{F} - y_{E}}{x_{F} - x_{E}}`, r`& = \dfrac{0 - 4}{3 - (-3)}`, r`& = \dfrac{-4}{6}`, r`& = -\dfrac{2 \mul{\times 2}}{3 \mul{\times 2}}`, r`& = -\dfrac{2}{3}`),
+        r`On trouve $p$ en écrivant que $F(3\,;\,0)$ est sur la droite&nbsp;: $y_{F} = mx_{F} + p$.`,
+        calcul(r`0 = -\dfrac{2}{3} \times 3 + p`, r`& \iff 0 = -2 + p`, r`& \iff 0 \op{+ 2} = -2 + p \op{+ 2}`, r`& \iff p = 2`),
+        r`Donc <span class="resultat">$(EF) : y = -\dfrac{2}{3}x + 2$</span>. Vérification avec $E$&nbsp;: $-\dfrac{2}{3} \times (-3) + 2 = 2 + 2 = 4$. Attention&nbsp;: la droite descend, sa pente est négative.`] } },
+
+  { partie: 0, theme: 'Lecture graphique', type: 'qcm',
+    enonce: r`La droite $d$ est tracée dans le repère ci-dessous. Son équation réduite est&nbsp;:`
+      + repere(FIG.lecture),
+    choix: [r`$y = \dfrac{3}{4}x - 3$`, r`$y = \dfrac{4}{3}x - 3$`, r`$y = \dfrac{3}{4}x + 4$`, r`$y = -\dfrac{3}{4}x - 3$`],
+    bonne: 0,
+    explication: [
+      r`L'ordonnée à l'origine $p$ se lit là où la droite coupe l'axe des ordonnées&nbsp;; pour la pente $m$, on part de ce point, on avance et l'on lit la montée (ou la descente)&nbsp;: si l'on avance de $4$, on divise la montée par $4$.`,
+      r`La droite coupe l'axe des ordonnées au point $(0\,;\,-3)$&nbsp;: $p = -3$. À partir de ce point, en avançant de $4$, on monte de $3$ (tirets verts)&nbsp;: $m = \dfrac{3}{4}$.`,
+      repere(Object.assign({}, FIG.lecture, { echelle: 1.15,
+        points: [{ x: 0, y: -3 }, { x: 4, y: 0 }], lectures: [[[0, -3], [4, -3], [4, 0]]],
+        textes: [{ x: 2, y: -3.6, texte: '+4' }, { x: 4.2, y: -1.6, texte: '+3', ancre: 'start' }],
+        label: 'La même droite, avec la lecture : on part du point (0 ; −3), on avance de 4 et on monte de 3.' })),
+      r`Donc <span class="resultat">$d : y = \dfrac{3}{4}x - 3$</span>. Attention&nbsp;: $4$ est l'abscisse du point où $d$ coupe l'axe des abscisses, ce n'est pas l'ordonnée à l'origine.`],
+    revoir: r`méthode et capacité 3 du cours (question 4), capacité 4 (question 3), exercice 31 p.&nbsp;193 du manuel`,
+    variante: {
+      enonce: r`La droite $d$ est tracée dans le repère ci-dessous. Son équation réduite est&nbsp;:`
+        + repere(FIG.lectureV),
+      choix: [r`$y = -\dfrac{4}{3}x + 4$`, r`$y = -\dfrac{3}{4}x + 4$`, r`$y = -\dfrac{4}{3}x + 3$`, r`$y = \dfrac{4}{3}x + 4$`],
+      bonne: 0,
+      explication: [
+        r`L'ordonnée à l'origine $p$ se lit là où la droite coupe l'axe des ordonnées&nbsp;; pour la pente $m$, on part de ce point, on avance et l'on lit la descente (ou la montée)&nbsp;: si l'on avance de $3$, on divise la descente par $3$.`,
+        r`La droite coupe l'axe des ordonnées au point $(0\,;\,4)$&nbsp;: $p = 4$. À partir de ce point, en avançant de $3$, on descend de $4$ (tirets verts)&nbsp;: $m = -\dfrac{4}{3}$.`,
+        repere(Object.assign({}, FIG.lectureV, { echelle: 1.15,
+          points: [{ x: 0, y: 4 }, { x: 3, y: 0 }], lectures: [[[0, 4], [3, 4], [3, 0]]],
+          textes: [{ x: 1.5, y: 4.2, texte: '+3' }, { x: 3.2, y: 2, texte: '−4', ancre: 'start' }],
+          label: 'La même droite, avec la lecture : on part du point (0 ; 4), on avance de 3 et on descend de 4.' })),
+        r`Donc <span class="resultat">$d : y = -\dfrac{4}{3}x + 4$</span>. Attention&nbsp;: la droite descend, sa pente est négative&nbsp;; et $3$ est l'abscisse du point où $d$ coupe l'axe des abscisses, ce n'est pas l'ordonnée à l'origine.`] } },
+
+  { partie: 0, theme: 'Droite parallèle à un axe', type: 'qcm',
+    enonce: r`On donne les points $E(3\,;\,5)$ et $F(3\,;\,-2)$. Une seule de ces affirmations sur la droite $(EF)$ est vraie. Laquelle&nbsp;?`,
+    choix: [r`Une équation de $(EF)$ est $x - 3 = 0$.`, r`La droite $(EF)$ a pour pente $0$.`, r`Une équation de $(EF)$ est $y = 3$.`,
+            r`Le vecteur $\vec{i}(1\,;\,0)$ est un vecteur directeur de $(EF)$.`],
+    bonne: 0,
+    explication: [
+      r`$x_{E} = x_{F} = 3$&nbsp;: tous les points de $(EF)$ ont pour abscisse $3$, la droite est parallèle à l'axe des ordonnées. Un point $M(x\,;\,y)$ est sur $(EF)$ si et seulement si $x = 3$, c'est-à-dire $x - 3 = 0$&nbsp;: c'est une équation cartésienne, avec $a = 1$, $b = 0$ et $c = -3$.`,
+      repereDroites(Object.assign({}, FIG.verticale, { echelle: 1.15 })),
+      r`Cette droite n'a pas de pente&nbsp;: la formule diviserait par $x_{F} - x_{E} = 0$. Elle est dirigée par $\overrightarrow{EF}(0\,;\,-7)$, ou par $\vec{j}(0\,;\,1)$, et non par $\vec{i}(1\,;\,0)$. La droite d'équation $y = 3$, de pente $0$, est parallèle à l'axe des abscisses.`,
+      r`L'affirmation vraie est <span class="resultat">une équation de $(EF)$ est $x - 3 = 0$</span>.`],
+    revoir: r`propriété «&nbsp;équation réduite&nbsp;», capacités 2 (question 3) et 3 (question 3) du cours, exercices 2 et 3 de la fiche (question 3), question 4 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
+    variante: {
+      enonce: r`On donne les points $G(-2\,;\,4)$ et $H(-2\,;\,-1)$. Une seule de ces affirmations sur la droite $(GH)$ est vraie. Laquelle&nbsp;?`,
+      choix: [r`Une équation de $(GH)$ est $2x + 4 = 0$.`, r`La droite $(GH)$ a pour pente $0$.`, r`Une équation de $(GH)$ est $y = -2$.`,
+              r`Le vecteur $\vec{i}(1\,;\,0)$ est un vecteur directeur de $(GH)$.`],
+      bonne: 0,
+      explication: [
+        r`$x_{G} = x_{H} = -2$&nbsp;: tous les points de $(GH)$ ont pour abscisse $-2$, la droite est parallèle à l'axe des ordonnées&nbsp;; elle a pour équation $x = -2$. On résout $2x + 4 = 0$ pour comparer.`,
+        calcul(r`2x + 4 = 0`, r`& \iff 2x + 4 \op{- 4} = 0 \op{- 4}`, r`& \iff 2x = -4`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{-4}{\op{2}}`, r`& \iff x = -2`),
+        repereDroites(Object.assign({}, FIG.verticaleV, { echelle: 1.15 })),
+        r`Cette droite n'a pas de pente&nbsp;: la formule diviserait par $x_{H} - x_{G} = 0$. Elle est dirigée par $\vec{j}(0\,;\,1)$, et non par $\vec{i}(1\,;\,0)$. La droite d'équation $y = -2$ est parallèle à l'axe des abscisses.`,
+        r`Les équations $2x + 4 = 0$ et $x = -2$ sont équivalentes&nbsp;: l'affirmation vraie est <span class="resultat">une équation de $(GH)$ est $2x + 4 = 0$</span>.`] } },
+
+  { partie: 0, theme: 'Passer à l\'équation réduite', type: 'qcm',
+    enonce: r`L'équation réduite de la droite $d : 4x - 3y - 6 = 0$ est&nbsp;:`,
+    choix: [r`$y = \dfrac{4}{3}x - 2$`, r`$y = -\dfrac{4}{3}x + 2$`, r`$y = \dfrac{4}{3}x + 6$`, r`$y = \dfrac{4}{3}x + 2$`],
+    bonne: 0,
+    explication: [
+      r`On isole $y$&nbsp;: on passe les autres termes dans le second membre, puis on divise les deux membres par $-3$, le coefficient de $y$.`,
+      calcul(r`4x - 3y - 6 = 0`, r`& \iff 4x - 3y - 6 \op{- 4x} = 0 \op{- 4x}`, r`& \iff -3y - 6 \op{+ 6} = -4x \op{+ 6}`, r`& \iff -3y = -4x + 6`,
+        r`& \iff \dfrac{-3y}{\op{-3}} = \dfrac{-4x + 6}{\op{-3}}`, r`& \iff y = \dfrac{4}{3}x - 2`),
+      r`L'équation réduite de $d$ est <span class="resultat">$y = \dfrac{4}{3}x - 2$</span>, de pente $\dfrac{4}{3}$. Attention&nbsp;: diviser par $-3$ change les deux signes du second membre, et l'on divise les deux termes, $\dfrac{6}{-3} = -2$.`],
+    revoir: r`méthode et capacité 4 du cours (question 1), exercice 3 de la fiche (questions 4 et 5), exercice 27 p.&nbsp;193 du manuel`,
+    variante: {
+      enonce: r`L'équation réduite de la droite $d : 2x - 5y + 10 = 0$ est&nbsp;:`,
+      choix: [r`$y = \dfrac{2}{5}x + 2$`, r`$y = -\dfrac{2}{5}x - 2$`, r`$y = \dfrac{2}{5}x - 10$`, r`$y = \dfrac{2}{5}x - 2$`],
+      bonne: 0,
+      explication: [
+        r`On isole $y$&nbsp;: on passe les autres termes dans le second membre, puis on divise les deux membres par $-5$, le coefficient de $y$.`,
+        calcul(r`2x - 5y + 10 = 0`, r`& \iff 2x - 5y + 10 \op{- 2x} = 0 \op{- 2x}`, r`& \iff -5y + 10 \op{- 10} = -2x \op{- 10}`, r`& \iff -5y = -2x - 10`,
+          r`& \iff \dfrac{-5y}{\op{-5}} = \dfrac{-2x - 10}{\op{-5}}`, r`& \iff y = \dfrac{2}{5}x + 2`),
+        r`L'équation réduite de $d$ est <span class="resultat">$y = \dfrac{2}{5}x + 2$</span>, de pente $\dfrac{2}{5}$. Attention&nbsp;: diviser par $-5$ change les deux signes du second membre, et l'on divise les deux termes, $\dfrac{-10}{-5} = 2$.`] } },
+
+  /* ----- Alignement et parallélisme (partie 4 du cours, capacité 5, activité 3, exercices 4 et 5 de la fiche) ----- */
+
+  { partie: 0, theme: 'Droites parallèles', type: 'qcm',
+    enonce: r`Laquelle de ces droites, données par une équation, est parallèle à la droite $d : y = 2x - 3$&nbsp;?`,
+    choix: [r`$4x - 2y + 1 = 0$`, r`$2x + y - 3 = 0$`, r`$x - 2y + 3 = 0$`, r`$y = -2x - 3$`],
+    bonne: 0,
+    explication: [
+      r`Deux droites sont parallèles si et seulement si leurs vecteurs directeurs sont colinéaires. $d : y = 2x - 3$ est dirigée par $\vec{u}(1\,;\,2)$, le vecteur $(1\,;\,m)$&nbsp;; la droite $4x - 2y + 1 = 0$ est dirigée par $(-b\,;\,a)$, soit $\vec{v}(2\,;\,4)$.`,
+      calcul(r`\mathrm{det}(\vec{u}\,;\,\vec{v})`, r`& = 1 \times 4 - 2 \times 2`, r`& = 4 - 4`, r`& = 0`),
+      r`Les vecteurs sont colinéaires ($\vec{v} = 2\vec{u}$)&nbsp;: <span class="resultat">la droite d'équation $4x - 2y + 1 = 0$ est parallèle à $d$</span>. En isolant $y$, elle s'écrit $y = 2x + \dfrac{1}{2}$&nbsp;: même pente $2$, ordonnées à l'origine différentes, les deux droites sont strictement parallèles.`,
+      r`Les trois autres droites ont une pente différente de $2$&nbsp;: elles sont sécantes avec $d$. Attention&nbsp;: la pente n'est pas le coefficient de $x$&nbsp;; $2x + y - 3 = 0$ s'écrit $y = -2x + 3$, de pente $-2$. Et $y = -2x - 3$ a la même ordonnée à l'origine que $d$, mais pas la même pente.`],
+    revoir: r`propriété «&nbsp;droites parallèles, droites sécantes&nbsp;» et capacité 5 du cours (questions 2 et 3), exercice 5 de la fiche (question 2), exercice 130 p.&nbsp;198 du manuel, questions 6 et 7 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
+    variante: {
+      enonce: r`Laquelle de ces droites, données par une équation, est parallèle à la droite $d : y = -3x + 1$&nbsp;?`,
+      choix: [r`$6x + 2y - 5 = 0$`, r`$-3x + y + 2 = 0$`, r`$x + 3y - 2 = 0$`, r`$y = 3x + 1$`],
+      bonne: 0,
+      explication: [
+        r`Deux droites sont parallèles si et seulement si leurs vecteurs directeurs sont colinéaires. $d : y = -3x + 1$ est dirigée par $\vec{u}(1\,;\,-3)$, le vecteur $(1\,;\,m)$&nbsp;; la droite $6x + 2y - 5 = 0$ est dirigée par $(-b\,;\,a)$, soit $\vec{v}(-2\,;\,6)$.`,
+        calcul(r`\mathrm{det}(\vec{u}\,;\,\vec{v})`, r`& = 1 \times 6 - (-2) \times (-3)`, r`& = 6 - 6`, r`& = 0`),
+        r`Les vecteurs sont colinéaires ($\vec{v} = -2\vec{u}$)&nbsp;: <span class="resultat">la droite d'équation $6x + 2y - 5 = 0$ est parallèle à $d$</span>. En isolant $y$, elle s'écrit $y = -3x + \dfrac{5}{2}$&nbsp;: même pente $-3$, ordonnées à l'origine différentes, les deux droites sont strictement parallèles.`,
+        r`Les trois autres droites ont une pente différente de $-3$&nbsp;: elles sont sécantes avec $d$. Attention&nbsp;: la pente n'est pas le coefficient de $x$&nbsp;; $-3x + y + 2 = 0$ s'écrit $y = 3x - 2$, de pente $3$. Et $y = 3x + 1$ a la même ordonnée à l'origine que $d$, mais pas la même pente.`] } },
+
+  { partie: 0, theme: 'Parallèle passant par un point', type: 'qcm',
+    enonce: r`L'équation réduite de la droite parallèle à $d : y = -2x + 1$ et passant par le point $K(3\,;\,1)$ est&nbsp;:`,
+    choix: [r`$y = -2x + 7$`, r`$y = -2x - 5$`, r`$y = -2x + 1$`, r`$y = 2x - 5$`],
+    bonne: 0,
+    explication: [
+      r`Deux droites parallèles ont la même pente&nbsp;: la droite cherchée a pour pente $-2$, donc une équation de la forme $y = -2x + p$. On trouve $p$ en écrivant que $K(3\,;\,1)$ est sur cette droite.`,
+      calcul(r`1 = -2 \times 3 + p`, r`& \iff 1 = -6 + p`, r`& \iff 1 \op{+ 6} = -6 + p \op{+ 6}`, r`& \iff p = 7`),
+      r`L'équation réduite est <span class="resultat">$y = -2x + 7$</span>. Vérification&nbsp;: $-2 \times 3 + 7 = 1$. Attention&nbsp;: il faut recalculer $p$, car $d$ elle-même ne passe pas par $K$&nbsp;: $-2 \times 3 + 1 = -5 \ne 1$.`],
+    revoir: r`capacités 3 (question 2) et 5 (question 4) du cours, exercice 5 de la fiche (question 3), exercices 96 p.&nbsp;196 et 151 p.&nbsp;200 (question 3) du manuel, question 2 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
+    variante: {
+      enonce: r`L'équation réduite de la droite parallèle à $d : y = 3x - 4$ et passant par le point $K(2\,;\,-1)$ est&nbsp;:`,
+      choix: [r`$y = 3x - 7$`, r`$y = 3x + 5$`, r`$y = 3x - 4$`, r`$y = -3x + 5$`],
+      bonne: 0,
+      explication: [
+        r`Deux droites parallèles ont la même pente&nbsp;: la droite cherchée a pour pente $3$, donc une équation de la forme $y = 3x + p$. On trouve $p$ en écrivant que $K(2\,;\,-1)$ est sur cette droite.`,
+        calcul(r`-1 = 3 \times 2 + p`, r`& \iff -1 = 6 + p`, r`& \iff -1 \op{- 6} = 6 + p \op{- 6}`, r`& \iff p = -7`),
+        r`L'équation réduite est <span class="resultat">$y = 3x - 7$</span>. Vérification&nbsp;: $3 \times 2 - 7 = -1$. Attention&nbsp;: il faut recalculer $p$, car $d$ elle-même ne passe pas par $K$&nbsp;: $3 \times 2 - 4 = 2 \ne -1$.`] } },
+
+  { partie: 0, theme: 'Alignement', type: 'vf',
+    enonce: r`Les points $A(-2\,;\,-5)$, $B(1\,;\,1)$ et $C(4\,;\,8)$ sont alignés.`,
+    bonne: false,
+    explication: [
+      r`$A$, $B$ et $C$ sont alignés si et seulement si les vecteurs $\overrightarrow{AB}$ et $\overrightarrow{AC}$ sont colinéaires, c'est-à-dire si leur déterminant est nul. Extrémité moins origine&nbsp;: $\overrightarrow{AB}(3\,;\,6)$ et $\overrightarrow{AC}(6\,;\,13)$.`,
+      calcul(r`\mathrm{det}(\overrightarrow{AB}\,;\,\overrightarrow{AC})`, r`& = 3 \times 13 - 6 \times 6`, r`& = 39 - 36`, r`& = 3`),
+      r`$3 \ne 0$&nbsp;: les points $A$, $B$ et $C$ ne sont pas alignés, l'affirmation est <span class="resultat">fausse</span>. Autre méthode&nbsp;: la droite $(AB)$ a pour équation réduite $y = 2x - 1$, et $2 \times 4 - 1 = 7 \ne 8$&nbsp;; le point $C$ est tout près de la droite $(AB)$, juste au-dessus, mais pas dessus.`],
+    revoir: r`propriété «&nbsp;alignement de trois points&nbsp;» et capacité 5 du cours (question 1), exercices 4 (question 3) et 5 (question 1) de la fiche, exercice 104 p.&nbsp;196 du manuel, question 8 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
+    variante: {
+      enonce: r`Les points $E(-3\,;\,7)$, $F(1\,;\,-1)$ et $G(3\,;\,-5)$ sont alignés.`,
+      bonne: true,
+      explication: [
+        r`$E$, $F$ et $G$ sont alignés si et seulement si les vecteurs $\overrightarrow{EF}$ et $\overrightarrow{EG}$ sont colinéaires, c'est-à-dire si leur déterminant est nul. Extrémité moins origine&nbsp;: $\overrightarrow{EF}(4\,;\,-8)$ et $\overrightarrow{EG}(6\,;\,-12)$.`,
+        calcul(r`\mathrm{det}(\overrightarrow{EF}\,;\,\overrightarrow{EG})`, r`& = 4 \times (-12) - 6 \times (-8)`, r`& = -48 + 48`, r`& = 0`),
+        r`Le déterminant est nul&nbsp;: les points $E$, $F$ et $G$ sont alignés, l'affirmation est <span class="resultat">vraie</span>. Autre méthode&nbsp;: la droite $(EF)$ a pour équation réduite $y = -2x + 1$, et $-2 \times 3 + 1 = -5$&nbsp;: le point $G$ est bien sur $(EF)$.`] } },
+
+  { partie: 0, theme: 'Programme Python', type: 'qcm',
+    enonce: r`La fonction Python ci-dessous, celle de l'activité 3, renvoie les coefficients $a$, $b$ et $c$ d'une équation cartésienne $ax + by + c = 0$ de la droite $(AB)$, pour deux points distincts $A(x_{A}\,;\,y_{A})$ et $B(x_{B}\,;\,y_{B})$.`
+      + EQUATION + r`Que renvoie <code>equation(2, 1, 4, 7)</code>&nbsp;?`,
+    choix: [r`<code>(6, -2, -10)</code>`, r`<code>(6, 2, -14)</code>`, r`<code>(6, -2, -14)</code>`, r`<code>(6, -2, 10)</code>`],
+    bonne: 0,
+    explication: [
+      r`La fonction applique la méthode du cours&nbsp;: $(-b\,;\,a) = (x_{B} - x_{A}\,;\,y_{B} - y_{A})$ est le vecteur $\overrightarrow{AB}$, qui dirige $(AB)$, et $c$ est calculé pour que $A$ soit sur la droite. On exécute ses lignes avec $x_{A} = 2$, $y_{A} = 1$, $x_{B} = 4$ et $y_{B} = 7$ (le signe <code>*</code> est la multiplication).`,
+      calcul(r`a & = 7 - 1 = 6`, r`b & = 2 - 4 = -2`, r`c & = -6 \times 2 - (-2) \times 1`, r`& = -12 + 2`, r`& = -10`),
+      r`La fonction renvoie <span class="resultat"><code>(6, -2, -10)</code></span>&nbsp;: $6x - 2y - 10 = 0$ est une équation de la droite passant par $A(2\,;\,1)$ et $B(4\,;\,7)$, ou, en divisant par $2$, $3x - y - 5 = 0$. Vérification avec $B$&nbsp;: $3 \times 4 - 7 - 5 = 0$. Attention&nbsp;: $-(-2) \times 1 = +2$.`],
+    revoir: r`activité 3 (questions 1 et 2), méthode et capacité 2 du cours (question 2), question 1 du «&nbsp;Faire le point&nbsp;» p.&nbsp;201`,
+    variante: {
+      enonce: r`La fonction Python ci-dessous, celle de l'activité 3, renvoie les coefficients $a$, $b$ et $c$ d'une équation cartésienne $ax + by + c = 0$ de la droite $(AB)$, pour deux points distincts $A(x_{A}\,;\,y_{A})$ et $B(x_{B}\,;\,y_{B})$.`
+        + EQUATION + r`Que renvoie <code>equation(-1, 2, 2, 8)</code>&nbsp;?`,
+      choix: [r`<code>(6, -3, 12)</code>`, r`<code>(6, 3, 0)</code>`, r`<code>(6, -3, 0)</code>`, r`<code>(6, -3, -12)</code>`],
+      bonne: 0,
+      explication: [
+        r`La fonction applique la méthode du cours&nbsp;: $(-b\,;\,a) = (x_{B} - x_{A}\,;\,y_{B} - y_{A})$ est le vecteur $\overrightarrow{AB}$, qui dirige $(AB)$, et $c$ est calculé pour que $A$ soit sur la droite. On exécute ses lignes avec $x_{A} = -1$, $y_{A} = 2$, $x_{B} = 2$ et $y_{B} = 8$ (le signe <code>*</code> est la multiplication).`,
+        calcul(r`a & = 8 - 2 = 6`, r`b & = -1 - 2 = -3`, r`c & = -6 \times (-1) - (-3) \times 2`, r`& = 6 + 6`, r`& = 12`),
+        r`La fonction renvoie <span class="resultat"><code>(6, -3, 12)</code></span>&nbsp;: $6x - 3y + 12 = 0$ est une équation de la droite passant par $A(-1\,;\,2)$ et $B(2\,;\,8)$, ou, en divisant par $3$, $2x - y + 4 = 0$. Vérification avec $B$&nbsp;: $2 \times 2 - 8 + 4 = 0$. Attention&nbsp;: $-6 \times (-1) = +6$ et $-(-3) \times 2 = +6$.`] } }
+  ]
+};
+
+/* ---------- Conversion des formules ($...$, mini-LaTeX) en HTML ---------- */
+const SYM = {
+  times: '×', cdot: '·', dots: '…', ldots: '…', cdots: '…', ne: '≠', neq: '≠', le: '≤', leq: '≤',
+  ge: '≥', geq: '≥', approx: '≈', infty: '∞', forall: '∀', in: '∈', N: 'ℕ', R: 'ℝ', Z: 'ℤ',
+  pm: '±', Delta: 'Δ', sum: 'Σ', pi: 'π', alpha: 'α', mapsto: '↦', to: '→', iff: '⇔',
+  Longleftrightarrow: '⇔', Leftrightarrow: '⇔', Rightarrow: '⇒', implies: '⇒',
+  quad: ' ', qquad: '  ', displaystyle: '', left: '', right: ''
+};
+const SYM1 = { ',': ' ', ';': ' ', ' ': ' ', '{': '{', '}': '}', '%': '%', '_': '_', '&': '&amp;', '$': '$', '\\': '<br>' };
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function math(s) {
+  let i = 0;
+  const skip = () => { while (i < s.length && s[i] === ' ') i++; };
+  function raw() {            // contenu brut d'un {groupe}, sans mise en italique
+    skip();
+    if (s[i] !== '{') return esc(s[i++] || '');
+    let prof = 0, out = '';
+    for (; i < s.length; i++) {
+      const c = s[i];
+      if (c === '{') { prof++; if (prof === 1) continue; }
+      if (c === '}') { prof--; if (prof === 0) { i++; break; } }
+      out += c;
+    }
+    return esc(out);
+  }
+  function group() { i++; let out = ''; while (i < s.length && s[i] !== '}') out += atom(); i++; return out; }
+  function arg() { skip(); if (s[i] === '{') return group(); return atom(); }
+  const frac = (a, b) => `<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`;
+  function atom() {
+    if (i >= s.length) return '';
+    const c = s[i];
+    if (c === '{') return group();
+    if (c === '}') { i++; return ''; }
+    if (c === '\\') {
+      const n = s[i + 1];
+      if (n === undefined) { i++; return ''; }
+      if (!/[a-zA-Z]/.test(n)) { i += 2; return SYM1[n] !== undefined ? SYM1[n] : esc(n); }
+      let j = i + 1;
+      while (j < s.length && /[a-zA-Z]/.test(s[j])) j++;
+      const nom = s.slice(i + 1, j); i = j;
+      if (nom === 'frac' || nom === 'dfrac' || nom === 'tfrac') { const a = arg(); const b = arg(); return frac(a, b); }
+      if (nom === 'mathrm' || nom === 'text') return `<span class="rm">${raw()}</span>`;
+      if (nom === 'textbf') return `<b class="rm">${raw()}</b>`;
+      if (nom === 'mathscr') return `<i>${raw()}</i>`;
+      if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
+      if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
+      if (nom === 'op') return `<span class="op">${arg()}</span>`;
+      if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
+      return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
+    }
+    if (c === '_' || c === '^') { i++; const a = arg(); return c === '_' ? `<sub>${a}</sub>` : `<sup>${a}</sup>`; }
+    i++;
+    if (/[a-zA-Z]/.test(c)) return `<i>${c}</i>`;
+    if (c === '-') return '−';
+    if (c === '*') return '×';
+    if (c === "'") return '<span class="prime">′</span>';
+    return esc(c);
+  }
+  let out = '';
+  while (i < s.length) out += atom();
+  return out;
+}
+// Une formule : KaTeX s'il est chargé, sinon (pas encore là, hors ligne, CDN filtré, commande qu'il
+// refuse) le mini-LaTeX, qui garde la source dans data-tex pour que katexPret() la recompose.
+// (## : signe # d'une couleur dans une macro, # seul désignant un argument)
+const MACROS = { '\\mul': '\\textcolor{##9C27B0}{#1}', '\\op': '\\textcolor{##CE2029}{#1}', '\\resultat': '\\boxed{#1}' };
+function katexDispo() {
+  const feuille = document.getElementById('katex-css');
+  return !!window.katex && !!feuille && feuille.media === 'all';
+}
+function katexHTML(f) {
+  try { return katex.renderToString(f, { macros: Object.assign({}, MACROS), throwOnError: true, strict: false }); }
+  catch (e) { return null; }
+}
+function formule(f) {
+  const k = katexDispo() ? katexHTML(f) : null;
+  return k || `<span class="m${f.length > 42 ? ' m-long' : ''}" data-tex="${esc(f).replace(/"/g, '&quot;')}">${math(f)}</span>`;
+}
+window.katexPret = function () {
+  if (!katexDispo()) return;
+  document.querySelectorAll('.m[data-tex]').forEach(e => {
+    const k = katexHTML(e.dataset.tex);
+    if (k) e.outerHTML = k;
+  });
+};
+function tex(src) {
+  return String(src).split(/(\$[^$]*\$)/).map(p =>
+    (p.length >= 2 && p[0] === '$' && p[p.length - 1] === '$') ? formule(p.slice(1, -1)) : p
+  ).join('');
+}
+
+/* ---------- État (enregistré sur l'appareil, pour reprendre plus tard) ---------- */
+const N = QUIZ.questions.length;
+const CLE = 'quiz-' + QUIZ.id;
+const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length
+  + (q.variante ? '~' + q.variante.enonce.length : '')).join('|');
+const MODE_CORRIGE = /(\?|&|#)corrige/.test(location.search + location.hash);
+// La question i dans sa variante : les champs que la variante ne donne pas viennent de la question.
+const variante = i => Object.assign({}, QUIZ.questions[i], QUIZ.questions[i].variante);
+
+function melange(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const ordreDe = q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k));
+// reprise : null, ou la reprise des questions manquées { rangs (questions d'origine), ordre, reponses, courant }.
+function nouvelEtat() {
+  return {
+    signature: SIGNATURE,
+    ordre: QUIZ.questions.map(ordreDe),
+    reponses: Array(N).fill(null),
+    courant: 0,
+    reprise: null
+  };
+}
+function repriseValide(R) {
+  return !!R && Array.isArray(R.rangs) && R.rangs.length > 0 && Array.isArray(R.ordre) && Array.isArray(R.reponses)
+    && R.ordre.length === R.rangs.length && R.reponses.length === R.rangs.length
+    && R.rangs.every(i => QUIZ.questions[i] && QUIZ.questions[i].variante);
+}
+function charger() {
+  try {
+    const s = JSON.parse(localStorage.getItem(CLE));
+    if (s && s.signature === SIGNATURE && Array.isArray(s.reponses) && s.reponses.length === N && Array.isArray(s.ordre)) {
+      s.courant = Math.min(Math.max(0, s.courant | 0), N);
+      if (repriseValide(s.reprise)) s.reprise.courant = Math.min(Math.max(0, s.reprise.courant | 0), s.reprise.rangs.length);
+      else s.reprise = null;
+      return s;
+    }
+  } catch (e) { /* stockage indisponible : on repart de zéro */ }
+  return null;
+}
+function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* sans importance */ } }
+
+let etat = charger() || nouvelEtat();
+let selection = null;
+
+const $ = sel => document.querySelector(sel);
+const zoneProg = $('#progression');
+const zoneQuiz = $('#quiz');
+const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
+// Une seule partie : aucun nom de partie n'est affiché (grille, question, corrigé, note).
+const UNE_PARTIE = QUIZ.parties.length === 1;
+const questionsDe = p => QUIZ.questions.map((q, i) => q.partie === p ? i : -1).filter(i => i >= 0);
+
+/* ---------- Affichage ---------- */
+// Explication : un texte, ou une liste de blocs (paragraphes, calculs en colonne, figures).
+function explicationHTML(q) {
+  const blocs = Array.isArray(q.explication) ? q.explication : [q.explication];
+  return blocs.map(b => /^<(div|svg)\b/.test(b) ? tex(b) : '<p>' + tex(b) + '</p>').join('');
+}
+
+function reponseTexte(q, choix) {
+  if (q.type === 'vf') return choix ? 'Vrai' : 'Faux';
+  return '« ' + tex(q.choix[choix]) + ' »';
+}
+
+// Tour en cours : le premier passage (les questions du fichier), ou la reprise des questions
+// manquées (leurs variantes). Chacun a ses réponses, l'ordre de ses choix et sa question courante k ;
+// le numéro affiché est toujours celui de la question d'origine.
+function tourCourant() {
+  const R = etat.reprise;
+  if (R && R.courant < R.rangs.length)
+    return { reprise: true, etat: R, total: R.rangs.length, question: k => variante(R.rangs[k]), numero: k => R.rangs[k] + 1 };
+  return { reprise: false, etat: etat, total: N, question: k => QUIZ.questions[k], numero: k => k + 1 };
+}
+
+// Une grille de réponses. items = [{cle, numero, rep}] ; attr = data-q (premier passage) ou data-r (reprise).
+function grille(nom, items, courant, attr) {
+  const faites = items.filter(it => it.rep).length;
+  let nums = '', marques = '';
+  items.forEach(it => {
+    const ici = it.cle === courant;
+    nums += `<td class="${ici ? 'ici' : ''}"><button type="button" class="aller" ${attr}="${it.cle}" aria-label="Aller à la question ${it.numero}">${it.numero}</button></td>`;
+    marques += it.rep
+      ? `<td class="${it.rep.ok ? 'juste' : 'erreur'}${ici ? ' courant' : ''}" ${attr}="${it.cle}"><span class="marque ${it.rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`
+      : `<td class="${ici ? 'courant' : ''}" ${attr}="${it.cle}"></td>`;
+  });
+  return `<div class="bloc-grille">${nom ? `<p class="nom-partie">${nom}</p>` : ''}
+    <table class="grille-reponses" aria-label="${nom || 'Réponses'} : ${faites} question${faites > 1 ? 's' : ''} sur ${items.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+}
+
+function rendreProgression() {
+  if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
+  const T = tourCourant(), R = etat.reprise;
+  zoneProg.innerHTML = T.reprise
+    ? grille('Reprise des questions manquées', R.rangs.map((i, k) => ({ cle: k, numero: i + 1, rep: R.reponses[k] })), R.courant, 'data-r')
+    : QUIZ.parties.map((nom, p) => grille(UNE_PARTIE ? '' : nomPartie(p),
+        questionsDe(p).map(i => ({ cle: i, numero: i + 1, rep: etat.reponses[i] })), etat.courant, 'data-q')).join('');
+}
+
+function rendre() {
+  rendreProgression();
+  if (MODE_CORRIGE) return rendreCorrige();
+  const T = tourCourant();
+  if (T.etat.courant >= T.total) rendreResultat(); else rendreQuestion(T, T.etat.courant);
+}
+
+function boite(marque) {
+  return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
+}
+
+function rendreQuestion(T, k) {
+  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = k === T.total - 1;
+  const changePartie = !T.reprise && !derniere && QUIZ.questions[k + 1].partie !== q.partie;
+  const tete = T.reprise ? `Reprise des questions manquées · ${k + 1} sur ${T.total}` : UNE_PARTIE ? '' : nomPartie(q.partie);
+  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir ma note') : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante';
+  let options;
+  if (q.type === 'vf') {
+    options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (val === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (val === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
+    }).join('');
+  } else {
+    options = ordre.map((orig, j) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[j]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
+    }).join('');
+  }
+  const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
+  const correction = rep ? `<div class="correction ${rep.ok ? 'juste' : 'erreur'}" role="status">
+      <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
+      <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
+  const bouton = rep
+    ? `<button type="button" class="bouton" id="suivant">${suite}</button>`
+    : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
+  zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
+    ${tete ? `<p class="partie">${tete}</p>` : ''}
+    <p class="question" id="titre-q"><b>Question ${T.numero(k)}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
+    <div class="actions">${bouton}</div>
+    ${correction}
+  </article>`;
+  selection = null;
+  if (!rep) {
+    zoneQuiz.querySelectorAll('.choix').forEach(b => b.addEventListener('click', () => choisir(b, q)));
+    $('#valider').addEventListener('click', valider);
+  } else {
+    $('#suivant').addEventListener('click', suivant);
+  }
+}
+
+function choisir(b, q) {
+  zoneQuiz.querySelectorAll('.choix').forEach(o => {
+    const actif = o === b;
+    o.classList.toggle('choisi', actif);
+    o.setAttribute('aria-pressed', actif ? 'true' : 'false');
+    o.querySelector('.marque').className = actif ? 'marque croix' : 'marque';
+  });
+  selection = q.type === 'vf' ? b.dataset.val === 'true' : Number(b.dataset.val);
+  $('#valider').disabled = false;
+}
+
+function valider() {
+  const T = tourCourant(), k = T.etat.courant, q = T.question(k);
+  if (selection === null || T.etat.reponses[k]) return;
+  T.etat.reponses[k] = { choix: selection, ok: selection === q.bonne };
+  sauver();
+  rendre();
+  const suivantBtn = $('#suivant');
+  if (suivantBtn) suivantBtn.focus({ preventScroll: true });
+  const correction = $('.correction');
+  if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
+}
+
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question
+// (data-q : premier passage ; data-r : reprise des questions manquées).
+function aller(cible) {
+  if (cible.dataset.r !== undefined) etat.reprise.courant = Number(cible.dataset.r);
+  else etat.courant = Number(cible.dataset.q);
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function suivant() {
+  const T = tourCourant();
+  T.etat.courant = Math.min(T.etat.courant + 1, T.total);
+  selection = null;
+  sauver();
+  rendre();
+  // On remonte aux grilles de réponses, pas tout en haut : sur téléphone, l'en-tête occupe un écran.
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function recommencer() {
+  etat = nouvelEtat();
+  selection = null;
+  sauver();
+  rendre();
+  window.scrollTo({ top: 0, behavior: motion() });
+}
+// Deux clics pour tout effacer : le premier transforme le bouton en demande de confirmation.
+function demanderRecommencer(btn) {
+  const entame = etat.courant > 0 || etat.reponses.some(Boolean);
+  if (btn.dataset.minuteur) {
+    clearTimeout(Number(btn.dataset.minuteur));
+    btn.textContent = btn.dataset.texte;
+    delete btn.dataset.minuteur;
+    recommencer();
+  } else if (!entame) {
+    recommencer();
+  } else {
+    btn.dataset.texte = btn.textContent;
+    btn.textContent = 'Confirmer : effacer mes réponses';
+    btn.dataset.minuteur = String(setTimeout(() => { btn.textContent = btn.dataset.texte; delete btn.dataset.minuteur; }, 4000));
+  }
+}
+
+// Questions regroupées par partie : un titre, puis la liste produite par item(q, i).
+function listeParParties(item) {
+  return QUIZ.parties.map((nom, p) =>
+    `${UNE_PARTIE ? '' : `<h2 class="titre-partie">${nomPartie(p)}</h2>`}<ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
+  ).join('');
+}
+
+// Une question de la copie : énoncé, réponse donnée, explication.
+function itemRevue(q, rep, numero) {
+  const ok = !!(rep && rep.ok);
+  let bilan;
+  if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
+  else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  return `<li class="${ok ? 'juste' : 'erreur'}">
+    <p class="question"><b>Question ${numero}.</b> <i>${q.theme}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <p class="bilan">${bilan}</p>
+    <div class="explication">${explicationHTML(q)}</div>
+  </li>`;
+}
+
+function revueHTML() {
+  return listeParParties((q, i) => itemRevue(q, etat.reponses[i], i + 1));
+}
+
+function revueRepriseHTML() {
+  const R = etat.reprise;
+  return `<h2 class="titre-partie">Reprise des questions manquées</h2><ol class="revue">${R.rangs.map((i, k) => itemRevue(variante(i), R.reponses[k], i + 1)).join('')}</ol>`;
+}
+
+// Bouton qui montre ou cache une copie.
+function bascule(idBouton, idListe, texte) {
+  $('#' + idBouton).addEventListener('click', () => {
+    const liste = $('#' + idListe), btn = $('#' + idBouton);
+    liste.hidden = !liste.hidden;
+    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
+    btn.textContent = (liste.hidden ? 'Revoir ' : 'Masquer ') + texte;
+  });
+}
+
+// Reprise des questions manquées qui ont une variante : nouveau tour, noté à part.
+function reprendre(rangs) {
+  etat.reprise = { rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 };
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function rendreResultat() {
+  const juste = i => !!(etat.reponses[i] && etat.reponses[i].ok);
+  const score = QUIZ.questions.filter((q, i) => juste(i)).length;
+  const appreciation = score >= 0.75 * N
+    ? 'C\'est solide. Relis quand même les explications des questions manquées.'
+    : score >= 0.5 * N
+      ? 'L\'essentiel est là. Reprends les points listés ci-dessous, puis refais cet entraînement.'
+      : 'À retravailler avant l\'évaluation : reprends le cours et la fiche d\'exercices, puis refais cet entraînement.';
+  const sur20 = N === 20 ? '' : `<span class="sur">soit ${fr(Math.round(score * 20 / N * 2) / 2)} / 20</span>`;
+  const parties = QUIZ.parties.map((nom, p) => {
+    const rangs = questionsDe(p);
+    return `<span>${nomPartie(p)}&nbsp;: <b>${rangs.filter(juste).length} / ${rangs.length}</b></span>`;
+  }).join(' &emsp; ');
+  const aRevoir = [];
+  QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
+  const revoir = aRevoir.length
+    ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
+  // Questions manquées qui ont une variante, et reprise déjà faite (on n'arrive ici qu'une fois finie).
+  const manquees = QUIZ.questions.map((q, i) => i).filter(i => !juste(i) && QUIZ.questions[i].variante);
+  const R = etat.reprise, nm = manquees.length;
+  const bilanReprise = R
+    ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(x => x && x.ok).length} / ${R.rangs.length}</b></p>` : '';
+  const infoReprise = nm && !R
+    ? `<p class="reprise-info">Tu peux refaire ${nm > 1 ? 'les ' + nm + ' questions manquées' : 'la question manquée'}, un peu ${nm > 1 ? 'modifiées' : 'modifiée'}&nbsp;: mêmes notions, autres valeurs.</p>` : '';
+  zoneQuiz.innerHTML = `<article class="page-note" aria-labelledby="titre-r">
+    <p class="question" id="titre-r"><b>Note.</b></p>
+    <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
+    <p class="appreciation">${appreciation}</p>
+    ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
+    ${bilanReprise}
+    ${revoir}
+    ${infoReprise}
+    <div class="actions">
+      ${nm ? `<button type="button" class="bouton" id="reprendre">${R ? 'Refaire la reprise' : 'Refaire les questions manquées'}</button>` : ''}
+      <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
+      ${R ? '<button type="button" class="bouton" id="revoir-reprise" aria-expanded="false" aria-controls="revue-reprise">Revoir la reprise</button>' : ''}
+      <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
+    </div>
+    <div id="revue" hidden>${revueHTML()}</div>
+    ${R ? `<div id="revue-reprise" hidden>${revueRepriseHTML()}</div>` : ''}
+  </article>`;
+  bascule('revoir', 'revue', 'la copie');
+  if (R) bascule('revoir-reprise', 'revue-reprise', 'la reprise');
+  if (nm) $('#reprendre').addEventListener('click', () => reprendre(manquees));
+  $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+}
+
+function rendreCorrige() {
+  // Énoncé, choix (bonne réponse en vert), explication.
+  const corps = q => `<div class="enonce">${tex(q.enonce)}</div>
+      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
+      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
+      <div class="explication">${explicationHTML(q)}</div>`;
+  zoneQuiz.innerHTML = `<article>
+    <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
+    ${listeParParties((q, i) => `<li class="juste">
+      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
+      ${corps(q)}
+      ${q.variante ? `<div class="variante"><p class="question"><b>Variante</b> <i>(reprise des questions manquées)</i></p>${corps(variante(i))}</div>` : ''}
+    </li>`)}
+  </article>`;
+}
+
+/* ---------- Démarrage ---------- */
+$('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+zoneProg.addEventListener('click', e => {
+  const cible = e.target.closest('[data-q],[data-r]');
+  if (cible) aller(cible);
+});
+rendre();
+})();
+</script>
+</body>
+</html>
