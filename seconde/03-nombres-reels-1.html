@@ -443,7 +443,7 @@ const QUIZ = {
     choix: [r`troncature $9{,}433$&nbsp;; arrondi $9{,}434$`, r`troncature $9{,}434$&nbsp;; arrondi $9{,}434$`, r`troncature $9{,}433$&nbsp;; arrondi $9{,}433$`, r`troncature $9{,}434$&nbsp;; arrondi $9{,}433$`],
     bonne: 0,
     explication: [
-      r`La troncature à $10^{-3}$ près garde les trois premiers chiffres après la virgule, sans rien changer&nbsp;: $9{,}433$. C'est la borne inférieure de l'encadrement $9{,}433 < \sqrt{89} < 9{,}434$, d'amplitude $10^{-3}$.`,
+      r`La troncature à $10^{-3}$ près du réel positif $\sqrt{89}$ garde les trois premiers chiffres après la virgule, sans rien changer&nbsp;: $9{,}433$. C'est la borne inférieure de l'encadrement $9{,}433 < \sqrt{89} < 9{,}434$, d'amplitude $10^{-3}$.`,
       r`Pour l'arrondi, on regarde le chiffre suivant, la quatrième décimale&nbsp;: $9$. Il est compris entre $5$ et $9$&nbsp;: l'arrondi est la borne supérieure, $9{,}433 + 0{,}001 = 9{,}434$.`,
       r`Ainsi <span class="resultat">troncature $9{,}433$&nbsp;; arrondi $9{,}434$</span>.`],
     revoir: r`définitions de la troncature et de l'arrondi (partie 4 du cours), capacité 3, exercice 4 de la fiche, exercices 178 et 181 p.&nbsp;75 du manuel`,
@@ -452,7 +452,7 @@ const QUIZ = {
       choix: [r`troncature $9{,}848$&nbsp;; arrondi $9{,}849$`, r`troncature $9{,}849$&nbsp;; arrondi $9{,}849$`, r`troncature $9{,}848$&nbsp;; arrondi $9{,}848$`, r`troncature $9{,}849$&nbsp;; arrondi $9{,}848$`],
       bonne: 0,
       explication: [
-        r`La troncature à $10^{-3}$ près garde les trois premiers chiffres après la virgule, sans rien changer&nbsp;: $9{,}848$. C'est la borne inférieure de l'encadrement $9{,}848 < \sqrt{97} < 9{,}849$, d'amplitude $10^{-3}$.`,
+        r`La troncature à $10^{-3}$ près du réel positif $\sqrt{97}$ garde les trois premiers chiffres après la virgule, sans rien changer&nbsp;: $9{,}848$. C'est la borne inférieure de l'encadrement $9{,}848 < \sqrt{97} < 9{,}849$, d'amplitude $10^{-3}$.`,
         r`Pour l'arrondi, on regarde le chiffre suivant, la quatrième décimale&nbsp;: $8$. Il est compris entre $5$ et $9$&nbsp;: l'arrondi est la borne supérieure, $9{,}848 + 0{,}001 = 9{,}849$.`,
         r`Ainsi <span class="resultat">troncature $9{,}848$&nbsp;; arrondi $9{,}849$</span>.`] } },
 
@@ -638,7 +638,7 @@ const QUIZ = {
         calcul(r`-\dfrac{9}{4} & = -\dfrac{9 \mul{\times 25}}{4 \mul{\times 25}}`, r`& = -\dfrac{225}{100}`, r`& = \dfrac{-225}{10^{2}}`),
         r`C'est la forme $\dfrac{a}{10^{n}}$, avec $a = -225$ et $n = 2$&nbsp;: $-\dfrac{9}{4} \in 𝔻$ est vraie.`,
         r`Tout entier relatif $a$ s'écrit $\dfrac{a}{1}$, quotient de deux entiers&nbsp;: $\Z ⊂ ℚ$ est vraie.`,
-        r`$\pi$ est irrationnel&nbsp;: si $\dfrac{\pi}{4}$ s'écrivait $\dfrac{a}{b}$, avec $a$ et $b$ entiers, on aurait $\pi = \dfrac{4a}{b}$, quotient de deux entiers, ce qui est impossible. L'affirmation fausse est <span class="resultat">$\dfrac{\pi}{4} \in ℚ$</span>.`] } }
+        r`$\pi$ est irrationnel (propriété admise du cours)&nbsp;: si $\dfrac{\pi}{4}$ s'écrivait $\dfrac{a}{b}$, avec $a$ et $b$ entiers relatifs, $b \ne 0$, on aurait $\pi = \dfrac{4a}{b}$, quotient d'un entier relatif par un entier relatif non nul, ce qui est impossible. L'affirmation fausse est <span class="resultat">$\dfrac{\pi}{4} \in ℚ$</span>.`] } }
   ]
 };
 

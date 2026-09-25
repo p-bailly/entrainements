@@ -375,7 +375,7 @@ const QUIZ = {
     choix: [r`$x + 23$`, r`$x + 7$`, r`$x + 19$`, r`$5x + 7$`],
     bonne: 0,
     explication: [
-      r`On développe chaque produit avec la distributivité simple, $k(a + b) = ka + kb$. Le nombre $-2$ multiplie chacun des termes $x$ et $-4$, avec $(-2) \times (-4) = 8$. Puis on regroupe les termes en $x$, puis les nombres.`,
+      r`On développe chaque produit avec la distributivité simple, $k(a + b) = ka + kb$. Le nombre $-2$ multiplie chacun des termes $x$ et $-4$, avec $(-2) \times (-4) = 8$. Puis on réduit en regroupant les termes en $x$, puis les nombres.`,
       calcul(r`A & = 3 \times x + 3 \times 5 + (-2) \times x + (-2) \times (-4)`, r`& = 3x + 15 - 2x + 8`, r`& = 3x - 2x + 15 + 8`, r`& = \resultat{x + 23}`)],
     revoir: r`capacité 2 du cours, exercice 1 de la fiche`,
     variante: {
@@ -383,7 +383,7 @@ const QUIZ = {
       choix: [r`$2x + 17$`, r`$2x - 7$`, r`$2x + 9$`, r`$8x - 7$`],
       bonne: 0,
       explication: [
-        r`On développe chaque produit avec la distributivité simple, $k(a + b) = ka + kb$. Le nombre $-3$ multiplie chacun des termes $x$ et $-4$, avec $(-3) \times (-4) = 12$. Puis on regroupe les termes en $x$, puis les nombres.`,
+        r`On développe chaque produit avec la distributivité simple, $k(a + b) = ka + kb$. Le nombre $-3$ multiplie chacun des termes $x$ et $-4$, avec $(-3) \times (-4) = 12$. Puis on réduit en regroupant les termes en $x$, puis les nombres.`,
         calcul(r`A & = 5 \times x + 5 \times 1 + (-3) \times x + (-3) \times (-4)`, r`& = 5x + 5 - 3x + 12`, r`& = 5x - 3x + 5 + 12`, r`& = \resultat{2x + 17}`)] } },
 
   { partie: 0, theme: 'Double distributivité', type: 'qcm',
@@ -391,7 +391,7 @@ const QUIZ = {
     choix: [r`$3x^{2} + 10x - 8$`, r`$3x^{2} - 8$`, r`$3x^{2} + 14x - 8$`, r`$3x^{2} + 10x + 8$`],
     bonne: 0,
     explication: [
-      r`Double distributivité&nbsp;: chaque terme de la première parenthèse multiplie chaque terme de la seconde (quatre produits), puis on réduit les termes en $x$.`,
+      r`Double distributivité&nbsp;: chaque terme de la première parenthèse multiplie chaque terme de la seconde (quatre produits), puis on réduit en regroupant les termes en $x$.`,
       calcul(r`A & = 3x \times x + 3x \times 4 + (-2) \times x + (-2) \times 4`, r`& = 3x^{2} + 12x - 2x - 8`, r`& = \resultat{3x^{2} + 10x - 8}`)],
     revoir: r`capacité 3 du cours, exercice 1 de la fiche`,
     variante: {
@@ -399,7 +399,7 @@ const QUIZ = {
       choix: [r`$2x^{2} - x - 15$`, r`$2x^{2} - 15$`, r`$2x^{2} - 11x - 15$`, r`$2x^{2} - x + 15$`],
       bonne: 0,
       explication: [
-        r`Double distributivité&nbsp;: chaque terme de la première parenthèse multiplie chaque terme de la seconde (quatre produits), puis on réduit les termes en $x$.`,
+        r`Double distributivité&nbsp;: chaque terme de la première parenthèse multiplie chaque terme de la seconde (quatre produits), puis on réduit en regroupant les termes en $x$.`,
         calcul(r`A & = 2x \times x + 2x \times (-3) + 5 \times x + 5 \times (-3)`, r`& = 2x^{2} - 6x + 5x - 15`, r`& = \resultat{2x^{2} - x - 15}`)] } },
 
   { partie: 0, theme: 'Identités remarquables', type: 'qcm',
@@ -473,7 +473,7 @@ const QUIZ = {
     choix: [r`$(x + 2)(2x - 5)$`, r`$(x + 2)(2x + 3)$`, r`$(x + 2)(4x + 3)$`, r`$(x + 2)(4x - 5)$`],
     bonne: 0,
     explication: [
-      r`Le facteur commun est la parenthèse $(x + 2)$. On écrit entre crochets ce qui reste de chaque terme&nbsp;; le signe $-$ devant le second terme porte sur toute la parenthèse $(x + 4)$. Puis on regroupe les termes en $x$, puis les nombres.`,
+      r`Le facteur commun est la parenthèse $(x + 2)$. On écrit entre crochets ce qui reste de chaque terme&nbsp;; le second terme est $-(x + 2)(x + 4)$, son signe $-$ porte sur toute la parenthèse $(x + 4)$. Puis on réduit en regroupant les termes en $x$, puis les nombres.`,
       calcul(r`A & = (x + 2) \times (3x - 1) - (x + 2) \times (x + 4)`, r`& = (x + 2)[(3x - 1) - (x + 4)]`, r`& = (x + 2)(3x - 1 - x - 4)`, r`& = (x + 2)(3x - x - 1 - 4)`, r`& = \resultat{(x + 2)(2x - 5)}`)],
     revoir: r`capacité 4 du cours, exercice 3 de la fiche`,
     variante: {
@@ -481,7 +481,7 @@ const QUIZ = {
       choix: [r`$(x - 3)(3x - 4)$`, r`$(x - 3)(3x + 6)$`, r`$(x - 3)(5x + 6)$`, r`$(x - 3)(5x - 4)$`],
       bonne: 0,
       explication: [
-        r`Le facteur commun est la parenthèse $(x - 3)$. On écrit entre crochets ce qui reste de chaque terme&nbsp;; le signe $-$ devant le second terme porte sur toute la parenthèse $(x + 5)$. Puis on regroupe les termes en $x$, puis les nombres.`,
+        r`Le facteur commun est la parenthèse $(x - 3)$. On écrit entre crochets ce qui reste de chaque terme&nbsp;; le second terme est $-(x - 3)(x + 5)$, son signe $-$ porte sur toute la parenthèse $(x + 5)$. Puis on réduit en regroupant les termes en $x$, puis les nombres.`,
         calcul(r`A & = (x - 3) \times (4x + 1) - (x - 3) \times (x + 5)`, r`& = (x - 3)[(4x + 1) - (x + 5)]`, r`& = (x - 3)(4x + 1 - x - 5)`, r`& = (x - 3)(4x - x + 1 - 5)`, r`& = \resultat{(x - 3)(3x - 4)}`)] } }
   ]
 };

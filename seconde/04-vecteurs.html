@@ -504,21 +504,21 @@ const QUIZ = {
     choix: [r`$\overrightarrow{EF}$`, r`$\overrightarrow{AB}$`, r`$\overrightarrow{CD}$`, r`$\overrightarrow{GH}$`],
     bonne: 0,
     explication: [
-      r`Deux vecteurs sont égaux lorsqu'ils ont la même direction, le même sens et la même norme&nbsp;: sur un quadrillage, ils font faire le même déplacement.`,
+      r`Deux vecteurs non nuls sont égaux lorsqu'ils ont la même direction, le même sens et la même norme&nbsp;: sur un quadrillage, ils font faire le même déplacement.`,
       r`On lit le déplacement de $\vec{u}$ (tirets verts)&nbsp;: $2$ carreaux vers la droite et $1$ vers le haut. $\overrightarrow{EF}$ fait faire le même déplacement, donc <span class="resultat">$\overrightarrow{EF} = \vec{u}$</span>.`,
       quadrillage(FIG.egaux, { echelle: 1.15,
         lectures: [[[1, 4], [3, 4], [3, 5]], [[10, 4], [12, 4], [12, 5]]],
         textes: [{ x: 2, y: 3.6, texte: '2' }, { x: 3.3, y: 4.5, texte: '1' }, { x: 11, y: 3.6, texte: '2' }, { x: 12.3, y: 4.5, texte: '1' }],
         label: 'Le même quadrillage, avec les lectures en tirets verts : u et EF font avancer de 2 carreaux vers la droite et de 1 vers le haut.' }),
       r`Les autres ne conviennent pas&nbsp;: $\overrightarrow{AB} = -\vec{u}$ (sens contraire), $\overrightarrow{CD} = 2\vec{u}$ (norme double) et $\overrightarrow{GH}$ n'a pas la même direction.`],
-    revoir: r`capacité 1 du cours, exercice 16 p.&nbsp;134 du manuel`,
+    revoir: r`définition des vecteurs égaux (partie 1 du cours), capacité 1 du cours, exercice 1 de la fiche (question 1), exercice 16 p.&nbsp;134 du manuel`,
     variante: {
       enonce: r`Sur le quadrillage ci-dessous, quel vecteur est égal au vecteur $\vec{u}$&nbsp;?`
         + quadrillage(FIG.egauxV, { label: 'Quadrillage avec cinq vecteurs. u : 3 carreaux vers la droite et 1 vers le bas. KL : 3 carreaux vers la droite et 1 vers le bas. MN : 3 carreaux vers la gauche et 1 vers le haut. PQ : 1 carreau vers la droite et 3 vers le bas. RS : 6 carreaux vers la droite et 2 vers le bas.' }),
       choix: [r`$\overrightarrow{KL}$`, r`$\overrightarrow{MN}$`, r`$\overrightarrow{PQ}$`, r`$\overrightarrow{RS}$`],
       bonne: 0,
       explication: [
-        r`Deux vecteurs sont égaux lorsqu'ils ont la même direction, le même sens et la même norme&nbsp;: sur un quadrillage, ils font faire le même déplacement.`,
+        r`Deux vecteurs non nuls sont égaux lorsqu'ils ont la même direction, le même sens et la même norme&nbsp;: sur un quadrillage, ils font faire le même déplacement.`,
         r`On lit le déplacement de $\vec{u}$ (tirets verts)&nbsp;: $3$ carreaux vers la droite et $1$ vers le bas. $\overrightarrow{KL}$ fait faire le même déplacement, donc <span class="resultat">$\overrightarrow{KL} = \vec{u}$</span>.`,
         quadrillage(FIG.egauxV, { echelle: 1.15,
           lectures: [[[1, 5], [4, 5], [4, 4]], [[10, 2], [13, 2], [13, 1]]],
@@ -560,15 +560,15 @@ const QUIZ = {
     enonce: r`$ABCD$ est un parallélogramme. Alors $\overrightarrow{AB} = \overrightarrow{CD}$.`,
     bonne: false,
     explication: [
-      r`D'après le cours, $\overrightarrow{AB} = \overrightarrow{DC}$ si et seulement si $ABCD$ est un parallélogramme&nbsp;: les flèches de $A$ vers $B$ et de $D$ vers $C$ ont la même direction, le même sens et la même longueur.`,
+      r`D'après le cours, $\overrightarrow{AB} = \overrightarrow{DC}$ si et seulement si $ABCD$ est un parallélogramme (éventuellement aplati)&nbsp;: les flèches de $A$ vers $B$ et de $D$ vers $C$ ont la même direction, le même sens et la même longueur.`,
       quadrillage(FIG.para, { label: 'Parallélogramme ABCD, avec les flèches de A vers B et de D vers C, parallèles et de même sens.' }),
-      r`La flèche de $C$ vers $D$ va dans le sens contraire&nbsp;: $\overrightarrow{CD} = -\overrightarrow{AB}$. L'égalité est donc <span class="resultat">fausse</span>&nbsp;; la bonne égalité est $\overrightarrow{AB} = \overrightarrow{DC}$.`],
+      r`La flèche de $C$ vers $D$ va dans le sens contraire&nbsp;: $\overrightarrow{CD} = -\overrightarrow{AB}$. Comme $A \ne B$, le vecteur $\overrightarrow{AB}$ n'est pas nul&nbsp;: son opposé, de sens contraire, lui est différent. L'égalité est donc <span class="resultat">fausse</span>&nbsp;; la bonne égalité est $\overrightarrow{AB} = \overrightarrow{DC}$.`],
     revoir: r`propriété des vecteurs égaux et du parallélogramme (partie 1 du cours), exercice 1 de la fiche, exercice 19 p.&nbsp;134 du manuel`,
     variante: {
       enonce: r`$EFGH$ est un parallélogramme. Alors $\overrightarrow{EH} = \overrightarrow{FG}$.`,
       bonne: true,
       explication: [
-        r`D'après le cours, $\overrightarrow{EH} = \overrightarrow{FG}$ si et seulement si $EHGF$ est un parallélogramme. Or $EHGF$ est le parallélogramme $EFGH$, parcouru dans l'autre sens.`,
+        r`D'après le cours, $\overrightarrow{EH} = \overrightarrow{FG}$ si et seulement si $EHGF$ est un parallélogramme (éventuellement aplati). Or $EHGF$ est le parallélogramme $EFGH$, parcouru dans l'autre sens.`,
         quadrillage(FIG.paraV, { label: 'Parallélogramme EFGH, avec les flèches de E vers H et de F vers G, parallèles et de même sens.' }),
         r`Les flèches de $E$ vers $H$ et de $F$ vers $G$ ont bien la même direction, le même sens et la même longueur&nbsp;: l'égalité est <span class="resultat">vraie</span>.`] } },
 
@@ -651,7 +651,7 @@ const QUIZ = {
     explication: [
       r`Soustraire un vecteur, c'est ajouter son opposé&nbsp;: $-\overrightarrow{MB} = \overrightarrow{BM}$. On range ensuite les vecteurs pour appliquer la relation de Chasles.`,
       calcul(r`\overrightarrow{MA} - \overrightarrow{MB} & = \overrightarrow{MA} + \overrightarrow{BM}`, r`& = \overrightarrow{BM} + \overrightarrow{MA}`, r`& = \overrightarrow{BA}`),
-      r`Or $\overrightarrow{BA} = -\overrightarrow{AB}$&nbsp;: dès que $A \ne B$ (par exemple pour trois sommets d'un triangle), $\overrightarrow{BA}$ et $\overrightarrow{AB}$ sont de sens contraires, donc différents. L'égalité est <span class="resultat">fausse</span>.`],
+      r`Or $\overrightarrow{BA} = -\overrightarrow{AB}$&nbsp;: dès que $A \ne B$ (par exemple pour trois sommets d'un triangle), $\overrightarrow{AB}$ n'est pas nul et son opposé $\overrightarrow{BA}$ est de sens contraire, donc différent. L'égalité est <span class="resultat">fausse</span>.`],
     revoir: r`capacité 3 du cours, exercice 3 de la fiche, exercice 68 p.&nbsp;139 du manuel`,
     variante: {
       enonce: r`Pour tous points $K$, $L$ et $M$&nbsp;: $\overrightarrow{KL} - \overrightarrow{KM} = \overrightarrow{ML}$.`,

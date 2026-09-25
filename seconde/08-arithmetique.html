@@ -403,23 +403,23 @@ const QUIZ = {
     bonne: 0,
     explication: [
       r`On justifie chaque affirmation par un critère de divisibilité ou par un calcul&nbsp;: $a$ est un multiple de $b$ s'il existe un entier $k$ tel que $a = k \times b$.`,
-      r`Critère de divisibilité par $9$&nbsp;: $4 + 3 + 2 + 6 = 15$ n'est pas un multiple de $9$, donc $4\,326$ n'est pas divisible par $9$.`,
-      r`Critère de divisibilité par $4$&nbsp;: les deux derniers chiffres de $2\,538$ forment $38 = 4 \times 9 + 2$, qui n'est pas un multiple de $4$, donc $2\,538$ n'est pas divisible par $4$.`,
+      r`Critère de divisibilité par $9$&nbsp;: un entier naturel est divisible par $9$ si et seulement si la somme de ses chiffres est un multiple de $9$. Or $4 + 3 + 2 + 6 = 15$ n'est pas un multiple de $9$, donc $4\,326$ n'est pas divisible par $9$.`,
+      r`Critère de divisibilité par $4$&nbsp;: un entier naturel est divisible par $4$ si et seulement si le nombre formé par ses deux derniers chiffres est un multiple de $4$. Or les deux derniers chiffres de $2\,538$ forment $38 = 4 \times 9 + 2$, qui n'est pas un multiple de $4$, donc $2\,538$ n'est pas divisible par $4$.`,
       r`$7 \times 35 = 245$ et $7 \times 36 = 252$&nbsp;: $250$ n'est pas dans la table de $7$.`,
       r`On cherche $182$ dans la table de $13$&nbsp;:`,
       calcul(r`13 \times 14 & = 13 \times 10 + 13 \times 4`, r`& = 130 + 52`, r`& = 182`),
       r`$14$ est un entier&nbsp;: l'affirmation vraie est <span class="resultat">$182$ est un multiple de $13$</span>.`],
-    revoir: r`capacité 1 du cours (questions 1 à 4), exercice 1 de la fiche (questions 1 à 4), exercice 49 p.&nbsp;66 du manuel`,
+    revoir: r`propriété «&nbsp;critères de divisibilité&nbsp;» et capacité 1 du cours (questions 1 à 4), exercice 1 de la fiche (questions 1 à 4), exercice 49 p.&nbsp;66 du manuel`,
     variante: {
       enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
       choix: [r`$3\,582$ est divisible par $9$`, r`$1\,746$ est divisible par $4$`, r`$7$ est un diviseur de $180$`, r`$196$ est un multiple de $13$`],
       bonne: 0,
       explication: [
         r`On justifie chaque affirmation par un critère de divisibilité ou par un calcul&nbsp;: $a$ est un multiple de $b$ s'il existe un entier $k$ tel que $a = k \times b$.`,
-        r`Critère de divisibilité par $4$&nbsp;: les deux derniers chiffres de $1\,746$ forment $46 = 4 \times 11 + 2$, qui n'est pas un multiple de $4$, donc $1\,746$ n'est pas divisible par $4$.`,
+        r`Critère de divisibilité par $4$&nbsp;: un entier naturel est divisible par $4$ si et seulement si le nombre formé par ses deux derniers chiffres est un multiple de $4$. Or les deux derniers chiffres de $1\,746$ forment $46 = 4 \times 11 + 2$, qui n'est pas un multiple de $4$, donc $1\,746$ n'est pas divisible par $4$.`,
         r`$7 \times 25 = 175$ et $7 \times 26 = 182$&nbsp;: $180$ n'est pas dans la table de $7$.`,
         r`$13 \times 15 = 195$ et $13 \times 16 = 208$&nbsp;: $196$ n'est pas dans la table de $13$.`,
-        r`Critère de divisibilité par $9$&nbsp;: on calcule la somme des chiffres de $3\,582$.`,
+        r`Critère de divisibilité par $9$&nbsp;: un entier naturel est divisible par $9$ si et seulement si la somme de ses chiffres est un multiple de $9$. On calcule la somme des chiffres de $3\,582$.`,
         calcul(r`3 + 5 + 8 + 2 & = 18`, r`& = 9 \times 2`),
         r`$18$ est un multiple de $9$&nbsp;: l'affirmation vraie est <span class="resultat">$3\,582$ est divisible par $9$</span>. Vérification&nbsp;: $9 \times 398 = 3\,582$.`] } },
 

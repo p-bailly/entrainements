@@ -9,13 +9,14 @@
   Une seule partie, douze questions, sans automatismes (demande du professeur), rangées par
   difficulté croissante, en trois niveaux :
     1 à 3  : lectures directes et cours : sens de variation lu sur une courbe (capacité 1),
-             maximum et minimum lus dans un tableau (capacité 3), variations des fonctions de
-             référence (carré, inverse, racine carrée, cube ; affine en variante) ;
+             maximum et minimum lus dans le tableau d'une fonction définie sur un intervalle
+             fermé (capacité 3), variations des fonctions de référence, dites « strictement »
+             comme dans le cours (carré, inverse, racine carrée, cube ; affine en variante) ;
     4 à 8  : méthodes en deux ou trois étapes : de la courbe au tableau de variations
              (capacité 1), du tableau à la courbe, parmi quatre courbes (capacité 2),
              extremums sur un sous-intervalle, atteints à une borne (capacité 3), comparer
-             deux images dans un intervalle où la fonction est monotone (capacité 2), comparer
-             sans calculer (capacité 4) ;
+             deux images dans un intervalle où la fonction est strictement croissante ou
+             strictement décroissante (capacité 2), comparer sans calculer (capacité 4) ;
     9 à 12 : plusieurs étapes et pièges : encadrer (capacité 4), peut-on comparer deux images
              prises dans deux intervalles différents (on ne peut pas conclure ; variante : on
              peut, par une chaîne d'inégalités), optimisation (enclos adossé à un mur :
@@ -32,16 +33,17 @@
   sans calculatrice, comme à l'évaluation : ni conjecture à la calculatrice (capacité 1,
   question 3 ; exercice 49 p. 259), ni longueur d'une portion de courbe (fiche, exercice 5 ;
   exercice 91 p. 267). Comparaisons tirées d'un tableau écrites avec des inégalités strictes,
-  comme dans les corrections du cours.
+  comme dans les corrections du cours : par définition du tableau de variations, une flèche
+  indique que la fonction est strictement croissante ou strictement décroissante.
   Distracteurs : erreurs types (croissante et décroissante confondues, intervalles lus sur
   l'axe des ordonnées, intervalles où la fonction est positive, flèches inversées, bornes
   oubliées, abscisses et images confondues, courbe qui passe par les bons points sans avoir
   les bonnes variations, ordre gardé là où la fonction décroît, « on ne peut pas conclure »
   répondu à tort ou oublié, extremum pris hors de l'intervalle, borne oubliée, fonction
-  inverse décroissante sur la réunion de ses deux intervalles, cube traité comme un carré,
-  0,49 lu plus grand que 0,5, racine carrée prise pour une moitié, plus grande valeur d'un
-  tableau prise pour le maximum, enclos cru carré, image maximale renvoyée à la place de x,
-  dernier maximum gardé malgré le test strict du programme).
+  inverse strictement décroissante sur la réunion de ses deux intervalles, cube traité comme
+  un carré, 0,49 lu plus grand que 0,5, racine carrée prise pour une moitié, plus grande
+  valeur d'un tableau prise pour le maximum, enclos cru carré, image maximale renvoyée à la
+  place de x, dernier maximum gardé malgré le test strict du programme).
   Figures : repere du gabarit. Les courbes passent par des noeuds entiers, reliés par
   l'interpolation monotone de lisse (reprise du chapitre 6, celle des arcs de Bézier des
   figures du cours) : extremums aux noeuds, toutes les lectures tombent sur le quadrillage.
@@ -367,9 +369,11 @@ function lisse(x0, ys) {
 
 // Tableau de variations comme ceux du cours (tkz-tab) : première ligne, les valeurs de x ;
 // seconde ligne, les images, écrites en haut ou en bas et reliées par des flèches qui montent ou
-// qui descendent. tableauVar(nom, xs, ys, pos) : nom de la fonction ('f'), valeurs de x et
-// images (nombres) ; pos (facultatif) : une lettre par image, 'h' en haut, 'b' en bas, pour
-// dessiner un tableau faux ; sans pos, la place de chaque image se déduit des images.
+// qui descendent (par définition, une flèche indique que la fonction est strictement croissante
+// ou strictement décroissante ; le texte pour l'accessibilité le dit ainsi).
+// tableauVar(nom, xs, ys, pos) : nom de la fonction ('f'), valeurs de x et images (nombres) ;
+// pos (facultatif) : une lettre par image, 'h' en haut, 'b' en bas, pour dessiner un tableau
+// faux ; sans pos, la place de chaque image se déduit des images.
 // Écrit par concaténation de chaînes, sans gabarit de chaîne.
 function tableauVar(nom, xs, ys, pos) {
   const n = xs.length, c = 46, p = 24, e = 62, h1 = 28, h2 = 62;
@@ -392,7 +396,7 @@ function tableauVar(nom, xs, ys, pos) {
     s += trait(x1, y1, r1(x2 - 6 * ux), r1(y2 - 6 * uy))
       + '<path class="fleche" d="M' + x2 + ' ' + y2 + ' L' + r1(x2 - 7 * ux + 3.2 * uy) + ' ' + r1(y2 - 7 * uy - 3.2 * ux)
       + ' L' + r1(x2 - 7 * ux - 3.2 * uy) + ' ' + r1(y2 - 7 * uy + 3.2 * ux) + ' z"/>';
-    sens.push((place[k + 1] === 'h' ? 'croissante' : 'décroissante') + ' sur [' + nb(xs[k]) + ' ; ' + nb(xs[k + 1])
+    sens.push((place[k + 1] === 'h' ? 'strictement croissante' : 'strictement décroissante') + ' sur [' + nb(xs[k]) + ' ; ' + nb(xs[k + 1])
       + '], de ' + nb(ys[k]) + ' à ' + nb(ys[k + 1]));
   }
   return '<svg class="fig" viewBox="0 0 ' + W + ' ' + H + '" style="max-width:' + Math.round(W * 1.25)
@@ -499,14 +503,14 @@ const QUIZ = {
             r`$\left[-2\,;\,2\right]$ et sur $\left[-2\,;\,1\right]$`, r`$\left[-3\,;\,0\right]$ et sur $\left[2\,;\,3\right]$`],
     bonne: 0,
     explication: [
-      r`On parcourt la courbe de gauche à droite&nbsp;: $f$ est croissante là où la courbe monte, décroissante là où elle descend. Les intervalles se lisent sur l'axe des abscisses, entre les points où la courbe change de sens (tirets verts).`,
+      r`On parcourt la courbe de gauche à droite&nbsp;: là où elle monte, $f$ est strictement croissante, donc croissante&nbsp;; là où elle descend, $f$ est strictement décroissante. Les intervalles se lisent sur l'axe des abscisses, entre les points où la courbe change de sens (tirets verts).`,
       repere(Object.assign({}, FIG1, { echelle: 1.15,
           points: [{ x: -4, y: -2 }, { x: 3, y: 1 }, { x: -2, y: 2, classe: 'c-noir' }, { x: 1, y: -2, classe: 'c-noir' }],
           lectures: [[[-2, 2], [-2, 0]], [[1, -2], [1, 0]]],
           label: 'La même courbe, avec les points où elle change de sens, (−2 ; 2) et (1 ; −2), et les lignes de lecture vers les abscisses −2 et 1' })),
       r`La courbe monte de $x = -4$ à $x = -2$, descend de $-2$ à $1$, puis remonte de $1$ à $3$. Donc $f$ est croissante sur <span class="resultat">$\left[-4\,;\,-2\right]$ et sur $\left[1\,;\,3\right]$</span>, et décroissante sur $\left[-2\,;\,1\right]$.`,
       r`Attention&nbsp;: ce sont des valeurs de $x$, lues sur l'axe des abscisses&nbsp;; $\left[-2\,;\,2\right]$ est l'intervalle des valeurs prises par $f(x)$ pendant la première montée.`],
-    revoir: r`définition «&nbsp;fonction croissante, décroissante&nbsp;» et capacité 1 du cours (question 1), activité 1 (question 1), exercice 1 de la fiche (question 1), exercices 17 et 20 p.&nbsp;256 et 35 p.&nbsp;258 du manuel`,
+    revoir: r`définition «&nbsp;fonction croissante, décroissante, monotone&nbsp;» et capacité 1 du cours (question 1), activité 1 (question 1), exercice 1 de la fiche (question 1), exercices 17 et 20 p.&nbsp;256 et 35 p.&nbsp;258 du manuel`,
     variante: {
       enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-3\,;\,4\right]$. La fonction $f$ est décroissante sur&nbsp;:`
         + repere(FIG1v),
@@ -514,7 +518,7 @@ const QUIZ = {
               r`$\left[-2\,;\,2\right]$ et sur $\left[-1\,;\,3\right]$`, r`$\left[-2\,;\,0\right]$ et sur $\left[3\,;\,4\right]$`],
       bonne: 0,
       explication: [
-        r`On parcourt la courbe de gauche à droite&nbsp;: $f$ est croissante là où la courbe monte, décroissante là où elle descend. Les intervalles se lisent sur l'axe des abscisses, entre les points où la courbe change de sens (tirets verts).`,
+        r`On parcourt la courbe de gauche à droite&nbsp;: là où elle descend, $f$ est strictement décroissante, donc décroissante&nbsp;; là où elle monte, $f$ est strictement croissante. Les intervalles se lisent sur l'axe des abscisses, entre les points où la courbe change de sens (tirets verts).`,
         repere(Object.assign({}, FIG1v, { echelle: 1.15,
             points: [{ x: -3, y: 2 }, { x: 4, y: -1 }, { x: -1, y: -2, classe: 'c-noir' }, { x: 2, y: 3, classe: 'c-noir' }],
             lectures: [[[-1, -2], [-1, 0]], [[2, 3], [2, 0]]],
@@ -531,7 +535,7 @@ const QUIZ = {
             r`le maximum de $f$ est $3$, atteint en $5$&nbsp;; le minimum est $-1$, atteint en $2$`],
     bonne: 0,
     explication: [
-      r`Dans un tableau de variations, le maximum est la plus grande des valeurs écrites au bout des flèches, et le minimum la plus petite&nbsp;; la valeur de $x$ où chacun est atteint est au-dessus, sur la première ligne.`,
+      r`$f$ est définie sur l'intervalle fermé $\left[-3\,;\,5\right]$&nbsp;: dans son tableau de variations, le maximum est la plus grande des valeurs écrites au bout des flèches, et le minimum la plus petite&nbsp;; la valeur de $x$ où chacun est atteint est au-dessus, sur la première ligne.`,
       r`Les valeurs au bout des flèches sont $-4$, $2$, $-1$ et $3$&nbsp;: la plus grande est $3$, sous $x = 5$, et la plus petite est $-4$, sous $x = -3$.`,
       r`Donc <span class="resultat">le maximum est $3$, atteint en $5$&nbsp;; le minimum est $-4$, atteint en $-3$</span>. Attention&nbsp;: ici, les deux extremums sont atteints aux bornes&nbsp;; $2$ n'est pas le maximum, car $3 > 2$, et le maximum est une image ($3$), pas l'abscisse où il est atteint ($5$).`],
     revoir: r`définition du maximum et du minimum, capacité 3 du cours (question 2), exercice 2 de la fiche (question 1), exercice 53 p.&nbsp;259 du manuel, question 4 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263`,
@@ -544,37 +548,37 @@ const QUIZ = {
               r`le maximum de $g$ est $2$, atteint en $-2$&nbsp;; le minimum est $-3$, atteint en $1$`],
       bonne: 0,
       explication: [
-        r`Dans un tableau de variations, le maximum est la plus grande des valeurs écrites au bout des flèches, et le minimum la plus petite&nbsp;; la valeur de $x$ où chacun est atteint est au-dessus, sur la première ligne.`,
+        r`$g$ est définie sur l'intervalle fermé $\left[-2\,;\,6\right]$&nbsp;: dans son tableau de variations, le maximum est la plus grande des valeurs écrites au bout des flèches, et le minimum la plus petite&nbsp;; la valeur de $x$ où chacun est atteint est au-dessus, sur la première ligne.`,
         r`Les valeurs au bout des flèches sont $2$, $-3$, $1$ et $-4$&nbsp;: la plus grande est $2$, sous $x = -2$, et la plus petite est $-4$, sous $x = 6$.`,
         r`Donc <span class="resultat">le maximum est $2$, atteint en $-2$&nbsp;; le minimum est $-4$, atteint en $6$</span>. Attention&nbsp;: ici, les deux extremums sont atteints aux bornes&nbsp;; $-3$ n'est pas le minimum, car $-4 < -3$, et le minimum est une image ($-4$), pas l'abscisse où il est atteint ($6$).`] } },
 
   { partie: 0, theme: 'Fonctions de référence', type: 'qcm',
     enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
-    choix: [r`La fonction inverse est décroissante sur $\left]-\infty\,;\,0\right[$ et décroissante sur $\left]0\,;\,+\infty\right[$`,
-            r`La fonction carré est croissante sur $\R$`,
-            r`La fonction racine carrée est décroissante sur $\left[0\,;\,+\infty\right[$`,
-            r`La fonction cube est décroissante sur $\left]-\infty\,;\,0\right]$`],
+    choix: [r`La fonction inverse est strictement décroissante sur $\left]-\infty\,;\,0\right[$ et strictement décroissante sur $\left]0\,;\,+\infty\right[$`,
+            r`La fonction carré est strictement croissante sur $\R$`,
+            r`La fonction racine carrée est strictement décroissante sur $\left[0\,;\,+\infty\right[$`,
+            r`La fonction cube est strictement décroissante sur $\left]-\infty\,;\,0\right]$`],
     bonne: 0,
     explication: [
-      r`On utilise les propriétés du cours&nbsp;: la fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$&nbsp;; la fonction inverse est décroissante sur chacun des intervalles $\left]-\infty\,;\,0\right[$ et $\left]0\,;\,+\infty\right[$&nbsp;; la fonction racine carrée est croissante sur $\left[0\,;\,+\infty\right[$ et la fonction cube sur $\R$. Pour une affirmation fausse, un contre-exemple suffit.`,
-      r`Carré&nbsp;: $-3 < 1$, mais $(-3)^{2} = 9$ est plus grand que $1^{2} = 1$&nbsp;; elle n'est pas croissante sur $\R$.`,
-      r`Racine carrée&nbsp;: $1 < 4$ et $\sqrt{1} = 1 < 2 = \sqrt{4}$&nbsp;; l'ordre est conservé, elle n'est pas décroissante.`,
-      r`Cube&nbsp;: $-2 < -1$ et $(-2)^{3} = -8 < -1 = (-1)^{3}$&nbsp;; l'ordre est conservé, elle n'est pas décroissante sur $\left]-\infty\,;\,0\right]$.`,
-      r`L'affirmation vraie est <span class="resultat">la fonction inverse est décroissante sur $\left]-\infty\,;\,0\right[$ et décroissante sur $\left]0\,;\,+\infty\right[$</span>, comme le montre la démonstration du cours.`],
-    revoir: r`propriétés et démonstrations de la partie 4 du cours (fonctions carré, inverse, racine carrée, cube), activité 3, exercice 29 p.&nbsp;257 du manuel`,
+      r`On utilise les propriétés du cours&nbsp;: la fonction carré est strictement décroissante sur $\left]-\infty\,;\,0\right]$ et strictement croissante sur $\left[0\,;\,+\infty\right[$&nbsp;; la fonction inverse est strictement décroissante sur chacun des intervalles $\left]-\infty\,;\,0\right[$ et $\left]0\,;\,+\infty\right[$&nbsp;; la fonction racine carrée est strictement croissante sur $\left[0\,;\,+\infty\right[$ et la fonction cube sur $\R$. Pour une affirmation fausse, un contre-exemple suffit.`,
+      r`Carré&nbsp;: $-3 < 1$, mais $(-3)^{2} = 9$ est plus grand que $1^{2} = 1$&nbsp;; elle n'est pas strictement croissante sur $\R$.`,
+      r`Racine carrée&nbsp;: $1 < 4$ et $\sqrt{1} = 1 < 2 = \sqrt{4}$&nbsp;; l'ordre est conservé, elle n'est pas strictement décroissante.`,
+      r`Cube&nbsp;: $-2 < -1$ et $(-2)^{3} = -8 < -1 = (-1)^{3}$&nbsp;; l'ordre est conservé, elle n'est pas strictement décroissante sur $\left]-\infty\,;\,0\right]$.`,
+      r`L'affirmation vraie est <span class="resultat">la fonction inverse est strictement décroissante sur $\left]-\infty\,;\,0\right[$ et strictement décroissante sur $\left]0\,;\,+\infty\right[$</span>, comme le montre la démonstration du cours.`],
+    revoir: r`propriétés et démonstrations de la partie 4 du cours (fonctions affines, carré, inverse, racine carrée, cube), activité 3, exercice 29 p.&nbsp;257 du manuel`,
     variante: {
       enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
-      choix: [r`La fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$`,
-              r`La fonction inverse est décroissante sur $\left]-\infty\,;\,0\right[ ∪ \left]0\,;\,+\infty\right[$`,
-              r`La fonction cube est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$`,
-              r`La fonction $x \mapsto 6 - 2x$ est croissante sur $\R$`],
+      choix: [r`La fonction carré est strictement décroissante sur $\left]-\infty\,;\,0\right]$ et strictement croissante sur $\left[0\,;\,+\infty\right[$`,
+              r`La fonction inverse est strictement décroissante sur $\left]-\infty\,;\,0\right[ ∪ \left]0\,;\,+\infty\right[$`,
+              r`La fonction cube est strictement décroissante sur $\left]-\infty\,;\,0\right]$ et strictement croissante sur $\left[0\,;\,+\infty\right[$`,
+              r`La fonction $x \mapsto 6 - 2x$ est strictement croissante sur $\R$`],
       bonne: 0,
       explication: [
-        r`On utilise les propriétés du cours&nbsp;: la fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$&nbsp;; la fonction inverse est décroissante sur chacun des intervalles $\left]-\infty\,;\,0\right[$ et $\left]0\,;\,+\infty\right[$&nbsp;; la fonction cube est croissante sur $\R$&nbsp;; une fonction affine $x \mapsto mx + p$ est croissante si $m > 0$, décroissante si $m < 0$. Pour une affirmation fausse, un contre-exemple suffit.`,
-        r`Inverse&nbsp;: $-1 < 1$ et $\dfrac{1}{-1} = -1 < 1 = \dfrac{1}{1}$&nbsp;; l'ordre est conservé&nbsp;: elle est décroissante sur chacun des deux intervalles, mais pas sur leur réunion.`,
-        r`Cube&nbsp;: $-2 < -1$ et $(-2)^{3} = -8 < -1 = (-1)^{3}$&nbsp;; l'ordre est conservé, elle n'est pas décroissante sur $\left]-\infty\,;\,0\right]$, contrairement à la fonction carré.`,
-        r`Affine&nbsp;: $6 - 2x = -2x + 6$, de coefficient directeur $m = -2 < 0$&nbsp;; elle est décroissante sur $\R$ (par exemple, $0 < 1$ et $6 > 4$).`,
-        r`L'affirmation vraie est <span class="resultat">la fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$</span>, comme le montre la démonstration du cours.`] } },
+        r`On utilise les propriétés du cours&nbsp;: la fonction carré est strictement décroissante sur $\left]-\infty\,;\,0\right]$ et strictement croissante sur $\left[0\,;\,+\infty\right[$&nbsp;; la fonction inverse est strictement décroissante sur chacun des intervalles $\left]-\infty\,;\,0\right[$ et $\left]0\,;\,+\infty\right[$&nbsp;; la fonction cube est strictement croissante sur $\R$&nbsp;; une fonction affine $x \mapsto mx + p$ est strictement croissante si $m > 0$, strictement décroissante si $m < 0$. Pour une affirmation fausse, un contre-exemple suffit.`,
+        r`Inverse&nbsp;: $-1 < 1$ et $\dfrac{1}{-1} = -1 < 1 = \dfrac{1}{1}$&nbsp;; l'ordre est conservé&nbsp;: elle est strictement décroissante sur chacun des deux intervalles, mais pas sur leur réunion.`,
+        r`Cube&nbsp;: $-2 < -1$ et $(-2)^{3} = -8 < -1 = (-1)^{3}$&nbsp;; l'ordre est conservé, elle n'est pas strictement décroissante sur $\left]-\infty\,;\,0\right]$, contrairement à la fonction carré.`,
+        r`Affine&nbsp;: $6 - 2x = -2x + 6$, de coefficient directeur $m = -2 < 0$&nbsp;; elle est strictement décroissante sur $\R$ (par exemple, $0 < 1$ et $6 > 4$).`,
+        r`L'affirmation vraie est <span class="resultat">la fonction carré est strictement décroissante sur $\left]-\infty\,;\,0\right]$ et strictement croissante sur $\left[0\,;\,+\infty\right[$</span>, comme le montre la démonstration du cours.`] } },
 
   /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
 
@@ -585,7 +589,7 @@ const QUIZ = {
             tableauVar('f', [-2, 1], [-1, 2]), tableauVar('f', [-4, -2, 1, 3], [-4, -2, 1, 3], 'hbhb')],
     bonne: 0,
     explication: [
-      r`Sur la première ligne&nbsp;: les bornes $-4$ et $3$ de l'ensemble de définition, et les abscisses $-2$ et $1$ des points où la courbe change de sens. Sur la seconde&nbsp;: les ordonnées de ces points, lues sur les tirets verts, au bout de flèches qui montent ou descendent comme la courbe.`,
+      r`Sur la première ligne&nbsp;: les bornes $-4$ et $3$ de l'ensemble de définition, et les abscisses $-2$ et $1$ des points où la courbe change de sens. Sur la seconde&nbsp;: les ordonnées de ces points, lues sur les tirets verts, au bout de flèches qui montent là où $f$ est strictement croissante (la courbe monte) et descendent là où elle est strictement décroissante.`,
       repere(Object.assign({}, FIG2, { echelle: 1.15,
           lectures: [[[-4, 0], [-4, 3], [0, 3]], [[-2, 0], [-2, -1], [0, -1]], [[1, 0], [1, 2], [0, 2]], [[3, 0], [3, -2], [0, -2]]],
           label: 'La même courbe, avec les lignes de lecture des points (−4 ; 3), (−2 ; −1), (1 ; 2) et (3 ; −2)' })),
@@ -600,7 +604,7 @@ const QUIZ = {
               tableauVar('f', [0, 3], [2, -3]), tableauVar('f', [-3, 0, 3, 4], [-3, 0, 3, 4], 'bhbh')],
       bonne: 0,
       explication: [
-        r`Sur la première ligne&nbsp;: les bornes $-3$ et $4$ de l'ensemble de définition, et les abscisses $0$ et $3$ des points où la courbe change de sens. Sur la seconde&nbsp;: les ordonnées de ces points, lues sur les tirets verts, au bout de flèches qui montent ou descendent comme la courbe.`,
+        r`Sur la première ligne&nbsp;: les bornes $-3$ et $4$ de l'ensemble de définition, et les abscisses $0$ et $3$ des points où la courbe change de sens. Sur la seconde&nbsp;: les ordonnées de ces points, lues sur les tirets verts, au bout de flèches qui montent là où $f$ est strictement croissante (la courbe monte) et descendent là où elle est strictement décroissante.`,
         repere(Object.assign({}, FIG2v, { echelle: 1.15,
             points: [{ x: -3, y: -2 }, { x: 4, y: -1 }, { x: 0, y: 2, classe: 'c-noir' }],
             lectures: [[[-3, 0], [-3, -2], [0, -2]], [[3, 0], [3, -3], [0, -3]], [[4, 0], [4, -1], [0, -1]]],
@@ -623,8 +627,8 @@ const QUIZ = {
           points: [{ x: -3, y: 1, classe: 'c-noir' }, { x: -1, y: -2, classe: 'c-noir' }, { x: 2, y: 3, classe: 'c-noir' }, { x: 4, y: 0, classe: 'c-noir' }],
           label: 'La courbe qui convient, avec les quatre points du tableau marqués en noir : (−3 ; 1), (−1 ; −2), (2 ; 3) et (4 ; 0)' }),
       r`La courbe qui convient <span class="resultat">descend de $(-3\,;\,1)$ à $(-1\,;\,-2)$, monte jusqu'à $(2\,;\,3)$, puis redescend jusqu'à $(4\,;\,0)$</span>. D'autres courbes conviendraient, pourvu qu'elles passent par ces points avec ces variations.`,
-      r`Attention&nbsp;: passer par les quatre points ne suffit pas. $g$ est croissante sur tout l'intervalle $\left[-1\,;\,2\right]$&nbsp;: la courbe ne redescend pas entre $-1$ et $2$.`],
-    revoir: r`méthode «&nbsp;du tableau à la courbe&nbsp;» et capacité 2 du cours (question 1), exercice 2 de la fiche (question 2), exercice 79 p.&nbsp;265 du manuel, question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263`,
+      r`Attention&nbsp;: passer par les quatre points ne suffit pas. La flèche qui monte indique que $g$ est strictement croissante sur tout l'intervalle $\left[-1\,;\,2\right]$&nbsp;: la courbe ne redescend pas entre $-1$ et $2$.`],
+    revoir: r`définition du tableau de variations, méthode «&nbsp;du tableau à la courbe&nbsp;» et capacité 2 du cours (question 1), exercice 2 de la fiche (question 2), exercice 79 p.&nbsp;265 du manuel, question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263`,
     variante: {
       enonce: r`On donne le tableau de variations d'une fonction $h$ définie sur $\left[-4\,;\,3\right]$.`
         + tableauVar('h', [-4, -2, 1, 3], [1, -3, 2, -1]) + r`Laquelle de ces courbes peut représenter $h$&nbsp;?`,
@@ -639,7 +643,7 @@ const QUIZ = {
             points: [{ x: -4, y: 1, classe: 'c-noir' }, { x: -2, y: -3, classe: 'c-noir' }, { x: 1, y: 2, classe: 'c-noir' }, { x: 3, y: -1, classe: 'c-noir' }],
             label: 'La courbe qui convient, avec les quatre points du tableau marqués en noir : (−4 ; 1), (−2 ; −3), (1 ; 2) et (3 ; −1)' }),
         r`La courbe qui convient <span class="resultat">descend de $(-4\,;\,1)$ à $(-2\,;\,-3)$, monte jusqu'à $(1\,;\,2)$, puis redescend jusqu'à $(3\,;\,-1)$</span>. D'autres courbes conviendraient, pourvu qu'elles passent par ces points avec ces variations.`,
-        r`Attention&nbsp;: passer par les quatre points ne suffit pas. $h$ est croissante sur tout l'intervalle $\left[-2\,;\,1\right]$&nbsp;: la courbe ne redescend pas entre $-2$ et $1$.`] } },
+        r`Attention&nbsp;: passer par les quatre points ne suffit pas. La flèche qui monte indique que $h$ est strictement croissante sur tout l'intervalle $\left[-2\,;\,1\right]$&nbsp;: la courbe ne redescend pas entre $-2$ et $1$.`] } },
 
   { partie: 0, theme: 'Maximum et minimum', type: 'qcm',
     enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-3\,;\,4\right]$. Sur l'intervalle $\left[0\,;\,4\right]$&nbsp;:`
@@ -682,11 +686,11 @@ const QUIZ = {
             r`$f(-3) > f(-2)$ et $f(0{,}5) > f(1{,}5)$`, r`$f(-3) < f(-2)$ et $f(0{,}5) > f(1{,}5)$`],
     bonne: 0,
     explication: [
-      r`Si deux nombres sont dans un même intervalle où $f$ est monotone, le sens de variation range leurs images&nbsp;: une fonction croissante conserve l'ordre, une fonction décroissante le change.`,
-      r`$-3$ et $-2$ sont dans $\left[-4\,;\,-1\right]$, où $f$ est décroissante&nbsp;: elle change l'ordre. Comme $-3 < -2$, on a $f(-3) > f(-2)$.`,
-      r`$0{,}5$ et $1{,}5$ sont dans $\left[-1\,;\,2\right]$, où $f$ est croissante&nbsp;: elle conserve l'ordre. Comme $0{,}5 < 1{,}5$, on a $f(0{,}5) < f(1{,}5)$.`,
+      r`Si deux nombres sont dans un même intervalle où $f$ est strictement croissante ou strictement décroissante, le sens de variation range leurs images&nbsp;: une fonction strictement croissante conserve l'ordre, une fonction strictement décroissante le change.`,
+      r`$-3$ et $-2$ sont dans $\left[-4\,;\,-1\right]$, où $f$ est strictement décroissante (flèche qui descend)&nbsp;: elle change l'ordre. Comme $-3 < -2$, on a $f(-3) > f(-2)$.`,
+      r`$0{,}5$ et $1{,}5$ sont dans $\left[-1\,;\,2\right]$, où $f$ est strictement croissante (flèche qui monte)&nbsp;: elle conserve l'ordre. Comme $0{,}5 < 1{,}5$, on a $f(0{,}5) < f(1{,}5)$.`,
       r`Donc <span class="resultat">$f(-3) > f(-2)$ et $f(0{,}5) < f(1{,}5)$</span>. Attention&nbsp;: sur $\left[-4\,;\,-1\right]$, le plus petit nombre, $-3$, a la plus grande image.`],
-    revoir: r`méthode «&nbsp;comparer $f(a)$ et $f(b)$&nbsp;» et capacité 2 du cours (question 2), activité 1 (question 2), exercice 2 de la fiche (question 3)`,
+    revoir: r`définition du tableau de variations, méthode «&nbsp;comparer $f(a)$ et $f(b)$&nbsp;» et capacité 2 du cours (question 2), activité 1 (question 2), exercice 2 de la fiche (question 3)`,
     variante: {
       enonce: r`On donne le tableau de variations d'une fonction $g$ définie sur $\left[-3\,;\,5\right]$.`
         + tableauVar('g', [-3, 0, 3, 5], [-2, 3, -1, 2]) + r`On peut affirmer que&nbsp;:`,
@@ -694,9 +698,9 @@ const QUIZ = {
               r`$g(-2) < g(-1)$ et $g(1{,}5) < g(2{,}5)$`, r`$g(-2) > g(-1)$ et $g(1{,}5) < g(2{,}5)$`],
       bonne: 0,
       explication: [
-        r`Si deux nombres sont dans un même intervalle où $g$ est monotone, le sens de variation range leurs images&nbsp;: une fonction croissante conserve l'ordre, une fonction décroissante le change.`,
-        r`$-2$ et $-1$ sont dans $\left[-3\,;\,0\right]$, où $g$ est croissante&nbsp;: elle conserve l'ordre. Comme $-2 < -1$, on a $g(-2) < g(-1)$.`,
-        r`$1{,}5$ et $2{,}5$ sont dans $\left[0\,;\,3\right]$, où $g$ est décroissante&nbsp;: elle change l'ordre. Comme $1{,}5 < 2{,}5$, on a $g(1{,}5) > g(2{,}5)$.`,
+        r`Si deux nombres sont dans un même intervalle où $g$ est strictement croissante ou strictement décroissante, le sens de variation range leurs images&nbsp;: une fonction strictement croissante conserve l'ordre, une fonction strictement décroissante le change.`,
+        r`$-2$ et $-1$ sont dans $\left[-3\,;\,0\right]$, où $g$ est strictement croissante (flèche qui monte)&nbsp;: elle conserve l'ordre. Comme $-2 < -1$, on a $g(-2) < g(-1)$.`,
+        r`$1{,}5$ et $2{,}5$ sont dans $\left[0\,;\,3\right]$, où $g$ est strictement décroissante (flèche qui descend)&nbsp;: elle change l'ordre. Comme $1{,}5 < 2{,}5$, on a $g(1{,}5) > g(2{,}5)$.`,
         r`Donc <span class="resultat">$g(-2) < g(-1)$ et $g(1{,}5) > g(2{,}5)$</span>. Attention&nbsp;: sur $\left[0\,;\,3\right]$, le plus petit nombre, $1{,}5$, a la plus grande image.`] } },
 
   { partie: 0, theme: 'Comparer sans calculer', type: 'qcm',
@@ -704,11 +708,11 @@ const QUIZ = {
     choix: [r`$(-3{,}2)^{2} > (-3{,}1)^{2}$`, r`$\dfrac{1}{0{,}6} < \dfrac{1}{0{,}7}$`, r`$\sqrt{6{,}08} > \sqrt{6{,}8}$`, r`$(-0{,}5)^{3} < (-0{,}9)^{3}$`],
     bonne: 0,
     explication: [
-      r`On repère l'intervalle où se trouvent les deux nombres, puis on applique le sens de variation de la fonction de référence sur cet intervalle&nbsp;: une fonction croissante conserve l'ordre, une fonction décroissante le change.`,
-      r`$-3{,}2$ et $-3{,}1$ sont dans $\left]-\infty\,;\,0\right]$, où la fonction carré est décroissante&nbsp;: elle change l'ordre. Comme $-3{,}2 < -3{,}1$, on a $(-3{,}2)^{2} > (-3{,}1)^{2}$.`,
-      r`Fonction inverse, décroissante sur $\left]0\,;\,+\infty\right[$&nbsp;: $0{,}6 < 0{,}7$ donne $\dfrac{1}{0{,}6} > \dfrac{1}{0{,}7}$.`,
-      r`Fonction racine carrée, croissante sur $\left[0\,;\,+\infty\right[$&nbsp;: $6{,}08 < 6{,}80$ donne $\sqrt{6{,}08} < \sqrt{6{,}8}$.`,
-      r`Fonction cube, croissante sur $\R$&nbsp;: $-0{,}9 < -0{,}5$ donne $(-0{,}9)^{3} < (-0{,}5)^{3}$.`,
+      r`On repère l'intervalle où se trouvent les deux nombres, puis on applique le sens de variation de la fonction de référence sur cet intervalle&nbsp;: une fonction strictement croissante conserve l'ordre, une fonction strictement décroissante le change.`,
+      r`$-3{,}2$ et $-3{,}1$ sont dans $\left]-\infty\,;\,0\right]$, où la fonction carré est strictement décroissante&nbsp;: elle change l'ordre. Comme $-3{,}2 < -3{,}1$, on a $(-3{,}2)^{2} > (-3{,}1)^{2}$.`,
+      r`Fonction inverse, strictement décroissante sur $\left]0\,;\,+\infty\right[$&nbsp;: $0{,}6 < 0{,}7$ donne $\dfrac{1}{0{,}6} > \dfrac{1}{0{,}7}$.`,
+      r`Fonction racine carrée, strictement croissante sur $\left[0\,;\,+\infty\right[$&nbsp;: $6{,}08 < 6{,}80$ donne $\sqrt{6{,}08} < \sqrt{6{,}8}$.`,
+      r`Fonction cube, strictement croissante sur $\R$&nbsp;: $-0{,}9 < -0{,}5$ donne $(-0{,}9)^{3} < (-0{,}5)^{3}$.`,
       r`L'inégalité vraie est <span class="resultat">$(-3{,}2)^{2} > (-3{,}1)^{2}$</span>. Attention&nbsp;: $-3{,}2$ est le plus petit des deux nombres, mais son carré est le plus grand.`],
     revoir: r`méthode «&nbsp;comparer deux images, encadrer&nbsp;» et capacité 4 du cours (questions 1 à 4), exercice 3 de la fiche (questions 1 à 4), exercices 32 et 33 p.&nbsp;257 du manuel`,
     variante: {
@@ -716,11 +720,11 @@ const QUIZ = {
       choix: [r`$\dfrac{1}{-4} > \dfrac{1}{-2{,}5}$`, r`$4{,}03^{2} > 4{,}3^{2}$`, r`$(-1{,}4)^{2} < (-1{,}2)^{2}$`, r`$\sqrt{0{,}49} > \sqrt{0{,}5}$`],
       bonne: 0,
       explication: [
-        r`On repère l'intervalle où se trouvent les deux nombres, puis on applique le sens de variation de la fonction de référence sur cet intervalle&nbsp;: une fonction croissante conserve l'ordre, une fonction décroissante le change.`,
-        r`$-4$ et $-2{,}5$ sont dans $\left]-\infty\,;\,0\right[$, où la fonction inverse est décroissante&nbsp;: elle change l'ordre. Comme $-4 < -2{,}5$, on a $\dfrac{1}{-4} > \dfrac{1}{-2{,}5}$.`,
-        r`Fonction carré, croissante sur $\left[0\,;\,+\infty\right[$&nbsp;: $4{,}03 < 4{,}30$ donne $4{,}03^{2} < 4{,}3^{2}$.`,
-        r`Fonction carré, décroissante sur $\left]-\infty\,;\,0\right]$&nbsp;: $-1{,}4 < -1{,}2$ donne $(-1{,}4)^{2} > (-1{,}2)^{2}$.`,
-        r`Fonction racine carrée, croissante sur $\left[0\,;\,+\infty\right[$&nbsp;: $0{,}49 < 0{,}50$ donne $\sqrt{0{,}49} < \sqrt{0{,}5}$.`,
+        r`On repère l'intervalle où se trouvent les deux nombres, puis on applique le sens de variation de la fonction de référence sur cet intervalle&nbsp;: une fonction strictement croissante conserve l'ordre, une fonction strictement décroissante le change.`,
+        r`$-4$ et $-2{,}5$ sont dans $\left]-\infty\,;\,0\right[$, où la fonction inverse est strictement décroissante&nbsp;: elle change l'ordre. Comme $-4 < -2{,}5$, on a $\dfrac{1}{-4} > \dfrac{1}{-2{,}5}$.`,
+        r`Fonction carré, strictement croissante sur $\left[0\,;\,+\infty\right[$&nbsp;: $4{,}03 < 4{,}30$ donne $4{,}03^{2} < 4{,}3^{2}$.`,
+        r`Fonction carré, strictement décroissante sur $\left]-\infty\,;\,0\right]$&nbsp;: $-1{,}4 < -1{,}2$ donne $(-1{,}4)^{2} > (-1{,}2)^{2}$.`,
+        r`Fonction racine carrée, strictement croissante sur $\left[0\,;\,+\infty\right[$&nbsp;: $0{,}49 < 0{,}50$ donne $\sqrt{0{,}49} < \sqrt{0{,}5}$.`,
         r`L'inégalité vraie est <span class="resultat">$\dfrac{1}{-4} > \dfrac{1}{-2{,}5}$</span>. Vérification&nbsp;: $\dfrac{1}{-4} = -0{,}25$ et $\dfrac{1}{-2{,}5} = -0{,}4$ (car $2{,}5 \times 0{,}4 = 1$)&nbsp;; on a bien $-0{,}25 > -0{,}4$.`] } },
 
   /* ----- Niveau 3 : plusieurs étapes, pièges et problèmes ----- */
@@ -731,12 +735,12 @@ const QUIZ = {
             r`Si $x \le -2$, alors $x^{3} \ge -8$`, r`Si $16 \le x \le 36$, alors $8 \le \sqrt{x} \le 18$`],
     bonne: 0,
     explication: [
-      r`On repère la fonction de référence et son sens de variation sur l'intervalle où se trouve $x$&nbsp;: une fonction croissante conserve l'ordre des inégalités, une fonction décroissante le change. Pour une affirmation fausse, un contre-exemple suffit.`,
-      r`Si $-4 \le x \le -2$, $x$ est dans $\left]-\infty\,;\,0\right]$, où la fonction carré est décroissante&nbsp;: elle change l'ordre des deux inégalités.`,
+      r`On repère la fonction de référence et son sens de variation sur l'intervalle où se trouve $x$&nbsp;: une fonction strictement croissante conserve l'ordre des inégalités, une fonction strictement décroissante le change. Pour une affirmation fausse, un contre-exemple suffit.`,
+      r`Si $-4 \le x \le -2$, $x$ est dans $\left]-\infty\,;\,0\right]$, où la fonction carré est strictement décroissante&nbsp;: elle change l'ordre des deux inégalités.`,
       calcul(r`-4 \le x \le -2`, r`& \implies (-4)^{2} \ge x^{2} \ge (-2)^{2}`, r`& \implies 16 \ge x^{2} \ge 4`),
-      r`Inverse, décroissante sur $\left]0\,;\,+\infty\right[$&nbsp;: si $x \ge 5$, alors $\dfrac{1}{x} \le \dfrac{1}{5} = 0{,}2$. Contre-exemple&nbsp;: $\dfrac{1}{10} = 0{,}1 < 0{,}2$.`,
-      r`Cube, croissante sur $\R$&nbsp;: si $x \le -2$, alors $x^{3} \le (-2)^{3} = -8$. Contre-exemple&nbsp;: $(-3)^{3} = -27 < -8$.`,
-      r`Racine carrée, croissante&nbsp;: si $16 \le x \le 36$, alors $\sqrt{16} \le \sqrt{x} \le \sqrt{36}$, soit $4 \le \sqrt{x} \le 6$. Contre-exemple&nbsp;: $\sqrt{16} = 4 < 8$.`,
+      r`Inverse, strictement décroissante sur $\left]0\,;\,+\infty\right[$&nbsp;: si $x \ge 5$, alors $\dfrac{1}{x} \le \dfrac{1}{5} = 0{,}2$. Contre-exemple&nbsp;: $\dfrac{1}{10} = 0{,}1 < 0{,}2$.`,
+      r`Cube, strictement croissante sur $\R$&nbsp;: si $x \le -2$, alors $x^{3} \le (-2)^{3} = -8$. Contre-exemple&nbsp;: $(-3)^{3} = -27 < -8$.`,
+      r`Racine carrée, strictement croissante&nbsp;: si $16 \le x \le 36$, alors $\sqrt{16} \le \sqrt{x} \le \sqrt{36}$, soit $4 \le \sqrt{x} \le 6$. Contre-exemple&nbsp;: $\sqrt{16} = 4 < 8$.`,
       r`L'affirmation vraie est <span class="resultat">si $-4 \le x \le -2$, alors $4 \le x^{2} \le 16$</span>. Attention&nbsp;: la racine carrée d'un nombre n'est pas sa moitié.`],
     revoir: r`méthode «&nbsp;comparer deux images, encadrer&nbsp;» et capacité 4 du cours (questions 5 et 6), exercice 3 de la fiche (questions 5 et 6), exercice 68 p.&nbsp;261 du manuel, questions 11 à 14 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263`,
     variante: {
@@ -745,12 +749,12 @@ const QUIZ = {
               r`Si $-2 \le x \le -1$, alors $1 \le x^{3} \le 8$`, r`Si $9 \le x \le 25$, alors $4{,}5 \le \sqrt{x} \le 12{,}5$`],
       bonne: 0,
       explication: [
-        r`On repère la fonction de référence et son sens de variation sur l'intervalle où se trouve $x$&nbsp;: une fonction croissante conserve l'ordre des inégalités, une fonction décroissante le change. Pour une affirmation fausse, un contre-exemple suffit.`,
-        r`Si $2 \le x \le 10$, $x$ est dans $\left]0\,;\,+\infty\right[$, où la fonction inverse est décroissante&nbsp;: elle change l'ordre des deux inégalités.`,
+        r`On repère la fonction de référence et son sens de variation sur l'intervalle où se trouve $x$&nbsp;: une fonction strictement croissante conserve l'ordre des inégalités, une fonction strictement décroissante le change. Pour une affirmation fausse, un contre-exemple suffit.`,
+        r`Si $2 \le x \le 10$, $x$ est dans $\left]0\,;\,+\infty\right[$, où la fonction inverse est strictement décroissante&nbsp;: elle change l'ordre des deux inégalités.`,
         calcul(r`2 \le x \le 10`, r`& \implies \dfrac{1}{2} \ge \dfrac{1}{x} \ge \dfrac{1}{10}`, r`& \implies 0{,}5 \ge \dfrac{1}{x} \ge 0{,}1`),
-        r`Carré, décroissante sur $\left]-\infty\,;\,0\right]$&nbsp;: si $x \le -3$, alors $x^{2} \ge (-3)^{2} = 9$. Contre-exemple&nbsp;: $(-4)^{2} = 16 > 9$.`,
-        r`Cube, croissante sur $\R$&nbsp;: si $-2 \le x \le -1$, alors $-8 \le x^{3} \le -1$. Contre-exemple&nbsp;: $(-1)^{3} = -1 < 1$&nbsp;; le cube d'un nombre négatif est négatif.`,
-        r`Racine carrée, croissante&nbsp;: si $9 \le x \le 25$, alors $\sqrt{9} \le \sqrt{x} \le \sqrt{25}$, soit $3 \le \sqrt{x} \le 5$. Contre-exemple&nbsp;: $\sqrt{9} = 3 < 4{,}5$.`,
+        r`Carré, strictement décroissante sur $\left]-\infty\,;\,0\right]$&nbsp;: si $x \le -3$, alors $x^{2} \ge (-3)^{2} = 9$. Contre-exemple&nbsp;: $(-4)^{2} = 16 > 9$.`,
+        r`Cube, strictement croissante sur $\R$&nbsp;: si $-2 \le x \le -1$, alors $-8 \le x^{3} \le -1$. Contre-exemple&nbsp;: $(-1)^{3} = -1 < 1$&nbsp;; le cube d'un nombre négatif est négatif.`,
+        r`Racine carrée, strictement croissante&nbsp;: si $9 \le x \le 25$, alors $\sqrt{9} \le \sqrt{x} \le \sqrt{25}$, soit $3 \le \sqrt{x} \le 5$. Contre-exemple&nbsp;: $\sqrt{9} = 3 < 4{,}5$.`,
         r`L'affirmation vraie est <span class="resultat">si $2 \le x \le 10$, alors $0{,}1 \le \dfrac{1}{x} \le 0{,}5$</span>. Attention&nbsp;: la racine carrée d'un nombre n'est pas sa moitié.`] } },
 
   { partie: 0, theme: 'Peut-on comparer ?', type: 'qcm', fixe: true,
@@ -759,8 +763,8 @@ const QUIZ = {
     choix: [r`$h(0) < h(3)$`, r`$h(0) = h(3)$`, r`$h(0) > h(3)$`, r`on ne peut pas les comparer avec ce tableau`],
     bonne: 3,
     explication: [
-      r`Le sens de variation ne range deux images que si les deux nombres sont dans un même intervalle où la fonction est monotone. Ici, $0$ et $3$ ne le sont pas&nbsp;: on cherche entre quelles valeurs chaque image est comprise.`,
-      r`$0$ est dans $\left[-1\,;\,1\right]$, où $h$ descend de $4$ à $0$&nbsp;: $h(0)$ est entre $0$ et $4$. $3$ est dans $\left[1\,;\,4\right]$, où $h$ monte de $0$ à $3$&nbsp;: $h(3)$ est entre $0$ et $3$.`,
+      r`Le sens de variation ne range deux images que si les deux nombres sont dans un même intervalle où la fonction est strictement croissante ou strictement décroissante. Ici, $0$ et $3$ ne le sont pas&nbsp;: on cherche entre quelles valeurs chaque image est comprise.`,
+      r`$0$ est dans $\left[-1\,;\,1\right]$, où $h$ est strictement décroissante, de $4$ à $0$&nbsp;: $h(0)$ est entre $0$ et $4$. $3$ est dans $\left[1\,;\,4\right]$, où $h$ est strictement croissante, de $0$ à $3$&nbsp;: $h(3)$ est entre $0$ et $3$.`,
       r`Les deux cas sont possibles&nbsp;: si $h(0) = 3{,}5$ et $h(3) = 1$, alors $h(0) > h(3)$&nbsp;; si $h(0) = 0{,}5$ et $h(3) = 2$, alors $h(0) < h(3)$. Donc <span class="resultat">on ne peut pas conclure</span>.`],
     revoir: r`méthode «&nbsp;comparer $f(a)$ et $f(b)$&nbsp;» et capacité 2 du cours (question 3), exercice 2 de la fiche (question 4)`,
     variante: {
@@ -769,8 +773,8 @@ const QUIZ = {
       choix: [r`$k(0) < k(4)$`, r`$k(0) = k(4)$`, r`$k(0) > k(4)$`, r`on ne peut pas les comparer avec ce tableau`],
       bonne: 0,
       explication: [
-        r`Le sens de variation ne range deux images que si les deux nombres sont dans un même intervalle où la fonction est monotone. Ici, $0$ et $4$ ne le sont pas&nbsp;: on cherche entre quelles valeurs chaque image est comprise.`,
-        r`$0$ est dans $\left[-2\,;\,1\right]$, où $k$ descend de $1$ à $-3$&nbsp;: $k(0) < 1$. $4$ est dans $\left[3\,;\,5\right]$, où $k$ descend de $4$ à $2$&nbsp;: $k(4) > 2$.`,
+        r`Le sens de variation ne range deux images que si les deux nombres sont dans un même intervalle où la fonction est strictement croissante ou strictement décroissante. Ici, $0$ et $4$ ne le sont pas&nbsp;: on cherche entre quelles valeurs chaque image est comprise.`,
+        r`$0$ est dans $\left[-2\,;\,1\right]$, où $k$ est strictement décroissante, de $1$ à $-3$&nbsp;: comme $-2 < 0$, $k(0) < k(-2) = 1$. $4$ est dans $\left[3\,;\,5\right]$, où $k$ est strictement décroissante, de $4$ à $2$&nbsp;: comme $4 < 5$, $k(4) > k(5) = 2$.`,
         calcul(r`k(0) & < 1`, r`& < 2`, r`& < k(4)`),
         r`Donc <span class="resultat">$k(0) < k(4)$</span>. On peut conclure, car toutes les images de $\left[-2\,;\,1\right]$ sont au plus égales à $1$, et toutes celles de $\left[3\,;\,5\right]$ au moins égales à $2$.`] } },
 

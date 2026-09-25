@@ -10,24 +10,24 @@
   du professeur), rangées par difficulté croissante, en trois niveaux : applications directes
   (image par le calcul, point d'une courbe, image et antécédents d'un même nombre lus sur une
   courbe), méthodes en deux ou trois étapes (antécédent par le calcul, coefficient directeur m
-  et ordonnée à l'origine p lus sur une droite, sens de variation après développement, tableau
-  de signes à choisir parmi quatre, résolution graphique de f(x) < k), puis plusieurs étapes et
-  pièges (ensemble de définition avec une racine carrée, résolution graphique de f(x) < g(x)
-  avec les points d'intersection, fonction affine par deux points avec le taux
-  d'accroissement, modélisation : température et altitude, comme l'exercice 4 de
-  l'évaluation).
+  et ordonnée à l'origine p lus sur une droite, stricte monotonie après développement, tableau
+  de signes à choisir parmi quatre, justifié par la stricte monotonie, résolution graphique de
+  f(x) < k), puis plusieurs étapes et pièges (ensemble de définition avec une racine carrée,
+  résolution graphique de f(x) < g(x) avec les points d'intersection, fonction affine par deux
+  points d'abscisses distinctes avec le taux d'accroissement, modélisation : température et
+  altitude, comme l'exercice 4 de l'évaluation).
   Sources : capacités 1 à 6 du cours, activités 1 et 2, fiche d'exercices (exercices 1 à 6),
   évaluation (sujets A et B, exercices 2 à 4, sans le QCM d'automatismes) et exercices du
   manuel cités dans le plan (1 à 4 p. 212 ; 88 et 90 p. 232 ; 95 p. 233 ; 126 p. 235 ;
   « Faire le point » p. 237, question 5 ; 136 p. 239 ; 1, 2, 7, 9, 10 et 11 p. 246 ; 30 et 31
   p. 257 ; 61, 63 et 64 p. 261 ; 78 p. 262 ; « Faire le point » p. 263, questions 9 et 10).
   Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs,
-  sans calculatrice, notations du cours (f(x) = mx + p). Distracteurs : erreurs types (carré
-  d'un nombre négatif écrit sans parenthèses, image et antécédent confondus, sens d'une
-  inégalité gardé en divisant par un nombre négatif, antécédent oublié à l'extrémité d'une
-  courbe, crochets, courbe au-dessus au lieu d'au-dessous, taux d'accroissement pris à
-  l'envers ou non divisé, p pris pour l'ordonnée d'un point donné, signes du tableau
-  inversés).
+  sans calculatrice, notations et vocabulaire du cours (f(x) = mx + p ; strictement croissante,
+  strictement décroissante). Distracteurs : erreurs types (carré d'un nombre négatif écrit
+  sans parenthèses, image et antécédent confondus, sens d'une inégalité gardé en divisant par
+  un nombre négatif, antécédent oublié à l'extrémité d'une courbe, crochets, courbe au-dessus
+  au lieu d'au-dessous, taux d'accroissement pris à l'envers ou non divisé, p pris pour
+  l'ordonnée d'un point donné, signes du tableau inversés).
   Figures : repere du gabarit. Les courbes passent par des noeuds entiers, reliés par
   l'interpolation monotone de lisse (celle des arcs de Bézier des figures du cours) : toutes
   les lectures tombent sur le quadrillage. repereSol surligne plusieurs intervalles
@@ -544,20 +544,20 @@ const QUIZ = {
         r`Donc <span class="resultat">$f(x) = -1{,}5x + 3$</span>.`] } },
 
   { partie: 0, theme: 'Sens de variation', type: 'vf',
-    enonce: r`La fonction $f$ définie sur $\R$ par $f(x) = 3(x - 2) - 5x$ est croissante sur $\R$.`,
+    enonce: r`La fonction $f$ définie sur $\R$ par $f(x) = 3(x - 2) - 5x$ est strictement croissante sur $\R$.`,
     bonne: false,
     explication: [
       r`On développe et on réduit $f(x)$ pour l'écrire sous la forme $mx + p$&nbsp;: le sens de variation d'une fonction affine se lit sur le signe de son coefficient directeur $m$.`,
       calcul(r`f(x) & = 3(x - 2) - 5x`, r`& = 3 \times x - 3 \times 2 - 5x`, r`& = 3x - 6 - 5x`, r`& = 3x - 5x - 6`, r`& = -2x - 6`),
-      r`$f$ est affine, de coefficient directeur $m = -2$. Comme $m < 0$, $f$ est décroissante sur $\R$&nbsp;: l'affirmation est <span class="resultat">fausse</span>. Contre-exemple&nbsp;: $0 < 1$, mais $f(0) = -6$ est plus grand que $f(1) = -2 - 6 = -8$.`],
-    revoir: r`définition d'une fonction affine, propriété «&nbsp;sens de variation d'une fonction affine&nbsp;» et capacité 5 du cours, exercices 4 (question 1) et 5 de la fiche, question 9 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263 du manuel`,
+      r`$f$ est affine, de coefficient directeur $m = -2$. Comme $m < 0$, $f$ est strictement décroissante sur $\R$&nbsp;: l'affirmation est <span class="resultat">fausse</span>. Contre-exemple&nbsp;: $0 < 1$, mais $f(0) = -6$ est plus grand que $f(1) = -2 - 6 = -8$.`],
+    revoir: r`définitions d'une fonction affine et d'une fonction strictement croissante, propriété «&nbsp;sens de variation d'une fonction affine&nbsp;» et capacité 5 du cours, exercices 4 (question 1) et 5 de la fiche, question 9 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263 du manuel`,
     variante: {
-      enonce: r`La fonction $g$ définie sur $\R$ par $g(x) = 2(3 - x) + 5x$ est croissante sur $\R$.`,
+      enonce: r`La fonction $g$ définie sur $\R$ par $g(x) = 2(3 - x) + 5x$ est strictement croissante sur $\R$.`,
       bonne: true,
       explication: [
         r`On développe et on réduit $g(x)$ pour l'écrire sous la forme $mx + p$&nbsp;: le sens de variation d'une fonction affine se lit sur le signe de son coefficient directeur $m$.`,
         calcul(r`g(x) & = 2(3 - x) + 5x`, r`& = 2 \times 3 - 2 \times x + 5x`, r`& = 6 - 2x + 5x`, r`& = -2x + 5x + 6`, r`& = 3x + 6`),
-        r`$g$ est affine, de coefficient directeur $m = 3$. Comme $m > 0$, $g$ est croissante sur $\R$&nbsp;: l'affirmation est <span class="resultat">vraie</span>.`] } },
+        r`$g$ est affine, de coefficient directeur $m = 3$. Comme $m > 0$, $g$ est strictement croissante sur $\R$&nbsp;: l'affirmation est <span class="resultat">vraie</span>.`] } },
 
   { partie: 0, theme: 'Tableau de signes', type: 'qcm',
     enonce: r`Soit $f$ la fonction affine définie sur $\R$ par $f(x) = 6 - 3x$. Son tableau de signes est&nbsp;:`,
@@ -567,9 +567,9 @@ const QUIZ = {
     explication: [
       r`On cherche d'abord le nombre qui annule $f(x)$, en résolvant l'équation $f(x) = 0$.`,
       calcul(r`6 - 3x = 0 & \iff 6 - 3x \op{- 6} = 0 \op{- 6}`, r`& \iff -3x = -6`, r`& \iff \dfrac{-3x}{\op{-3}} = \dfrac{-6}{\op{-3}}`, r`& \iff x = 2`),
-      r`$f(x) = -3x + 6$&nbsp;: le coefficient directeur $m = -3$ est négatif. À droite de $2$, $f(x)$ est du signe de $m$, négatif&nbsp;; à gauche de $2$, il est positif. Le tableau porte <span class="resultat">$+$, puis $0$ en $2$, puis $-$</span>.`,
+      r`$f(x) = -3x + 6$&nbsp;: le coefficient directeur $m = -3$ est négatif, donc $f$ est strictement décroissante sur $\R$, et $f(2) = 0$. Pour $x > 2$, $f(x) < f(2) = 0$&nbsp;: à droite de $2$, $f(x)$ est négatif, du signe de $m$&nbsp;; pour $x < 2$, $f(x) > f(2) = 0$. Le tableau porte <span class="resultat">$+$, puis $0$ en $2$, puis $-$</span>.`,
       tableauSignes('f', '2', ['+', '−'])],
-    revoir: r`propriété «&nbsp;signe d'une fonction affine&nbsp;» et capacité 5 du cours, exercice 5 de la fiche, exercices 31 p.&nbsp;257 et 63 p.&nbsp;261 du manuel`,
+    revoir: r`propriétés «&nbsp;sens de variation d'une fonction affine&nbsp;» et «&nbsp;signe d'une fonction affine&nbsp;», capacité 5 du cours, exercice 5 de la fiche, exercices 31 p.&nbsp;257 et 63 p.&nbsp;261 du manuel`,
     variante: {
       enonce: r`Soit $g$ la fonction affine définie sur $\R$ par $g(x) = 2x + 8$. Son tableau de signes est&nbsp;:`,
       choix: [tableauSignes('g', '−4', ['−', '+']), tableauSignes('g', '−4', ['+', '−']),
@@ -578,7 +578,7 @@ const QUIZ = {
       explication: [
         r`On cherche d'abord le nombre qui annule $g(x)$, en résolvant l'équation $g(x) = 0$.`,
         calcul(r`2x + 8 = 0 & \iff 2x + 8 \op{- 8} = 0 \op{- 8}`, r`& \iff 2x = -8`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{-8}{\op{2}}`, r`& \iff x = -4`),
-        r`Le coefficient directeur $m = 2$ est positif. À droite de $-4$, $g(x)$ est du signe de $m$, positif&nbsp;; à gauche de $-4$, il est négatif. Le tableau porte <span class="resultat">$-$, puis $0$ en $-4$, puis $+$</span>.`,
+        r`Le coefficient directeur $m = 2$ est positif, donc $g$ est strictement croissante sur $\R$, et $g(-4) = 0$. Pour $x > -4$, $g(x) > g(-4) = 0$&nbsp;: à droite de $-4$, $g(x)$ est positif, du signe de $m$&nbsp;; pour $x < -4$, $g(x) < g(-4) = 0$. Le tableau porte <span class="resultat">$-$, puis $0$ en $-4$, puis $+$</span>.`,
         tableauSignes('g', '−4', ['−', '+'])] } },
 
   { partie: 0, theme: 'Inéquation, lecture graphique', type: 'qcm',
@@ -662,7 +662,7 @@ const QUIZ = {
     choix: [r`$f(x) = 3x - 2$`, r`$f(x) = -3x + 10$`, r`$f(x) = 3x + 10$`, r`$f(x) = 3x - 5$`],
     bonne: 0,
     explication: [
-      r`$f(x) = mx + p$. Les points $A$ et $B$ sont sur la droite&nbsp;: leurs ordonnées sont les images de leurs abscisses, $f(-1) = -5$ et $f(2) = 4$. Le coefficient directeur $m$ est le taux d'accroissement de $f$ entre $-1$ et $2$.`,
+      r`$f(x) = mx + p$. Les points $A$ et $B$ sont sur la droite&nbsp;: leurs ordonnées sont les images de leurs abscisses, $f(-1) = -5$ et $f(2) = 4$. Le coefficient directeur $m$ est le taux d'accroissement de $f$ entre les deux abscisses distinctes $-1$ et $2$.`,
       calcul(r`m & = \dfrac{f(2) - f(-1)}{2 - (-1)}`, r`& = \dfrac{4 - (-5)}{2 - (-1)}`, r`& = \dfrac{4 + 5}{2 + 1}`, r`& = \dfrac{9}{3}`, r`& = 3`),
       r`On trouve $p$ en écrivant $f(2) = 4$ avec $m = 3$.`,
       calcul(r`f(2) = 4 & \iff 3 \times 2 + p = 4`, r`& \iff 6 + p = 4`, r`& \iff 6 + p \op{- 6} = 4 \op{- 6}`, r`& \iff p = -2`),
@@ -673,7 +673,7 @@ const QUIZ = {
       choix: [r`$f(x) = -3x + 1$`, r`$f(x) = 3x - 5$`, r`$f(x) = -3x - 5$`, r`$f(x) = -3x + 7$`],
       bonne: 0,
       explication: [
-        r`$f(x) = mx + p$. Les points $A$ et $B$ sont sur la droite&nbsp;: leurs ordonnées sont les images de leurs abscisses, $f(-2) = 7$ et $f(1) = -2$. Le coefficient directeur $m$ est le taux d'accroissement de $f$ entre $-2$ et $1$.`,
+        r`$f(x) = mx + p$. Les points $A$ et $B$ sont sur la droite&nbsp;: leurs ordonnées sont les images de leurs abscisses, $f(-2) = 7$ et $f(1) = -2$. Le coefficient directeur $m$ est le taux d'accroissement de $f$ entre les deux abscisses distinctes $-2$ et $1$.`,
         calcul(r`m & = \dfrac{f(1) - f(-2)}{1 - (-2)}`, r`& = \dfrac{-2 - 7}{1 - (-2)}`, r`& = \dfrac{-2 - 7}{1 + 2}`, r`& = \dfrac{-9}{3}`, r`& = -3`),
         r`On trouve $p$ en écrivant $f(1) = -2$ avec $m = -3$.`,
         calcul(r`f(1) = -2 & \iff -3 \times 1 + p = -2`, r`& \iff -3 + p = -2`, r`& \iff -3 + p \op{+ 3} = -2 \op{+ 3}`, r`& \iff p = 1`),
@@ -687,7 +687,7 @@ const QUIZ = {
             r`la température monte de $6$&nbsp;°C par kilomètre, et il fait $9$&nbsp;°C au niveau de la mer`],
     bonne: 0,
     explication: [
-      r`$T$ est affine&nbsp;: $T(x) = mx + p$. Le coefficient directeur $m$ est le taux d'accroissement de $T$ entre $1$ et $3$.`,
+      r`$T$ est affine&nbsp;: $T(x) = mx + p$. Le coefficient directeur $m$ est le taux d'accroissement de $T$ entre les deux altitudes distinctes $1$ et $3$.`,
       calcul(r`m & = \dfrac{T(3) - T(1)}{3 - 1}`, r`& = \dfrac{3 - 15}{3 - 1}`, r`& = \dfrac{-12}{2}`, r`& = -6`),
       r`On trouve $p$ en écrivant $T(1) = 15$ avec $m = -6$.`,
       calcul(r`T(1) = 15 & \iff -6 \times 1 + p = 15`, r`& \iff -6 + p = 15`, r`& \iff -6 + p \op{+ 6} = 15 \op{+ 6}`, r`& \iff p = 21`),
@@ -701,7 +701,7 @@ const QUIZ = {
               r`la bougie raccourcit de $0{,}5$&nbsp;cm par heure, et elle mesurait $19$&nbsp;cm au départ`],
       bonne: 0,
       explication: [
-        r`$L$ est affine&nbsp;: $L(t) = mt + p$. Le coefficient directeur $m$ est le taux d'accroissement de $L$ entre $2$ et $5$.`,
+        r`$L$ est affine&nbsp;: $L(t) = mt + p$. Le coefficient directeur $m$ est le taux d'accroissement de $L$ entre les deux instants distincts $2$ et $5$.`,
         calcul(r`m & = \dfrac{L(5) - L(2)}{5 - 2}`, r`& = \dfrac{12 - 18}{5 - 2}`, r`& = \dfrac{-6}{3}`, r`& = -2`),
         r`On trouve $p$ en écrivant $L(2) = 18$ avec $m = -2$.`,
         calcul(r`L(2) = 18 & \iff -2 \times 2 + p = 18`, r`& \iff -4 + p = 18`, r`& \iff -4 + p \op{+ 4} = 18 \op{+ 4}`, r`& \iff p = 22`),

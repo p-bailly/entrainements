@@ -13,7 +13,7 @@
 - Chapitre 11 : [Fonctions de référence](https://p-bailly.github.io/entrainements/seconde/11-fonctions-de-reference.html)
 - Chapitre 12 : [Statistiques](https://p-bailly.github.io/entrainements/seconde/12-statistiques.html)
 - Chapitre 13 : [Variations d'une fonction](https://p-bailly.github.io/entrainements/seconde/13-variations-fonctions.html)
-- Chapitre 14 : [Inéquations et tableaux de signes](https://p-bailly.github.io/entrainements/seconde/14-inequations.html)
+- Chapitre 14 : [Tableaux de signes](https://p-bailly.github.io/entrainements/seconde/14-inequations.html)
 - Chapitre 15 : [Droites du plan](https://p-bailly.github.io/entrainements/seconde/15-droites-du-plan.html)
 - Chapitre 16 : [Probabilités](https://p-bailly.github.io/entrainements/seconde/16-probabilites.html)
 - Chapitre 17 : [Systèmes d'équations et droites](https://p-bailly.github.io/entrainements/seconde/17-systemes-et-droites.html)

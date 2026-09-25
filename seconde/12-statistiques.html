@@ -554,9 +554,9 @@ const QUIZ = {
       + r`Le journal du lycée écrit&nbsp;: «&nbsp;$62{,}5\,\%$ des filles du lycée font du sport en club.&nbsp;» Cette affirmation est exacte.`,
     bonne: false,
     explication: [
-      r`La population de référence est celle des filles («&nbsp;des filles&nbsp;»)&nbsp;: on divise le nombre de filles qui font du sport en club par le nombre de filles, puis on se ramène au dénominateur $100$, car $300 = 3 \times 100$.`,
+      r`On cherche la fréquence conditionnelle de la modalité «&nbsp;sport en club&nbsp;» parmi les filles («&nbsp;des filles&nbsp;»)&nbsp;: la population de référence est celle des filles, d'effectif $300$ (non nul). On divise l'effectif de «&nbsp;fille et sport en club&nbsp;» par l'effectif des filles, puis on se ramène au dénominateur $100$, car $300 = 3 \times 100$.`,
       calcul(r`\dfrac{150}{300} & = \dfrac{50 \mul{\times 3}}{100 \mul{\times 3}}`, r`& = \dfrac{50}{100}`, r`& = 50\,\%`),
-      r`La moitié des filles font du sport en club&nbsp;: l'affirmation est <span class="resultat">fausse</span>. Le pourcentage $62{,}5\,\%$ est celui des filles parmi les élèves qui font du sport en club&nbsp;: $\dfrac{150}{240} = \dfrac{5 \mul{\times 30}}{8 \mul{\times 30}} = \dfrac{5}{8} = 0{,}625$.`],
+      r`La moitié des filles font du sport en club&nbsp;: l'affirmation est <span class="resultat">fausse</span>. Le pourcentage $62{,}5\,\%$ est la fréquence conditionnelle des filles parmi les élèves qui font du sport en club&nbsp;: $\dfrac{150}{240} = \dfrac{5 \mul{\times 30}}{8 \mul{\times 30}} = \dfrac{5}{8} = 0{,}625$.`],
     revoir: r`définition de la partie 4 et capacité 6 du cours (questions 3 et 4), activité 3 (questions 2 et 3), exercice 5 de la fiche (question 3), problème du Titanic (question 4)`,
     variante: {
       enonce: r`Répartition des $400$ salariés d'une entreprise selon leur statut et la pratique du télétravail.`
@@ -566,7 +566,7 @@ const QUIZ = {
         + r`Un article affirme&nbsp;: «&nbsp;$75\,\%$ des salariés en télétravail sont des cadres.&nbsp;» Cette affirmation est exacte.`,
       bonne: true,
       explication: [
-        r`La population de référence est celle des salariés en télétravail («&nbsp;des salariés en télétravail&nbsp;»)&nbsp;: on divise le nombre de cadres en télétravail par le nombre de salariés en télétravail.`,
+        r`On cherche la fréquence conditionnelle de la modalité «&nbsp;cadre&nbsp;» parmi les salariés en télétravail («&nbsp;des salariés en télétravail&nbsp;»)&nbsp;: la population de référence est celle des salariés en télétravail, d'effectif $160$ (non nul). On divise l'effectif de «&nbsp;cadre et télétravail&nbsp;» par l'effectif des salariés en télétravail.`,
         calcul(r`\dfrac{120}{160} & = \dfrac{3 \mul{\times 40}}{4 \mul{\times 40}}`, r`& = \dfrac{3}{4}`, r`& = 0{,}75`, r`& = 75\,\%`),
         r`Les trois quarts des salariés en télétravail sont des cadres&nbsp;: l'affirmation est <span class="resultat">vraie</span>. Parmi les cadres, en revanche, moins de la moitié font du télétravail&nbsp;: $120$ sur $250$.`] } },
 
@@ -718,7 +718,7 @@ const QUIZ = {
         r`\dfrac{3 \times 23}{4} & = \dfrac{69}{4}`, r`& = 17{,}25 \qquad \text{rang de } Q_{3} \text{ : } 18`),
       r`Le rang $6$ tombe à la note $6$ (l'effectif cumulé passe de $5$ à $9$), le rang $12$ à la note $7$ (il atteint $12$), le rang $18$ à la note $9$ (il passe de $17$ à $21$)&nbsp;: <span class="resultat">$Q_{1} = 6$&nbsp;; $Me = 7$&nbsp;; $Q_{3} = 9$</span>.`,
       r`Au moins la moitié des élèves ont eu $7$ ou moins, et au moins la moitié $7$ ou plus.`],
-    revoir: r`définition de la partie 1 et capacité 1 du cours (question 2), exercice 1 de la fiche (question 1), exercice 27 p.&nbsp;311 et question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;317 du manuel`,
+    revoir: r`définition de la médiane et des quartiles (partie 1) et capacité 1 du cours (question 2), exercice 1 de la fiche (question 1), exercice 27 p.&nbsp;311 et questions 3 et 4 du «&nbsp;Faire le point&nbsp;» p.&nbsp;317 du manuel`,
     variante: {
       enonce: r`Nombre d'heures de sport pratiquées en une semaine par les $27$ élèves d'une classe.`
         + tableauStat([[r`Heures`, r`$0$`, r`$1$`, r`$2$`, r`$3$`, r`$4$`, r`$5$`, r`$6$`, r`$7$`],
@@ -745,18 +745,18 @@ const QUIZ = {
     choix: [r`$70$&nbsp;€ et $65$&nbsp;€`, r`$70$&nbsp;€ et $60$&nbsp;€`, r`$110$&nbsp;€ et $65$&nbsp;€`, r`$70$&nbsp;€ et $70$&nbsp;€`],
     bonne: 0,
     explication: [
-      r`La somme des $9$ prix est $9 \times 60 = 540$&nbsp;€&nbsp;; avec le modèle de luxe, il y a $10$ prix. $N = 10$ est pair&nbsp;: la médiane est la demi-somme des valeurs de rangs $5$ et $6$, ici $60$ et $70$ (le nouveau prix se range en dernier).`,
+      r`La somme des $9$ prix est $9 \times 60 = 540$&nbsp;€&nbsp;; avec le modèle de luxe, il y a $10$ prix, rangés dans l'ordre croissant (le nouveau se range en dernier). $N = 10$ est pair&nbsp;: la médiane est la demi-somme des valeurs de rangs $\dfrac{N}{2} = 5$ et $\dfrac{N}{2} + 1 = 6$, ici $60$ et $70$.`,
       calcul(r`m' & = \dfrac{540 + 160}{10}`, r`& = \dfrac{700}{10}`, r`& = 70`, r`Me' & = \dfrac{60 + 70}{2}`, r`& = \dfrac{130}{2}`, r`& = 65`),
-      r`Le nouveau prix moyen et le nouveau prix médian sont <span class="resultat">$70$&nbsp;€ et $65$&nbsp;€</span>. Un seul prix extrême fait monter la moyenne de $10$&nbsp;€, la médiane (qui était $60$&nbsp;€) de $5$&nbsp;€ seulement.`],
-    revoir: r`propriété de l'ajout ou de la suppression d'une valeur et capacité 2 du cours (question 4), exercice 1 de la fiche (question 2), exercices 45 p.&nbsp;313, 60 p.&nbsp;315 et 78 p.&nbsp;321 du manuel`,
+      r`Le nouveau prix moyen et le nouveau prix médian sont <span class="resultat">$70$&nbsp;€ et $65$&nbsp;€</span>. Un seul prix extrême fait monter la moyenne de $10$&nbsp;€, la médiane (valeur de rang $\dfrac{9 + 1}{2} = 5$ des $9$ prix, $60$&nbsp;€) de $5$&nbsp;€ seulement.`],
+    revoir: r`définition de la médiane et propriété de l'ajout ou de la suppression d'une valeur (partie 1), capacité 2 du cours (question 4), exercice 1 de la fiche (question 2), exercices 45 p.&nbsp;313, 60 p.&nbsp;315 et 78 p.&nbsp;321 du manuel`,
     variante: {
       enonce: r`Les temps, en minutes, de $10$ coureurs sur une course de $5$&nbsp;km sont&nbsp;: $21$&nbsp;; $23$&nbsp;; $24$&nbsp;; $25$&nbsp;; $26$&nbsp;; $27$&nbsp;; $28$&nbsp;; $29$&nbsp;; $31$&nbsp;; $46$. Leur moyenne est $28$&nbsp;min. On retire le temps de $46$&nbsp;min, celui d'un coureur blessé qui a fini en marchant. La nouvelle moyenne et la nouvelle médiane sont&nbsp;:`,
       choix: [r`$26$&nbsp;min et $26$&nbsp;min`, r`$23{,}4$&nbsp;min et $26$&nbsp;min`, r`$26$&nbsp;min et $26{,}5$&nbsp;min`, r`$26$&nbsp;min et $27$&nbsp;min`],
       bonne: 0,
       explication: [
-        r`La somme des $10$ temps est $10 \times 28 = 280$&nbsp;min&nbsp;; sans le temps de $46$&nbsp;min, il reste $9$ temps. $N = 9$ est impair&nbsp;: la médiane est la valeur de rang $\dfrac{9 + 1}{2} = 5$, ici $26$.`,
+        r`La somme des $10$ temps est $10 \times 28 = 280$&nbsp;min&nbsp;; sans le temps de $46$&nbsp;min, il reste $9$ temps, rangés dans l'ordre croissant. $N = 9$ est impair&nbsp;: la médiane est la valeur de rang $\dfrac{N + 1}{2} = \dfrac{9 + 1}{2} = 5$, ici $26$.`,
         calcul(r`m' & = \dfrac{280 - 46}{9}`, r`& = \dfrac{234}{9}`, r`& = 26 \quad \text{car } 9 \times 26 = 234`, r`Me' & = 26`),
-        r`La nouvelle moyenne et la nouvelle médiane valent <span class="resultat">$26$&nbsp;min et $26$&nbsp;min</span>. Le temps extrême faisait monter la moyenne de $2$&nbsp;min, la médiane (qui était $\dfrac{26 + 27}{2} = 26{,}5$&nbsp;min) d'une demi-minute seulement.`] } },
+        r`La nouvelle moyenne et la nouvelle médiane valent <span class="resultat">$26$&nbsp;min et $26$&nbsp;min</span>. Le temps extrême faisait monter la moyenne de $2$&nbsp;min, la médiane (demi-somme des valeurs de rangs $5$ et $6$ des $10$ temps, $\dfrac{26 + 27}{2} = 26{,}5$&nbsp;min) d'une demi-minute seulement.`] } },
 
   { partie: 0, theme: 'Tableau croisé', type: 'qcm',
     enonce: r`Une salle de sport compte $300$ adhérents&nbsp;: $40\,\%$ sont des femmes&nbsp;; parmi les femmes, $75\,\%$ suivent des cours collectifs&nbsp;; $126$ hommes ne suivent pas de cours collectifs.`
@@ -767,14 +767,14 @@ const QUIZ = {
     choix: [r`$48\,\%$`, r`$75\,\%$`, r`$30\,\%$`, r`$58\,\%$`],
     bonne: 0,
     explication: [
-      r`On traduit chaque pourcentage en effectif&nbsp;: les femmes sont $40\,\%$ des $300$ adhérents, celles qui suivent des cours collectifs $75\,\%$ des femmes. On complète ensuite le tableau par différences et par sommes (en rouge).`,
+      r`On traduit chaque pourcentage en effectif&nbsp;: $40\,\%$ est une fréquence marginale, que l'on multiplie par l'effectif total $N = 300$&nbsp;; $75\,\%$ est une fréquence conditionnelle parmi les femmes, que l'on multiplie par l'effectif des femmes. On complète ensuite le tableau par différences et par sommes (en rouge).`,
       calcul(r`0{,}40 \times 300 & = 120 \quad \text{(femmes)}`, r`300 - 120 & = 180 \quad \text{(hommes)}`, r`0{,}75 \times 120 & = 90 \quad \text{(femmes en cours)}`,
         r`120 - 90 & = 30 \quad \text{(femmes sans cours)}`, r`180 - 126 & = 54 \quad \text{(hommes en cours)}`, r`90 + 54 & = 144 \quad \text{(total en cours)}`,
         r`30 + 126 & = 156 \quad \text{(total sans cours)}`),
       tableauStat([[r``, r`Femmes`, r`Hommes`, r`Total`], [r`Cours collectifs`, trouve(r`$90$`), trouve(r`$54$`), trouve(r`$144$`)],
         [r`Pas de cours collectifs`, trouve(r`$30$`), r`$126$`, trouve(r`$156$`)], [r`Total`, trouve(r`$120$`), trouve(r`$180$`), r`$300$`]],
         'Tableau croisé complété : cours collectifs, 90 femmes, 54 hommes, 144 en tout ; pas de cours, 30 femmes, 126 hommes, 156 en tout ; 120 femmes, 180 hommes, 300 adhérents', true),
-      r`La fréquence marginale est l'effectif de la marge divisé par l'effectif total&nbsp;; on se ramène au dénominateur $100$, car $300 = 3 \times 100$.`,
+      r`La fréquence marginale de la modalité «&nbsp;cours collectifs&nbsp;» est son effectif, lu dans la marge, divisé par l'effectif total&nbsp;; on se ramène au dénominateur $100$, car $300 = 3 \times 100$.`,
       calcul(r`\dfrac{144}{300} & = \dfrac{48 \mul{\times 3}}{100 \mul{\times 3}}`, r`& = \dfrac{48}{100}`, r`& = \resultat{48\,\%}`),
       r`$48\,\%$ des adhérents suivent des cours collectifs.`],
     revoir: r`méthode et capacité 6 du cours (questions 1 et 2), activité 3 (question 1), exercice 5 de la fiche (questions 1 et 2)`,
@@ -787,14 +787,14 @@ const QUIZ = {
       choix: [r`$32\,\%$`, r`$60\,\%$`, r`$18\,\%$`, r`$44\,\%$`],
       bonne: 0,
       explication: [
-        r`On traduit chaque pourcentage en effectif&nbsp;: les enfants sont $30\,\%$ des $400$ visiteurs, ceux qui ont acheté une photo $60\,\%$ des enfants. On complète ensuite le tableau par différences et par sommes (en rouge).`,
+        r`On traduit chaque pourcentage en effectif&nbsp;: $30\,\%$ est une fréquence marginale, que l'on multiplie par l'effectif total $N = 400$&nbsp;; $60\,\%$ est une fréquence conditionnelle parmi les enfants, que l'on multiplie par l'effectif des enfants. On complète ensuite le tableau par différences et par sommes (en rouge).`,
         calcul(r`0{,}30 \times 400 & = 120 \quad \text{(enfants)}`, r`400 - 120 & = 280 \quad \text{(adultes)}`, r`0{,}60 \times 120 & = 72 \quad \text{(enfants avec photo)}`,
           r`120 - 72 & = 48 \quad \text{(enfants sans photo)}`, r`280 - 224 & = 56 \quad \text{(adultes avec photo)}`, r`72 + 56 & = 128 \quad \text{(total avec photo)}`,
           r`48 + 224 & = 272 \quad \text{(total sans photo)}`),
         tableauStat([[r``, r`Enfants`, r`Adultes`, r`Total`], [r`Photo achetée`, trouve(r`$72$`), trouve(r`$56$`), trouve(r`$128$`)],
           [r`Pas de photo`, trouve(r`$48$`), r`$224$`, trouve(r`$272$`)], [r`Total`, trouve(r`$120$`), trouve(r`$280$`), r`$400$`]],
           'Tableau croisé complété : photo achetée, 72 enfants, 56 adultes, 128 en tout ; pas de photo, 48 enfants, 224 adultes, 272 en tout ; 120 enfants, 280 adultes, 400 visiteurs', true),
-        r`La fréquence marginale est l'effectif de la marge divisé par l'effectif total&nbsp;; on se ramène au dénominateur $100$, car $400 = 4 \times 100$.`,
+        r`La fréquence marginale de la modalité «&nbsp;photo achetée&nbsp;» est son effectif, lu dans la marge, divisé par l'effectif total&nbsp;; on se ramène au dénominateur $100$, car $400 = 4 \times 100$.`,
         calcul(r`\dfrac{128}{400} & = \dfrac{32 \mul{\times 4}}{100 \mul{\times 4}}`, r`& = \dfrac{32}{100}`, r`& = \resultat{32\,\%}`),
         r`$32\,\%$ des visiteurs ont acheté une photo souvenir.`] } },
 
@@ -807,7 +807,7 @@ const QUIZ = {
     choix: [r`$16$&nbsp;km`, r`$15$&nbsp;km`, r`$12{,}5$&nbsp;km`, r`$20$&nbsp;km`],
     bonne: 0,
     explication: [
-      r`On additionne les effectifs de gauche à droite (effectifs cumulés $14$&nbsp;; $24$&nbsp;; $36$&nbsp;; $40$), puis on les divise par $N = 40$&nbsp;: les fréquences cumulées croissantes sont $\dfrac{14}{40} = 35\,\%$, $\dfrac{24}{40} = 60\,\%$, $\dfrac{36}{40} = 90\,\%$ et $100\,\%$. La fréquence cumulée atteint $50\,\%$ dans la classe $\left[10\,;\,20\right[$&nbsp;: c'est la classe médiane.`,
+      r`On additionne les effectifs de gauche à droite (effectifs cumulés $14$&nbsp;; $24$&nbsp;; $36$&nbsp;; $40$), puis on les divise par $N = 40$&nbsp;: les fréquences cumulées croissantes sont $\dfrac{14}{40} = 35\,\%$, $\dfrac{24}{40} = 60\,\%$, $\dfrac{36}{40} = 90\,\%$ et $100\,\%$. La première classe dont la fréquence cumulée croissante atteint ou dépasse $50\,\%$ est $\left[10\,;\,20\right[$ ($35\,\% < 50\,\% \le 60\,\%$)&nbsp;: c'est la classe médiane.`,
       r`Dans cette classe, la fréquence cumulée passe de $35\,\%$ à $60\,\%$, soit $25$ points pour $10$&nbsp;km. Pour atteindre $50\,\%$, il manque $15$ points sur $25$&nbsp;: la médiane se trouve aux $\dfrac{15}{25}$ de la classe, en partant de $10$.`,
       calcul(r`Me & \approx 10 + 10 \times \dfrac{15}{25}`, r`& \approx 10 + \dfrac{10 \times 15}{25}`, r`& \approx 10 + \dfrac{150}{25}`, r`& \approx 10 + 6`, r`& \approx \resultat{16}`),
       graphique(TRAJETS),
@@ -822,7 +822,7 @@ const QUIZ = {
       choix: [r`$48$&nbsp;min`, r`$50$&nbsp;min`, r`$45$&nbsp;min`, r`$60$&nbsp;min`],
       bonne: 0,
       explication: [
-        r`On additionne les effectifs de gauche à droite (effectifs cumulés $5$&nbsp;; $15$&nbsp;; $40$&nbsp;; $50$), puis on les divise par $N = 50$&nbsp;: les fréquences cumulées croissantes sont $\dfrac{5}{50} = 10\,\%$, $\dfrac{15}{50} = 30\,\%$, $\dfrac{40}{50} = 80\,\%$ et $100\,\%$. La fréquence cumulée atteint $50\,\%$ dans la classe $\left[40\,;\,60\right[$&nbsp;: c'est la classe médiane.`,
+        r`On additionne les effectifs de gauche à droite (effectifs cumulés $5$&nbsp;; $15$&nbsp;; $40$&nbsp;; $50$), puis on les divise par $N = 50$&nbsp;: les fréquences cumulées croissantes sont $\dfrac{5}{50} = 10\,\%$, $\dfrac{15}{50} = 30\,\%$, $\dfrac{40}{50} = 80\,\%$ et $100\,\%$. La première classe dont la fréquence cumulée croissante atteint ou dépasse $50\,\%$ est $\left[40\,;\,60\right[$ ($30\,\% < 50\,\% \le 80\,\%$)&nbsp;: c'est la classe médiane.`,
         r`Dans cette classe, la fréquence cumulée passe de $30\,\%$ à $80\,\%$, soit $50$ points pour $20$&nbsp;minutes. Pour atteindre $50\,\%$, il manque $20$ points sur $50$&nbsp;: la médiane se trouve aux $\dfrac{20}{50}$ de la classe, en partant de $40$.`,
         calcul(r`Me & \approx 40 + 20 \times \dfrac{20}{50}`, r`& \approx 40 + \dfrac{20 \times 20}{50}`, r`& \approx 40 + \dfrac{400}{50}`, r`& \approx 40 + 8`, r`& \approx \resultat{48}`),
         graphique(SPORT),

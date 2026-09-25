@@ -16,9 +16,10 @@
   d'équations y = x et y = x^2 sur [0 ; +infini[, affirmation de l'activité 3) ; pièges,
   calculs en plusieurs étapes et synthèse (inéquation 1/x < k lue sur l'hyperbole : toute la
   branche de gauche est solution ; inéquation résolue par le calcul après avoir isolé x^2 ;
-  comparer des images : parabole sur les négatifs, hyperbole, cube, nombres de signes
-  contraires ; position relative de la parabole y = x^2 et d'une droite y = ax, capacité 5,
-  question 7, exercice 4 de l'évaluation).
+  comparer des images dans un intervalle où la fonction est strictement croissante ou
+  strictement décroissante : parabole sur les négatifs, hyperbole, cube ; sinon, nombres de
+  signes contraires, par le calcul ou le signe ; position relative de la parabole y = x^2 et
+  d'une droite y = ax, capacité 5, question 7, exercice 4 de l'évaluation).
   Sources : propriétés, méthodes, démonstration et capacités 1 à 5 du cours, activités 1 à 3,
   fiche d'exercices (exercices 1 à 6), évaluation (sujets A et B, exercices 2 à 4, sans le
   QCM d'automatismes) et exercices du manuel cités dans le plan (10, 11 et 16 p. 228 ; 20 et
@@ -28,13 +29,14 @@
   Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs,
   sans calculatrice : carrés, cubes et inverses connus, racines carrées gardées telles
   quelles ; la notation de la racine cubique du cours est rappelée dans la question sur le
-  cube. Calculs détaillés, une transformation par ligne (inverse d'un nombre négatif : le
-  signe, puis la valeur). Distracteurs : erreurs types (solution négative oubliée, -5^2
-  confondu avec (-5)^2, racine carrée oubliée, intérieur et extérieur confondus, crochets,
-  branche de gauche de l'hyperbole oubliée, valeur interdite 0 incluse, inverse et opposé
-  confondus, nombres négatifs gardés sous la racine, cube traité comme un carré, |x| confondu
-  avec x, ordre des nombres gardé là où la courbe descend, droite y = ax confondue avec y = x,
-  ordonnée d'un point commun).
+  cube ; variations des fonctions de référence dites comme dans le cours (strictement
+  croissante, strictement décroissante). Calculs détaillés, une transformation par ligne
+  (inverse d'un nombre négatif : le signe, puis la valeur). Distracteurs : erreurs types
+  (solution négative oubliée, -5^2 confondu avec (-5)^2, racine carrée oubliée, intérieur et
+  extérieur confondus, crochets, branche de gauche de l'hyperbole oubliée, valeur interdite 0
+  incluse, inverse et opposé confondus, nombres négatifs gardés sous la racine, cube traité
+  comme un carré, |x| confondu avec x, ordre des nombres gardé là où la courbe descend, droite
+  y = ax confondue avec y = x, ordonnée d'un point commun).
   Figures : repere du gabarit, courbes exactes des fonctions de référence ; les lectures
   tombent sur le quadrillage ou à mi-carreau. repereSol (repris du chapitre 6) surligne
   plusieurs intervalles solutions.
@@ -482,8 +484,8 @@ const QUIZ = {
     explication: [
       r`Si $k \ge 0$, l'équation $\sqrt{x} = k$ a une seule solution, $k^{2}$. La fonction racine carrée est définie sur $\left[0\,;\,+\infty\right[$&nbsp;: un nombre négatif n'a pas de racine carrée.`,
       calcul(r`\sqrt{x} = 8 & \iff x = 8^{2}`, r`& \iff x = 64`),
-      r`La courbe de la fonction racine carrée monte&nbsp;: elle est au-dessous de la droite d'équation $y = 8$ pour $x < 64$&nbsp;; et $\sqrt{x}$ n'existe que pour $x \ge 0$. Donc <span class="resultat">équation&nbsp;: $x = 64$&nbsp;; inéquation&nbsp;: $\left[0\,;\,64\right[$</span>. Attention&nbsp;: les nombres négatifs ne sont pas solutions de $\sqrt{x} < 8$, car ils n'ont pas de racine carrée.`],
-    revoir: r`propriété «&nbsp;équations et inéquations&nbsp;» et capacité 3 du cours (questions 1 à 3), exercice 3 de la fiche (question 1, a à c), exercices 23 p.&nbsp;229 et 132 p.&nbsp;236 du manuel, question 6 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
+      r`La fonction racine carrée est strictement croissante&nbsp;: sa courbe monte, et elle est au-dessous de la droite d'équation $y = 8$ pour $x < 64$&nbsp;; de plus, $\sqrt{x}$ n'existe que pour $x \ge 0$. Donc <span class="resultat">équation&nbsp;: $x = 64$&nbsp;; inéquation&nbsp;: $\left[0\,;\,64\right[$</span>. Attention&nbsp;: les nombres négatifs ne sont pas solutions de $\sqrt{x} < 8$, car ils n'ont pas de racine carrée.`],
+    revoir: r`propriétés «&nbsp;courbes, signes, variations&nbsp;» et «&nbsp;équations et inéquations&nbsp;», capacité 3 du cours (questions 1 à 3), exercice 3 de la fiche (question 1, a à c), exercices 23 p.&nbsp;229 et 132 p.&nbsp;236 du manuel, question 6 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
     variante: {
       enonce: r`On résout l'équation $\sqrt{x} = 10$ et l'inéquation $\sqrt{x} \le 10$. On obtient&nbsp;:`,
       choix: [r`équation&nbsp;: $x = 100$&nbsp;; inéquation&nbsp;: $\left[0\,;\,100\right]$`,
@@ -494,7 +496,7 @@ const QUIZ = {
       explication: [
         r`Si $k \ge 0$, l'équation $\sqrt{x} = k$ a une seule solution, $k^{2}$. La fonction racine carrée est définie sur $\left[0\,;\,+\infty\right[$&nbsp;: un nombre négatif n'a pas de racine carrée.`,
         calcul(r`\sqrt{x} = 10 & \iff x = 10^{2}`, r`& \iff x = 100`),
-        r`La courbe de la fonction racine carrée monte&nbsp;: elle est au-dessous de la droite d'équation $y = 10$, ou sur elle, pour $x \le 100$&nbsp;; et $\sqrt{x}$ n'existe que pour $x \ge 0$. Donc <span class="resultat">équation&nbsp;: $x = 100$&nbsp;; inéquation&nbsp;: $\left[0\,;\,100\right]$</span>. Attention&nbsp;: les nombres négatifs ne sont pas solutions de $\sqrt{x} \le 10$, car ils n'ont pas de racine carrée.`] } },
+        r`La fonction racine carrée est strictement croissante&nbsp;: sa courbe monte, et elle est au-dessous de la droite d'équation $y = 10$, ou sur elle, pour $x \le 100$&nbsp;; de plus, $\sqrt{x}$ n'existe que pour $x \ge 0$. Donc <span class="resultat">équation&nbsp;: $x = 100$&nbsp;; inéquation&nbsp;: $\left[0\,;\,100\right]$</span>. Attention&nbsp;: les nombres négatifs ne sont pas solutions de $\sqrt{x} \le 10$, car ils n'ont pas de racine carrée.`] } },
 
   { partie: 0, theme: 'Fonction cube', type: 'qcm',
     enonce: r`On résout dans $\R$ l'équation $x^{3} = -125$ et l'inéquation $x^{3} > -125$. On obtient&nbsp;:`,
@@ -504,10 +506,10 @@ const QUIZ = {
             r`équation&nbsp;: $x = -5$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,-5\right[$`],
     bonne: 0,
     explication: [
-      r`Pour tout réel $k$, l'équation $x^{3} = k$ a une seule solution, la racine cubique de $k$, notée $∛k$&nbsp;; la courbe de la fonction cube monte sur $\R$. On cherche le nombre dont le cube vaut $-125$&nbsp;:`,
+      r`Pour tout réel $k$, l'équation $x^{3} = k$ a une seule solution, la racine cubique de $k$, notée $∛k$&nbsp;; la fonction cube est strictement croissante sur $\R$ (sa courbe monte). On cherche le nombre dont le cube vaut $-125$&nbsp;:`,
       calcul(r`(-5)^{3} & = (-5) \times (-5) \times (-5)`, r`& = 25 \times (-5)`, r`& = -125`),
       r`Donc $x^{3} = -125 \iff x = -5$. La courbe de la fonction cube monte&nbsp;: elle est au-dessus de la droite d'équation $y = -125$ pour $x > -5$. Donc <span class="resultat">équation&nbsp;: $x = -5$&nbsp;; inéquation&nbsp;: $\left]-5\,;\,+\infty\right[$</span>. Attention&nbsp;: contrairement à un carré, un cube peut être négatif, et $5$ n'est pas solution, car $5^{3} = 125$.`],
-    revoir: r`propriété «&nbsp;équations et inéquations&nbsp;» et capacité 3 du cours (questions 4 et 5), exercice 3 de la fiche (questions 1 d, 1 e et 2), exercices 16 p.&nbsp;228, 38 p.&nbsp;230 et 138 p.&nbsp;239 du manuel, question 6 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
+    revoir: r`propriétés «&nbsp;courbes, signes, variations&nbsp;» et «&nbsp;équations et inéquations&nbsp;», capacité 3 du cours (questions 4 et 5), exercice 3 de la fiche (questions 1 d, 1 e et 2), exercices 16 p.&nbsp;228, 38 p.&nbsp;230 et 138 p.&nbsp;239 du manuel, question 6 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
     variante: {
       enonce: r`On résout dans $\R$ l'équation $x^{3} = -1\,000$ et l'inéquation $x^{3} \le -1\,000$. On obtient&nbsp;:`,
       choix: [r`équation&nbsp;: $x = -10$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,-10\right]$`,
@@ -516,7 +518,7 @@ const QUIZ = {
               r`équation&nbsp;: $x = -10$&nbsp;; inéquation&nbsp;: $\left[-10\,;\,+\infty\right[$`],
       bonne: 0,
       explication: [
-        r`Pour tout réel $k$, l'équation $x^{3} = k$ a une seule solution, la racine cubique de $k$, notée $∛k$&nbsp;; la courbe de la fonction cube monte sur $\R$. On cherche le nombre dont le cube vaut $-1\,000$&nbsp;:`,
+        r`Pour tout réel $k$, l'équation $x^{3} = k$ a une seule solution, la racine cubique de $k$, notée $∛k$&nbsp;; la fonction cube est strictement croissante sur $\R$ (sa courbe monte). On cherche le nombre dont le cube vaut $-1\,000$&nbsp;:`,
         calcul(r`(-10)^{3} & = (-10) \times (-10) \times (-10)`, r`& = 100 \times (-10)`, r`& = -1\,000`),
         r`Donc $x^{3} = -1\,000 \iff x = -10$. La courbe de la fonction cube monte&nbsp;: elle est au-dessous de la droite d'équation $y = -1\,000$, ou sur elle, pour $x \le -10$. Donc <span class="resultat">équation&nbsp;: $x = -10$&nbsp;; inéquation&nbsp;: $\left]-\infty\,;\,-10\right]$</span>. Attention&nbsp;: contrairement à un carré, un cube peut être négatif, et $10$ n'est pas solution, car $10^{3} = 1\,000$.`] } },
 
@@ -619,20 +621,20 @@ const QUIZ = {
     choix: [r`$(-2{,}6)^{2} > (-1{,}9)^{2}$`, r`$\dfrac{1}{9} > \dfrac{1}{4}$`, r`$(-0{,}8)^{3} > (-0{,}3)^{3}$`, r`$(-4)^{2} < 3^{2}$`],
     bonne: 0,
     explication: [
-      r`On place les deux nombres sur la courbe de la fonction de référence&nbsp;: là où elle monte, les images sont rangées dans le même ordre que les nombres&nbsp;; là où elle descend, dans l'ordre contraire. Deux nombres de signes contraires se comparent par le calcul.`,
-      r`$-2{,}6$ et $-1{,}9$ sont négatifs, et la parabole descend sur $\left]-\infty\,;\,0\right]$&nbsp;: l'ordre est inversé, $-2{,}6 < -1{,}9$ donne $(-2{,}6)^{2} > (-1{,}9)^{2}$. Le point de la parabole d'abscisse $-2{,}6$ est bien le plus haut (tirets verts).`,
+      r`On place les deux nombres sur la courbe de la fonction de référence. S'ils sont dans un même intervalle où la fonction est strictement croissante (la courbe monte), leurs images sont rangées dans le même ordre qu'eux&nbsp;; si elle y est strictement décroissante (la courbe descend), dans l'ordre contraire. Sinon, comme pour la fonction carré et deux nombres de signes contraires, on calcule les images.`,
+      r`$-2{,}6$ et $-1{,}9$ sont dans $\left]-\infty\,;\,0\right]$, où la fonction carré est strictement décroissante (la parabole descend)&nbsp;: l'ordre est inversé, $-2{,}6 < -1{,}9$ donne $(-2{,}6)^{2} > (-1{,}9)^{2}$. Le point de la parabole d'abscisse $-2{,}6$ est bien le plus haut (tirets verts).`,
       repere(Object.assign({}, FIGC, { echelle: 1.15 })),
-      r`Les trois autres inégalités sont fausses. L'hyperbole descend sur $\left]0\,;\,+\infty\right[$&nbsp;: $4 < 9$ donne $\dfrac{1}{4} > \dfrac{1}{9}$. La courbe de la fonction cube monte sur $\R$&nbsp;: $-0{,}8 < -0{,}3$ donne $(-0{,}8)^{3} < (-0{,}3)^{3}$. Enfin, $(-4)^{2} = 16$ et $3^{2} = 9$, donc $(-4)^{2} > 3^{2}$.`,
+      r`Les trois autres inégalités sont fausses. La fonction inverse est strictement décroissante sur $\left]0\,;\,+\infty\right[$&nbsp;: $4 < 9$ donne $\dfrac{1}{4} > \dfrac{1}{9}$. La fonction cube est strictement croissante sur $\R$&nbsp;: $-0{,}8 < -0{,}3$ donne $(-0{,}8)^{3} < (-0{,}3)^{3}$. Enfin, $-4$ et $3$ sont de signes contraires, et la fonction carré n'est ni strictement croissante ni strictement décroissante sur $\left[-4\,;\,3\right]$&nbsp;: on calcule $(-4)^{2} = 16$ et $3^{2} = 9$, d'où $(-4)^{2} > 3^{2}$.`,
       r`L'inégalité vraie est <span class="resultat">$(-2{,}6)^{2} > (-1{,}9)^{2}$</span>. Vérification&nbsp;: $6{,}76 > 3{,}61$.`],
-    revoir: r`méthode «&nbsp;comparer $f(a)$ et $f(b)$&nbsp;» et capacité 5 du cours (questions 1 à 6), exercice 5 de la fiche, exercices 30, 31 et 32 p.&nbsp;230, 70 et 71 p.&nbsp;231 du manuel, question 1 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
+    revoir: r`variations des fonctions de référence (parties 1 à 3), méthode «&nbsp;comparer $f(a)$ et $f(b)$&nbsp;» et capacité 5 du cours (questions 1 à 6), exercice 5 de la fiche, exercices 30, 31 et 32 p.&nbsp;230, 70 et 71 p.&nbsp;231 du manuel, question 1 du «&nbsp;Faire le point&nbsp;» p.&nbsp;237`,
     variante: {
       choix: [r`$\dfrac{1}{-5} > \dfrac{1}{-2}$`, r`$(-1{,}4)^{2} < (-1{,}1)^{2}$`, r`$(-2)^{3} > (-1{,}8)^{3}$`, r`$\dfrac{1}{-4} > \dfrac{1}{7}$`],
       enonce: r`Sans calculatrice, laquelle de ces quatre inégalités est vraie&nbsp;?`,
       bonne: 0,
       explication: [
-        r`On place les deux nombres sur la courbe de la fonction de référence&nbsp;: là où elle monte, les images sont rangées dans le même ordre que les nombres&nbsp;; là où elle descend, dans l'ordre contraire. Deux nombres de signes contraires se comparent par leur signe.`,
-        r`$-5$ et $-2$ sont négatifs, et la branche de gauche de l'hyperbole descend sur $\left]-\infty\,;\,0\right[$&nbsp;: l'ordre est inversé, $-5 < -2$ donne $\dfrac{1}{-5} > \dfrac{1}{-2}$. Vérification&nbsp;: $-0{,}2 > -0{,}5$.`,
-        r`Les trois autres inégalités sont fausses. La parabole descend sur $\left]-\infty\,;\,0\right]$&nbsp;: $-1{,}4 < -1{,}1$ donne $(-1{,}4)^{2} > (-1{,}1)^{2}$. La courbe de la fonction cube monte sur $\R$&nbsp;: $-2 < -1{,}8$ donne $(-2)^{3} < (-1{,}8)^{3}$. Enfin, $\dfrac{1}{-4}$ est négatif et $\dfrac{1}{7}$ positif, donc $\dfrac{1}{-4} < \dfrac{1}{7}$.`,
+        r`On place les deux nombres sur la courbe de la fonction de référence. S'ils sont dans un même intervalle où la fonction est strictement croissante (la courbe monte), leurs images sont rangées dans le même ordre qu'eux&nbsp;; si elle y est strictement décroissante (la courbe descend), dans l'ordre contraire. Sinon, comme pour la fonction inverse et deux nombres de signes contraires, on compare les signes des images.`,
+        r`$-5$ et $-2$ sont dans $\left]-\infty\,;\,0\right[$, où la fonction inverse est strictement décroissante (la branche de gauche de l'hyperbole descend)&nbsp;: l'ordre est inversé, $-5 < -2$ donne $\dfrac{1}{-5} > \dfrac{1}{-2}$. Vérification&nbsp;: $-0{,}2 > -0{,}5$.`,
+        r`Les trois autres inégalités sont fausses. La fonction carré est strictement décroissante sur $\left]-\infty\,;\,0\right]$&nbsp;: $-1{,}4 < -1{,}1$ donne $(-1{,}4)^{2} > (-1{,}1)^{2}$. La fonction cube est strictement croissante sur $\R$&nbsp;: $-2 < -1{,}8$ donne $(-2)^{3} < (-1{,}8)^{3}$. Enfin, $-4$ et $7$ sont de signes contraires, de part et d'autre de la valeur interdite $0$&nbsp;: le sens de variation ne permet pas de conclure, mais $\dfrac{1}{-4}$ est négatif et $\dfrac{1}{7}$ positif, donc $\dfrac{1}{-4} < \dfrac{1}{7}$.`,
         r`L'inégalité vraie est <span class="resultat">$\dfrac{1}{-5} > \dfrac{1}{-2}$</span>.`] } },
 
   { partie: 0, theme: 'Position relative', type: 'qcm',
