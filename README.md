@@ -14,6 +14,7 @@
 - Chapitre 12 : [Statistiques](https://p-bailly.github.io/entrainements/seconde/12-statistiques.html)
 - Chapitre 13 : [Variations d'une fonction](https://p-bailly.github.io/entrainements/seconde/13-variations-fonctions.html)
 - Chapitre 14 : [Inéquations et tableaux de signes](https://p-bailly.github.io/entrainements/seconde/14-inequations.html)
+- Chapitre 16 : [Probabilités](https://p-bailly.github.io/entrainements/seconde/16-probabilites.html)
 
 ## Première, mathématiques spécifiques
 
