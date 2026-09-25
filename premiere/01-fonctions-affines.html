@@ -106,8 +106,7 @@ body.avec-brouillon main{padding-bottom:calc(var(--bas) + min(56vh, 480px) + 28p
 /* Écran de départ */
 .intro h1{margin:0 0 2px; font-size:1.5rem; line-height:1.2}
 .intro .sous{margin:0 0 12px; color:var(--gris)}
-.intro ul{margin:12px 0 0; padding-left:1.1em; font-size:.95rem; color:var(--gris)}
-.intro li{margin:0 0 4px}
+.intro p:last-child{margin-bottom:0}
 
 /* Résultat */
 .score{margin:0; font-size:1.3rem}
@@ -227,11 +226,6 @@ table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
     <h1 id="intro-titre">Chapitre 1 · Fonctions affines</h1>
     <p class="sous">Entraînement à l'évaluation</p>
     <p>Deux parties&nbsp;: six automatismes, puis dix questions sur les fonctions affines. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
-    <ul>
-      <li>La correction s'affiche après chaque question.</li>
-      <li>Tes réponses restent enregistrées sur cet appareil : tu peux t'arrêter et reprendre plus tard.</li>
-      <li>Pour calculer, bouton « Brouillon » en bas de l'écran.</li>
-    </ul>
   </section>
   <div id="ecran" aria-live="polite"></div>
 </main>
@@ -951,7 +945,7 @@ function rendreQuestion(T, k) {
 function retourHTML(q, ordre, rep) {
   const bonne = q.type === 'vf' ? (q.bonne ? 'Vrai' : 'Faux') : lettreDe(q, ordre, q.bonne).toUpperCase();
   return `<section class="retour-corr ${rep.ok ? 'juste' : 'faux'}">
-    <p class="verdict">${rep.ok ? 'Juste' : 'Faux. La bonne réponse est ' + bonne + '.'}</p>
+    <p class="verdict">${rep.ok ? 'Correct.' : 'Non. La bonne réponse est ' + bonne + '.'}</p>
     <div class="explication">${explicationHTML(q)}</div>
     ${!rep.ok && q.revoir ? `<p class="revoir">À revoir : ${tex(q.revoir)}.</p>` : ''}
   </section>`;
@@ -995,7 +989,7 @@ function suivant() {
 
 function ligneRecap(q, ordre, rep, numero) {
   const bonne = 'Bonne réponse&nbsp;: ' + reponseTexte(q, ordre, q.bonne);
-  const texte = !rep ? 'Sans réponse. ' + bonne : rep.ok ? 'Ta réponse&nbsp;: ' + reponseTexte(q, ordre, rep.choix) + '. Juste.'
+  const texte = !rep ? 'Sans réponse. ' + bonne : rep.ok ? 'Ta réponse&nbsp;: ' + reponseTexte(q, ordre, rep.choix) + '. Correct.'
     : 'Ta réponse&nbsp;: ' + reponseTexte(q, ordre, rep.choix) + '.<br>' + bonne + '.';
   return `<li class="${!rep ? 'vide' : rep.ok ? 'juste' : 'faux'}"><details>
     <summary><span class="num">${numero}</span><span class="theme">${q.theme}</span><span class="icone" role="img" aria-label="${!rep ? 'sans réponse' : rep.ok ? 'juste' : 'fausse'}">${!rep ? '–' : rep.ok ? '✓' : '✗'}</span></summary>
@@ -1059,15 +1053,6 @@ function rendreCorrige() {
   };
   ecran.innerHTML = QUIZ.questions.map((q, i) => carte(q, i + 1, 'Question') + (q.variante ? carte(variante(i), i + 1, 'Variante de la question') : '')).join('');
 }
-
-// Clavier (ordinateur) : 1 à 4 ou a à d pour choisir, Entrée pour valider ou passer à la suite.
-document.addEventListener('keydown', e => {
-  if (MODE_CORRIGE || e.altKey || e.ctrlKey || e.metaKey || !brouillon.hidden && e.key !== 'Enter') return;
-  const options = Array.from(ecran.querySelectorAll('.option:not(:disabled)'));
-  const n = /^[1-6]$/.test(e.key) ? Number(e.key) - 1 : 'abcdef'.indexOf(e.key.toLowerCase());
-  if (options.length && e.key.length === 1 && n >= 0 && n < options.length) { options[n].click(); e.preventDefault(); }
-  else if (e.key === 'Enter' && (document.activeElement === document.body || document.activeElement.classList.contains('option')) && !btnP.disabled) { btnP.click(); e.preventDefault(); }
-});
 
 /* ---------- Brouillon : on écrit au doigt (ou à la souris) sur des petits carreaux ---------- */
 const brouillon = $('#brouillon'), toile = $('#toile'), ctx = toile.getContext('2d');
