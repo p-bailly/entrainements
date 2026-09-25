@@ -1,0 +1,1278 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entraînement Évaluation variations d'une fonction</title>
+<!--
+  Entraînement auto-corrigé à l'évaluation du chapitre 13 (Variations d'une fonction) - Seconde.
+  Une seule partie, douze questions, sans automatismes (demande du professeur), dans l'ordre
+  du cours et des séances du plan :
+    1 et 2   : sens de variation lu sur une courbe (intervalles lus sur l'axe des abscisses),
+               tableau de variations d'une courbe, à choisir parmi quatre (capacité 1) ;
+    3 à 5    : du tableau à la courbe (quatre courbes : points du tableau et variations à
+               respecter), comparer deux images dans un intervalle où la fonction est
+               monotone, peut-on comparer deux images prises dans deux intervalles différents
+               (on ne peut pas conclure ; variante : on peut, par une chaîne d'inégalités)
+               (capacité 2) ;
+    6 et 7   : maximum et minimum, valeur et abscisse, lus sur une courbe sur un
+               sous-intervalle (extremum atteint à une borne), puis dans un tableau
+               (capacité 3) ;
+    8 à 10   : variations des fonctions de référence (carré, inverse sur chacun de ses deux
+               intervalles, racine carrée, cube ; affine en variante), comparer deux images
+               sans calculer, encadrer (capacité 4) ;
+    11 et 12 : optimisation (enclos adossé à un mur : tableau de valeurs, puis pas de 1 autour
+               du maximum), lecture de la fonction Python de balayage du problème (capacité 5).
+  Sources : définitions, méthodes, démonstrations et capacités 1 à 5 du cours, activités 1 (la
+  randonnée), 2 (l'enclos) et 3 (carrés et inverses), fiche d'exercices (exercices 1 à 4),
+  problème « la plus grande boîte » (balayage en Python), évaluation (sujets A et B, exercices
+  2 à 4 ; son QCM d'automatismes n'est pas repris) et exercices du manuel cités dans le plan
+  (17 et 20 p. 256 ; 29, et 32 et 33 des plus rapides, p. 257 ; 35 p. 258 ; 53 p. 259 ; 68
+  p. 261 ; 75 p. 262 ; « Faire le point » p. 263, questions 1 à 4 et 9 à 14 ; 79 p. 265 ; 96
+  p. 268, des plus rapides).
+  Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs,
+  sans calculatrice, comme à l'évaluation : ni conjecture à la calculatrice (capacité 1,
+  question 3 ; exercice 49 p. 259), ni longueur d'une portion de courbe (fiche, exercice 5 ;
+  exercice 91 p. 267). Comparaisons tirées d'un tableau écrites avec des inégalités strictes,
+  comme dans les corrections du cours.
+  Distracteurs : erreurs types (croissante et décroissante confondues, intervalles lus sur
+  l'axe des ordonnées, intervalles où la fonction est positive, flèches inversées, bornes
+  oubliées, abscisses et images confondues, courbe qui passe par les bons points sans avoir
+  les bonnes variations, ordre gardé là où la fonction décroît, « on ne peut pas conclure »
+  répondu à tort ou oublié, extremum pris hors de l'intervalle, borne oubliée, fonction
+  inverse décroissante sur la réunion de ses deux intervalles, cube traité comme un carré,
+  0,49 lu plus grand que 0,5, racine carrée prise pour une moitié, plus grande valeur d'un
+  tableau prise pour le maximum, enclos cru carré, image maximale renvoyée à la place de x,
+  dernier maximum gardé malgré le test strict du programme).
+  Figures : repere du gabarit. Les courbes passent par des noeuds entiers, reliés par
+  l'interpolation monotone de lisse (reprise du chapitre 6, celle des arcs de Bézier des
+  figures du cours) : extremums aux noeuds, toutes les lectures tombent sur le quadrillage.
+  Écrits avant QUIZ : tableauVar (tableau de variations comme ceux du cours, tkz-tab),
+  tableauValeurs (tableau de valeurs), petiteCourbe (courbe d'un choix de réponse),
+  programmePython (repris du chapitre 8).
+  Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
+  questions manquées.
+
+  Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
+  entrainement-13-variations-fonctions-questions.js (même dossier) ; moteur et mise en page :
+  Commun aux cours/entrainement/gabarit.html (format des questions en tête).
+  Publiée pour les élèves : https://p-bailly.github.io/entrainements/seconde/13-variations-fonctions.html
+  (python tools/entrainement.py --publier). Vue corrigé : ?corrige à la fin de l'adresse.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Old+Standard+TT:ital,wght@0,400;0,700;1,400&family=Caveat:wght@400;600&display=swap">
+<!-- KaTeX, chargé sans bloquer la page (réseau du lycée parfois filtré) : les formules s'affichent
+     d'abord en mini-LaTeX, puis KaTeX les recompose sur place dès que sa feuille et son script sont là. -->
+<link id="katex-css" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.css" integrity="sha384-JctiRyLzXCrSoOOzFlSoWLdyzQl7OrrRnhyeBmzB6ZWtcjccUyc8lCQJqIbs3uQX" crossorigin="anonymous" media="print" onload="this.media='all'; if (window.katexPret) katexPret()">
+<script async src="https://cdn.jsdelivr.net/npm/katex@0.18.7/dist/katex.min.js" integrity="sha384-+7Keh381hSkXmXqnjC0JBM/kzsN6TFj+wMKychSLjTvJ8/0ElMde2uKl8i6p6Buj" crossorigin="anonymous" onload="if (window.katexPret) katexPret()"></script>
+<style>
+:root{
+  --papier:#FCFBF7; --encre:#161616; --gris:#6B6A66; --filet:#C4BFB3; --filet-clair:#E4E0D6; --case:#F0EDE5;
+  --stylo:#1E3D96; --rouge:#CE2029; --vert:#2A7A36; --orange:#E8940A; --violet:#7A3E9D;
+  --serif:"Old Standard TT","Times New Roman",Times,serif;
+  --main:"Caveat","Segoe Print","Bradley Hand",cursive;
+  --mono:ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--papier); color:var(--encre); font:400 18px/1.5 var(--serif); min-height:100vh}
+.feuille{max-width:720px; margin:0 auto; padding:34px 40px 60px}
+
+/* Retour à la liste des entraînements */
+.retour{margin:0 0 14px; font-size:.95rem}
+.retour a{color:var(--stylo); text-decoration:none; border-bottom:1px solid var(--filet)}
+.retour a:hover,.retour a:focus-visible{border-bottom-color:var(--stylo)}
+
+/* Facteur de mise au même dénominateur ou de simplification (\mul{...}) */
+.mul{color:#9C27B0}
+/* Opération faite des deux côtés d'une égalité ou d'une inégalité (\op{...}) */
+.op{color:var(--rouge)}
+
+/* En-tête de la copie */
+.entete{display:flex; justify-content:space-between; gap:2px 20px; flex-wrap:wrap; font-variant:small-caps; letter-spacing:.03em; font-size:1rem}
+h1{font:700 2rem/1.15 var(--serif); margin:12px 0 6px; text-wrap:balance}
+.consigne{margin:0 0 12px; font-style:italic}
+.filet{height:4px; border-top:1px solid var(--encre); border-bottom:1px solid var(--encre); margin:8px 0 20px}
+
+/* Grilles de réponses, une par partie */
+.progression{display:flex; flex-wrap:wrap; gap:10px 28px; margin:0 0 24px; scroll-margin-top:12px}
+.bloc-grille{max-width:100%; overflow-x:auto}
+.nom-partie{margin:0 0 3px; font-style:italic; font-size:.9rem; white-space:nowrap}
+.grille-reponses{border-collapse:collapse; font-size:.9rem}
+.grille-reponses td{border:1px solid var(--encre); width:31px; min-width:31px; height:29px; text-align:center; vertical-align:middle; padding:0}
+.grille-reponses tr:first-child td{background:var(--case); font-size:.85rem}
+.grille-reponses td.courant{box-shadow:inset 0 0 0 2px var(--stylo)}
+.grille-reponses td[data-q],.grille-reponses td[data-r]{cursor:pointer}
+.grille-reponses td.ici{background:var(--filet-clair)}
+.grille-reponses button.aller{display:block; width:100%; height:100%; margin:0; padding:0; border:0; background:none; font:inherit; color:inherit; cursor:pointer}
+.grille-reponses button.aller:hover{text-decoration:underline}
+.grille-reponses button.aller:focus-visible{outline:2px solid var(--stylo); outline-offset:-2px}
+.grille-reponses td.juste{color:var(--vert)}
+.grille-reponses td.erreur{color:var(--rouge)}
+
+/* Marques au stylo : croix et coche dessinées en CSS */
+.marque{position:relative; display:inline-block; width:18px; height:18px; vertical-align:-4px; color:inherit}
+.marque::before,.marque::after{content:""; position:absolute; width:2px; background:currentColor; border-radius:1px; display:none}
+.marque.croix::before,.marque.croix::after{display:block; left:8px; top:-2px; height:22px}
+.marque.croix::before{transform:rotate(43deg)}
+.marque.croix::after{transform:rotate(-47deg)}
+.marque.coche::before,.marque.coche::after{display:block}
+.marque.coche::before{left:3px; top:8px; height:8px; transform:rotate(-42deg)}
+.marque.coche::after{left:10px; top:-2px; height:20px; transform:rotate(38deg)}
+
+/* Question et réponses */
+.partie{margin:0 0 2px; font-variant:small-caps; letter-spacing:.03em}
+.question{margin:0 0 6px}
+.question i{color:var(--gris)}
+.enonce{margin:0 0 14px}
+.reponses{display:grid; gap:6px; margin:0 0 18px}
+.reponses.vf{display:flex; gap:12px 40px; flex-wrap:wrap}
+.choix{display:flex; align-items:flex-start; gap:12px; width:100%; text-align:left; padding:5px 4px; border:0; border-radius:0; background:transparent; color:var(--encre); font:inherit; line-height:1.45; cursor:pointer}
+.reponses.vf .choix{width:auto; padding-right:12px}
+.choix:disabled{cursor:default}
+.choix .boite{flex:none; position:relative; width:18px; height:18px; margin-top:5px; border:1px solid var(--encre); background:var(--papier)}
+.choix .boite .marque{position:absolute; left:-1px; top:-1px}
+.choix:hover:not(:disabled) .boite{box-shadow:0 0 0 1px var(--encre)}
+.choix .lettre{flex:none; width:1.3em; color:var(--gris)}
+.choix .texte{flex:1; min-width:0}
+.choix.choisi .marque{color:var(--stylo)}
+.choix.juste .marque{color:var(--vert)}
+.choix.erreur .marque{color:var(--rouge)}
+.choix.terne{color:var(--gris)}
+.actions{display:flex; gap:12px 18px; flex-wrap:wrap; align-items:center}
+.bouton{font:inherit; font-variant:small-caps; letter-spacing:.04em; font-size:1rem; padding:5px 18px; border:1px solid var(--encre); border-radius:0; background:var(--papier); color:var(--encre); cursor:pointer}
+.bouton:hover:not(:disabled){background:var(--encre); color:var(--papier)}
+.bouton:disabled{opacity:.4; cursor:default}
+.bouton.discret{border-color:var(--filet)}
+
+/* Correction du professeur */
+.correction{margin:20px 0 0; padding:2px 0 2px 16px; border-left:2px solid var(--rouge)}
+.correction.juste{border-left-color:var(--vert)}
+.verdict{font:600 1.7rem/1.1 var(--main); color:var(--rouge); margin:0 0 6px}
+.correction.juste .verdict{color:var(--vert)}
+.explication{margin:0; font-size:1rem; line-height:1.55}
+.explication p{margin:0 0 .55em}
+.explication p:last-child{margin-bottom:0}
+.explication .revoir{font-style:italic; color:var(--gris)}
+.explication .fig{margin:8px auto 12px}
+/* Calcul en colonne : une étape par ligne, alignées sur le signe = ou ⇔ (comme dans les PDF) */
+.calcul{display:grid; grid-template-columns:max-content minmax(0,1fr); gap:.45em .4em; align-items:baseline; margin:.3em 0 .5em 1.4em; padding:.2em 0 .3em; overflow-x:auto; overflow-y:hidden}
+.calcul .g{justify-self:end}
+.resultat{display:inline-block; border:1px solid currentColor; padding:.05em .4em; line-height:1.35}
+code{font-family:var(--mono); font-size:.88em}
+
+/* Figures dans les énoncés et les corrections */
+.fig{display:block; width:100%; height:auto; margin:12px auto 4px}
+.fig .grille{stroke:var(--filet); stroke-width:.7; fill:none}
+.fig .axe{stroke:var(--encre); stroke-width:1.1; fill:none}
+.fig .fleche{fill:var(--encre)}
+.fig .tick{font:10.5px var(--serif); fill:var(--encre); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .courbe{stroke:currentColor; stroke-width:2.2; fill:none}
+.fig .lab{font:italic 13px var(--serif); fill:currentColor; paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .pt{fill:currentColor}
+.fig .lecture{stroke:var(--vert); stroke-width:1.5; stroke-dasharray:5 3; fill:none}
+.fig .pointe{fill:var(--vert)}
+.fig .note{font:italic 11.5px var(--serif); fill:var(--vert); paint-order:stroke; stroke:var(--papier); stroke-width:3px; stroke-linejoin:round}
+.fig .surligne{stroke:var(--orange); stroke-width:9; opacity:.6; fill:none}
+.fig .c-rouge{color:var(--rouge)}
+.fig .c-bleu{color:var(--stylo)}
+.fig .c-noir{color:var(--encre)}
+.fig .c-violet{color:var(--violet)}
+
+/* Résultat */
+.note{display:flex; align-items:baseline; gap:14px; flex-wrap:wrap; margin:6px 0 2px; color:var(--rouge)}
+.note .grand{font:700 3.6rem/1 var(--main)}
+.note .sur{font:400 1.5rem/1 var(--main)}
+.appreciation{font:400 1.55rem/1.25 var(--main); color:var(--rouge); margin:0 0 14px; max-width:44ch}
+.bilan-parties{margin:0 0 6px}
+.bilan-parties span{white-space:nowrap}
+.bilan-reprise{margin:0 0 10px}
+.reprise-info{margin:0 0 10px; font-style:italic}
+.a-revoir{margin:0 0 16px}
+.a-revoir ul{margin:4px 0 0; padding-left:1.3em}
+.titre-partie{font:700 1.1rem/1.2 var(--serif); font-variant:small-caps; letter-spacing:.03em; margin:28px 0 0}
+.revue{list-style:none; padding:0; margin:8px 0 0; border-top:1px solid var(--encre)}
+.revue li{padding:14px 0; border-bottom:1px solid var(--filet)}
+.revue .enonce{margin-bottom:10px}
+.revue .bilan{margin:6px 0 8px; font-style:italic}
+.revue li.juste .bilan{color:var(--vert)}
+.revue li.erreur .bilan{color:var(--rouge)}
+.revue .explication{font-size:1rem}
+.liste-choix{margin:0 0 8px; padding-left:1.6em}
+.liste-choix li{border:0; padding:1px 0}
+.liste-choix li.bonne{color:var(--vert)}
+.variante{margin:14px 0 0; padding:0 0 0 14px; border-left:1px dashed var(--filet)}
+.pied{margin-top:30px; font-size:.9rem; font-style:italic; color:var(--gris)}
+.pied p{margin:0 0 4px}
+.pied button{font:inherit; color:var(--gris); background:none; border:0; padding:0; text-decoration:underline; cursor:pointer}
+
+/* Formules : KaTeX (réduit de 1,21 à 1,1 em pour s'accorder au texte), sinon mini-LaTeX (.m) */
+.katex{font-size:1.1em}
+.m{font-family:var(--serif); white-space:nowrap}
+.m.m-long{white-space:normal}
+.m i{font-style:italic}
+.m .rm{font-style:normal}
+.m sub,.m sup{font-size:.8em; line-height:0; white-space:nowrap}
+.m .prime{display:inline-block; margin-left:.08em; font-size:1.2em; line-height:0}
+.m sub{vertical-align:-.25em}
+.m sup{vertical-align:.55em}
+.frac{display:inline-flex; flex-direction:column; align-items:center; vertical-align:middle; font-size:.92em; line-height:1.2; margin:0 .15em}
+.frac .num{border-bottom:1px solid currentColor; padding:0 .25em .04em}
+.frac .den{padding:.04em .25em 0}
+.sqrt .rad{border-top:1px solid currentColor; padding:0 .12em}
+
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+@media (prefers-reduced-motion: reduce){*{transition:none !important; scroll-behavior:auto !important}}
+@media (max-width:520px){
+  body{font-size:17px}
+  .feuille{padding:22px 16px 48px}
+  .entete{font-size:.9rem}
+  h1{font-size:1.7rem}
+  .reponses.vf{gap:8px 24px}
+}
+@media print{
+  .actions,.pied,.progression{display:none}
+  .revue li{break-inside:avoid}
+}
+/* Feuille de calcul */
+table.tableur{border-collapse:collapse; margin:10px auto 4px; font:400 .88rem "Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+table.tableur th{background:var(--case); color:var(--gris); font-weight:400; border:1px solid var(--filet); padding:2px 10px; text-align:center; min-width:2.2em}
+table.tableur td{border:1px solid var(--filet); padding:2px 10px; min-width:5em; height:1.9em; background:#FFFFFF; text-align:center}
+table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
+</style>
+</head>
+<body>
+<main class="feuille">
+  <header>
+    <p class="retour"><a href="https://p-bailly.github.io/entrainements/">← Tous les entraînements</a></p>
+    <div class="entete"><span>Seconde</span><span>M. Bailly</span><span>Chapitre 13 · Variations d'une fonction</span></div>
+    <h1>Entraînement Évaluation variations d'une fonction</h1>
+    <p class="consigne">Douze questions sur les variations d'une fonction. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <div class="filet" role="presentation"></div>
+  </header>
+  <nav class="progression" id="progression" aria-label="Grilles de réponses"></nav>
+  <section id="quiz" aria-live="polite"></section>
+  <footer class="pied">
+    <p><button type="button" id="reinitialiser">Recommencer depuis le début</button></p>
+  </footer>
+</main>
+<script>
+(function () {
+'use strict';
+const r = String.raw;
+
+/* ---------- Figures (SVG généré) ---------- */
+const arrondi = x => Math.round(x * 10) / 10;
+const fr = x => String(x).replace('.', ',');
+const moins = n => String(n).replace('-', '−');
+function fleche(x, y, sens) {
+  return sens === 'droite'
+    ? `<path class="fleche" d="M${x} ${y} l-7 -3.5 v7 z"/>`
+    : `<path class="fleche" d="M${x} ${y} l-3.5 7 h7 z"/>`;
+}
+// Repère orthonormé quadrillé et gradué de 1 en 1. o = {xmin, xmax, ymin, ymax, label, echelle} et, au choix :
+//   courbes  : [{f: x => ..., classe, x1, x2}]        classe = c-rouge (défaut), c-bleu, c-noir, c-violet
+//   noms     : [{x, y, texte, indice, apres, classe, ancre}]   nom d'une courbe, dans sa couleur
+//   lectures : [[[x, y], [x, y], ...], ...]            lignes de lecture en tirets verts, flèche au bout
+//   textes   : [{x, y, texte, ancre}]                  annotations vertes des lectures (+1, +3...)
+//   points   : [{x, y, classe}]
+//   surligne : {x1, x2}                                partie de l'axe des abscisses surlignée en orange (null = bord du repère)
+let numeroFigure = 0;
+function repere(o) {
+  const u = 26, m = 17;
+  const W = (o.xmax - o.xmin) * u + 2 * m, H = (o.ymax - o.ymin) * u + 2 * m;
+  const X = x => arrondi(m + (x - o.xmin) * u), Y = y => arrondi(m + (o.ymax - y) * u);
+  const cadre = 'cadre-' + (++numeroFigure);
+  const xfin = X(o.xmax) + 12, yhaut = Y(o.ymax) - 12;
+  let s = `<svg class="fig" viewBox="0 0 ${W} ${H}" style="max-width:${Math.round(W * (o.echelle || 1.3))}px" role="img" aria-label="${o.label}">`;
+  s += `<defs><clipPath id="${cadre}"><rect x="${X(o.xmin)}" y="${Y(o.ymax)}" width="${(o.xmax - o.xmin) * u}" height="${(o.ymax - o.ymin) * u}"/></clipPath></defs>`;
+  for (let x = o.xmin; x <= o.xmax; x++) s += `<line class="grille" x1="${X(x)}" y1="${Y(o.ymin)}" x2="${X(x)}" y2="${Y(o.ymax)}"/>`;
+  for (let y = o.ymin; y <= o.ymax; y++) s += `<line class="grille" x1="${X(o.xmin)}" y1="${Y(y)}" x2="${X(o.xmax)}" y2="${Y(y)}"/>`;
+  if (o.surligne) {
+    const x1 = o.surligne.x1 === null ? o.xmin : o.surligne.x1, x2 = o.surligne.x2 === null ? o.xmax : o.surligne.x2;
+    s += `<line class="surligne" x1="${X(x1)}" y1="${Y(0)}" x2="${X(x2)}" y2="${Y(0)}"/>`;
+  }
+  s += `<line class="axe" x1="${X(o.xmin)}" y1="${Y(0)}" x2="${xfin}" y2="${Y(0)}"/>${fleche(xfin, Y(0), 'droite')}`;
+  s += `<line class="axe" x1="${X(0)}" y1="${Y(o.ymin)}" x2="${X(0)}" y2="${yhaut}"/>${fleche(X(0), yhaut, 'haut')}`;
+  (o.courbes || []).forEach(c => {
+    const x1 = c.x1 === undefined ? o.xmin : c.x1, x2 = c.x2 === undefined ? o.xmax : c.x2, n = 80;
+    let d = '';
+    for (let k = 0; k <= n; k++) { const x = x1 + (x2 - x1) * k / n; d += (k ? ' L' : 'M') + X(x) + ' ' + Y(c.f(x)); }
+    s += `<path class="courbe ${c.classe || 'c-rouge'}" clip-path="url(#${cadre})" d="${d}"/>`;
+  });
+  (o.lectures || []).forEach(pts => {
+    const P = pts.map(p => [X(p[0]), Y(p[1])]);
+    const a = P[P.length - 2], b = P[P.length - 1];
+    const L = Math.hypot(b[0] - a[0], b[1] - a[1]), ux = (b[0] - a[0]) / L, uy = (b[1] - a[1]) / L;
+    s += `<polyline class="lecture" points="${P.map(p => p.join(',')).join(' ')}"/>`;
+    s += `<path class="pointe" d="M${b[0]} ${b[1]} L${arrondi(b[0] - 7 * ux + 3.2 * uy)} ${arrondi(b[1] - 7 * uy - 3.2 * ux)} L${arrondi(b[0] - 7 * ux - 3.2 * uy)} ${arrondi(b[1] - 7 * uy + 3.2 * ux)} z"/>`;
+  });
+  // Graduations sur fond papier, par-dessus les courbes et les lectures : elles restent lisibles.
+  for (let x = o.xmin; x <= o.xmax; x++) if (x !== 0) s += `<text class="tick" x="${X(x)}" y="${Y(0) + 13}" text-anchor="middle">${moins(x)}</text>`;
+  for (let y = o.ymin; y <= o.ymax; y++) if (y !== 0) s += `<text class="tick" x="${X(0) - 5}" y="${Y(y) + 3.5}" text-anchor="end">${moins(y)}</text>`;
+  s += `<text class="tick" x="${X(0) - 5}" y="${Y(0) + 13}" text-anchor="end">0</text>`;
+  (o.points || []).forEach(p => { s += `<circle class="pt ${p.classe || 'c-rouge'}" cx="${X(p.x)}" cy="${Y(p.y)}" r="3.3"/>`; });
+  (o.textes || []).forEach(t => { s += `<text class="note" x="${X(t.x)}" y="${Y(t.y)}" text-anchor="${t.ancre || 'middle'}">${t.texte}</text>`; });
+  (o.noms || []).forEach(n => {
+    const indice = n.indice ? `<tspan dy="3" font-size="9.5">${n.indice}</tspan>` + (n.apres ? `<tspan dy="-3">${n.apres}</tspan>` : '') : '';
+    s += `<text class="lab ${n.classe || 'c-rouge'}" x="${X(n.x)}" y="${Y(n.y)}" text-anchor="${n.ancre || 'start'}">${n.texte}${indice}</text>`;
+  });
+  return s + '</svg>';
+}
+// Feuille de calcul (question sur le tableur) : lignes = [[A, B], ...] à partir de la ligne 1 ;
+// la cellule '#sel' est la cellule sélectionnée, laissée vide.
+function tableur(lignes, label) {
+  const cellule = c => c === '#sel' ? '<td class="sel"></td>' : `<td>${c}</td>`;
+  return `<table class="tableur" aria-label="${label}"><tr><th></th><th>A</th><th>B</th></tr>`
+    + lignes.map((l, k) => `<tr><th>${k + 1}</th>${cellule(l[0])}${cellule(l[1])}</tr>`).join('')
+    + '</table>';
+}
+
+// Calcul en colonne, comme l'environnement calcul des PDF : une étape par ligne, alignées sur le
+// signe placé après & (formules écrites sans les dollars). Le résultat s'encadre avec \resultat{...}.
+//   calcul(r`A & = x - 4(3x + 2)`, r`& = x - 12x - 8`, r`& = \resultat{-11x - 8}`)
+function calcul(...lignes) {
+  return '<div class="calcul">' + lignes.map(l => {
+    const k = l.indexOf('&');
+    const gauche = k < 0 ? '' : l.slice(0, k).trim(), droite = (k < 0 ? l : l.slice(k + 1)).trim();
+    return '<span class="g">' + (gauche ? '$' + gauche + '$' : '') + '</span><span class="d">$' + droite + '$</span>';
+  }).join('') + '</div>';
+}
+
+/* ---------- Les questions : fichier NN-slug/Entrainement/entrainement-NN-slug-questions.js ---------- */
+// Courbe lisse pour repere (reprise du chapitre 6) : fonction qui passe par les noeuds
+// (x0 ; ys[0]), (x0 + 1 ; ys[1]), ... et les relie par l'interpolation cubique monotone (PCHIP),
+// la même que les arcs de Bézier des figures du cours : entre deux noeuds, la courbe ne dépasse
+// ni l'un ni l'autre (extremums aux noeuds), et toutes les lectures tombent sur le quadrillage.
+function lisse(x0, ys) {
+  const n = ys.length, d = [], m = [];
+  for (let k = 0; k < n - 1; k++) d.push(ys[k + 1] - ys[k]);
+  for (let k = 1; k < n - 1; k++) m[k] = d[k - 1] * d[k] <= 0 ? 0 : 2 / (1 / d[k - 1] + 1 / d[k]);
+  // Pente aux extrémités : formule à trois points, bornée pour que la courbe reste monotone.
+  const bout = (d0, d1) => {
+    let t = (3 * d0 - d1) / 2;
+    if (t * d0 <= 0) t = 0;
+    else if (d0 * d1 < 0 && Math.abs(t) > Math.abs(3 * d0)) t = 3 * d0;
+    return t;
+  };
+  m[0] = bout(d[0], d[1]);
+  m[n - 1] = bout(d[n - 2], d[n - 3]);
+  return x => {
+    const k = Math.max(0, Math.min(n - 2, Math.floor(x - x0)));
+    const t = x - x0 - k, t2 = t * t, t3 = t2 * t;
+    return (2 * t3 - 3 * t2 + 1) * ys[k] + (t3 - 2 * t2 + t) * m[k]
+      + (-2 * t3 + 3 * t2) * ys[k + 1] + (t3 - t2) * m[k + 1];
+  };
+}
+
+// Tableau de variations comme ceux du cours (tkz-tab) : première ligne, les valeurs de x ;
+// seconde ligne, les images, écrites en haut ou en bas et reliées par des flèches qui montent ou
+// qui descendent. tableauVar(nom, xs, ys, pos) : nom de la fonction ('f'), valeurs de x et
+// images (nombres) ; pos (facultatif) : une lettre par image, 'h' en haut, 'b' en bas, pour
+// dessiner un tableau faux ; sans pos, la place de chaque image se déduit des images.
+// Écrit par concaténation de chaînes, sans gabarit de chaîne.
+function tableauVar(nom, xs, ys, pos) {
+  const n = xs.length, c = 46, p = 24, e = 62, h1 = 28, h2 = 62;
+  const W = c + 2 * p + e * (n - 1), H = h1 + h2 + 2, haut = 1 + h1;
+  const nb = v => String(v).replace('.', ',').replace('-', '−');
+  const r1 = v => Math.round(v * 10) / 10;
+  const place = pos || ys.map((y, k) => (k > 0 ? y > ys[k - 1] : y > ys[1]) ? 'h' : 'b').join('');
+  const X = k => c + p + e * k;
+  const Y = k => place[k] === 'h' ? haut + 16 : H - 9;     // ligne de base de l'image
+  const A = k => place[k] === 'h' ? haut + 22 : H - 25;    // départ ou arrivée d'une flèche
+  const texte = (x, y, t, cls, taille) => '<text class="' + cls + '" x="' + x + '" y="' + y
+    + '" text-anchor="middle" style="font-size:' + taille + 'px">' + t + '</text>';
+  const trait = (x1, y1, x2, y2) => '<line class="axe" x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '"/>';
+  let s = '';
+  const sens = [];
+  for (let k = 0; k < n; k++) s += texte(X(k), 20, nb(xs[k]), 'tick', 13) + texte(X(k), Y(k), nb(ys[k]), 'tick', 13);
+  for (let k = 0; k < n - 1; k++) {
+    const x1 = X(k) + 13, y1 = A(k), x2 = X(k + 1) - 13, y2 = A(k + 1);
+    const L = Math.hypot(x2 - x1, y2 - y1), ux = (x2 - x1) / L, uy = (y2 - y1) / L;
+    s += trait(x1, y1, r1(x2 - 6 * ux), r1(y2 - 6 * uy))
+      + '<path class="fleche" d="M' + x2 + ' ' + y2 + ' L' + r1(x2 - 7 * ux + 3.2 * uy) + ' ' + r1(y2 - 7 * uy - 3.2 * ux)
+      + ' L' + r1(x2 - 7 * ux - 3.2 * uy) + ' ' + r1(y2 - 7 * uy + 3.2 * ux) + ' z"/>';
+    sens.push((place[k + 1] === 'h' ? 'croissante' : 'décroissante') + ' sur [' + nb(xs[k]) + ' ; ' + nb(xs[k + 1])
+      + '], de ' + nb(ys[k]) + ' à ' + nb(ys[k + 1]));
+  }
+  return '<svg class="fig" viewBox="0 0 ' + W + ' ' + H + '" style="max-width:' + Math.round(W * 1.25)
+    + 'px" role="img" aria-label="Tableau de variations de ' + nom + ' : ' + sens.join(' ; ') + '">'
+    + '<rect class="axe" x="1" y="1" width="' + (W - 2) + '" height="' + (H - 2) + '"/>'
+    + trait(c, 1, c, H - 1) + trait(1, haut, W - 1, haut)
+    + texte(c / 2, 20, 'x', 'lab c-noir', 14)
+    + '<text class="lab c-noir" x="' + (c / 2) + '" y="' + (haut + h2 / 2 + 5) + '" text-anchor="middle" style="font-size:14px">'
+    + nom + '<tspan font-style="normal">(</tspan>x<tspan font-style="normal">)</tspan></text>'
+    + s + '</svg>';
+}
+
+// Tableau de valeurs, comme dans le cours : ligne de x, puis ligne des images (nombres en
+// formules). Défile horizontalement sur un écran étroit.
+function tableauValeurs(nomx, nomy, xs, ys, label) {
+  const cel = ' style="border:1px solid var(--encre); padding:2px 8px; text-align:center; font-weight:400"';
+  const ligne = (tete, vals) => '<tr><th' + cel + '>$' + tete + '$</th>'
+    + vals.map(v => '<td' + cel + '>$' + v + '$</td>').join('') + '</tr>';
+  return '<div style="overflow-x:auto; margin:10px 0 12px"><table aria-label="' + label
+    + '" style="border-collapse:collapse; margin:0 auto">' + ligne(nomx, xs) + ligne(nomy, ys) + '</table></div>';
+}
+
+// Courbe d'un choix de réponse (question 3) : petit repère, extrémités marquées d'un point rouge.
+// L'enveloppe (span en bloc, attribut data-courbe propre à chaque courbe) distingue les quatre
+// choix, même pour le contrôle de structure, qui remplace chaque repère par la même figure vide.
+function petiteCourbe(xmin, xmax, ymin, ymax, f, bouts, label) {
+  return '<span style="display:block" data-courbe="' + label + '">'
+    + repere({ xmin: xmin, xmax: xmax, ymin: ymin, ymax: ymax, echelle: 1, courbes: [{ f: f }],
+      points: bouts.map(b => ({ x: b[0], y: b[1] })), label: label }) + '</span>';
+}
+
+// Programme Python de la question 12, présenté comme dans la fiche d'exercices du chapitre 8 :
+// police à chasse fixe, fond gris clair, filet à gauche. Les signes <, > et & du code sont
+// échappés ici. Écrit par concaténation de chaînes, sans gabarit de chaîne.
+function programmePython(lignes) {
+  const code = lignes.map(l => l.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')).join('\n');
+  return '<pre style="margin:.5em 0 .8em 1.2em; padding:.45em .9em; background:var(--case);'
+    + ' border-left:2px solid var(--filet); font-family:var(--mono); font-size:.85em;'
+    + ' line-height:1.45; overflow-x:auto">' + code + '</pre>';
+}
+// La fonction balayage du problème « la plus grande boîte », complétée, avec la fonction f.
+const programmeBalayage = expression => programmePython([
+  'def f(x):',
+  '    return ' + expression,
+  '',
+  'def balayage(a, b, pas):',
+  '    xmax = a',
+  '    x = a',
+  '    while x <= b:',
+  '        if f(x) > f(xmax):',
+  '            xmax = x',
+  '        x = x + pas',
+  '    return xmax']);
+
+// Figures des énoncés (les corrections y ajoutent points et lectures). Courbes de f : points
+// rouges aux extrémités (bornes de l'ensemble de définition, comprises).
+const F1 = lisse(-4, [-2, 0, 2, 1, 0, -2, 0, 1]);
+const FIG1 = { xmin: -4, xmax: 3, ymin: -3, ymax: 3, courbes: [{ f: F1 }],
+  points: [{ x: -4, y: -2 }, { x: 3, y: 1 }], noms: [{ x: -1.5, y: 2.4, texte: 'C', indice: 'f' }],
+  label: 'Repère avec la courbe de f, tracée de x = −4 à x = 3 : elle passe par les points (−4 ; −2), (−3 ; 0), (−2 ; 2), (−1 ; 1), (0 ; 0), (1 ; −2), (2 ; 0) et (3 ; 1)' };
+const F1v = lisse(-3, [2, 0, -2, 0, 2, 3, 0, -1]);
+const FIG1v = { xmin: -3, xmax: 4, ymin: -3, ymax: 4, courbes: [{ f: F1v }],
+  points: [{ x: -3, y: 2 }, { x: 4, y: -1 }], noms: [{ x: 2.4, y: 3.4, texte: 'C', indice: 'f' }],
+  label: 'Repère avec la courbe de f, tracée de x = −3 à x = 4 : elle passe par les points (−3 ; 2), (−2 ; 0), (−1 ; −2), (0 ; 0), (1 ; 2), (2 ; 3), (3 ; 0) et (4 ; −1)' };
+const F2 = lisse(-4, [3, 1, -1, 0, 1, 2, 0, -2]);
+const FIG2 = { xmin: -4, xmax: 3, ymin: -3, ymax: 4, courbes: [{ f: F2 }],
+  points: [{ x: -4, y: 3 }, { x: 3, y: -2 }], noms: [{ x: 1.3, y: 2.7, texte: 'C', indice: 'f' }],
+  label: 'Repère avec la courbe de f, tracée de x = −4 à x = 3 : elle passe par les points (−4 ; 3), (−3 ; 1), (−2 ; −1), (−1 ; 0), (0 ; 1), (1 ; 2), (2 ; 0) et (3 ; −2)' };
+const F2v = lisse(-3, [-2, 0, 1, 2, 0, -1, -3, -1]);
+const FIG2v = { xmin: -3, xmax: 4, ymin: -4, ymax: 3, courbes: [{ f: F2v }],
+  points: [{ x: -3, y: -2 }, { x: 4, y: -1 }], noms: [{ x: -2.8, y: 1.6, texte: 'C', indice: 'f' }],
+  label: 'Repère avec la courbe de f, tracée de x = −3 à x = 4 : elle passe par les points (−3 ; −2), (−2 ; 0), (−1 ; 1), (0 ; 2), (1 ; 0), (2 ; −1), (3 ; −3) et (4 ; −1)' };
+// Question 3 : quatre courbes pour le tableau de g (la première convient), puis pour celui de h.
+const G3 = [
+  lisse(-3, [1, -1, -2, 0, 2, 3, 2, 0]),           // convient
+  lisse(-3, [1, -1, -2, 1, 0, 3, 2, 0]),           // bons points, mais redescend entre -1 et 2
+  lisse(-3, [1, -1, -0.4, 0.2, 0.8, 1.4, 2, 0]),   // abscisses et images échangées : (-2 ; -1), (3 ; 2)
+  lisse(-3, [1, 2, 3, 1, -1, -2, -1, 0])];         // variations inversées
+const H3 = [
+  lisse(-4, [1, -1, -3, -2, 0, 2, 1, -1]),         // convient
+  lisse(-4, [1, -1, -3, 0, -1, 2, 1, -1]),         // bons points, mais redescend entre -2 et 1
+  lisse(-4, [1, -2, -1.4, -0.8, -0.2, 0.4, 1, -1]), // abscisses et images échangées : (-3 ; -2), (2 ; 1)
+  lisse(-4, [1, 1.5, 2, 1, -1, -3, -2, -1])];      // variations inversées
+const F6 = lisse(-3, [-1, 1, 3, 2, 0, -2, -1, 1]);
+const FIG6 = { xmin: -3, xmax: 4, ymin: -3, ymax: 4, courbes: [{ f: F6 }],
+  points: [{ x: -3, y: -1 }, { x: 4, y: 1 }], noms: [{ x: -2.8, y: 2.6, texte: 'C', indice: 'f' }],
+  label: 'Repère avec la courbe de f, tracée de x = −3 à x = 4 : elle passe par les points (−3 ; −1), (−2 ; 1), (−1 ; 3), (0 ; 2), (1 ; 0), (2 ; −2), (3 ; −1) et (4 ; 1)' };
+const F6v = lisse(-2, [1, -1, -3, -2, 0, 2, 1, -1]);
+const FIG6v = { xmin: -2, xmax: 5, ymin: -4, ymax: 3, courbes: [{ f: F6v }],
+  points: [{ x: -2, y: 1 }, { x: 5, y: -1 }], noms: [{ x: 3.4, y: 2.4, texte: 'C', indice: 'f' }],
+  label: 'Repère avec la courbe de f, tracée de x = −2 à x = 5 : elle passe par les points (−2 ; 1), (−1 ; −1), (0 ; −3), (1 ; −2), (2 ; 0), (3 ; 2), (4 ; 1) et (5 ; −1)' };
+
+const QUIZ = {
+  id: '2de-13-variations-fonctions-entrainement',
+  parties: ["Variations d'une fonction"],
+  questions: [
+
+  /* ----- Sens de variation, tableau de variations (parties 1 et 2 du cours, capacité 1) ----- */
+
+  { partie: 0, theme: 'Sens de variation', type: 'qcm',
+    enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-4\,;\,3\right]$. La fonction $f$ est croissante sur&nbsp;:`
+      + repere(FIG1),
+    choix: [r`$\left[-4\,;\,-2\right]$ et sur $\left[1\,;\,3\right]$`, r`$\left[-2\,;\,1\right]$`,
+            r`$\left[-2\,;\,2\right]$ et sur $\left[-2\,;\,1\right]$`, r`$\left[-3\,;\,0\right]$ et sur $\left[2\,;\,3\right]$`],
+    bonne: 0,
+    explication: [
+      r`On parcourt la courbe de gauche à droite&nbsp;: $f$ est croissante là où la courbe monte, décroissante là où elle descend. Les intervalles se lisent sur l'axe des abscisses, entre les points où la courbe change de sens (tirets verts).`,
+      repere(Object.assign({}, FIG1, { echelle: 1.15,
+          points: [{ x: -4, y: -2 }, { x: 3, y: 1 }, { x: -2, y: 2, classe: 'c-noir' }, { x: 1, y: -2, classe: 'c-noir' }],
+          lectures: [[[-2, 2], [-2, 0]], [[1, -2], [1, 0]]],
+          label: 'La même courbe, avec les points où elle change de sens, (−2 ; 2) et (1 ; −2), et les lignes de lecture vers les abscisses −2 et 1' })),
+      r`La courbe monte de $x = -4$ à $x = -2$, descend de $-2$ à $1$, puis remonte de $1$ à $3$. Donc $f$ est croissante sur <span class="resultat">$\left[-4\,;\,-2\right]$ et sur $\left[1\,;\,3\right]$</span>, et décroissante sur $\left[-2\,;\,1\right]$.`,
+      r`Attention&nbsp;: ce sont des valeurs de $x$, lues sur l'axe des abscisses&nbsp;; $\left[-2\,;\,2\right]$ est l'intervalle des valeurs prises par $f(x)$ pendant la première montée.`],
+    revoir: r`définition «&nbsp;fonction croissante, décroissante&nbsp;» et capacité 1 du cours (question 1), activité 1 (question 1), exercice 1 de la fiche (question 1), exercices 17 et 20 p.&nbsp;256 et 35 p.&nbsp;258 du manuel`,
+    variante: {
+      enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-3\,;\,4\right]$. La fonction $f$ est décroissante sur&nbsp;:`
+        + repere(FIG1v),
+      choix: [r`$\left[-3\,;\,-1\right]$ et sur $\left[2\,;\,4\right]$`, r`$\left[-1\,;\,2\right]$`,
+              r`$\left[-2\,;\,2\right]$ et sur $\left[-1\,;\,3\right]$`, r`$\left[-2\,;\,0\right]$ et sur $\left[3\,;\,4\right]$`],
+      bonne: 0,
+      explication: [
+        r`On parcourt la courbe de gauche à droite&nbsp;: $f$ est croissante là où la courbe monte, décroissante là où elle descend. Les intervalles se lisent sur l'axe des abscisses, entre les points où la courbe change de sens (tirets verts).`,
+        repere(Object.assign({}, FIG1v, { echelle: 1.15,
+            points: [{ x: -3, y: 2 }, { x: 4, y: -1 }, { x: -1, y: -2, classe: 'c-noir' }, { x: 2, y: 3, classe: 'c-noir' }],
+            lectures: [[[-1, -2], [-1, 0]], [[2, 3], [2, 0]]],
+            label: 'La même courbe, avec les points où elle change de sens, (−1 ; −2) et (2 ; 3), et les lignes de lecture vers les abscisses −1 et 2' })),
+        r`La courbe descend de $x = -3$ à $x = -1$, monte de $-1$ à $2$, puis redescend de $2$ à $4$. Donc $f$ est décroissante sur <span class="resultat">$\left[-3\,;\,-1\right]$ et sur $\left[2\,;\,4\right]$</span>, et croissante sur $\left[-1\,;\,2\right]$.`,
+        r`Attention&nbsp;: ce sont des valeurs de $x$, lues sur l'axe des abscisses&nbsp;; $\left[-2\,;\,2\right]$ est l'intervalle des valeurs prises par $f(x)$ pendant la première descente.`] } },
+
+  { partie: 0, theme: 'Tableau de variations', type: 'qcm',
+    enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-4\,;\,3\right]$. Son tableau de variations est&nbsp;:`
+      + repere(FIG2),
+    choix: [tableauVar('f', [-4, -2, 1, 3], [3, -1, 2, -2]), tableauVar('f', [-4, -2, 1, 3], [3, -1, 2, -2], 'bhbh'),
+            tableauVar('f', [-2, 1], [-1, 2]), tableauVar('f', [-4, -2, 1, 3], [-4, -2, 1, 3], 'hbhb')],
+    bonne: 0,
+    explication: [
+      r`Sur la première ligne&nbsp;: les bornes $-4$ et $3$ de l'ensemble de définition, et les abscisses $-2$ et $1$ des points où la courbe change de sens. Sur la seconde&nbsp;: les ordonnées de ces points, lues sur les tirets verts, au bout de flèches qui montent ou descendent comme la courbe.`,
+      repere(Object.assign({}, FIG2, { echelle: 1.15,
+          lectures: [[[-4, 0], [-4, 3], [0, 3]], [[-2, 0], [-2, -1], [0, -1]], [[1, 0], [1, 2], [0, 2]], [[3, 0], [3, -2], [0, -2]]],
+          label: 'La même courbe, avec les lignes de lecture des points (−4 ; 3), (−2 ; −1), (1 ; 2) et (3 ; −2)' })),
+      r`$f(-4) = 3$, $f(-2) = -1$, $f(1) = 2$ et $f(3) = -2$&nbsp;: la courbe descend de $-4$ à $-2$, monte de $-2$ à $1$, puis redescend de $1$ à $3$. La seconde ligne du tableau porte donc <span class="resultat">$3$ ↘ $-1$ ↗ $2$ ↘ $-2$</span>, sous $-4$, $-2$, $1$ et $3$&nbsp;:`,
+      tableauVar('f', [-4, -2, 1, 3], [3, -1, 2, -2]),
+      r`Attention&nbsp;: la première ligne porte des abscisses, dont les deux bornes, et la seconde leurs images.`],
+    revoir: r`définition et méthode «&nbsp;de la courbe au tableau&nbsp;» (partie 2 du cours), capacité 1 (question 2), exercice 1 de la fiche (question 2), exercices 35 p.&nbsp;258 et 75 p.&nbsp;262 du manuel, question 1 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263`,
+    variante: {
+      enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-3\,;\,4\right]$. Son tableau de variations est&nbsp;:`
+        + repere(FIG2v),
+      choix: [tableauVar('f', [-3, 0, 3, 4], [-2, 2, -3, -1]), tableauVar('f', [-3, 0, 3, 4], [-2, 2, -3, -1], 'hbhb'),
+              tableauVar('f', [0, 3], [2, -3]), tableauVar('f', [-3, 0, 3, 4], [-3, 0, 3, 4], 'bhbh')],
+      bonne: 0,
+      explication: [
+        r`Sur la première ligne&nbsp;: les bornes $-3$ et $4$ de l'ensemble de définition, et les abscisses $0$ et $3$ des points où la courbe change de sens. Sur la seconde&nbsp;: les ordonnées de ces points, lues sur les tirets verts, au bout de flèches qui montent ou descendent comme la courbe.`,
+        repere(Object.assign({}, FIG2v, { echelle: 1.15,
+            points: [{ x: -3, y: -2 }, { x: 4, y: -1 }, { x: 0, y: 2, classe: 'c-noir' }],
+            lectures: [[[-3, 0], [-3, -2], [0, -2]], [[3, 0], [3, -3], [0, -3]], [[4, 0], [4, -1], [0, -1]]],
+            label: 'La même courbe, avec le point (0 ; 2), sur l\'axe des ordonnées, et les lignes de lecture des points (−3 ; −2), (3 ; −3) et (4 ; −1)' })),
+        r`$f(-3) = -2$, $f(0) = 2$, $f(3) = -3$ et $f(4) = -1$&nbsp;: la courbe monte de $-3$ à $0$, descend de $0$ à $3$, puis remonte de $3$ à $4$. La seconde ligne du tableau porte donc <span class="resultat">$-2$ ↗ $2$ ↘ $-3$ ↗ $-1$</span>, sous $-3$, $0$, $3$ et $4$&nbsp;:`,
+        tableauVar('f', [-3, 0, 3, 4], [-2, 2, -3, -1]),
+        r`Attention&nbsp;: la première ligne porte des abscisses, dont les deux bornes, et la seconde leurs images.`] } },
+
+  /* ----- Du tableau à la courbe, comparer des images (partie 2 du cours, capacité 2) ----- */
+
+  { partie: 0, theme: 'Du tableau à la courbe', type: 'qcm',
+    enonce: r`On donne le tableau de variations d'une fonction $g$ définie sur $\left[-3\,;\,4\right]$.`
+      + tableauVar('g', [-3, -1, 2, 4], [1, -2, 3, 0]) + r`Laquelle de ces courbes peut représenter $g$&nbsp;?`,
+    choix: [petiteCourbe(-3, 4, -3, 4, G3[0], [[-3, 1], [4, 0]], 'Courbe qui descend de (−3 ; 1) à (−1 ; −2), monte jusqu\'à (2 ; 3), puis descend jusqu\'à (4 ; 0)'),
+            petiteCourbe(-3, 4, -3, 4, G3[1], [[-3, 1], [4, 0]], 'Courbe qui descend de (−3 ; 1) à (−1 ; −2), monte jusqu\'à (0 ; 1), redescend jusqu\'à (1 ; 0), remonte jusqu\'à (2 ; 3), puis descend jusqu\'à (4 ; 0)'),
+            petiteCourbe(-3, 4, -3, 4, G3[2], [[-3, 1], [4, 0]], 'Courbe qui descend de (−3 ; 1) à (−2 ; −1), monte jusqu\'à (3 ; 2), puis descend jusqu\'à (4 ; 0)'),
+            petiteCourbe(-3, 4, -3, 4, G3[3], [[-3, 1], [4, 0]], 'Courbe qui monte de (−3 ; 1) à (−1 ; 3), descend jusqu\'à (2 ; −2), puis remonte jusqu\'à (4 ; 0)')],
+    bonne: 0,
+    explication: [
+      r`On place les points donnés par le tableau, $(-3\,;\,1)$, $(-1\,;\,-2)$, $(2\,;\,3)$ et $(4\,;\,0)$, puis on les relie comme les flèches&nbsp;: en descendant de $-3$ à $-1$, en montant de $-1$ à $2$, puis en descendant de $2$ à $4$.`,
+      repere({ xmin: -3, xmax: 4, ymin: -3, ymax: 4, echelle: 1.15, courbes: [{ f: G3[0] }],
+          points: [{ x: -3, y: 1, classe: 'c-noir' }, { x: -1, y: -2, classe: 'c-noir' }, { x: 2, y: 3, classe: 'c-noir' }, { x: 4, y: 0, classe: 'c-noir' }],
+          label: 'La courbe qui convient, avec les quatre points du tableau marqués en noir : (−3 ; 1), (−1 ; −2), (2 ; 3) et (4 ; 0)' }),
+      r`La courbe qui convient <span class="resultat">descend de $(-3\,;\,1)$ à $(-1\,;\,-2)$, monte jusqu'à $(2\,;\,3)$, puis redescend jusqu'à $(4\,;\,0)$</span>. D'autres courbes conviendraient, pourvu qu'elles passent par ces points avec ces variations.`,
+      r`Attention&nbsp;: passer par les quatre points ne suffit pas. $g$ est croissante sur tout l'intervalle $\left[-1\,;\,2\right]$&nbsp;: la courbe ne redescend pas entre $-1$ et $2$.`],
+    revoir: r`méthode «&nbsp;du tableau à la courbe&nbsp;» et capacité 2 du cours (question 1), exercice 2 de la fiche (question 2), exercice 79 p.&nbsp;265 du manuel, question 3 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263`,
+    variante: {
+      enonce: r`On donne le tableau de variations d'une fonction $h$ définie sur $\left[-4\,;\,3\right]$.`
+        + tableauVar('h', [-4, -2, 1, 3], [1, -3, 2, -1]) + r`Laquelle de ces courbes peut représenter $h$&nbsp;?`,
+      choix: [petiteCourbe(-4, 3, -4, 3, H3[0], [[-4, 1], [3, -1]], 'Courbe qui descend de (−4 ; 1) à (−2 ; −3), monte jusqu\'à (1 ; 2), puis descend jusqu\'à (3 ; −1)'),
+              petiteCourbe(-4, 3, -4, 3, H3[1], [[-4, 1], [3, -1]], 'Courbe qui descend de (−4 ; 1) à (−2 ; −3), monte jusqu\'à (−1 ; 0), redescend jusqu\'à (0 ; −1), remonte jusqu\'à (1 ; 2), puis descend jusqu\'à (3 ; −1)'),
+              petiteCourbe(-4, 3, -4, 3, H3[2], [[-4, 1], [3, -1]], 'Courbe qui descend de (−4 ; 1) à (−3 ; −2), monte jusqu\'à (2 ; 1), puis descend jusqu\'à (3 ; −1)'),
+              petiteCourbe(-4, 3, -4, 3, H3[3], [[-4, 1], [3, -1]], 'Courbe qui monte de (−4 ; 1) à (−2 ; 2), descend jusqu\'à (1 ; −3), puis remonte jusqu\'à (3 ; −1)')],
+      bonne: 0,
+      explication: [
+        r`On place les points donnés par le tableau, $(-4\,;\,1)$, $(-2\,;\,-3)$, $(1\,;\,2)$ et $(3\,;\,-1)$, puis on les relie comme les flèches&nbsp;: en descendant de $-4$ à $-2$, en montant de $-2$ à $1$, puis en descendant de $1$ à $3$.`,
+        repere({ xmin: -4, xmax: 3, ymin: -4, ymax: 3, echelle: 1.15, courbes: [{ f: H3[0] }],
+            points: [{ x: -4, y: 1, classe: 'c-noir' }, { x: -2, y: -3, classe: 'c-noir' }, { x: 1, y: 2, classe: 'c-noir' }, { x: 3, y: -1, classe: 'c-noir' }],
+            label: 'La courbe qui convient, avec les quatre points du tableau marqués en noir : (−4 ; 1), (−2 ; −3), (1 ; 2) et (3 ; −1)' }),
+        r`La courbe qui convient <span class="resultat">descend de $(-4\,;\,1)$ à $(-2\,;\,-3)$, monte jusqu'à $(1\,;\,2)$, puis redescend jusqu'à $(3\,;\,-1)$</span>. D'autres courbes conviendraient, pourvu qu'elles passent par ces points avec ces variations.`,
+        r`Attention&nbsp;: passer par les quatre points ne suffit pas. $h$ est croissante sur tout l'intervalle $\left[-2\,;\,1\right]$&nbsp;: la courbe ne redescend pas entre $-2$ et $1$.`] } },
+
+  { partie: 0, theme: 'Comparer des images', type: 'qcm',
+    enonce: r`On donne le tableau de variations d'une fonction $f$ définie sur $\left[-4\,;\,4\right]$.`
+      + tableauVar('f', [-4, -1, 2, 4], [2, -3, 4, 1]) + r`On peut affirmer que&nbsp;:`,
+    choix: [r`$f(-3) > f(-2)$ et $f(0{,}5) < f(1{,}5)$`, r`$f(-3) < f(-2)$ et $f(0{,}5) < f(1{,}5)$`,
+            r`$f(-3) > f(-2)$ et $f(0{,}5) > f(1{,}5)$`, r`$f(-3) < f(-2)$ et $f(0{,}5) > f(1{,}5)$`],
+    bonne: 0,
+    explication: [
+      r`Si deux nombres sont dans un même intervalle où $f$ est monotone, le sens de variation range leurs images&nbsp;: une fonction croissante conserve l'ordre, une fonction décroissante le change.`,
+      r`$-3$ et $-2$ sont dans $\left[-4\,;\,-1\right]$, où $f$ est décroissante&nbsp;: elle change l'ordre. Comme $-3 < -2$, on a $f(-3) > f(-2)$.`,
+      r`$0{,}5$ et $1{,}5$ sont dans $\left[-1\,;\,2\right]$, où $f$ est croissante&nbsp;: elle conserve l'ordre. Comme $0{,}5 < 1{,}5$, on a $f(0{,}5) < f(1{,}5)$.`,
+      r`Donc <span class="resultat">$f(-3) > f(-2)$ et $f(0{,}5) < f(1{,}5)$</span>. Attention&nbsp;: sur $\left[-4\,;\,-1\right]$, le plus petit nombre, $-3$, a la plus grande image.`],
+    revoir: r`méthode «&nbsp;comparer $f(a)$ et $f(b)$&nbsp;» et capacité 2 du cours (question 2), activité 1 (question 2), exercice 2 de la fiche (question 3)`,
+    variante: {
+      enonce: r`On donne le tableau de variations d'une fonction $g$ définie sur $\left[-3\,;\,5\right]$.`
+        + tableauVar('g', [-3, 0, 3, 5], [-2, 3, -1, 2]) + r`On peut affirmer que&nbsp;:`,
+      choix: [r`$g(-2) < g(-1)$ et $g(1{,}5) > g(2{,}5)$`, r`$g(-2) > g(-1)$ et $g(1{,}5) > g(2{,}5)$`,
+              r`$g(-2) < g(-1)$ et $g(1{,}5) < g(2{,}5)$`, r`$g(-2) > g(-1)$ et $g(1{,}5) < g(2{,}5)$`],
+      bonne: 0,
+      explication: [
+        r`Si deux nombres sont dans un même intervalle où $g$ est monotone, le sens de variation range leurs images&nbsp;: une fonction croissante conserve l'ordre, une fonction décroissante le change.`,
+        r`$-2$ et $-1$ sont dans $\left[-3\,;\,0\right]$, où $g$ est croissante&nbsp;: elle conserve l'ordre. Comme $-2 < -1$, on a $g(-2) < g(-1)$.`,
+        r`$1{,}5$ et $2{,}5$ sont dans $\left[0\,;\,3\right]$, où $g$ est décroissante&nbsp;: elle change l'ordre. Comme $1{,}5 < 2{,}5$, on a $g(1{,}5) > g(2{,}5)$.`,
+        r`Donc <span class="resultat">$g(-2) < g(-1)$ et $g(1{,}5) > g(2{,}5)$</span>. Attention&nbsp;: sur $\left[0\,;\,3\right]$, le plus petit nombre, $1{,}5$, a la plus grande image.`] } },
+
+  { partie: 0, theme: 'Peut-on comparer ?', type: 'qcm', fixe: true,
+    enonce: r`On donne le tableau de variations d'une fonction $h$ définie sur $\left[-3\,;\,4\right]$.`
+      + tableauVar('h', [-3, -1, 1, 4], [-1, 4, 0, 3]) + r`Que peut-on dire de $h(0)$ et de $h(3)$&nbsp;?`,
+    choix: [r`$h(0) < h(3)$`, r`$h(0) = h(3)$`, r`$h(0) > h(3)$`, r`on ne peut pas les comparer avec ce tableau`],
+    bonne: 3,
+    explication: [
+      r`Le sens de variation ne range deux images que si les deux nombres sont dans un même intervalle où la fonction est monotone. Ici, $0$ et $3$ ne le sont pas&nbsp;: on cherche entre quelles valeurs chaque image est comprise.`,
+      r`$0$ est dans $\left[-1\,;\,1\right]$, où $h$ descend de $4$ à $0$&nbsp;: $h(0)$ est entre $0$ et $4$. $3$ est dans $\left[1\,;\,4\right]$, où $h$ monte de $0$ à $3$&nbsp;: $h(3)$ est entre $0$ et $3$.`,
+      r`Les deux cas sont possibles&nbsp;: si $h(0) = 3{,}5$ et $h(3) = 1$, alors $h(0) > h(3)$&nbsp;; si $h(0) = 0{,}5$ et $h(3) = 2$, alors $h(0) < h(3)$. Donc <span class="resultat">on ne peut pas conclure</span>.`],
+    revoir: r`méthode «&nbsp;comparer $f(a)$ et $f(b)$&nbsp;» et capacité 2 du cours (question 3), exercice 2 de la fiche (question 4)`,
+    variante: {
+      enonce: r`On donne le tableau de variations d'une fonction $k$ définie sur $\left[-2\,;\,5\right]$.`
+        + tableauVar('k', [-2, 1, 3, 5], [1, -3, 4, 2]) + r`Que peut-on dire de $k(0)$ et de $k(4)$&nbsp;?`,
+      choix: [r`$k(0) < k(4)$`, r`$k(0) = k(4)$`, r`$k(0) > k(4)$`, r`on ne peut pas les comparer avec ce tableau`],
+      bonne: 0,
+      explication: [
+        r`Le sens de variation ne range deux images que si les deux nombres sont dans un même intervalle où la fonction est monotone. Ici, $0$ et $4$ ne le sont pas&nbsp;: on cherche entre quelles valeurs chaque image est comprise.`,
+        r`$0$ est dans $\left[-2\,;\,1\right]$, où $k$ descend de $1$ à $-3$&nbsp;: $k(0) < 1$. $4$ est dans $\left[3\,;\,5\right]$, où $k$ descend de $4$ à $2$&nbsp;: $k(4) > 2$.`,
+        calcul(r`k(0) & < 1`, r`& < 2`, r`& < k(4)`),
+        r`Donc <span class="resultat">$k(0) < k(4)$</span>. On peut conclure, car toutes les images de $\left[-2\,;\,1\right]$ sont au plus égales à $1$, et toutes celles de $\left[3\,;\,5\right]$ au moins égales à $2$.`] } },
+
+  /* ----- Maximum et minimum (partie 3 du cours, capacité 3) ----- */
+
+  { partie: 0, theme: 'Maximum et minimum', type: 'qcm',
+    enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-3\,;\,4\right]$. Sur l'intervalle $\left[0\,;\,4\right]$&nbsp;:`
+      + repere(FIG6),
+    choix: [r`le maximum de $f$ est $2$, atteint en $0$&nbsp;; le minimum est $-2$, atteint en $2$`,
+            r`le maximum de $f$ est $3$, atteint en $-1$&nbsp;; le minimum est $-2$, atteint en $2$`,
+            r`le maximum de $f$ est $1$, atteint en $4$&nbsp;; le minimum est $-2$, atteint en $2$`,
+            r`le maximum de $f$ est $0$, atteint en $2$&nbsp;; le minimum est $2$, atteint en $-2$`],
+    bonne: 0,
+    explication: [
+      r`Sur $\left[0\,;\,4\right]$, on ne garde que la partie de $\mathscr{C}_{f}$ d'abscisses comprises entre $0$ et $4$&nbsp;: le maximum est l'ordonnée de son point le plus haut, le minimum celle de son point le plus bas (tirets verts).`,
+      repere(Object.assign({}, FIG6, { echelle: 1.15,
+          points: [{ x: -3, y: -1 }, { x: 4, y: 1 }, { x: 0, y: 2, classe: 'c-noir' }, { x: 2, y: -2, classe: 'c-noir' }],
+          lectures: [[[2, 0], [2, -2], [0, -2]], [[4, 0], [4, 1], [0, 1]]],
+          label: 'La même courbe : sur [0 ; 4], le point le plus haut est (0 ; 2), sur l\'axe des ordonnées, et le plus bas est (2 ; −2) ; lignes de lecture des points (2 ; −2) et (4 ; 1)' })),
+      r`Sur $\left[0\,;\,4\right]$, la courbe descend de $(0\,;\,2)$ à $(2\,;\,-2)$, puis remonte jusqu'à $(4\,;\,1)$. Le point le plus haut est $(0\,;\,2)$, car $f(4) = 1 < 2$&nbsp;; le plus bas est $(2\,;\,-2)$.`,
+      r`Donc <span class="resultat">le maximum est $2$, atteint en $0$&nbsp;; le minimum est $-2$, atteint en $2$</span>. Attention&nbsp;: le point $(-1\,;\,3)$ n'est pas dans cette partie de la courbe, et un extremum peut être atteint à une borne de l'intervalle.`],
+    revoir: r`définition du maximum et du minimum, capacité 3 du cours (question 1), activité 1 (question 4), exercice 1 de la fiche (question 3), exercice 75 p.&nbsp;262 du manuel, question 2 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263`,
+    variante: {
+      enonce: r`Dans le repère ci-dessous, $\mathscr{C}_{f}$ est la courbe représentative d'une fonction $f$ définie sur $\left[-2\,;\,5\right]$. Sur l'intervalle $\left[1\,;\,5\right]$&nbsp;:`
+        + repere(FIG6v),
+      choix: [r`le maximum de $f$ est $2$, atteint en $3$&nbsp;; le minimum est $-2$, atteint en $1$`,
+              r`le maximum de $f$ est $2$, atteint en $3$&nbsp;; le minimum est $-3$, atteint en $0$`,
+              r`le maximum de $f$ est $2$, atteint en $3$&nbsp;; le minimum est $-1$, atteint en $5$`,
+              r`le maximum de $f$ est $3$, atteint en $2$&nbsp;; le minimum est $1$, atteint en $-2$`],
+      bonne: 0,
+      explication: [
+        r`Sur $\left[1\,;\,5\right]$, on ne garde que la partie de $\mathscr{C}_{f}$ d'abscisses comprises entre $1$ et $5$&nbsp;: le maximum est l'ordonnée de son point le plus haut, le minimum celle de son point le plus bas (tirets verts).`,
+        repere(Object.assign({}, FIG6v, { echelle: 1.15,
+            points: [{ x: -2, y: 1 }, { x: 5, y: -1 }, { x: 1, y: -2, classe: 'c-noir' }, { x: 3, y: 2, classe: 'c-noir' }],
+            lectures: [[[1, 0], [1, -2], [0, -2]], [[3, 0], [3, 2], [0, 2]], [[5, 0], [5, -1], [0, -1]]],
+            label: 'La même courbe : sur [1 ; 5], le point le plus bas est (1 ; −2) et le plus haut est (3 ; 2) ; lignes de lecture des points (1 ; −2), (3 ; 2) et (5 ; −1)' })),
+        r`Sur $\left[1\,;\,5\right]$, la courbe monte de $(1\,;\,-2)$ à $(3\,;\,2)$, puis redescend jusqu'à $(5\,;\,-1)$. Le point le plus bas est $(1\,;\,-2)$, car $f(5) = -1 > -2$&nbsp;; le plus haut est $(3\,;\,2)$.`,
+        r`Donc <span class="resultat">le maximum est $2$, atteint en $3$&nbsp;; le minimum est $-2$, atteint en $1$</span>. Attention&nbsp;: le point $(0\,;\,-3)$ n'est pas dans cette partie de la courbe, et un extremum peut être atteint à une borne de l'intervalle.`] } },
+
+  { partie: 0, theme: 'Extremums dans un tableau', type: 'qcm',
+    enonce: r`On donne le tableau de variations d'une fonction $f$ définie sur $\left[-3\,;\,5\right]$.`
+      + tableauVar('f', [-3, 0, 2, 5], [-4, 2, -1, 3]) + r`Sur $\left[-3\,;\,5\right]$&nbsp;:`,
+    choix: [r`le maximum de $f$ est $3$, atteint en $5$&nbsp;; le minimum est $-4$, atteint en $-3$`,
+            r`le maximum de $f$ est $2$, atteint en $0$&nbsp;; le minimum est $-1$, atteint en $2$`,
+            r`le maximum de $f$ est $5$, atteint en $3$&nbsp;; le minimum est $-3$, atteint en $-4$`,
+            r`le maximum de $f$ est $3$, atteint en $5$&nbsp;; le minimum est $-1$, atteint en $2$`],
+    bonne: 0,
+    explication: [
+      r`Dans un tableau de variations, le maximum est la plus grande des valeurs écrites au bout des flèches, et le minimum la plus petite&nbsp;; la valeur de $x$ où chacun est atteint est au-dessus, sur la première ligne.`,
+      r`Les valeurs au bout des flèches sont $-4$, $2$, $-1$ et $3$&nbsp;: la plus grande est $3$, sous $x = 5$, et la plus petite est $-4$, sous $x = -3$.`,
+      r`Donc <span class="resultat">le maximum est $3$, atteint en $5$&nbsp;; le minimum est $-4$, atteint en $-3$</span>. Attention&nbsp;: ici, les deux extremums sont atteints aux bornes&nbsp;; $2$ n'est pas le maximum, car $3 > 2$, et le maximum est une image ($3$), pas l'abscisse où il est atteint ($5$).`],
+    revoir: r`définition du maximum et du minimum, capacité 3 du cours (question 2), exercice 2 de la fiche (question 1), exercice 53 p.&nbsp;259 du manuel, question 4 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263`,
+    variante: {
+      enonce: r`On donne le tableau de variations d'une fonction $g$ définie sur $\left[-2\,;\,6\right]$.`
+        + tableauVar('g', [-2, 1, 4, 6], [2, -3, 1, -4]) + r`Sur $\left[-2\,;\,6\right]$&nbsp;:`,
+      choix: [r`le maximum de $g$ est $2$, atteint en $-2$&nbsp;; le minimum est $-4$, atteint en $6$`,
+              r`le maximum de $g$ est $1$, atteint en $4$&nbsp;; le minimum est $-3$, atteint en $1$`,
+              r`le maximum de $g$ est $-2$, atteint en $2$&nbsp;; le minimum est $6$, atteint en $-4$`,
+              r`le maximum de $g$ est $2$, atteint en $-2$&nbsp;; le minimum est $-3$, atteint en $1$`],
+      bonne: 0,
+      explication: [
+        r`Dans un tableau de variations, le maximum est la plus grande des valeurs écrites au bout des flèches, et le minimum la plus petite&nbsp;; la valeur de $x$ où chacun est atteint est au-dessus, sur la première ligne.`,
+        r`Les valeurs au bout des flèches sont $2$, $-3$, $1$ et $-4$&nbsp;: la plus grande est $2$, sous $x = -2$, et la plus petite est $-4$, sous $x = 6$.`,
+        r`Donc <span class="resultat">le maximum est $2$, atteint en $-2$&nbsp;; le minimum est $-4$, atteint en $6$</span>. Attention&nbsp;: ici, les deux extremums sont atteints aux bornes&nbsp;; $-3$ n'est pas le minimum, car $-4 < -3$, et le minimum est une image ($-4$), pas l'abscisse où il est atteint ($6$).`] } },
+
+  /* ----- Variations des fonctions de référence (partie 4 du cours, capacité 4) ----- */
+
+  { partie: 0, theme: 'Fonctions de référence', type: 'qcm',
+    enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+    choix: [r`La fonction inverse est décroissante sur $\left]-\infty\,;\,0\right[$ et décroissante sur $\left]0\,;\,+\infty\right[$`,
+            r`La fonction carré est croissante sur $\R$`,
+            r`La fonction racine carrée est décroissante sur $\left[0\,;\,+\infty\right[$`,
+            r`La fonction cube est décroissante sur $\left]-\infty\,;\,0\right]$`],
+    bonne: 0,
+    explication: [
+      r`On utilise les propriétés du cours&nbsp;: la fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$&nbsp;; la fonction inverse est décroissante sur chacun des intervalles $\left]-\infty\,;\,0\right[$ et $\left]0\,;\,+\infty\right[$&nbsp;; la fonction racine carrée est croissante sur $\left[0\,;\,+\infty\right[$ et la fonction cube sur $\R$. Pour une affirmation fausse, un contre-exemple suffit.`,
+      r`Carré&nbsp;: $-3 < 1$, mais $(-3)^{2} = 9$ est plus grand que $1^{2} = 1$&nbsp;; elle n'est pas croissante sur $\R$.`,
+      r`Racine carrée&nbsp;: $1 < 4$ et $\sqrt{1} = 1 < 2 = \sqrt{4}$&nbsp;; l'ordre est conservé, elle n'est pas décroissante.`,
+      r`Cube&nbsp;: $-2 < -1$ et $(-2)^{3} = -8 < -1 = (-1)^{3}$&nbsp;; l'ordre est conservé, elle n'est pas décroissante sur $\left]-\infty\,;\,0\right]$.`,
+      r`L'affirmation vraie est <span class="resultat">la fonction inverse est décroissante sur $\left]-\infty\,;\,0\right[$ et décroissante sur $\left]0\,;\,+\infty\right[$</span>, comme le montre la démonstration du cours.`],
+    revoir: r`propriétés et démonstrations de la partie 4 du cours (fonctions carré, inverse, racine carrée, cube), activité 3, exercice 29 p.&nbsp;257 du manuel`,
+    variante: {
+      enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+      choix: [r`La fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$`,
+              r`La fonction inverse est décroissante sur $\left]-\infty\,;\,0\right[ ∪ \left]0\,;\,+\infty\right[$`,
+              r`La fonction cube est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$`,
+              r`La fonction $x \mapsto 6 - 2x$ est croissante sur $\R$`],
+      bonne: 0,
+      explication: [
+        r`On utilise les propriétés du cours&nbsp;: la fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$&nbsp;; la fonction inverse est décroissante sur chacun des intervalles $\left]-\infty\,;\,0\right[$ et $\left]0\,;\,+\infty\right[$&nbsp;; la fonction cube est croissante sur $\R$&nbsp;; une fonction affine $x \mapsto mx + p$ est croissante si $m > 0$, décroissante si $m < 0$. Pour une affirmation fausse, un contre-exemple suffit.`,
+        r`Inverse&nbsp;: $-1 < 1$ et $\dfrac{1}{-1} = -1 < 1 = \dfrac{1}{1}$&nbsp;; l'ordre est conservé&nbsp;: elle est décroissante sur chacun des deux intervalles, mais pas sur leur réunion.`,
+        r`Cube&nbsp;: $-2 < -1$ et $(-2)^{3} = -8 < -1 = (-1)^{3}$&nbsp;; l'ordre est conservé, elle n'est pas décroissante sur $\left]-\infty\,;\,0\right]$, contrairement à la fonction carré.`,
+        r`Affine&nbsp;: $6 - 2x = -2x + 6$, de coefficient directeur $m = -2 < 0$&nbsp;; elle est décroissante sur $\R$ (par exemple, $0 < 1$ et $6 > 4$).`,
+        r`L'affirmation vraie est <span class="resultat">la fonction carré est décroissante sur $\left]-\infty\,;\,0\right]$ et croissante sur $\left[0\,;\,+\infty\right[$</span>, comme le montre la démonstration du cours.`] } },
+
+  { partie: 0, theme: 'Comparer sans calculer', type: 'qcm',
+    enonce: r`Sans calculer, laquelle de ces quatre inégalités est vraie&nbsp;?`,
+    choix: [r`$(-3{,}2)^{2} > (-3{,}1)^{2}$`, r`$\dfrac{1}{0{,}6} < \dfrac{1}{0{,}7}$`, r`$\sqrt{6{,}08} > \sqrt{6{,}8}$`, r`$(-0{,}5)^{3} < (-0{,}9)^{3}$`],
+    bonne: 0,
+    explication: [
+      r`On repère l'intervalle où se trouvent les deux nombres, puis on applique le sens de variation de la fonction de référence sur cet intervalle&nbsp;: une fonction croissante conserve l'ordre, une fonction décroissante le change.`,
+      r`$-3{,}2$ et $-3{,}1$ sont dans $\left]-\infty\,;\,0\right]$, où la fonction carré est décroissante&nbsp;: elle change l'ordre. Comme $-3{,}2 < -3{,}1$, on a $(-3{,}2)^{2} > (-3{,}1)^{2}$.`,
+      r`Fonction inverse, décroissante sur $\left]0\,;\,+\infty\right[$&nbsp;: $0{,}6 < 0{,}7$ donne $\dfrac{1}{0{,}6} > \dfrac{1}{0{,}7}$.`,
+      r`Fonction racine carrée, croissante sur $\left[0\,;\,+\infty\right[$&nbsp;: $6{,}08 < 6{,}80$ donne $\sqrt{6{,}08} < \sqrt{6{,}8}$.`,
+      r`Fonction cube, croissante sur $\R$&nbsp;: $-0{,}9 < -0{,}5$ donne $(-0{,}9)^{3} < (-0{,}5)^{3}$.`,
+      r`L'inégalité vraie est <span class="resultat">$(-3{,}2)^{2} > (-3{,}1)^{2}$</span>. Attention&nbsp;: $-3{,}2$ est le plus petit des deux nombres, mais son carré est le plus grand.`],
+    revoir: r`méthode «&nbsp;comparer deux images, encadrer&nbsp;» et capacité 4 du cours (questions 1 à 4), exercice 3 de la fiche (questions 1 à 4), exercices 32 et 33 p.&nbsp;257 du manuel`,
+    variante: {
+      enonce: r`Sans calculer, laquelle de ces quatre inégalités est vraie&nbsp;?`,
+      choix: [r`$\dfrac{1}{-4} > \dfrac{1}{-2{,}5}$`, r`$4{,}03^{2} > 4{,}3^{2}$`, r`$(-1{,}4)^{2} < (-1{,}2)^{2}$`, r`$\sqrt{0{,}49} > \sqrt{0{,}5}$`],
+      bonne: 0,
+      explication: [
+        r`On repère l'intervalle où se trouvent les deux nombres, puis on applique le sens de variation de la fonction de référence sur cet intervalle&nbsp;: une fonction croissante conserve l'ordre, une fonction décroissante le change.`,
+        r`$-4$ et $-2{,}5$ sont dans $\left]-\infty\,;\,0\right[$, où la fonction inverse est décroissante&nbsp;: elle change l'ordre. Comme $-4 < -2{,}5$, on a $\dfrac{1}{-4} > \dfrac{1}{-2{,}5}$.`,
+        r`Fonction carré, croissante sur $\left[0\,;\,+\infty\right[$&nbsp;: $4{,}03 < 4{,}30$ donne $4{,}03^{2} < 4{,}3^{2}$.`,
+        r`Fonction carré, décroissante sur $\left]-\infty\,;\,0\right]$&nbsp;: $-1{,}4 < -1{,}2$ donne $(-1{,}4)^{2} > (-1{,}2)^{2}$.`,
+        r`Fonction racine carrée, croissante sur $\left[0\,;\,+\infty\right[$&nbsp;: $0{,}49 < 0{,}50$ donne $\sqrt{0{,}49} < \sqrt{0{,}5}$.`,
+        r`L'inégalité vraie est <span class="resultat">$\dfrac{1}{-4} > \dfrac{1}{-2{,}5}$</span>. Vérification&nbsp;: $-0{,}25 > -0{,}4$&nbsp;; les deux inverses sont négatifs.`] } },
+
+  { partie: 0, theme: 'Encadrer', type: 'qcm',
+    enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+    choix: [r`Si $-4 \le x \le -2$, alors $4 \le x^{2} \le 16$`, r`Si $x \ge 5$, alors $\dfrac{1}{x} \ge 0{,}2$`,
+            r`Si $x \le -2$, alors $x^{3} \ge -8$`, r`Si $16 \le x \le 36$, alors $8 \le \sqrt{x} \le 18$`],
+    bonne: 0,
+    explication: [
+      r`On repère la fonction de référence et son sens de variation sur l'intervalle où se trouve $x$&nbsp;: une fonction croissante conserve l'ordre des inégalités, une fonction décroissante le change. Pour une affirmation fausse, un contre-exemple suffit.`,
+      r`Si $-4 \le x \le -2$, $x$ est dans $\left]-\infty\,;\,0\right]$, où la fonction carré est décroissante&nbsp;: elle change l'ordre des deux inégalités.`,
+      calcul(r`-4 \le x \le -2`, r`& \implies (-4)^{2} \ge x^{2} \ge (-2)^{2}`, r`& \implies 16 \ge x^{2} \ge 4`),
+      r`Inverse, décroissante sur $\left]0\,;\,+\infty\right[$&nbsp;: si $x \ge 5$, alors $\dfrac{1}{x} \le \dfrac{1}{5} = 0{,}2$. Contre-exemple&nbsp;: $\dfrac{1}{10} = 0{,}1 < 0{,}2$.`,
+      r`Cube, croissante sur $\R$&nbsp;: si $x \le -2$, alors $x^{3} \le (-2)^{3} = -8$. Contre-exemple&nbsp;: $(-3)^{3} = -27 < -8$.`,
+      r`Racine carrée, croissante&nbsp;: si $16 \le x \le 36$, alors $\sqrt{16} \le \sqrt{x} \le \sqrt{36}$, soit $4 \le \sqrt{x} \le 6$. Contre-exemple&nbsp;: $\sqrt{16} = 4 < 8$.`,
+      r`L'affirmation vraie est <span class="resultat">si $-4 \le x \le -2$, alors $4 \le x^{2} \le 16$</span>. Attention&nbsp;: la racine carrée d'un nombre n'est pas sa moitié.`],
+    revoir: r`méthode «&nbsp;comparer deux images, encadrer&nbsp;» et capacité 4 du cours (questions 5 et 6), exercice 3 de la fiche (questions 5 et 6), exercice 68 p.&nbsp;261 du manuel, questions 11 à 14 du «&nbsp;Faire le point&nbsp;» p.&nbsp;263`,
+    variante: {
+      enonce: r`Une seule de ces affirmations est vraie. Laquelle&nbsp;?`,
+      choix: [r`Si $2 \le x \le 10$, alors $0{,}1 \le \dfrac{1}{x} \le 0{,}5$`, r`Si $x \le -3$, alors $x^{2} \le 9$`,
+              r`Si $-2 \le x \le -1$, alors $1 \le x^{3} \le 8$`, r`Si $9 \le x \le 25$, alors $4{,}5 \le \sqrt{x} \le 12{,}5$`],
+      bonne: 0,
+      explication: [
+        r`On repère la fonction de référence et son sens de variation sur l'intervalle où se trouve $x$&nbsp;: une fonction croissante conserve l'ordre des inégalités, une fonction décroissante le change. Pour une affirmation fausse, un contre-exemple suffit.`,
+        r`Si $2 \le x \le 10$, $x$ est dans $\left]0\,;\,+\infty\right[$, où la fonction inverse est décroissante&nbsp;: elle change l'ordre des deux inégalités.`,
+        calcul(r`2 \le x \le 10`, r`& \implies \dfrac{1}{2} \ge \dfrac{1}{x} \ge \dfrac{1}{10}`, r`& \implies 0{,}5 \ge \dfrac{1}{x} \ge 0{,}1`),
+        r`Carré, décroissante sur $\left]-\infty\,;\,0\right]$&nbsp;: si $x \le -3$, alors $x^{2} \ge (-3)^{2} = 9$. Contre-exemple&nbsp;: $(-4)^{2} = 16 > 9$.`,
+        r`Cube, croissante sur $\R$&nbsp;: si $-2 \le x \le -1$, alors $-8 \le x^{3} \le -1$. Contre-exemple&nbsp;: $(-1)^{3} = -1 < 1$&nbsp;; le cube d'un nombre négatif est négatif.`,
+        r`Racine carrée, croissante&nbsp;: si $9 \le x \le 25$, alors $\sqrt{9} \le \sqrt{x} \le \sqrt{25}$, soit $3 \le \sqrt{x} \le 5$. Contre-exemple&nbsp;: $\sqrt{9} = 3 < 4{,}5$.`,
+        r`L'affirmation vraie est <span class="resultat">si $2 \le x \le 10$, alors $0{,}1 \le \dfrac{1}{x} \le 0{,}5$</span>. Attention&nbsp;: la racine carrée d'un nombre n'est pas sa moitié.`] } },
+
+  /* ----- Problèmes d'optimisation (partie 5 du cours, capacité 5, problème de recherche) ----- */
+
+  { partie: 0, theme: 'Optimisation', type: 'qcm',
+    enonce: r`Avec $40$&nbsp;m de grillage, on construit un enclos rectangulaire adossé à un mur&nbsp;: le mur forme un côté, les trois autres sont grillagés. On note $x$ la longueur, en mètres, de chacun des deux côtés perpendiculaires au mur&nbsp;: le côté parallèle au mur mesure $40 - 2x$, et l'aire de l'enclos est $A(x) = x(40 - 2x)$, pour $x$ dans $\left[0\,;\,20\right]$. Voici un tableau de valeurs de $A$.`
+      + tableauValeurs('x', 'A(x)', [0, 4, 8, 12, 16, 20], [0, 128, 192, 192, 128, 0], 'Tableau de valeurs de A : pour x = 0, 4, 8, 12, 16 et 20, A(x) vaut 0, 128, 192, 192, 128 et 0')
+      + r`L'aire de l'enclos semble maximale&nbsp;:`,
+    choix: [r`pour $x = 10$&nbsp;; elle vaut alors $200$&nbsp;m²`, r`pour $x = 8$ ou $x = 12$&nbsp;; elle vaut alors $192$&nbsp;m²`,
+            r`pour $x = 10$&nbsp;; elle vaut alors $100$&nbsp;m²`, r`pour $x = 20$&nbsp;; elle vaut alors $200$&nbsp;m²`],
+    bonne: 0,
+    explication: [
+      r`On cherche le maximum de $A$ par balayage&nbsp;: les aires augmentent, puis diminuent, et $A(8) = A(12) = 192$&nbsp;; le maximum semble atteint entre $8$ et $12$, vers le milieu, $10$. On affine avec un pas de $1$ autour de $10$&nbsp;:`,
+      calcul(r`A(9) & = 9 \times 22 = 198`, r`A(10) & = 10 \times 20 = 200`, r`A(11) & = 11 \times 18 = 198`),
+      r`L'aire semble maximale <span class="resultat">pour $x = 10$&nbsp;; elle vaut alors $200$&nbsp;m²</span>&nbsp;: l'enclos mesure $10$&nbsp;m sur $40 - 2 \times 10 = 20$&nbsp;m. Ce n'est pas un carré&nbsp;: le mur remplace un côté de grillage. Tableau de variations conjecturé de $A$&nbsp;:`,
+      tableauVar('A', [0, 10, 20], [0, 200, 0]),
+      r`Attention&nbsp;: $192$ n'est que la plus grande valeur du tableau&nbsp;; avec un pas de $4$, le tableau ne passe pas par le maximum.`],
+    revoir: r`méthode de la partie 5 et capacité 5 du cours, activité 2, exercice 4 de la fiche, exercice 96 p.&nbsp;268 du manuel`,
+    variante: {
+      enonce: r`Avec $60$&nbsp;m de grillage, on construit un enclos rectangulaire adossé à un mur&nbsp;: le mur forme un côté, les trois autres sont grillagés. On note $x$ la longueur, en mètres, de chacun des deux côtés perpendiculaires au mur&nbsp;: le côté parallèle au mur mesure $60 - 2x$, et l'aire de l'enclos est $A(x) = x(60 - 2x)$, pour $x$ dans $\left[0\,;\,30\right]$. Voici un tableau de valeurs de $A$.`
+        + tableauValeurs('x', 'A(x)', [0, 6, 12, 18, 24, 30], [0, 288, 432, 432, 288, 0], 'Tableau de valeurs de A : pour x = 0, 6, 12, 18, 24 et 30, A(x) vaut 0, 288, 432, 432, 288 et 0')
+        + r`L'aire de l'enclos semble maximale&nbsp;:`,
+      choix: [r`pour $x = 15$&nbsp;; elle vaut alors $450$&nbsp;m²`, r`pour $x = 12$ ou $x = 18$&nbsp;; elle vaut alors $432$&nbsp;m²`,
+              r`pour $x = 15$&nbsp;; elle vaut alors $225$&nbsp;m²`, r`pour $x = 30$&nbsp;; elle vaut alors $450$&nbsp;m²`],
+      bonne: 0,
+      explication: [
+        r`On cherche le maximum de $A$ par balayage&nbsp;: les aires augmentent, puis diminuent, et $A(12) = A(18) = 432$&nbsp;; le maximum semble atteint entre $12$ et $18$, vers le milieu, $15$. On affine avec un pas de $1$ autour de $15$&nbsp;:`,
+        calcul(r`A(14) & = 14 \times 32 = 448`, r`A(15) & = 15 \times 30 = 450`, r`A(16) & = 16 \times 28 = 448`),
+        r`L'aire semble maximale <span class="resultat">pour $x = 15$&nbsp;; elle vaut alors $450$&nbsp;m²</span>&nbsp;: l'enclos mesure $15$&nbsp;m sur $60 - 2 \times 15 = 30$&nbsp;m. Ce n'est pas un carré&nbsp;: le mur remplace un côté de grillage. Tableau de variations conjecturé de $A$&nbsp;:`,
+        tableauVar('A', [0, 15, 30], [0, 450, 0]),
+        r`Attention&nbsp;: $432$ n'est que la plus grande valeur du tableau&nbsp;; avec un pas de $6$, le tableau ne passe pas par le maximum.`] } },
+
+  { partie: 0, theme: 'Balayage en Python', type: 'qcm',
+    enonce: r`Dans le problème «&nbsp;la plus grande boîte&nbsp;», la fonction <code>balayage(a, b, pas)</code> essaie les valeurs $a$, $a + \text{pas}$, $a + 2 \times \text{pas}$… jusqu'à $b$. On l'utilise ici avec la fonction $f$ définie par $f(x) = x(11 - x)$&nbsp;:`
+      + programmeBalayage('x * (11 - x)') + r`Que renvoie <code>balayage(0, 11, 1)</code>&nbsp;?`,
+    choix: [r`<code>5</code>`, r`<code>6</code>`, r`<code>30</code>`, r`<code>5.5</code>`],
+    bonne: 0,
+    explication: [
+      r`La boucle essaie $x = 0$, $1$, $2$… jusqu'à $11$. La variable <code>xmax</code> garde la valeur de $x$ qui a donné la plus grande image jusque-là&nbsp;: elle ne change que si $f(x)$ est strictement plus grand que $f(\text{xmax})$. On calcule les images autour du sommet&nbsp;:`,
+      calcul(r`f(4) & = 4 \times 7 = 28`, r`f(5) & = 5 \times 6 = 30`, r`f(6) & = 6 \times 5 = 30`, r`f(7) & = 7 \times 4 = 28`),
+      r`Les images augmentent jusqu'à $x = 5$&nbsp;: <code>xmax</code> prend la valeur $5$. Pour $x = 6$, $f(6) = 30$ n'est pas strictement plus grand que $f(5) = 30$&nbsp;: <code>xmax</code> reste $5$, puis les images diminuent. <code>balayage(0, 11, 1)</code> renvoie <span class="resultat"><code>5</code></span>.`,
+      r`Attention&nbsp;: la fonction renvoie une valeur de $x$, et non la plus grande image, $30$. Le maximum exact est atteint en $5{,}5$, que le pas de $1$ n'essaie pas&nbsp;: $f(5{,}5) = 5{,}5 \times 5{,}5 = 30{,}25$&nbsp;; un balayage plus fin, entre $5$ et $6$, s'en approcherait.`],
+    revoir: r`problème «&nbsp;la plus grande boîte&nbsp;» (questions 4 et 5), méthode de la partie 5 du cours (balayage)`,
+    variante: {
+      enonce: r`Dans le problème «&nbsp;la plus grande boîte&nbsp;», la fonction <code>balayage(a, b, pas)</code> essaie les valeurs $a$, $a + \text{pas}$, $a + 2 \times \text{pas}$… jusqu'à $b$. On l'utilise ici avec la fonction $f$ définie par $f(x) = x(9 - x)$&nbsp;:`
+        + programmeBalayage('x * (9 - x)') + r`Que renvoie <code>balayage(0, 9, 1)</code>&nbsp;?`,
+      choix: [r`<code>4</code>`, r`<code>5</code>`, r`<code>20</code>`, r`<code>4.5</code>`],
+      bonne: 0,
+      explication: [
+        r`La boucle essaie $x = 0$, $1$, $2$… jusqu'à $9$. La variable <code>xmax</code> garde la valeur de $x$ qui a donné la plus grande image jusque-là&nbsp;: elle ne change que si $f(x)$ est strictement plus grand que $f(\text{xmax})$. On calcule les images autour du sommet&nbsp;:`,
+        calcul(r`f(3) & = 3 \times 6 = 18`, r`f(4) & = 4 \times 5 = 20`, r`f(5) & = 5 \times 4 = 20`, r`f(6) & = 6 \times 3 = 18`),
+        r`Les images augmentent jusqu'à $x = 4$&nbsp;: <code>xmax</code> prend la valeur $4$. Pour $x = 5$, $f(5) = 20$ n'est pas strictement plus grand que $f(4) = 20$&nbsp;: <code>xmax</code> reste $4$, puis les images diminuent. <code>balayage(0, 9, 1)</code> renvoie <span class="resultat"><code>4</code></span>.`,
+        r`Attention&nbsp;: la fonction renvoie une valeur de $x$, et non la plus grande image, $20$. Le maximum exact est atteint en $4{,}5$, que le pas de $1$ n'essaie pas&nbsp;: $f(4{,}5) = 4{,}5 \times 4{,}5 = 20{,}25$&nbsp;; un balayage plus fin, entre $4$ et $5$, s'en approcherait.`] } }
+  ]
+};
+
+/* ---------- Conversion des formules ($...$, mini-LaTeX) en HTML ---------- */
+const SYM = {
+  times: '×', cdot: '·', dots: '…', ldots: '…', cdots: '…', ne: '≠', neq: '≠', le: '≤', leq: '≤',
+  ge: '≥', geq: '≥', approx: '≈', infty: '∞', forall: '∀', in: '∈', N: 'ℕ', R: 'ℝ', Z: 'ℤ',
+  pm: '±', Delta: 'Δ', sum: 'Σ', pi: 'π', alpha: 'α', mapsto: '↦', to: '→', iff: '⇔',
+  Longleftrightarrow: '⇔', Leftrightarrow: '⇔', Rightarrow: '⇒', implies: '⇒',
+  quad: ' ', qquad: '  ', displaystyle: '', left: '', right: ''
+};
+const SYM1 = { ',': ' ', ';': ' ', ' ': ' ', '{': '{', '}': '}', '%': '%', '_': '_', '&': '&amp;', '$': '$', '\\': '<br>' };
+const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+
+function math(s) {
+  let i = 0;
+  const skip = () => { while (i < s.length && s[i] === ' ') i++; };
+  function raw() {            // contenu brut d'un {groupe}, sans mise en italique
+    skip();
+    if (s[i] !== '{') return esc(s[i++] || '');
+    let prof = 0, out = '';
+    for (; i < s.length; i++) {
+      const c = s[i];
+      if (c === '{') { prof++; if (prof === 1) continue; }
+      if (c === '}') { prof--; if (prof === 0) { i++; break; } }
+      out += c;
+    }
+    return esc(out);
+  }
+  function group() { i++; let out = ''; while (i < s.length && s[i] !== '}') out += atom(); i++; return out; }
+  function arg() { skip(); if (s[i] === '{') return group(); return atom(); }
+  const frac = (a, b) => `<span class="frac"><span class="num">${a}</span><span class="den">${b}</span></span>`;
+  function atom() {
+    if (i >= s.length) return '';
+    const c = s[i];
+    if (c === '{') return group();
+    if (c === '}') { i++; return ''; }
+    if (c === '\\') {
+      const n = s[i + 1];
+      if (n === undefined) { i++; return ''; }
+      if (!/[a-zA-Z]/.test(n)) { i += 2; return SYM1[n] !== undefined ? SYM1[n] : esc(n); }
+      let j = i + 1;
+      while (j < s.length && /[a-zA-Z]/.test(s[j])) j++;
+      const nom = s.slice(i + 1, j); i = j;
+      if (nom === 'frac' || nom === 'dfrac' || nom === 'tfrac') { const a = arg(); const b = arg(); return frac(a, b); }
+      if (nom === 'mathrm' || nom === 'text') return `<span class="rm">${raw()}</span>`;
+      if (nom === 'textbf') return `<b class="rm">${raw()}</b>`;
+      if (nom === 'mathscr') return `<i>${raw()}</i>`;
+      if (nom === 'resultat') return `<span class="resultat">${arg()}</span>`;
+      if (nom === 'mul') return `<span class="mul">${arg()}</span>`;
+      if (nom === 'op') return `<span class="op">${arg()}</span>`;
+      if (nom === 'sqrt') return `<span class="sqrt">√<span class="rad">${arg()}</span></span>`;
+      return SYM[nom] !== undefined ? SYM[nom] : esc('\\' + nom);
+    }
+    if (c === '_' || c === '^') { i++; const a = arg(); return c === '_' ? `<sub>${a}</sub>` : `<sup>${a}</sup>`; }
+    i++;
+    if (/[a-zA-Z]/.test(c)) return `<i>${c}</i>`;
+    if (c === '-') return '−';
+    if (c === '*') return '×';
+    if (c === "'") return '<span class="prime">′</span>';
+    return esc(c);
+  }
+  let out = '';
+  while (i < s.length) out += atom();
+  return out;
+}
+// Une formule : KaTeX s'il est chargé, sinon (pas encore là, hors ligne, CDN filtré, commande qu'il
+// refuse) le mini-LaTeX, qui garde la source dans data-tex pour que katexPret() la recompose.
+// (## : signe # d'une couleur dans une macro, # seul désignant un argument)
+const MACROS = { '\\mul': '\\textcolor{##9C27B0}{#1}', '\\op': '\\textcolor{##CE2029}{#1}', '\\resultat': '\\boxed{#1}' };
+function katexDispo() {
+  const feuille = document.getElementById('katex-css');
+  return !!window.katex && !!feuille && feuille.media === 'all';
+}
+function katexHTML(f) {
+  try { return katex.renderToString(f, { macros: Object.assign({}, MACROS), throwOnError: true, strict: false }); }
+  catch (e) { return null; }
+}
+function formule(f) {
+  const k = katexDispo() ? katexHTML(f) : null;
+  return k || `<span class="m${f.length > 42 ? ' m-long' : ''}" data-tex="${esc(f).replace(/"/g, '&quot;')}">${math(f)}</span>`;
+}
+window.katexPret = function () {
+  if (!katexDispo()) return;
+  document.querySelectorAll('.m[data-tex]').forEach(e => {
+    const k = katexHTML(e.dataset.tex);
+    if (k) e.outerHTML = k;
+  });
+};
+function tex(src) {
+  return String(src).split(/(\$[^$]*\$)/).map(p =>
+    (p.length >= 2 && p[0] === '$' && p[p.length - 1] === '$') ? formule(p.slice(1, -1)) : p
+  ).join('');
+}
+
+/* ---------- État (enregistré sur l'appareil, pour reprendre plus tard) ---------- */
+const N = QUIZ.questions.length;
+const CLE = 'quiz-' + QUIZ.id;
+const SIGNATURE = QUIZ.questions.map(q => q.type + (q.choix ? q.choix.length : '') + q.enonce.length
+  + (q.variante ? '~' + q.variante.enonce.length : '')).join('|');
+const MODE_CORRIGE = /(\?|&|#)corrige/.test(location.search + location.hash);
+// La question i dans sa variante : les champs que la variante ne donne pas viennent de la question.
+const variante = i => Object.assign({}, QUIZ.questions[i], QUIZ.questions[i].variante);
+
+function melange(a) { for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; }
+const ordreDe = q => q.type !== 'qcm' ? null : q.fixe ? q.choix.map((_, k) => k) : melange(q.choix.map((_, k) => k));
+// reprise : null, ou la reprise des questions manquées { rangs (questions d'origine), ordre, reponses, courant }.
+function nouvelEtat() {
+  return {
+    signature: SIGNATURE,
+    ordre: QUIZ.questions.map(ordreDe),
+    reponses: Array(N).fill(null),
+    courant: 0,
+    reprise: null
+  };
+}
+function repriseValide(R) {
+  return !!R && Array.isArray(R.rangs) && R.rangs.length > 0 && Array.isArray(R.ordre) && Array.isArray(R.reponses)
+    && R.ordre.length === R.rangs.length && R.reponses.length === R.rangs.length
+    && R.rangs.every(i => QUIZ.questions[i] && QUIZ.questions[i].variante);
+}
+function charger() {
+  try {
+    const s = JSON.parse(localStorage.getItem(CLE));
+    if (s && s.signature === SIGNATURE && Array.isArray(s.reponses) && s.reponses.length === N && Array.isArray(s.ordre)) {
+      s.courant = Math.min(Math.max(0, s.courant | 0), N);
+      if (repriseValide(s.reprise)) s.reprise.courant = Math.min(Math.max(0, s.reprise.courant | 0), s.reprise.rangs.length);
+      else s.reprise = null;
+      return s;
+    }
+  } catch (e) { /* stockage indisponible : on repart de zéro */ }
+  return null;
+}
+function sauver() { try { localStorage.setItem(CLE, JSON.stringify(etat)); } catch (e) { /* sans importance */ } }
+
+let etat = charger() || nouvelEtat();
+let selection = null;
+
+const $ = sel => document.querySelector(sel);
+const zoneProg = $('#progression');
+const zoneQuiz = $('#quiz');
+const motion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+const nomPartie = p => `Partie ${p + 1} · ${QUIZ.parties[p]}`;
+// Une seule partie : aucun nom de partie n'est affiché (grille, question, corrigé, note).
+const UNE_PARTIE = QUIZ.parties.length === 1;
+const questionsDe = p => QUIZ.questions.map((q, i) => q.partie === p ? i : -1).filter(i => i >= 0);
+
+/* ---------- Affichage ---------- */
+// Explication : un texte, ou une liste de blocs (paragraphes, calculs en colonne, figures).
+function explicationHTML(q) {
+  const blocs = Array.isArray(q.explication) ? q.explication : [q.explication];
+  return blocs.map(b => /^<(div|svg)\b/.test(b) ? tex(b) : '<p>' + tex(b) + '</p>').join('');
+}
+
+function reponseTexte(q, choix) {
+  if (q.type === 'vf') return choix ? 'Vrai' : 'Faux';
+  return '« ' + tex(q.choix[choix]) + ' »';
+}
+
+// Tour en cours : le premier passage (les questions du fichier), ou la reprise des questions
+// manquées (leurs variantes). Chacun a ses réponses, l'ordre de ses choix et sa question courante k ;
+// le numéro affiché est toujours celui de la question d'origine.
+function tourCourant() {
+  const R = etat.reprise;
+  if (R && R.courant < R.rangs.length)
+    return { reprise: true, etat: R, total: R.rangs.length, question: k => variante(R.rangs[k]), numero: k => R.rangs[k] + 1 };
+  return { reprise: false, etat: etat, total: N, question: k => QUIZ.questions[k], numero: k => k + 1 };
+}
+
+// Une grille de réponses. items = [{cle, numero, rep}] ; attr = data-q (premier passage) ou data-r (reprise).
+function grille(nom, items, courant, attr) {
+  const faites = items.filter(it => it.rep).length;
+  let nums = '', marques = '';
+  items.forEach(it => {
+    const ici = it.cle === courant;
+    nums += `<td class="${ici ? 'ici' : ''}"><button type="button" class="aller" ${attr}="${it.cle}" aria-label="Aller à la question ${it.numero}">${it.numero}</button></td>`;
+    marques += it.rep
+      ? `<td class="${it.rep.ok ? 'juste' : 'erreur'}${ici ? ' courant' : ''}" ${attr}="${it.cle}"><span class="marque ${it.rep.ok ? 'coche' : 'croix'}" aria-hidden="true"></span></td>`
+      : `<td class="${ici ? 'courant' : ''}" ${attr}="${it.cle}"></td>`;
+  });
+  return `<div class="bloc-grille">${nom ? `<p class="nom-partie">${nom}</p>` : ''}
+    <table class="grille-reponses" aria-label="${nom || 'Réponses'} : ${faites} question${faites > 1 ? 's' : ''} sur ${items.length} traitée${faites > 1 ? 's' : ''}"><tr>${nums}</tr><tr>${marques}</tr></table></div>`;
+}
+
+function rendreProgression() {
+  if (MODE_CORRIGE) { zoneProg.hidden = true; return; }
+  const T = tourCourant(), R = etat.reprise;
+  zoneProg.innerHTML = T.reprise
+    ? grille('Reprise des questions manquées', R.rangs.map((i, k) => ({ cle: k, numero: i + 1, rep: R.reponses[k] })), R.courant, 'data-r')
+    : QUIZ.parties.map((nom, p) => grille(UNE_PARTIE ? '' : nomPartie(p),
+        questionsDe(p).map(i => ({ cle: i, numero: i + 1, rep: etat.reponses[i] })), etat.courant, 'data-q')).join('');
+}
+
+function rendre() {
+  rendreProgression();
+  if (MODE_CORRIGE) return rendreCorrige();
+  const T = tourCourant();
+  if (T.etat.courant >= T.total) rendreResultat(); else rendreQuestion(T, T.etat.courant);
+}
+
+function boite(marque) {
+  return `<span class="boite" aria-hidden="true"><span class="marque${marque ? ' ' + marque : ''}"></span></span>`;
+}
+
+function rendreQuestion(T, k) {
+  const q = T.question(k), rep = T.etat.reponses[k], ordre = T.etat.ordre[k], derniere = k === T.total - 1;
+  const changePartie = !T.reprise && !derniere && QUIZ.questions[k + 1].partie !== q.partie;
+  const tete = T.reprise ? `Reprise des questions manquées · ${k + 1} sur ${T.total}` : UNE_PARTIE ? '' : nomPartie(q.partie);
+  const suite = derniere ? (T.reprise ? 'Voir le bilan' : 'Voir ma note') : changePartie ? 'Passer à la partie ' + (q.partie + 2) : 'Question suivante';
+  let options;
+  if (q.type === 'vf') {
+    options = [[true, 'Vrai'], [false, 'Faux']].map(([val, lib]) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (val === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (val === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${val}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="texte">${lib}</span></button>`;
+    }).join('');
+  } else {
+    options = ordre.map((orig, j) => {
+      let cls = 'choix', marque = '';
+      if (rep) {
+        if (orig === q.bonne) { cls += ' juste'; marque = 'coche'; }
+        else if (orig === rep.choix) { cls += ' erreur'; marque = 'croix'; }
+        else cls += ' terne';
+      }
+      return `<button type="button" class="${cls}" data-val="${orig}" aria-pressed="false" ${rep ? 'disabled' : ''}>${boite(marque)}<span class="lettre" aria-hidden="true">${'abcdef'[j]}.</span><span class="texte">${tex(q.choix[orig])}</span></button>`;
+    }).join('');
+  }
+  const revoir = rep && !rep.ok && q.revoir ? `<p class="revoir">À revoir&nbsp;: ${tex(q.revoir)}.</p>` : '';
+  const correction = rep ? `<div class="correction ${rep.ok ? 'juste' : 'erreur'}" role="status">
+      <p class="verdict">${rep.ok ? 'Correct.' : 'Non.'}</p>
+      <div class="explication">${rep.ok ? '' : '<p>La bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.</p>'}${explicationHTML(q)}${revoir}</div></div>` : '';
+  const bouton = rep
+    ? `<button type="button" class="bouton" id="suivant">${suite}</button>`
+    : `<button type="button" class="bouton" id="valider" disabled>Valider</button>`;
+  zoneQuiz.innerHTML = `<article class="exercice" aria-labelledby="titre-q">
+    ${tete ? `<p class="partie">${tete}</p>` : ''}
+    <p class="question" id="titre-q"><b>Question ${T.numero(k)}.</b> <i>${q.theme}${q.type === 'vf' ? ' — vrai ou faux' : ''}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <div class="reponses${q.type === 'vf' ? ' vf' : ''}" role="group" aria-label="Réponses">${options}</div>
+    <div class="actions">${bouton}</div>
+    ${correction}
+  </article>`;
+  selection = null;
+  if (!rep) {
+    zoneQuiz.querySelectorAll('.choix').forEach(b => b.addEventListener('click', () => choisir(b, q)));
+    $('#valider').addEventListener('click', valider);
+  } else {
+    $('#suivant').addEventListener('click', suivant);
+  }
+}
+
+function choisir(b, q) {
+  zoneQuiz.querySelectorAll('.choix').forEach(o => {
+    const actif = o === b;
+    o.classList.toggle('choisi', actif);
+    o.setAttribute('aria-pressed', actif ? 'true' : 'false');
+    o.querySelector('.marque').className = actif ? 'marque croix' : 'marque';
+  });
+  selection = q.type === 'vf' ? b.dataset.val === 'true' : Number(b.dataset.val);
+  $('#valider').disabled = false;
+}
+
+function valider() {
+  const T = tourCourant(), k = T.etat.courant, q = T.question(k);
+  if (selection === null || T.etat.reponses[k]) return;
+  T.etat.reponses[k] = { choix: selection, ok: selection === q.bonne };
+  sauver();
+  rendre();
+  const suivantBtn = $('#suivant');
+  if (suivantBtn) suivantBtn.focus({ preventScroll: true });
+  const correction = $('.correction');
+  if (correction) correction.scrollIntoView({ block: 'nearest', behavior: motion() });
+}
+
+// Clic sur un numéro (ou sur sa case) dans les grilles : on ouvre cette question
+// (data-q : premier passage ; data-r : reprise des questions manquées).
+function aller(cible) {
+  if (cible.dataset.r !== undefined) etat.reprise.courant = Number(cible.dataset.r);
+  else etat.courant = Number(cible.dataset.q);
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function suivant() {
+  const T = tourCourant();
+  T.etat.courant = Math.min(T.etat.courant + 1, T.total);
+  selection = null;
+  sauver();
+  rendre();
+  // On remonte aux grilles de réponses, pas tout en haut : sur téléphone, l'en-tête occupe un écran.
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function recommencer() {
+  etat = nouvelEtat();
+  selection = null;
+  sauver();
+  rendre();
+  window.scrollTo({ top: 0, behavior: motion() });
+}
+// Deux clics pour tout effacer : le premier transforme le bouton en demande de confirmation.
+function demanderRecommencer(btn) {
+  const entame = etat.courant > 0 || etat.reponses.some(Boolean);
+  if (btn.dataset.minuteur) {
+    clearTimeout(Number(btn.dataset.minuteur));
+    btn.textContent = btn.dataset.texte;
+    delete btn.dataset.minuteur;
+    recommencer();
+  } else if (!entame) {
+    recommencer();
+  } else {
+    btn.dataset.texte = btn.textContent;
+    btn.textContent = 'Confirmer : effacer mes réponses';
+    btn.dataset.minuteur = String(setTimeout(() => { btn.textContent = btn.dataset.texte; delete btn.dataset.minuteur; }, 4000));
+  }
+}
+
+// Questions regroupées par partie : un titre, puis la liste produite par item(q, i).
+function listeParParties(item) {
+  return QUIZ.parties.map((nom, p) =>
+    `${UNE_PARTIE ? '' : `<h2 class="titre-partie">${nomPartie(p)}</h2>`}<ol class="revue">${questionsDe(p).map(i => item(QUIZ.questions[i], i)).join('')}</ol>`
+  ).join('');
+}
+
+// Une question de la copie : énoncé, réponse donnée, explication.
+function itemRevue(q, rep, numero) {
+  const ok = !!(rep && rep.ok);
+  let bilan;
+  if (!rep) bilan = 'Sans réponse. Bonne réponse&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  else if (ok) bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Correct.';
+  else bilan = 'Ta réponse&nbsp;: ' + reponseTexte(q, rep.choix) + '. Faux, la bonne réponse était&nbsp;: ' + reponseTexte(q, q.bonne) + '.';
+  return `<li class="${ok ? 'juste' : 'erreur'}">
+    <p class="question"><b>Question ${numero}.</b> <i>${q.theme}</i></p>
+    <div class="enonce">${tex(q.enonce)}</div>
+    <p class="bilan">${bilan}</p>
+    <div class="explication">${explicationHTML(q)}</div>
+  </li>`;
+}
+
+function revueHTML() {
+  return listeParParties((q, i) => itemRevue(q, etat.reponses[i], i + 1));
+}
+
+function revueRepriseHTML() {
+  const R = etat.reprise;
+  return `<h2 class="titre-partie">Reprise des questions manquées</h2><ol class="revue">${R.rangs.map((i, k) => itemRevue(variante(i), R.reponses[k], i + 1)).join('')}</ol>`;
+}
+
+// Bouton qui montre ou cache une copie.
+function bascule(idBouton, idListe, texte) {
+  $('#' + idBouton).addEventListener('click', () => {
+    const liste = $('#' + idListe), btn = $('#' + idBouton);
+    liste.hidden = !liste.hidden;
+    btn.setAttribute('aria-expanded', liste.hidden ? 'false' : 'true');
+    btn.textContent = (liste.hidden ? 'Revoir ' : 'Masquer ') + texte;
+  });
+}
+
+// Reprise des questions manquées qui ont une variante : nouveau tour, noté à part.
+function reprendre(rangs) {
+  etat.reprise = { rangs: rangs, ordre: rangs.map(i => ordreDe(variante(i))), reponses: Array(rangs.length).fill(null), courant: 0 };
+  selection = null;
+  sauver();
+  rendre();
+  zoneProg.scrollIntoView({ block: 'start', behavior: motion() });
+}
+
+function rendreResultat() {
+  const juste = i => !!(etat.reponses[i] && etat.reponses[i].ok);
+  const score = QUIZ.questions.filter((q, i) => juste(i)).length;
+  const appreciation = score >= 0.75 * N
+    ? 'C\'est solide. Relis quand même les explications des questions manquées.'
+    : score >= 0.5 * N
+      ? 'L\'essentiel est là. Reprends les points listés ci-dessous, puis refais cet entraînement.'
+      : 'À retravailler avant l\'évaluation : reprends le cours et la fiche d\'exercices, puis refais cet entraînement.';
+  const sur20 = N === 20 ? '' : `<span class="sur">soit ${fr(Math.round(score * 20 / N * 2) / 2)} / 20</span>`;
+  const parties = QUIZ.parties.map((nom, p) => {
+    const rangs = questionsDe(p);
+    return `<span>${nomPartie(p)}&nbsp;: <b>${rangs.filter(juste).length} / ${rangs.length}</b></span>`;
+  }).join(' &emsp; ');
+  const aRevoir = [];
+  QUIZ.questions.forEach((q, i) => { if (!juste(i) && q.revoir && aRevoir.indexOf(q.revoir) < 0) aRevoir.push(q.revoir); });
+  const revoir = aRevoir.length
+    ? `<div class="a-revoir"><b>À revoir avant l'évaluation&nbsp;:</b><ul>${aRevoir.map(t => '<li>' + tex(t) + '</li>').join('')}</ul></div>` : '';
+  // Questions manquées qui ont une variante, et reprise déjà faite (on n'arrive ici qu'une fois finie).
+  const manquees = QUIZ.questions.map((q, i) => i).filter(i => !juste(i) && QUIZ.questions[i].variante);
+  const R = etat.reprise, nm = manquees.length;
+  const bilanReprise = R
+    ? `<p class="bilan-reprise">Reprise des questions manquées&nbsp;: <b>${R.reponses.filter(x => x && x.ok).length} / ${R.rangs.length}</b></p>` : '';
+  const infoReprise = nm && !R
+    ? `<p class="reprise-info">Tu peux refaire ${nm > 1 ? 'les ' + nm + ' questions manquées' : 'la question manquée'}, un peu ${nm > 1 ? 'modifiées' : 'modifiée'}&nbsp;: mêmes notions, autres valeurs.</p>` : '';
+  zoneQuiz.innerHTML = `<article class="page-note" aria-labelledby="titre-r">
+    <p class="question" id="titre-r"><b>Note.</b></p>
+    <p class="note"><span class="grand">${score}</span><span class="sur">/ ${N}</span>${sur20}</p>
+    <p class="appreciation">${appreciation}</p>
+    ${UNE_PARTIE ? '' : `<p class="bilan-parties">${parties}</p>`}
+    ${bilanReprise}
+    ${revoir}
+    ${infoReprise}
+    <div class="actions">
+      ${nm ? `<button type="button" class="bouton" id="reprendre">${R ? 'Refaire la reprise' : 'Refaire les questions manquées'}</button>` : ''}
+      <button type="button" class="bouton" id="revoir" aria-expanded="false" aria-controls="revue">Revoir la copie</button>
+      ${R ? '<button type="button" class="bouton" id="revoir-reprise" aria-expanded="false" aria-controls="revue-reprise">Revoir la reprise</button>' : ''}
+      <button type="button" class="bouton discret" id="recommencer">Recommencer</button>
+    </div>
+    <div id="revue" hidden>${revueHTML()}</div>
+    ${R ? `<div id="revue-reprise" hidden>${revueRepriseHTML()}</div>` : ''}
+  </article>`;
+  bascule('revoir', 'revue', 'la copie');
+  if (R) bascule('revoir-reprise', 'revue-reprise', 'la reprise');
+  if (nm) $('#reprendre').addEventListener('click', () => reprendre(manquees));
+  $('#recommencer').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+}
+
+function rendreCorrige() {
+  // Énoncé, choix (bonne réponse en vert), explication.
+  const corps = q => `<div class="enonce">${tex(q.enonce)}</div>
+      ${q.type === 'qcm' ? `<ol class="liste-choix" type="a">${q.choix.map((c, k) => `<li class="${k === q.bonne ? 'bonne' : ''}">${tex(c)}</li>`).join('')}</ol>` : ''}
+      <p class="bilan">Bonne réponse&nbsp;: ${reponseTexte(q, q.bonne)}.</p>
+      <div class="explication">${explicationHTML(q)}</div>`;
+  zoneQuiz.innerHTML = `<article>
+    <p class="question"><b>Corrigé.</b> <i>${N} questions, bonnes réponses et explications</i></p>
+    ${listeParParties((q, i) => `<li class="juste">
+      <p class="question"><b>Question ${i + 1}.</b> <i>${q.theme}</i></p>
+      ${corps(q)}
+      ${q.variante ? `<div class="variante"><p class="question"><b>Variante</b> <i>(reprise des questions manquées)</i></p>${corps(variante(i))}</div>` : ''}
+    </li>`)}
+  </article>`;
+}
+
+/* ---------- Démarrage ---------- */
+$('#reinitialiser').addEventListener('click', e => demanderRecommencer(e.currentTarget));
+zoneProg.addEventListener('click', e => {
+  const cible = e.target.closest('[data-q],[data-r]');
+  if (cible) aller(cible);
+});
+rendre();
+})();
+</script>
+</body>
+</html>

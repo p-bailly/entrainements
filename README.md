@@ -12,6 +12,7 @@
 - Chapitre 10 : [Équations](https://p-bailly.github.io/entrainements/seconde/10-equations.html)
 - Chapitre 11 : [Fonctions de référence](https://p-bailly.github.io/entrainements/seconde/11-fonctions-de-reference.html)
 - Chapitre 12 : [Statistiques](https://p-bailly.github.io/entrainements/seconde/12-statistiques.html)
+- Chapitre 13 : [Variations d'une fonction](https://p-bailly.github.io/entrainements/seconde/13-variations-fonctions.html)
 - Chapitre 14 : [Inéquations et tableaux de signes](https://p-bailly.github.io/entrainements/seconde/14-inequations.html)
 
 ## Première, mathématiques spécifiques
