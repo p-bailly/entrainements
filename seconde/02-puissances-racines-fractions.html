@@ -11,30 +11,38 @@
   Entraînement auto-corrigé à l'évaluation du chapitre 2 (Puissances, racines carrées et
   fractions) - Seconde. Une seule partie, douze questions, sans automatismes (demande du
   professeur), rangées par difficulté croissante, en trois niveaux :
-    - niveau 1, propriétés du cours et calculs directs : racine carrée d'une somme, -4² et
-      (-3)², extraire un carré parfait ;
-    - niveau 2, méthodes en deux ou trois étapes : exposant négatif, a^n x b^n = (ab)^n,
-      quotient de deux fractions, valeurs interdites, réduire une somme de racines ;
-    - niveau 3, calculs en plusieurs étapes : développer avec une racine, règles de calcul
-      enchaînées, produit prioritaire puis même dénominateur, une seule fraction.
-  Chaque calcul des exercices 2 à 4 de l'évaluation (sujets A et B) a sa question, avec
-  d'autres valeurs :
-    - fractions : produit prioritaire puis même dénominateur, quotient de deux fractions,
-      valeurs interdites, une seule fraction (capacité 1 ; manuel ex. 8 p. 98, 38 et 44
-      p. 100) ;
-    - puissances : -4² et (-3)², exposant négatif, règles de calcul, a^n x b^n = (ab)^n
-      (capacité 2 ; manuel ex. 14 p. 98, 49 p. 100) ;
-    - racines carrées : racine d'une somme, d'un produit (définition, activité 3 ; manuel
-      ex. 15 p. 98, 59 p. 101), simplifier et réduire (capacité 3 ; manuel ex. 17 p. 99,
-      63 p. 101, top chrono 146 p. 106), développer (capacité 4 ; manuel ex. 67 p. 102).
+    - niveau 1, calculs simples, en une ou deux étapes : somme de deux fractions, produit de
+      deux puissances d'un même nombre, produit de deux racines carrées ;
+    - niveau 2, méthodes du chapitre, en deux ou trois étapes : -4² et (-3)², exposant
+      négatif, quotient de deux fractions, a^n x b^n = (ab)^n ;
+    - niveau 3, calculs en plusieurs étapes et réflexion : produit prioritaire puis même
+      dénominateur, valeur interdite et une seule fraction, réduire une somme de racines,
+      développer (a - b)(a + b), contre-exemple (vrai ou faux).
+  Depuis le 26/09/2026 (demande du professeur) : début plus facile (niveau 1) et questions
+  alignées sur l'évaluation revue le même jour, qui n'a plus qu'une valeur interdite, ni règles
+  de calcul enchaînées, ni (a + b)² avec une racine, et se termine par un exercice de
+  réflexion, un vrai ou faux à justifier. Retirées : racine d'une somme, simplifier une racine
+  (elle se fait dans « réduire »), deux valeurs interdites, règles de calcul enchaînées,
+  (a - b)² avec une racine, une seule fraction à deux dénominateurs en x.
+  Chaque calcul de l'évaluation (sujets A et B) a sa question, avec d'autres valeurs :
+    - exercice 2, fractions : produit prioritaire puis même dénominateur, quotient de deux
+      fractions, valeur interdite et une seule fraction (capacité 1 ; manuel ex. 8 et 10
+      p. 98, 38 p. 100) ;
+    - exercice 3, puissances : -4² et (-3)², exposant négatif, a^n x b^n = (ab)^n
+      (capacité 2 ; manuel ex. 11 et 14 p. 98) ;
+    - exercice 4, racines carrées : simplifier et réduire (capacité 3 ; manuel ex. 17 p. 99,
+      63 p. 101, top chrono 146 p. 106), développer (a - b)(a + b) (capacité 4 ; manuel
+      ex. 67 p. 102) ;
+    - exercice 5, vrai ou faux : les questions 1 et 3 (somme de fractions, produit de
+      racines) et la dernière (contre-exemple) le préparent ; la somme de puissances égales
+      n'a pas de question.
   Calculs détaillés, une transformation par ligne : produit de fractions écrit, effectué, puis
   simplifié avec le facteur commun en violet ; numérateur commun écrit avant le résultat ;
-  opération sur les exposants écrite, puis effectuée ; puissance finale développée ; racines :
-  décomposition, règle du produit, chaque racine calculée, puis regroupement.
+  opération sur les exposants écrite, puis effectuée ; racines : décomposition, règle du
+  produit, chaque racine calculée, puis regroupement.
   Distracteurs : les erreurs types relevées dans les corrections du cours et de l'évaluation.
   Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
-  questions manquées ; celle de la question 9 développe un produit (a - b)(a + b), l'autre
-  calcul de la capacité 4 et de l'exercice 4 de l'évaluation.
+  questions manquées.
 
   Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
   entrainement-02-puissances-racines-fractions-questions.js (même dossier) ; moteur et mise en page :
@@ -347,23 +355,57 @@ const QUIZ = {
   parties: ['Puissances, racines et fractions'],
   questions: [
 
-  /* ----- Niveau 1 : propriétés du cours et calculs directs ----- */
+  /* ----- Niveau 1 : calculs simples, en une ou deux étapes ----- */
 
-  { partie: 0, theme: 'Racine carrée', type: 'vf',
-    enonce: r`L'égalité $\sqrt{36 + 64} = \sqrt{36} + \sqrt{64}$ est vraie.`,
-    bonne: false,
+  { partie: 0, theme: 'Somme de fractions', type: 'qcm',
+    enonce: r`Le nombre $\dfrac{3}{4} + \dfrac{1}{8}$ est égal à&nbsp;:`,
+    choix: [r`$\dfrac{7}{8}$`, r`$\dfrac{4}{12}$`, r`$\dfrac{4}{8}$`, r`$\dfrac{3}{32}$`],
+    bonne: 0,
     explication: [
-      r`$\sqrt{a}$ est le nombre positif dont le carré est $a$&nbsp;: par exemple, $\sqrt{100} = 10$, car $10 \ge 0$ et $10^{2} = 100$. On calcule chaque membre.`,
-      calcul(r`\sqrt{36 + 64} & = \sqrt{100}`, r`& = 10`, r`\sqrt{36} + \sqrt{64} & = 6 + 8`, r`& = 14`),
-      r`Comme $10 \ne 14$, l'égalité est <span class="resultat">fausse</span>&nbsp;: il n'y a pas de règle pour la racine carrée d'une somme.`],
-    revoir: r`définition et propriétés de la racine carrée (partie 3 du cours), activité 3, exercices 15 p.&nbsp;98 et 59 p.&nbsp;101 du manuel`,
+      r`Pour additionner deux fractions, on les écrit avec le même dénominateur&nbsp;: $8$ est un multiple de $4$. On multiplie le numérateur et le dénominateur de $\dfrac{3}{4}$ par $2$, puis on additionne les numérateurs.`,
+      calcul(r`\dfrac{3}{4} + \dfrac{1}{8} & = \dfrac{3 \mul{\times 2}}{4 \mul{\times 2}} + \dfrac{1}{8}`, r`& = \dfrac{6}{8} + \dfrac{1}{8}`, r`& = \dfrac{6 + 1}{8}`, r`& = \resultat{\dfrac{7}{8}}`)],
+    revoir: r`méthode «&nbsp;additionner deux fractions&nbsp;» (partie 1 du cours), capacité 1 du cours (question 1), exercice 7 p.&nbsp;98 du manuel`,
     variante: {
-      enonce: r`L'égalité $\sqrt{4 \times 49} = \sqrt{4} \times \sqrt{49}$ est vraie.`,
-      bonne: true,
+      enonce: r`Le nombre $\dfrac{2}{5} + \dfrac{3}{10}$ est égal à&nbsp;:`,
+      choix: [r`$\dfrac{7}{10}$`, r`$\dfrac{5}{15}$`, r`$\dfrac{5}{10}$`, r`$\dfrac{6}{50}$`],
+      bonne: 0,
       explication: [
-        r`Pour $a \ge 0$ et $b \ge 0$, $\sqrt{a \times b} = \sqrt{a} \times \sqrt{b}$ (propriété démontrée dans le cours). On le vérifie en calculant chaque membre.`,
-        calcul(r`\sqrt{4 \times 49} & = \sqrt{196}`, r`& = 14`, r`\sqrt{4} \times \sqrt{49} & = 2 \times 7`, r`& = 14`),
-        r`Les deux membres valent $14$&nbsp;: l'égalité est <span class="resultat">vraie</span>.`] } },
+        r`Pour additionner deux fractions, on les écrit avec le même dénominateur&nbsp;: $10$ est un multiple de $5$. On multiplie le numérateur et le dénominateur de $\dfrac{2}{5}$ par $2$, puis on additionne les numérateurs.`,
+        calcul(r`\dfrac{2}{5} + \dfrac{3}{10} & = \dfrac{2 \mul{\times 2}}{5 \mul{\times 2}} + \dfrac{3}{10}`, r`& = \dfrac{4}{10} + \dfrac{3}{10}`, r`& = \dfrac{4 + 3}{10}`, r`& = \resultat{\dfrac{7}{10}}`)] } },
+
+  { partie: 0, theme: 'Produit de puissances', type: 'qcm',
+    enonce: r`Le nombre $2^{3} \times 2^{4}$ est égal à&nbsp;:`,
+    choix: [r`$2^{7}$`, r`$2^{12}$`, r`$4^{7}$`, r`$4^{12}$`],
+    bonne: 0,
+    explication: [
+      r`Pour multiplier deux puissances d'un même nombre, on garde ce nombre et on ajoute les exposants&nbsp;: $a^{n} \times a^{m} = a^{n + m}$.`,
+      calcul(r`2^{3} \times 2^{4} & = 2^{3 + 4}`, r`& = \resultat{2^{7}}`)],
+    revoir: r`règles de calcul (partie 2 du cours), capacité 2 du cours (question 4), exercice 11 p.&nbsp;98 du manuel`,
+    variante: {
+      enonce: r`Le nombre $5^{2} \times 5^{4}$ est égal à&nbsp;:`,
+      choix: [r`$5^{6}$`, r`$5^{8}$`, r`$25^{6}$`, r`$25^{8}$`],
+      bonne: 0,
+      explication: [
+        r`Pour multiplier deux puissances d'un même nombre, on garde ce nombre et on ajoute les exposants&nbsp;: $a^{n} \times a^{m} = a^{n + m}$.`,
+        calcul(r`5^{2} \times 5^{4} & = 5^{2 + 4}`, r`& = \resultat{5^{6}}`)] } },
+
+  { partie: 0, theme: 'Produit de racines', type: 'qcm',
+    enonce: r`Le nombre $\sqrt{2} \times \sqrt{8}$ est égal à&nbsp;:`,
+    choix: [r`$4$`, r`$\sqrt{10}$`, r`$16$`, r`$8$`],
+    bonne: 0,
+    explication: [
+      r`Pour $a \ge 0$ et $b \ge 0$, $\sqrt{a} \times \sqrt{b} = \sqrt{a \times b}$&nbsp;: on multiplie sous la racine, puis on reconnaît le carré parfait $16 = 4^{2}$.`,
+      calcul(r`\sqrt{2} \times \sqrt{8} & = \sqrt{2 \times 8}`, r`& = \sqrt{16}`, r`& = \resultat{4}`)],
+    revoir: r`racine carrée d'un produit (partie 3 du cours), activité 3 (question 1), exercice 15 p.&nbsp;98 du manuel`,
+    variante: {
+      enonce: r`Le nombre $\sqrt{3} \times \sqrt{12}$ est égal à&nbsp;:`,
+      choix: [r`$6$`, r`$\sqrt{15}$`, r`$36$`, r`$18$`],
+      bonne: 0,
+      explication: [
+        r`Pour $a \ge 0$ et $b \ge 0$, $\sqrt{a} \times \sqrt{b} = \sqrt{a \times b}$&nbsp;: on multiplie sous la racine, puis on reconnaît le carré parfait $36 = 6^{2}$.`,
+        calcul(r`\sqrt{3} \times \sqrt{12} & = \sqrt{3 \times 12}`, r`& = \sqrt{36}`, r`& = \resultat{6}`)] } },
+
+  /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
 
   { partie: 0, theme: 'Puissances et signe', type: 'qcm',
     enonce: r`On pose $A = -4^{2} + (-3)^{2}$. Alors $A$ est égal à&nbsp;:`,
@@ -381,24 +423,6 @@ const QUIZ = {
         r`Sans parenthèses, l'exposant ne porte que sur $5$&nbsp;: $-5^{2}$ est l'opposé de $5^{2}$. Avec les parenthèses, il porte sur $-4$&nbsp;: deux facteurs négatifs donnent un produit positif.`,
         calcul(r`A & = -(5 \times 5) + (-4) \times (-4)`, r`& = -25 + 16`, r`& = \resultat{-9}`)] } },
 
-  { partie: 0, theme: 'Simplifier une racine', type: 'qcm',
-    enonce: r`Écrit sous la forme $a\sqrt{b}$, avec $a$ et $b$ entiers et $b$ le plus petit possible, $\sqrt{180}$ est égal à&nbsp;:`,
-    choix: [r`$6\sqrt{5}$`, r`$3\sqrt{20}$`, r`$36\sqrt{5}$`, r`$5\sqrt{6}$`],
-    bonne: 0,
-    explication: [
-      r`On cherche le plus grand carré parfait qui divise $180$&nbsp;: c'est $36 = 6^{2}$, car $180 = 36 \times 5$. Puis $\sqrt{a \times b} = \sqrt{a} \times \sqrt{b}$.`,
-      calcul(r`\sqrt{180} & = \sqrt{36 \times 5}`, r`& = \sqrt{36} \times \sqrt{5}`, r`& = \resultat{6\sqrt{5}}`)],
-    revoir: r`méthode «&nbsp;extraire un carré parfait&nbsp;», capacité 3 du cours (questions 1 à 3), exercice 17 p.&nbsp;99 du manuel`,
-    variante: {
-      enonce: r`Écrit sous la forme $a\sqrt{b}$, avec $a$ et $b$ entiers et $b$ le plus petit possible, $\sqrt{128}$ est égal à&nbsp;:`,
-      choix: [r`$8\sqrt{2}$`, r`$4\sqrt{8}$`, r`$64\sqrt{2}$`, r`$2\sqrt{8}$`],
-      bonne: 0,
-      explication: [
-        r`On cherche le plus grand carré parfait qui divise $128$&nbsp;: c'est $64 = 8^{2}$, car $128 = 64 \times 2$. Puis $\sqrt{a \times b} = \sqrt{a} \times \sqrt{b}$.`,
-        calcul(r`\sqrt{128} & = \sqrt{64 \times 2}`, r`& = \sqrt{64} \times \sqrt{2}`, r`& = \resultat{8\sqrt{2}}`)] } },
-
-  /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
-
   { partie: 0, theme: 'Exposant négatif', type: 'qcm',
     enonce: r`Le nombre $\left(\dfrac{3}{5}\right)^{-2}$ est égal à&nbsp;:`,
     choix: [r`$\dfrac{25}{9}$`, r`$\dfrac{9}{25}$`, r`$-\dfrac{9}{25}$`, r`$-\dfrac{6}{5}$`],
@@ -414,22 +438,6 @@ const QUIZ = {
       explication: [
         r`Un exposant négatif donne l'inverse&nbsp;: $a^{-n} = \dfrac{1}{a^{n}}$ pour $a \ne 0$ (ici $a = \dfrac{2}{7}$). Le carré d'une fraction s'obtient en élevant au carré son numérateur et son dénominateur&nbsp;; diviser par $\dfrac{4}{49}$, c'est multiplier par son inverse $\dfrac{49}{4}$.`,
         calcul(r`\left(\dfrac{2}{7}\right)^{-2} & = \dfrac{1}{\left(\dfrac{2}{7}\right)^{2}}`, r`& = \dfrac{1}{\;\dfrac{2^{2}}{7^{2}}\;}`, r`& = \dfrac{1}{\;\dfrac{4}{49}\;}`, r`& = 1 \times \dfrac{49}{4}`, r`& = \resultat{\dfrac{49}{4}}`)] } },
-
-  { partie: 0, theme: 'Produit de puissances', type: 'qcm',
-    enonce: r`On pose $A = \dfrac{3^{4} \times 4^{4}}{12^{3}}$. Alors $A$ est égal à&nbsp;:`,
-    choix: [r`$12$`, r`$12^{5}$`, r`$12^{7}$`, r`$\dfrac{1}{12}$`],
-    bonne: 0,
-    explication: [
-      r`Les deux facteurs du numérateur ont le même exposant $4$&nbsp;: la règle $a^{n} \times b^{n} = (a \times b)^{n}$ les regroupe, et $3 \times 4 = 12$. Ensuite, pour diviser, on soustrait les exposants.`,
-      calcul(r`A & = \dfrac{(3 \times 4)^{4}}{12^{3}}`, r`& = \dfrac{12^{4}}{12^{3}}`, r`& = 12^{4 - 3}`, r`& = 12^{1}`, r`& = \resultat{12}`)],
-    revoir: r`règles de calcul, capacité 2 du cours (question 7), exercice 14 p.&nbsp;98 du manuel`,
-    variante: {
-      enonce: r`On pose $A = \dfrac{2^{5} \times 5^{5}}{10^{4}}$. Alors $A$ est égal à&nbsp;:`,
-      choix: [r`$10$`, r`$10^{6}$`, r`$10^{9}$`, r`$\dfrac{1}{10}$`],
-      bonne: 0,
-      explication: [
-        r`Les deux facteurs du numérateur ont le même exposant $5$&nbsp;: la règle $a^{n} \times b^{n} = (a \times b)^{n}$ les regroupe, et $2 \times 5 = 10$. Ensuite, pour diviser, on soustrait les exposants.`,
-        calcul(r`A & = \dfrac{(2 \times 5)^{5}}{10^{4}}`, r`& = \dfrac{10^{5}}{10^{4}}`, r`& = 10^{5 - 4}`, r`& = 10^{1}`, r`& = \resultat{10}`)] } },
 
   { partie: 0, theme: 'Quotient de fractions', type: 'qcm',
     enonce: r`On pose $B = \dfrac{\;\dfrac{3}{8}\;}{\;\dfrac{9}{4}\;}$. Sous forme de fraction irréductible, $B$ est égal à&nbsp;:`,
@@ -447,80 +455,23 @@ const QUIZ = {
         r`Diviser par une fraction, c'est multiplier par son inverse&nbsp;: l'inverse de $\dfrac{10}{3}$ est $\dfrac{3}{10}$. On écrit le produit, on l'effectue, puis on simplifie par $15$, car $120 = 8 \times 15$.`,
         calcul(r`B & = \dfrac{5}{12} \times \dfrac{3}{10}`, r`& = \dfrac{5 \times 3}{12 \times 10}`, r`& = \dfrac{15}{120}`, r`& = \dfrac{1 \mul{\times 15}}{8 \mul{\times 15}}`, r`& = \resultat{\dfrac{1}{8}}`)] } },
 
-  { partie: 0, theme: 'Valeurs interdites', type: 'qcm',
-    enonce: r`Les valeurs interdites de l'expression $E = \dfrac{x + 1}{x - 4} + \dfrac{3}{2x + 5}$ sont&nbsp;:`,
-    choix: [r`$4$ et $-\dfrac{5}{2}$`, r`$-1$, $4$ et $-\dfrac{5}{2}$`, r`$-4$ et $\dfrac{5}{2}$`, r`$4$ et $-\dfrac{2}{5}$`],
+  { partie: 0, theme: 'Regrouper des puissances', type: 'qcm',
+    enonce: r`On pose $A = \dfrac{3^{4} \times 4^{4}}{12^{3}}$. Alors $A$ est égal à&nbsp;:`,
+    choix: [r`$12$`, r`$12^{5}$`, r`$12^{7}$`, r`$\dfrac{1}{12}$`],
     bonne: 0,
     explication: [
-      r`Une valeur interdite annule un <b>dénominateur</b> (et non un numérateur)&nbsp;: on résout $x - 4 = 0$ et $2x + 5 = 0$.`,
-      r`D'abord, $x - 4 = 0$ pour $x = 4$. Ensuite&nbsp;:`,
-      calcul(r`2x + 5 = 0 & \iff 2x + 5 \op{- 5} = 0 \op{- 5}`, r`& \iff 2x = -5`, r`& \iff \dfrac{2x}{\op{2}} = \dfrac{-5}{\op{2}}`, r`& \iff x = -\dfrac{5}{2}`),
-      r`Les valeurs interdites sont <span class="resultat">$4$ et $-\dfrac{5}{2}$</span>.`],
-    revoir: r`définition d'une valeur interdite, capacité 1 du cours (questions 4 à 6)`,
+      r`Les deux facteurs du numérateur ont le même exposant $4$&nbsp;: la règle $a^{n} \times b^{n} = (a \times b)^{n}$ les regroupe, et $3 \times 4 = 12$. Ensuite, pour diviser, on soustrait les exposants.`,
+      calcul(r`A & = \dfrac{(3 \times 4)^{4}}{12^{3}}`, r`& = \dfrac{12^{4}}{12^{3}}`, r`& = 12^{4 - 3}`, r`& = 12^{1}`, r`& = \resultat{12}`)],
+    revoir: r`règles de calcul, capacité 2 du cours (question 7), exercice 14 p.&nbsp;98 du manuel`,
     variante: {
-      enonce: r`Les valeurs interdites de l'expression $E = \dfrac{2}{x + 3} - \dfrac{x - 2}{3x - 1}$ sont&nbsp;:`,
-      choix: [r`$-3$ et $\dfrac{1}{3}$`, r`$-3$, $\dfrac{1}{3}$ et $2$`, r`$3$ et $-\dfrac{1}{3}$`, r`$-3$ et $3$`],
+      enonce: r`On pose $A = \dfrac{2^{5} \times 5^{5}}{10^{4}}$. Alors $A$ est égal à&nbsp;:`,
+      choix: [r`$10$`, r`$10^{6}$`, r`$10^{9}$`, r`$\dfrac{1}{10}$`],
       bonne: 0,
       explication: [
-        r`Une valeur interdite annule un <b>dénominateur</b> (et non un numérateur)&nbsp;: on résout $x + 3 = 0$ et $3x - 1 = 0$.`,
-        r`D'abord, $x + 3 = 0$ pour $x = -3$. Ensuite&nbsp;:`,
-        calcul(r`3x - 1 = 0 & \iff 3x - 1 \op{+ 1} = 0 \op{+ 1}`, r`& \iff 3x = 1`, r`& \iff \dfrac{3x}{\op{3}} = \dfrac{1}{\op{3}}`, r`& \iff x = \dfrac{1}{3}`),
-        r`Les valeurs interdites sont <span class="resultat">$-3$ et $\dfrac{1}{3}$</span>.`] } },
+        r`Les deux facteurs du numérateur ont le même exposant $5$&nbsp;: la règle $a^{n} \times b^{n} = (a \times b)^{n}$ les regroupe, et $2 \times 5 = 10$. Ensuite, pour diviser, on soustrait les exposants.`,
+        calcul(r`A & = \dfrac{(2 \times 5)^{5}}{10^{4}}`, r`& = \dfrac{10^{5}}{10^{4}}`, r`& = 10^{5 - 4}`, r`& = 10^{1}`, r`& = \resultat{10}`)] } },
 
-  { partie: 0, theme: 'Réduire', type: 'qcm',
-    enonce: r`On pose $A = 2\sqrt{18} - \sqrt{50} + \sqrt{8}$. Écrit le plus simplement possible, $A$ est égal à&nbsp;:`,
-    choix: [r`$3\sqrt{2}$`, r`$0$`, r`$15\sqrt{2}$`, r`$-\sqrt{2}$`],
-    bonne: 0,
-    explication: [
-      r`On écrit chaque racine sous la forme $a\sqrt{2}$ ($18 = 9 \times 2$, $50 = 25 \times 2$ et $8 = 4 \times 2$), puis on regroupe les termes en $\sqrt{2}$, comme des termes en $x$.`,
-      calcul(r`A & = 2\sqrt{9 \times 2} - \sqrt{25 \times 2} + \sqrt{4 \times 2}`, r`& = 2\sqrt{9} \times \sqrt{2} - \sqrt{25} \times \sqrt{2} + \sqrt{4} \times \sqrt{2}`,
-        r`& = 2 \times 3\sqrt{2} - 5\sqrt{2} + 2\sqrt{2}`, r`& = 6\sqrt{2} - 5\sqrt{2} + 2\sqrt{2}`, r`& = (6 - 5 + 2)\sqrt{2}`, r`& = \resultat{3\sqrt{2}}`)],
-    revoir: r`capacité 3 du cours (questions 4 et 5), exercice 63 p.&nbsp;101 et top chrono 146 p.&nbsp;106 du manuel`,
-    variante: {
-      enonce: r`On pose $A = 3\sqrt{12} - \sqrt{75} + \sqrt{27}$. Écrit le plus simplement possible, $A$ est égal à&nbsp;:`,
-      choix: [r`$4\sqrt{3}$`, r`$0$`, r`$10\sqrt{3}$`, r`$-2\sqrt{3}$`],
-      bonne: 0,
-      explication: [
-        r`On écrit chaque racine sous la forme $a\sqrt{3}$ ($12 = 4 \times 3$, $75 = 25 \times 3$ et $27 = 9 \times 3$), puis on regroupe les termes en $\sqrt{3}$, comme des termes en $x$.`,
-        calcul(r`A & = 3\sqrt{4 \times 3} - \sqrt{25 \times 3} + \sqrt{9 \times 3}`, r`& = 3\sqrt{4} \times \sqrt{3} - \sqrt{25} \times \sqrt{3} + \sqrt{9} \times \sqrt{3}`,
-          r`& = 3 \times 2\sqrt{3} - 5\sqrt{3} + 3\sqrt{3}`, r`& = 6\sqrt{3} - 5\sqrt{3} + 3\sqrt{3}`, r`& = (6 - 5 + 3)\sqrt{3}`, r`& = \resultat{4\sqrt{3}}`)] } },
-
-  /* ----- Niveau 3 : calculs en plusieurs étapes, pièges et synthèse ----- */
-
-  { partie: 0, theme: 'Développer', type: 'qcm',
-    enonce: r`La forme développée et réduite de $A = \left(3\sqrt{2} - 1\right)^{2}$ est&nbsp;:`,
-    choix: [r`$19 - 6\sqrt{2}$`, r`$17$`, r`$7 - 6\sqrt{2}$`, r`$19 - 3\sqrt{2}$`],
-    bonne: 0,
-    explication: [
-      r`Identité remarquable $(a - b)^{2} = a^{2} - 2ab + b^{2}$ avec $a = 3\sqrt{2}$ et $b = 1$. Le carré porte sur les deux facteurs&nbsp;: $\left(3\sqrt{2}\right)^{2} = 3^{2} \times \left(\sqrt{2}\right)^{2}$.`,
-      calcul(r`A & = \left(3\sqrt{2}\right)^{2} - 2 \times 3\sqrt{2} \times 1 + 1^{2}`, r`& = 3^{2} \times \left(\sqrt{2}\right)^{2} - 6\sqrt{2} + 1`, r`& = 9 \times 2 - 6\sqrt{2} + 1`,
-        r`& = 18 - 6\sqrt{2} + 1`, r`& = 18 + 1 - 6\sqrt{2}`, r`& = \resultat{19 - 6\sqrt{2}}`)],
-    revoir: r`méthode «&nbsp;développer&nbsp;» de la partie 3, capacité 4 du cours, exercice 67 p.&nbsp;102 du manuel`,
-    variante: {
-      enonce: r`La forme développée et réduite de $A = \left(3\sqrt{5} - 4\right)\left(3\sqrt{5} + 4\right)$ est&nbsp;:`,
-      choix: [r`$29$`, r`$-1$`, r`$61$`, r`$9\sqrt{5} - 16$`],
-      bonne: 0,
-      explication: [
-        r`Identité remarquable $(a - b)(a + b) = a^{2} - b^{2}$ avec $a = 3\sqrt{5}$ et $b = 4$. Le carré porte sur les deux facteurs&nbsp;: $\left(3\sqrt{5}\right)^{2} = 3^{2} \times \left(\sqrt{5}\right)^{2}$.`,
-        calcul(r`A & = \left(3\sqrt{5}\right)^{2} - 4^{2}`, r`& = 3^{2} \times \left(\sqrt{5}\right)^{2} - 16`, r`& = 9 \times 5 - 16`, r`& = 45 - 16`, r`& = \resultat{29}`)] } },
-
-  { partie: 0, theme: 'Règles de calcul', type: 'qcm',
-    enonce: r`On pose $A = \dfrac{\left(5^{2}\right)^{3} \times 5^{-4}}{5^{-1}}$. Alors $A$ est égal à&nbsp;:`,
-    choix: [r`$125$`, r`$5$`, r`$25$`, r`$\dfrac{1}{125}$`],
-    bonne: 0,
-    explication: [
-      r`Puissance d'une puissance&nbsp;: on multiplie les exposants. Produit&nbsp;: on ajoute les exposants. Quotient&nbsp;: on soustrait l'exposant du dénominateur. À chaque fois, on écrit l'opération sur les exposants, puis on l'effectue.`,
-      calcul(r`A & = \dfrac{5^{2 \times 3} \times 5^{-4}}{5^{-1}}`, r`& = \dfrac{5^{6} \times 5^{-4}}{5^{-1}}`, r`& = \dfrac{5^{6 + (-4)}}{5^{-1}}`, r`& = \dfrac{5^{2}}{5^{-1}}`,
-        r`& = 5^{2 - (-1)}`, r`& = 5^{2 + 1}`, r`& = 5^{3}`, r`& = 5 \times 5 \times 5`, r`& = \resultat{125}`)],
-    revoir: r`règles de calcul, capacité 2 du cours (questions 6, 8 et 9), exercice 49 p.&nbsp;100 du manuel`,
-    variante: {
-      enonce: r`On pose $A = \dfrac{\left(2^{3}\right)^{2} \times 2^{-5}}{2^{-2}}$. Alors $A$ est égal à&nbsp;:`,
-      choix: [r`$8$`, r`$\dfrac{1}{2}$`, r`$4$`, r`$\dfrac{1}{8}$`],
-      bonne: 0,
-      explication: [
-        r`Puissance d'une puissance&nbsp;: on multiplie les exposants. Produit&nbsp;: on ajoute les exposants. Quotient&nbsp;: on soustrait l'exposant du dénominateur. À chaque fois, on écrit l'opération sur les exposants, puis on l'effectue.`,
-        calcul(r`A & = \dfrac{2^{3 \times 2} \times 2^{-5}}{2^{-2}}`, r`& = \dfrac{2^{6} \times 2^{-5}}{2^{-2}}`, r`& = \dfrac{2^{6 + (-5)}}{2^{-2}}`, r`& = \dfrac{2^{1}}{2^{-2}}`,
-          r`& = 2^{1 - (-2)}`, r`& = 2^{1 + 2}`, r`& = 2^{3}`, r`& = 2 \times 2 \times 2`, r`& = \resultat{8}`)] } },
+  /* ----- Niveau 3 : calculs en plusieurs étapes et réflexion ----- */
 
   { partie: 0, theme: 'Fractions et priorités', type: 'qcm',
     enonce: r`On pose $A = \dfrac{7}{6} - \dfrac{2}{3} \times \dfrac{3}{8}$. Sous forme de fraction irréductible, $A$ est égal à&nbsp;:`,
@@ -544,23 +495,77 @@ const QUIZ = {
           r`& = \dfrac{5}{4} - \dfrac{1 \mul{\times 2}}{2 \mul{\times 2}}`,
           r`& = \dfrac{5}{4} - \dfrac{2}{4}`, r`& = \dfrac{5 - 2}{4}`, r`& = \resultat{\dfrac{3}{4}}`)] } },
 
-  { partie: 0, theme: 'Une seule fraction', type: 'qcm',
-    enonce: r`Pour $x \ne 0$ et $x \ne -2$, on pose $E = \dfrac{3}{x} - \dfrac{1}{x + 2}$. Sous la forme d'une seule fraction, $E$ est égal à&nbsp;:`,
-    choix: [r`$\dfrac{2x + 6}{x(x + 2)}$`, r`$\dfrac{2}{x(x + 2)}$`, r`$\dfrac{4x + 6}{x(x + 2)}$`, r`$\dfrac{2}{2x + 2}$`],
+  { partie: 0, theme: 'Valeur interdite', type: 'qcm',
+    enonce: r`On pose $E = 2 - \dfrac{5}{x + 3}$. La valeur interdite de $E$, puis $E$ écrit sous la forme d'une seule fraction, sont&nbsp;:`,
+    choix: [r`$-3$ et $\dfrac{2x + 1}{x + 3}$`, r`$3$ et $\dfrac{2x + 1}{x + 3}$`, r`$-3$ et $\dfrac{-3}{x + 3}$`, r`$-3$ et $\dfrac{2x - 2}{x + 3}$`],
     bonne: 0,
     explication: [
-      r`Le dénominateur commun est le produit $x(x + 2)$&nbsp;: on multiplie chaque fraction, en haut et en bas, par le dénominateur de l'autre, non nul car $x \ne 0$ et $x \ne -2$&nbsp;; on développe, puis on soustrait les numérateurs.`,
-      calcul(r`E & = \dfrac{3 \mul{\times (x + 2)}}{x \mul{\times (x + 2)}} - \dfrac{1 \mul{\times x}}{(x + 2) \mul{\times x}}`, r`& = \dfrac{3 \times x + 3 \times 2}{x(x + 2)} - \dfrac{x}{x(x + 2)}`,
-        r`& = \dfrac{3x + 6}{x(x + 2)} - \dfrac{x}{x(x + 2)}`, r`& = \dfrac{3x + 6 - x}{x(x + 2)}`, r`& = \dfrac{3x - x + 6}{x(x + 2)}`, r`& = \resultat{\dfrac{2x + 6}{x(x + 2)}}`)],
-    revoir: r`méthode «&nbsp;additionner deux fractions&nbsp;», capacité 1 du cours (questions 4 et 6), exercice 44 p.&nbsp;100 du manuel`,
+      r`Une valeur interdite annule le <b>dénominateur</b>&nbsp;: $x + 3 = 0$ pour $x = -3$.`,
+      r`Pour $x \ne -3$, on écrit $2$ comme une fraction de dénominateur $x + 3$, puis on soustrait les numérateurs.`,
+      calcul(r`E & = \dfrac{2 \mul{\times (x + 3)}}{1 \mul{\times (x + 3)}} - \dfrac{5}{x + 3}`, r`& = \dfrac{2 \times x + 2 \times 3}{x + 3} - \dfrac{5}{x + 3}`,
+        r`& = \dfrac{2x + 6}{x + 3} - \dfrac{5}{x + 3}`, r`& = \dfrac{2x + 6 - 5}{x + 3}`, r`& = \dfrac{2x + 1}{x + 3}`),
+      r`La valeur interdite et l'écriture de $E$ sont <span class="resultat">$-3$ et $\dfrac{2x + 1}{x + 3}$</span>.`],
+    revoir: r`définition d'une valeur interdite (partie 1 du cours), capacité 1 du cours (question 5), exercice 10 p.&nbsp;98 du manuel`,
     variante: {
-      enonce: r`Pour $x \ne 1$ et $x \ne 0$, on pose $E = \dfrac{2}{x - 1} + \dfrac{5}{x}$. Sous la forme d'une seule fraction, $E$ est égal à&nbsp;:`,
-      choix: [r`$\dfrac{7x - 5}{x(x - 1)}$`, r`$\dfrac{7}{x(x - 1)}$`, r`$\dfrac{7x - 1}{x(x - 1)}$`, r`$\dfrac{7}{2x - 1}$`],
+      enonce: r`On pose $E = 3 - \dfrac{4}{x - 2}$. La valeur interdite de $E$, puis $E$ écrit sous la forme d'une seule fraction, sont&nbsp;:`,
+      choix: [r`$2$ et $\dfrac{3x - 10}{x - 2}$`, r`$-2$ et $\dfrac{3x - 10}{x - 2}$`, r`$2$ et $\dfrac{-1}{x - 2}$`, r`$2$ et $\dfrac{3x - 6}{x - 2}$`],
       bonne: 0,
       explication: [
-        r`Le dénominateur commun est le produit $x(x - 1)$&nbsp;: on multiplie chaque fraction, en haut et en bas, par le dénominateur de l'autre, non nul car $x \ne 1$ et $x \ne 0$&nbsp;; on développe, puis on additionne les numérateurs.`,
-        calcul(r`E & = \dfrac{2 \mul{\times x}}{(x - 1) \mul{\times x}} + \dfrac{5 \mul{\times (x - 1)}}{x \mul{\times (x - 1)}}`, r`& = \dfrac{2x}{x(x - 1)} + \dfrac{5 \times x - 5 \times 1}{x(x - 1)}`,
-          r`& = \dfrac{2x}{x(x - 1)} + \dfrac{5x - 5}{x(x - 1)}`, r`& = \dfrac{2x + 5x - 5}{x(x - 1)}`, r`& = \resultat{\dfrac{7x - 5}{x(x - 1)}}`)] } }
+        r`Une valeur interdite annule le <b>dénominateur</b>&nbsp;: $x - 2 = 0$ pour $x = 2$.`,
+        r`Pour $x \ne 2$, on écrit $3$ comme une fraction de dénominateur $x - 2$, puis on soustrait les numérateurs.`,
+        calcul(r`E & = \dfrac{3 \mul{\times (x - 2)}}{1 \mul{\times (x - 2)}} - \dfrac{4}{x - 2}`, r`& = \dfrac{3 \times x - 3 \times 2}{x - 2} - \dfrac{4}{x - 2}`,
+          r`& = \dfrac{3x - 6}{x - 2} - \dfrac{4}{x - 2}`, r`& = \dfrac{3x - 6 - 4}{x - 2}`, r`& = \dfrac{3x - 10}{x - 2}`),
+        r`La valeur interdite et l'écriture de $E$ sont <span class="resultat">$2$ et $\dfrac{3x - 10}{x - 2}$</span>.`] } },
+
+  { partie: 0, theme: 'Réduire', type: 'qcm',
+    enonce: r`On pose $A = 2\sqrt{18} - \sqrt{50} + \sqrt{8}$. Écrit le plus simplement possible, $A$ est égal à&nbsp;:`,
+    choix: [r`$3\sqrt{2}$`, r`$0$`, r`$15\sqrt{2}$`, r`$-\sqrt{2}$`],
+    bonne: 0,
+    explication: [
+      r`On écrit chaque racine sous la forme $a\sqrt{2}$ ($18 = 9 \times 2$, $50 = 25 \times 2$ et $8 = 4 \times 2$), puis on regroupe les termes en $\sqrt{2}$, comme des termes en $x$.`,
+      calcul(r`A & = 2\sqrt{9 \times 2} - \sqrt{25 \times 2} + \sqrt{4 \times 2}`, r`& = 2\sqrt{9} \times \sqrt{2} - \sqrt{25} \times \sqrt{2} + \sqrt{4} \times \sqrt{2}`,
+        r`& = 2 \times 3\sqrt{2} - 5\sqrt{2} + 2\sqrt{2}`, r`& = 6\sqrt{2} - 5\sqrt{2} + 2\sqrt{2}`, r`& = (6 - 5 + 2)\sqrt{2}`, r`& = \resultat{3\sqrt{2}}`)],
+    revoir: r`capacité 3 du cours (questions 4 et 5), exercice 63 p.&nbsp;101 et top chrono 146 p.&nbsp;106 du manuel`,
+    variante: {
+      enonce: r`On pose $A = 3\sqrt{12} - \sqrt{75} + \sqrt{27}$. Écrit le plus simplement possible, $A$ est égal à&nbsp;:`,
+      choix: [r`$4\sqrt{3}$`, r`$0$`, r`$10\sqrt{3}$`, r`$-2\sqrt{3}$`],
+      bonne: 0,
+      explication: [
+        r`On écrit chaque racine sous la forme $a\sqrt{3}$ ($12 = 4 \times 3$, $75 = 25 \times 3$ et $27 = 9 \times 3$), puis on regroupe les termes en $\sqrt{3}$, comme des termes en $x$.`,
+        calcul(r`A & = 3\sqrt{4 \times 3} - \sqrt{25 \times 3} + \sqrt{9 \times 3}`, r`& = 3\sqrt{4} \times \sqrt{3} - \sqrt{25} \times \sqrt{3} + \sqrt{9} \times \sqrt{3}`,
+          r`& = 3 \times 2\sqrt{3} - 5\sqrt{3} + 3\sqrt{3}`, r`& = 6\sqrt{3} - 5\sqrt{3} + 3\sqrt{3}`, r`& = (6 - 5 + 3)\sqrt{3}`, r`& = \resultat{4\sqrt{3}}`)] } },
+
+  { partie: 0, theme: 'Développer', type: 'qcm',
+    enonce: r`La forme développée et réduite de $A = \left(3\sqrt{5} - 4\right)\left(3\sqrt{5} + 4\right)$ est&nbsp;:`,
+    choix: [r`$29$`, r`$-1$`, r`$61$`, r`$9\sqrt{5} - 16$`],
+    bonne: 0,
+    explication: [
+      r`Identité remarquable $(a - b)(a + b) = a^{2} - b^{2}$ avec $a = 3\sqrt{5}$ et $b = 4$. Le carré porte sur les deux facteurs&nbsp;: $\left(3\sqrt{5}\right)^{2} = 3^{2} \times \left(\sqrt{5}\right)^{2}$.`,
+      calcul(r`A & = \left(3\sqrt{5}\right)^{2} - 4^{2}`, r`& = 3^{2} \times \left(\sqrt{5}\right)^{2} - 16`, r`& = 9 \times 5 - 16`, r`& = 45 - 16`, r`& = \resultat{29}`)],
+    revoir: r`méthode «&nbsp;développer&nbsp;» de la partie 3, capacité 4 du cours (question 3), exercice 67 p.&nbsp;102 du manuel`,
+    variante: {
+      enonce: r`La forme développée et réduite de $A = \left(4\sqrt{2} - 3\right)\left(4\sqrt{2} + 3\right)$ est&nbsp;:`,
+      choix: [r`$23$`, r`$-1$`, r`$41$`, r`$8\sqrt{2} - 9$`],
+      bonne: 0,
+      explication: [
+        r`Identité remarquable $(a - b)(a + b) = a^{2} - b^{2}$ avec $a = 4\sqrt{2}$ et $b = 3$. Le carré porte sur les deux facteurs&nbsp;: $\left(4\sqrt{2}\right)^{2} = 4^{2} \times \left(\sqrt{2}\right)^{2}$.`,
+        calcul(r`A & = \left(4\sqrt{2}\right)^{2} - 3^{2}`, r`& = 4^{2} \times \left(\sqrt{2}\right)^{2} - 9`, r`& = 16 \times 2 - 9`, r`& = 32 - 9`, r`& = \resultat{23}`)] } },
+
+  { partie: 0, theme: 'Contre-exemple', type: 'vf',
+    enonce: r`L'égalité $\dfrac{x + 7}{x} = 7$ est vraie pour tout réel $x$ non nul.`,
+    bonne: false,
+    explication: [
+      r`Pour montrer qu'une égalité n'est pas vraie pour tout réel $x$, il suffit d'un contre-exemple&nbsp;: une valeur de $x$ pour laquelle elle est fausse. On essaie $x = 1$.`,
+      calcul(r`\dfrac{1 + 7}{1} & = \dfrac{8}{1}`, r`& = 8`),
+      r`Comme $8 \ne 7$, l'égalité est fausse pour $x = 1$&nbsp;: l'affirmation est <span class="resultat">fausse</span>.`],
+    revoir: r`fractions égales, $\dfrac{a \times k}{b \times k} = \dfrac{a}{b}$ (partie 1 du cours), vrai ou faux de l'exercice 7 p.&nbsp;98 et de «&nbsp;Faire le point&nbsp;» p.&nbsp;107 du manuel`,
+    variante: {
+      enonce: r`L'égalité $\dfrac{x + 4}{x} = 4$ est vraie pour tout réel $x$ non nul.`,
+      bonne: false,
+      explication: [
+        r`Pour montrer qu'une égalité n'est pas vraie pour tout réel $x$, il suffit d'un contre-exemple&nbsp;: une valeur de $x$ pour laquelle elle est fausse. On essaie $x = 1$.`,
+        calcul(r`\dfrac{1 + 4}{1} & = \dfrac{5}{1}`, r`& = 5`),
+        r`Comme $5 \ne 4$, l'égalité est fausse pour $x = 1$&nbsp;: l'affirmation est <span class="resultat">fausse</span>.`] } }
   ]
 };
 

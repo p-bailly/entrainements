@@ -8,34 +8,34 @@
 <meta name="theme-color" content="#FFFFFF">
 <title>Entraînement Évaluation nombres réels</title>
 <!--
-  Entraînement auto-corrigé à l'évaluation du chapitre 3 (Nombres réels) - Seconde.
-  Une seule partie, douze questions, sans automatismes (demande du professeur pour la
+  Entraînement auto-corrigé à l'évaluation du chapitre 3 (Nombres réels : ensembles de nombres)
+  - Seconde. Une seule partie, onze questions, sans automatismes (demande du professeur pour la
   Seconde), rangées par difficulté croissante, en trois niveaux :
     - niveau 1, questions de cours et lectures directes : définition d'un nombre décimal
-      (a/10^n ; variante : nombre rationnel), lire une abscisse, chiffres significatifs,
-      troncature et arrondi d'un affichage de la calculatrice ;
+      (a/10^n ; variante : nombre rationnel), lire une abscisse, symbole * (N* ; variante : Z*),
+      ensemble vide (aucun entier entre deux entiers consécutifs) ;
     - niveau 2, méthodes en deux ou trois étapes : placer -racine de 3, milieu d'un segment,
-      arrondir un résultat avec un nombre de chiffres significatifs adapté, nature d'un
-      nombre (division posée), encadrer un quotient (division posée) ;
+      nature d'un nombre (division posée), écrire en liste les entiers compris entre deux
+      bornes (comprises ou exclues) ;
     - niveau 3, pièges et synthèse : vrai ou faux avec contre-exemple (l'inverse d'un entier
-      n'est pas toujours décimal), encadrer une racine carrée en comparant des carrés
-      (balayage), appartenance et inclusion (une seule affirmation fausse parmi quatre).
-  Sources : cours (définitions formelles : décimal a/10^n, rationnel a/b, réels abscisses des
-  points de la droite, irrationnel ; encadrement, troncature, arrondi), capacités 1 à 3,
-  activités 1 et 2, fiche (exercices 1 à 5), évaluation (sujets A et B) et exercices du manuel
-  cités dans le plan (1 p. 50, 34, 35, 37 et 38 p. 65, 113 et 121 p. 69, 178 et 181 p. 75,
-  questions 5 à 7 p. 73).
-  La question de cours sur la définition d'un décimal remplace l'ancienne question
-  « encadrement de racine de 23 à 10^(-2) à partir de l'affichage », redondante avec la
-  troncature (même lecture de l'affichage, l'encadrement est rappelé dans sa correction) et
-  avec l'encadrement d'un quotient.
+      n'est pas toujours décimal), raisonnement par l'absurde de la démonstration « 1/3 n'est
+      pas décimal » (variante : 2/3), appartenance et inclusion (une seule affirmation fausse
+      parmi quatre).
+  Depuis le 26/09/2026, le chapitre ne traite que les ensembles de nombres : les cinq questions
+  sur les encadrements, la troncature, l'arrondi et les chiffres significatifs sont passées à
+  l'entraînement du chapitre 5, remplacées ici par les notations (symbole *, ensemble vide,
+  ensemble en liste) et la démonstration du cours.
+  Sources : cours (définitions formelles : décimal a/10^n, rationnel a/b, réels, irrationnels,
+  droite numérique ; notations appartenance, inclusion, ensemble vide, symbole *), capacités 1
+  et 2, activité 1, fiche (exercices 1 à 5), évaluation (sujets A et B) et exercices du manuel
+  cités dans le plan (1 p. 50, 34, 35, 37 et 38 p. 65, 113 et 121 p. 69, question 5 p. 73).
   Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
-  Calculatrice interdite, comme à l'évaluation : les affichages utiles sont donnés. Ni
-  intervalle ni valeur absolue (chapitre 5).
-  Calculs détaillés, une transformation par ligne : produit de décimaux décomposé
-  (3,1 x 3,1 = 3,1 x 3 + 3,1 x 0,1), simplification avec le facteur commun en violet.
+  Calculatrice interdite, comme à l'évaluation. Ni intervalle ni valeur absolue (chapitre 5).
+  Calculs détaillés, une transformation par ligne, simplification avec le facteur commun en
+  violet, opération faite des deux côtés en rouge.
   Ensembles de nombres : \N, \Z et \R, compris par KaTeX et par le mini-LaTeX de secours ;
-  𝔻 et ℚ en caractères Unicode, que les deux affichent aussi (de même que ⊂).
+  𝔻, ℚ, ⊂ et ∅ en caractères Unicode, que les deux affichent aussi. L'étoile s'écrit
+  ^{\text{*}} : le mini-LaTeX changerait un * seul en signe ×.
   Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
   questions manquées.
 
@@ -246,7 +246,7 @@ table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
     <p class="meta" id="intro-num"></p>
     <h1 id="intro-titre">Chapitre 3 · Nombres réels</h1>
     <p class="sous">Entraînement à l'évaluation</p>
-    <p>Douze questions sur les nombres réels. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
+    <p>Onze questions sur les ensembles de nombres. Une seule réponse est exacte à chaque fois. À faire sans calculatrice.</p>
   </section>
   <div id="ecran" aria-live="polite"></div>
 </main>
@@ -442,39 +442,39 @@ const QUIZ = {
         calcul(r`x_{B} & = 11 \times \dfrac{1}{4}`, r`& = \dfrac{11}{4}`, r`& = 2{,}75`),
         r`L'abscisse de $B$ est <span class="resultat">$2{,}75$, soit $\dfrac{11}{4}$</span>&nbsp;; la fraction est irréductible, car $11$ est impair.`] } },
 
-  { partie: 0, theme: 'Chiffres significatifs', type: 'qcm',
-    enonce: r`Combien de chiffres significatifs le nombre $0{,}02050$ a-t-il&nbsp;?`,
-    choix: [r`$4$`, r`$3$`, r`$5$`, r`$6$`],
+  { partie: 0, theme: 'Symbole *', type: 'qcm',
+    enonce: r`L'ensemble $\N^{\text{*}}$ est&nbsp;:`,
+    choix: [r`$\{1\,;\,2\,;\,3\,;\,\ldots\}$`, r`$\{0\,;\,1\,;\,2\,;\,3\,;\,\ldots\}$`,
+            r`$\{\ldots\,;\,-2\,;\,-1\,;\,1\,;\,2\,;\,\ldots\}$`, r`$\{0\}$`],
     bonne: 0,
     explication: [
-      r`On compte les chiffres à partir du premier chiffre non nul&nbsp;; les zéros placés après lui comptent, même le zéro final.`,
-      r`Dans $0{,}02050$, le premier chiffre non nul est $2$&nbsp;: les chiffres significatifs sont $2$, $0$, $5$ et $0$, soit <span class="resultat">$4$ chiffres significatifs</span>.`],
-    revoir: r`définition des chiffres significatifs (partie 4 du cours), capacité 3, exercice 5 de la fiche`,
+      r`Le symbole * placé en exposant exclut $0$&nbsp;: $\N^{\text{*}}$ est l'ensemble des entiers naturels non nuls.`,
+      r`Donc <span class="resultat">$\N^{\text{*}} = \{1\,;\,2\,;\,3\,;\,\ldots\}$</span>.`],
+    revoir: r`notation «&nbsp;ensemble vide, symbole *&nbsp;» (partie 1 du cours), exercice 4 de la fiche`,
     variante: {
-      enonce: r`Combien de chiffres significatifs le nombre $0{,}00340$ a-t-il&nbsp;?`,
-      choix: [r`$3$`, r`$2$`, r`$5$`, r`$6$`],
+      enonce: r`L'ensemble $\Z^{\text{*}}$ est&nbsp;:`,
+      choix: [r`$\{\ldots\,;\,-2\,;\,-1\,;\,1\,;\,2\,;\,\ldots\}$`, r`$\{1\,;\,2\,;\,3\,;\,\ldots\}$`,
+              r`$\{\ldots\,;\,-2\,;\,-1\,;\,0\,;\,1\,;\,2\,;\,\ldots\}$`, r`$\{\ldots\,;\,-3\,;\,-2\,;\,-1\}$`],
       bonne: 0,
       explication: [
-        r`On compte les chiffres à partir du premier chiffre non nul&nbsp;; les zéros placés après lui comptent, même le zéro final.`,
-        r`Dans $0{,}00340$, le premier chiffre non nul est $3$&nbsp;: les chiffres significatifs sont $3$, $4$ et $0$, soit <span class="resultat">$3$ chiffres significatifs</span>.`] } },
+        r`Le symbole * placé en exposant exclut $0$&nbsp;: $\Z^{\text{*}}$ est l'ensemble des entiers relatifs non nuls, positifs ou négatifs.`,
+        r`Donc <span class="resultat">$\Z^{\text{*}} = \{\ldots\,;\,-2\,;\,-1\,;\,1\,;\,2\,;\,\ldots\}$</span>.`] } },
 
-  { partie: 0, theme: 'Troncature et arrondi', type: 'qcm',
-    enonce: r`La calculatrice affiche $\sqrt{89} \approx 9{,}433981132$. La troncature et l'arrondi de $\sqrt{89}$ à $10^{-3}$ près sont&nbsp;:`,
-    choix: [r`troncature $9{,}433$&nbsp;; arrondi $9{,}434$`, r`troncature $9{,}434$&nbsp;; arrondi $9{,}434$`, r`troncature $9{,}433$&nbsp;; arrondi $9{,}433$`, r`troncature $9{,}434$&nbsp;; arrondi $9{,}433$`],
+  { partie: 0, theme: 'Ensemble vide', type: 'qcm',
+    enonce: r`L'ensemble des entiers naturels $x$ tels que $3 < x < 4$ est&nbsp;:`,
+    choix: [r`$∅$`, r`$\{0\}$`, r`$\{3\,;\,4\}$`, r`$\{3{,}5\}$`],
     bonne: 0,
     explication: [
-      r`La troncature à $10^{-3}$ près du réel positif $\sqrt{89}$ garde les trois premiers chiffres après la virgule, sans rien changer&nbsp;: $9{,}433$. C'est la borne inférieure de l'encadrement $9{,}433 < \sqrt{89} < 9{,}434$, d'amplitude $10^{-3}$.`,
-      r`Pour l'arrondi, on regarde le chiffre suivant, la quatrième décimale&nbsp;: $9$. Il est compris entre $5$ et $9$&nbsp;: l'arrondi est la borne supérieure, $9{,}433 + 0{,}001 = 9{,}434$.`,
-      r`Ainsi <span class="resultat">troncature $9{,}433$&nbsp;; arrondi $9{,}434$</span>.`],
-    revoir: r`définitions de la troncature et de l'arrondi (partie 4 du cours), capacité 3, exercice 4 de la fiche, exercices 178 et 181 p.&nbsp;75 du manuel`,
+      r`Les entiers naturels se suivent de $1$ en $1$&nbsp;: après $3$ vient $4$. Aucun entier n'est strictement compris entre $3$ et $4$.`,
+      r`L'ensemble ne contient aucun élément&nbsp;: c'est l'ensemble vide, <span class="resultat">$∅$</span>.`],
+    revoir: r`notation «&nbsp;ensemble vide, symbole *&nbsp;» (partie 1 du cours), exercice 4 de la fiche`,
     variante: {
-      enonce: r`La calculatrice affiche $\sqrt{97} \approx 9{,}848857802$. La troncature et l'arrondi de $\sqrt{97}$ à $10^{-3}$ près sont&nbsp;:`,
-      choix: [r`troncature $9{,}848$&nbsp;; arrondi $9{,}849$`, r`troncature $9{,}849$&nbsp;; arrondi $9{,}849$`, r`troncature $9{,}848$&nbsp;; arrondi $9{,}848$`, r`troncature $9{,}849$&nbsp;; arrondi $9{,}848$`],
+      enonce: r`L'ensemble des entiers relatifs $x$ tels que $-2 < x < -1$ est&nbsp;:`,
+      choix: [r`$∅$`, r`$\{0\}$`, r`$\{-2\,;\,-1\}$`, r`$\{-1{,}5\}$`],
       bonne: 0,
       explication: [
-        r`La troncature à $10^{-3}$ près du réel positif $\sqrt{97}$ garde les trois premiers chiffres après la virgule, sans rien changer&nbsp;: $9{,}848$. C'est la borne inférieure de l'encadrement $9{,}848 < \sqrt{97} < 9{,}849$, d'amplitude $10^{-3}$.`,
-        r`Pour l'arrondi, on regarde le chiffre suivant, la quatrième décimale&nbsp;: $8$. Il est compris entre $5$ et $9$&nbsp;: l'arrondi est la borne supérieure, $9{,}848 + 0{,}001 = 9{,}849$.`,
-        r`Ainsi <span class="resultat">troncature $9{,}848$&nbsp;; arrondi $9{,}849$</span>.`] } },
+        r`Les entiers relatifs se suivent de $1$ en $1$&nbsp;: après $-2$ vient $-1$. Aucun entier n'est strictement compris entre $-2$ et $-1$.`,
+        r`L'ensemble ne contient aucun élément&nbsp;: c'est l'ensemble vide, <span class="resultat">$∅$</span>.`] } },
 
   /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
 
@@ -532,24 +532,6 @@ const QUIZ = {
             lectures: [{ x1: -3, x2: -0.75, texte: '2,25' }, { x1: -0.75, x2: 1.5, texte: '2,25' }],
             label: 'La même droite avec le milieu M, à −0,75 : il est à 2,25 unités de A et à 2,25 unités de B' })] } },
 
-  { partie: 0, theme: 'Arrondir un résultat', type: 'qcm',
-    enonce: r`Un randonneur parcourt $17{,}5$ km en $3{,}6$ h. La calculatrice donne $\dfrac{17{,}5}{3{,}6} \approx 4{,}861$. Sa vitesse moyenne, arrondie avec un nombre de chiffres significatifs adapté, est&nbsp;:`,
-    choix: [r`$4{,}9$ km/h`, r`$4{,}86$ km/h`, r`$4{,}861$ km/h`, r`$4{,}8$ km/h`],
-    bonne: 0,
-    explication: [
-      r`Un résultat n'est pas plus précis que les données&nbsp;: on l'arrondit avec autant de chiffres significatifs que la donnée qui en a le moins.`,
-      r`$17{,}5$ a trois chiffres significatifs, $3{,}6$ en a deux&nbsp;: on garde deux chiffres significatifs. Le troisième chiffre de $4{,}861$, $6$, est au moins égal à $5$&nbsp;: on arrondit au dixième supérieur.`,
-      calcul(r`v & = \dfrac{17{,}5}{3{,}6}`, r`& \approx 4{,}861`, r`& \approx \resultat{4{,}9 \text{ km/h}}`)],
-    revoir: r`méthode «&nbsp;arrondir avec un nombre de chiffres significatifs adapté&nbsp;» (partie 4 du cours), capacité 3, exercice 5 de la fiche, question 7 p.&nbsp;73 du manuel`,
-    variante: {
-      enonce: r`Un rectangle mesure $12{,}6$ cm sur $4{,}5$ cm, au millimètre près. La calculatrice donne $12{,}6 \times 4{,}5 = 56{,}7$. Son aire, arrondie avec un nombre de chiffres significatifs adapté, est&nbsp;:`,
-      choix: [r`$57$ cm²`, r`$56{,}7$ cm²`, r`$56$ cm²`, r`$60$ cm²`],
-      bonne: 0,
-      explication: [
-        r`Un résultat n'est pas plus précis que les données&nbsp;: on l'arrondit avec autant de chiffres significatifs que la donnée qui en a le moins.`,
-        r`$12{,}6$ a trois chiffres significatifs, $4{,}5$ en a deux&nbsp;: on garde deux chiffres significatifs. Le troisième chiffre de $56{,}7$, $7$, est au moins égal à $5$&nbsp;: on arrondit à l'unité supérieure.`,
-        calcul(r`\mathscr{A} & = 12{,}6 \times 4{,}5`, r`& = 56{,}7`, r`& \approx \resultat{57 \text{ cm}^{2}}`)] } },
-
   { partie: 0, theme: "Nature d'un nombre", type: 'qcm',
     enonce: r`Le plus petit des ensembles $\N$, $\Z$, $𝔻$, $ℚ$, $\R$ auquel appartient le nombre $\dfrac{7}{12}$ est&nbsp;:`,
     choix: [r`$ℚ$`, r`$𝔻$`, r`$\R$`, r`$\Z$`],
@@ -572,27 +554,21 @@ const QUIZ = {
         r`Le reste $10$ revient ensuite à chaque étape&nbsp;: $\dfrac{4}{15} = 0{,}2666\dots$ a une infinité de chiffres après la virgule, donc $\dfrac{4}{15}$ n'est pas décimal.`,
         r`C'est un quotient de deux entiers&nbsp;: le plus petit ensemble est <span class="resultat">$ℚ$</span>.`] } },
 
-  { partie: 0, theme: 'Encadrer un quotient', type: 'qcm',
-    enonce: r`En posant la division, un encadrement de $\dfrac{25}{6}$ d'amplitude $10^{-3}$ est&nbsp;:`,
-    choix: [r`$4{,}166 < \dfrac{25}{6} < 4{,}167$`, r`$4{,}16 < \dfrac{25}{6} < 4{,}17$`, r`$4{,}167 < \dfrac{25}{6} < 4{,}168$`, r`$4{,}1666 < \dfrac{25}{6} < 4{,}1667$`],
+  { partie: 0, theme: 'Ensemble en liste', type: 'qcm',
+    enonce: r`L'ensemble des entiers relatifs $x$ tels que $-2 < x \le 1$ est&nbsp;:`,
+    choix: [r`$\{-1\,;\,0\,;\,1\}$`, r`$\{-2\,;\,-1\,;\,0\,;\,1\}$`, r`$\{-1\,;\,0\}$`, r`$\{0\,;\,1\}$`],
     bonne: 0,
     explication: [
-      r`On pose la division de $25$ par $6$, en abaissant un zéro à chaque étape.`,
-      calcul(r`25 & = 6 \times 4 + 1 \quad \text{unités : } 4`, r`10 & = 6 \times 1 + 4 \quad \text{dixièmes : } 1`,
-             r`40 & = 6 \times 6 + 4 \quad \text{centièmes : } 6`, r`40 & = 6 \times 6 + 4 \quad \text{millièmes : } 6`),
-      r`Le reste $4$ revient sans cesse&nbsp;: $\dfrac{25}{6} = 4{,}1666\dots$ On garde trois décimales pour la borne inférieure, $4{,}166$, puis on ajoute $0{,}001$&nbsp;: $4{,}166 + 0{,}001 = 4{,}167$.`,
-      r`Donc <span class="resultat">$4{,}166 < \dfrac{25}{6} < 4{,}167$</span>.`],
-    revoir: r`définition d'un encadrement d'amplitude $10^{-n}$ (partie 4 du cours), capacité 3, exercice 4 de la fiche`,
+      r`On liste les entiers de $-2$ à $1$, puis on regarde les bornes&nbsp;: $-2$ est exclu, car l'inégalité $-2 < x$ est stricte&nbsp;; $1$ est compris, car $x \le 1$.`,
+      r`Il reste $-1$, $0$ et $1$&nbsp;: l'ensemble est <span class="resultat">$\{-1\,;\,0\,;\,1\}$</span>.`],
+    revoir: r`notations de la partie 1 du cours, exercice 4 de la fiche`,
     variante: {
-      enonce: r`En posant la division, un encadrement de $\dfrac{8}{3}$ d'amplitude $10^{-3}$ est&nbsp;:`,
-      choix: [r`$2{,}666 < \dfrac{8}{3} < 2{,}667$`, r`$2{,}66 < \dfrac{8}{3} < 2{,}67$`, r`$2{,}667 < \dfrac{8}{3} < 2{,}668$`, r`$2{,}6666 < \dfrac{8}{3} < 2{,}6667$`],
+      enonce: r`L'ensemble des entiers relatifs $x$ tels que $-3 \le x < 1$ est&nbsp;:`,
+      choix: [r`$\{-3\,;\,-2\,;\,-1\,;\,0\}$`, r`$\{-2\,;\,-1\,;\,0\}$`, r`$\{-3\,;\,-2\,;\,-1\,;\,0\,;\,1\}$`, r`$\{-2\,;\,-1\,;\,0\,;\,1\}$`],
       bonne: 0,
       explication: [
-        r`On pose la division de $8$ par $3$, en abaissant un zéro à chaque étape.`,
-        calcul(r`8 & = 3 \times 2 + 2 \quad \text{unités : } 2`, r`20 & = 3 \times 6 + 2 \quad \text{dixièmes : } 6`,
-               r`20 & = 3 \times 6 + 2 \quad \text{centièmes : } 6`, r`20 & = 3 \times 6 + 2 \quad \text{millièmes : } 6`),
-        r`Le reste $2$ revient sans cesse&nbsp;: $\dfrac{8}{3} = 2{,}666\dots$ On garde trois décimales pour la borne inférieure, $2{,}666$, puis on ajoute $0{,}001$&nbsp;: $2{,}666 + 0{,}001 = 2{,}667$.`,
-        r`Donc <span class="resultat">$2{,}666 < \dfrac{8}{3} < 2{,}667$</span>.`] } },
+        r`On liste les entiers de $-3$ à $1$, puis on regarde les bornes&nbsp;: $-3$ est compris, car $-3 \le x$&nbsp;; $1$ est exclu, car l'inégalité $x < 1$ est stricte.`,
+        r`Il reste $-3$, $-2$, $-1$ et $0$&nbsp;: l'ensemble est <span class="resultat">$\{-3\,;\,-2\,;\,-1\,;\,0\}$</span>.`] } },
 
   /* ----- Niveau 3 : pièges et synthèse ----- */
 
@@ -614,27 +590,33 @@ const QUIZ = {
         r`On pose la division de $2$ par $3$&nbsp;: $20 = 3 \times 6 + 2$, et le reste $2$ revient à chaque étape. $\dfrac{2}{3} = 0{,}666\dots$ ne s'arrête jamais&nbsp;: ce n'est pas un nombre décimal.`,
         r`L'affirmation est donc <span class="resultat">fausse</span>, même si elle est vraie pour certains décimaux, comme $0{,}5$, dont l'inverse est $2$.`] } },
 
-  { partie: 0, theme: 'Encadrer une racine carrée', type: 'qcm',
-    enonce: r`Sans calculatrice, en comparant des carrés, un encadrement de $\sqrt{10}$ d'amplitude $10^{-1}$ est&nbsp;:`,
-    choix: [r`$3{,}1 < \sqrt{10} < 3{,}2$`, r`$3 < \sqrt{10} < 4$`, r`$3{,}2 < \sqrt{10} < 3{,}3$`, r`$5 < \sqrt{10} < 5{,}1$`],
+  { partie: 0, theme: "Raisonnement par l'absurde", type: 'qcm',
+    enonce: r`Pour démontrer que $\dfrac{1}{3}$ n'est pas décimal, on suppose que $\dfrac{1}{3} = \dfrac{a}{10^{p}}$, avec $a$ entier relatif et $p$ entier naturel. On en déduit que $10^{p} = 3a$. Pourquoi est-ce impossible&nbsp;?`,
+    choix: [r`La somme des chiffres de $10^{p}$ vaut $1$&nbsp;: $10^{p}$ n'est pas un multiple de $3$.`,
+            r`$10^{p}$ est un nombre pair.`,
+            r`$3a$ est toujours un nombre impair.`,
+            r`$10^{p}$ n'est pas un nombre entier.`],
     bonne: 0,
     explication: [
-      r`$\sqrt{10}$ est le nombre positif dont le carré vaut $10$. Pour des nombres positifs, le plus grand a le plus grand carré&nbsp;: on compare donc des carrés à $10$.`,
-      r`$3^{2} = 9 < 10 < 16 = 4^{2}$, donc $\sqrt{10}$ est entre $3$ et $4$. On avance ensuite de $0{,}1$ à partir de $3$, jusqu'à dépasser $10$&nbsp;; pour calculer $3{,}1^{2} = 3{,}1 \times 3{,}1$, on multiplie $3{,}1$ par $3$, puis par $0{,}1$.`,
-      calcul(r`3{,}1^{2} & = 3{,}1 \times 3 + 3{,}1 \times 0{,}1`, r`& = 9{,}3 + 0{,}31`, r`& = 9{,}61 < 10`,
-             r`3{,}2^{2} & = 3{,}2 \times 3 + 3{,}2 \times 0{,}2`, r`& = 9{,}6 + 0{,}64`, r`& = 10{,}24 > 10`),
-      r`$10$ est entre $3{,}1^{2}$ et $3{,}2^{2}$, donc <span class="resultat">$3{,}1 < \sqrt{10} < 3{,}2$</span>&nbsp;: deux bornes à une décimale, d'écart $0{,}1 = 10^{-1}$.`],
-    revoir: r`activité 2 (encadrer $\sqrt{2}$), exercice 3 de la fiche`,
+      r`On obtient $10^{p} = 3a$ en multipliant les deux membres par $3 \times 10^{p}$&nbsp;:`,
+      calcul(r`\dfrac{1}{3} \op{\times 3 \times 10^{p}} & = \dfrac{a}{10^{p}} \op{\times 3 \times 10^{p}}`, r`10^{p} & = 3a`),
+      r`Comme $a$ est un entier, $10^{p}$ serait un multiple de $3$.`,
+      r`Or $10^{p}$ s'écrit avec un $1$ suivi de $p$ zéros&nbsp;: <span class="resultat">la somme des chiffres de $10^{p}$ vaut $1$, donc $10^{p}$ n'est pas un multiple de $3$</span> (critère de divisibilité par $3$).`,
+      r`C'est une contradiction&nbsp;: l'hypothèse de départ est fausse, $\dfrac{1}{3}$ n'est pas décimal.`],
+    revoir: r`démonstration «&nbsp;$\dfrac{1}{3}$ n'est pas décimal&nbsp;» (partie 2 du cours), exercice 5 de la fiche`,
     variante: {
-      enonce: r`Sans calculatrice, en comparant des carrés, un encadrement de $\sqrt{7}$ d'amplitude $10^{-1}$ est&nbsp;:`,
-      choix: [r`$2{,}6 < \sqrt{7} < 2{,}7$`, r`$2 < \sqrt{7} < 3$`, r`$2{,}7 < \sqrt{7} < 2{,}8$`, r`$3{,}5 < \sqrt{7} < 3{,}6$`],
+      enonce: r`Pour démontrer que $\dfrac{2}{3}$ n'est pas décimal, on suppose que $\dfrac{2}{3} = \dfrac{a}{10^{p}}$, avec $a$ entier relatif et $p$ entier naturel. On en déduit que $2 \times 10^{p} = 3a$. Pourquoi est-ce impossible&nbsp;?`,
+      choix: [r`La somme des chiffres de $2 \times 10^{p}$ vaut $2$&nbsp;: $2 \times 10^{p}$ n'est pas un multiple de $3$.`,
+              r`$2 \times 10^{p}$ est un nombre pair.`,
+              r`$3a$ est toujours un nombre impair.`,
+              r`$2 \times 10^{p}$ n'est pas un nombre entier.`],
       bonne: 0,
       explication: [
-        r`$\sqrt{7}$ est le nombre positif dont le carré vaut $7$. Pour des nombres positifs, le plus grand a le plus grand carré&nbsp;: on compare donc des carrés à $7$.`,
-        r`$2^{2} = 4 < 7 < 9 = 3^{2}$, donc $\sqrt{7}$ est entre $2$ et $3$. On avance ensuite de $0{,}1$ à partir de $2$ ($2{,}1^{2} = 4{,}41$, $2{,}2^{2} = 4{,}84$… $2{,}5^{2} = 6{,}25$), jusqu'à dépasser $7$&nbsp;; pour calculer $2{,}6^{2} = 2{,}6 \times 2{,}6$, on multiplie $2{,}6$ par $2$, puis par $0{,}6$.`,
-        calcul(r`2{,}6^{2} & = 2{,}6 \times 2 + 2{,}6 \times 0{,}6`, r`& = 5{,}2 + 1{,}56`, r`& = 6{,}76 < 7`,
-               r`2{,}7^{2} & = 2{,}7 \times 2 + 2{,}7 \times 0{,}7`, r`& = 5{,}4 + 1{,}89`, r`& = 7{,}29 > 7`),
-        r`$7$ est entre $2{,}6^{2}$ et $2{,}7^{2}$, donc <span class="resultat">$2{,}6 < \sqrt{7} < 2{,}7$</span>&nbsp;: deux bornes à une décimale, d'écart $0{,}1 = 10^{-1}$.`] } },
+        r`On obtient $2 \times 10^{p} = 3a$ en multipliant les deux membres par $3 \times 10^{p}$&nbsp;:`,
+        calcul(r`\dfrac{2}{3} \op{\times 3 \times 10^{p}} & = \dfrac{a}{10^{p}} \op{\times 3 \times 10^{p}}`, r`2 \times 10^{p} & = 3a`),
+        r`Comme $a$ est un entier, $2 \times 10^{p}$ serait un multiple de $3$.`,
+        r`Or $2 \times 10^{p}$ s'écrit avec un $2$ suivi de $p$ zéros&nbsp;: <span class="resultat">la somme des chiffres de $2 \times 10^{p}$ vaut $2$, donc $2 \times 10^{p}$ n'est pas un multiple de $3$</span> (critère de divisibilité par $3$).`,
+        r`C'est une contradiction&nbsp;: l'hypothèse de départ est fausse, $\dfrac{2}{3}$ n'est pas décimal.`] } },
 
   { partie: 0, theme: 'Appartenance, inclusion', type: 'qcm',
     enonce: r`Une seule de ces quatre affirmations est <b>fausse</b>. Laquelle&nbsp;?`,
@@ -645,8 +627,8 @@ const QUIZ = {
       r`$\sqrt{25} = 5$ car $5 \ge 0$ et $5^{2} = 25$&nbsp;: $-\sqrt{25} = -5$ est un entier négatif, $-\sqrt{25} \in \Z$ est vraie.`,
       r`$3{,}5 \times 10^{2} = 3{,}5 \times 100 = 350$ est un entier positif&nbsp;: $3{,}5 \times 10^{2} \in \N$ est vraie.`,
       r`Tout entier naturel $n$ est décimal, car $n = \dfrac{n}{10^{0}}$&nbsp;: $\N ⊂ 𝔻$ est vraie.`,
-      r`$3^{2} = 9 < 12 < 16 = 4^{2}$&nbsp;: $12$ n'est pas un carré parfait, donc $\sqrt{12}$ est irrationnel (propriété admise du cours) et n'appartient pas à $ℚ$. L'affirmation fausse est <span class="resultat">$\sqrt{12} \in ℚ$</span>.`],
-    revoir: r`notations $\in$ et $⊂$, définitions des ensembles de nombres, classification des nombres (parties 1 à 3 du cours), capacité 1`,
+      r`$3^{2} = 9 < 12 < 16 = 4^{2}$&nbsp;: $12$ n'est pas le carré d'un entier, donc $\sqrt{12}$ n'est pas un entier&nbsp;; on admet qu'il est irrationnel, il n'appartient pas à $ℚ$. L'affirmation fausse est <span class="resultat">$\sqrt{12} \in ℚ$</span>.`],
+    revoir: r`notations $\in$ et $⊂$ (partie 1 du cours), définitions des ensembles de nombres, classification des nombres (parties 2 et 3), capacité 1, exercice 4 de la fiche`,
     variante: {
       enonce: r`Une seule de ces quatre affirmations est <b>fausse</b>. Laquelle&nbsp;?`,
       choix: [r`$\dfrac{\pi}{4} \in ℚ$`, r`$0{,}08 \times 10^{3} \in \N$`, r`$-\dfrac{9}{4} \in 𝔻$`, r`$\Z ⊂ ℚ$`],
@@ -658,7 +640,7 @@ const QUIZ = {
         calcul(r`-\dfrac{9}{4} & = -\dfrac{9 \mul{\times 25}}{4 \mul{\times 25}}`, r`& = -\dfrac{225}{100}`, r`& = \dfrac{-225}{10^{2}}`),
         r`C'est la forme $\dfrac{a}{10^{n}}$, avec $a = -225$ et $n = 2$&nbsp;: $-\dfrac{9}{4} \in 𝔻$ est vraie.`,
         r`Tout entier relatif $a$ s'écrit $\dfrac{a}{1}$, quotient de deux entiers&nbsp;: $\Z ⊂ ℚ$ est vraie.`,
-        r`$\pi$ est irrationnel (propriété admise du cours)&nbsp;: si $\dfrac{\pi}{4}$ s'écrivait $\dfrac{a}{b}$, avec $a$ et $b$ entiers relatifs, $b \ne 0$, on aurait $\pi = \dfrac{4a}{b}$, quotient d'un entier relatif par un entier relatif non nul, ce qui est impossible. L'affirmation fausse est <span class="resultat">$\dfrac{\pi}{4} \in ℚ$</span>.`] } }
+        r`$\pi$ est irrationnel (admis dans le cours)&nbsp;: si $\dfrac{\pi}{4}$ s'écrivait $\dfrac{a}{b}$, avec $a$ et $b$ entiers relatifs, $b \ne 0$, on aurait $\pi = \dfrac{4a}{b}$, quotient d'un entier relatif par un entier relatif non nul, ce qui est impossible. L'affirmation fausse est <span class="resultat">$\dfrac{\pi}{4} \in ℚ$</span>.`] } }
   ]
 };
 
