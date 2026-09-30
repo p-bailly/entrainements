@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#FFFFFF">
+<title>Automatismes · 2°3</title>
+<!-- Page écrite par tools/automatismes_eleves.py (dépôt des cours) d'après l'application Automatismes :
+     ne rien modifier ici. -->
+<link rel="stylesheet" href="katex/katex.min.css">
+<style>
+:root{
+  --papier:#FFFFFF; --fond:#EDEDED; --encre:#161616; --gris:#5C5C5C; --filet:#CCCCCC; --case:#F2F2F2;
+  --stylo:#1E3D96; --rouge:#C62026; --vert:#1C7436; --violet:#5B3E96; --bleu-clair:#E8EDF8; --vert-clair:#E6F2E9;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%; text-size-adjust:100%}
+body{margin:0; min-height:100vh; background:var(--fond); color:var(--encre); font:400 17px/1.5 var(--sans); -webkit-tap-highlight-color:transparent}
+button{font-family:inherit}
+.haut{position:sticky; top:0; z-index:5; background:var(--papier); border-bottom:1px solid var(--filet); padding-top:env(safe-area-inset-top)}
+.haut .ligne{display:flex; align-items:center; gap:6px; max-width:40rem; margin:0 auto; padding:6px 14px 6px 6px; min-height:56px}
+.retour{flex:none; display:grid; place-items:center; width:44px; height:44px; color:var(--encre); border-radius:50%}
+.retour:active{background:var(--case)}
+.retour svg{width:22px; height:22px}
+.titres{flex:1; min-width:0; line-height:1.25}
+.titres span{display:block}
+.titres .lycee{font-size:.78rem; color:var(--gris)}
+.titres .chap{font-size:.95rem; font-weight:600}
+main{max-width:40rem; margin:0 auto; padding:14px 12px calc(28px + env(safe-area-inset-bottom))}
+h2{margin:20px 4px 8px; font-size:1rem}
+h2:first-child{margin-top:4px}
+.serie{background:var(--papier); border:1px solid var(--filet); border-radius:10px; overflow:hidden}
+.serie + .serie{margin-top:10px}
+.serie summary{display:flex; align-items:center; gap:10px; min-height:56px; padding:8px 14px; cursor:pointer; list-style:none}
+.serie summary::-webkit-details-marker{display:none}
+.serie summary .quand{flex:1; min-width:0; font-weight:600}
+.serie summary .nb{flex:none; font-size:.9rem; color:var(--gris)}
+.serie summary svg{flex:none; width:18px; height:18px; color:var(--gris); transition:transform .15s}
+.serie[open] summary{border-bottom:1px solid var(--filet)}
+.serie[open] summary svg{transform:rotate(180deg)}
+.corps{padding:4px 14px 14px}
+.tout{display:flex; justify-content:flex-end; margin:6px 0 2px}
+.question{padding:14px 0 12px}
+.question + .question{border-top:1px solid var(--filet)}
+.num{margin:0 0 6px; font-size:.9rem; font-weight:600; color:var(--gris)}
+.lettre{display:inline-block; margin:6px 0 4px; padding:0 .6em; border-radius:999px; background:var(--bleu-clair); color:var(--stylo); font-size:.8rem; font-weight:700}
+.consigne{margin:0 0 4px; font-size:.95rem; color:var(--gris)}
+.enonce{font-size:1.06rem}
+.enonce ul,.enonce ol{margin:.3em 0; padding-left:1.3em}
+.enonce,.figure,.rep,.etapes{overflow-x:auto; overflow-y:hidden; overflow-wrap:break-word}
+.figure{margin:8px 0 2px; text-align:center}
+.figure svg,.rep svg,.etapes svg{display:inline-block; max-width:100%; height:auto; max-height:16rem; vertical-align:middle}
+.voir{margin:10px 0 0; min-height:40px; padding:4px 14px; border:1.5px solid var(--stylo); border-radius:9px; background:var(--papier); color:var(--stylo); font-size:.95rem; font-weight:600; cursor:pointer; touch-action:manipulation}
+.voir[aria-expanded="true"]{background:var(--bleu-clair)}
+.voir:active{filter:brightness(.94)}
+.reponse{margin:10px 0 0; padding:10px 14px; border-left:5px solid var(--vert); border-radius:8px; background:var(--vert-clair)}
+.rep{font-weight:600}
+.rep .mot{font-weight:400; color:var(--gris)}
+.etapes{margin-top:6px; font-size:.95rem}
+.etape + .etape{margin-top:.3em}
+.reponse .rep ~ .rep{margin-top:10px; padding-top:8px; border-top:1px solid #C5DECB}
+footer{max-width:40rem; margin:0 auto; padding:0 16px 24px; font-size:.78rem; color:var(--gris)}
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+/* Contenu des questions (comme dans l'application) */
+.insecable,.katex{white-space:nowrap}
+table.tab{border-collapse:collapse; margin:0 auto; background:#fff; font-size:.9rem}
+table.tab th,table.tab td{border:1.5px solid #475467; padding:.15em .55em; text-align:center; white-space:nowrap}
+table.tab th{background:#f2f4f7; font-weight:600}
+table.signes td.val{min-width:1.6em}
+table.variations td{border-top:none; border-bottom:none}
+table.variations tr:first-child td,table.variations tr:first-child th{border-bottom:1.5px solid #475467}
+table.variations td.val{height:3.4em; min-width:1.8em}
+table.variations td.val.haut{vertical-align:top}
+table.variations td.val.bas{vertical-align:bottom}
+table.variations td.fl{vertical-align:middle; font-size:1.3em}
+table.variations td.val.double{padding:0}
+table.variations .dbl{display:flex; height:3.4em; align-items:stretch}
+table.variations .dbl > span{display:flex; flex-direction:column; padding:0 .3em}
+table.variations .dbl > span.haut{justify-content:flex-start}
+table.variations .dbl > span.bas{justify-content:flex-end}
+table.variations .dbl > span.barre{width:.2em; padding:0; border-left:1.5px solid #475467; border-right:1.5px solid #475467}
+.inline-table{display:inline-table; border-collapse:collapse; width:auto; vertical-align:middle; margin:.15em 0}
+.inline-table td,.inline-table th{border:1px solid #5b5b5b; padding:.12em .45em; text-align:center}
+.red{color:#C62026; font-weight:600}
+.green{color:#1C7436; font-weight:600}
+.blue{color:#1f5fa8; font-weight:600}
+.italic{font-style:italic}
+</style>
+</head>
+<body>
+<header class="haut">
+  <div class="ligne">
+    <a class="retour" href="https://p-bailly.github.io/entrainements/" aria-label="Tous les entraînements"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="titres"><span class="lycee">M. Bailly · Lycée Émile Loubet · 2°3</span><span class="chap">Automatismes faits en classe</span></div>
+  </div>
+</header>
+<main id="series"></main>
+<footer>Une partie des questions vient de MathsMentales (Sébastien Cogez et contributeurs, licence Apache 2.0).</footer>
+<script type="application/json" id="donnees">{"macros":{"\\R":"\\mathbb{R}","\\N":"\\mathbb{N}","\\Z":"\\mathbb{Z}","\\D":"\\mathbb{D}","\\Q":"\\mathbb{Q}","\\pv":"\\,;\\,","\\vect":"\\overrightarrow{#1}","\\mul":"\\textcolor{##5B3E96}{#1}","\\op":"\\textcolor{##C62026}{#1}","\\e":"\\mathrm{e}","\\Card":"\\mathrm{Card}"},"chapitres":[{"chapitre":"Chapitre 2 · Puissances, racines carrées et fractions","series":[{"jour":"Jeudi 1er octobre","questions":[{"A":{"consigne":"","enonce":"Voici un programme de calcul :\u003cbr\u003e\u003cul\u003e\u003cli\u003eChoisir un nombre.\u003c/li\u003e\u003cli\u003eLe multiplier par 3.\u003c/li\u003e\u003cli\u003eSoustraire son carré.\u003c/li\u003e\u003c/ul\u003eCombien obtient-on si on choisit \u003cb\u003e10\u003c/b\u003e ?","figure":"","reponse":"$-70$","etapes":["$10\\times3-10^2=\\textcolor{#C62026}{-70}$"]},"B":null},{"A":{"consigne":"Écrire en fonction de $n$.","enonce":"Le prédécesseur du double de $n$","figure":"","reponse":"$2n-1$","etapes":["Le double de $n$ est $2n$ ; son prédécesseur est $2n-1$."]},"B":null},{"A":{"consigne":"","enonce":"$46{,}3\\text{ dam}^3=...\\text{ hm}^3$","figure":"","reponse":"$0{,}0463$","etapes":["$46{,}3\\text{ dam}^3=\\textcolor{#C62026}{0{,}0463}\\text{ hm}^3$"]},"B":null},{"A":{"consigne":"Calculer ; donner la fraction irréductible ou l'entier égal.","enonce":"$\\dfrac{\\frac{11}{6}}{\\frac{13}{7}}=\\,?$","figure":"","reponse":"$\\dfrac{77}{78}$","etapes":["$\\dfrac{11}{6}\\div \\dfrac{13}{7}=\\dfrac{11}{6}\\times \\dfrac{7}{13}=\\dfrac{77}{78}$"]},"B":null},{"A":{"consigne":"Calculer.","enonce":"Le carré de l'opposé de $\\dfrac{7}{5}$","figure":"","reponse":"$\\dfrac{49}{25}$","etapes":["L'opposé de $\\dfrac{7}{5}$ : $-\\dfrac{7}{5}$.","Le carré de $-\\dfrac{7}{5}$ : $\\left(-\\dfrac{7}{5}\\right)^{2}=\\dfrac{49}{25}$."]},"B":null},{"A":{"consigne":"Répondre par une fraction.","enonce":"Quelle est l'abscisse du point $E$ ?","figure":"\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 620 96\" width=\"620\" height=\"96\" font-family=\"Segoe UI, Roboto, Helvetica, Arial, sans-serif\"\u003e\u003cline x1=\"12\" y1=\"52\" x2=\"612\" y2=\"52\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cpath d=\"M603.71,55.5 L612,52 L603.71,48.5\" fill=\"none\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/\u003e\u003cline x1=\"24\" y1=\"43\" x2=\"24\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"24\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e0\u003c/text\u003e\u003cline x1=\"59.13\" y1=\"47\" x2=\"59.13\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"94.25\" y1=\"47\" x2=\"94.25\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"129.38\" y1=\"47\" x2=\"129.38\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"164.5\" y1=\"43\" x2=\"164.5\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"164.5\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e1\u003c/text\u003e\u003cline x1=\"199.63\" y1=\"47\" x2=\"199.63\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"234.75\" y1=\"47\" x2=\"234.75\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"269.88\" y1=\"47\" x2=\"269.88\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"305\" y1=\"43\" x2=\"305\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"305\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e2\u003c/text\u003e\u003cline x1=\"340.13\" y1=\"47\" x2=\"340.13\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"375.25\" y1=\"47\" x2=\"375.25\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"410.38\" y1=\"47\" x2=\"410.38\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"445.5\" y1=\"43\" x2=\"445.5\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"445.5\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e3\u003c/text\u003e\u003cline x1=\"480.63\" y1=\"47\" x2=\"480.63\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"515.75\" y1=\"47\" x2=\"515.75\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"550.88\" y1=\"47\" x2=\"550.88\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"586\" y1=\"43\" x2=\"586\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"586\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e4\u003c/text\u003e\u003cline x1=\"123.38\" y1=\"46\" x2=\"135.38\" y2=\"58\" stroke=\"#1f5fa8\" stroke-width=\"2\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"123.38\" y1=\"58\" x2=\"135.38\" y2=\"46\" stroke=\"#1f5fa8\" stroke-width=\"2\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"129.38\" y=\"30\" font-size=\"17\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f5fa8\" font-style=\"italic\" font-family=\"Cambria, Times New Roman, serif\" font-weight=\"700\"\u003eE\u003c/text\u003e\u003cline x1=\"53.13\" y1=\"46\" x2=\"65.13\" y2=\"58\" stroke=\"#1f5fa8\" stroke-width=\"2\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"53.13\" y1=\"58\" x2=\"65.13\" y2=\"46\" stroke=\"#1f5fa8\" stroke-width=\"2\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"59.13\" y=\"30\" font-size=\"17\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f5fa8\" font-style=\"italic\" font-family=\"Cambria, Times New Roman, serif\" font-weight=\"700\"\u003eF\u003c/text\u003e\u003c/svg\u003e","reponse":"$\\dfrac{3}{4}=0{,}75$","etapes":["L'unité est partagée en $4$ : une graduation vaut $\\dfrac{1}{4}$.","$E$ est à $3$ graduations de $0$ : son abscisse est $\\dfrac{3}{4}$."]},"B":null}]}]}]}</script>
+<script src="katex/katex.min.js"></script>
+<script>
+"use strict";
+const D = JSON.parse(document.getElementById("donnees").textContent);
+const CHEVRON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+function echapper(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+
+// Formules : comme dans l'application (texte entre $…$, « \$ » écrit un dollar), composées par KaTeX.
+const cache = new Map();
+function formule(tex) {
+  let h = cache.get(tex);
+  if (h === undefined) {
+    if (typeof katex === "undefined") h = "<code>" + echapper(tex) + "</code>";
+    else {
+      try { h = katex.renderToString(tex, {macros: Object.assign({}, D.macros), throwOnError: false, strict: "ignore", output: "html"}); }
+      catch (e) { h = "<code>" + echapper(tex) + "</code>"; }
+    }
+    cache.set(tex, h);
+  }
+  return h;
+}
+const UNITE = /^[ \u00a0\u202f](cm²|cm³|dm²|dm³|km²|m²|m³|mm|cm|dm|km|mg|kg|mL|cL|dL|km\/h|m\/s|min|°C|€|%|h|s|g|L|m|°)(?=[\s.,;:!?)»]|$)/;
+const PONCTUATION = /^(?:[\u202f\u00a0]?[?!;:»]|[.,)])+/;
+function typographie(t) {
+  return t.replace(/(<[^>]*>)|([^<]+)/g, (m, balise, texte) => balise || texte.replace(/[ \u00a0]([?!;:»])/g, "\u202f$1").replace(/«[ \u00a0]/g, "«\u202f"));
+}
+function html(texte) {
+  texte = String(texte == null ? "" : texte);
+  const morceaux = [];
+  let courant = "", math = false;
+  for (let i = 0; i < texte.length; i++) {
+    const c = texte[i];
+    if (c === "\\" && texte[i + 1] === "$") { courant += math ? "\\$" : "$"; i++; continue; }
+    if (c === "$") { morceaux.push({math, t: courant}); courant = ""; math = !math; continue; }
+    courant += c;
+  }
+  morceaux.push({math, t: courant});
+  for (const m of morceaux) if (!m.math) m.t = typographie(m.t);
+  let res = "";
+  for (let k = 0; k < morceaux.length; k++) {
+    const m = morceaux[k];
+    if (!m.math) { res += m.t; continue; }
+    const suite = morceaux[k + 1];
+    const u = suite && !suite.math ? UNITE.exec(suite.t) : null, p = suite && !suite.math && !u ? PONCTUATION.exec(suite.t) : null;
+    if (u) { res += '<span class="insecable">' + formule(m.t) + "\u00a0" + u[1] + "</span>"; suite.t = suite.t.slice(u[0].length); }
+    else if (p) { res += '<span class="insecable">' + formule(m.t) + p[0] + "</span>"; suite.t = suite.t.slice(p[0].length); }
+    else res += formule(m.t);
+  }
+  return res;
+}
+
+function enonceHTML(v, lettre) {
+  return (lettre ? '<span class="lettre">Énoncé ' + lettre + "</span>" : "")
+    + (v.consigne ? '<div class="consigne">' + html(v.consigne) + "</div>" : "")
+    + '<div class="enonce">' + html(v.enonce) + "</div>"
+    + (v.figure ? '<div class="figure">' + html(v.figure) + "</div>" : "");
+}
+function reponseHTML(v, lettre) {
+  return '<div class="rep">' + (lettre ? '<span class="mot">' + lettre + " : </span>" : "") + html(v.reponse) + "</div>"
+    + (v.etapes.length ? '<div class="etapes">' + v.etapes.map(e => '<div class="etape">' + html(e) + "</div>").join("") + "</div>" : "");
+}
+function montrer(bouton, voir) {
+  bouton.setAttribute("aria-expanded", String(voir));
+  bouton.textContent = voir ? "Masquer la réponse" : "Voir la réponse";
+  bouton.nextElementSibling.hidden = !voir;
+}
+// Les questions d'une série ne sont écrites qu'à sa première ouverture.
+function remplir(det, s) {
+  const deux = s.questions.some(q => q.B);
+  let h = '<div class="tout"><button class="voir" type="button" aria-expanded="false">Voir toutes les réponses</button></div>';
+  s.questions.forEach((q, i) => {
+    h += '<section class="question"><div class="num">Question ' + (i + 1) + "</div>"
+      + enonceHTML(q.A, deux ? "A" : "") + (q.B ? enonceHTML(q.B, "B") : "")
+      + '<button class="voir" type="button" aria-expanded="false">Voir la réponse</button>'
+      + '<div class="reponse" hidden>' + reponseHTML(q.A, q.B ? "A" : "") + (q.B ? reponseHTML(q.B, "B") : "") + "</div></section>";
+  });
+  const corps = det.querySelector(".corps");
+  corps.innerHTML = h;
+  const tous = [...corps.querySelectorAll(".question .voir")], bTout = corps.querySelector(".tout .voir");
+  tous.forEach(b => { b.onclick = () => montrer(b, b.getAttribute("aria-expanded") !== "true"); });
+  bTout.onclick = () => {
+    const voir = bTout.getAttribute("aria-expanded") !== "true";
+    tous.forEach(b => montrer(b, voir));
+    bTout.setAttribute("aria-expanded", String(voir));
+    bTout.textContent = voir ? "Masquer les réponses" : "Voir toutes les réponses";
+  };
+}
+let h = "";
+D.chapitres.forEach((c, i) => {
+  h += "<h2>" + echapper(c.chapitre) + "</h2>";
+  c.series.forEach((s, j) => {
+    const n = s.questions.length;
+    h += '<details class="serie" data-c="' + i + '" data-s="' + j + '"><summary><span class="quand">' + echapper(s.jour) + '</span><span class="nb">'
+      + n + " question" + (n > 1 ? "s" : "") + "</span>" + CHEVRON + '</summary><div class="corps"></div></details>';
+  });
+});
+const main = document.getElementById("series");
+main.innerHTML = h;
+main.querySelectorAll("details.serie").forEach(det => {
+  const s = D.chapitres[+det.dataset.c].series[+det.dataset.s];
+  det.addEventListener("toggle", () => { if (det.open && !det.querySelector(".question")) remplir(det, s); });
+});
+const premiere = main.querySelector("details.serie");
+if (premiere) premiere.open = true;
+</script>
+</body>
+</html>
