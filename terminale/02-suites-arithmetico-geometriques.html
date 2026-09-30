@@ -23,6 +23,10 @@
   questions manquées.
   Mêmes types de questions que dans le cours (capacités 1 à 4, méthode), la fiche et
   l'évaluation, avec d'autres valeurs. Pas de limite de suite (chapitre 7).
+  Deux questions reprises telles quelles de l'évaluation (30/09/2026, demande du professeur) :
+  raison de u_n = 3 x 2^(n+1) (QCM du sujet A, niveau 1) et suite w_n = u_{n+1} - u_n
+  géométrique (bonus du sujet B, dernière question), chacune avec pour variante sa version de
+  l'autre sujet.
 
   Page générée par tools/entrainement.py : ne pas la modifier ici. Questions :
   entrainement-02-suites-arithmetico-geometriques-questions.js (même dossier) ; moteur et mise en page :
@@ -231,7 +235,7 @@ table.tableur td.sel{outline:2px solid var(--stylo); outline-offset:-2px}
     <p class="meta" id="intro-num"></p>
     <h1 id="intro-titre">Chapitre 2 · Suites</h1>
     <p class="sous">Entraînement à l'évaluation</p>
-    <p>Dix-neuf questions sur tout le chapitre, de la plus simple à la plus difficile. Une seule réponse est exacte à chaque fois. Calculatrice autorisée.</p>
+    <p>Vingt et une questions sur tout le chapitre, de la plus simple à la plus difficile. Une seule réponse est exacte à chaque fois. Calculatrice autorisée.</p>
   </section>
   <div id="ecran" aria-live="polite"></div>
 </main>
@@ -430,6 +434,25 @@ const QUIZ = {
       explication: [
         r`Pour une suite géométrique, $v_{n} = v_{0} \times q^{n}$.`,
         r`Ici, <span class="resultat">$v_{n} = 3 \times 2^{n}$</span>.`] } },
+
+  // Question 2 du QCM de l'évaluation, sujet A ; variante : la même question du sujet B.
+  { partie: 0, theme: 'Raison', type: 'qcm',
+    enonce: r`Pour tout entier naturel $n$, $u_{n} = 3 \times 2^{n+1}$. La suite $(u_{n})$ est géométrique de raison&nbsp;:`,
+    choix: [r`$2$`, r`$3$`, r`$6$`, r`$2^{n+1}$`],
+    bonne: 0,
+    explication: [
+      r`On exprime $u_{n+1}$ en fonction de $u_{n}$.`,
+      calcul(r`u_{n+1} & = 3 \times 2^{n+2}`, r`& = 3 \times 2^{n+1} \times 2`, r`& = 2\,u_{n}`),
+      r`La suite est géométrique de raison <span class="resultat">$2$</span>, de premier terme $u_{0} = 3 \times 2 = 6$.`],
+    revoir: r`capacité 3 du cours (raison d'une suite géométrique donnée par son terme général)`,
+    variante: {
+      enonce: r`Pour tout entier naturel $n$, $u_{n} = 2 \times 3^{n+1}$. La suite $(u_{n})$ est géométrique de raison&nbsp;:`,
+      choix: [r`$3$`, r`$2$`, r`$6$`, r`$3^{n+1}$`],
+      bonne: 0,
+      explication: [
+        r`On exprime $u_{n+1}$ en fonction de $u_{n}$.`,
+        calcul(r`u_{n+1} & = 2 \times 3^{n+2}`, r`& = 2 \times 3^{n+1} \times 3`, r`& = 3\,u_{n}`),
+        r`La suite est géométrique de raison <span class="resultat">$3$</span>, de premier terme $u_{0} = 2 \times 3 = 6$.`] } },
 
   { partie: 0, theme: 'Pourcentage', type: 'qcm',
     enonce: r`Une population diminue de $4\,\%$ chaque année. On note $p_{n}$ l'effectif au bout de $n$ années. La suite $(p_{n})$ est géométrique de raison&nbsp;:`,
@@ -710,7 +733,26 @@ const QUIZ = {
       explication: [
         r`La suite est croissante&nbsp;: on cherche le premier terme qui dépasse $19$ avec le mode suite de la calculatrice.`,
         calcul(r`u_{12} & = 20 - 15 \times 0{,}8^{12} \approx 18{,}97`, r`u_{13} & = 20 - 15 \times 0{,}8^{13} \approx 19{,}18`),
-        r`Le plus petit entier est <span class="resultat">$n = 13$</span>.`] } }
+        r`Le plus petit entier est <span class="resultat">$n = 13$</span>.`] } },
+
+  // Question bonus de l'évaluation, sujet B ; variante : le bonus du sujet A.
+  { partie: 0, theme: 'Suite géométrique', type: 'qcm',
+    enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 10$ et, pour tout entier naturel $n$, $u_{n+1} = 0{,}4\,u_{n} + 3$. On pose $w_{n} = u_{n+1} - u_{n}$ pour tout entier naturel $n$. La suite $(w_{n})$ est&nbsp;:`,
+    choix: [r`géométrique de raison $0{,}4$`, r`géométrique de raison $3$`, r`arithmétique de raison $3$`, r`ni arithmétique, ni géométrique`],
+    bonne: 0,
+    explication: [
+      r`La relation de récurrence, écrite au rang $n + 1$, donne $u_{n+2} = 0{,}4\,u_{n+1} + 3$.`,
+      calcul(r`w_{n+1} & = u_{n+2} - u_{n+1}`, r`& = (0{,}4\,u_{n+1} + 3) - (0{,}4\,u_{n} + 3)`, r`& = 0{,}4\,u_{n+1} - 0{,}4\,u_{n}`, r`& = 0{,}4\,(u_{n+1} - u_{n})`, r`& = 0{,}4\,w_{n}`),
+      r`La suite $(w_{n})$ est <span class="resultat">géométrique de raison $0{,}4$</span>.`],
+    revoir: r`démonstration de la propriété du point fixe (partie 3 du cours) : même calcul`,
+    variante: {
+      enonce: r`La suite $(u_{n})$ est définie par $u_{0} = 10$ et, pour tout entier naturel $n$, $u_{n+1} = 0{,}6\,u_{n} + 8$. On pose $w_{n} = u_{n+1} - u_{n}$ pour tout entier naturel $n$. La suite $(w_{n})$ est&nbsp;:`,
+      choix: [r`géométrique de raison $0{,}6$`, r`géométrique de raison $8$`, r`arithmétique de raison $8$`, r`ni arithmétique, ni géométrique`],
+      bonne: 0,
+      explication: [
+        r`La relation de récurrence, écrite au rang $n + 1$, donne $u_{n+2} = 0{,}6\,u_{n+1} + 8$.`,
+        calcul(r`w_{n+1} & = u_{n+2} - u_{n+1}`, r`& = (0{,}6\,u_{n+1} + 8) - (0{,}6\,u_{n} + 8)`, r`& = 0{,}6\,u_{n+1} - 0{,}6\,u_{n}`, r`& = 0{,}6\,(u_{n+1} - u_{n})`, r`& = 0{,}6\,w_{n}`),
+        r`La suite $(w_{n})$ est <span class="resultat">géométrique de raison $0{,}6$</span>.`] } }
   ]
 };
 
