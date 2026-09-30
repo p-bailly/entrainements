@@ -201,8 +201,6 @@ main.querySelectorAll("details.serie").forEach(det => {
   const s = D.chapitres[+det.dataset.c].series[+det.dataset.s];
   det.addEventListener("toggle", () => { if (det.open && !det.querySelector(".question")) remplir(det, s); });
 });
-const premiere = main.querySelector("details.serie");
-if (premiere) premiere.open = true;
 </script>
 </body>
 </html>
