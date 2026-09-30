@@ -12,8 +12,9 @@
   - Seconde. Une seule partie, onze questions, sans automatismes (demande du professeur pour la
   Seconde), rangées par difficulté croissante, en trois niveaux :
     - niveau 1, questions de cours et lectures directes : définition d'un nombre décimal
-      (a/10^n ; variante : nombre rationnel), lire une abscisse, symbole * (N* ; variante : Z*),
-      ensemble vide (aucun entier entre deux entiers consécutifs) ;
+      (a/10^n ; variante : nombre rationnel), lire une abscisse, reconnaître un entier naturel
+      (0 ; variante : entier relatif), définition d'un nombre irrationnel (variante : nombre
+      réel) ;
     - niveau 2, méthodes en deux ou trois étapes : placer -racine de 3, milieu d'un segment,
       nature d'un nombre (division posée), écrire en liste les entiers compris entre deux
       bornes (comprises ou exclues) ;
@@ -23,10 +24,14 @@
       parmi quatre).
   Depuis le 26/09/2026, le chapitre ne traite que les ensembles de nombres : les cinq questions
   sur les encadrements, la troncature, l'arrondi et les chiffres significatifs sont passées à
-  l'entraînement du chapitre 5, remplacées ici par les notations (symbole *, ensemble vide,
-  ensemble en liste) et la démonstration du cours.
-  Sources : cours (définitions formelles : décimal a/10^n, rationnel a/b, réels, irrationnels,
-  droite numérique ; notations appartenance, inclusion, ensemble vide, symbole *), capacités 1
+  l'entraînement du chapitre 5, remplacées ici par les notations, l'ensemble en liste et la
+  démonstration du cours. Depuis le 30/09/2026, ni symbole * ni ensemble vide (retirés du
+  cours) : leurs deux questions sont remplacées par « entier naturel » et « nombre
+  irrationnel », sur les définitions simples du cours.
+  Sources : cours (entier naturel = entier positif, entier relatif = entier positif ou
+  négatif, décimal a/10^n, rationnel a/b, irrationnel = qui ne s'écrit pas à l'aide d'une
+  fraction, réel = rationnel ou irrationnel, droite numérique ; notation appartenance,
+  inclusion), capacités 1
   et 2, activité 1, fiche (exercices 1 à 5), évaluation (sujets A et B) et exercices du manuel
   cités dans le plan (1 p. 50, 34, 35, 37 et 38 p. 65, 113 et 121 p. 69, question 5 p. 73).
   Mêmes types de questions que dans le cours, la fiche et l'évaluation, avec d'autres valeurs.
@@ -34,8 +39,7 @@
   Calculs détaillés, une transformation par ligne, simplification avec le facteur commun en
   violet, opération faite des deux côtés en rouge.
   Ensembles de nombres : \N, \Z et \R, compris par KaTeX et par le mini-LaTeX de secours ;
-  𝔻, ℚ, ⊂ et ∅ en caractères Unicode, que les deux affichent aussi. L'étoile s'écrit
-  ^{\text{*}} : le mini-LaTeX changerait un * seul en signe ×.
+  𝔻, ℚ et ⊂ en caractères Unicode, que les deux affichent aussi.
   Chaque question a une variante (mêmes notions, autres valeurs) pour la reprise des
   questions manquées.
 
@@ -442,39 +446,41 @@ const QUIZ = {
         calcul(r`x_{B} & = 11 \times \dfrac{1}{4}`, r`& = \dfrac{11}{4}`, r`& = 2{,}75`),
         r`L'abscisse de $B$ est <span class="resultat">$2{,}75$, soit $\dfrac{11}{4}$</span>&nbsp;; la fraction est irréductible, car $11$ est impair.`] } },
 
-  { partie: 0, theme: 'Symbole *', type: 'qcm',
-    enonce: r`L'ensemble $\N^{\text{*}}$ est&nbsp;:`,
-    choix: [r`$\{1\,;\,2\,;\,3\,;\,\ldots\}$`, r`$\{0\,;\,1\,;\,2\,;\,3\,;\,\ldots\}$`,
-            r`$\{\ldots\,;\,-2\,;\,-1\,;\,1\,;\,2\,;\,\ldots\}$`, r`$\{0\}$`],
+  { partie: 0, theme: 'Entier naturel', type: 'qcm',
+    enonce: r`Un seul de ces nombres est un entier naturel. Lequel&nbsp;?`,
+    choix: [r`$0$`, r`$-2$`, r`$0{,}5$`, r`$-\dfrac{1}{2}$`],
     bonne: 0,
     explication: [
-      r`Le symbole * placé en exposant exclut $0$&nbsp;: $\N^{\text{*}}$ est l'ensemble des entiers naturels non nuls.`,
-      r`Donc <span class="resultat">$\N^{\text{*}} = \{1\,;\,2\,;\,3\,;\,\ldots\}$</span>.`],
-    revoir: r`notation «&nbsp;ensemble vide, symbole *&nbsp;» (partie 1 du cours), exercice 4 de la fiche`,
+      r`Un nombre entier naturel est un nombre entier qui est positif&nbsp;: $\N = \{0\,;\,1\,;\,2\,;\,3\,;\,\ldots\}.$`,
+      r`$0$ est un entier positif&nbsp;: <span class="resultat">$0 \in \N$</span>.`],
+    revoir: r`définition d'un nombre entier naturel (partie 1 du cours), exercice 4 de la fiche`,
     variante: {
-      enonce: r`L'ensemble $\Z^{\text{*}}$ est&nbsp;:`,
-      choix: [r`$\{\ldots\,;\,-2\,;\,-1\,;\,1\,;\,2\,;\,\ldots\}$`, r`$\{1\,;\,2\,;\,3\,;\,\ldots\}$`,
-              r`$\{\ldots\,;\,-2\,;\,-1\,;\,0\,;\,1\,;\,2\,;\,\ldots\}$`, r`$\{\ldots\,;\,-3\,;\,-2\,;\,-1\}$`],
+      theme: 'Entier relatif',
+      enonce: r`Un seul de ces nombres est un entier relatif. Lequel&nbsp;?`,
+      choix: [r`$-5$`, r`$-0{,}5$`, r`$\dfrac{3}{2}$`, r`$2{,}1$`],
       bonne: 0,
       explication: [
-        r`Le symbole * placé en exposant exclut $0$&nbsp;: $\Z^{\text{*}}$ est l'ensemble des entiers relatifs non nuls, positifs ou négatifs.`,
-        r`Donc <span class="resultat">$\Z^{\text{*}} = \{\ldots\,;\,-2\,;\,-1\,;\,1\,;\,2\,;\,\ldots\}$</span>.`] } },
+        r`Un nombre entier relatif est un nombre entier, positif ou négatif&nbsp;: $\Z = \{\ldots\,;\,-2\,;\,-1\,;\,0\,;\,1\,;\,2\,;\,\ldots\}.$`,
+        r`$-5$ est un entier négatif&nbsp;: <span class="resultat">$-5 \in \Z$</span>.`],
+      revoir: r`définition d'un nombre entier relatif (partie 1 du cours), exercice 4 de la fiche` } },
 
-  { partie: 0, theme: 'Ensemble vide', type: 'qcm',
-    enonce: r`L'ensemble des entiers naturels $x$ tels que $3 < x < 4$ est&nbsp;:`,
-    choix: [r`$∅$`, r`$\{0\}$`, r`$\{3\,;\,4\}$`, r`$\{3{,}5\}$`],
+  { partie: 0, theme: 'Nombre irrationnel', type: 'qcm',
+    enonce: r`Par définition, un nombre irrationnel est un nombre qui&nbsp;:`,
+    choix: [r`ne peut pas s'écrire à l'aide d'une fraction`, r`a une infinité de chiffres après la virgule`,
+            r`est négatif`, r`n'est pas un nombre réel`],
     bonne: 0,
     explication: [
-      r`Les entiers naturels se suivent de $1$ en $1$&nbsp;: après $3$ vient $4$. Aucun entier n'est strictement compris entre $3$ et $4$.`,
-      r`L'ensemble ne contient aucun élément&nbsp;: c'est l'ensemble vide, <span class="resultat">$∅$</span>.`],
-    revoir: r`notation «&nbsp;ensemble vide, symbole *&nbsp;» (partie 1 du cours), exercice 4 de la fiche`,
+      r`Un nombre irrationnel est un nombre qui <span class="resultat">ne peut pas s'écrire à l'aide d'une fraction</span>, comme $\sqrt{2}$ et $\pi$ (admis).`],
+    revoir: r`définition d'un nombre irrationnel (partie 3 du cours)`,
     variante: {
-      enonce: r`L'ensemble des entiers relatifs $x$ tels que $-2 < x < -1$ est&nbsp;:`,
-      choix: [r`$∅$`, r`$\{0\}$`, r`$\{-2\,;\,-1\}$`, r`$\{-1{,}5\}$`],
+      theme: 'Nombre réel',
+      enonce: r`Par définition, un nombre réel est&nbsp;:`,
+      choix: [r`un nombre rationnel ou irrationnel`, r`un nombre qui a une écriture décimale finie`,
+              r`un nombre positif`, r`un nombre qui s'écrit à l'aide d'une fraction`],
       bonne: 0,
       explication: [
-        r`Les entiers relatifs se suivent de $1$ en $1$&nbsp;: après $-2$ vient $-1$. Aucun entier n'est strictement compris entre $-2$ et $-1$.`,
-        r`L'ensemble ne contient aucun élément&nbsp;: c'est l'ensemble vide, <span class="resultat">$∅$</span>.`] } },
+        r`Un nombre réel est <span class="resultat">un nombre rationnel ou irrationnel</span>, comme $\dfrac{1}{3}$ (rationnel) ou $\sqrt{2}$ (irrationnel).`],
+      revoir: r`définition d'un nombre réel (partie 3 du cours)` } },
 
   /* ----- Niveau 2 : méthodes du chapitre, en deux ou trois étapes ----- */
 
@@ -561,7 +567,7 @@ const QUIZ = {
     explication: [
       r`On liste les entiers de $-2$ à $1$, puis on regarde les bornes&nbsp;: $-2$ est exclu, car l'inégalité $-2 < x$ est stricte&nbsp;; $1$ est compris, car $x \le 1$.`,
       r`Il reste $-1$, $0$ et $1$&nbsp;: l'ensemble est <span class="resultat">$\{-1\,;\,0\,;\,1\}$</span>.`],
-    revoir: r`notations de la partie 1 du cours, exercice 4 de la fiche`,
+    revoir: r`nombres entiers (partie 1 du cours), exercice 4 de la fiche`,
     variante: {
       enonce: r`L'ensemble des entiers relatifs $x$ tels que $-3 \le x < 1$ est&nbsp;:`,
       choix: [r`$\{-3\,;\,-2\,;\,-1\,;\,0\}$`, r`$\{-2\,;\,-1\,;\,0\}$`, r`$\{-3\,;\,-2\,;\,-1\,;\,0\,;\,1\}$`, r`$\{-2\,;\,-1\,;\,0\,;\,1\}$`],
@@ -628,7 +634,7 @@ const QUIZ = {
       r`$3{,}5 \times 10^{2} = 3{,}5 \times 100 = 350$ est un entier positif&nbsp;: $3{,}5 \times 10^{2} \in \N$ est vraie.`,
       r`Tout entier naturel $n$ est décimal, car $n = \dfrac{n}{10^{0}}$&nbsp;: $\N ⊂ 𝔻$ est vraie.`,
       r`$3^{2} = 9 < 12 < 16 = 4^{2}$&nbsp;: $12$ n'est pas le carré d'un entier, donc $\sqrt{12}$ n'est pas un entier&nbsp;; on admet qu'il est irrationnel, il n'appartient pas à $ℚ$. L'affirmation fausse est <span class="resultat">$\sqrt{12} \in ℚ$</span>.`],
-    revoir: r`notations $\in$ et $⊂$ (partie 1 du cours), définitions des ensembles de nombres, classification des nombres (parties 2 et 3), capacité 1, exercice 4 de la fiche`,
+    revoir: r`notations $\in$ et $⊂$ (partie 1 du cours), définitions des ensembles de nombres (parties 1 à 3), classification des nombres (partie 4), capacité 1, exercice 4 de la fiche`,
     variante: {
       enonce: r`Une seule de ces quatre affirmations est <b>fausse</b>. Laquelle&nbsp;?`,
       choix: [r`$\dfrac{\pi}{4} \in ℚ$`, r`$0{,}08 \times 10^{3} \in \N$`, r`$-\dfrac{9}{4} \in 𝔻$`, r`$\Z ⊂ ℚ$`],
