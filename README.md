@@ -2,7 +2,7 @@
 
 - Chapitre 1 : [Calcul littéral](https://p-bailly.github.io/entrainements/seconde/01-calcul-litteral.html)
 - Chapitre 2 : [Puissances, racines carrées et fractions](https://p-bailly.github.io/entrainements/seconde/02-puissances-racines-fractions.html)
-- Chapitre 3 : [Nombres réels](https://p-bailly.github.io/entrainements/seconde/03-nombres-reels-1.html)
+- Chapitre 3 : [Nombres réels](https://p-bailly.github.io/entrainements/seconde/03-nombres-reels.html)
 
 ## Première, mathématiques spécifiques
 
