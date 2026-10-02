@@ -17,6 +17,7 @@
 <!-- automatismes -->
 ## Automatismes faits en classe
 
+- [2°3](https://p-bailly.github.io/entrainements/automatismes/2-3.html)
 - [2°4](https://p-bailly.github.io/entrainements/automatismes/2-4.html)
 <!-- /automatismes -->
 
