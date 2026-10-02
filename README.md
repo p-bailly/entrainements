@@ -14,4 +14,10 @@
 - Chapitre 2 : [Suites](https://p-bailly.github.io/entrainements/terminale/02-suites-arithmetico-geometriques.html)
 - Chapitre 3 : [Compléments sur la dérivation](https://p-bailly.github.io/entrainements/terminale/03-complements-derivation.html)
 
+<!-- automatismes -->
+## Automatismes faits en classe
+
+- [2°4](https://p-bailly.github.io/entrainements/automatismes/2-4.html)
+<!-- /automatismes -->
+
 <!-- Liste écrite par tools/entrainement.py (dépôt des cours), comme les pages : ne rien modifier ici. -->
