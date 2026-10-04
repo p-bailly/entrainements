@@ -70,35 +70,40 @@ main > h2:first-child,.chapitre:first-child > h2{margin-top:6px}
 .extrait:active{filter:brightness(.92)}
 .katex{white-space:nowrap}
 .katex-display{margin:.5em 0; overflow-x:auto; overflow-y:hidden}
-/* Fenêtre pop-up des extraits de PDF */
-dialog#extrait{width:calc(100vw - 16px); max-width:54rem; max-height:calc(100vh - 16px); max-height:calc(100dvh - 16px); padding:0; border:0; border-radius:12px; background:var(--papier); color:var(--encre); overflow:hidden}
-dialog#extrait[open]{display:flex; flex-direction:column}
-dialog#extrait::backdrop{background:rgba(0,0,0,.55)}
-#extrait .entete{flex:none; display:flex; align-items:center; gap:10px; padding:6px 6px 6px 16px; border-bottom:1px solid var(--filet)}
-#extrait h2{flex:1; min-width:0; margin:0; font-size:1rem; line-height:1.3}
-#extrait .pdf{flex:none; padding:8px 12px; border:1.5px solid var(--stylo); border-radius:9px; font-size:.9rem; font-weight:600; text-decoration:none; white-space:nowrap}
-#extrait .fermer{flex:none; width:44px; height:44px; border:0; border-radius:50%; background:transparent; font-size:1.3rem; line-height:1; color:var(--encre); cursor:pointer}
-#extrait .fermer:active{background:var(--case)}
-#extrait .corps{flex:1; min-height:0; overflow:auto; padding:10px; background:#fff; -webkit-overflow-scrolling:touch}
+/* Fenêtres pop-up : extraits de PDF (#extrait) et diaporama des automatismes (#diapo) */
+dialog.fenetre{width:calc(100vw - 16px); max-width:54rem; max-height:calc(100vh - 16px); max-height:calc(100dvh - 16px); padding:0; border:0; border-radius:12px; background:var(--papier); color:var(--encre); overflow:hidden}
+dialog.fenetre[open]{display:flex; flex-direction:column}
+dialog.fenetre::backdrop{background:rgba(0,0,0,.55)}
+.fenetre .entete{flex:none; display:flex; align-items:center; gap:10px; padding:6px 6px 6px 16px; border-bottom:1px solid var(--filet)}
+.fenetre h2{flex:1; min-width:0; margin:0; font-size:1rem; line-height:1.3}
+.fenetre .pdf{flex:none; padding:8px 12px; border:1.5px solid var(--stylo); border-radius:9px; font-size:.9rem; font-weight:600; text-decoration:none; white-space:nowrap}
+.fenetre .fermer{flex:none; width:44px; height:44px; border:0; border-radius:50%; background:transparent; font-size:1.3rem; line-height:1; color:var(--encre); cursor:pointer}
+.fenetre .fermer:active{background:var(--case)}
+.fenetre .corps{flex:1; min-height:0; overflow:auto; padding:10px; background:#fff; -webkit-overflow-scrolling:touch}
 #extrait img{display:block; width:100%; min-width:30rem; height:auto; margin:0 auto}
-/* Séries d'automatismes (comme sur la page des automatismes faits en classe) */
-.tout{display:flex; justify-content:flex-end; margin:6px 0 2px}
-.question{padding:14px 0 12px}
-.question + .question{border-top:1px solid var(--filet)}
-.num{margin:0 0 6px; font-size:.9rem; font-weight:600; color:var(--gris)}
-.consigne{margin:0 0 4px; font-size:.95rem; color:var(--gris)}
-.enonce-q{font-size:1.06rem}
+/* Diaporama : une question par diapositive, les réponses seulement à la fin */
+dialog#diapo{height:calc(100vh - 16px); height:calc(100dvh - 16px); max-height:46rem}
+#diapo .corps{display:flex; flex-direction:column; justify-content:center; padding:18px 18px 10px}
+#diapo .corps.corriges{justify-content:flex-start}
+#diapo .consigne{margin:0 0 10px; font-size:1.05rem; color:var(--gris); text-align:center}
+#diapo .enonce-q{font-size:1.7rem; line-height:1.45; text-align:center}
+#diapo .figure{margin:14px 0 0}
+#diapo .pied{flex:none; display:flex; gap:10px; padding:10px 12px calc(10px + env(safe-area-inset-bottom)); border-top:1px solid var(--filet)}
+#diapo .pied button{flex:1; min-height:48px; padding:6px 14px; border:1.5px solid var(--stylo); border-radius:9px; background:var(--papier); color:var(--stylo); font-size:1rem; font-weight:600; cursor:pointer; touch-action:manipulation}
+#diapo .pied button.suiv{background:var(--stylo); color:#fff}
+#diapo .pied button:disabled{opacity:.35; cursor:default}
+#diapo .pied button:active:not(:disabled){filter:brightness(.92)}
+#diapo li.correction{padding:12px 0}
+#diapo li.correction + li.correction{border-top:1px solid var(--filet)}
+#diapo ol.corrections{margin:0; padding-left:1.6em}
+#diapo .q-rappel{color:var(--gris); font-size:.95rem}
+#diapo .rep{margin-top:4px; padding:6px 12px; border-left:5px solid var(--vert); border-radius:6px; background:var(--vert-clair); font-weight:600}
+#diapo .etapes{margin-top:6px; font-size:.95rem}
+.etape-q + .etape-q{margin-top:.3em}
 .enonce-q,.figure,.rep,.etapes{overflow-x:auto; overflow-y:hidden; overflow-wrap:break-word}
 .figure{margin:8px 0 2px; text-align:center}
 .figure svg{display:inline-block; width:30rem; max-width:none; height:auto; vertical-align:middle}
 .rep svg,.etapes svg{display:inline-block; max-width:100%; height:auto; max-height:16rem; vertical-align:middle}
-.voir{margin:10px 0 0; min-height:40px; padding:4px 14px; border:1.5px solid var(--stylo); border-radius:9px; background:var(--papier); color:var(--stylo); font-size:.95rem; font-weight:600; cursor:pointer; touch-action:manipulation}
-.voir[aria-expanded="true"]{background:var(--bleu-clair)}
-.voir:active{filter:brightness(.94)}
-.reponse{margin:10px 0 0; padding:10px 14px; border-left:5px solid var(--vert); border-radius:8px; background:var(--vert-clair)}
-.rep{font-weight:600}
-.etapes{margin-top:6px; font-size:.95rem}
-.etape-q + .etape-q{margin-top:.3em}
 :focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
 .insecable{white-space:nowrap}
 table.tab{border-collapse:collapse; margin:0 auto; background:#fff; font-size:.9rem}
@@ -134,7 +139,7 @@ table.tab th{background:#f2f4f7; font-weight:600}
 <p class="resume">Automatismes, cours 2.1, exercices</p>
 <details class="menu"><summary>Automatismes</summary>
 <div class="contenu">
-<p>Sans calculatrice. Écris ta réponse à chaque question sur une feuille avant de regarder la réponse.</p>
+<p>Sans calculatrice. Écris ta réponse à chaque question sur une feuille. Les réponses ne s’affichent qu’à la fin du diaporama.</p>
 <div data-serie="2026-10-04_11-51-25_kt3y"></div>
 </div>
 </details>
@@ -190,9 +195,14 @@ table.tab th{background:#f2f4f7; font-weight:600}
 </article>
 </section>
 </main>
-<dialog id="extrait" aria-labelledby="extrait-titre">
+<dialog id="extrait" class="fenetre" aria-labelledby="extrait-titre">
   <div class="entete"><h2 id="extrait-titre"></h2><a class="pdf" target="_blank" rel="noopener">Ouvrir le PDF</a><button type="button" class="fermer" aria-label="Fermer">✕</button></div>
   <div class="corps"><img alt=""></div>
+</dialog>
+<dialog id="diapo" class="fenetre" aria-labelledby="diapo-titre">
+  <div class="entete"><h2 id="diapo-titre"></h2><button type="button" class="fermer" aria-label="Fermer">✕</button></div>
+  <div class="corps"></div>
+  <div class="pied"><button type="button" class="prec">Précédent</button><button type="button" class="suiv">Suivant</button></div>
 </dialog>
 <script type="application/json" id="donnees">{"macros":{"\\R":"\\mathbb{R}","\\N":"\\mathbb{N}","\\Z":"\\mathbb{Z}","\\D":"\\mathbb{D}","\\Q":"\\mathbb{Q}","\\pv":"\\,;\\,","\\vect":"\\overrightarrow{#1}","\\mul":"\\textcolor{##5B3E96}{#1}","\\op":"\\textcolor{##C62026}{#1}","\\e":"\\mathrm{e}","\\Card":"\\mathrm{Card}","\\cro":"\\mathopen{]}","\\crf":"\\mathclose{[}"},"series":{"2026-10-04_11-51-25_kt3y":{"questions":[{"consigne":"","enonce":"$u(n)=2n+11$ pour tout entier naturel $n$. Calculer $u(1)$.","figure":"","reponse":"$u(1)=13$","etapes":["On remplace $n$ par $1$ : $u(1)=2\\times 1+11$","$=13$"]},{"consigne":"","enonce":"$u_{n}=n^{2}-1$ pour tout entier naturel $n$. Calculer $u_{5}$.","figure":"","reponse":"$u_{5}=24$","etapes":["On remplace $n$ par $5$ : $u_{5}=5^{2}-1$","$=24$"]},{"consigne":"","enonce":"$u_{n}=2^{n}-5$ pour tout entier naturel $n$. Calculer $u_{6}$.","figure":"","reponse":"$u_{6}=59$","etapes":["On remplace $n$ par $6$ : $u_{6}=2^{6}-5$","$=59$"]},{"consigne":"Exprimer en fonction de $n$.","enonce":"$u_{n}=(n+4)^{2}$ pour tout entier naturel $n$. $u_{2n}=\\,?$","figure":"","reponse":"$(2n+4)^{2}$","etapes":["On remplace $n$ par $2n$ : $u_{2n}=(2n+4)^{2}$"]}]}},"extraits":{"ch2-cours-2-1":{"titre":"Cours 2.1 : suite définie par extension","img":"extraits/premiere-02-cours-2-1.png","pdf":"extraits/premiere-02-cours-2-1.pdf"},"ch2-fiche-1":{"titre":"Fiche d'exercices : exercice 1","img":"extraits/premiere-02-fiche-1.png","pdf":"extraits/premiere-02-fiche-1.pdf"},"ch2-fiche-1-corr":{"titre":"Fiche d'exercices : auto-correction de l'exercice 1","img":"extraits/premiere-02-fiche-1-corr.png","pdf":"extraits/premiere-02-fiche-1-corr.pdf"},"ch2-man-qf2":{"titre":"Manuel p. 60, question flash 2 : correction","img":"extraits/premiere-02-man-qf2.png","pdf":"extraits/premiere-02-man-qf2.pdf"},"ch2-man-23":{"titre":"Manuel p. 61, exercice 23 : correction","img":"extraits/premiere-02-man-23.png","pdf":"extraits/premiere-02-man-23.pdf"}},"cle":"distanciel-premiere"}</script>
 <script src="katex/katex.min.js"></script>
@@ -273,33 +283,51 @@ function html(texte) {
   }
   return res;
 }
-function montrer(bouton, voir) {
-  bouton.setAttribute("aria-expanded", String(voir));
-  bouton.textContent = voir ? "Masquer la réponse" : "Voir la réponse";
-  bouton.nextElementSibling.hidden = !voir;
+// Diaporama d'une série d'automatismes : une question par diapositive, sans réponse ; les corrections de toutes
+// les questions ne s'affichent qu'à la fin (dernière diapositive), jamais après chaque question.
+const diapo = document.getElementById("diapo");
+let serieCourante = null, rang = 0;
+function afficherDiapo() {
+  const qs = serieCourante.questions, n = qs.length;
+  const corps = diapo.querySelector(".corps"), titre = diapo.querySelector("h2");
+  const prec = diapo.querySelector(".prec"), suiv = diapo.querySelector(".suiv");
+  corps.classList.toggle("corriges", rang >= n);
+  if (rang < n) {
+    const v = qs[rang];
+    titre.textContent = "Question " + (rang + 1) + " sur " + n;
+    corps.innerHTML = (v.consigne ? '<div class="consigne">' + html(v.consigne) + "</div>" : "")
+      + '<div class="enonce-q">' + html(v.enonce) + "</div>"
+      + (v.figure ? '<div class="figure">' + html(v.figure) + "</div>" : "");
+  } else {
+    titre.textContent = "Corrections";
+    corps.innerHTML = '<ol class="corrections">' + qs.map(v => '<li class="correction">'
+      + '<div class="q-rappel">' + (v.consigne ? html(v.consigne) + " " : "") + html(v.enonce) + "</div>"
+      + '<div class="rep">' + html(v.reponse) + "</div>"
+      + (v.etapes.length ? '<div class="etapes">' + v.etapes.map(e => '<div class="etape-q">' + html(e) + "</div>").join("") + "</div>" : "")
+      + "</li>").join("") + "</ol>";
+  }
+  prec.disabled = rang === 0;
+  suiv.hidden = rang >= n;
+  suiv.textContent = rang === n - 1 ? "Voir les corrections" : "Suivant";
+  corps.scrollTop = 0;
 }
 function remplirSerie(div, s) {
-  let h = '<div class="tout"><button class="voir" type="button" aria-expanded="false">Voir toutes les réponses</button></div>';
-  s.questions.forEach((v, i) => {
-    h += '<section class="question"><div class="num">Question ' + (i + 1) + "</div>"
-      + (v.consigne ? '<div class="consigne">' + html(v.consigne) + "</div>" : "")
-      + '<div class="enonce-q">' + html(v.enonce) + "</div>"
-      + (v.figure ? '<div class="figure">' + html(v.figure) + "</div>" : "")
-      + '<button class="voir" type="button" aria-expanded="false">Voir la réponse</button>'
-      + '<div class="reponse" hidden><div class="rep">' + html(v.reponse) + "</div>"
-      + (v.etapes.length ? '<div class="etapes">' + v.etapes.map(e => '<div class="etape-q">' + html(e) + "</div>").join("") + "</div>" : "")
-      + "</div></section>";
-  });
-  div.innerHTML = h;
-  const tous = [...div.querySelectorAll(".question .voir")], bTout = div.querySelector(".tout .voir");
-  tous.forEach(b => { b.onclick = () => montrer(b, b.getAttribute("aria-expanded") !== "true"); });
-  bTout.onclick = () => {
-    const voir = bTout.getAttribute("aria-expanded") !== "true";
-    tous.forEach(b => montrer(b, voir));
-    bTout.setAttribute("aria-expanded", String(voir));
-    bTout.textContent = voir ? "Masquer les réponses" : "Voir toutes les réponses";
+  div.innerHTML = '<button type="button" class="extrait" data-diaporama="1">Afficher le diaporama</button>';
+  div.querySelector("button").onclick = () => {
+    serieCourante = s;
+    rang = 0;
+    afficherDiapo();
+    if (typeof diapo.showModal === "function") diapo.showModal();
   };
 }
+diapo.querySelector(".prec").onclick = () => { if (rang > 0) { rang--; afficherDiapo(); } };
+diapo.querySelector(".suiv").onclick = () => { if (serieCourante && rang < serieCourante.questions.length) { rang++; afficherDiapo(); } };
+diapo.querySelector(".fermer").onclick = () => diapo.close();
+diapo.addEventListener("click", ev => { if (ev.target === diapo) diapo.close(); });
+diapo.addEventListener("keydown", ev => {
+  if (ev.key === "ArrowRight" || ev.key === " ") { ev.preventDefault(); diapo.querySelector(".suiv").click(); }
+  else if (ev.key === "ArrowLeft") { ev.preventDefault(); diapo.querySelector(".prec").click(); }
+});
 
 // Fenêtre pop-up d'un extrait de PDF : image de l'extrait, lien vers le PDF (à imprimer), Échap ou clic à côté pour fermer.
 const fenetre = document.getElementById("extrait");
