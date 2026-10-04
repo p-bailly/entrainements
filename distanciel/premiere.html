@@ -72,12 +72,12 @@ main > h2:first-child,.chapitre:first-child > h2{margin-top:6px}
 .katex{white-space:nowrap}
 .katex-display{margin:.5em 0; overflow-x:auto; overflow-y:hidden}
 /* Fenêtres pop-up : extraits de PDF (#extrait) et diaporama des automatismes (#diapo) */
-dialog.fenetre{width:calc(100vw - 16px); max-width:54rem; max-height:calc(100vh - 16px); max-height:calc(100dvh - 16px); padding:0; border:0; border-radius:12px; background:var(--papier); color:var(--encre); overflow:hidden}
+dialog.fenetre{--c:var(--stylo); border-top:6px solid var(--c) !important; width:calc(100vw - 16px); max-width:54rem; max-height:calc(100vh - 16px); max-height:calc(100dvh - 16px); padding:0; border:0; border-radius:12px; background:var(--papier); color:var(--encre); overflow:hidden}
 dialog.fenetre[open]{display:flex; flex-direction:column}
 dialog.fenetre::backdrop{background:rgba(0,0,0,.55)}
 .fenetre .entete{flex:none; display:flex; align-items:center; gap:10px; padding:6px 6px 6px 16px; border-bottom:1px solid var(--filet)}
-.fenetre h2{flex:1; min-width:0; margin:0; font-size:1rem; line-height:1.3}
-.fenetre .pdf{flex:none; padding:8px 12px; border:1.5px solid var(--stylo); border-radius:9px; font-size:.9rem; font-weight:600; text-decoration:none; white-space:nowrap}
+.fenetre h2{flex:1; min-width:0; margin:0; font-size:1rem; line-height:1.3; color:var(--c); font-weight:700}
+.fenetre .pdf{flex:none; padding:8px 12px; color:var(--c); border:1.5px solid var(--c); border-radius:9px; font-size:.9rem; font-weight:600; text-decoration:none; white-space:nowrap}
 .fenetre .fermer{flex:none; width:44px; height:44px; border:0; border-radius:50%; background:transparent; font-size:1.3rem; line-height:1; color:var(--encre); cursor:pointer}
 .fenetre .fermer:active{background:var(--case)}
 .fenetre .corps{flex:1; min-height:0; overflow:auto; padding:10px; background:#fff; -webkit-overflow-scrolling:touch}
@@ -90,8 +90,8 @@ dialog#diapo{height:calc(100vh - 16px); height:calc(100dvh - 16px); max-height:4
 #diapo .enonce-q{font-size:1.7rem; line-height:1.45; text-align:center}
 #diapo .figure{margin:14px 0 0}
 #diapo .pied{flex:none; display:flex; gap:10px; padding:10px 12px calc(10px + env(safe-area-inset-bottom)); border-top:1px solid var(--filet)}
-#diapo .pied button{flex:1; min-height:48px; padding:6px 14px; border:1.5px solid var(--stylo); border-radius:9px; background:var(--papier); color:var(--stylo); font-size:1rem; font-weight:600; cursor:pointer; touch-action:manipulation}
-#diapo .pied button.suiv{background:var(--stylo); color:#fff}
+#diapo .pied button{flex:1; min-height:48px; padding:6px 14px; border:1.5px solid var(--c); border-radius:9px; background:var(--papier); color:var(--c); font-size:1rem; font-weight:600; cursor:pointer; touch-action:manipulation}
+#diapo .pied button.suiv{background:var(--c); color:#fff}
 #diapo .pied button:disabled{opacity:.35; cursor:default}
 #diapo .pied button:active:not(:disabled){filter:brightness(.92)}
 #diapo li.correction{padding:12px 0}
@@ -317,6 +317,7 @@ function remplirSerie(div, s) {
   div.querySelector("button").onclick = () => {
     serieCourante = s;
     rang = 0;
+    diapo.style.setProperty("--c", getComputedStyle(div).getPropertyValue("--c").trim() || "#E07B00");
     afficherDiapo();
     if (typeof diapo.showModal === "function") diapo.showModal();
   };
@@ -338,6 +339,7 @@ document.addEventListener("click", ev => {
   const x = D.extraits[b.dataset.extrait];
   if (!x) return;
   if (typeof fenetre.showModal !== "function") { window.open(x.pdf, "_blank"); return; }
+  fenetre.style.setProperty("--c", getComputedStyle(b).getPropertyValue("--c").trim() || "#1E3D96");
   fenetre.querySelector("h2").textContent = x.titre;
   const lien = fenetre.querySelector(".pdf");
   lien.href = x.pdf;
