@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#FFFFFF">
+<title>Première · Travail à distance</title>
+<!-- Page écrite par tools/distanciel.py (dépôt des cours) d'après le dossier Distanciel/ : ne rien modifier ici. -->
+<link rel="stylesheet" href="katex/katex.min.css">
+<style>
+:root{
+  --papier:#FFFFFF; --fond:#EDEDED; --encre:#161616; --gris:#5C5C5C; --filet:#CCCCCC; --case:#F2F2F2;
+  --stylo:#1E3D96; --rouge:#C62026; --vert:#1C7436; --orange:#B5650B;
+  --bleu-clair:#E8EDF8; --vert-clair:#E6F2E9; --rouge-clair:#FBEBEB; --orange-clair:#FCF1E0;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%; text-size-adjust:100%; scroll-padding-top:70px}
+body{margin:0; min-height:100vh; background:var(--fond); color:var(--encre); font:400 17px/1.5 var(--sans); -webkit-tap-highlight-color:transparent}
+button{font-family:inherit}
+a{color:var(--stylo)}
+.haut{position:sticky; top:0; z-index:5; background:var(--papier); border-bottom:1px solid var(--filet); padding-top:env(safe-area-inset-top)}
+.haut .ligne{display:flex; align-items:center; gap:6px; max-width:42rem; margin:0 auto; padding:6px 14px 6px 6px; min-height:56px}
+.retour{flex:none; display:grid; place-items:center; width:44px; height:44px; color:var(--encre); border-radius:50%}
+.retour:active{background:var(--case)}
+.retour svg{width:22px; height:22px}
+.titres{flex:1; min-width:0; line-height:1.25}
+.titres span{display:block}
+.titres .lycee{font-size:.78rem; color:var(--gris)}
+.titres .chap{font-size:.95rem; font-weight:600}
+main{max-width:42rem; margin:0 auto; padding:14px 12px calc(28px + env(safe-area-inset-bottom))}
+h2{margin:22px 4px 8px; font-size:1.15rem}
+main > h2:first-child,.chapitre:first-child > h2{margin-top:6px}
+.vide{margin:20px 4px; color:var(--gris)}
+/* Accueil */
+.niveaux{display:grid; gap:10px}
+.niveau{display:block; padding:12px 16px; background:var(--papier); border:1px solid var(--filet); border-radius:10px; color:var(--encre); text-decoration:none}
+.niveau:active{background:var(--case)}
+.niveau .nom{display:block; font-weight:600}
+.niveau .detail{display:block; font-size:.92rem; color:var(--gris)}
+/* Chapitre et séances */
+.intro{margin:0 0 10px; padding:10px 14px; background:var(--papier); border:1px solid var(--filet); border-radius:10px; font-size:.97rem}
+.intro > :first-child{margin-top:0}
+.intro > :last-child{margin-bottom:0}
+.seances{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 6px}
+.seances a{padding:6px 14px; border:1.5px solid var(--stylo); border-radius:999px; background:var(--papier); font-weight:600; font-size:.95rem; text-decoration:none}
+.seances a:active{background:var(--bleu-clair)}
+.seance{margin-top:18px}
+.seance header{display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 12px; margin:0 4px}
+.seance h3{margin:0; font-size:1.1rem}
+.seance .resume{margin:0; flex:1 1 12rem; color:var(--gris); font-size:.95rem}
+.seance .compte{margin:0; font-size:.88rem; color:var(--vert); font-weight:600}
+.compte:empty{display:none}
+.etape{margin:10px 0 0; padding:2px 14px 14px; background:var(--papier); border:1px solid var(--filet); border-radius:10px}
+.etape h3,.etape h4{margin:0}
+.etape > h3{display:flex; align-items:baseline; gap:10px; margin:12px 0 6px; font-size:1.05rem}
+.etape > h3 .n{flex:none; align-self:center; display:inline-grid; place-items:center; width:1.75em; height:1.75em; border-radius:50%; background:var(--stylo); color:#fff; font-size:.85rem; font-weight:700}
+.etape > h3 .duree{margin-left:auto; font-size:.82rem; font-weight:400; color:var(--gris); text-align:right}
+.etape.fait{border-color:var(--vert)}
+.etape.fait > h3 .n{background:var(--vert)}
+.etape p{margin:.5em 0}
+.etape ul,.etape ol{margin:.4em 0; padding-left:1.4em}
+.etape li + li{margin-top:.25em}
+.marquer{display:block; margin:14px 0 0 auto; min-height:40px; padding:4px 14px; border:1.5px solid var(--filet); border-radius:9px; background:var(--papier); color:var(--gris); font-size:.92rem; cursor:pointer; touch-action:manipulation}
+.fait .marquer{border-color:var(--vert); background:var(--vert-clair); color:var(--vert); font-weight:600}
+/* Cours : encadrés */
+.partie{margin:18px 0 4px; font-size:1rem; font-weight:700; color:var(--rouge)}
+.bloc{margin:10px 0; padding:8px 14px 10px; border-left:5px solid var(--gris); border-radius:8px; background:var(--case)}
+.bloc > p{margin:.35em 0}
+.bloc .titre{margin:0 0 .2em; font-size:.82rem; font-weight:700; letter-spacing:.02em; text-transform:uppercase; color:var(--gris)}
+.bloc.definition{border-color:var(--vert); background:var(--vert-clair)}
+.bloc.definition .titre{color:var(--vert)}
+.bloc.propriete{border-color:var(--rouge); background:var(--rouge-clair)}
+.bloc.propriete .titre{color:var(--rouge)}
+.bloc.exemple{border-color:var(--stylo); background:var(--bleu-clair)}
+.bloc.exemple .titre{color:var(--stylo)}
+.bloc.methode{border-color:var(--orange); background:var(--orange-clair)}
+.bloc.methode .titre{color:var(--orange)}
+.cadre{display:inline-block; padding:.1em .6em; border:1.5px solid var(--encre); background:var(--papier)}
+.tex{margin:.3em 0; overflow-x:auto; overflow-y:hidden}
+.katex-display{margin:.5em 0; overflow-x:auto; overflow-y:hidden}
+.katex-display > .katex{font-size:1em}
+.katex{white-space:nowrap}
+/* Exercices */
+.exo{margin:14px 0 0; padding-top:12px; border-top:1px solid var(--filet)}
+.exo:first-of-type{border-top:none; padding-top:2px}
+.exo h4{display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px; font-size:1rem}
+.exo h4 .ou{font-size:.82rem; font-weight:400; color:var(--gris)}
+.exo .enonce{margin:.4em 0}
+.aide{margin:8px 0 0; border:1.5px solid var(--stylo); border-radius:9px; background:var(--papier)}
+.aide > summary{min-height:40px; padding:7px 14px; color:var(--stylo); font-weight:600; font-size:.95rem; cursor:pointer; list-style:none}
+.aide > summary::-webkit-details-marker{display:none}
+.aide[open] > summary{background:var(--bleu-clair); border-radius:7px 7px 0 0}
+.aide > :not(summary){margin-left:12px; margin-right:12px}
+.aide > :last-child{margin-bottom:10px}
+.aide.corrige{border-color:var(--vert)}
+.aide.corrige > summary{color:var(--vert)}
+.aide.corrige[open] > summary{background:var(--vert-clair)}
+.calculs{list-style:none; padding-left:0 !important}
+.calculs li{padding:.2em 0; overflow-x:auto; overflow-y:hidden}
+.verdict{font-weight:600}
+.cadrer{display:inline-block; padding:0 .45em; border:1.5px solid var(--vert); border-radius:4px; background:var(--vert-clair); font-weight:600}
+/* Séries d'automatismes (comme sur la page des automatismes faits en classe) */
+.tout{display:flex; justify-content:flex-end; margin:6px 0 2px}
+.question{padding:14px 0 12px}
+.question + .question{border-top:1px solid var(--filet)}
+.num{margin:0 0 6px; font-size:.9rem; font-weight:600; color:var(--gris)}
+.consigne{margin:0 0 4px; font-size:.95rem; color:var(--gris)}
+.enonce-q{font-size:1.06rem}
+.enonce-q,.figure,.rep,.etapes{overflow-x:auto; overflow-y:hidden; overflow-wrap:break-word}
+.figure{margin:8px 0 2px; text-align:center}
+.figure svg{display:inline-block; width:30rem; max-width:none; height:auto; vertical-align:middle}
+.rep svg,.etapes svg{display:inline-block; max-width:100%; height:auto; max-height:16rem; vertical-align:middle}
+.voir{margin:10px 0 0; min-height:40px; padding:4px 14px; border:1.5px solid var(--stylo); border-radius:9px; background:var(--papier); color:var(--stylo); font-size:.95rem; font-weight:600; cursor:pointer; touch-action:manipulation}
+.voir[aria-expanded="true"]{background:var(--bleu-clair)}
+.voir:active{filter:brightness(.94)}
+.reponse{margin:10px 0 0; padding:10px 14px; border-left:5px solid var(--vert); border-radius:8px; background:var(--vert-clair)}
+.rep{font-weight:600}
+.etapes{margin-top:6px; font-size:.95rem}
+.etape-q + .etape-q{margin-top:.3em}
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+.insecable{white-space:nowrap}
+table.tab{border-collapse:collapse; margin:0 auto; background:#fff; font-size:.9rem}
+table.tab th,table.tab td{border:1.5px solid #475467; padding:.15em .55em; text-align:center; white-space:nowrap}
+table.tab th{background:#f2f4f7; font-weight:600}
+.inline-table{display:inline-table; border-collapse:collapse; width:auto; vertical-align:middle; margin:.15em 0}
+.inline-table td,.inline-table th{border:1px solid #5b5b5b; padding:.12em .45em; text-align:center}
+.red{color:#C62026; font-weight:600}
+.green{color:#1C7436; font-weight:600}
+.blue{color:#1f5fa8; font-weight:600}
+.italic{font-style:italic}
+</style>
+</head>
+<body>
+<header class="haut">
+  <div class="ligne">
+    <a class="retour" href="./" aria-label="Retour"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="titres"><span class="lycee">M. Bailly · Lycée Émile Loubet</span><span class="chap">Première · Travail à distance</span></div>
+  </div>
+</header>
+<main>
+<p class="vide">Le travail à faire sera mis ici.</p>
+</main>
+<script type="application/json" id="donnees">{"macros":{"\\R":"\\mathbb{R}","\\N":"\\mathbb{N}","\\Z":"\\mathbb{Z}","\\D":"\\mathbb{D}","\\Q":"\\mathbb{Q}","\\pv":"\\,;\\,","\\vect":"\\overrightarrow{#1}","\\mul":"\\textcolor{##5B3E96}{#1}","\\op":"\\textcolor{##C62026}{#1}","\\e":"\\mathrm{e}","\\Card":"\\mathrm{Card}"},"series":{},"cle":"distanciel-premiere"}</script>
+<script src="katex/katex.min.js"></script>
+<script>
+"use strict";
+const D = JSON.parse(document.getElementById("donnees").textContent);
+function echapper(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+
+// Formules : composées par KaTeX (recopié à côté des pages : rien ne passe par un autre site), macros de l'application.
+const cache = new Map();
+function formule(tex, bloc) {
+  const cle = (bloc ? "B" : "I") + tex;
+  let h = cache.get(cle);
+  if (h === undefined) {
+    if (typeof katex === "undefined") h = "<code>" + echapper(tex) + "</code>";
+    else {
+      try { h = katex.renderToString(tex, {macros: Object.assign({}, D.macros), throwOnError: false, strict: "ignore", output: "html", displayMode: !!bloc}); }
+      catch (e) { h = "<code>" + echapper(tex) + "</code>"; }
+    }
+    cache.set(cle, h);
+  }
+  return h;
+}
+// Typographie française : espace fine insécable avant ? ! ; : » et après «.
+function typo(t) { return t.replace(/[  ]([?!;:»])/g, " $1").replace(/«[  ]/g, "« "); }
+
+// Texte de la page : $…$ en ligne, $$…$$ en bloc, dans les nœuds de texte (le HTML écrit à la main reste tel quel).
+const MATHS = /\$\$([\s\S]+?)\$\$|\$([^$]+?)\$/g;
+function composer(racine) {
+  const noeuds = [];
+  const w = document.createTreeWalker(racine, NodeFilter.SHOW_TEXT, {acceptNode: n =>
+    n.parentElement && n.parentElement.closest("script,style,code,.katex") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT});
+  while (w.nextNode()) noeuds.push(w.currentNode);
+  noeuds.forEach(n => {
+    const t = n.nodeValue;
+    if (!/\$|[  ][?!;:»]|«[  ]/.test(t)) return;
+    let h = "", i = 0, m;
+    MATHS.lastIndex = 0;
+    while ((m = MATHS.exec(t))) {
+      h += echapper(typo(t.slice(i, m.index)));
+      h += m[1] !== undefined ? formule(m[1], true) : formule(m[2], false);
+      i = m.index + m[0].length;
+    }
+    h += echapper(typo(t.slice(i)));
+    const tpl = document.createElement("template");
+    tpl.innerHTML = h;
+    n.replaceWith(tpl.content);
+  });
+}
+
+// Textes des séries d'automatismes (comme dans l'application : texte entre $…$, « \$ » écrit un dollar).
+const UNITE = /^[   ](cm²|cm³|dm²|dm³|km²|m²|m³|mm|cm|dm|km|mg|kg|mL|cL|dL|km\/h|m\/s|min|°C|€|%|h|s|g|L|m|°)(?=[\s.,;:!?)»]|$)/;
+const PONCTUATION = /^(?:[  ]?[?!;:»]|[.,)])+/;
+function typographie(t) {
+  return t.replace(/(<[^>]*>)|([^<]+)/g, (m, balise, texte) => balise || typo(texte));
+}
+function html(texte) {
+  texte = String(texte == null ? "" : texte);
+  const morceaux = [];
+  let courant = "", math = false;
+  for (let i = 0; i < texte.length; i++) {
+    const c = texte[i];
+    if (c === "\\" && texte[i + 1] === "$") { courant += math ? "\\$" : "$"; i++; continue; }
+    if (c === "$") { morceaux.push({math, t: courant}); courant = ""; math = !math; continue; }
+    courant += c;
+  }
+  morceaux.push({math, t: courant});
+  for (const m of morceaux) if (!m.math) m.t = typographie(m.t);
+  let res = "";
+  for (let k = 0; k < morceaux.length; k++) {
+    const m = morceaux[k];
+    if (!m.math) { res += m.t; continue; }
+    const suite = morceaux[k + 1];
+    const u = suite && !suite.math ? UNITE.exec(suite.t) : null, p = suite && !suite.math && !u ? PONCTUATION.exec(suite.t) : null;
+    if (u) { res += '<span class="insecable">' + formule(m.t) + " " + u[1] + "</span>"; suite.t = suite.t.slice(u[0].length); }
+    else if (p) { res += '<span class="insecable">' + formule(m.t) + p[0] + "</span>"; suite.t = suite.t.slice(p[0].length); }
+    else res += formule(m.t);
+  }
+  return res;
+}
+function montrer(bouton, voir) {
+  bouton.setAttribute("aria-expanded", String(voir));
+  bouton.textContent = voir ? "Masquer la réponse" : "Voir la réponse";
+  bouton.nextElementSibling.hidden = !voir;
+}
+function remplirSerie(div, s) {
+  let h = '<div class="tout"><button class="voir" type="button" aria-expanded="false">Voir toutes les réponses</button></div>';
+  s.questions.forEach((v, i) => {
+    h += '<section class="question"><div class="num">Question ' + (i + 1) + "</div>"
+      + (v.consigne ? '<div class="consigne">' + html(v.consigne) + "</div>" : "")
+      + '<div class="enonce-q">' + html(v.enonce) + "</div>"
+      + (v.figure ? '<div class="figure">' + html(v.figure) + "</div>" : "")
+      + '<button class="voir" type="button" aria-expanded="false">Voir la réponse</button>'
+      + '<div class="reponse" hidden><div class="rep">' + html(v.reponse) + "</div>"
+      + (v.etapes.length ? '<div class="etapes">' + v.etapes.map(e => '<div class="etape-q">' + html(e) + "</div>").join("") + "</div>" : "")
+      + "</div></section>";
+  });
+  div.innerHTML = h;
+  const tous = [...div.querySelectorAll(".question .voir")], bTout = div.querySelector(".tout .voir");
+  tous.forEach(b => { b.onclick = () => montrer(b, b.getAttribute("aria-expanded") !== "true"); });
+  bTout.onclick = () => {
+    const voir = bTout.getAttribute("aria-expanded") !== "true";
+    tous.forEach(b => montrer(b, voir));
+    bTout.setAttribute("aria-expanded", String(voir));
+    bTout.textContent = voir ? "Masquer les réponses" : "Voir toutes les réponses";
+  };
+}
+
+// Étapes faites : retenues dans ce navigateur seulement (rien n'est envoyé).
+let etat = {};
+try { etat = JSON.parse(localStorage.getItem(D.cle) || "{}") || {}; } catch (e) { etat = {}; }
+function sauver() { try { localStorage.setItem(D.cle, JSON.stringify(etat)); } catch (e) {} }
+function compter() {
+  document.querySelectorAll(".seance").forEach(s => {
+    const total = s.querySelectorAll(".etape[id]").length, faites = s.querySelectorAll(".etape.fait").length;
+    const c = s.querySelector(".compte");
+    if (c) c.textContent = total && faites ? faites + " étape" + (faites > 1 ? "s" : "") + " faite" + (faites > 1 ? "s" : "") + " sur " + total : "";
+  });
+}
+document.querySelectorAll(".etape[id]").forEach(et => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "marquer";
+  const maj = () => {
+    const f = !!etat[et.id];
+    et.classList.toggle("fait", f);
+    b.textContent = f ? "Étape faite · annuler" : "Marquer cette étape comme faite";
+    b.setAttribute("aria-pressed", String(f));
+  };
+  b.onclick = () => { if (etat[et.id]) delete etat[et.id]; else etat[et.id] = true; sauver(); maj(); compter(); };
+  et.appendChild(b);
+  maj();
+});
+
+composer(document.querySelector("main"));
+document.querySelectorAll("[data-serie]").forEach(div => { const s = D.series[div.dataset.serie]; if (s) remplirSerie(div, s); });
+compter();
+</script>
+</body>
+</html>

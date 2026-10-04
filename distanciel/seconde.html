@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="format-detection" content="telephone=no">
+<meta name="color-scheme" content="only light">
+<meta name="theme-color" content="#FFFFFF">
+<title>Seconde · Travail à distance</title>
+<!-- Page écrite par tools/distanciel.py (dépôt des cours) d'après le dossier Distanciel/ : ne rien modifier ici. -->
+<link rel="stylesheet" href="katex/katex.min.css">
+<style>
+:root{
+  --papier:#FFFFFF; --fond:#EDEDED; --encre:#161616; --gris:#5C5C5C; --filet:#CCCCCC; --case:#F2F2F2;
+  --stylo:#1E3D96; --rouge:#C62026; --vert:#1C7436; --orange:#B5650B;
+  --bleu-clair:#E8EDF8; --vert-clair:#E6F2E9; --rouge-clair:#FBEBEB; --orange-clair:#FCF1E0;
+  --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none !important}
+html{-webkit-text-size-adjust:100%; text-size-adjust:100%; scroll-padding-top:70px}
+body{margin:0; min-height:100vh; background:var(--fond); color:var(--encre); font:400 17px/1.5 var(--sans); -webkit-tap-highlight-color:transparent}
+button{font-family:inherit}
+a{color:var(--stylo)}
+.haut{position:sticky; top:0; z-index:5; background:var(--papier); border-bottom:1px solid var(--filet); padding-top:env(safe-area-inset-top)}
+.haut .ligne{display:flex; align-items:center; gap:6px; max-width:42rem; margin:0 auto; padding:6px 14px 6px 6px; min-height:56px}
+.retour{flex:none; display:grid; place-items:center; width:44px; height:44px; color:var(--encre); border-radius:50%}
+.retour:active{background:var(--case)}
+.retour svg{width:22px; height:22px}
+.titres{flex:1; min-width:0; line-height:1.25}
+.titres span{display:block}
+.titres .lycee{font-size:.78rem; color:var(--gris)}
+.titres .chap{font-size:.95rem; font-weight:600}
+main{max-width:42rem; margin:0 auto; padding:14px 12px calc(28px + env(safe-area-inset-bottom))}
+h2{margin:22px 4px 8px; font-size:1.15rem}
+main > h2:first-child,.chapitre:first-child > h2{margin-top:6px}
+.vide{margin:20px 4px; color:var(--gris)}
+/* Accueil */
+.niveaux{display:grid; gap:10px}
+.niveau{display:block; padding:12px 16px; background:var(--papier); border:1px solid var(--filet); border-radius:10px; color:var(--encre); text-decoration:none}
+.niveau:active{background:var(--case)}
+.niveau .nom{display:block; font-weight:600}
+.niveau .detail{display:block; font-size:.92rem; color:var(--gris)}
+/* Chapitre et séances */
+.intro{margin:0 0 10px; padding:10px 14px; background:var(--papier); border:1px solid var(--filet); border-radius:10px; font-size:.97rem}
+.intro > :first-child{margin-top:0}
+.intro > :last-child{margin-bottom:0}
+.seances{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 6px}
+.seances a{padding:6px 14px; border:1.5px solid var(--stylo); border-radius:999px; background:var(--papier); font-weight:600; font-size:.95rem; text-decoration:none}
+.seances a:active{background:var(--bleu-clair)}
+.seance{margin-top:18px}
+.seance header{display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 12px; margin:0 4px}
+.seance h3{margin:0; font-size:1.1rem}
+.seance .resume{margin:0; flex:1 1 12rem; color:var(--gris); font-size:.95rem}
+.seance .compte{margin:0; font-size:.88rem; color:var(--vert); font-weight:600}
+.compte:empty{display:none}
+.etape{margin:10px 0 0; padding:2px 14px 14px; background:var(--papier); border:1px solid var(--filet); border-radius:10px}
+.etape h3,.etape h4{margin:0}
+.etape > h3{display:flex; align-items:baseline; gap:10px; margin:12px 0 6px; font-size:1.05rem}
+.etape > h3 .n{flex:none; align-self:center; display:inline-grid; place-items:center; width:1.75em; height:1.75em; border-radius:50%; background:var(--stylo); color:#fff; font-size:.85rem; font-weight:700}
+.etape > h3 .duree{margin-left:auto; font-size:.82rem; font-weight:400; color:var(--gris); text-align:right}
+.etape.fait{border-color:var(--vert)}
+.etape.fait > h3 .n{background:var(--vert)}
+.etape p{margin:.5em 0}
+.etape ul,.etape ol{margin:.4em 0; padding-left:1.4em}
+.etape li + li{margin-top:.25em}
+.marquer{display:block; margin:14px 0 0 auto; min-height:40px; padding:4px 14px; border:1.5px solid var(--filet); border-radius:9px; background:var(--papier); color:var(--gris); font-size:.92rem; cursor:pointer; touch-action:manipulation}
+.fait .marquer{border-color:var(--vert); background:var(--vert-clair); color:var(--vert); font-weight:600}
+/* Cours : encadrés */
+.partie{margin:18px 0 4px; font-size:1rem; font-weight:700; color:var(--rouge)}
+.bloc{margin:10px 0; padding:8px 14px 10px; border-left:5px solid var(--gris); border-radius:8px; background:var(--case)}
+.bloc > p{margin:.35em 0}
+.bloc .titre{margin:0 0 .2em; font-size:.82rem; font-weight:700; letter-spacing:.02em; text-transform:uppercase; color:var(--gris)}
+.bloc.definition{border-color:var(--vert); background:var(--vert-clair)}
+.bloc.definition .titre{color:var(--vert)}
+.bloc.propriete{border-color:var(--rouge); background:var(--rouge-clair)}
+.bloc.propriete .titre{color:var(--rouge)}
+.bloc.exemple{border-color:var(--stylo); background:var(--bleu-clair)}
+.bloc.exemple .titre{color:var(--stylo)}
+.bloc.methode{border-color:var(--orange); background:var(--orange-clair)}
+.bloc.methode .titre{color:var(--orange)}
+.cadre{display:inline-block; padding:.1em .6em; border:1.5px solid var(--encre); background:var(--papier)}
+.tex{margin:.3em 0; overflow-x:auto; overflow-y:hidden}
+.katex-display{margin:.5em 0; overflow-x:auto; overflow-y:hidden}
+.katex-display > .katex{font-size:1em}
+.katex{white-space:nowrap}
+/* Exercices */
+.exo{margin:14px 0 0; padding-top:12px; border-top:1px solid var(--filet)}
+.exo:first-of-type{border-top:none; padding-top:2px}
+.exo h4{display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px; font-size:1rem}
+.exo h4 .ou{font-size:.82rem; font-weight:400; color:var(--gris)}
+.exo .enonce{margin:.4em 0}
+.aide{margin:8px 0 0; border:1.5px solid var(--stylo); border-radius:9px; background:var(--papier)}
+.aide > summary{min-height:40px; padding:7px 14px; color:var(--stylo); font-weight:600; font-size:.95rem; cursor:pointer; list-style:none}
+.aide > summary::-webkit-details-marker{display:none}
+.aide[open] > summary{background:var(--bleu-clair); border-radius:7px 7px 0 0}
+.aide > :not(summary){margin-left:12px; margin-right:12px}
+.aide > :last-child{margin-bottom:10px}
+.aide.corrige{border-color:var(--vert)}
+.aide.corrige > summary{color:var(--vert)}
+.aide.corrige[open] > summary{background:var(--vert-clair)}
+.calculs{list-style:none; padding-left:0 !important}
+.calculs li{padding:.2em 0; overflow-x:auto; overflow-y:hidden}
+.verdict{font-weight:600}
+.cadrer{display:inline-block; padding:0 .45em; border:1.5px solid var(--vert); border-radius:4px; background:var(--vert-clair); font-weight:600}
+/* Séries d'automatismes (comme sur la page des automatismes faits en classe) */
+.tout{display:flex; justify-content:flex-end; margin:6px 0 2px}
+.question{padding:14px 0 12px}
+.question + .question{border-top:1px solid var(--filet)}
+.num{margin:0 0 6px; font-size:.9rem; font-weight:600; color:var(--gris)}
+.consigne{margin:0 0 4px; font-size:.95rem; color:var(--gris)}
+.enonce-q{font-size:1.06rem}
+.enonce-q,.figure,.rep,.etapes{overflow-x:auto; overflow-y:hidden; overflow-wrap:break-word}
+.figure{margin:8px 0 2px; text-align:center}
+.figure svg{display:inline-block; width:30rem; max-width:none; height:auto; vertical-align:middle}
+.rep svg,.etapes svg{display:inline-block; max-width:100%; height:auto; max-height:16rem; vertical-align:middle}
+.voir{margin:10px 0 0; min-height:40px; padding:4px 14px; border:1.5px solid var(--stylo); border-radius:9px; background:var(--papier); color:var(--stylo); font-size:.95rem; font-weight:600; cursor:pointer; touch-action:manipulation}
+.voir[aria-expanded="true"]{background:var(--bleu-clair)}
+.voir:active{filter:brightness(.94)}
+.reponse{margin:10px 0 0; padding:10px 14px; border-left:5px solid var(--vert); border-radius:8px; background:var(--vert-clair)}
+.rep{font-weight:600}
+.etapes{margin-top:6px; font-size:.95rem}
+.etape-q + .etape-q{margin-top:.3em}
+:focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
+.insecable{white-space:nowrap}
+table.tab{border-collapse:collapse; margin:0 auto; background:#fff; font-size:.9rem}
+table.tab th,table.tab td{border:1.5px solid #475467; padding:.15em .55em; text-align:center; white-space:nowrap}
+table.tab th{background:#f2f4f7; font-weight:600}
+.inline-table{display:inline-table; border-collapse:collapse; width:auto; vertical-align:middle; margin:.15em 0}
+.inline-table td,.inline-table th{border:1px solid #5b5b5b; padding:.12em .45em; text-align:center}
+.red{color:#C62026; font-weight:600}
+.green{color:#1C7436; font-weight:600}
+.blue{color:#1f5fa8; font-weight:600}
+.italic{font-style:italic}
+</style>
+</head>
+<body>
+<header class="haut">
+  <div class="ligne">
+    <a class="retour" href="./" aria-label="Retour"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="titres"><span class="lycee">M. Bailly · Lycée Émile Loubet</span><span class="chap">Seconde · Travail à distance</span></div>
+  </div>
+</header>
+<main>
+<section class="chapitre">
+<h2>Chapitre 3 · Nombres réels</h2>
+<div class="intro"><p><strong>Comment travailler.</strong> Chaque séance dure environ une heure et se fait dans l'ordre : <strong>automatismes</strong>, <strong>cours</strong>, <strong>exercices</strong>. Garde ton cahier et ton manuel Indice 2de à côté de toi.</p>
+<ul>
+<li>Les automatismes se font <strong>sans calculatrice</strong>, sur une feuille : écris ta réponse avant de regarder celle de la page.</li>
+<li>Le cours se <strong>recopie à la main</strong> dans le cahier, comme en classe. Les encadrés verts sont les définitions, les bleus les exemples.</li>
+<li>Pour chaque exercice, cherche d'abord seul(e). Si tu bloques, ouvre l'indication. N'ouvre la correction qu'après avoir écrit ta réponse, puis corrige-toi dans ton cahier.</li>
+</ul>
+<p>Marque chaque étape comme faite quand elle est terminée : c'est retenu dans ton navigateur, rien n'est envoyé au professeur.</p>
+</div>
+<nav class="seances" aria-label="Séances du chapitre"><a href="#ch3-seance-1">Séance 1</a><a href="#ch3-seance-2">Séance 2</a></nav>
+<article class="seance" id="ch3-seance-1">
+<header><h3>Séance 1</h3>
+<p class="resume">Nombres entiers, nombres décimaux</p>
+<p class="compte" aria-live="polite"></p></header>
+<section class="etape" id="ch3-s1-automatismes">
+<h3><span class="n">1</span>Automatismes <span class="duree">environ 10 minutes</span></h3>
+<p>Sans calculatrice. Écris ta réponse à chaque question sur une feuille, puis clique sur « Voir la réponse » pour vérifier.</p>
+<div data-serie="2026-10-04_11-02-09_b9vv"></div>
+</section>
+
+<section class="etape" id="ch3-s1-cours">
+<h3><span class="n">2</span>Cours <span class="duree">environ 20 minutes</span></h3>
+<p>Recopie dans ton cahier, dans l'ordre, les encadrés des parties 1 et 2. Titre du chapitre : <strong>Chapitre 3 · Nombres réels</strong>.</p>
+
+<p class="partie">Partie 1 · Nombres entiers</p>
+
+<div class="bloc definition">
+<p class="titre">Définition · nombres entiers naturels</p>
+<p>Un <strong>nombre entier naturel</strong> est un nombre entier qui est positif.</p>
+<div class="tex">$$\boxed{\N = \{0\pv 1\pv 2\pv 3\pv\ldots\}}$$</div>
+</div>
+
+<div class="bloc exemple">
+<p class="titre">Exemple</p>
+<p>$0$, $7$ et $2\,026$ sont des entiers naturels ; $-3$ n'est pas un entier naturel.</p>
+</div>
+
+<div class="bloc definition">
+<p class="titre">Définition · nombres entiers relatifs</p>
+<p>Un <strong>nombre entier relatif</strong> est un nombre entier, positif ou négatif.</p>
+<div class="tex">$$\boxed{\Z = \{\ldots\pv -2\pv -1\pv 0\pv 1\pv 2\pv\ldots\}}$$</div>
+</div>
+
+<div class="bloc exemple">
+<p class="titre">Exemple</p>
+<p>$-3$, $0$ et $12$ sont des entiers relatifs.</p>
+</div>
+
+<div class="bloc definition">
+<p class="titre">Notation · appartenance, inclusion</p>
+<ul>
+<li>Si $x$ est un élément d'un ensemble $E$, on note $x\in E$ ($x$ <strong>appartient</strong> à $E$) ; sinon, on note $x\notin E$.</li>
+<li>Si tout élément d'un ensemble $A$ est un élément d'un ensemble $B$, on note $A\subset B$ ($A$ est <strong>inclus</strong> dans $B$).</li>
+</ul>
+</div>
+
+<div class="bloc exemple">
+<p class="titre">Exemple</p>
+<p>$-2\in\Z$ ; $-2\notin\N$ ; $0\in\N$.</p>
+<p>Tout entier naturel est un entier relatif : $\N\subset\Z$.</p>
+</div>
+
+<p class="partie">Partie 2 · Nombres décimaux</p>
+
+<div class="bloc definition">
+<p class="titre">Définition · nombres décimaux</p>
+<p>Les <strong>nombres décimaux</strong>, notés $\D$, sont les nombres qui peuvent s'écrire sous la forme
+$\boxed{\dfrac{a}{10^{n}}}$, où $a$ est un entier relatif et $n$ un entier naturel.</p>
+</div>
+
+<div class="bloc exemple">
+<p class="titre">Exemple</p>
+<p>$2{,}36 = \dfrac{236}{10^{2}}$ et $-0{,}7 = \dfrac{-7}{10^{1}}$ sont des nombres décimaux : $2{,}36\in\D$ et $-0{,}7\in\D$.</p>
+</div>
+
+<div class="bloc">
+<p class="titre">Remarque</p>
+<p>Un nombre est décimal si et seulement si son écriture décimale est <strong>finie</strong>.</p>
+</div>
+</section>
+
+<section class="etape" id="ch3-s1-exercices">
+<h3><span class="n">3</span>Exercices <span class="duree">environ 30 minutes</span></h3>
+<p>Deux exercices du manuel <strong>Indice 2de</strong>. Écris la solution complète dans ton cahier avant d'ouvrir la correction.</p>
+
+<div class="exo">
+<h4>Exercice 7 <span class="ou">manuel, page 50</span></h4>
+<p class="enonce">Sujet : les fractions décimales.</p>
+<details class="aide"><summary>Indication</summary>
+<p>Une fraction décimale a pour dénominateur $10$, $100$, $1\,000$…</p>
+<p>Pour chaque fraction, cherche par quel nombre multiplier le dénominateur pour obtenir $10$, $100$ ou $1\,000$, puis multiplie le numérateur par le même nombre.</p>
+<p>Si $10$ et $100$ ne sont pas des multiples du dénominateur, essaie $1\,000$ : par exemple $8\times 125 = 1\,000$.</p>
+</details>
+<details class="aide corrige"><summary>Correction</summary>
+<p>On multiplie le numérateur et le dénominateur par un même nombre, choisi pour obtenir un dénominateur égal à $10$, $100$ ou $1\,000$.</p>
+<ul class="calculs">
+<li>$\dfrac{1}{2} = \dfrac{1\mul{\times 5}}{2\mul{\times 5}} = \boxed{\dfrac{5}{10}}$</li>
+<li>$\dfrac{7}{4} = \dfrac{7\mul{\times 25}}{4\mul{\times 25}} = \boxed{\dfrac{175}{100}}$</li>
+<li>$\dfrac{7}{5} = \dfrac{7\mul{\times 2}}{5\mul{\times 2}} = \boxed{\dfrac{14}{10}}$</li>
+<li>$\dfrac{21}{20} = \dfrac{21\mul{\times 5}}{20\mul{\times 5}} = \boxed{\dfrac{105}{100}}$</li>
+<li>$\dfrac{1}{25} = \dfrac{1\mul{\times 4}}{25\mul{\times 4}} = \boxed{\dfrac{4}{100}}$</li>
+<li>$\dfrac{3}{8} = \dfrac{3\mul{\times 125}}{8\mul{\times 125}} = \boxed{\dfrac{375}{1\,000}}$</li>
+<li>$\dfrac{13}{25} = \dfrac{13\mul{\times 4}}{25\mul{\times 4}} = \boxed{\dfrac{52}{100}}$</li>
+<li>$\dfrac{9}{40} = \dfrac{9\mul{\times 25}}{40\mul{\times 25}} = \boxed{\dfrac{225}{1\,000}}$</li>
+</ul>
+<p>Attention : $10$ et $100$ ne sont des multiples ni de $8$ ni de $40$ ; pour $\dfrac{3}{8}$ et $\dfrac{9}{40}$, il faut aller jusqu'à $1\,000$.</p>
+<p>En écriture décimale : $0{,}5$ ; $1{,}75$ ; $1{,}4$ ; $1{,}05$ ; $0{,}04$ ; $0{,}375$ ; $0{,}52$ ; $0{,}225$.</p>
+</details>
+</div>
+
+<div class="exo">
+<h4>Exercice 35 <span class="ou">manuel, page 65</span></h4>
+<p class="enonce">Sujet : reconnaître les nombres décimaux parmi une liste de nombres.</p>
+<details class="aide"><summary>Indication</summary>
+<p>Un nombre est décimal s'il s'écrit $\dfrac{a}{10^{n}}$, c'est-à-dire si son écriture décimale a un <strong>nombre fini</strong> de chiffres après la virgule. Un entier est toujours décimal.</p>
+<p>Pour une fraction, cherche une fraction égale de dénominateur $10$, $100$… Si tu n'y arrives pas, pose la division : si le même reste revient sans cesse, l'écriture ne s'arrête jamais.</p>
+</details>
+<details class="aide"><summary>Un coup de pouce de plus (pour $\dfrac{\pi}{10}$)</summary>
+<p>Raisonne par l'absurde : si $\dfrac{\pi}{10}$ était décimal, que pourrait-on dire de $\pi = 10\times\dfrac{\pi}{10}$ ?</p>
+</details>
+<details class="aide corrige"><summary>Correction</summary>
+<p>On cherche, pour chaque nombre, une écriture décimale finie.</p>
+<ul class="calculs">
+<li>$\dfrac{3}{10} = 0{,}3$ : décimal.</li>
+<li>$-\dfrac{1}{5} = -\dfrac{1\mul{\times 2}}{5\mul{\times 2}}$ $= -\dfrac{2}{10} = -0{,}2$ : décimal.</li>
+<li>$101$ et $-13$ sont des entiers, donc des décimaux.</li>
+<li>$0{,}077$ a trois décimales : décimal.</li>
+<li>Pour $\dfrac{1}{6}$, on pose la division : $10 = 6\times 1 + 4$, puis $40 = 6\times 6 + 4$, et le reste $4$ revient à chaque étape. Donc $\dfrac{1}{6} = 0{,}1666\ldots$ ne s'arrête jamais : <strong>pas décimal</strong>.</li>
+<li>Si $\dfrac{\pi}{10}$ était décimal, alors $\pi$, qui vaut $10$ fois ce nombre, le serait aussi. Or $\pi$ n'est pas décimal (son écriture décimale ne s'arrête jamais) : $\dfrac{\pi}{10}$ <strong>n'est pas décimal</strong>.</li>
+</ul>
+<p>Les nombres décimaux de la liste sont : <span class="cadrer">$\dfrac{3}{10}$ ; $101$ ; $0{,}077$ ; $-\dfrac{1}{5}$ ; $-13$</span>.</p>
+</details>
+</div>
+</section>
+
+</article>
+<article class="seance" id="ch3-seance-2">
+<header><h3>Séance 2</h3>
+<p class="resume">Nombres rationnels, une démonstration</p>
+<p class="compte" aria-live="polite"></p></header>
+<section class="etape" id="ch3-s2-automatismes">
+<h3><span class="n">1</span>Automatismes <span class="duree">environ 10 minutes</span></h3>
+<p>Sans calculatrice. Écris ta réponse à chaque question sur une feuille, puis clique sur « Voir la réponse » pour vérifier.</p>
+<div data-serie="2026-10-04_11-03-33_h4vc"></div>
+</section>
+
+<section class="etape" id="ch3-s2-cours">
+<h3><span class="n">2</span>Cours <span class="duree">environ 20 minutes</span></h3>
+<p>Dans ton cahier, à la suite de la séance 1 : recopie la définition et l'exemple, puis cherche la démonstration avant d'ouvrir sa rédaction.</p>
+
+<p class="partie">Partie 2 · Nombres rationnels</p>
+
+<div class="bloc definition">
+<p class="titre">Définition · nombres rationnels</p>
+<p>Les <strong>nombres rationnels</strong>, notés $\Q$, sont les nombres qui peuvent s'écrire sous la forme
+$\boxed{\dfrac{a}{b}}$, où $a$ et $b$ sont des entiers relatifs, avec $b\neq 0$.</p>
+</div>
+
+<div class="bloc exemple">
+<p class="titre">Exemple</p>
+<p>$\dfrac{1}{3}$, $-5 = \dfrac{-5}{1}$ et $0{,}7 = \dfrac{7}{10}$ sont des nombres rationnels.</p>
+</div>
+
+<div class="bloc">
+<p class="titre">Démonstration · le nombre rationnel $\frac{1}{3}$ n'est pas décimal</p>
+<p>On raisonne <strong>par l'absurde</strong> : on suppose que $\dfrac{1}{3}$ est décimal et on cherche une contradiction.</p>
+<p>Réponds à ces questions dans ton cahier :</p>
+<ol>
+<li>Que signifie « $\dfrac{1}{3}$ est décimal » ? Écris l'égalité avec un entier relatif $a$ et un entier naturel $p$.</li>
+<li>Multiplie les deux membres par $3\times 10^{p}$. Que trouves-tu ? Que peut-on dire de $10^{p}$ ?</li>
+<li>Quelle est la somme des chiffres de $10^{p}$ ? Est-ce un multiple de $3$ ?</li>
+<li>Conclus.</li>
+</ol>
+<details class="aide"><summary>Indication</summary>
+<p>À la question 2, la multiplication par $3\times 10^{p}$ fait disparaître les deux dénominateurs.</p>
+<p>À la question 3, utilise le critère de divisibilité par $3$ : un nombre est un multiple de $3$ si la somme de ses chiffres est un multiple de $3$. Le nombre $10^{p}$ s'écrit avec un $1$ suivi de $p$ zéros.</p>
+</details>
+<details class="aide corrige"><summary>Rédaction à recopier</summary>
+<p>On suppose, par l'absurde, que $\dfrac{1}{3}$ est un nombre décimal.</p>
+<p><strong>1.</strong> Par définition d'un nombre décimal, il existe un entier relatif $a$ et un entier naturel $p$ tels que $\dfrac{1}{3} = \dfrac{a}{10^{p}}$.</p>
+<p><strong>2.</strong> On multiplie les deux membres par $3\times 10^{p}$ pour faire disparaître les dénominateurs :</p>
+<div class="tex">$$\dfrac{1}{3}\op{\times 3\times 10^{p}} = \dfrac{a}{10^{p}}\op{\times 3\times 10^{p}}$$</div>
+<div class="tex">$$10^{p} = 3a$$</div>
+<p>Comme $a$ est un entier, $10^{p} = 3\times a$ est un multiple de $3$.</p>
+<p><strong>3.</strong> Or $10^{p}$ s'écrit avec un $1$ suivi de $p$ zéros : la somme de ses chiffres vaut $1$, qui n'est pas un multiple de $3$. D'après le critère de divisibilité par $3$, $10^{p}$ n'est pas un multiple de $3$.</p>
+<p><strong>4.</strong> Les étapes 2 et 3 se contredisent : l'hypothèse de départ est fausse.</p>
+<p>Conclusion : <span class="cadrer">$\dfrac{1}{3}$ n'est pas un nombre décimal</span>.</p>
+</details>
+</div>
+</section>
+
+<section class="etape" id="ch3-s2-exercices">
+<h3><span class="n">3</span>Exercices <span class="duree">environ 30 minutes</span></h3>
+<p>Deux exercices de la fiche (énoncés ci-dessous), puis deux exercices du manuel <strong>Indice 2de</strong>. Écris la solution complète dans ton cahier avant d'ouvrir la correction.</p>
+
+<div class="exo">
+<h4>Fiche, exercice 4 <span class="ou">appartenance, inclusion</span></h4>
+<p class="enonce"><strong>1.</strong> Compléter par $\in$, $\notin$ ou $\subset$ :</p>
+<p class="enonce">a) $-7\;\ldots\;\N$ ; b) $\dfrac{3}{5}\;\ldots\;\D$ ; c) $\Z\;\ldots\;\Q$ ; d) $\sqrt{16}\;\ldots\;\N$ ; e) $0\;\ldots\;\N$ ; f) $\dfrac{1}{3}\;\ldots\;\D$.</p>
+<p class="enonce"><strong>2.</strong> Écrire la liste des éléments de chaque ensemble :</p>
+<ul class="enonce">
+<li>$A$, les entiers relatifs $x$ tels que $-3 &lt; x\leq 2$ ;</li>
+<li>$B$, les entiers relatifs $x$ tels que $x^{2} = 9$ ;</li>
+<li>$C$, les entiers naturels $x$ tels que $x^{2} = 9$.</li>
+</ul>
+<details class="aide"><summary>Indication</summary>
+<p>Entre un nombre et un ensemble, on écrit $\in$ ou $\notin$ ; entre deux ensembles, on écrit $\subset$.</p>
+<p>Simplifie d'abord chaque nombre : $\sqrt{16}$ peut s'écrire plus simplement, et pour $\dfrac{3}{5}$ cherche une fraction égale de dénominateur $10$.</p>
+<p>Pour les listes, regarde les cas limites : $-3$ est-il exclu ou compris ? et $2$ ? Pour $x^{2} = 9$, cherche <strong>tous</strong> les entiers qui conviennent, positifs et négatifs, puis garde ceux qui sont dans l'ensemble demandé.</p>
+</details>
+<details class="aide corrige"><summary>Correction</summary>
+<p><strong>1.</strong></p>
+<ul class="calculs">
+<li>a) $-7$ est négatif : <span class="cadrer">$-7\notin\N$</span>.</li>
+<li>b) $\dfrac{3}{5} = \dfrac{3\mul{\times 2}}{5\mul{\times 2}} = \dfrac{6}{10} = 0{,}6$ : écriture décimale finie, <span class="cadrer">$\dfrac{3}{5}\in\D$</span>.</li>
+<li>c) Tout entier relatif $a$ s'écrit $\dfrac{a}{1}$, quotient d'un entier relatif par un entier relatif non nul : <span class="cadrer">$\Z\subset\Q$</span>.</li>
+<li>d) $\sqrt{16} = 4$ car $4\geq 0$ et $4^{2} = 16$ : entier positif, <span class="cadrer">$\sqrt{16}\in\N$</span>.</li>
+<li>e) $0$ est un entier positif : <span class="cadrer">$0\in\N$</span>.</li>
+<li>f) $\dfrac{1}{3}$ n'est pas décimal (démonstration du cours) : <span class="cadrer">$\dfrac{1}{3}\notin\D$</span>.</li>
+</ul>
+<p><strong>2.</strong></p>
+<ul class="calculs">
+<li>$-3$ est exclu ($-3 &lt; x$), $2$ est compris ($x\leq 2$) : <span class="cadrer">$A = \{-2\pv -1\pv 0\pv 1\pv 2\}$</span>.</li>
+<li>$3^{2} = 9$ et $(-3)^{2} = 9$ : <span class="cadrer">$B = \{-3\pv 3\}$</span>. Attention : $-3$ est un entier relatif, il ne faut pas l'oublier.</li>
+<li>$3^{2} = 9$ ; $(-3)^{2} = 9$ aussi, mais $-3$ n'est pas un entier naturel : <span class="cadrer">$C = \{3\}$</span>.</li>
+</ul>
+</details>
+</div>
+
+<div class="exo">
+<h4>Fiche, exercice 5 <span class="ou">démontrer par l'absurde</span></h4>
+<p class="enonce">Pour démontrer que $\dfrac{2}{3}$ n'est pas un nombre décimal, on suppose le contraire : $\dfrac{2}{3} = \dfrac{a}{10^{p}}$, avec $a\in\Z$ et $p\in\N$.</p>
+<p class="enonce"><strong>1.</strong> Montrer que $2\times 10^{p} = 3a$.</p>
+<p class="enonce"><strong>2.</strong> Quelle est la somme des chiffres de $2\times 10^{p}$ ? Conclure.</p>
+<details class="aide"><summary>Indication</summary>
+<p>C'est la démonstration du cours, avec $\dfrac{2}{3}$ à la place de $\dfrac{1}{3}$.</p>
+<p>Question 1 : multiplie les deux membres de l'égalité par $3\times 10^{p}$.</p>
+<p>Question 2 : $2\times 10^{p}$ s'écrit avec un $2$ suivi de $p$ zéros. Utilise le critère de divisibilité par $3$ et compare avec la question 1.</p>
+</details>
+<details class="aide corrige"><summary>Correction</summary>
+<p><strong>1.</strong> On multiplie les deux membres par $3\times 10^{p}$ pour faire disparaître les dénominateurs :</p>
+<div class="tex">$$\dfrac{2}{3}\op{\times 3\times 10^{p}} = \dfrac{a}{10^{p}}\op{\times 3\times 10^{p}}$$</div>
+<div class="tex">$$2\times 10^{p} = 3a$$</div>
+<p>Comme $a$ est un entier, <span class="cadrer">$2\times 10^{p} = 3a$ est un multiple de $3$</span>.</p>
+<p><strong>2.</strong> $2\times 10^{p}$ s'écrit avec un $2$ suivi de $p$ zéros : la somme de ses chiffres vaut $2$, qui n'est pas un multiple de $3$. D'après le critère de divisibilité par $3$, $2\times 10^{p}$ n'est pas un multiple de $3$ : c'est le contraire de la question 1. L'hypothèse de départ est fausse :</p>
+<p><span class="cadrer">$\dfrac{2}{3}$ n'est pas un nombre décimal</span>.</p>
+</details>
+</div>
+
+<div class="exo">
+<h4>Exercice 1 <span class="ou">manuel, page 50</span></h4>
+<p class="enonce">Sujet : décimaux, ou rationnels non décimaux ?</p>
+<details class="aide"><summary>Indication</summary>
+<p>Un nombre est décimal si son écriture décimale est finie. Les nombres écrits avec une virgule et un nombre fini de chiffres le sont.</p>
+<p>Pour une fraction, cherche une fraction égale de dénominateur $10$, $100$, $1\,000$… Si tu n'y arrives pas, pose la division : si le reste n'est jamais nul et que les restes se répètent, l'écriture ne s'arrête jamais.</p>
+</details>
+<details class="aide corrige"><summary>Correction</summary>
+<p>Un nombre est décimal s'il s'écrit $\dfrac{a}{10^{n}}$, c'est-à-dire avec un nombre fini de chiffres après la virgule. Pour une fraction, on cherche une fraction égale de dénominateur $10$, $100$, $1\,000$…</p>
+<ul class="calculs">
+<li>$\dfrac{1}{4} = \dfrac{1\mul{\times 25}}{4\mul{\times 25}} = \dfrac{25}{100} = 0{,}25$ : décimal.</li>
+<li>$-\dfrac{8}{5} = -\dfrac{8\mul{\times 2}}{5\mul{\times 2}}$ $= -\dfrac{16}{10} = -1{,}6$ : décimal.</li>
+<li>$\dfrac{1}{10} = 0{,}1$ : décimal.</li>
+<li>$1{,}56$, $-0{,}5$, $0{,}22$ et $-8{,}999$ s'écrivent déjà avec un nombre fini de décimales : décimaux.</li>
+<li>$\dfrac{3}{7}$ : on pose la division de $3$ par $7$. Les restes successifs $3$, $2$, $6$, $4$, $5$, $1$, puis de nouveau $3$… ne sont jamais nuls et se répètent : $\dfrac{3}{7} = 0{,}428\,571\,428\,571\ldots$ ne s'arrête jamais.</li>
+<li>$\dfrac{1}{3} = 0{,}333\ldots$ n'est pas décimal (démonstration du cours).</li>
+</ul>
+<p>Décimaux : <span class="cadrer">$1{,}56$ ; $\dfrac{1}{4}$ ; $-0{,}5$ ; $\dfrac{1}{10}$ ; $-\dfrac{8}{5}$ ; $0{,}22$ ; $-8{,}999$</span>.</p>
+<p>Rationnels non décimaux : <span class="cadrer">$\dfrac{3}{7}$ et $\dfrac{1}{3}$</span>.</p>
+<p>Attention : une écriture fractionnaire peut cacher un décimal.</p>
+</details>
+</div>
+
+<div class="exo">
+<h4>Exercice 34 <span class="ou">manuel, page 65</span></h4>
+<p class="enonce">Sujet : vrai ou faux sur les nombres décimaux et rationnels (trois affirmations).</p>
+<details class="aide"><summary>Indication</summary>
+<p>Rappelle-toi les deux définitions : un décimal s'écrit $\dfrac{a}{10^{n}}$ ($a$ entier relatif, $n$ entier naturel) ; un rationnel s'écrit $\dfrac{a}{b}$ ($a$ et $b$ entiers relatifs, $b\neq 0$).</p>
+<p>Si une affirmation te semble vraie, explique-la avec les définitions. Si elle te semble fausse, cherche un exemple qui la contredit.</p>
+</details>
+<details class="aide corrige"><summary>Correction</summary>
+<ul class="calculs">
+<li><strong>Affirmation 1.</strong> Par définition, un décimal s'écrit $\dfrac{a}{10^{p}}$, avec $a$ entier relatif et $p$ entier naturel, par exemple $2{,}36 = \dfrac{236}{10^{2}}$. C'est le quotient d'un entier par un entier non nul, donc un rationnel : l'affirmation est <span class="cadrer">vraie</span>.</li>
+<li><strong>Affirmation 2.</strong> On cherche une fraction de dénominateur $10$ : $\dfrac{1}{5} = \dfrac{1\mul{\times 2}}{5\mul{\times 2}} = \dfrac{2}{10} = 0{,}2$. Le nombre $\dfrac{1}{5}$ est décimal : l'affirmation est <span class="cadrer">fausse</span>.</li>
+<li><strong>Affirmation 3.</strong> $0{,}478 = \dfrac{478}{1\,000}$ est un quotient de deux entiers, donc un rationnel : l'affirmation est <span class="cadrer">vraie</span>.</li>
+</ul>
+</details>
+</div>
+</section>
+
+</article>
+</section>
+</main>
+<script type="application/json" id="donnees">{"macros":{"\\R":"\\mathbb{R}","\\N":"\\mathbb{N}","\\Z":"\\mathbb{Z}","\\D":"\\mathbb{D}","\\Q":"\\mathbb{Q}","\\pv":"\\,;\\,","\\vect":"\\overrightarrow{#1}","\\mul":"\\textcolor{##5B3E96}{#1}","\\op":"\\textcolor{##C62026}{#1}","\\e":"\\mathrm{e}","\\Card":"\\mathrm{Card}"},"series":{"2026-10-04_11-02-09_b9vv":{"questions":[{"consigne":"","enonce":"Trouve ?","figure":"\u003csvg width=\"28em\" height=\"9em\" version=\"1.1\" viewBox=\"0 0 190 30\"\u003e\u003cdefs\u003e \u003cmarker style=\"overflow:visible;\" id=\"Arrow2Lend\" refX=\"0.0\" refY=\"0.0\" orient=\"auto\" inkscape:stockid=\"Arrow2Lend\" inkscape:isstock=\"true\"\u003e\u003cpath transform=\"scale(1.1) rotate(180) translate(1,0)\" d=\"M 8.7,4.0 L -2.2,0.016 L 8.7,-4.0 C 6.97,-1.63 6.98,1.62 8.72,4.03 z \"style=\"fill-rule:evenodd;stroke-width:0.625;stroke-linejoin:round;stroke:#000000;stroke-opacity:1;fill:#000000;fill-opacity:1\" id=\"path1067\" /\u003e\u003c/marker\u003e\u003c/defs\u003e\u003ctext x=\"13.3\" y=\"9.7\" fill=\"#000000\" font-family=\"sans-serif\" font-size=\"4px\" letter-spacing=\"0px\" stroke-width=\".26\" word-spacing=\"0px\" style=\"line-height:1.25\" xml:space=\"preserve\"\u003e\u003ctspan x=\"28\" y=\"9.7\" font-size=\"4px\" stroke-width=\".26\"\u003e0.5\u003c/tspan\u003e\u003c/text\u003e\u003ctext x=\"13.3\" y=\"9.7\" fill=\"#000000\" font-family=\"sans-serif\" font-size=\"4px\" letter-spacing=\"0px\" stroke-width=\".26\" word-spacing=\"0px\" style=\"line-height:1.25\" xml:space=\"preserve\"\u003e\u003ctspan x=\"58\" y=\"9.7\" font-size=\"4px\" stroke-width=\".26\"\u003e?\u003c/tspan\u003e\u003c/text\u003e\u003ctext x=\"128\" y=\"9.7\" fill=\"#000000\" font-family=\"sans-serif\" font-size=\"4px\" letter-spacing=\"0px\" stroke-width=\".26\" word-spacing=\"0px\" style=\"line-height:1.25\" xml:space=\"preserve\"\u003e\u003ctspan x=\"128\" y=\"9.7\" font-size=\"4px\" stroke-width=\".26\"\u003e5.5\u003c/tspan\u003e\u003c/text\u003e\u003cg fill=\"none\" stroke=\"#000\" stroke-width=\".26px\"\u003e\u003cpath style=\"stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;stroke-miterlimit:4;stroke-dasharray:none;marker-end:url(#Arrow2Lend)\" d=\"m10 5.5 140 0\"/\u003e\u003cpath d=\"m30 4.5 0 2\"/\u003e\u003cpath d=\"m50 4.5 0 2\"/\u003e\u003cpath d=\"m70 4.5 0 2\"/\u003e\u003cpath d=\"m90 4.5 0 2\"/\u003e\u003cpath d=\"m110 4.5 0 2\"/\u003e\u003cpath d=\"m130 4.5 0 2\"/\u003e\u003cpath d=\"m150 4.5 0 2\"/\u003e\u003cpath d=\"m40 4.5 0 2\"/\u003e\u003cpath d=\"m60 4.5 0 2\"/\u003e\u003cpath d=\"m80 4.5 0 2\"/\u003e\u003cpath d=\"m100 4.5 0 2\"/\u003e\u003cpath d=\"m140 4.5 0 2\"/\u003e\u003cpath d=\"m120 4.5 0 2\"/\u003e\u003c/g\u003e\u003c/svg\u003e","reponse":"$2$","etapes":["Le pas est $(5{,}5-0{,}5)\\div{10}=0{,}5.$ Donc ? $=\\textcolor{#C62026}{ 2}$"]},{"consigne":"","enonce":"Quelle est l'abscisse du point $B$ ?","figure":"\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 620 96\" width=\"620\" height=\"96\" font-family=\"Segoe UI, Roboto, Helvetica, Arial, sans-serif\"\u003e\u003cline x1=\"12\" y1=\"52\" x2=\"612\" y2=\"52\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cpath d=\"M603.71,55.5 L612,52 L603.71,48.5\" fill=\"none\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/\u003e\u003cline x1=\"24\" y1=\"43\" x2=\"24\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"70.83\" y1=\"43\" x2=\"70.83\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"117.67\" y1=\"43\" x2=\"117.67\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"164.5\" y1=\"43\" x2=\"164.5\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"164.5\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e−5\u003c/text\u003e\u003cline x1=\"211.33\" y1=\"43\" x2=\"211.33\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"258.17\" y1=\"43\" x2=\"258.17\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"305\" y1=\"43\" x2=\"305\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"351.83\" y1=\"43\" x2=\"351.83\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"398.67\" y1=\"43\" x2=\"398.67\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"398.67\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e0\u003c/text\u003e\u003cline x1=\"445.5\" y1=\"43\" x2=\"445.5\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"492.33\" y1=\"43\" x2=\"492.33\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"539.17\" y1=\"43\" x2=\"539.17\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"586\" y1=\"43\" x2=\"586\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"64.83\" y1=\"46\" x2=\"76.83\" y2=\"58\" stroke=\"#1f5fa8\" stroke-width=\"2\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"64.83\" y1=\"58\" x2=\"76.83\" y2=\"46\" stroke=\"#1f5fa8\" stroke-width=\"2\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"70.83\" y=\"30\" font-size=\"17\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f5fa8\" font-style=\"italic\" font-family=\"Cambria, Times New Roman, serif\" font-weight=\"700\"\u003eB\u003c/text\u003e\u003c/svg\u003e","reponse":"$-7$","etapes":["Une graduation vaut $1$.","$B$ est à $2$ graduations à gauche de $-5$ : $-5-2=-7$."]},{"consigne":"","enonce":"Quelle est l'abscisse du point $C$ ?","figure":"\u003csvg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 620 96\" width=\"620\" height=\"96\" font-family=\"Segoe UI, Roboto, Helvetica, Arial, sans-serif\"\u003e\u003cline x1=\"12\" y1=\"52\" x2=\"612\" y2=\"52\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003cpath d=\"M603.71,55.5 L612,52 L603.71,48.5\" fill=\"none\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/\u003e\u003cline x1=\"24\" y1=\"43\" x2=\"24\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"24\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e−7\u003c/text\u003e\u003cline x1=\"59.13\" y1=\"47\" x2=\"59.13\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"94.25\" y1=\"43\" x2=\"94.25\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"94.25\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e−6\u003c/text\u003e\u003cline x1=\"129.38\" y1=\"47\" x2=\"129.38\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"164.5\" y1=\"43\" x2=\"164.5\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"164.5\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e−5\u003c/text\u003e\u003cline x1=\"199.63\" y1=\"47\" x2=\"199.63\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"234.75\" y1=\"43\" x2=\"234.75\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"234.75\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e−4\u003c/text\u003e\u003cline x1=\"269.88\" y1=\"47\" x2=\"269.88\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"305\" y1=\"43\" x2=\"305\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"305\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e−3\u003c/text\u003e\u003cline x1=\"340.13\" y1=\"47\" x2=\"340.13\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"375.25\" y1=\"43\" x2=\"375.25\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"375.25\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e−2\u003c/text\u003e\u003cline x1=\"410.38\" y1=\"47\" x2=\"410.38\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"445.5\" y1=\"43\" x2=\"445.5\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"445.5\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e−1\u003c/text\u003e\u003cline x1=\"480.63\" y1=\"47\" x2=\"480.63\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"515.75\" y1=\"43\" x2=\"515.75\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"515.75\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e0\u003c/text\u003e\u003cline x1=\"550.88\" y1=\"47\" x2=\"550.88\" y2=\"57\" stroke=\"#1f2328\" stroke-width=\"1.1\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"586\" y1=\"43\" x2=\"586\" y2=\"61\" stroke=\"#1f2328\" stroke-width=\"1.6\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"586\" y=\"76\" font-size=\"15\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f2328\"\u003e1\u003c/text\u003e\u003cline x1=\"123.38\" y1=\"46\" x2=\"135.38\" y2=\"58\" stroke=\"#1f5fa8\" stroke-width=\"2\" stroke-linecap=\"round\"/\u003e\u003cline x1=\"123.38\" y1=\"58\" x2=\"135.38\" y2=\"46\" stroke=\"#1f5fa8\" stroke-width=\"2\" stroke-linecap=\"round\"/\u003e\u003ctext x=\"129.38\" y=\"30\" font-size=\"17\" text-anchor=\"middle\" dominant-baseline=\"central\" fill=\"#1f5fa8\" font-style=\"italic\" font-family=\"Cambria, Times New Roman, serif\" font-weight=\"700\"\u003eC\u003c/text\u003e\u003c/svg\u003e","reponse":"$-5{,}5$","etapes":["L'unité est partagée en $2$ : une graduation vaut $0{,}5$.","$C$ est à une graduation à gauche de $-5$ : $-5-0{,}5=-5{,}5$."]},{"consigne":"Donner l'écriture la plus simple : entier, décimal ou fraction irréductible.","enonce":"$-\\dfrac{68}{20}$","figure":"","reponse":"$-3{,}4$","etapes":["$-\\dfrac{68}{20}=-\\dfrac{340}{100}=-3{,}4$"]},{"consigne":"Donner l'écriture la plus simple : entier, décimal ou fraction irréductible.","enonce":"$\\dfrac{4}{8}$","figure":"","reponse":"$0{,}5$","etapes":["$\\dfrac{4}{8}=\\dfrac{500}{1000}=0{,}5$"]},{"consigne":"Donner l'écriture la plus simple : entier, décimal ou fraction irréductible.","enonce":"$-\\sqrt{\\dfrac{64}{25}}$","figure":"","reponse":"$-1{,}6$","etapes":["$\\sqrt{64}=8$ et $\\sqrt{25}=5$, donc $\\sqrt{\\dfrac{64}{25}}=\\dfrac{8}{5}=1{,}6$.","Donc $-\\sqrt{\\dfrac{64}{25}}=-1{,}6$."]}]},"2026-10-04_11-03-33_h4vc":{"questions":[{"consigne":"Donner l'écriture la plus simple : entier, décimal ou fraction irréductible.","enonce":"$\\dfrac{1}{2}$","figure":"","reponse":"$0{,}5$","etapes":["$\\dfrac{1}{2}=\\dfrac{5}{10}=0{,}5$"]},{"consigne":"Donner l'écriture la plus simple : entier, décimal ou fraction irréductible.","enonce":"$\\dfrac{55}{5}$","figure":"","reponse":"$11$","etapes":["$55=5\\times 11$, donc $\\dfrac{55}{5}=11$."]},{"consigne":"Donner l'écriture la plus simple : entier, décimal ou fraction irréductible.","enonce":"$\\sqrt{0{,}25}$","figure":"","reponse":"$0{,}5$","etapes":["$\\sqrt{0{,}25}=0{,}5$ car $0{,}5\\geq 0$ et $0{,}5^{2}=0{,}25$."]},{"consigne":"Donner l'écriture la plus simple : entier, décimal ou fraction irréductible.","enonce":"$-8\\times 10^{-4}$","figure":"","reponse":"$-0{,}0008$","etapes":["Multiplier par $10^{-4}$ décale la virgule de $4$ rangs vers la gauche.","$-8\\times 10^{-4}=-0{,}0008$"]},{"consigne":"Écrire sous forme de fraction irréductible.","enonce":"$2{,}75=\\,?$","figure":"","reponse":"$\\dfrac{11}{4}$","etapes":["$2{,}75=\\dfrac{275}{100}$","$=\\dfrac{11\\mul{\\times 25}}{4\\mul{\\times 25}}=\\dfrac{11}{4}$"]},{"consigne":"Compléter.","enonce":"$\\dfrac{7}{4}=\\ldots\\,\\%$","figure":"","reponse":"$175\\,\\%$","etapes":["$\\dfrac{7}{4}=1{,}75$","$1{,}75=\\dfrac{175}{100}=175\\,\\%$"]}]}},"cle":"distanciel-seconde"}</script>
+<script src="katex/katex.min.js"></script>
+<script>
+"use strict";
+const D = JSON.parse(document.getElementById("donnees").textContent);
+function echapper(t) { return String(t).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
+
+// Formules : composées par KaTeX (recopié à côté des pages : rien ne passe par un autre site), macros de l'application.
+const cache = new Map();
+function formule(tex, bloc) {
+  const cle = (bloc ? "B" : "I") + tex;
+  let h = cache.get(cle);
+  if (h === undefined) {
+    if (typeof katex === "undefined") h = "<code>" + echapper(tex) + "</code>";
+    else {
+      try { h = katex.renderToString(tex, {macros: Object.assign({}, D.macros), throwOnError: false, strict: "ignore", output: "html", displayMode: !!bloc}); }
+      catch (e) { h = "<code>" + echapper(tex) + "</code>"; }
+    }
+    cache.set(cle, h);
+  }
+  return h;
+}
+// Typographie française : espace fine insécable avant ? ! ; : » et après «.
+function typo(t) { return t.replace(/[  ]([?!;:»])/g, " $1").replace(/«[  ]/g, "« "); }
+
+// Texte de la page : $…$ en ligne, $$…$$ en bloc, dans les nœuds de texte (le HTML écrit à la main reste tel quel).
+const MATHS = /\$\$([\s\S]+?)\$\$|\$([^$]+?)\$/g;
+function composer(racine) {
+  const noeuds = [];
+  const w = document.createTreeWalker(racine, NodeFilter.SHOW_TEXT, {acceptNode: n =>
+    n.parentElement && n.parentElement.closest("script,style,code,.katex") ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT});
+  while (w.nextNode()) noeuds.push(w.currentNode);
+  noeuds.forEach(n => {
+    const t = n.nodeValue;
+    if (!/\$|[  ][?!;:»]|«[  ]/.test(t)) return;
+    let h = "", i = 0, m;
+    MATHS.lastIndex = 0;
+    while ((m = MATHS.exec(t))) {
+      h += echapper(typo(t.slice(i, m.index)));
+      h += m[1] !== undefined ? formule(m[1], true) : formule(m[2], false);
+      i = m.index + m[0].length;
+    }
+    h += echapper(typo(t.slice(i)));
+    const tpl = document.createElement("template");
+    tpl.innerHTML = h;
+    n.replaceWith(tpl.content);
+  });
+}
+
+// Textes des séries d'automatismes (comme dans l'application : texte entre $…$, « \$ » écrit un dollar).
+const UNITE = /^[   ](cm²|cm³|dm²|dm³|km²|m²|m³|mm|cm|dm|km|mg|kg|mL|cL|dL|km\/h|m\/s|min|°C|€|%|h|s|g|L|m|°)(?=[\s.,;:!?)»]|$)/;
+const PONCTUATION = /^(?:[  ]?[?!;:»]|[.,)])+/;
+function typographie(t) {
+  return t.replace(/(<[^>]*>)|([^<]+)/g, (m, balise, texte) => balise || typo(texte));
+}
+function html(texte) {
+  texte = String(texte == null ? "" : texte);
+  const morceaux = [];
+  let courant = "", math = false;
+  for (let i = 0; i < texte.length; i++) {
+    const c = texte[i];
+    if (c === "\\" && texte[i + 1] === "$") { courant += math ? "\\$" : "$"; i++; continue; }
+    if (c === "$") { morceaux.push({math, t: courant}); courant = ""; math = !math; continue; }
+    courant += c;
+  }
+  morceaux.push({math, t: courant});
+  for (const m of morceaux) if (!m.math) m.t = typographie(m.t);
+  let res = "";
+  for (let k = 0; k < morceaux.length; k++) {
+    const m = morceaux[k];
+    if (!m.math) { res += m.t; continue; }
+    const suite = morceaux[k + 1];
+    const u = suite && !suite.math ? UNITE.exec(suite.t) : null, p = suite && !suite.math && !u ? PONCTUATION.exec(suite.t) : null;
+    if (u) { res += '<span class="insecable">' + formule(m.t) + " " + u[1] + "</span>"; suite.t = suite.t.slice(u[0].length); }
+    else if (p) { res += '<span class="insecable">' + formule(m.t) + p[0] + "</span>"; suite.t = suite.t.slice(p[0].length); }
+    else res += formule(m.t);
+  }
+  return res;
+}
+function montrer(bouton, voir) {
+  bouton.setAttribute("aria-expanded", String(voir));
+  bouton.textContent = voir ? "Masquer la réponse" : "Voir la réponse";
+  bouton.nextElementSibling.hidden = !voir;
+}
+function remplirSerie(div, s) {
+  let h = '<div class="tout"><button class="voir" type="button" aria-expanded="false">Voir toutes les réponses</button></div>';
+  s.questions.forEach((v, i) => {
+    h += '<section class="question"><div class="num">Question ' + (i + 1) + "</div>"
+      + (v.consigne ? '<div class="consigne">' + html(v.consigne) + "</div>" : "")
+      + '<div class="enonce-q">' + html(v.enonce) + "</div>"
+      + (v.figure ? '<div class="figure">' + html(v.figure) + "</div>" : "")
+      + '<button class="voir" type="button" aria-expanded="false">Voir la réponse</button>'
+      + '<div class="reponse" hidden><div class="rep">' + html(v.reponse) + "</div>"
+      + (v.etapes.length ? '<div class="etapes">' + v.etapes.map(e => '<div class="etape-q">' + html(e) + "</div>").join("") + "</div>" : "")
+      + "</div></section>";
+  });
+  div.innerHTML = h;
+  const tous = [...div.querySelectorAll(".question .voir")], bTout = div.querySelector(".tout .voir");
+  tous.forEach(b => { b.onclick = () => montrer(b, b.getAttribute("aria-expanded") !== "true"); });
+  bTout.onclick = () => {
+    const voir = bTout.getAttribute("aria-expanded") !== "true";
+    tous.forEach(b => montrer(b, voir));
+    bTout.setAttribute("aria-expanded", String(voir));
+    bTout.textContent = voir ? "Masquer les réponses" : "Voir toutes les réponses";
+  };
+}
+
+// Étapes faites : retenues dans ce navigateur seulement (rien n'est envoyé).
+let etat = {};
+try { etat = JSON.parse(localStorage.getItem(D.cle) || "{}") || {}; } catch (e) { etat = {}; }
+function sauver() { try { localStorage.setItem(D.cle, JSON.stringify(etat)); } catch (e) {} }
+function compter() {
+  document.querySelectorAll(".seance").forEach(s => {
+    const total = s.querySelectorAll(".etape[id]").length, faites = s.querySelectorAll(".etape.fait").length;
+    const c = s.querySelector(".compte");
+    if (c) c.textContent = total && faites ? faites + " étape" + (faites > 1 ? "s" : "") + " faite" + (faites > 1 ? "s" : "") + " sur " + total : "";
+  });
+}
+document.querySelectorAll(".etape[id]").forEach(et => {
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "marquer";
+  const maj = () => {
+    const f = !!etat[et.id];
+    et.classList.toggle("fait", f);
+    b.textContent = f ? "Étape faite · annuler" : "Marquer cette étape comme faite";
+    b.setAttribute("aria-pressed", String(f));
+  };
+  b.onclick = () => { if (etat[et.id]) delete etat[et.id]; else etat[et.id] = true; sauver(); maj(); compter(); };
+  et.appendChild(b);
+  maj();
+});
+
+composer(document.querySelector("main"));
+document.querySelectorAll("[data-serie]").forEach(div => { const s = D.series[div.dataset.serie]; if (s) remplirSerie(div, s); });
+compter();
+</script>
+</body>
+</html>

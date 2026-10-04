@@ -1,3 +1,11 @@
+<!-- distanciel -->
+## Travail à distance
+
+- [Seconde](https://p-bailly.github.io/entrainements/distanciel/seconde.html)
+- [Première, mathématiques spécifiques](https://p-bailly.github.io/entrainements/distanciel/premiere.html)
+- [Terminale, mathématiques complémentaires](https://p-bailly.github.io/entrainements/distanciel/terminale.html)
+<!-- /distanciel -->
+
 ## Seconde
 
 - Chapitre 1 : [Calcul littéral](https://p-bailly.github.io/entrainements/seconde/01-calcul-litteral.html)
