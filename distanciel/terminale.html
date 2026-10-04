@@ -12,8 +12,8 @@
 <style>
 :root{
   --papier:#FFFFFF; --fond:#EDEDED; --encre:#161616; --gris:#5C5C5C; --filet:#CCCCCC; --case:#F2F2F2;
-  --stylo:#1E3D96; --rouge:#C62026; --vert:#1C7436; --orange:#B5650B;
-  --bleu-clair:#E8EDF8; --vert-clair:#E6F2E9; --rouge-clair:#FBEBEB; --orange-clair:#FCF1E0;
+  --stylo:#1E3D96; --rouge:#C62026; --vert:#1C7436;
+  --bleu-clair:#E8EDF8; --vert-clair:#E6F2E9;
   --sans:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
 }
 *{box-sizing:border-box}
@@ -45,64 +45,42 @@ main > h2:first-child,.chapitre:first-child > h2{margin-top:6px}
 .intro{margin:0 0 10px; padding:10px 14px; background:var(--papier); border:1px solid var(--filet); border-radius:10px; font-size:.97rem}
 .intro > :first-child{margin-top:0}
 .intro > :last-child{margin-bottom:0}
-.seances{display:flex; flex-wrap:wrap; gap:8px; margin:0 0 6px}
-.seances a{padding:6px 14px; border:1.5px solid var(--stylo); border-radius:999px; background:var(--papier); font-weight:600; font-size:.95rem; text-decoration:none}
-.seances a:active{background:var(--bleu-clair)}
-.seance{margin-top:18px}
-.seance header{display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 12px; margin:0 4px}
-.seance h3{margin:0; font-size:1.1rem}
-.seance .resume{margin:0; flex:1 1 12rem; color:var(--gris); font-size:.95rem}
-.seance .compte{margin:0; font-size:.88rem; color:var(--vert); font-weight:600}
-.compte:empty{display:none}
-.etape{margin:10px 0 0; padding:2px 14px 14px; background:var(--papier); border:1px solid var(--filet); border-radius:10px}
-.etape h3,.etape h4{margin:0}
-.etape > h3{display:flex; align-items:baseline; gap:10px; margin:12px 0 6px; font-size:1.05rem}
-.etape > h3 .n{flex:none; align-self:center; display:inline-grid; place-items:center; width:1.75em; height:1.75em; border-radius:50%; background:var(--stylo); color:#fff; font-size:.85rem; font-weight:700}
-.etape > h3 .duree{margin-left:auto; font-size:.82rem; font-weight:400; color:var(--gris); text-align:right}
-.etape.fait{border-color:var(--vert)}
-.etape.fait > h3 .n{background:var(--vert)}
-.etape p{margin:.5em 0}
-.etape ul,.etape ol{margin:.4em 0; padding-left:1.4em}
-.etape li + li{margin-top:.25em}
-.marquer{display:block; margin:14px 0 0 auto; min-height:40px; padding:4px 14px; border:1.5px solid var(--filet); border-radius:9px; background:var(--papier); color:var(--gris); font-size:.92rem; cursor:pointer; touch-action:manipulation}
-.fait .marquer{border-color:var(--vert); background:var(--vert-clair); color:var(--vert); font-weight:600}
-/* Cours : encadrés */
-.partie{margin:18px 0 4px; font-size:1rem; font-weight:700; color:var(--rouge)}
-.bloc{margin:10px 0; padding:8px 14px 10px; border-left:5px solid var(--gris); border-radius:8px; background:var(--case)}
-.bloc > p{margin:.35em 0}
-.bloc .titre{margin:0 0 .2em; font-size:.82rem; font-weight:700; letter-spacing:.02em; text-transform:uppercase; color:var(--gris)}
-.bloc.definition{border-color:var(--vert); background:var(--vert-clair)}
-.bloc.definition .titre{color:var(--vert)}
-.bloc.propriete{border-color:var(--rouge); background:var(--rouge-clair)}
-.bloc.propriete .titre{color:var(--rouge)}
-.bloc.exemple{border-color:var(--stylo); background:var(--bleu-clair)}
-.bloc.exemple .titre{color:var(--stylo)}
-.bloc.methode{border-color:var(--orange); background:var(--orange-clair)}
-.bloc.methode .titre{color:var(--orange)}
-.cadre{display:inline-block; padding:.1em .6em; border:1.5px solid var(--encre); background:var(--papier)}
-.tex{margin:.3em 0; overflow-x:auto; overflow-y:hidden}
-.katex-display{margin:.5em 0; overflow-x:auto; overflow-y:hidden}
-.katex-display > .katex{font-size:1em}
+.seance{margin-top:20px}
+.seance h3{margin:0 4px; font-size:1.1rem}
+.seance .resume{margin:0 4px 8px; color:var(--gris); font-size:.95rem}
+/* Menus déroulants, tous fermés */
+.menu{margin:8px 0 0; background:var(--papier); border:1px solid var(--filet); border-radius:10px}
+.menu > summary{display:flex; align-items:center; gap:10px; min-height:52px; padding:8px 14px; font-weight:600; cursor:pointer; list-style:none}
+.menu > summary::-webkit-details-marker{display:none}
+.menu > summary::after{content:""; flex:none; margin-left:auto; width:9px; height:9px; border-right:2px solid var(--gris); border-bottom:2px solid var(--gris); transform:rotate(45deg) translate(-2px,-2px); transition:transform .15s}
+.menu[open] > summary{border-bottom:1px solid var(--filet)}
+.menu[open] > summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
+.menu > summary .detail{font-weight:400; color:var(--gris); font-size:.92rem}
+.menu .contenu{padding:2px 14px 14px}
+.menu .contenu p{margin:.6em 0}
+.menu .menu{border-color:var(--stylo)}
+.menu .menu > summary{min-height:44px; color:var(--stylo); font-size:.95rem}
+.menu .menu > summary::after{border-color:var(--stylo)}
+.menu .menu.corrige{border-color:var(--vert)}
+.menu .menu.corrige > summary{color:var(--vert)}
+.menu .menu.corrige > summary::after{border-color:var(--vert)}
+.menu .menu[open] > summary{background:var(--bleu-clair); border-radius:8px 8px 0 0}
+.menu .menu.corrige[open] > summary{background:var(--vert-clair)}
+.extrait{margin:10px 0 0; min-height:44px; padding:6px 18px; border:1.5px solid var(--stylo); border-radius:9px; background:var(--stylo); color:#fff; font-size:.97rem; font-weight:600; cursor:pointer; touch-action:manipulation}
+.extrait:active{filter:brightness(.92)}
 .katex{white-space:nowrap}
-/* Exercices */
-.exo{margin:14px 0 0; padding-top:12px; border-top:1px solid var(--filet)}
-.exo:first-of-type{border-top:none; padding-top:2px}
-.exo h4{display:flex; flex-wrap:wrap; align-items:baseline; gap:2px 10px; font-size:1rem}
-.exo h4 .ou{font-size:.82rem; font-weight:400; color:var(--gris)}
-.exo .enonce{margin:.4em 0}
-.aide{margin:8px 0 0; border:1.5px solid var(--stylo); border-radius:9px; background:var(--papier)}
-.aide > summary{min-height:40px; padding:7px 14px; color:var(--stylo); font-weight:600; font-size:.95rem; cursor:pointer; list-style:none}
-.aide > summary::-webkit-details-marker{display:none}
-.aide[open] > summary{background:var(--bleu-clair); border-radius:7px 7px 0 0}
-.aide > :not(summary){margin-left:12px; margin-right:12px}
-.aide > :last-child{margin-bottom:10px}
-.aide.corrige{border-color:var(--vert)}
-.aide.corrige > summary{color:var(--vert)}
-.aide.corrige[open] > summary{background:var(--vert-clair)}
-.calculs{list-style:none; padding-left:0 !important}
-.calculs li{padding:.2em 0; overflow-x:auto; overflow-y:hidden}
-.verdict{font-weight:600}
-.cadrer{display:inline-block; padding:0 .45em; border:1.5px solid var(--vert); border-radius:4px; background:var(--vert-clair); font-weight:600}
+.katex-display{margin:.5em 0; overflow-x:auto; overflow-y:hidden}
+/* Fenêtre pop-up des extraits de PDF */
+dialog#extrait{width:calc(100vw - 16px); max-width:54rem; max-height:calc(100vh - 16px); max-height:calc(100dvh - 16px); padding:0; border:0; border-radius:12px; background:var(--papier); color:var(--encre); overflow:hidden}
+dialog#extrait[open]{display:flex; flex-direction:column}
+dialog#extrait::backdrop{background:rgba(0,0,0,.55)}
+#extrait .entete{flex:none; display:flex; align-items:center; gap:10px; padding:6px 6px 6px 16px; border-bottom:1px solid var(--filet)}
+#extrait h2{flex:1; min-width:0; margin:0; font-size:1rem; line-height:1.3}
+#extrait .pdf{flex:none; padding:8px 12px; border:1.5px solid var(--stylo); border-radius:9px; font-size:.9rem; font-weight:600; text-decoration:none; white-space:nowrap}
+#extrait .fermer{flex:none; width:44px; height:44px; border:0; border-radius:50%; background:transparent; font-size:1.3rem; line-height:1; color:var(--encre); cursor:pointer}
+#extrait .fermer:active{background:var(--case)}
+#extrait .corps{flex:1; min-height:0; overflow:auto; padding:10px; background:#fff; -webkit-overflow-scrolling:touch}
+#extrait img{display:block; width:100%; min-width:30rem; height:auto; margin:0 auto}
 /* Séries d'automatismes (comme sur la page des automatismes faits en classe) */
 .tout{display:flex; justify-content:flex-end; margin:6px 0 2px}
 .question{padding:14px 0 12px}
@@ -123,27 +101,6 @@ main > h2:first-child,.chapitre:first-child > h2{margin-top:6px}
 .etape-q + .etape-q{margin-top:.3em}
 :focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
 .insecable{white-space:nowrap}
-/* Impression en un clic : le bouton recopie les étapes désignées (data-sources) dans #impression, sans indications
-   ni corrections, avec la place pour répondre (.espace), puis ouvre l'impression du navigateur. */
-.outils{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 0}
-.imprimer{min-height:44px; padding:6px 18px; border:1.5px solid var(--stylo); border-radius:9px; background:var(--stylo); color:#fff; font-size:.97rem; font-weight:600; cursor:pointer; touch-action:manipulation}
-.imprimer:active{filter:brightness(.92)}
-.espace{display:none}
-#impression{display:none}
-@media print{
-  @page{size:A4; margin:13mm 14mm}
-  html.impression,html.impression body{background:#fff}
-  html.impression body > *:not(#impression){display:none !important}
-  html.impression #impression{display:block; color:#000; font-size:11pt; line-height:1.4; -webkit-print-color-adjust:exact; print-color-adjust:exact}
-  #impression .entete{margin:0 0 6mm; padding-bottom:2mm; border-bottom:1.5px solid #000; font-size:.9rem}
-  #impression .entete strong{font-size:1.1rem}
-  #impression h3{margin:5mm 0 2mm; font-size:1.05rem}
-  #impression .etape{margin:0; padding:0; border:0; background:none}
-  #impression .ecran,#impression .marquer,#impression details{display:none !important}
-  #impression .bloc,#impression .question,#impression .exo,#impression .espace{break-inside:avoid}
-  #impression .espace{display:block; height:3.5cm; margin:2mm 0 4mm; background:repeating-linear-gradient(to bottom,transparent 0,transparent 7.4mm,#b5b5b5 7.4mm,#b5b5b5 7.8mm)}
-  #impression .espace.grand{height:5.5cm}
-}
 table.tab{border-collapse:collapse; margin:0 auto; background:#fff; font-size:.9rem}
 table.tab th,table.tab td{border:1.5px solid #475467; padding:.15em .55em; text-align:center; white-space:nowrap}
 table.tab th{background:#f2f4f7; font-weight:600}
@@ -165,152 +122,62 @@ table.tab th{background:#f2f4f7; font-weight:600}
 <main>
 <section class="chapitre">
 <h2>Chapitre 3 · Compléments sur la dérivation</h2>
-<div class="intro"><p><strong>Comment travailler.</strong> Garde ton cahier et ton manuel <strong>Déclic Tle maths complémentaires</strong> à côté de toi, et travaille dans l'ordre des étapes.</p>
+<div class="intro"><p><strong>Comment travailler.</strong> Ouvre les menus dans l'ordre. Garde ton cahier et ton manuel <strong>Déclic Tle maths complémentaires</strong> à côté de toi.</p>
 <ul>
+<li>Le cours se recopie dans le cahier. Les extraits s'ouvrent dans une fenêtre, avec un lien vers le PDF à imprimer.</li>
 <li>Pour chaque exercice ou chaque question, cherche d'abord seul(e). Si tu bloques, ouvre l'indication. N'ouvre la correction qu'après avoir écrit ta réponse, puis corrige-toi dans ton cahier.</li>
-<li>Le cours se recopie dans le cahier, comme en classe. Le bouton <strong>Imprimer</strong> te donne en un clic une feuille propre du cours et de la capacité, avec la place pour répondre.</li>
-<li>Pour la capacité, la calculatrice est autorisée à la question demandée.</li>
 </ul>
-<p>Marque chaque étape comme faite quand elle est terminée : c'est retenu dans ton navigateur, rien n'est envoyé au professeur.</p>
 </div>
 <article class="seance" id="ch3-seance-1">
-<header><h3>Travail à faire</h3>
+<h3>Travail à faire</h3>
 <p class="resume">Partie B p. 7, cours 1.2, capacité 2</p>
-<p class="compte" aria-live="polite"></p></header>
-<section class="etape" id="ch3t-exos">
-<h3><span class="n">1</span>Exercices : Partie B, page 7 <span class="duree">environ 20 minutes</span></h3>
-<p>Dans le manuel, « Partir d'un bon pied », <strong>page 7, partie B</strong> : huit affirmations à classer en vrai ou faux d'après le graphique. Pour chacune, écris dans ton cahier « vrai » ou « faux » <strong>et une justification</strong>.</p>
-<details class="aide"><summary>Indication</summary>
+<details class="menu"><summary>Exercices : partie B <span class="detail">· manuel page 7</span></summary>
+<div class="contenu">
+<details class="menu"><summary>Indication</summary>
+<div class="contenu">
 <p>Commence par lire le graphique : repère le point $A$ où la tangente $T_{2}$ est horizontale, et les points où la courbe coupe l'axe des abscisses.</p>
 <p>Une tangente horizontale a un coefficient directeur nul, donc un nombre dérivé nul. Pour une autre tangente, choisis deux de ses points situés sur des nœuds du quadrillage : son coefficient directeur est $\dfrac{y_{2} - y_{1}}{x_{2} - x_{1}}$.</p>
 <p>La courbe semble symétrique par rapport à la verticale qui passe par $A$ : cela aide à trouver son second point d'intersection avec l'axe des abscisses.</p>
+</div>
 </details>
-<details class="aide corrige"><summary>Correction</summary>
-<p><strong>Lecture du graphique.</strong> Le minimum de $f$ est atteint au point $A(-1\pv -2)$ : la tangente $T_{2}$ y est horizontale, d'équation $y = -2$ (ce n'est pas l'axe des abscisses).</p>
-<ul>
-<li>La tangente $T_{1}$, au point $B(-3\pv 0)$, passe aussi par $(-4\pv 2)$ et $(-2\pv -2)$ : son coefficient directeur vaut $\dfrac{-2 - 2}{-2 - (-4)} = -2$.</li>
-<li>La tangente $T_{3}$, au point $C(2\pv 2{,}5)$, passe par $(1\pv -0{,}5)$ : son coefficient directeur vaut $\dfrac{2{,}5 - (-0{,}5)}{2 - 1} = 3$.</li>
-</ul>
-<ol class="calculs">
-<li><strong>1.</strong> Entre ses deux zéros, $-3$ (en $B$) et $1$ (symétrique de $-3$ par rapport au minimum $A$, d'abscisse $-1$), la courbe est en dessous de l'axe des abscisses. Comme $0{,}5$ est compris entre $-3$ et $1$, $f(0{,}5)$ est négatif (on lit environ $-1$), pas égal à $-2$ : <span class="cadrer">Faux</span>.</li>
-<li><strong>2.</strong> $T_{1}$ n'est pas horizontale (elle descend de gauche à droite) : son équation ne peut pas être $y = -2$. Son équation réduite est $y = -2x - 6$ : <span class="cadrer">Faux</span>.</li>
-<li><strong>3.</strong> $f'(-3)$ est le coefficient directeur de $T_{1}$, soit $-2$, pas $0$ : seule $T_{2}$, horizontale, a un coefficient directeur nul : <span class="cadrer">Faux</span>.</li>
-<li><strong>4.</strong> $f'(2)$ est le coefficient directeur de $T_{3}$, qui vaut $3$ : <span class="cadrer">Vrai</span>.</li>
-<li><strong>5.</strong> La courbe est croissante à droite de son minimum $A$, d'abscisse $-1$ ; en $0{,}5 &gt; -1$, la tangente a donc un coefficient directeur positif : <span class="cadrer">Vrai</span>.</li>
-<li><strong>6.</strong> $\mathscr{C}_{f}$ coupe l'axe des abscisses en deux points : $B$, d'abscisse $-3$, et, par symétrie par rapport au minimum $A$, un second point d'abscisse $1$. Ce sont les deux seules solutions de $f(x) = 0$. Comme $-1{,}5$ n'est ni $-3$ ni $1$, ce n'est pas une solution : <span class="cadrer">Faux</span>.</li>
-<li><strong>7.</strong> Le minimum de $f$, atteint en $A$, vaut $-2$. Comme $-2 &gt; -3$, $f$ ne peut jamais prendre la valeur $-3$ : l'équation $f(x) = -3$ n'admet pas de solution : <span class="cadrer">Vrai</span>.</li>
-<li><strong>8.</strong> $f$ s'annule en $-3$ et en $1$ ; entre ces deux zéros la courbe est en dessous de l'axe des abscisses, et au-dessus avant $-3$ et après $1$. Le tableau de signes correct est donc : $f(x)$ positif sur $\cro-\infty\pv-3\crf$, négatif sur $\cro-3\pv1\crf$, positif sur $\cro1\pv+\infty\crf$. Le tableau proposé par le manuel, qui indique un unique zéro en $-1$ et $f$ toujours positive, est faux : <span class="cadrer">Faux</span>.</li>
-</ol>
-</details>
-</section>
-
-<section class="etape" id="ch3t-cours">
-<h3><span class="n">2</span>Cours 1.2 : fonction dérivable sur un intervalle <span class="duree">environ 15 minutes</span></h3>
-<div class="outils">
-<button type="button" class="imprimer" data-sources="ch3t-cours ch3t-capacite" data-titre="Terminale maths complémentaires · Chapitre 3 · Compléments sur la dérivation" data-soustitre="Cours 1.2 : fonction dérivable sur un intervalle, et capacité 2">Imprimer le cours 1.2 et la capacité 2</button>
-</div>
-<p class="ecran">Recopie dans ton cahier, dans l'ordre, les encadrés ci-dessous, ou imprime-les avec le bouton.</p>
-
-<p class="partie">Rappel du 1.1 (utile pour la capacité 2)</p>
-
-<div class="bloc propriete">
-<p class="titre">Propriété · équation de la tangente</p>
-<p>Soit $f$ une fonction dérivable en $a$. Une équation réduite de la tangente à la courbe de $f$ au point d'abscisse $a$ est :</p>
-<div class="tex">$$\boxed{y = f'(a)(x - a) + f(a)}$$</div>
-<p>$f'(a)$ est le <strong>coefficient directeur</strong> de cette tangente.</p>
-</div>
-
-<div class="bloc exemple">
-<p class="titre">Exemple</p>
-<p>Avec $f(x) = x^2$ : $f(3) = 9$ et $f'(3) = 6$, donc la tangente à la courbe de $f$ au point d'abscisse $3$ a pour équation $y = 6(x - 3) + 9$, soit $y = 6x - 9$.</p>
-</div>
-
-<p class="partie">1.2 Fonction dérivable sur un intervalle</p>
-
-<div class="bloc definition">
-<p class="titre">Définition · fonction dérivée</p>
-<p>Soit $f$ une fonction définie sur un intervalle $I$. Si $f$ est dérivable en tout réel $a$ de $I$, on dit que $f$ est <strong>dérivable sur $I$</strong> ; la fonction qui, à tout réel $a$ de $I$, associe $f'(a)$ est la <strong>fonction dérivée</strong> de $f$, notée $f'$ :</p>
-<div class="tex">$$\boxed{f' : a \longmapsto f'(a)}$$</div>
-</div>
-
-<div class="bloc exemple">
-<p class="titre">Exemple</p>
-<p>Fonction carré : pour tout réel $a$ et tout réel $h \neq 0$,</p>
-<div class="tex">$$\dfrac{(a+h)^2 - a^2}{h} = \dfrac{2ah + h^2}{h} = 2a + h.$$</div>
-<p>$2a + h$ tend vers $2a$ quand $h$ tend vers $0$ : la fonction carré est dérivable sur $\R$, de fonction dérivée $x \longmapsto 2x$.</p>
-</div>
-</section>
-
-<section class="etape" id="ch3t-capacite">
-<h3><span class="n">3</span>Capacité 2 <span class="duree">environ 30 minutes</span></h3>
-<div class="outils">
-<button type="button" class="imprimer" data-sources="ch3t-cours ch3t-capacite" data-titre="Terminale maths complémentaires · Chapitre 3 · Compléments sur la dérivation" data-soustitre="Cours 1.2 : fonction dérivable sur un intervalle, et capacité 2">Imprimer le cours 1.2 et la capacité 2</button>
-</div>
-<div class="bloc">
-<p class="titre">Capacité 2 · déterminer une équation de tangente, connaître des exemples de fonctions non dérivables en un point</p>
-<p>Soit $f$ la fonction définie sur $\cro 0\pv +\infty\crf$ par $f(x) = \dfrac{1}{x}$. On rappelle que $f$ est dérivable sur $\cro 0\pv +\infty\crf$ et que, pour tout réel $x &gt; 0$, $f'(x) = -\dfrac{1}{x^{2}}$. On note $\mathscr{C}_f$ la courbe de $f$ dans un repère du plan.</p>
-</div>
-
-<div class="exo">
-<h4>Question 1.a</h4>
-<p class="enonce">Déterminer une équation de la tangente $T$ à $\mathscr{C}_f$ au point d'abscisse $1$.</p>
-<div class="espace"></div>
-<details class="aide"><summary>Indication</summary>
-<p>Calcule $f(1)$ et $f'(1)$, puis utilise la formule $y = f'(a)(x - a) + f(a)$ avec $a = 1$.</p>
-</details>
-<details class="aide corrige"><summary>Correction</summary>
-<p>$f(1) = 1$ et $f'(1) = -\dfrac{1}{1^{2}} = -1$. Donc $T : y = -1 \times (x - 1) + 1$, soit <span class="cadrer">$T : y = -x + 2$</span>.</p>
+<details class="menu corrige"><summary>Correction</summary>
+<div class="contenu"><button type="button" class="extrait" data-extrait="ch3-partie-b-corr">Voir la correction</button></div>
 </details>
 </div>
-
-<div class="exo">
-<h4>Question 1.b</h4>
-<p class="enonce">Représenter $T$ et $\mathscr{C}_f$ avec la calculatrice. Quelle conjecture peut-on faire sur les positions relatives de $T$ et de $\mathscr{C}_f$ ?</p>
-<div class="espace"></div>
-<details class="aide"><summary>Indication</summary>
-<p>Saisis les deux fonctions $x \mapsto \dfrac{1}{x}$ et $x \mapsto -x + 2$ dans la calculatrice, avec une fenêtre d'affichage où $x$ va de $0$ à $3$ environ. Regarde quelle courbe est au-dessus de l'autre, et en combien de points elles se touchent.</p>
 </details>
-<details class="aide corrige"><summary>Correction</summary>
-<p>On conjecture que <span class="cadrer">$\mathscr{C}_f$ est au-dessus de $T$ sur $\cro0\pv+\infty\crf$</span>, avec un seul point commun, d'abscisse $1$.</p>
+
+<details class="menu"><summary>Cours 1.2 : fonction dérivable sur un intervalle</summary>
+<div class="contenu">
+<p>À recopier dans le cahier.</p>
+<button type="button" class="extrait" data-extrait="ch3-cours-1-2">Voir l'extrait du cours</button>
+</div>
+</details>
+
+<details class="menu"><summary>Capacité 2</summary>
+<div class="contenu">
+<button type="button" class="extrait" data-extrait="ch3-capa-2">Voir la capacité</button>
+<details class="menu"><summary>Indications</summary>
+<div class="contenu">
+<p><strong>1.a</strong> Calcule $f(1)$ et $f'(1)$, puis utilise la formule $y = f'(a)(x - a) + f(a)$ avec $a = 1$.</p>
+<p><strong>1.b</strong> Saisis les deux fonctions dans la calculatrice, avec une fenêtre d'affichage où $x$ va de $0$ à $3$ environ. Regarde quelle courbe est au-dessus de l'autre, et en combien de points elles se touchent.</p>
+<p><strong>1.c</strong> Étudie le signe de la différence $f(x) - (-x + 2)$ pour $x &gt; 0$ : mets-la sous un même dénominateur, puis reconnais une identité remarquable au numérateur.</p>
+<p><strong>2.</strong> Pour montrer qu'une affirmation est fausse, un contre-exemple suffit. Pense à la fonction valeur absolue $x \mapsto |x|$ en $0$ : calcule le taux d'accroissement $\dfrac{g(h) - g(0)}{h}$ d'abord pour $h &gt; 0$, puis pour $h &lt; 0$.</p>
+</div>
+</details>
+<details class="menu corrige"><summary>Correction</summary>
+<div class="contenu"><button type="button" class="extrait" data-extrait="ch3-capa-2-corr">Voir la correction</button></div>
 </details>
 </div>
-
-<div class="exo">
-<h4>Question 1.c</h4>
-<p class="enonce">Démontrer cette conjecture.</p>
-<div class="espace grand"></div>
-<details class="aide"><summary>Indication</summary>
-<p>Étudie le signe de la différence $f(x) - (-x + 2)$ pour $x &gt; 0$. Mets-la sous un même dénominateur, puis reconnais une identité remarquable au numérateur.</p>
 </details>
-<details class="aide corrige"><summary>Correction</summary>
-<p>Pour tout réel $x &gt; 0$ :</p>
-<div class="tex">$$\begin{aligned} f(x) - (-x + 2) &amp;= \dfrac{1}{x} + x - 2\\ &amp;= \dfrac{1 + x^2 - 2x}{x}\\ &amp;= \dfrac{(x - 1)^2}{x}. \end{aligned}$$</div>
-<p>$(x - 1)^2 \geq 0$ et $x &gt; 0$, donc $f(x) - (-x + 2) \geq 0$ : <span class="cadrer">$\mathscr{C}_f$ est au-dessus de $T$</span>, et elles ne se touchent qu'en $x = 1$.</p>
-</details>
-</div>
-
-<div class="exo">
-<h4>Question 2</h4>
-<p class="enonce">Est-il vrai que si une fonction $g$ est définie sur un intervalle $I$, alors $g$ est dérivable sur $I$ ?</p>
-<div class="espace"></div>
-<details class="aide"><summary>Indication</summary>
-<p>Pour montrer qu'une affirmation est fausse, un contre-exemple suffit. Pense à la fonction valeur absolue $g : x \mapsto |x|$ en $0$ : calcule le taux d'accroissement $\dfrac{g(h) - g(0)}{h}$ d'abord pour $h &gt; 0$, puis pour $h &lt; 0$.</p>
-</details>
-<details class="aide corrige"><summary>Correction</summary>
-<p><span class="cadrer">C'est faux.</span> La fonction valeur absolue $g : x \mapsto |x|$ est définie sur $\R$ mais n'est pas dérivable en $0$ :</p>
-<ul class="calculs">
-<li>pour $h &gt; 0$, $\dfrac{g(h) - g(0)}{h} = \dfrac{h}{h} = 1$ ;</li>
-<li>pour $h &lt; 0$, $\dfrac{g(h) - g(0)}{h} = \dfrac{-h}{h} = -1$.</li>
-</ul>
-<p>Le taux d'accroissement ne tend pas vers un nombre unique quand $h$ tend vers $0$ : $g$ n'est pas dérivable en $0$ (sa courbe forme un angle à l'origine, sans tangente).</p>
-</details>
-</div>
-</section>
 
 </article>
 </section>
 </main>
-<script type="application/json" id="donnees">{"macros":{"\\R":"\\mathbb{R}","\\N":"\\mathbb{N}","\\Z":"\\mathbb{Z}","\\D":"\\mathbb{D}","\\Q":"\\mathbb{Q}","\\pv":"\\,;\\,","\\vect":"\\overrightarrow{#1}","\\mul":"\\textcolor{##5B3E96}{#1}","\\op":"\\textcolor{##C62026}{#1}","\\e":"\\mathrm{e}","\\Card":"\\mathrm{Card}","\\cro":"\\mathopen{]}","\\crf":"\\mathclose{[}"},"series":{},"cle":"distanciel-terminale"}</script>
+<dialog id="extrait" aria-labelledby="extrait-titre">
+  <div class="entete"><h2 id="extrait-titre"></h2><a class="pdf" target="_blank" rel="noopener">Ouvrir le PDF</a><button type="button" class="fermer" aria-label="Fermer">✕</button></div>
+  <div class="corps"><img alt=""></div>
+</dialog>
+<script type="application/json" id="donnees">{"macros":{"\\R":"\\mathbb{R}","\\N":"\\mathbb{N}","\\Z":"\\mathbb{Z}","\\D":"\\mathbb{D}","\\Q":"\\mathbb{Q}","\\pv":"\\,;\\,","\\vect":"\\overrightarrow{#1}","\\mul":"\\textcolor{##5B3E96}{#1}","\\op":"\\textcolor{##C62026}{#1}","\\e":"\\mathrm{e}","\\Card":"\\mathrm{Card}","\\cro":"\\mathopen{]}","\\crf":"\\mathclose{[}"},"series":{},"extraits":{"ch3-partie-b-corr":{"titre":"Manuel p. 7, partie B : correction","img":"extraits/terminale-03-partie-b-corr.png","pdf":"extraits/terminale-03-partie-b-corr.pdf"},"ch3-cours-1-2":{"titre":"Cours 1.2 : fonction dérivable sur un intervalle","img":"extraits/terminale-03-cours-1-2.png","pdf":"extraits/terminale-03-cours-1-2.pdf"},"ch3-capa-2":{"titre":"Capacité 2 : énoncé","img":"extraits/terminale-03-capa-2.png","pdf":"extraits/terminale-03-capa-2.pdf"},"ch3-capa-2-corr":{"titre":"Capacité 2 : correction","img":"extraits/terminale-03-capa-2-corr.png","pdf":"extraits/terminale-03-capa-2-corr.pdf"}},"cle":"distanciel-terminale"}</script>
 <script src="katex/katex.min.js"></script>
 <script>
 "use strict";
@@ -417,61 +284,28 @@ function remplirSerie(div, s) {
   };
 }
 
-// Étapes faites : retenues dans ce navigateur seulement (rien n'est envoyé).
-let etat = {};
-try { etat = JSON.parse(localStorage.getItem(D.cle) || "{}") || {}; } catch (e) { etat = {}; }
-function sauver() { try { localStorage.setItem(D.cle, JSON.stringify(etat)); } catch (e) {} }
-function compter() {
-  document.querySelectorAll(".seance").forEach(s => {
-    const total = s.querySelectorAll(".etape[id]").length, faites = s.querySelectorAll(".etape.fait").length;
-    const c = s.querySelector(".compte");
-    if (c) c.textContent = total && faites ? faites + " étape" + (faites > 1 ? "s" : "") + " faite" + (faites > 1 ? "s" : "") + " sur " + total : "";
-  });
-}
-document.querySelectorAll(".etape[id]").forEach(et => {
-  const b = document.createElement("button");
-  b.type = "button";
-  b.className = "marquer";
-  const maj = () => {
-    const f = !!etat[et.id];
-    et.classList.toggle("fait", f);
-    b.textContent = f ? "Étape faite · annuler" : "Marquer cette étape comme faite";
-    b.setAttribute("aria-pressed", String(f));
-  };
-  b.onclick = () => { if (etat[et.id]) delete etat[et.id]; else etat[et.id] = true; sauver(); maj(); compter(); };
-  et.appendChild(b);
-  maj();
+// Fenêtre pop-up d'un extrait de PDF : image de l'extrait, lien vers le PDF (à imprimer), Échap ou clic à côté pour fermer.
+const fenetre = document.getElementById("extrait");
+document.addEventListener("click", ev => {
+  const b = ev.target.closest("button.extrait");
+  if (!b) return;
+  const x = D.extraits[b.dataset.extrait];
+  if (!x) return;
+  if (typeof fenetre.showModal !== "function") { window.open(x.pdf, "_blank"); return; }
+  fenetre.querySelector("h2").textContent = x.titre;
+  const lien = fenetre.querySelector(".pdf");
+  lien.href = x.pdf;
+  const img = fenetre.querySelector("img");
+  img.alt = x.titre;
+  img.src = x.img;
+  fenetre.querySelector(".corps").scrollTop = 0;
+  fenetre.showModal();
 });
-
-// Impression : les étapes désignées par data-sources, copiées telles quelles, sans titres numérotés ni durées.
-document.querySelectorAll("button.imprimer").forEach(b => {
-  b.onclick = () => {
-    const ancienne = document.getElementById("impression");
-    if (ancienne) ancienne.remove();
-    const zone = document.createElement("div");
-    zone.id = "impression";
-    const e = document.createElement("div");
-    e.className = "entete";
-    e.innerHTML = "<strong>" + echapper(b.dataset.titre || document.title) + "</strong><br>" + echapper(b.dataset.soustitre || "");
-    zone.appendChild(e);
-    (b.dataset.sources || "").split(/\s+/).filter(Boolean).forEach(id => {
-      const src = document.getElementById(id);
-      if (!src) return;
-      const copie = src.cloneNode(true);
-      copie.removeAttribute("id");
-      copie.querySelectorAll(".n,.duree,.marquer,.outils").forEach(x => x.remove());
-      zone.appendChild(copie);
-    });
-    document.body.appendChild(zone);
-    document.documentElement.classList.add("impression");
-    window.addEventListener("afterprint", () => { zone.remove(); document.documentElement.classList.remove("impression"); }, {once: true});
-    window.print();
-  };
-});
+fenetre.querySelector(".fermer").onclick = () => fenetre.close();
+fenetre.addEventListener("click", ev => { if (ev.target === fenetre) fenetre.close(); });
 
 composer(document.querySelector("main"));
 document.querySelectorAll("[data-serie]").forEach(div => { const s = D.series[div.dataset.serie]; if (s) remplirSerie(div, s); });
-compter();
 </script>
 </body>
 </html>
