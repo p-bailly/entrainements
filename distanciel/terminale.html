@@ -45,28 +45,29 @@ main > h2:first-child,.chapitre:first-child > h2{margin-top:6px}
 .intro{margin:0 0 10px; padding:10px 14px; background:var(--papier); border:1px solid var(--filet); border-radius:10px; font-size:.97rem}
 .intro > :first-child{margin-top:0}
 .intro > :last-child{margin-bottom:0}
-.seance{margin-top:20px}
+.seance{--c:var(--stylo); margin-top:20px}
 .seance h3{margin:0 4px; font-size:1.1rem}
 .seance .resume{margin:0 4px 8px; color:var(--gris); font-size:.95rem}
 /* Menus déroulants, tous fermés */
-.menu{margin:8px 0 0; background:var(--papier); border:1px solid var(--filet); border-radius:10px}
-.menu > summary{display:flex; align-items:center; gap:10px; min-height:52px; padding:8px 14px; font-weight:600; cursor:pointer; list-style:none}
+.menu{margin:8px 0 0; background:var(--papier); border:1px solid var(--filet); border-left:6px solid var(--c); border-radius:10px}
+/* Couleurs des étapes, celles des plans de séquence (plansequence.cls), tout en gras */
+.menu.auto{--c:#E07B00}
+.menu.cours{--c:#CE2029}
+.menu.capa{--c:#7A3E9D}
+.menu.exo{--c:#1D5FBF}
+.menu.corrige{--c:#6E6E6E}
+.menu > summary{display:flex; align-items:center; gap:10px; min-height:52px; padding:8px 14px; color:var(--c); font-weight:700; cursor:pointer; list-style:none}
 .menu > summary::-webkit-details-marker{display:none}
-.menu > summary::after{content:""; flex:none; margin-left:auto; width:9px; height:9px; border-right:2px solid var(--gris); border-bottom:2px solid var(--gris); transform:rotate(45deg) translate(-2px,-2px); transition:transform .15s}
+.menu > summary::after{content:""; flex:none; margin-left:auto; width:9px; height:9px; border-right:2px solid var(--c); border-bottom:2px solid var(--c); transform:rotate(45deg) translate(-2px,-2px); transition:transform .15s}
 .menu[open] > summary{border-bottom:1px solid var(--filet)}
 .menu[open] > summary::after{transform:rotate(-135deg) translate(-2px,-2px)}
 .menu > summary .detail{font-weight:400; color:var(--gris); font-size:.92rem}
 .menu .contenu{padding:2px 14px 14px}
 .menu .contenu p{margin:.6em 0}
-.menu .menu{border-color:var(--stylo)}
-.menu .menu > summary{min-height:44px; color:var(--stylo); font-size:.95rem}
-.menu .menu > summary::after{border-color:var(--stylo)}
-.menu .menu.corrige{border-color:var(--vert)}
-.menu .menu.corrige > summary{color:var(--vert)}
-.menu .menu.corrige > summary::after{border-color:var(--vert)}
-.menu .menu[open] > summary{background:var(--bleu-clair); border-radius:8px 8px 0 0}
-.menu .menu.corrige[open] > summary{background:var(--vert-clair)}
-.extrait{margin:10px 0 0; min-height:44px; padding:6px 18px; border:1.5px solid var(--stylo); border-radius:9px; background:var(--stylo); color:#fff; font-size:.97rem; font-weight:600; cursor:pointer; touch-action:manipulation}
+.menu .menu{border-left-width:4px}
+.menu .menu > summary{min-height:44px; font-size:.95rem}
+.menu .menu[open] > summary{background:#f4f4f4; border-radius:6px 6px 0 0}
+.extrait{margin:10px 0 0; min-height:44px; padding:6px 18px; border:1.5px solid var(--c, var(--stylo)); border-radius:9px; background:var(--c, var(--stylo)); color:#fff; font-size:.97rem; font-weight:700; cursor:pointer; touch-action:manipulation}
 .extrait:active{filter:brightness(.92)}
 .katex{white-space:nowrap}
 .katex-display{margin:.5em 0; overflow-x:auto; overflow-y:hidden}
@@ -135,8 +136,8 @@ table.tab th{background:#f2f4f7; font-weight:600}
 </div>
 <article class="seance" id="ch3-seance-1">
 <h3>Travail à faire</h3>
-<p class="resume">Partie B p. 7, cours 1.2, capacité 2</p>
-<details class="menu"><summary>Exercices : partie B <span class="detail">· manuel page 7</span></summary>
+<p class="resume">Partie B p. 7, cours 1.2 (capacité 2 comprise)</p>
+<details class="menu exo"><summary>Exercices : partie B <span class="detail">· manuel page 7</span></summary>
 <div class="contenu">
 <details class="menu"><summary>Indication</summary>
 <div class="contenu">
@@ -151,14 +152,11 @@ table.tab th{background:#f2f4f7; font-weight:600}
 </div>
 </details>
 
-<details class="menu"><summary>Cours 1.2 : fonction dérivable sur un intervalle</summary>
+<details class="menu cours"><summary>Cours 1.2 : fonction dérivable sur un intervalle, et capacité 2</summary>
 <div class="contenu">
-<p>À recopier dans le cahier.</p>
+<p>La capacité 2 fait partie du cours : elle se traite à la suite de la définition. À recopier dans le cahier.</p>
 <button type="button" class="extrait" data-extrait="ch3-cours-1-2">Voir l'extrait du cours</button>
-</div>
-</details>
-
-<details class="menu"><summary>Capacité 2</summary>
+<details class="menu capa"><summary>Capacité 2</summary>
 <div class="contenu">
 <button type="button" class="extrait" data-extrait="ch3-capa-2">Voir la capacité</button>
 <details class="menu"><summary>Indications</summary>
@@ -171,6 +169,8 @@ table.tab th{background:#f2f4f7; font-weight:600}
 </details>
 <details class="menu corrige"><summary>Correction</summary>
 <div class="contenu"><button type="button" class="extrait" data-extrait="ch3-capa-2-corr">Voir la correction</button></div>
+</details>
+</div>
 </details>
 </div>
 </details>
