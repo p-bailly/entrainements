@@ -123,6 +123,27 @@ main > h2:first-child,.chapitre:first-child > h2{margin-top:6px}
 .etape-q + .etape-q{margin-top:.3em}
 :focus-visible{outline:2px solid var(--stylo); outline-offset:2px}
 .insecable{white-space:nowrap}
+/* Impression en un clic : le bouton recopie les étapes désignées (data-sources) dans #impression, sans indications
+   ni corrections, avec la place pour répondre (.espace), puis ouvre l'impression du navigateur. */
+.outils{display:flex; flex-wrap:wrap; gap:8px; margin:12px 0 0}
+.imprimer{min-height:44px; padding:6px 18px; border:1.5px solid var(--stylo); border-radius:9px; background:var(--stylo); color:#fff; font-size:.97rem; font-weight:600; cursor:pointer; touch-action:manipulation}
+.imprimer:active{filter:brightness(.92)}
+.espace{display:none}
+#impression{display:none}
+@media print{
+  @page{size:A4; margin:13mm 14mm}
+  html.impression,html.impression body{background:#fff}
+  html.impression body > *:not(#impression){display:none !important}
+  html.impression #impression{display:block; color:#000; font-size:11pt; line-height:1.4; -webkit-print-color-adjust:exact; print-color-adjust:exact}
+  #impression .entete{margin:0 0 6mm; padding-bottom:2mm; border-bottom:1.5px solid #000; font-size:.9rem}
+  #impression .entete strong{font-size:1.1rem}
+  #impression h3{margin:5mm 0 2mm; font-size:1.05rem}
+  #impression .etape{margin:0; padding:0; border:0; background:none}
+  #impression .ecran,#impression .marquer,#impression details{display:none !important}
+  #impression .bloc,#impression .question,#impression .exo,#impression .espace{break-inside:avoid}
+  #impression .espace{display:block; height:3.5cm; margin:2mm 0 4mm; background:repeating-linear-gradient(to bottom,transparent 0,transparent 7.4mm,#b5b5b5 7.4mm,#b5b5b5 7.8mm)}
+  #impression .espace.grand{height:5.5cm}
+}
 table.tab{border-collapse:collapse; margin:0 auto; background:#fff; font-size:.9rem}
 table.tab th,table.tab td{border:1.5px solid #475467; padding:.15em .55em; text-align:center; white-space:nowrap}
 table.tab th{background:#f2f4f7; font-weight:600}
@@ -144,7 +165,7 @@ table.tab th{background:#f2f4f7; font-weight:600}
 <main>
 <p class="vide">Le travail à faire sera mis ici.</p>
 </main>
-<script type="application/json" id="donnees">{"macros":{"\\R":"\\mathbb{R}","\\N":"\\mathbb{N}","\\Z":"\\mathbb{Z}","\\D":"\\mathbb{D}","\\Q":"\\mathbb{Q}","\\pv":"\\,;\\,","\\vect":"\\overrightarrow{#1}","\\mul":"\\textcolor{##5B3E96}{#1}","\\op":"\\textcolor{##C62026}{#1}","\\e":"\\mathrm{e}","\\Card":"\\mathrm{Card}"},"series":{},"cle":"distanciel-premiere"}</script>
+<script type="application/json" id="donnees">{"macros":{"\\R":"\\mathbb{R}","\\N":"\\mathbb{N}","\\Z":"\\mathbb{Z}","\\D":"\\mathbb{D}","\\Q":"\\mathbb{Q}","\\pv":"\\,;\\,","\\vect":"\\overrightarrow{#1}","\\mul":"\\textcolor{##5B3E96}{#1}","\\op":"\\textcolor{##C62026}{#1}","\\e":"\\mathrm{e}","\\Card":"\\mathrm{Card}","\\cro":"\\mathopen{]}","\\crf":"\\mathclose{[}"},"series":{},"cle":"distanciel-premiere"}</script>
 <script src="katex/katex.min.js"></script>
 <script>
 "use strict";
@@ -275,6 +296,32 @@ document.querySelectorAll(".etape[id]").forEach(et => {
   b.onclick = () => { if (etat[et.id]) delete etat[et.id]; else etat[et.id] = true; sauver(); maj(); compter(); };
   et.appendChild(b);
   maj();
+});
+
+// Impression : les étapes désignées par data-sources, copiées telles quelles, sans titres numérotés ni durées.
+document.querySelectorAll("button.imprimer").forEach(b => {
+  b.onclick = () => {
+    const ancienne = document.getElementById("impression");
+    if (ancienne) ancienne.remove();
+    const zone = document.createElement("div");
+    zone.id = "impression";
+    const e = document.createElement("div");
+    e.className = "entete";
+    e.innerHTML = "<strong>" + echapper(b.dataset.titre || document.title) + "</strong><br>" + echapper(b.dataset.soustitre || "");
+    zone.appendChild(e);
+    (b.dataset.sources || "").split(/\s+/).filter(Boolean).forEach(id => {
+      const src = document.getElementById(id);
+      if (!src) return;
+      const copie = src.cloneNode(true);
+      copie.removeAttribute("id");
+      copie.querySelectorAll(".n,.duree,.marquer,.outils").forEach(x => x.remove());
+      zone.appendChild(copie);
+    });
+    document.body.appendChild(zone);
+    document.documentElement.classList.add("impression");
+    window.addEventListener("afterprint", () => { zone.remove(); document.documentElement.classList.remove("impression"); }, {once: true});
+    window.print();
+  };
 });
 
 composer(document.querySelector("main"));
