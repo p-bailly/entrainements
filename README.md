@@ -27,6 +27,7 @@
 
 - [2°3](https://p-bailly.github.io/entrainements/automatismes/2-3.html)
 - [2°4](https://p-bailly.github.io/entrainements/automatismes/2-4.html)
+- [1° Speci CD](https://p-bailly.github.io/entrainements/automatismes/1-speci-cd.html)
 <!-- /automatismes -->
 
 <!-- Liste écrite par tools/entrainement.py (dépôt des cours), comme les pages : ne rien modifier ici. -->
