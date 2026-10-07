@@ -42,6 +42,7 @@ main > h2:first-child,.chapitre:first-child > h2{margin-top:6px}
 .niveau .nom{display:block; font-weight:600}
 .niveau .detail{display:block; font-size:.92rem; color:var(--gris)}
 /* Chapitre et séances */
+.echeance{margin:0 0 10px; padding:8px 14px; background:var(--case); border-radius:10px; font-size:1.02rem}
 .intro{margin:0 0 10px; padding:10px 14px; background:var(--papier); border:1px solid var(--filet); border-radius:10px; font-size:.97rem}
 .intro > :first-child{margin-top:0}
 .intro > :last-child{margin-bottom:0}
@@ -128,9 +129,10 @@ table.tab th{background:#f2f4f7; font-weight:600}
 <main>
 <h2>Choisis ta classe</h2>
 <nav class="niveaux">
-<a class="niveau" href="seconde.html"><span class="nom">Seconde</span><span class="detail">Chapitre 3 · Nombres réels, 2 séances</span></a>
-<a class="niveau" href="premiere.html"><span class="nom">Première, mathématiques spécifiques</span><span class="detail">Chapitre 2 · Généralités sur les suites</span></a>
-<a class="niveau" href="terminale.html"><span class="nom">Terminale, mathématiques complémentaires</span><span class="detail">Chapitre 3 · Compléments sur la dérivation</span></a>
+<a class="niveau" href="seconde3.html"><span class="nom">Seconde 3</span><span class="detail">Chapitre 3 · Nombres réels, 2 séances · pour jeudi 8 octobre</span></a>
+<a class="niveau" href="seconde4.html"><span class="nom">Seconde 4</span><span class="detail">Chapitre 3 · Nombres réels, 3 séances · pour vendredi 9 octobre</span></a>
+<a class="niveau" href="premiere.html"><span class="nom">Première, mathématiques spécifiques</span><span class="detail">Chapitre 2 · Généralités sur les suites · pour lundi 12 octobre</span></a>
+<a class="niveau" href="terminale.html"><span class="nom">Terminale, mathématiques complémentaires</span><span class="detail">Chapitre 3 · Compléments sur la dérivation · pour jeudi 8 octobre</span></a>
 </nav>
 </main>
 <dialog id="extrait" class="fenetre" aria-labelledby="extrait-titre">
@@ -142,7 +144,7 @@ table.tab th{background:#f2f4f7; font-weight:600}
   <div class="corps"></div>
   <div class="pied"><button type="button" class="prec">Précédent</button><button type="button" class="suiv">Suivant</button></div>
 </dialog>
-<script type="application/json" id="donnees">{"macros":{"\\R":"\\mathbb{R}","\\N":"\\mathbb{N}","\\Z":"\\mathbb{Z}","\\D":"\\mathbb{D}","\\Q":"\\mathbb{Q}","\\pv":"\\,;\\,","\\vect":"\\overrightarrow{#1}","\\mul":"\\textcolor{##5B3E96}{#1}","\\op":"\\textcolor{##C62026}{#1}","\\e":"\\mathrm{e}","\\Card":"\\mathrm{Card}","\\cro":"\\mathopen{]}","\\crf":"\\mathclose{[}"},"series":{},"extraits":{},"cle":"distanciel"}</script>
+<script type="application/json" id="donnees">{"macros":{"\\R":"\\mathbb{R}","\\N":"\\mathbb{N}","\\Z":"\\mathbb{Z}","\\D":"\\mathbb{D}","\\Q":"\\mathbb{Q}","\\pv":"\\,;\\,","\\vect":"\\overrightarrow{#1}","\\mul":"\\textcolor{##5B3E96}{#1}","\\op":"\\textcolor{##C62026}{#1}","\\e":"\\mathrm{e}","\\Card":"\\mathrm{Card}","\\C":"\\mathbb{C}","\\ii":"\\mathrm{i}","\\cro":"\\mathopen{]}","\\crf":"\\mathclose{[}"},"series":{},"extraits":{},"cle":"distanciel"}</script>
 <script src="katex/katex.min.js"></script>
 <script>
 "use strict";

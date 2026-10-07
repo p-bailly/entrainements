@@ -1,9 +1,10 @@
 <!-- distanciel -->
 ## Travail à distance
 
-- [Seconde](https://p-bailly.github.io/entrainements/distanciel/seconde.html)
-- [Première, mathématiques spécifiques](https://p-bailly.github.io/entrainements/distanciel/premiere.html)
-- [Terminale, mathématiques complémentaires](https://p-bailly.github.io/entrainements/distanciel/terminale.html)
+- [Seconde 3](https://p-bailly.github.io/entrainements/distanciel/seconde3.html) : pour jeudi 8 octobre
+- [Seconde 4](https://p-bailly.github.io/entrainements/distanciel/seconde4.html) : pour vendredi 9 octobre
+- [Première, mathématiques spécifiques](https://p-bailly.github.io/entrainements/distanciel/premiere.html) CD : pour lundi 12 octobre
+- [Terminale, mathématiques complémentaires](https://p-bailly.github.io/entrainements/distanciel/terminale.html) : pour jeudi 8 octobre
 <!-- /distanciel -->
 
 ## Seconde
