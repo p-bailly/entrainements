@@ -20,6 +20,7 @@
 
 ## Terminale, mathématiques complémentaires
 
+- Chapitre 1 : [Second degré, révisions](https://p-bailly.github.io/entrainements/terminale/01-second-degre.html)
 - Chapitre 2 : [Suites](https://p-bailly.github.io/entrainements/terminale/02-suites-arithmetico-geometriques.html)
 - Chapitre 3 : [Compléments sur la dérivation](https://p-bailly.github.io/entrainements/terminale/03-complements-derivation.html)
 
